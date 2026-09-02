@@ -1,3 +1,6 @@
+# semantic components for algorithms machine learning and ai
+# it defines ArrayModel GraphModel StateMachine TokenFlow and NeuralLayer built on SemanticMobject
+
 """Semantic components for algorithms, machine learning, and AI."""
 
 from __future__ import annotations
@@ -33,7 +36,9 @@ from ._common import (
 )
 
 
+# a row of value cells with index labels that supports highlighting swapping and setting
 class ArrayModel(SemanticMobject):
+    # build the cells and the index labels under them and register anchors per index
     def __init__(
         self,
         theme: VisualTheme,
@@ -57,6 +62,7 @@ class ArrayModel(SemanticMobject):
             self.register_anchor(f"index_{index}", cell)
         frame_safe(self)
 
+    # build one labeled box per value in a tight row
     def _make_cells(self) -> VGroup:
         cells = VGroup(
             *[
@@ -66,16 +72,19 @@ class ArrayModel(SemanticMobject):
         ).arrange(RIGHT, buff=0.1)
         return cells
 
+    # return an animation that recolors one cell with the accent color
     def highlight_index(self, index: int) -> Any:
         selected = ensure_index(index, len(self.values))
         return self.part("cells")[selected].animate.set_color(self.theme.accent)
 
+    # swap two values and return an animation that slides their cells past each other
     def swap(self, first: int, second: int) -> AnimationGroup:
         left = ensure_index(first, len(self.values), name="first index")
         right = ensure_index(second, len(self.values), name="second index")
         if left == right:
             raise ValueError("swap indices must differ")
         cells = self.part("cells")
+        # copy the centers before the swap so both moves use the original positions
         left_position = cells[left].get_center().copy()
         right_position = cells[right].get_center().copy()
         self.values[left], self.values[right] = self.values[right], self.values[left]
@@ -85,6 +94,7 @@ class ArrayModel(SemanticMobject):
             lag_ratio=0,
         )
 
+    # replace one value and return a transform into a fresh cell in the secondary color
     def set_value(self, index: int, value: object) -> Transform:
         selected = ensure_index(index, len(self.values))
         self.values[selected] = str(value)
@@ -98,7 +108,9 @@ class ArrayModel(SemanticMobject):
         return Transform(self.part("cells")[selected], replacement)
 
 
+# nodes arranged on a circle with directed edges between them
 class GraphModel(SemanticMobject):
+    # validate node names and edges then place the nodes on a circle and draw the edges
     def __init__(
         self,
         theme: VisualTheme,
@@ -114,6 +126,7 @@ class GraphModel(SemanticMobject):
             raise ValueError("graph node labels must be unique")
         default_edges = list(zip(self.node_names, self.node_names[1:]))
         self.edges = [(str(start), str(end)) for start, end in (edges if edges is not None else default_edges)]
+        # space the nodes evenly around a circle whose radius grows with the node count
         count = len(self.node_names)
         radius = min(2.25, 0.7 + count * 0.25)
         node_group = VGroup()
@@ -147,6 +160,7 @@ class GraphModel(SemanticMobject):
             self.register_anchor(f"node_{name}", node)
         frame_safe(self)
 
+    # mark a node as visited and return an animation that recolors it
     def visit_node(self, name: object) -> Any:
         key = str(name)
         if key not in self.node_index:
@@ -154,6 +168,7 @@ class GraphModel(SemanticMobject):
         self.visited.add(key)
         return self.part("nodes")[self.node_index[key]].animate.set_color(self.theme.accent)
 
+    # return an animation that emphasizes one directed edge
     def traverse(self, start: object, end: object) -> Any:
         edge = (str(start), str(end))
         try:
@@ -163,7 +178,9 @@ class GraphModel(SemanticMobject):
         return self.part("edges")[index].animate.set_color(self.theme.secondary).set_stroke(width=4)
 
 
+# a row of states with transition arrows and a marker on the current state
 class StateMachine(SemanticMobject):
+    # validate states and transitions then build the nodes arrows and current marker
     def __init__(
         self,
         theme: VisualTheme,
@@ -215,6 +232,7 @@ class StateMachine(SemanticMobject):
         self.register_part("label", caption)
         frame_safe(self)
 
+    # follow a valid transition and return a transform that moves the marker
     def transition_to(self, state: object) -> Transform:
         destination = str(state)
         if destination not in self.state_index:
@@ -231,7 +249,9 @@ class StateMachine(SemanticMobject):
         return Transform(self.part("current"), marker)
 
 
+# a row of tokens with curved attention links drawn on demand
 class TokenFlow(SemanticMobject):
+    # build the token boxes and an empty link group
     def __init__(
         self,
         theme: VisualTheme,
@@ -253,6 +273,7 @@ class TokenFlow(SemanticMobject):
             self.register_anchor(f"token_{index}", token)
         frame_safe(self)
 
+    # validate attention weights and return a transform that draws links weighted by attention
     def mix_context(self, target: int, weights: Sequence[float]) -> Transform:
         target_index = ensure_index(target, len(self.tokens), name="target token")
         if len(weights) != len(self.tokens):
@@ -262,6 +283,7 @@ class TokenFlow(SemanticMobject):
             raise ValueError("attention weights must be non-negative and sum to one")
         tokens = self.part("tokens")
         links = VGroup()
+        # draw a curved arrow from each other token whose weight is positive with thickness and opacity from the weight
         for index, weight in enumerate(values):
             if index == target_index or weight <= 0:
                 continue
@@ -279,7 +301,9 @@ class TokenFlow(SemanticMobject):
         return Transform(self.part("context_links"), links)
 
 
+# a vertical column of neurons whose color and opacity follow their activation
 class NeuralLayer(SemanticMobject):
+    # build the neuron circles with optional labels
     def __init__(
         self,
         theme: VisualTheme,
@@ -305,6 +329,7 @@ class NeuralLayer(SemanticMobject):
             self.register_anchor(f"neuron_{index}", neuron)
         frame_safe(self)
 
+    # validate activations and return a staggered animation that recolors each neuron
     def activate(self, values: Sequence[float]) -> AnimationGroup:
         if len(values) != len(self.activations):
             raise ValueError("activation values must match layer size")

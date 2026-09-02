@@ -1,3 +1,7 @@
+# layout guards for narrated 16 by 9 manim explainers that share the frame with captions
+# it defines split composition regions and helpers that fit text and panels and assert nothing leaves its bounds
+# a script imports these so authored visuals stay above the caption rail before rendering
+
 """Small layout guards for narrated 16:9 Manim explainers.
 
 Import these helpers into a project's ``script.py``. They keep authored visuals
@@ -25,6 +29,7 @@ COMPOSITION_REGIONS = {
 }
 
 
+# turn a top left normalized rectangle into an invisible manim guide centered in frame space
 def normalized_region(rect: dict[str, float]) -> Rectangle:
     """Convert a top-left normalized video rectangle into a Manim guide."""
     try:
@@ -41,12 +46,14 @@ def normalized_region(rect: dict[str, float]) -> Rectangle:
         stroke_opacity=0,
         fill_opacity=0,
     )
+    # convert normalized top left origin into manim center coordinates where y grows upward
     center_x = (x + width / 2 - 0.5) * config.frame_width
     center_y = (0.5 - y - height / 2) * config.frame_height
     guide.move_to((center_x, center_y, 0))
     return guide
 
 
+# build the media and illustration guides for a named split layout
 def composition_regions(mode: str) -> dict[str, Rectangle]:
     """Return non-overlapping media/illustration guides for a split scene."""
     if mode not in COMPOSITION_REGIONS:
@@ -58,6 +65,7 @@ def composition_regions(mode: str) -> dict[str, Rectangle]:
     }
 
 
+# scale a mobject down but never up so it fits the given box
 def fit_mobject(mobject: Mobject, max_width: float, max_height: float) -> Mobject:
     """Scale down, never up, until a mobject fits the requested box."""
     if max_width <= 0 or max_height <= 0:
@@ -67,6 +75,7 @@ def fit_mobject(mobject: Mobject, max_width: float, max_height: float) -> Mobjec
     return mobject
 
 
+# create text at the requested size and shrink it to fit the box if needed
 def fitted_text(
     text: str,
     *,
@@ -84,6 +93,7 @@ def fitted_text(
     )
 
 
+# wrap content in a rounded panel and shrink the content to fit inside the padding
 def safe_panel(
     content: Mobject,
     *,
@@ -111,6 +121,7 @@ def safe_panel(
     return VGroup(panel, content)
 
 
+# create an invisible guide for the drawable area above the caption rail
 def content_frame(
     *,
     caption_rail_fraction: float = CAPTION_RAIL_FRACTION,
@@ -126,10 +137,12 @@ def content_frame(
         stroke_opacity=0,
         fill_opacity=0,
     )
+    # shift the guide up by half the rail so it sits centered in the remaining area
     guide.shift(UP * rail_height / 2)
     return guide
 
 
+# raise before render if a mobject leaves the frame or enters the caption rail
 def assert_inside_frame(
     mobject: Mobject,
     *,
@@ -138,6 +151,7 @@ def assert_inside_frame(
     margin: float = 0.18,
 ) -> Mobject:
     """Raise before render if a mobject leaves the frame or caption-safe area."""
+    # compute the allowed bounds with the caption rail folded into the bottom edge
     left = -config.frame_width / 2 + margin
     right = config.frame_width / 2 - margin
     top = config.frame_height / 2 - margin
@@ -153,6 +167,7 @@ def assert_inside_frame(
     return mobject
 
 
+# raise when a mobject leaves its assigned composition region by more than the margin
 def assert_inside_region(
     mobject: Mobject,
     region: Rectangle,
@@ -170,10 +185,12 @@ def assert_inside_region(
     return mobject
 
 
+# describe a final state mobject as a normalized rectangle the edl can protect
 def normalized_bounds(mobject: Mobject, *, padding: float = 0.0) -> dict[str, float]:
     """Return an EDL-ready protected rectangle for a final-state mobject."""
     if padding < 0:
         raise ValueError("padding must be non-negative")
+    # clamp the padded bounds to the frame then convert to top left normalized units
     left = max(-config.frame_width / 2, mobject.get_left()[0] - padding)
     right = min(config.frame_width / 2, mobject.get_right()[0] + padding)
     top = min(config.frame_height / 2, mobject.get_top()[1] + padding)
@@ -186,6 +203,7 @@ def normalized_bounds(mobject: Mobject, *, padding: float = 0.0) -> dict[str, fl
     }
 
 
+# report whether two axis aligned bounds overlap once a gap is added
 def mobjects_overlap(first: Mobject, second: Mobject, *, gap: float = 0.05) -> bool:
     """Return whether two axis-aligned Manim bounds overlap, including a gap."""
     return not (
@@ -196,6 +214,7 @@ def mobjects_overlap(first: Mobject, second: Mobject, *, gap: float = 0.05) -> b
     )
 
 
+# raise when any pair of final state mobjects overlap
 def assert_no_overlap(*mobjects: Mobject, gap: float = 0.05) -> None:
     """Raise when any pair of final-state mobjects overlap."""
     for first, second in combinations(mobjects, 2):
@@ -203,6 +222,7 @@ def assert_no_overlap(*mobjects: Mobject, gap: float = 0.05) -> None:
             raise ValueError("final-state mobjects overlap; resize or reposition them")
 
 
+# create a small source note that sits just above the caption rail
 def source_footer(
     text: str,
     *,

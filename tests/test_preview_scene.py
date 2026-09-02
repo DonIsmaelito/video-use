@@ -1,3 +1,6 @@
+# tests for the preview_scene script
+# it loads the script from its path and checks error handling and one real low quality render
+
 from __future__ import annotations
 
 import importlib.util
@@ -15,12 +18,14 @@ SCRIPT_PATH = (
     / "scripts"
     / "preview_scene.py"
 )
+# load the script as a module directly from its file path
 SPEC = importlib.util.spec_from_file_location("preview_scene", SCRIPT_PATH)
 assert SPEC is not None and SPEC.loader is not None
 preview_scene = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(preview_scene)
 
 
+# write a tiny manim script with one scene class
 def _scene_script(path: Path, name: str = "Demo") -> Path:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(
@@ -35,6 +40,7 @@ def _scene_script(path: Path, name: str = "Demo") -> Path:
     return path
 
 
+# an unknown scene class fails before any render
 def test_preview_rejects_missing_scene_before_render(tmp_path: Path) -> None:
     script = _scene_script(tmp_path / "edit" / "scene.py")
 
@@ -42,6 +48,7 @@ def test_preview_rejects_missing_scene_before_render(tmp_path: Path) -> None:
         preview_scene.render_scene(script, "Missing")
 
 
+# a missing manim executable fails with a clear message
 def test_preview_fails_clearly_when_manim_is_absent(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     script = _scene_script(tmp_path / "edit" / "scene.py")
     monkeypatch.setattr(preview_scene.shutil, "which", lambda _name: None)
@@ -50,9 +57,11 @@ def test_preview_fails_clearly_when_manim_is_absent(tmp_path: Path, monkeypatch:
         preview_scene.render_scene(script, "Demo")
 
 
+# a non zero render exit code surfaces the stderr text
 def test_preview_reports_render_failure(tmp_path: Path) -> None:
     script = _scene_script(tmp_path / "edit" / "scene.py")
 
+    # stand in for the manim subprocess that fails with an error message
     def failed_runner(*_args, **_kwargs):
         return subprocess.CompletedProcess([], 2, stdout="", stderr="render exploded")
 
@@ -67,9 +76,11 @@ def test_preview_reports_render_failure(tmp_path: Path) -> None:
         )
 
 
+# a successful run with no output video is rejected
 def test_preview_rejects_success_without_expected_artifacts(tmp_path: Path) -> None:
     script = _scene_script(tmp_path / "edit" / "scene.py")
 
+    # stand in for the manim subprocess that succeeds without writing anything
     def successful_runner(*_args, **_kwargs):
         return subprocess.CompletedProcess([], 0, stdout="", stderr="")
 
@@ -84,6 +95,7 @@ def test_preview_rejects_success_without_expected_artifacts(tmp_path: Path) -> N
         )
 
 
+# a real render lands under edit verify with the expected metadata and artifacts
 def test_preview_real_manim_render_stays_under_edit_verify(tmp_path: Path) -> None:
     pytest.importorskip("manim")
     manim = shutil.which("manim")

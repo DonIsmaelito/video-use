@@ -1,3 +1,6 @@
+# semantic components for cellular sequence and population processes
+# it defines CellProcess SequenceProcess and PopulationFlow built on SemanticMobject
+
 """Semantic components for cellular, sequence, and population processes."""
 
 from __future__ import annotations
@@ -32,7 +35,9 @@ from ._common import (
 )
 
 
+# a cell membrane with a row of stages and a cargo dot that advances between them
 class CellProcess(SemanticMobject):
+    # lay out the membrane the stage boxes the links and the cargo and register them as parts
     def __init__(
         self,
         theme: VisualTheme,
@@ -55,6 +60,7 @@ class CellProcess(SemanticMobject):
                 for stage in self.stages
             ]
         ).arrange(RIGHT, buff=0.34)
+        # keep the stage row narrower than the membrane
         if nodes.width > 4.1:
             nodes.scale_to_fit_width(4.1)
         links = arrows_for_row(nodes, theme, color=theme.accent)
@@ -70,6 +76,7 @@ class CellProcess(SemanticMobject):
             self.register_anchor(f"stage_{index}", stage)
         frame_safe(self)
 
+    # move the cargo to the next stage or an explicit destination and return the animation
     def advance(self, destination: int | None = None) -> Any:
         target = self.stage + 1 if destination is None else int(destination)
         target = ensure_index(target, len(self.stages), name="cell-process destination")
@@ -79,9 +86,11 @@ class CellProcess(SemanticMobject):
         )
 
 
+# three rows showing dna transcribed to rna and translated to protein
 class SequenceProcess(SemanticMobject):
     _TRANSCRIPTION = {"A": "U", "T": "A", "C": "G", "G": "C", "U": "A"}
 
+    # validate the dna bases and build the labeled rows for dna rna and protein
     def __init__(
         self,
         theme: VisualTheme,
@@ -116,6 +125,7 @@ class SequenceProcess(SemanticMobject):
         self.register_part("label", caption)
         frame_safe(self)
 
+    # build a row of small base boxes in the given color
     def _row(self, sequence: str | Sequence[str], *, color: str) -> VGroup:
         values = list(sequence) or [""]
         return VGroup(
@@ -125,21 +135,26 @@ class SequenceProcess(SemanticMobject):
             ]
         ).arrange(RIGHT, buff=0.07)
 
+    # fill the rna row with the complement of each dna base
     def transcribe(self) -> Transform:
         self.rna = "".join(self._TRANSCRIPTION[base] for base in self.dna)
         replacement = self._row(self.rna, color=self.theme.secondary).move_to(self.part("rna"))
         return Transform(self.part("rna"), replacement)
 
+    # group the rna into codons and fill the protein row with one placeholder per full codon
     def translate(self) -> Transform:
         if not self.rna:
             raise RuntimeError("transcribe the sequence before translating it")
+        # split into three base codons and drop any trailing partial codon
         codons = [self.rna[index:index + 3] for index in range(0, len(self.rna), 3)]
         self.protein = [f"aa{index + 1}" for index, codon in enumerate(codons) if len(codon) == 3]
         replacement = self._row(self.protein, color=self.theme.accent).move_to(self.part("protein"))
         return Transform(self.part("protein"), replacement)
 
 
+# labeled compartments holding population counts with transfers between them
 class PopulationFlow(SemanticMobject):
+    # read the population mapping and build the compartments and links
     def __init__(
         self,
         theme: VisualTheme,
@@ -166,6 +181,7 @@ class PopulationFlow(SemanticMobject):
             self.register_anchor(f"population_{index}", compartment)
         frame_safe(self)
 
+    # build one box per population showing its name and current count
     def _compartments(self) -> VGroup:
         return VGroup(
             *[
@@ -181,6 +197,7 @@ class PopulationFlow(SemanticMobject):
             ]
         ).arrange(RIGHT, buff=0.65)
 
+    # move an amount from one compartment to another and return the transform that redraws them
     def transfer(self, source: int, target: int, amount: float) -> Transform:
         source_index = ensure_index(source, len(self.counts), name="source population")
         target_index = ensure_index(target, len(self.counts), name="target population")

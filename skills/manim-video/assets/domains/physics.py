@@ -1,3 +1,6 @@
+# semantic components for mechanics waves and circuits
+# it defines BodySystem ForceVector WaveField and CircuitFlow built on SemanticMobject
+
 """Semantic components for mechanics, waves, and circuits."""
 
 from __future__ import annotations
@@ -29,7 +32,9 @@ except ImportError:
 from ._common import ensure_index, frame_safe, label_for, normalized_labels, title_above
 
 
+# labeled bodies joined by lines that can move and receive force arrows
 class BodySystem(SemanticMobject):
+    # place the bodies at given or evenly spaced positions and connect them
     def __init__(
         self,
         theme: VisualTheme,
@@ -40,6 +45,7 @@ class BodySystem(SemanticMobject):
     ) -> None:
         super().__init__(theme)
         self.body_names = normalized_labels(bodies, fallback=["m1", "m2"])
+        # spread the bodies evenly along the x axis centered on the origin
         if positions is None:
             positions = [
                 ((index - (len(self.body_names) - 1) / 2) * 2.2, 0, 0)
@@ -72,10 +78,12 @@ class BodySystem(SemanticMobject):
             self.register_anchor(f"body_{index}", body)
         frame_safe(self)
 
+    # return an animation that moves one body to a position
     def move_body(self, index: int, position: Sequence[float]) -> Any:
         selected = ensure_index(index, len(self.body_names), name="body")
         return self.part("bodies")[selected].animate.move_to(position)
 
+    # add a force arrow from one body and return it
     def apply_force(self, index: int, vector: Sequence[float]) -> Arrow:
         selected = ensure_index(index, len(self.body_names), name="body")
         raw = np.asarray(vector, dtype=float)
@@ -95,7 +103,9 @@ class BodySystem(SemanticMobject):
         return arrow
 
 
+# a single force arrow from the origin with a label at its tip
 class ForceVector(SemanticMobject):
+    # validate the vector and build the origin dot arrow and label
     def __init__(
         self,
         theme: VisualTheme,
@@ -116,6 +126,7 @@ class ForceVector(SemanticMobject):
         self.register_anchor("tip", lambda: arrow.get_end())
         frame_safe(self)
 
+    # coerce a two or three element vector to three d and reject zero vectors
     @staticmethod
     def _vector(vector: Sequence[float]) -> np.ndarray:
         raw = np.asarray(vector, dtype=float)
@@ -125,6 +136,7 @@ class ForceVector(SemanticMobject):
             raise ValueError("force vector must be a non-zero 2D or 3D vector")
         return raw
 
+    # replace the vector and return a transform into the new arrow
     def set_vector(self, vector: Sequence[float]) -> Transform:
         self.vector = self._vector(vector)
         return Transform(
@@ -133,7 +145,9 @@ class ForceVector(SemanticMobject):
         )
 
 
+# a sine wave on axes with a source dot that propagates by shifting phase
 class WaveField(SemanticMobject):
+    # validate amplitude and wavelength then build the axes wave and source
     def __init__(
         self,
         theme: VisualTheme,
@@ -168,12 +182,15 @@ class WaveField(SemanticMobject):
         self.register_anchor("crest", lambda: axes.c2p(self.wavelength / 4 + self.phase, self.amplitude))
         frame_safe(self)
 
+    # evaluate the sine wave at x using the current amplitude wavelength and phase
     def _value(self, x: float) -> float:
         return self.amplitude * np.sin(2 * np.pi * (x - self.phase) / self.wavelength)
 
+    # plot the current wave on the axes
     def _wave(self, axes: Axes) -> Any:
         return axes.plot(lambda x: self._value(x), x_range=(-5, 5), color=self.theme.primary)
 
+    # advance the phase and return the animation that redraws the wave and source
     def propagate(self, distance: float) -> AnimationGroup:
         self.phase += float(distance)
         axes = self.part("axes")
@@ -186,7 +203,9 @@ class WaveField(SemanticMobject):
         )
 
 
+# a rectangular wire loop with components on it and charges that flow around the top
 class CircuitFlow(SemanticMobject):
+    # build the wire loop place the components and spread the charges along the top wire
     def __init__(
         self,
         theme: VisualTheme,
@@ -207,6 +226,7 @@ class CircuitFlow(SemanticMobject):
             Line([left_x, bottom_y, 0], [left_x, top_y, 0], color=theme.muted),
         )
         component_group = VGroup()
+        # components sit on the left right top and bottom wires in that order
         positions = [[left_x, 0, 0], [right_x, 0, 0], [0, top_y, 0], [0, bottom_y, 0]]
         for index, name in enumerate(self.components):
             box = Rectangle(
@@ -217,6 +237,7 @@ class CircuitFlow(SemanticMobject):
                 fill_opacity=1,
             ).move_to(positions[index % len(positions)])
             component_group.add(VGroup(box, label_for(name, theme, size=18, width=1.05).move_to(box)))
+        # charges start evenly spaced along the top wire
         path_points = [
             [-3.2 + 6.4 * index / charge_count, top_y, 0]
             for index in range(charge_count)
@@ -230,6 +251,7 @@ class CircuitFlow(SemanticMobject):
         self.register_part("label", caption)
         frame_safe(self)
 
+    # set the current and return an animation that colors charges by direction and strength
     def set_current(self, current: float) -> AnimationGroup:
         self.current = float(current)
         strength = min(1.0, abs(self.current))
@@ -239,6 +261,7 @@ class CircuitFlow(SemanticMobject):
             lag_ratio=0.03,
         )
 
+    # return a staggered animation that shifts the charges in the current direction
     def flow(self, distance: float = 0.45) -> AnimationGroup:
         direction = 1 if self.current >= 0 else -1
         return AnimationGroup(

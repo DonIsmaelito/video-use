@@ -1,3 +1,6 @@
+# renders the gallery fixture scenes at low quality through the manim cli
+# it skips when manim is missing and checks each scene produced a video
+
 from __future__ import annotations
 
 import shutil
@@ -10,6 +13,7 @@ import pytest
 pytest.importorskip("manim")
 
 
+# render every gallery scene in one manim call and check each mp4 exists
 def test_each_domain_family_renders_a_low_quality_gallery(tmp_path: Path) -> None:
     manim = shutil.which("manim")
     if manim is None:

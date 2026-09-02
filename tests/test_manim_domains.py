@@ -1,3 +1,6 @@
+# tests that every domain component is semantic frame safe and theme aware
+# it also checks a handful of component actions update their state
+
 from __future__ import annotations
 
 import sys
@@ -19,6 +22,7 @@ COMPONENTS = [getattr(domains, name) for name in domains.__all__]
 LABELS = ["", "short", "A label long enough to exercise component width fitting and frame safety"]
 
 
+# build every component with each label length and check it stays inside the frame
 @pytest.mark.parametrize("component", COMPONENTS, ids=lambda component: component.__name__)
 @pytest.mark.parametrize("label", LABELS, ids=["empty", "short", "long"])
 def test_domain_components_are_semantic_and_frame_safe(component: type, label: str) -> None:
@@ -30,12 +34,14 @@ def test_domain_components_are_semantic_and_frame_safe(component: type, label: s
     assert model.height <= float(manim.config.frame_height) - 0.9 + 1e-6
 
 
+# every component must reject a missing theme
 def test_domain_components_require_a_shared_theme() -> None:
     for component in COMPONENTS:
         with pytest.raises(TypeError, match="VisualTheme"):
             component(None)
 
 
+# call one action on several components and check the tracked state changed
 def test_domain_actions_update_semantic_state() -> None:
     theme = VisualTheme()
 

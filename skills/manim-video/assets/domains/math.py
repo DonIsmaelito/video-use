@@ -1,3 +1,6 @@
+# semantic components for mathematical explanations
+# it defines NumberLineModel VectorMap MatrixMap LinkedPlot and ProbabilityMass built on SemanticMobject
+
 """Semantic components for mathematical explanations."""
 
 from __future__ import annotations
@@ -30,7 +33,9 @@ except ImportError:
 from ._common import ensure_amount, ensure_index, frame_safe, label_for, title_above
 
 
+# a number line with a marker dot that moves between values
 class NumberLineModel(SemanticMobject):
+    # validate the range and build the line and marker
     def __init__(
         self,
         theme: VisualTheme,
@@ -59,6 +64,7 @@ class NumberLineModel(SemanticMobject):
         self.register_anchor("value", marker)
         frame_safe(self)
 
+    # validate the target and return an animation that slides the marker to it
     def move_value(self, value: float) -> Any:
         target = float(value)
         if not self.minimum <= target <= self.maximum:
@@ -67,7 +73,9 @@ class NumberLineModel(SemanticMobject):
         return self.part("marker").animate.move_to(self.part("line").n2p(target))
 
 
+# axes with arrows for a set of vectors that a matrix can transform
 class VectorMap(SemanticMobject):
+    # build the axes and one arrow per vector from the origin
     def __init__(
         self,
         theme: VisualTheme,
@@ -105,6 +113,7 @@ class VectorMap(SemanticMobject):
         self.register_anchor("origin", lambda: axes.c2p(0, 0))
         frame_safe(self)
 
+    # multiply every vector by a two by two matrix and return the animation that redraws the arrows
     def apply_matrix(self, matrix: Sequence[Sequence[float]]) -> AnimationGroup:
         transform = np.asarray(matrix, dtype=float)
         if transform.shape != (2, 2):
@@ -125,11 +134,14 @@ class VectorMap(SemanticMobject):
         return AnimationGroup(*animations, lag_ratio=0)
 
 
+# alternate between primary and secondary colors by index
 def theme_color(theme: VisualTheme, index: int) -> str:
     return theme.primary if index % 2 == 0 else theme.secondary
 
 
+# a two by two matrix grid beside axes showing an input arrow and its transformed output
 class MatrixMap(SemanticMobject):
+    # validate the matrix and build the grid the axes and the input and output arrows
     def __init__(
         self,
         theme: VisualTheme,
@@ -178,6 +190,7 @@ class MatrixMap(SemanticMobject):
         self.register_anchor("output", output_arrow)
         frame_safe(self)
 
+    # multiply a vector by the matrix and return the animation that moves both arrows
     def apply_to(self, vector: Sequence[float]) -> AnimationGroup:
         raw = np.asarray(vector, dtype=float)
         if raw.shape != (2,):
@@ -195,7 +208,9 @@ class MatrixMap(SemanticMobject):
         )
 
 
+# a plotted function with a point and a dashed guide that track one x value
 class LinkedPlot(SemanticMobject):
+    # validate the range and build the axes graph point and guide
     def __init__(
         self,
         theme: VisualTheme,
@@ -236,6 +251,7 @@ class LinkedPlot(SemanticMobject):
         self.register_anchor("point", point)
         frame_safe(self)
 
+    # validate the x value and return the animation that moves the point and guide
     def set_x(self, x_value: float) -> AnimationGroup:
         value = float(x_value)
         if not self.x_range[0] <= value <= self.x_range[1]:
@@ -251,7 +267,9 @@ class LinkedPlot(SemanticMobject):
         )
 
 
+# bars showing a probability distribution that can shift mass between outcomes
 class ProbabilityMass(SemanticMobject):
+    # validate probabilities and labels and build the bars
     def __init__(
         self,
         theme: VisualTheme,
@@ -278,9 +296,11 @@ class ProbabilityMass(SemanticMobject):
             self.register_anchor(f"mass_{index}", bar)
         frame_safe(self)
 
+    # build one bar per outcome with a percent label above and a name label below
     def _bars(self) -> VGroup:
         bars = VGroup()
         for index, (name, value) in enumerate(zip(self.labels, self.probabilities)):
+            # bar height scales with probability and keeps a tiny floor so zero bars stay visible
             height = max(0.02, value * 3.4)
             bar = Rectangle(
                 width=0.86,
@@ -297,6 +317,7 @@ class ProbabilityMass(SemanticMobject):
         bars.arrange(RIGHT, buff=0.32, aligned_edge=DOWN)
         return bars
 
+    # move probability mass between outcomes and return the transform that redraws the bars
     def transfer_probability(self, source: int, target: int, amount: float) -> Transform:
         source_index = ensure_index(source, len(self.probabilities), name="source")
         target_index = ensure_index(target, len(self.probabilities), name="target")

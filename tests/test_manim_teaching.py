@@ -1,3 +1,6 @@
+# tests for the semantic teaching primitives in teaching py
+# it covers part and anchor registration focus and restore transforms linked values and the three d scene
+
 from __future__ import annotations
 
 import sys
@@ -21,11 +24,13 @@ from teaching import (  # noqa: E402
 )
 
 
+# a default theme for each test
 @pytest.fixture
 def theme() -> VisualTheme:
     return VisualTheme()
 
 
+# parts and anchors register and resolve under their names
 def test_semantic_part_and_anchor_registration(theme: VisualTheme) -> None:
     model = SemanticMobject(theme)
     dot = manim.Dot([1, 2, 0])
@@ -39,6 +44,7 @@ def test_semantic_part_and_anchor_registration(theme: VisualTheme) -> None:
     assert model.anchor_names == ("value_center",)
 
 
+# duplicate names and unknown lookups raise
 def test_semantic_names_reject_duplicates_and_unknowns(theme: VisualTheme) -> None:
     model = SemanticMobject(theme)
     model.register_part("value", manim.Dot())
@@ -54,6 +60,7 @@ def test_semantic_names_reject_duplicates_and_unknowns(theme: VisualTheme) -> No
         model.anchor("missing")
 
 
+# focus dims unrelated objects and restore brings back the exact opacities
 def test_focus_dims_unrelated_objects_and_restores_exact_opacity(theme: VisualTheme) -> None:
     scene = TeachingScene()
     scene.theme = theme
@@ -73,6 +80,7 @@ def test_focus_dims_unrelated_objects_and_restores_exact_opacity(theme: VisualTh
     np.testing.assert_allclose(context.get_stroke_opacity(), before_stroke)
 
 
+# transform keeps the same python object and adopts the target parts and anchors
 def test_transform_preserves_registry_identity_and_adopts_semantics(theme: VisualTheme) -> None:
     scene = TeachingScene()
     source = SemanticMobject(theme)
@@ -92,6 +100,7 @@ def test_transform_preserves_registry_identity_and_adopts_semantics(theme: Visua
     np.testing.assert_allclose(transformed.anchor("center"), [0, 0, 0])
 
 
+# every dependent sees each value in order
 def test_linked_value_updates_all_representations_at_each_state(theme: VisualTheme) -> None:
     linked = LinkedValue(0)
     dot = manim.Dot()
@@ -121,6 +130,7 @@ def test_linked_value_updates_all_representations_at_each_state(theme: VisualThe
         assert {name for name, recorded in seen[-2:] if recorded == value} == {"dot", "bar"}
 
 
+# suspend blocks updates and clear detaches the updater
 def test_linked_value_suspend_resume_and_clear() -> None:
     linked = LinkedValue(0)
     dot = manim.Dot()
@@ -134,6 +144,7 @@ def test_linked_value_suspend_resume_and_clear() -> None:
     assert dot.get_center()[0] == pytest.approx(2)
 
 
+# the three d scene supports the registry and restores the camera after focus
 def test_three_d_scene_supports_registry_and_immediate_focus(theme: VisualTheme) -> None:
     scene = TeachingThreeDScene()
     focus = manim.Sphere(radius=0.25)

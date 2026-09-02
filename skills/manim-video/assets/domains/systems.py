@@ -1,3 +1,6 @@
+# semantic components for software systems and data architecture
+# it defines RequestFlow ServiceGraph QueueModel and DataPipeline built on SemanticMobject
+
 """Semantic components for software systems and data architecture."""
 
 from __future__ import annotations
@@ -36,7 +39,9 @@ from ._common import (
 )
 
 
+# a row of stages with a request dot that advances across them
 class RequestFlow(SemanticMobject):
+    # build the stage boxes links and the request dot
     def __init__(
         self,
         theme: VisualTheme,
@@ -65,6 +70,7 @@ class RequestFlow(SemanticMobject):
             self.register_anchor(f"stage_{index}", stage)
         frame_safe(self)
 
+    # move the request to the next stage or an explicit destination
     def advance_request(self, destination: int | None = None) -> Any:
         target = self.request_stage + 1 if destination is None else int(destination)
         target = ensure_index(target, len(self.stages), name="request destination")
@@ -73,6 +79,7 @@ class RequestFlow(SemanticMobject):
             self.part("stages")[target].get_top() + UP * 0.30
         )
 
+    # move the request back to the first stage
     def reset_request(self) -> Any:
         self.request_stage = 0
         return self.part("request").animate.move_to(
@@ -80,7 +87,9 @@ class RequestFlow(SemanticMobject):
         )
 
 
+# services arranged in an ellipse with directed connections and animated requests
 class ServiceGraph(SemanticMobject):
+    # validate services and connections then place the nodes and draw the links
     def __init__(
         self,
         theme: VisualTheme,
@@ -97,6 +106,7 @@ class ServiceGraph(SemanticMobject):
         nodes = VGroup(
             *[labeled_box(service, theme, width=1.5, color=theme.primary) for service in self.services]
         )
+        # a lone service sits at the center and otherwise nodes spread around an ellipse
         if len(nodes) == 1:
             nodes[0].move_to([0, 0, 0])
         else:
@@ -133,6 +143,7 @@ class ServiceGraph(SemanticMobject):
             self.register_anchor(f"service_{name}", service)
         frame_safe(self)
 
+    # spawn a request dot and return an animation that moves it along the connection
     def send_request(self, source: object, target: object) -> AnimationGroup:
         connection = (str(source), str(target))
         try:
@@ -149,7 +160,9 @@ class ServiceGraph(SemanticMobject):
         )
 
 
+# a fixed capacity row of slots with front and back markers
 class QueueModel(SemanticMobject):
+    # validate capacity and items then build the slots and markers
     def __init__(
         self,
         theme: VisualTheme,
@@ -168,6 +181,7 @@ class QueueModel(SemanticMobject):
         slots = self._slots()
         front = label_for("front", theme, size=17, color=theme.muted, width=0.8)
         back = label_for("back", theme, size=17, color=theme.muted, width=0.8)
+        # pin the markers under the leftmost and rightmost slots
         front.next_to(slots, DOWN, buff=0.16).align_to(slots, direction=[-1, 0, 0])
         back.next_to(slots, DOWN, buff=0.16).align_to(slots, direction=[1, 0, 0])
         markers = VGroup(front, back)
@@ -179,6 +193,7 @@ class QueueModel(SemanticMobject):
         self.register_anchor("back", lambda: slots[-1].get_center())
         frame_safe(self)
 
+    # build one box per slot with filled slots colored and empty slots faded
     def _slots(self) -> VGroup:
         values = [*self.items, *([""] * (self.capacity - len(self.items)))]
         return VGroup(
@@ -195,12 +210,14 @@ class QueueModel(SemanticMobject):
             ]
         ).arrange(RIGHT, buff=0.08)
 
+    # append an item and return the transform that redraws the slots
     def enqueue(self, request: object) -> Transform:
         if len(self.items) >= self.capacity:
             raise OverflowError("cannot enqueue into a full queue")
         self.items.append(str(request))
         return Transform(self.part("slots"), self._slots())
 
+    # pop the front item and return it with the transform that redraws the slots
     def dequeue(self) -> tuple[str, Transform]:
         if not self.items:
             raise IndexError("cannot dequeue from an empty queue")
@@ -208,7 +225,9 @@ class QueueModel(SemanticMobject):
         return request, Transform(self.part("slots"), self._slots())
 
 
+# a row of pipeline stages with a packet that propagates across them
 class DataPipeline(SemanticMobject):
+    # build the stage boxes links and the packet
     def __init__(
         self,
         theme: VisualTheme,
@@ -240,6 +259,7 @@ class DataPipeline(SemanticMobject):
         self.register_part("label", caption)
         frame_safe(self)
 
+    # move the packet to the next stage or an explicit destination
     def propagate(self, destination: int | None = None) -> Any:
         target = self.packet_stage + 1 if destination is None else int(destination)
         target = ensure_index(target, len(self.stages), name="pipeline destination")

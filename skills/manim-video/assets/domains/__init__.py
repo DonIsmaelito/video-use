@@ -1,3 +1,6 @@
+# package entry point for the semantic domain component kit
+# it gathers every domain class from biology computing finance math physics and systems into one namespace
+
 """Broad semantic component kit for original Manim explainers."""
 
 from .biology import CellProcess, PopulationFlow, SequenceProcess

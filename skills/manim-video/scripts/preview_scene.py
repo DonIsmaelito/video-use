@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# command line tool that renders chosen manim scene classes at low quality into a project edit verify folder
+# it probes the output with ffprobe and extracts first last and contact sheet frames with ffmpeg
+# every step raises PreviewError with a clear message so failures are easy to act on
+
 """Render selected Manim chapters and build small authoring-review artifacts."""
 
 from __future__ import annotations
@@ -18,6 +22,7 @@ from typing import Any, Callable, Sequence
 from PIL import Image
 
 
+# a clear user actionable preview failure
 class PreviewError(RuntimeError):
     """A clear, user-actionable preview failure."""
 
@@ -25,6 +30,7 @@ class PreviewError(RuntimeError):
 Runner = Callable[..., subprocess.CompletedProcess[str]]
 
 
+# parse the script and return the names of every top level class
 def scene_classes(script: Path) -> set[str]:
     try:
         source = script.read_text(encoding="utf-8")
@@ -37,6 +43,7 @@ def scene_classes(script: Path) -> set[str]:
     return {node.name for node in tree.body if isinstance(node, ast.ClassDef)}
 
 
+# find the project edit directory from an explicit flag or by walking up from the script
 def resolve_edit_dir(script: Path, explicit: Path | None = None) -> Path:
     script = script.resolve()
     if explicit is not None:
@@ -53,6 +60,7 @@ def resolve_edit_dir(script: Path, explicit: Path | None = None) -> Path:
     )
 
 
+# resolve an executable on the path or raise a clear error
 def require_executable(value: str, *, purpose: str) -> str:
     path = shutil.which(value)
     if path is None:
@@ -60,6 +68,7 @@ def require_executable(value: str, *, purpose: str) -> str:
     return path
 
 
+# run a command through the injected runner and turn failures into PreviewError
 def _run(
     command: Sequence[str],
     *,
@@ -81,6 +90,7 @@ def _run(
         raise PreviewError(f"{purpose} is unavailable: {exc}") from exc
     except subprocess.TimeoutExpired as exc:
         raise PreviewError(f"{purpose} timed out after {timeout_s:g} seconds") from exc
+    # surface the last line of stderr or stdout as the failure message
     if result.returncode != 0:
         detail = (result.stderr or result.stdout or "").strip().splitlines()
         message = detail[-1] if detail else f"process exited with status {result.returncode}"
@@ -88,6 +98,7 @@ def _run(
     return result
 
 
+# read duration size and frame rate from a video with ffprobe
 def probe_video(
     video: Path,
     *,
@@ -111,6 +122,7 @@ def probe_video(
         timeout_s=timeout_s,
         purpose="ffprobe inspection",
     )
+    # pull the first video stream and reject incomplete or malformed metadata
     try:
         payload = json.loads(result.stdout)
         stream = next(
@@ -132,6 +144,7 @@ def probe_video(
     }
 
 
+# extract a single frame at a timestamp with ffmpeg and verify it was written
 def _extract_frame(
     video: Path,
     output: Path,
@@ -165,6 +178,7 @@ def _extract_frame(
         raise PreviewError(f"expected frame artifact was not produced: {output}")
 
 
+# extract the initial and final frames and a five frame contact sheet
 def build_review_frames(
     video: Path,
     destination: Path,
@@ -175,6 +189,7 @@ def build_review_frames(
     timeout_s: float,
 ) -> dict[str, str]:
     duration = float(metadata["duration_s"])
+    # the final frame sits one frame before the end so ffmpeg does not run past the stream
     final_time = max(0.0, duration - 1 / float(metadata["frame_rate"]))
     initial = destination / "initial.png"
     final = destination / "final.png"
@@ -195,6 +210,7 @@ def build_review_frames(
         timeout_s=timeout_s,
     )
 
+    # sample five evenly spaced frames and paste their thumbnails side by side into one sheet
     with tempfile.TemporaryDirectory(prefix="contact-", dir=destination) as temp_name:
         temp_dir = Path(temp_name)
         frame_paths: list[Path] = []
@@ -230,6 +246,7 @@ def build_review_frames(
     }
 
 
+# locate the newest rendered mp4 for a scene ignoring partial and section clips
 def _find_scene_video(media_dir: Path, scene_name: str) -> Path:
     matches = [
         path
@@ -241,6 +258,7 @@ def _find_scene_video(media_dir: Path, scene_name: str) -> Path:
     return max(matches, key=lambda path: path.stat().st_mtime_ns)
 
 
+# load the section json manim wrote for a scene or return an empty list
 def _section_metadata(media_dir: Path, scene_name: str) -> list[dict[str, Any]]:
     candidates = [
         path
@@ -258,6 +276,7 @@ def _section_metadata(media_dir: Path, scene_name: str) -> list[dict[str, Any]]:
     return [dict(section) for section in sections if isinstance(section, dict)]
 
 
+# render one scene and build its review artifacts and report under edit verify
 def render_scene(
     script: Path,
     scene_name: str,
@@ -278,6 +297,7 @@ def render_scene(
     verify_root = (resolved_edit / "verify").resolve()
     destination = verify_root / "manim_previews" / script.stem / scene_name
     destination.mkdir(parents=True, exist_ok=True)
+    # refuse to write anywhere outside the verify folder
     if not destination.resolve().is_relative_to(verify_root):
         raise PreviewError("refusing to write preview artifacts outside edit/verify")
 
@@ -339,6 +359,7 @@ def render_scene(
     return report
 
 
+# render each requested scene and gather the reports
 def preview_scenes(
     script: Path,
     scene_names: Sequence[str],
@@ -352,6 +373,7 @@ def preview_scenes(
     return {"status": "ok", "script": str(script.resolve()), "scenes": reports}
 
 
+# define and parse the command line arguments
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Render selected Manim scene classes into edit/verify review artifacts."
@@ -364,6 +386,7 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     return parser.parse_args(argv)
 
 
+# run the preview and print a json report or a clear failure
 def main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(argv)
     try:
