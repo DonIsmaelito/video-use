@@ -32,6 +32,7 @@ These are the things where deviation produces silent failures or broken output. 
 11. **Strategy confirmation before execution.** Never touch the cut until the user has approved the plain-English plan.
 12. **All session outputs in `<videos_dir>/edit/`.** Never write inside the `video-use/` project directory.
 13. **Captions transcribe audible speech only.** Every cue must come from timestamped human or generated speech. Music/SFX-only and silent videos have no subtitle track, no `captions` block, and no baked caption rail. Marketing copy is designed scene typography, never a fabricated transcript.
+14. **Generated layouts are collision-free at every critical frame.** Measure text and component bounds, keep animated markers and decoration out of protected content, and inspect the entry, busiest, and settled states at delivery resolution. One unintended overlap fails the output.
 
 Everything else in this document is a worked example. Deviate whenever the material calls for it.
 
@@ -44,6 +45,8 @@ The skill lives in `video-use/`. User footage lives wherever they put it. All se
 ├── <source files, untouched>
 └── edit/
     ├── project.md               ← memory; appended every session
+    ├── visual_plan.md           ← narration windows + possible sourced visuals
+    ├── layout_manifest.json     ← measured critical-frame regions for generated scenes
     ├── takes_packed.md          ← phrase-level transcripts, the LLM's primary reading view
     ├── edl.json                 ← cut decisions
     ├── transcripts/<name>.json  ← cached raw Scribe JSON
@@ -77,7 +80,10 @@ Helpers (`helpers/transcribe.py`, `helpers/render.py`, etc.) live alongside this
 - **`transcribe_batch.py <videos_dir>`** — 4-worker parallel transcription. Use for multi-take.
 - **`pack_transcripts.py --edit-dir <dir>`** — `transcripts/*.json` → `takes_packed.md` (phrase-level, break on silence ≥ 0.5s).
 - **`timeline_view.py <video> <start> <end>`** — filmstrip + waveform PNG. On-demand visual drill-down. **Not a scan tool** — use it at decision points, not constantly.
+- **`web_source.py search|inspect|select|summary|acquire`** — find public web-video candidates, inspect exact source windows, record visible subject/action and reuse metadata, audit source diversity, then download an approved source.
+- **`render_illustration.py penrose|cetz`** — render constraint-authored mathematical diagrams or Typst/CeTZ STEM figures into SVG/PNG assets.
 - **`captions.py <alignment.json> -o master.ass`** — convert ElevenLabs character timestamps or generic word timestamps into compact captions inside a bottom safe rail.
+- **`layout_qc.py <layout_manifest.json>`** — reject out-of-frame or overlapping measured regions in generated UI, typography, and illustration frames.
 - **`render.py <edl.json> -o <out>`** — per-segment extract → concat → overlays (PTS-shifted) → subtitles LAST. `--preview` for an evaluable 1080p render. `--all-deliverables` renders every declared aspect/loudness target. `--preflight-overlays` checks overlay placement before a full render. `--build-subtitles` generates master.srt inline.
 - **`grade.py <in> -o <out>`** — ffmpeg filter chain grade. Presets + `--filter '<raw>'` for custom.
 
@@ -96,12 +102,17 @@ For animations, create `<edit>/animations/slot_<id>/` with `Bash` and spawn a su
    - Waveform spike at the boundary (audio pop that slipped past the 30ms fade)
    - Subtitle hidden behind an overlay (Rule 1 violation)
    - Overlay misaligned or showing wrong frames (Rule 4 violation)
+   - Text, buttons, markers, charts, or decoration intersecting unintentionally
    - Captions without matching audible words, or speech captions with missing words
 
-   Also sample: first 2s, last 2s, and 2–3 mid-points — check grade consistency, subtitle readability, overall coherence. Run `ffprobe` on the output to verify duration matches the EDL expectation.
+   Also sample: first 2s, last 2s, and 2–3 mid-points — check grade consistency, subtitle readability, overall coherence. For every generated UI, typography, or illustration scene, extract full-resolution stills at its entry, most crowded frame, animation extrema, and settled state; a small filmstrip is not sufficient for layout approval. Watch dynamic transitions at 1× when an element crosses the frame. Run `ffprobe` on the output to verify duration matches the EDL expectation.
 
    If anything fails: fix → re-render → re-eval. **Cap at 3 self-eval passes** — if issues remain after 3, flag them to the user rather than looping forever. Only present the preview once the self-eval passes.
 8. **Iterate + persist.** Natural-language feedback, re-plan, re-render. Never re-transcribe. Final render on confirmation. Append to `project.md`.
+
+For an original explainer that needs real footage, follow `references/web-sourcing.md`
+(search, inspect, select, acquire, compose, preflight). For generated UI and
+typography, follow `references/layout-qc.md`.
 
 ## Cut craft (techniques)
 
@@ -218,13 +229,22 @@ Pick the engine per animation slot. Do not default to Remotion just because the 
 - **HyperFrames** — Browser-native HTML/CSS/GSAP video compositions: product UI motion, website-to-video or mockup-to-video captures, kinetic typography, landing-page/storyboard promos, data-driven UI states, transparent WebM overlays, and clips that need deterministic frame capture plus HyperFrames lint/validate/render checks. Best when the animation should be authored and verified like a web composition instead of a React component tree.
 - **Remotion** — React/CSS compositions with component state, reusable React primitives, or an existing Remotion brand system. Best when the user specifically asks for React/Remotion or when React composition is the simpler authoring model.
 - **Manim** — formal diagrams, state machines, equation derivations, graph morphs. Read `skills/manim-video/SKILL.md` and its references for depth.
+- **Penrose** — constraint-driven mathematical structures, relationship tables,
+  and dense layouts where facts should remain separate from visual constraints.
+  Especially strong for the included quaternion multiplication-table treatment.
+  Read `references/penrose.md`; render with `helpers/render_illustration.py`.
+- **CeTZ** — general vector STEM figures in Typst: geometry, physics apparatus,
+  axes, circuits, trees, and scientific diagrams. Read `references/cetz.md`;
+  render with `helpers/render_illustration.py`.
 - **PIL + PNG sequence + ffmpeg** — simple overlay cards: counters, typewriter text, single bar reveals, progressive draws. Fast to iterate, any aesthetic you want. The launch video used this.
 
 For HyperFrames slots, scaffold the slot inside `edit/animations/slot_<id>/` with `npx --yes hyperframes init . --example blank --non-interactive --skip-skills`, build the HTML composition there, run the HyperFrames checks that fit the slot (`lint`, `validate`, and a draft render when practical), then produce the final overlay video with `npx --yes hyperframes render . -o render.mp4` or `--format webm -o render.webm` when alpha is required. Point the EDL overlay `file` at the actual rendered path.
 
 For Remotion slots, keep the Remotion project isolated inside the same slot directory, scaffold with `npx create-video@latest` or install Remotion locally there, render the composition to `render.mp4` with the project-local `remotion render` command, and verify duration and dimensions with `ffprobe`.
 
-None is mandatory. Invent hybrids if useful (e.g., PIL background with a HyperFrames or Remotion layer on top).
+None is mandatory. Invent hybrids if useful. Penrose and CeTZ normally produce
+the illustration asset; Manim can then animate its semantic parts. Read
+`references/illustration-engines.md` before choosing an engine for a slot.
 
 **Duration rules of thumb, context-dependent:**
 
@@ -294,6 +314,10 @@ Match the source unless the user asked for something specific. Common targets: `
   "overlays": [
     {"id": "slot_1", "file": "animations/slot_1/render.mp4",
      "start_in_output": 0.0, "duration": 5.0, "composition": "cutaway", "fit": "cover"},
+    {"id": "beat_02", "file": "overlays/source_2.mp4", "media_kind": "web",
+     "start_in_output": 12.0, "duration": 4.0, "composition": "split_right",
+     "fit": "contain", "source_url": "https://example.com/watch?v=two",
+     "source_start": 81.0, "source_end": 85.0, "asset_id": "37fe8c520d5ce186"},
     {"id": "illustration_02", "file": "animations/slot_2/render.mp4",
      "start_in_output": 12.0, "duration": 4.0,
      "rect": {"x": 0.04, "y": 0.10, "width": 0.44, "height": 0.66}}
@@ -318,7 +342,8 @@ Match the source unless the user asked for something specific. Common targets: `
 paths resolve from the EDL's directory. Overlay and protected-region rectangles
 use normalized frame coordinates; entries without `composition`, `layout`, or
 `rect` keep legacy full-frame behavior, but new explainer overlays should declare
-a composition. `.ass` subtitle styles are preserved; SRT receives the default
+a composition. Web overlays (`media_kind: web`) also retain exact source
+provenance: `source_url`, `source_start`, `source_end`, `asset_id`. `.ass` subtitle styles are preserved; SRT receives the default
 force style. Subtitles are always applied LAST. Version 2 rejects subtitle or
 caption declarations without timestamped speech evidence. Version 1 remains
 renderable for legacy projects, but new agent-authored handoffs must use
