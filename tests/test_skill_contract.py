@@ -27,6 +27,7 @@ HARD_RULES = [
     "Strategy confirmation before execution.",
     "All session outputs in `<videos_dir>/edit/`.",
     "Captions transcribe audible speech only.",
+    "Generated layouts are collision-free at every critical frame.",
 ]
 
 # matches backticked paths under references helpers or skills

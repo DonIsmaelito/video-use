@@ -25,8 +25,10 @@ import hashlib
 import html
 import ipaddress
 import json
+import math
 import re
 import shutil
+import socket
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -114,7 +116,27 @@ def validate_public_url(value: str) -> str:
     else:
         if not address.is_global:
             raise ValueError("private, loopback, and link-local URLs are not valid public sources")
+        return value
+    # a public looking name can still resolve to an internal address so every resolved address is checked
+    for resolved in resolved_addresses(hostname):
+        if not resolved.is_global:
+            raise ValueError(f"{hostname} resolves to a non public address and is not a valid source")
     return value
+
+
+# resolve a hostname to ip addresses and return nothing when resolution is unavailable
+def resolved_addresses(hostname: str) -> list[ipaddress.IPv4Address | ipaddress.IPv6Address]:
+    try:
+        infos = socket.getaddrinfo(hostname, None)
+    except (socket.gaierror, UnicodeError, OSError):
+        return []
+    addresses = []
+    for info in infos:
+        try:
+            addresses.append(ipaddress.ip_address(info[4][0]))
+        except ValueError:
+            continue
+    return addresses
 
 
 # turn optional start and end values into a validated float pair or none
@@ -123,8 +145,9 @@ def validate_range(start: float | None, end: float | None) -> tuple[float, float
         return None
     if start is None or end is None:
         raise ValueError("--start and --end must be provided together")
-    if start < 0 or end <= start:
-        raise ValueError("source range must satisfy 0 <= start < end")
+    # nan and inf compare as ordered so they need an explicit finite check
+    if not math.isfinite(start) or not math.isfinite(end) or start < 0 or end <= start:
+        raise ValueError("source range must be finite and satisfy 0 <= start < end")
     return float(start), float(end)
 
 
@@ -997,6 +1020,7 @@ def acquire(
 ) -> Path:
     _, folder = inspect_metadata(url, edit_dir)
     metadata = read_json(folder / "metadata.json", {})
+    require_kept_selection(edit_dir, source_key(metadata), source_range)
     stem = "source" if source_range is None else f"source_{range_tag(*source_range)}"
     existing = find_media(folder, stem)
     if existing is not None and not force:
@@ -1045,6 +1069,26 @@ def acquire(
     )
     print(f"saved approved source: {source}")
     return source
+
+
+# refuse to download a source or range that was never inspected and kept through select
+def require_kept_selection(
+    edit_dir: Path, source_id: str, source_range: tuple[float, float] | None
+) -> None:
+    _, manifest = selections_record(edit_dir)
+    kept = [
+        item
+        for item in manifest.get("selections", [])
+        if item.get("decision") == "keep" and item.get("source_key") == source_id
+    ]
+    if source_range is not None:
+        asset_id = selection_key(source_id, source_range)
+        kept = [item for item in kept if item.get("asset_id") == asset_id]
+    if not kept:
+        raise ValueError(
+            "no kept selection matches this source and range; inspect the window and "
+            "record a keep decision with select before acquiring it"
+        )
 
 
 # build the argparse parser with search inspect select summary and acquire subcommands
