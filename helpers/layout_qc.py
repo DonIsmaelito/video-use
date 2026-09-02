@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# check generated video layouts for foreground elements that collide or leave the canvas
+# a frame is a list of measured rectangles and a manifest is several frames with a shared canvas
+# intersections are only allowed when one side lists the other in allow_overlap_with
+
 """Fail code-generated video layouts on unintended component collisions.
 
 Animation code can call :func:`validate_frame` for every rendered frame, or
@@ -20,10 +24,12 @@ from pathlib import Path
 from typing import Any, Iterable
 
 
+# error type raised for any layout problem so callers can catch one thing
 class LayoutQCError(ValueError):
     """Raised when a generated scene contains an invalid layout."""
 
 
+# axis aligned rectangle in canvas pixels with helpers for its far edges
 @dataclass(frozen=True)
 class Rect:
     x: float
@@ -31,14 +37,17 @@ class Rect:
     width: float
     height: float
 
+    # x coordinate of the right edge
     @property
     def right(self) -> float:
         return self.x + self.width
 
+    # y coordinate of the bottom edge
     @property
     def bottom(self) -> float:
         return self.y + self.height
 
+    # true only when the two rects share positive area so touching edges do not count
     def intersects(self, other: "Rect") -> bool:
         return (
             self.x < other.right
@@ -48,6 +57,7 @@ class Rect:
         )
 
 
+# coerce a value to a finite float or raise a labeled qc error
 def _number(value: Any, label: str) -> float:
     try:
         number = float(value)
@@ -58,6 +68,7 @@ def _number(value: Any, label: str) -> float:
     return number
 
 
+# build a rect from a dict and reject missing keys or non positive sizes
 def _rect(value: Any, label: str) -> Rect:
     if not isinstance(value, dict):
         raise LayoutQCError(f"{label} must be an object")
@@ -75,6 +86,7 @@ def _rect(value: Any, label: str) -> Rect:
     return rect
 
 
+# read the allow_overlap_with list of an element as a set of ids
 def _allowed_ids(element: dict[str, Any], label: str) -> set[str]:
     raw = element.get("allow_overlap_with", [])
     if not isinstance(raw, list) or any(not isinstance(value, str) for value in raw):
@@ -82,6 +94,7 @@ def _allowed_ids(element: dict[str, Any], label: str) -> set[str]:
     return set(raw)
 
 
+# validate one frame of rectangles against the canvas and against each other
 def validate_frame(
     elements: Iterable[dict[str, Any]],
     *,
@@ -104,6 +117,7 @@ def validate_frame(
     seen: set[str] = set()
     problems: list[str] = []
 
+    # first pass parses every element and collects shape problems without stopping early
     for index, raw in enumerate(elements):
         label = f"element {index}"
         if not isinstance(raw, dict):
@@ -127,6 +141,7 @@ def validate_frame(
             problems.append(f"element '{element_id}' leaves the canvas{suffix}")
         measured.append((element_id, rect, allowed))
 
+    # second pass compares every unordered pair and skips pairs declared as intentional overlaps
     for index, (first_id, first_rect, first_allowed) in enumerate(measured):
         for second_id, second_rect, second_allowed in measured[index + 1 :]:
             if second_id in first_allowed or first_id in second_allowed:
@@ -141,6 +156,7 @@ def validate_frame(
         raise LayoutQCError(f"layout QC failed:\n{formatted}")
 
 
+# validate a whole manifest by running validate_frame on each frame and return counts
 def validate_manifest(payload: Any) -> tuple[int, int]:
     """Validate a JSON layout manifest and return frame/element counts."""
 
@@ -168,6 +184,7 @@ def validate_manifest(payload: Any) -> tuple[int, int]:
     return len(frames), element_count
 
 
+# command line entry that loads a manifest file and prints a pass summary
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("manifest", type=Path)

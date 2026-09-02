@@ -1,3 +1,7 @@
+# find inspect select and download public web video with yt-dlp
+# every step writes a small manifest into the edit directory so selections keep exact source intervals
+# the manifests are what the renderer later checks for duplicate footage and provenance
+
 """Find and inspect public web-video candidates with yt-dlp.
 
 Search returns a compact candidate manifest, inspect saves captions/metadata
@@ -69,15 +73,18 @@ SHOT_TYPES = {
 }
 
 
+# current utc time as an iso string for manifest timestamps
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
+# reduce a string to a short lowercase filename safe token
 def slug(value: str, *, fallback: str = "source", limit: int = 64) -> str:
     cleaned = re.sub(r"[^a-zA-Z0-9]+", "-", value).strip("-").lower()
     return (cleaned or fallback)[:limit].rstrip("-")
 
 
+# trim a string to a limit with an ellipsis and return none for non strings
 def short_text(value: Any, limit: int) -> str | None:
     if not isinstance(value, str):
         return None
@@ -87,6 +94,7 @@ def short_text(value: Any, limit: int) -> str | None:
     return value[: limit - 1].rstrip() + "…"
 
 
+# locate the yt-dlp executable or fail with an install hint
 def require_yt_dlp() -> str:
     executable = shutil.which("yt-dlp")
     if executable is None:
@@ -94,6 +102,7 @@ def require_yt_dlp() -> str:
     return executable
 
 
+# accept only http or https urls that point at public hosts
 def validate_public_url(value: str) -> str:
     parsed = urlparse(value)
     if parsed.scheme not in {"http", "https"} or not parsed.netloc:
@@ -101,6 +110,7 @@ def validate_public_url(value: str) -> str:
     hostname = parsed.hostname or ""
     if hostname.casefold() == "localhost" or hostname.endswith(".localhost"):
         raise ValueError("local URLs are not valid public sources")
+    # when the host is a literal ip reject anything that is not globally routable
     try:
         address = ipaddress.ip_address(hostname)
     except ValueError:
@@ -111,6 +121,7 @@ def validate_public_url(value: str) -> str:
     return value
 
 
+# turn optional start and end values into a validated float pair or none
 def validate_range(start: float | None, end: float | None) -> tuple[float, float] | None:
     if start is None and end is None:
         return None
@@ -121,6 +132,7 @@ def validate_range(start: float | None, end: float | None) -> tuple[float, float
     return float(start), float(end)
 
 
+# run a subprocess and raise with the tail of its stderr when it fails
 def run_command(command: list[str], *, capture_output: bool = True) -> subprocess.CompletedProcess[str]:
     result = subprocess.run(
         command,
@@ -135,6 +147,7 @@ def run_command(command: list[str], *, capture_output: bool = True) -> subproces
     return result
 
 
+# run yt-dlp with the given arguments and parse its single json document
 def yt_dlp_json(arguments: list[str]) -> dict[str, Any]:
     executable = require_yt_dlp()
     result = run_command(
@@ -154,6 +167,7 @@ def yt_dlp_json(arguments: list[str]) -> dict[str, Any]:
     return payload
 
 
+# write json atomically by going through a temp file and renaming it
 def write_json(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_suffix(path.suffix + ".tmp")
@@ -161,6 +175,7 @@ def write_json(path: Path, payload: dict[str, Any]) -> None:
     temporary.replace(path)
 
 
+# load a json object from disk or return the default when the file is missing
 def read_json(path: Path, default: dict[str, Any]) -> dict[str, Any]:
     if not path.exists():
         return default
@@ -170,6 +185,7 @@ def read_json(path: Path, default: dict[str, Any]) -> dict[str, Any]:
     return payload
 
 
+# derive a usable page url from a flat playlist entry with youtube fallbacks
 def search_result_url(entry: dict[str, Any]) -> str | None:
     webpage_url = entry.get("webpage_url")
     if isinstance(webpage_url, str) and webpage_url.startswith(("http://", "https://")):
@@ -184,9 +200,11 @@ def search_result_url(entry: dict[str, Any]) -> str | None:
     return None
 
 
+# reduce a raw yt-dlp search entry to the fields a reviewer needs
 def compact_search_entry(entry: dict[str, Any], rank: int) -> dict[str, Any]:
     thumbnails = entry.get("thumbnails")
     thumbnail = entry.get("thumbnail")
+    # fall back to the last thumbnail in the list which is usually the largest
     if not thumbnail and isinstance(thumbnails, list) and thumbnails:
         last_thumbnail = thumbnails[-1]
         if isinstance(last_thumbnail, dict):
@@ -210,6 +228,7 @@ def compact_search_entry(entry: dict[str, Any], rank: int) -> dict[str, Any]:
     }
 
 
+# run a youtube search through yt-dlp and save a candidate manifest in the edit directory
 def search(query: str, edit_dir: Path, limit: int, target_videos: int) -> Path:
     query = query.strip()
     if not query:
@@ -221,6 +240,7 @@ def search(query: str, edit_dir: Path, limit: int, target_videos: int) -> Path:
     if target_videos > limit:
         raise ValueError("target video count cannot exceed the search limit")
 
+    # flat playlist mode lists results without resolving each video
     payload = yt_dlp_json(
         [
             "--flat-playlist",
@@ -253,12 +273,14 @@ def search(query: str, edit_dir: Path, limit: int, target_videos: int) -> Path:
     return output_path
 
 
+# reduce full yt-dlp video info to a compact metadata record
 def compact_metadata(info: dict[str, Any], requested_url: str) -> dict[str, Any]:
     subtitles = info.get("subtitles")
     automatic_captions = info.get("automatic_captions")
     automatic_languages = (
         sorted(automatic_captions) if isinstance(automatic_captions, dict) else []
     )
+    # the orig suffix marks the spoken language so strip it to list real source languages
     automatic_source_languages = [
         language.removesuffix("-orig")
         for language in automatic_languages
@@ -296,6 +318,7 @@ def compact_metadata(info: dict[str, Any], requested_url: str) -> dict[str, Any]
     }
 
 
+# create and return the per source folder under downloads keyed by extractor and id
 def source_directory(edit_dir: Path, info: dict[str, Any]) -> Path:
     extractor = str(info.get("extractor_key") or info.get("extractor") or "web")
     source_id = str(info.get("id") or hashlib.sha256(str(info).encode("utf-8")).hexdigest()[:12])
@@ -304,6 +327,7 @@ def source_directory(edit_dir: Path, info: dict[str, Any]) -> Path:
     return folder
 
 
+# stable identity for a source built from extractor and id or a url hash
 def source_key(metadata: dict[str, Any]) -> str:
     """Return a stable source identity without relying on a mutable title."""
     extractor = slug(str(metadata.get("extractor") or "web"))
@@ -314,12 +338,14 @@ def source_key(metadata: dict[str, Any]) -> str:
     return f"{extractor}:{hashlib.sha256(url.encode('utf-8')).hexdigest()[:16]}"
 
 
+# short hash naming one exact source interval so repeats can be detected
 def selection_key(source_id: str, source_range: tuple[float, float]) -> str:
     start, end = source_range
     raw = f"{source_id}|{start:.3f}|{end:.3f}"
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()[:16]
 
 
+# load or initialise the shared selections manifest
 def selections_record(edit_dir: Path) -> tuple[Path, dict[str, Any]]:
     path = edit_dir / "downloads" / "web_selections.json"
     payload = read_json(
@@ -330,6 +356,7 @@ def selections_record(edit_dir: Path) -> tuple[Path, dict[str, Any]]:
     return path, payload
 
 
+# fraction of the shorter interval that is covered by the other one
 def interval_overlap_ratio(
     first: tuple[float, float], second: tuple[float, float]
 ) -> float:
@@ -339,10 +366,12 @@ def interval_overlap_ratio(
     return overlap / shorter if shorter > 0 else 0.0
 
 
+# lowercase and strip punctuation so descriptions compare loosely
 def normalized_description(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", " ", value.casefold()).strip()
 
 
+# fetch video info with yt-dlp and write compact metadata into the source folder
 def inspect_metadata(url: str, edit_dir: Path) -> tuple[dict[str, Any], Path]:
     info = yt_dlp_json(
         [
@@ -357,6 +386,7 @@ def inspect_metadata(url: str, edit_dir: Path) -> tuple[dict[str, Any], Path]:
     return info, folder
 
 
+# download thumbnail and subtitle sidecars without the video itself
 def download_sidecars(url: str, folder: Path, subtitle_languages: str, force: bool) -> None:
     executable = require_yt_dlp()
     overwrite_option = "--force-overwrites" if force else "--no-overwrites"
@@ -384,6 +414,7 @@ def download_sidecars(url: str, folder: Path, subtitle_languages: str, force: bo
     )
 
 
+# choose the best vtt file preferring original english then any english then anything
 def choose_caption_file(folder: Path) -> Path | None:
     caption_files = sorted(folder.glob("*.vtt"))
     if not caption_files:
@@ -397,6 +428,7 @@ def choose_caption_file(folder: Path) -> Path | None:
     return english[0] if english else caption_files[0]
 
 
+# turn a vtt timestamp into seconds so cues can be compared numerically
 def parse_vtt_time(value: str) -> float:
     parts = value.replace(",", ".").split(":")
     if len(parts) == 2:
@@ -409,12 +441,14 @@ def parse_vtt_time(value: str) -> float:
     return int(hours) * 3600 + int(minutes) * 60 + float(seconds)
 
 
+# strip tags and entities and collapse whitespace in caption text
 def clean_caption_text(value: str) -> str:
     value = re.sub(r"<[^>]+>", " ", value)
     value = html.unescape(value).replace("\u200b", " ")
     return re.sub(r"\s+", " ", value).strip()
 
 
+# parse a vtt file into start end text cues
 def parse_vtt(path: Path) -> list[tuple[float, float, str]]:
     lines = path.read_text(encoding="utf-8", errors="replace").splitlines()
     cues: list[tuple[float, float, str]] = []
@@ -423,6 +457,7 @@ def parse_vtt(path: Path) -> list[tuple[float, float, str]]:
         r"^(?P<start>(?:\d{2}:)?\d{2}:\d{2}[.,]\d{3})\s+-->\s+"
         r"(?P<end>(?:\d{2}:)?\d{2}:\d{2}[.,]\d{3})"
     )
+    # scan for timing lines and gather the text lines that follow until a blank line
     while cursor < len(lines):
         match = timing_pattern.match(lines[cursor].strip())
         if match is None:
@@ -441,22 +476,26 @@ def parse_vtt(path: Path) -> list[tuple[float, float, str]]:
     return cues
 
 
+# normalise a word for overlap comparison
 def word_key(value: str) -> str:
     return re.sub(r"[^a-z0-9']+", "", value.casefold())
 
 
+# drop the leading words of a cue that repeat the tail of the previous cues
 def new_caption_words(history: list[str], current: list[str]) -> list[str]:
     if not history:
         return current
     comparable_history = [word_key(word) for word in history]
     comparable_current = [word_key(word) for word in current]
     maximum = min(len(comparable_history), len(comparable_current), 30)
+    # try the longest possible overlap first so rolling captions collapse cleanly
     for overlap in range(maximum, 0, -1):
         if comparable_history[-overlap:] == comparable_current[:overlap]:
             return current[overlap:]
     return current
 
 
+# merge deduplicated cues into readable phrases and write a markdown transcript
 def pack_transcript(caption_file: Path, output: Path) -> Path:
     packed: list[tuple[float, float, str]] = []
     history: list[str] = []
@@ -468,6 +507,7 @@ def pack_transcript(caption_file: Path, output: Path) -> Path:
         history.extend(additions)
         history = history[-60:]
         addition_text = " ".join(additions)
+        # extend the previous phrase when the gap is short and it is still open ended
         if (
             packed
             and start - packed[-1][1] <= 2.5
@@ -491,6 +531,7 @@ def pack_transcript(caption_file: Path, output: Path) -> Path:
     return output
 
 
+# record transcript availability and file names in the source metadata
 def update_transcript_status(
     folder: Path,
     status: str,
@@ -505,6 +546,7 @@ def update_transcript_status(
     write_json(metadata_path, metadata)
 
 
+# load or initialise the per source inspection manifest
 def inspection_record(folder: Path) -> tuple[Path, dict[str, Any]]:
     path = folder / "inspection.json"
     if path.exists():
@@ -518,6 +560,7 @@ def inspection_record(folder: Path) -> tuple[Path, dict[str, Any]]:
     return path, payload
 
 
+# return whether a range is new and refuse when three windows already exist
 def assert_window_available(folder: Path, source_range: tuple[float, float]) -> bool:
     _, payload = inspection_record(folder)
     tag = range_tag(*source_range)
@@ -531,6 +574,7 @@ def assert_window_available(folder: Path, source_range: tuple[float, float]) -> 
     return True
 
 
+# append an inspected window to the manifest unless its tag is already there
 def record_window(
     folder: Path,
     source_range: tuple[float, float],
@@ -554,6 +598,7 @@ def record_window(
     write_json(path, payload)
 
 
+# record a keep or reject decision for an inspected window after checking reuse and repetition contracts
 def select_window(
     url: str,
     edit_dir: Path,
@@ -592,6 +637,7 @@ def select_window(
     for label, value in required_descriptions.items():
         if not value.strip():
             raise ValueError(f"{label} cannot be empty")
+    # talking heads only earn a keep when the person or their authority is the point
     if decision == "keep" and shot_type == "talking-head" and purpose not in {
         "person-identity",
         "source-evidence",
@@ -625,6 +671,7 @@ def select_window(
     if existing_beat is not None:
         raise ValueError(f"beat id '{beat_id}' already exists in {path}")
 
+    # the same exact interval may only appear again when it is declared as a reuse of the first beat
     kept = [item for item in selections if item.get("decision") == "keep"]
     exact = next((item for item in kept if item.get("asset_id") == asset_id), None)
     if exact is not None and reuse_of != exact.get("beat_id"):
@@ -641,6 +688,7 @@ def select_window(
         if original.get("asset_id") != asset_id:
             raise ValueError("intentional reuse must use the original beat's exact source range")
 
+    # warn about heavy interval overlap or repeated subject and action within the same source
     overlap_warnings: list[str] = []
     semantic_warnings: list[str] = []
     this_range = source_range
@@ -699,6 +747,7 @@ def select_window(
     return path
 
 
+# print and return a report on source diversity and reused assets with an optional one source reason
 def selection_summary(
     edit_dir: Path, one_source_reason: str | None = None
 ) -> dict[str, Any]:
@@ -716,6 +765,7 @@ def selection_summary(
     unique_assets = {item.get("asset_id") for item in kept}
     warnings: list[str] = []
     documented_reason = str(manifest.get("one_source_reason") or "").strip()
+    # four or more kept beats from one source need a written justification
     if len(kept) >= 4 and len(unique_sources) < 2 and not documented_reason:
         warnings.append(
             "four or more web beats use one source; prefer a second strong source or "
@@ -739,10 +789,12 @@ def selection_summary(
     return report
 
 
+# format a range as a filename safe tag with p in place of dots
 def range_tag(start: float, end: float) -> str:
     return f"{start:.3f}-{end:.3f}".replace(".", "p")
 
 
+# find the newest complete media file in a folder that matches the stem
 def find_media(folder: Path, stem_prefix: str) -> Path | None:
     candidates = [
         candidate
@@ -756,6 +808,7 @@ def find_media(folder: Path, stem_prefix: str) -> Path | None:
     return max(candidates, key=lambda candidate: candidate.stat().st_mtime)
 
 
+# read a media duration in seconds with ffprobe
 def probe_duration(video: Path) -> float:
     result = run_command(
         [
@@ -778,6 +831,7 @@ def probe_duration(video: Path) -> float:
     return duration
 
 
+# download a low resolution proxy for one source range with a full download fallback
 def download_proxy(
     url: str,
     folder: Path,
@@ -795,6 +849,7 @@ def download_proxy(
 
     executable = require_yt_dlp()
     overwrite_option = "--force-overwrites" if force else "--no-overwrites"
+    # prefer separate video and audio under the height limit and fall back to anything
     format_selector = (
         f"bestvideo*[height<={height}]+bestaudio/"
         f"best[height<={height}]/worst"
@@ -819,6 +874,7 @@ def download_proxy(
                 url,
             ]
         )
+    # when section download fails cache one whole low resolution copy and cut the range locally with ffmpeg
     except RuntimeError as direct_error:
         inspection_source = find_media(folder, "inspection_source")
         if inspection_source is None or force:
@@ -873,10 +929,12 @@ def download_proxy(
     return proxy
 
 
+# render a filmstrip png of the proxy through timeline_view
 def render_proxy_filmstrip(proxy: Path, source_range: tuple[float, float], frames: int) -> Path:
     if not 2 <= frames <= 30:
         raise ValueError("filmstrip frame count must be between 2 and 30")
     duration = probe_duration(proxy)
+    # stop slightly before the end so the last frame is not a black tail
     visual_end = max(0.01, duration - min(0.05, duration / 10))
     output = proxy.with_name(f"inspection_{range_tag(*source_range)}.png")
     timeline_view = Path(__file__).resolve().with_name("timeline_view.py")
@@ -896,6 +954,7 @@ def render_proxy_filmstrip(proxy: Path, source_range: tuple[float, float], frame
     return output
 
 
+# save metadata captions and a packed transcript and optionally inspect one range visually
 def inspect(
     url: str,
     edit_dir: Path,
@@ -933,6 +992,7 @@ def inspect(
     return folder
 
 
+# download an approved source at best quality and write an acquisition manifest
 def acquire(
     url: str,
     edit_dir: Path,
@@ -991,6 +1051,7 @@ def acquire(
     return source
 
 
+# build the argparse parser with search inspect select summary and acquire subcommands
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description=(
@@ -1068,6 +1129,7 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
+# command line entry that validates inputs and dispatches to the chosen subcommand
 def main() -> None:
     parser = build_parser()
     args = parser.parse_args()

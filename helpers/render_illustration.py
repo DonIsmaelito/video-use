@@ -1,3 +1,7 @@
+# render vector illustrations from penrose trio files or cetz typst sources
+# penrose needs the roger cli which is installed once into a cache directory via npm
+# cetz is compiled with the typst cli and both engines write vector assets for the video pipeline
+
 """Render Penrose or CeTZ source into a deterministic illustration asset.
 
 Penrose's pinned Roger CLI is cached outside the edit directory on first use.
@@ -23,6 +27,7 @@ PENROSE_ROGER_VERSION = "3.3.1"
 PENROSE_PACKAGE = f"@penrose/roger@{PENROSE_ROGER_VERSION}"
 
 
+# run a subprocess and raise with the tail of its output when it fails
 def run(command: list[str], *, cwd: Path | None = None) -> None:
     result = subprocess.run(
         command,
@@ -39,6 +44,7 @@ def run(command: list[str], *, cwd: Path | None = None) -> None:
         print(result.stdout.strip())
 
 
+# pick the tool cache directory from the environment or fall back to the home cache
 def default_tool_cache() -> Path:
     explicit = os.environ.get("VIDEO_USE_TOOL_CACHE")
     if explicit:
@@ -46,6 +52,7 @@ def default_tool_cache() -> Path:
     return Path.home() / ".cache" / "video-use" / "tools"
 
 
+# find a roger executable or install the pinned version into the cache with npm
 def ensure_roger(cache_root: Path) -> Path:
     installed = shutil.which("roger")
     if installed:
@@ -57,6 +64,7 @@ def ensure_roger(cache_root: Path) -> Path:
     executable = prefix / "node_modules" / ".bin" / "roger"
     if executable.exists():
         return executable
+    # install into a private prefix so the pinned version never touches global node modules
     prefix.mkdir(parents=True, exist_ok=True)
     print(f"installing pinned Penrose renderer {PENROSE_ROGER_VERSION} in {prefix}")
     run(
@@ -76,6 +84,7 @@ def ensure_roger(cache_root: Path) -> Path:
     return executable
 
 
+# validate the trio and output paths then run roger and optionally dump optimizer steps
 def render_penrose(
     trio: Path,
     output: Path,
@@ -95,6 +104,7 @@ def render_penrose(
     command = [str(roger), "trio", str(trio), "--out", str(output)]
     if variation:
         command.extend(["--variation", variation])
+    # dump intermediate svgs every ten steps into a sibling folder for debugging the layout solve
     if dump_steps:
         dump_dir = output.parent / f"{output.stem}_steps"
         dump_dir.mkdir(parents=True, exist_ok=True)
@@ -114,6 +124,7 @@ def render_penrose(
     return output
 
 
+# compile a typ source with typst into svg png or pdf
 def render_cetz(source: Path, output: Path) -> Path:
     if source.suffix.casefold() != ".typ":
         raise ValueError("CeTZ input must be a .typ file")
@@ -135,6 +146,7 @@ def render_cetz(source: Path, output: Path) -> Path:
     return output
 
 
+# build the argparse parser with one subcommand per engine
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="Render Penrose constraint diagrams or CeTZ STEM illustrations"
@@ -154,6 +166,7 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
+# command line entry that resolves paths and dispatches to the chosen engine
 def main() -> None:
     args = build_parser().parse_args()
     try:

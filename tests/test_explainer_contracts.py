@@ -1,3 +1,6 @@
+# tests for the overlay and web selection contracts shared between render and web_source
+# helpers are loaded by path so the tests do not depend on package installation
+
 import importlib.util
 import json
 import tempfile
@@ -9,6 +12,7 @@ from unittest.mock import patch
 ROOT = Path(__file__).parents[1]
 
 
+# import a helper module directly from its file path
 def load_helper(name: str):
     path = ROOT / "helpers" / f"{name}.py"
     spec = importlib.util.spec_from_file_location(f"video_use_{name}", path)
@@ -22,7 +26,9 @@ render = load_helper("render")
 web_source = load_helper("web_source")
 
 
+# checks that overlay compositions respect protected illustrations and reuse rules
 class OverlayContractTests(unittest.TestCase):
+    # a split overlay may not cover a protected illustration that is on screen at the same time
     def test_split_composition_rejects_protected_illustration_collision(self):
         overlay = {
             "id": "web_beat",
@@ -40,6 +46,7 @@ class OverlayContractTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "protected illustration"):
             render.validate_overlay_contracts([overlay], protected, False)
 
+    # a cutaway takes over the whole frame so covering a protected region is fine
     def test_cutaway_may_cover_a_protected_base_illustration(self):
         overlay = {
             "id": "cutaway",
@@ -56,6 +63,7 @@ class OverlayContractTests(unittest.TestCase):
         }]
         render.validate_overlay_contracts([overlay], protected, False)
 
+    # picture in picture must name a pip layout rather than a generic side
     def test_picture_in_picture_requires_a_pip_layout(self):
         overlay = {
             "file": "clip.mp4",
@@ -67,6 +75,7 @@ class OverlayContractTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "pip_left"):
             render.resolve_overlay_rect(overlay, False)
 
+    # a reuse of a beat must point at the same prepared file
     def test_web_asset_reuse_must_reference_same_file(self):
         common = {
             "media_kind": "web",
@@ -91,7 +100,9 @@ class OverlayContractTests(unittest.TestCase):
             render.validate_overlay_contracts(overlays, [], False)
 
 
+# checks the editorial rules enforced by select_window and selection_summary
 class WebSelectionTests(unittest.TestCase):
+    # build a fake inspected source folder with metadata and one inspected window
     def _source_folder(self, edit_dir: Path) -> Path:
         folder = edit_dir / "downloads" / "youtube-demo"
         folder.mkdir(parents=True)
@@ -114,6 +125,7 @@ class WebSelectionTests(unittest.TestCase):
         })
         return folder
 
+    # a talking head cannot be kept for a physical object purpose
     def test_generic_talking_head_is_rejected_as_a_keep(self):
         with tempfile.TemporaryDirectory() as temporary:
             edit_dir = Path(temporary)
@@ -135,6 +147,7 @@ class WebSelectionTests(unittest.TestCase):
                         reuse_of=None,
                     )
 
+    # the same interval is refused for a second beat unless reuse_of names the first
     def test_exact_interval_requires_explicit_reuse(self):
         with tempfile.TemporaryDirectory() as temporary:
             edit_dir = Path(temporary)
@@ -162,6 +175,7 @@ class WebSelectionTests(unittest.TestCase):
             )
             self.assertEqual(manifest["selections"][1]["reuse_of"], "beat_1")
 
+    # four kept beats from one source warn until a reason is documented
     def test_one_source_exception_requires_a_documented_reason(self):
         with tempfile.TemporaryDirectory() as temporary:
             edit_dir = Path(temporary)
