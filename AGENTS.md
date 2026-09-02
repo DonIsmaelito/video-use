@@ -79,7 +79,8 @@ from being overwritten by another:
   history, so a later sync silently discards it.
 - Hard rules in `SKILL.md` are append-only. New rules get the next number.
   Removing or renumbering a rule requires an explicit reason in the commit.
-- Procedure prose belongs in `references/<feature>.md`. Edits to `SKILL.md`
+- Procedure prose belongs in `references/<feature>.md` at the repository root;
+  create that folder with the first reference file. Edits to `SKILL.md`
   are limited to rules, helper-index bullets, directory-tree lines, the EDL
   example, and one-line pointers to the reference files.
 - `tests/test_skill_contract.py` checks that the rules and every referenced

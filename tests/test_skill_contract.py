@@ -30,6 +30,8 @@ HARD_RULES = [
 
 # matches backticked paths under references helpers or skills
 PATH_PATTERN = re.compile(r"`((?:references|helpers|skills)/[A-Za-z0-9_./-]+)`")
+# matches a bare helper script name at the start of a backticked command
+HELPER_PATTERN = re.compile(r"`([A-Za-z0-9_]+\.py)\b")
 
 
 # slice out the body of the hard rules section up to the next second level heading
@@ -65,6 +67,15 @@ class SkillContractTests(unittest.TestCase):
             if not (ROOT / path).exists()
         )
         self.assertEqual(missing, [], "SKILL.md names paths that do not exist")
+
+    # every bare helper script named in a backticked command must exist under helpers
+    def test_bare_helper_names_exist(self):
+        missing = sorted(
+            name
+            for name in set(HELPER_PATTERN.findall(self.text))
+            if not (ROOT / "helpers" / name).exists()
+        )
+        self.assertEqual(missing, [], "SKILL.md names helper scripts that do not exist")
 
 
 if __name__ == "__main__":

@@ -4,14 +4,16 @@ comments must not carry punctuation so they stay short and readable at a glance
 """
 
 import ast
+import io
 import re
+import tokenize
 import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SKIP_DIRS = {".venv", "venv", "node_modules", "__pycache__", ".git", "media", "edit"}
 PUNCTUATION = re.compile(r"[.,:;()\"'`]")
-DEFINITION = re.compile(r"\s*(async def|def|class) \w")
+DEFINITIONS = (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)
 
 
 # yield every python file in the repo that is not inside a skipped directory
@@ -30,24 +32,39 @@ def audit(text):
     if first and first[0].startswith("#"):
         problems.append("hash comment header should be a module docstring")
     try:
-        if ast.get_docstring(ast.parse(text)) is None:
-            problems.append("missing module docstring")
+        tree = ast.parse(text)
     except SyntaxError:
         problems.append("file does not parse")
-    for index, line in enumerate(lines):
-        if not DEFINITION.match(line):
+        return problems
+    if ast.get_docstring(tree) is None:
+        problems.append("missing module docstring")
+    comments = real_comments(text)
+    for node in sorted(definitions(tree), key=lambda item: item.lineno):
+        # decorators sit between the comment and the definition so look above the first decorator
+        start = min([node.lineno, *[item.lineno for item in node.decorator_list]])
+        above = start - 1
+        if above not in comments:
+            problems.append(f"line {node.lineno} has no comment above {node.name}")
             continue
-        above = index - 1
-        # decorators sit between the comment and the definition
-        while above >= 0 and lines[above].strip().startswith("@"):
-            above -= 1
-        if above < 0 or not lines[above].strip().startswith("#"):
-            problems.append(f"line {index + 1} has no comment above {line.strip()[:40]}")
-            continue
-        comment = lines[above].strip().lstrip("#").strip()
-        if PUNCTUATION.search(comment):
-            problems.append(f"line {above + 1} comment contains punctuation")
+        if PUNCTUATION.search(comments[above]):
+            problems.append(f"line {above} comment contains punctuation")
     return problems
+
+
+# yield every function and class node in the tree so text inside strings never counts as a definition
+def definitions(tree):
+    for node in ast.walk(tree):
+        if isinstance(node, DEFINITIONS):
+            yield node
+
+
+# map line number to comment text for lines that hold nothing but a real comment token
+def real_comments(text):
+    comments = {}
+    for token in tokenize.generate_tokens(io.StringIO(text).readline):
+        if token.type == tokenize.COMMENT and token.line.strip().startswith("#"):
+            comments[token.start[0]] = token.string.lstrip("#").strip()
+    return comments
 
 
 # one test that scans the whole repo so a single failure lists every offending file
