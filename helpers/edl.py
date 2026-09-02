@@ -1,11 +1,11 @@
 # validation and normalization for the public edl contract
 # it checks sources ranges caption provenance and deliverable targets before anything expensive runs
-# nothing here imports the renderer or the gui so remote workers can reuse it
+# nothing here imports the renderer so any tool can validate an edit before rendering
 
 """Validation and normalization for the public video-use EDL contract.
 
-This module deliberately has no renderer or GUI dependencies. Local tools,
-remote workers, and third-party integrations can all reject an incomplete edit
+This module deliberately has no renderer dependencies. Local tools and
+third-party integrations can all reject an incomplete edit
 before spending time uploading media or starting an ffmpeg render.
 """
 

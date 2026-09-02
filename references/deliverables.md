@@ -35,7 +35,7 @@ renders each deliverable from one staged edit.
 }
 ```
 
-- `id` is a stable name used by `--deliverable <id>` and by remote workers.
+- `id` is a stable name used by `--deliverable <id>` and by any tool that reads the outputs.
 - `file` is relative to the EDL directory unless absolute.
 - `width`/`height` may also be written as `resolution: "1080x1920"`.
 - `fps` accepts integers, decimals, or rationals such as `30000/1001`.
@@ -73,7 +73,6 @@ python helpers/render.py edit/edl.json --deliverable social_9x16
 python helpers/render.py edit/edl.json --all-deliverables --output-dir <dir>
 ```
 
-Use `--output-dir` when a remote worker must keep all artifacts inside its own
-run directory. Blocked EDLs, empty ranges, missing sources, missing tracks,
+Use `--output-dir` to keep every rendered deliverable inside one directory. Blocked EDLs, empty ranges, missing sources, missing tracks,
 invalid dimensions, and invalid loudness targets are rejected before any
 extraction starts.
