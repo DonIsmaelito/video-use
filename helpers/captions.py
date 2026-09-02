@@ -188,7 +188,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
             f"{_wrap_two_lines(text)}"
         )
     output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(header + "\n".join(events) + "\n")
+    output.write_text(header + "\n".join(events) + "\n", encoding="utf-8")
 
 
 # command line entry point that reads alignment json and writes an ASS file

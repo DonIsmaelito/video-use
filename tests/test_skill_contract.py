@@ -26,6 +26,7 @@ HARD_RULES = [
     "Parallel sub-agents for multiple animations.",
     "Strategy confirmation before execution.",
     "All session outputs in `<videos_dir>/edit/`.",
+    "Captions transcribe audible speech only.",
 ]
 
 # matches backticked paths under references helpers or skills

@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import copy
 import json
+import math
 import re
 from fractions import Fraction
 from pathlib import Path
@@ -419,6 +420,9 @@ def validate_edl(
     strict check for legacy-version EDLs with ``require_caption_provenance``.
     """
     problems: list[str] = []
+    # a non object root cannot be inspected so it is reported instead of crashing below
+    if not isinstance(edl, dict):
+        raise EDLValidationError("EDL is not renderable:\n- edl must be a JSON object")
     try:
         version = int(edl.get("version", 1))
     except (TypeError, ValueError):
@@ -477,10 +481,11 @@ def validate_edl(
         try:
             start = float(value["start"])
             end = float(value["end"])
-            if start < 0 or end <= start:
+            # nan and inf compare as ordered so they need an explicit finite check
+            if not math.isfinite(start) or not math.isfinite(end) or start < 0 or end <= start:
                 raise ValueError
         except (KeyError, TypeError, ValueError):
-            problems.append(f"range {index} requires start >= 0 and end > start")
+            problems.append(f"range {index} requires finite start >= 0 and end > start")
 
     try:
         deliverables = normalize_deliverables(edl, edit_dir)
