@@ -1,8 +1,4 @@
 #!/usr/bin/env python3
-# build caption safe ASS subtitle files from word timestamps or elevenlabs character alignment
-# it groups words into short readable cues and writes them into a bottom rail that matches the edl safe region
-# the command line entry point reads an alignment json file and writes one ASS file
-
 """Turn word or ElevenLabs character timestamps into caption-safe ASS subtitles.
 
 The generated captions sit inside a dedicated bottom rail. Use the same rail in
@@ -124,7 +120,7 @@ def chunk_words(
 
 
 # format seconds as an ASS timestamp with centisecond precision
-def _ass_time(seconds: float) -> str:
+def _substation_time(seconds: float) -> str:
     centiseconds = max(0, int(round(seconds * 100)))
     hours, remainder = divmod(centiseconds, 360_000)
     minutes, remainder = divmod(remainder, 6_000)
@@ -133,17 +129,17 @@ def _ass_time(seconds: float) -> str:
 
 
 # escape backslashes and braces so text is not read as ASS override tags
-def _ass_escape(text: str) -> str:
+def _substation_escape(text: str) -> str:
     return text.replace("\\", r"\\").replace("{", r"\{").replace("}", r"\}")
 
 
 # split long cue text into two balanced lines using the ASS line break
 def _wrap_two_lines(text: str, max_line_characters: int = 30) -> str:
     if len(text) <= max_line_characters:
-        return _ass_escape(text)
+        return _substation_escape(text)
     words = text.split()
     if len(words) < 2:
-        return _ass_escape(text)
+        return _substation_escape(text)
     # try every split point and pick the one with the shortest longest line and the smallest imbalance
     candidates = []
     for index in range(1, len(words)):
@@ -151,11 +147,11 @@ def _wrap_two_lines(text: str, max_line_characters: int = 30) -> str:
         right = " ".join(words[index:])
         candidates.append((max(len(left), len(right)), abs(len(left) - len(right)), left, right))
     _, _, left, right = min(candidates)
-    return f"{_ass_escape(left)}\\N{_ass_escape(right)}"
+    return f"{_substation_escape(left)}\\N{_substation_escape(right)}"
 
 
 # write cues into an ASS file with a caption style that sits inside the bottom safe rail
-def write_ass(
+def write_substation(
     cues: list[tuple[float, float, str]],
     output: Path,
     *,
@@ -188,7 +184,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         if end <= start:
             end = start + 0.25
         events.append(
-            f"Dialogue: 0,{_ass_time(start)},{_ass_time(end)},Caption,,0,0,0,,"
+            f"Dialogue: 0,{_substation_time(start)},{_substation_time(end)},Caption,,0,0,0,,"
             f"{_wrap_two_lines(text)}"
         )
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -216,7 +212,7 @@ def main() -> None:
         max_words=max(1, args.max_words),
         max_characters=max(12, args.max_characters),
     )
-    write_ass(
+    write_substation(
         cues,
         args.output,
         width=args.width,

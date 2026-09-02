@@ -1,5 +1,6 @@
-# tests for deliverable normalization and the reframing and loudness parts of the renderer
-# they check alias handling tracked reframe validation and the ffmpeg commands built for deliveries
+"""tests for deliverable normalization and the reframing and loudness parts of the renderer
+they check alias handling tracked reframe validation and the ffmpeg commands built for deliveries
+"""
 
 import json
 import subprocess

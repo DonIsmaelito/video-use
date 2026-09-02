@@ -1,7 +1,3 @@
-# validation and normalization for the public edl contract
-# it checks sources ranges caption provenance and deliverable targets before anything expensive runs
-# nothing here imports the renderer so any tool can validate an edit before rendering
-
 """Validation and normalization for the public video-use EDL contract.
 
 This module deliberately has no renderer dependencies. Local tools and

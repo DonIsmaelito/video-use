@@ -1,7 +1,3 @@
-# the ffmpeg render pipeline that turns an edl into finished video files
-# it extracts graded segments and concatenates them and then composites overlays and subtitles and normalizes loudness
-# it also handles per deliverable reframing and the overlay preflight contact sheet and the command line entry point
-
 """Render a video from an EDL.
 
 Implements the HEURISTICS render pipeline in the correct order:

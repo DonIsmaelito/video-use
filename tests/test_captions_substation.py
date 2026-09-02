@@ -1,5 +1,6 @@
-# unit tests for the captions helper
-# they cover word loading from elevenlabs and generic payloads and cue chunking and ASS output
+"""unit tests for the captions helper
+they cover word loading from elevenlabs and generic payloads and cue chunking and ASS output
+"""
 
 import json
 import tempfile
@@ -56,7 +57,7 @@ class WriteAssTests(unittest.TestCase):
     def test_writes_caption_style_and_wrapped_dialogue(self):
         with tempfile.TemporaryDirectory() as tmp:
             out = Path(tmp) / "master.ass"
-            captions.write_ass(
+            captions.write_substation(
                 [(0.0, 1.5, "Short cue"), (2.0, 4.0, "This cue is long enough that it wraps twice")],
                 out,
                 width=1920,
@@ -72,7 +73,7 @@ class WriteAssTests(unittest.TestCase):
     def test_rejects_safe_rail_outside_bounds(self):
         with tempfile.TemporaryDirectory() as tmp:
             with self.assertRaises(ValueError):
-                captions.write_ass([], Path(tmp) / "x.ass", safe_bottom=0.5)
+                captions.write_substation([], Path(tmp) / "x.ass", safe_bottom=0.5)
 
 
 if __name__ == "__main__":

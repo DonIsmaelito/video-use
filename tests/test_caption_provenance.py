@@ -1,5 +1,6 @@
-# tests for the caption provenance rules in the edl validator
-# they cover the version gate the strict handoff override and evidence files with and without timed words
+"""tests for the caption provenance rules in the edl validator
+they cover the version gate the strict handoff override and evidence files with and without timed words
+"""
 
 import json
 from pathlib import Path
