@@ -19,7 +19,7 @@ renders each deliverable from one staged edit.
       "width": 1920,
       "height": 1080,
       "fps": 30,
-      "reframe_track": "broadcast_16x9",
+      "reframe": "cover",
       "loudness": {"integrated_lufs": -24, "true_peak_dbtp": -2, "lra": 11}
     },
     {

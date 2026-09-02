@@ -378,6 +378,14 @@ def normalize_deliverables(
             }
         )
         normalized.append(item)
+    # two deliverables writing the same file would silently overwrite each other
+    seen: dict[Path, str] = {}
+    for item in normalized:
+        previous = seen.setdefault(item["output_path"], item["id"])
+        if previous != item["id"]:
+            raise EDLValidationError(
+                f"deliverables '{previous}' and '{item['id']}' resolve to the same output file"
+            )
     return normalized
 
 
@@ -423,10 +431,14 @@ def validate_edl(
     # a non object root cannot be inspected so it is reported instead of crashing below
     if not isinstance(edl, dict):
         raise EDLValidationError("EDL is not renderable:\n- edl must be a JSON object")
-    try:
-        version = int(edl.get("version", 1))
-    except (TypeError, ValueError):
+    raw_version = edl.get("version", 1)
+    # a fractional version is malformed rather than a legacy version so it must not truncate
+    if isinstance(raw_version, bool) or not (
+        isinstance(raw_version, int) or (isinstance(raw_version, float) and raw_version.is_integer())
+    ):
         version = 0
+    else:
+        version = int(raw_version)
     if version < 1:
         problems.append("version must be a positive integer")
     # version two and newer enforce caption provenance unless the caller overrides
@@ -476,7 +488,8 @@ def validate_edl(
             problems.append(f"range {index} must be an object")
             continue
         source_id = value.get("source")
-        if source_id not in sources:
+        # only a string can name a source so anything else is reported instead of crashing the lookup
+        if not isinstance(source_id, str) or source_id not in sources:
             problems.append(f"range {index} references unknown source '{source_id}'")
         try:
             start = float(value["start"])

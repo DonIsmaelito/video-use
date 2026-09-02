@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import re
 from pathlib import Path
 
@@ -21,6 +22,9 @@ PUNCTUATION_BREAKS = ".?!;:"
 
 # normalize one raw word entry into text start and end and drop entries without usable timing
 def _as_word(item: dict) -> dict[str, float | str] | None:
+    # scribe labels sound effects and music as audio events and those are never spoken words
+    if item.get("type") not in (None, "word"):
+        return None
     text = str(item.get("text") or item.get("word") or "").strip()
     if not text:
         return None
@@ -28,6 +32,8 @@ def _as_word(item: dict) -> dict[str, float | str] | None:
         start = float(item["start"])
         end = float(item["end"])
     except (KeyError, TypeError, ValueError):
+        return None
+    if not math.isfinite(start) or not math.isfinite(end) or start < 0:
         return None
     if end <= start:
         end = start + 0.08

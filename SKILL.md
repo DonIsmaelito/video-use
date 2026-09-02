@@ -49,7 +49,7 @@ The skill lives in `video-use/`. User footage lives wherever they put it. All se
     ├── transcripts/<name>.json  ← cached raw Scribe JSON
     ├── animations/slot_<id>/    ← per-animation source + render + reasoning
     ├── clips_graded/            ← per-segment extracts with grade + fades
-    ├── master.srt/master.ass    ← output-timeline subtitles
+    ├── master.srt | master.ass  ← output-timeline subtitles
     ├── downloads/               ← yt-dlp outputs
     ├── verify/                  ← debug frames / timeline PNGs
     ├── preview.mp4

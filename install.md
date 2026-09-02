@@ -57,7 +57,7 @@ Homebrew's keg-only `ffmpeg-full` when the default build lacks it. `yt-dlp` is o
 ```bash
 # macOS
 command -v ffmpeg >/dev/null || brew install ffmpeg
-brew list ffmpeg-full >/dev/null 2>&1 || brew install ffmpeg-full  # caption burn-in
+ffmpeg -hide_banner -filters 2>/dev/null | grep -q ' subtitles ' || brew install ffmpeg-full  # only if the default build lacks libass
 command -v yt-dlp >/dev/null || brew install yt-dlp     # optional
 
 # Debian / Ubuntu

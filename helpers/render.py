@@ -26,6 +26,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import re
 import shutil
 import subprocess
@@ -927,6 +928,9 @@ def _normalized_rect(value: dict, label: str) -> dict[str, float]:
             f"{label} must contain numeric x, y, width, and height values"
         ) from exc
 
+    # nan and inf slip through ordered comparisons so they are rejected first
+    if not all(math.isfinite(number) for number in rect.values()):
+        raise ValueError(f"{label} must contain finite numbers")
     # reject rects with a negative origin or non positive size or that spill past the frame edge
     if rect["x"] < 0 or rect["y"] < 0 or rect["width"] <= 0 or rect["height"] <= 0:
         raise ValueError(f"{label} must use non-negative x/y and positive width/height")
