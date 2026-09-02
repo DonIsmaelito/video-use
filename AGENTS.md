@@ -11,11 +11,11 @@ repository as a general product, never as one person's customized clone.
   editorial judgment, factual correctness, synchronization, pacing, and
   production reliability.
 - Design reusable contracts and capabilities. Do not hardcode personal paths,
-  credentials, account ids, prompts, brands, preferences, lane history, or
-  assumptions about one project.
+  credentials, account ids, prompts, brands, preferences, or assumptions
+  about one project.
 - Keep provider-specific behavior behind narrow boundaries. Core EDL validation,
-  rendering, reframing, and QC must remain usable without the localhost GUI or
-  Modal.
+  rendering, reframing, and QC must remain usable from the command line without
+  any optional client or remote runner.
 - Preserve backwards compatibility when practical. If a format must change,
   provide a clear migration path and reject unsupported input with an actionable
   error.
@@ -33,38 +33,13 @@ repository as a general product, never as one person's customized clone.
 - `SKILL.md` defines the agent workflow and public editing contract.
 - `helpers/` contains provider-independent production tools and validation.
 - `skills/` contains focused companion skills and reusable production assets.
-- `gui/` is an optional internal client and remote-execution adapter. It may
-  orchestrate core features but must not become the only place those features
-  exist.
-- `tests/` and `gui/tests/` protect public behavior and adapter behavior
-  respectively.
+- `tests/` protects public behavior. Optional clients or remote runners may
+  orchestrate core features but must never become the only place a feature
+  exists.
 
 Keep decision data explicit in portable project files such as `edit/edl.json`.
 Renderers should consume declared inputs deterministically. UI state, agent
 history, and cloud runtime state must not be required to reproduce an output.
-
-## Experimental GUI harness
-
-The four-lane GUI in `gui/` exists to generate many independent outputs quickly
-so developers can find ugly frames, weak editorial decisions, unsupported
-queries, and renderer failures before video-use users encounter them.
-
-- Use the four parallel Modal lanes for this branch's output-discovery runs.
-  Avoid one-off manual local benchmark renders when the harness can run the same
-  experiment and preserve comparable evidence.
-- Do not assume the public video-use workflow will adopt the GUI, Modal, its lane
-  model, or its run-storage APIs. Promote a finding into `helpers/`, `skills/`,
-  or `SKILL.md` only when the underlying capability is generally useful without
-  the harness.
-- Keep each lane's agent context fresh. Past run traces are evaluation evidence
-  for developers and must not leak into a new lane's creative context.
-- Preserve every run's durable evidence through `gui/run_store.py`: the compact
-  `run_summary.md`, deduplicated `trace.json`, raw Codex protocol when available,
-  complete `render.log`, generated edit handoff, and returned outputs.
-- Prefer `run_summary.md` when an agent needs quick context. Read the raw trace or
-  protocol only to investigate a specific decision, tool call, or failure.
-- Pin valuable successes and representative failures before cleanup. Never
-  delete a pinned run, and never delete an active lane.
 
 ## Change workflow
 
