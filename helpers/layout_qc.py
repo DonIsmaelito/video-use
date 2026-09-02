@@ -1,8 +1,4 @@
 #!/usr/bin/env python3
-# check generated video layouts for foreground elements that collide or leave the canvas
-# a frame is a list of measured rectangles and a manifest is several frames with a shared canvas
-# intersections are only allowed when one side lists the other in allow_overlap_with
-
 """Fail code-generated video layouts on unintended component collisions.
 
 Animation code can call :func:`validate_frame` for every rendered frame, or

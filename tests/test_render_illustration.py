@@ -1,5 +1,6 @@
-# tests for the illustration renderer covering argument parsing and input validation
-# external tools are patched away so nothing is installed or compiled during the run
+"""tests for the illustration renderer covering argument parsing and input validation
+external tools are patched away so nothing is installed or compiled during the run
+"""
 
 import tempfile
 import unittest

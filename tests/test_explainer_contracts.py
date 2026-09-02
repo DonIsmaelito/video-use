@@ -1,5 +1,6 @@
-# tests for the overlay and web selection contracts shared between render and web_source
-# helpers are loaded by path so the tests do not depend on package installation
+"""tests for the overlay and web selection contracts shared between render and web_source
+helpers are loaded by path so the tests do not depend on package installation
+"""
 
 import importlib.util
 import json

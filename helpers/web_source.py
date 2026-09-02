@@ -1,7 +1,3 @@
-# find inspect select and download public web video with yt-dlp
-# every step writes a small manifest into the edit directory so selections keep exact source intervals
-# the manifests are what the renderer later checks for duplicate footage and provenance
-
 """Find and inspect public web-video candidates with yt-dlp.
 
 Search returns a compact candidate manifest, inspect saves captions/metadata

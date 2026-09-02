@@ -1,7 +1,3 @@
-# render vector illustrations from penrose trio files or cetz typst sources
-# penrose needs the roger cli which is installed once into a cache directory via npm
-# cetz is compiled with the typst cli and both engines write vector assets for the video pipeline
-
 """Render Penrose or CeTZ source into a deterministic illustration asset.
 
 Penrose's pinned Roger CLI is cached outside the edit directory on first use.

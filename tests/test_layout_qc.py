@@ -1,5 +1,6 @@
-# tests for the layout qc helper covering overlaps touching edges declared overlaps and canvas bounds
-# each test builds small element dicts in delivery canvas pixels
+"""tests for the layout qc helper covering overlaps touching edges declared overlaps and canvas bounds
+each test builds small element dicts in delivery canvas pixels
+"""
 
 import pytest
 
