@@ -1229,7 +1229,7 @@ def build_final_composite(
     if has_subs:
         # escape colons and quotes so the path survives filter option parsing
         subs_abs = str(subtitles_path.resolve()).replace(":", r"\:").replace("'", r"\'")
-        # ass files carry their own style while srt gets the forced style
+        # ASS files carry their own style while srt gets the forced style
         if subtitles_path.suffix.lower() == ".ass":
             filter_parts.append(f"{current}subtitles='{subs_abs}'[outv]")
         else:

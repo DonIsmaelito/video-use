@@ -1,5 +1,5 @@
 # unit tests for the captions helper
-# they cover word loading from elevenlabs and generic payloads and cue chunking and ass output
+# they cover word loading from elevenlabs and generic payloads and cue chunking and ASS output
 
 import json
 import tempfile
@@ -50,9 +50,9 @@ class ChunkWordsTests(unittest.TestCase):
         self.assertAlmostEqual(cues[0][1], 1.4)
 
 
-# tests for ass file output
+# tests for ASS file output
 class WriteAssTests(unittest.TestCase):
-    # the ass file carries the play resolution the caption style and a wrapped long cue
+    # the ASS file carries the play resolution the caption style and a wrapped long cue
     def test_writes_caption_style_and_wrapped_dialogue(self):
         with tempfile.TemporaryDirectory() as tmp:
             out = Path(tmp) / "master.ass"

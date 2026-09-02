@@ -20,7 +20,7 @@ def _ready_edl(tmp_path: Path, *, version: int = 2) -> dict:
     }
 
 
-# write a tiny ass file so the subtitles path exists on disk
+# write a tiny ASS file so the subtitles path exists on disk
 def _write_subtitles(tmp_path: Path) -> None:
     (tmp_path / "master.ass").write_text(
         "[Events]\nDialogue: 0,0:00:00.00,0:00:01.00,Default,,0,0,0,,Hello\n",

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-# build caption safe ass subtitle files from word timestamps or elevenlabs character alignment
+# build caption safe ASS subtitle files from word timestamps or elevenlabs character alignment
 # it groups words into short readable cues and writes them into a bottom rail that matches the edl safe region
-# the command line entry point reads an alignment json file and writes one ass file
+# the command line entry point reads an alignment json file and writes one ASS file
 
 """Turn word or ElevenLabs character timestamps into caption-safe ASS subtitles.
 
@@ -123,7 +123,7 @@ def chunk_words(
     return cues
 
 
-# format seconds as an ass timestamp with centisecond precision
+# format seconds as an ASS timestamp with centisecond precision
 def _ass_time(seconds: float) -> str:
     centiseconds = max(0, int(round(seconds * 100)))
     hours, remainder = divmod(centiseconds, 360_000)
@@ -132,12 +132,12 @@ def _ass_time(seconds: float) -> str:
     return f"{hours}:{minutes:02d}:{secs:02d}.{cs:02d}"
 
 
-# escape backslashes and braces so text is not read as ass override tags
+# escape backslashes and braces so text is not read as ASS override tags
 def _ass_escape(text: str) -> str:
     return text.replace("\\", r"\\").replace("{", r"\{").replace("}", r"\}")
 
 
-# split long cue text into two balanced lines using the ass line break
+# split long cue text into two balanced lines using the ASS line break
 def _wrap_two_lines(text: str, max_line_characters: int = 30) -> str:
     if len(text) <= max_line_characters:
         return _ass_escape(text)
@@ -154,7 +154,7 @@ def _wrap_two_lines(text: str, max_line_characters: int = 30) -> str:
     return f"{_ass_escape(left)}\\N{_ass_escape(right)}"
 
 
-# write cues into an ass file with a caption style that sits inside the bottom safe rail
+# write cues into an ASS file with a caption style that sits inside the bottom safe rail
 def write_ass(
     cues: list[tuple[float, float, str]],
     output: Path,
@@ -195,7 +195,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
     output.write_text(header + "\n".join(events) + "\n")
 
 
-# command line entry point that reads alignment json and writes an ass file
+# command line entry point that reads alignment json and writes an ASS file
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("alignment", type=Path, help="ElevenLabs response or generic words JSON")
