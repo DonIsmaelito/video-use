@@ -1,3 +1,7 @@
+# renders a filmstrip and waveform composite png for a time range of a video
+# frames come from ffmpeg the audio envelope is a windowed rms over a temp wav and transcript words and silences are drawn over the ribbon
+# meant as an on demand drill down at cut decisions rather than a bulk index
+
 """Filmstrip + waveform composite PNG for a time range of a video.
 
 The only visual drill-down tool. Given a video and a [start, end] range,
@@ -34,11 +38,13 @@ from PIL import Image, ImageDraw, ImageFont
 # -------- Frame extraction ---------------------------------------------------
 
 
+# grab n evenly spaced jpeg frames from the range with ffmpeg and return their paths in order
 def extract_frames(video: Path, start: float, end: float, n: int, dest_dir: Path) -> list[Path]:
     """Extract N frames evenly spaced across [start, end]. Returns paths in order."""
     dest_dir.mkdir(parents=True, exist_ok=True)
     if n < 1:
         n = 1
+    # a single frame sits at the midpoint otherwise spread frames so the first and last land on the range edges
     if n == 1:
         times = [(start + end) / 2.0]
     else:
@@ -65,6 +71,7 @@ def extract_frames(video: Path, start: float, end: float, n: int, dest_dir: Path
 # -------- Audio envelope (librosa if available, ffmpeg fallback) ------------
 
 
+# dump the audio range to a mono wav and turn it into a normalized rms envelope of fixed length
 def compute_envelope(video: Path, start: float, end: float, samples: int = 2000) -> np.ndarray:
     """Extract the audio segment and return an RMS envelope of length `samples`.
 
@@ -100,6 +107,7 @@ def compute_envelope(video: Path, start: float, end: float, samples: int = 2000)
         usable = (n // window) * window
         reshaped = pcm[:usable].reshape(-1, window)
         env = np.sqrt(np.mean(reshaped ** 2, axis=1))
+        # pad or trim so the envelope always has exactly samples entries
         if env.size < samples:
             env = np.pad(env, (0, samples - env.size))
         elif env.size > samples:
@@ -115,6 +123,7 @@ def compute_envelope(video: Path, start: float, end: float, samples: int = 2000)
 # -------- Transcript word overlays ------------------------------------------
 
 
+# return transcript word entries that overlap the requested range
 def words_in_range(transcript_path: Path, start: float, end: float) -> list[dict]:
     if not transcript_path.exists():
         return []
@@ -126,12 +135,14 @@ def words_in_range(transcript_path: Path, start: float, end: float) -> list[dict
         we = w.get("end")
         if ws is None or we is None:
             continue
+        # skip tokens that end before the range or begin after it
         if we <= start or ws >= end:
             continue
         out.append(w)
     return out
 
 
+# scan kept tokens for gaps of at least threshold seconds and return them as time pairs
 def find_silences(words: list[dict], start: float, end: float, threshold: float = 0.4) -> list[tuple[float, float]]:
     """Find gaps >= threshold seconds inside [start, end] between kept tokens."""
     gaps: list[tuple[float, float]] = []
@@ -143,6 +154,7 @@ def find_silences(words: list[dict], start: float, end: float, threshold: float 
         if ws - prev_end >= threshold:
             gaps.append((prev_end, ws))
         prev_end = max(prev_end, w.get("end", ws))
+    # also report a trailing gap between the last token and the range end
     if end - prev_end >= threshold:
         gaps.append((prev_end, end))
     return gaps
@@ -160,6 +172,7 @@ FONT_CANDIDATES = [
 ]
 
 
+# try the known monospace and system font paths and fall back to the pillow default
 def load_font(size: int) -> ImageFont.ImageFont:
     for fp in FONT_CANDIDATES:
         if Path(fp).exists():
@@ -181,6 +194,7 @@ SILENCE = (50, 80, 120, 120)  # muted blue, semi-transparent
 WAVE = (140, 180, 255)
 
 
+# draw the full composite of header filmstrip silence bands waveform word labels and time ruler then save it
 def render_timeline(
     video: Path,
     start: float,
@@ -235,6 +249,7 @@ def render_timeline(
         # Filmstrip
         x = 50
         strip_width = canvas_width - 100
+        # paste frames at full size when they fit otherwise scale the whole strip down to the canvas width
         if total_frame_w <= strip_width:
             cursor = 50
             for img in imgs:
@@ -256,6 +271,7 @@ def render_timeline(
         strip_x1 = 50 + draw_width
         strip_span = strip_x1 - strip_x0
 
+        # map a timestamp inside the range onto a pixel column of the strip
         def time_to_x(t: float) -> int:
             frac = (t - start) / max(1e-6, (end - start))
             return int(strip_x0 + frac * strip_span)
@@ -277,6 +293,7 @@ def render_timeline(
         max_amp = wave_h // 2 - 8
         points_top: list[tuple[int, int]] = []
         points_bot: list[tuple[int, int]] = []
+        # mirror the envelope above and below the midline to draw a symmetric waveform
         for i, v in enumerate(env):
             xi = strip_x0 + int(i * strip_span / max(1, len(env) - 1))
             a = int(v * max_amp)
@@ -299,6 +316,7 @@ def render_timeline(
             text = (w.get("text") or "").strip()
             if not text or ws is None or we is None:
                 continue
+            # skip very short words and labels that would land within 28 px of the previous one
             if (we - ws) < 0.05:
                 continue
             cx = (time_to_x(ws) + time_to_x(we)) // 2
@@ -330,6 +348,7 @@ def render_timeline(
         print(f"saved: {out_path}  ({out_path.stat().st_size // 1024} KB)")
 
 
+# cli entry point that validates the range resolves the transcript and output paths and renders the png
 def main() -> None:
     ap = argparse.ArgumentParser(description="Filmstrip + waveform composite for a video range")
     ap.add_argument("video", type=Path, nargs="?", help="Source video")
@@ -372,6 +391,7 @@ def main() -> None:
         if auto.exists():
             transcript = auto
 
+    # default the output into the verify folder under the edit directory with the range in the file name
     out_path = args.output
     if out_path is None:
         out_dir = video.parent / "edit" / "verify"

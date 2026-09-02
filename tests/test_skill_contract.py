@@ -1,3 +1,7 @@
+# tests that guard the public editing contract documented in skill md
+# they check that the numbered hard rules stay present and in order and that every referenced helper or reference path exists
+# the hard rules list is append only so new rules go at the end
+
 """Guard the public editing contract in SKILL.md.
 
 Two failure modes this protects against when several agents edit the file:
@@ -28,21 +32,28 @@ HARD_RULES = [
     "All session outputs in `<videos_dir>/edit/`.",
 ]
 
+# matches backticked paths under references helpers or skills
 PATH_PATTERN = re.compile(r"`((?:references|helpers|skills)/[A-Za-z0-9_./-]+)`")
 
 
+# slice out the body of the hard rules section up to the next second level heading
 def hard_rules_section(text: str) -> str:
+    # dotall plus multiline so the lazy group spans lines and the heading anchors match at line starts
     match = re.search(r"^## Hard Rules.*?$(.*?)^## ", text, re.S | re.M)
     assert match, "SKILL.md must contain a '## Hard Rules' section"
     return match.group(1)
 
 
+# test case that reads skill md once per test and checks its contract
 class SkillContractTests(unittest.TestCase):
+    # load the skill md text for each test
     def setUp(self) -> None:
         self.text = SKILL.read_text(encoding="utf-8")
 
+    # numbered bold rule titles must be consecutive and each expected rule must still sit at its index
     def test_hard_rules_are_present_in_order(self):
         section = hard_rules_section(self.text)
+        # capture the number and bold title of each numbered list item
         items = re.findall(r"^(\d+)\. \*\*(.+?)\*\*", section, re.M)
         numbers = [int(number) for number, _ in items]
         self.assertEqual(numbers, list(range(1, len(numbers) + 1)), "rules must be numbered consecutively")
@@ -50,6 +61,7 @@ class SkillContractTests(unittest.TestCase):
         for index, expected in enumerate(HARD_RULES):
             self.assertIn(expected, items[index][1], f"rule {index + 1} changed or moved")
 
+    # every backticked helper or reference path in skill md must exist on disk
     def test_referenced_paths_exist(self):
         missing = sorted(
             path
