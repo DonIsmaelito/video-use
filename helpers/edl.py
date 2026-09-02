@@ -1,3 +1,7 @@
+# validation and normalization for the public edl contract
+# it checks sources ranges caption provenance and deliverable targets before anything expensive runs
+# nothing here imports the renderer or the gui so remote workers can reuse it
+
 """Validation and normalization for the public video-use EDL contract.
 
 This module deliberately has no renderer or GUI dependencies. Local tools,
@@ -15,6 +19,7 @@ from pathlib import Path
 from typing import Any
 
 
+# error type raised when an edl cannot be rendered deterministically
 class EDLValidationError(ValueError):
     """Raised when an EDL cannot produce a deterministic video output."""
 
@@ -28,11 +33,13 @@ _CAPTION_PROVENANCE_KINDS = {
 }
 
 
+# resolve a path relative to the edit directory unless it is already absolute
 def _resolve_path(value: str, edit_dir: Path) -> Path:
     path = Path(value).expanduser()
     return path.resolve() if path.is_absolute() else (edit_dir / path).resolve()
 
 
+# coerce a value to float and raise a validation error with the field label on failure
 def _number(value: Any, label: str) -> float:
     try:
         result = float(value)
@@ -41,6 +48,7 @@ def _number(value: Any, label: str) -> float:
     return result
 
 
+# check whether transcript or alignment json contains at least one word with valid timing
 def _has_timed_speech(payload: Any) -> bool:
     """Return whether JSON evidence contains at least one timestamped word."""
 
@@ -60,6 +68,7 @@ def _has_timed_speech(payload: Any) -> bool:
             if text and end > start >= 0:
                 return True
 
+    # fall back to elevenlabs character alignment when no words array has timing
     for key in ("normalized_alignment", "alignment"):
         alignment = payload.get(key)
         if not isinstance(alignment, dict):
@@ -84,6 +93,7 @@ def _has_timed_speech(payload: Any) -> bool:
     return False
 
 
+# collect problems with the captions block such as missing provenance or evidence without spoken words
 def _caption_contract_problems(
     edl: dict[str, Any],
     edit_dir: Path,
@@ -137,6 +147,7 @@ def _caption_contract_problems(
         if evidence_path.suffix.casefold() != ".json":
             problems.append(f"{label} must reference timestamped JSON evidence")
             continue
+        # the rendered subtitle file cannot vouch for itself
         if subtitle_path is not None and evidence_path == subtitle_path:
             problems.append(f"{label} cannot reuse the rendered subtitle file as evidence")
             continue
@@ -160,9 +171,11 @@ def _caption_contract_problems(
     return problems
 
 
+# read width and height from explicit fields or a resolution string and enforce even sizes
 def _dimensions(item: dict[str, Any], label: str) -> tuple[int, int]:
     width = item.get("width")
     height = item.get("height")
+    # accept a resolution string such as 1080x1920 when explicit fields are missing
     if width is None or height is None:
         match = _RESOLUTION.fullmatch(str(item.get("resolution") or ""))
         if match:
@@ -180,6 +193,7 @@ def _dimensions(item: dict[str, Any], label: str) -> tuple[int, int]:
     return width_i, height_i
 
 
+# parse an fps value into a canonical ffmpeg rational string
 def _frame_rate(value: Any, label: str) -> str:
     text = str(value)
     try:
@@ -191,6 +205,7 @@ def _frame_rate(value: Any, label: str) -> str:
     return f"{rate.numerator}/{rate.denominator}"
 
 
+# read loudness targets from several accepted aliases and validate their ranges
 def _loudness(item: dict[str, Any], label: str) -> dict[str, float]:
     raw = item.get("loudness")
     audio = item.get("audio") if isinstance(item.get("audio"), dict) else {}
@@ -228,14 +243,17 @@ def _loudness(item: dict[str, Any], label: str) -> dict[str, float]:
     }
 
 
+# resolve the reframe settings for one deliverable from its own block or the shared edl block
 def _reframe_for(edl: dict[str, Any], item: dict[str, Any], deliverable_id: str) -> dict[str, Any]:
     raw = item.get("reframe")
     if raw is None:
+        # a shared reframe block without a mode is keyed by deliverable id
         shared = edl.get("reframe")
         if isinstance(shared, dict) and "mode" not in shared:
             raw = shared.get(deliverable_id)
         else:
             raw = shared
+    # a reframe_track alias on the deliverable selects a named track
     if raw is not None and item.get("reframe_track"):
         raw = copy.deepcopy(raw)
         if isinstance(raw, dict):
@@ -247,6 +265,7 @@ def _reframe_for(edl: dict[str, Any], item: dict[str, Any], deliverable_id: str)
     if not isinstance(raw, dict):
         raise EDLValidationError(f"deliverable '{deliverable_id}' reframe must be an object")
     result = copy.deepcopy(raw)
+    # map legacy mode and asset aliases onto the canonical names
     mode = str(result.get("mode") or result.get("strategy") or "cover").casefold()
     if mode == "center":
         mode = "cover"
@@ -276,6 +295,7 @@ def _reframe_for(edl: dict[str, Any], item: dict[str, Any], deliverable_id: str)
     return result
 
 
+# turn the deliverables list or object into validated entries with canonical fields and output paths
 def normalize_deliverables(
     edl: dict[str, Any],
     edit_dir: Path,
@@ -338,6 +358,7 @@ def normalize_deliverables(
         if sample_rate != 48_000:
             raise EDLValidationError(f"{label} currently supports only 48000 Hz audio")
         declared_file = str(item.get("file") or f"deliverables/{deliverable_id}.mp4")
+        # an output directory override replaces the declared file name
         output_path = (
             (output_dir / f"{deliverable_id}.mp4").resolve()
             if output_dir is not None
@@ -363,6 +384,7 @@ def normalize_deliverables(
     return normalized
 
 
+# load just enough of a track reference to tell whether the named track has keyframes
 def _track_keyframes(reframe: dict[str, Any], edit_dir: Path) -> list[Any] | None:
     """Read enough of a track reference to reject missing or empty named tracks."""
     raw = reframe.get("keyframes")
@@ -375,6 +397,7 @@ def _track_keyframes(reframe: dict[str, Any], edit_dir: Path) -> list[Any] | Non
         return None
     track_path = _resolve_path(track_value, edit_dir)
     payload = json.loads(track_path.read_text(encoding="utf-8"))
+    # named track files need a track_id to pick one track
     if isinstance(payload, dict) and isinstance(payload.get("tracks"), dict):
         track_id = reframe.get("track_id")
         return payload["tracks"].get(str(track_id)) if track_id else None
@@ -385,6 +408,7 @@ def _track_keyframes(reframe: dict[str, Any], edit_dir: Path) -> list[Any] | Non
     return raw if isinstance(raw, list) else None
 
 
+# run every structural check on an edl and raise one error listing all problems
 def validate_edl(
     edl: dict[str, Any],
     edit_dir: Path,
@@ -405,6 +429,7 @@ def validate_edl(
         version = 0
     if version < 1:
         problems.append("version must be a positive integer")
+    # version two and newer enforce caption provenance unless the caller overrides
     strict_captions = (
         version >= 2
         if require_caption_provenance is None
@@ -466,6 +491,7 @@ def validate_edl(
         for deliverable in deliverables:
             reframe = deliverable["reframe"]
             track_value = reframe.get("track_file") or reframe.get("track")
+            # tracked deliverables must point at readable non empty keyframes
             if check_files and reframe["mode"] == "track":
                 if isinstance(track_value, str) and not _resolve_path(
                     track_value, edit_dir

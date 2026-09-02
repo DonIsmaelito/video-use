@@ -1,3 +1,7 @@
+# the ffmpeg render pipeline that turns an edl into finished video files
+# it extracts graded segments and concatenates them and then composites overlays and subtitles and normalizes loudness
+# it also handles per deliverable reframing and the overlay preflight contact sheet and the command line entry point
+
 """Render a video from an EDL.
 
 Implements the HEURISTICS render pipeline in the correct order:
@@ -43,9 +47,11 @@ from edl import EDLValidationError, normalize_deliverables, validate_edl
 try:
     from grade import get_preset, auto_grade_for_clip  # same directory
 except Exception:
+    # fallback preset lookup that returns no grade when the grade module is unavailable
     def get_preset(name: str) -> str:
         return ""
 
+    # fallback auto grade that returns a mild fixed correction when the grade module is unavailable
     def auto_grade_for_clip(video, start=0.0, duration=None, verbose=False):  # type: ignore
         return "eq=contrast=1.03:saturation=0.98", {}
 
@@ -70,12 +76,14 @@ SUB_FORCE_STYLE = (
 # -------- Helpers ------------------------------------------------------------
 
 
+# run a command with check and print an abbreviated version unless quiet
 def run(cmd: list[str], quiet: bool = False) -> None:
     if not quiet:
         print(f"  $ {' '.join(str(c) for c in cmd[:6])}{' …' if len(cmd) > 6 else ''}")
     subprocess.run(cmd, check=True)
 
 
+# turn the edl grade field into a filter string or the auto sentinel
 def resolve_grade_filter(grade_field: str | None) -> str:
     """The EDL's 'grade' field can be a preset name, a raw ffmpeg filter, or 'auto'.
 
@@ -96,6 +104,7 @@ def resolve_grade_filter(grade_field: str | None) -> str:
     return grade_field
 
 
+# resolve a path relative to base unless it is already absolute
 def resolve_path(maybe_path: str, base: Path) -> Path:
     """Resolve a path that may be absolute or relative to `base`."""
     p = Path(maybe_path)
@@ -104,6 +113,7 @@ def resolve_path(maybe_path: str, base: Path) -> Path:
     return (base / p).resolve()
 
 
+# ask ffprobe for the width and height of the first video stream
 def probe_video_size(video: Path) -> tuple[int, int]:
     """Return the first video stream's display size as ``(width, height)``."""
     try:
@@ -124,6 +134,7 @@ def probe_video_size(video: Path) -> tuple[int, int]:
         raise ValueError(f"could not probe video size: {video}") from exc
 
 
+# find an ffmpeg binary whose filter list includes subtitles so libass is available
 def ffmpeg_with_subtitles() -> str:
     """Find an ffmpeg build with libass, including Homebrew's keg-only build."""
     candidates = [
@@ -131,12 +142,14 @@ def ffmpeg_with_subtitles() -> str:
         "/opt/homebrew/opt/ffmpeg-full/bin/ffmpeg",
         "/usr/local/opt/ffmpeg-full/bin/ffmpeg",
     ]
+    # dedupe candidates while preserving order and skip empty entries
     for candidate in dict.fromkeys(item for item in candidates if item):
         probe = subprocess.run(
             [str(candidate), "-hide_banner", "-filters"],
             capture_output=True,
             text=True,
         )
+        # the filters listing names subtitles only when libass is compiled in
         if re.search(r"\bsubtitles\b", probe.stdout + probe.stderr):
             return str(candidate)
     raise RuntimeError(
@@ -170,6 +183,7 @@ TONEMAP_CHAIN = (
 )
 
 
+# detect pq or hlg transfer metadata on the first video stream
 def is_hdr_source(video: Path) -> bool:
     """Return True if the source uses a PQ or HLG transfer function."""
     try:
@@ -184,6 +198,7 @@ def is_hdr_source(video: Path) -> bool:
         return False
 
 
+# report whether the first video stream is taller than it is wide
 def is_portrait_source(video: Path) -> bool:
     """Return True if the displayed video is portrait, including rotation."""
     try:
@@ -224,6 +239,7 @@ def is_portrait_source(video: Path) -> bool:
         return False
 
 
+# validate an fps argument and return it as a reduced rational string
 def parse_fps(value: str) -> str:
     """Validate and canonicalize an ffmpeg frame rate."""
     text = value.strip()
@@ -250,6 +266,7 @@ def parse_fps(value: str) -> str:
     return f"{rate.numerator}/{rate.denominator}"
 
 
+# read the source frame rate from ffprobe preferring the average rate
 def probe_source_fps(video: Path) -> str | None:
     """Return an ffmpeg-ready source rate, preferring the average frame rate.
 
@@ -268,6 +285,7 @@ def probe_source_fps(video: Path) -> str | None:
         streams = json.loads(out.stdout).get("streams") or []
         if not streams:
             return None
+        # take the first usable rate and skip zero or unparsable values
         for field in ("avg_frame_rate", "r_frame_rate"):
             value = streams[0].get(field)
             if value and value != "0/0":
@@ -283,6 +301,7 @@ def probe_source_fps(video: Path) -> str | None:
 # -------- Per-segment extraction (Rule 2 + Rule 3) --------------------------
 
 
+# encode one edl range as its own mp4 with tone mapping scaling grade and audio fades applied
 def extract_segment(
     source: Path,
     seg_start: float,
@@ -305,12 +324,14 @@ def extract_segment(
     """
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
+    # scale by height for portrait sources so orientation is preserved
     portrait = is_portrait_source(source)
     if draft:
         scale = "scale=-2:1280" if portrait else "scale=1280:-2"
     else:
         scale = "scale=-2:1920" if portrait else "scale=1920:-2"
 
+    # tone map hdr first then scale then grade
     vf_parts: list[str] = []
     if is_hdr_source(source):
         vf_parts.append(TONEMAP_CHAIN)
@@ -352,6 +373,7 @@ def extract_segment(
     subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
 
 
+# extract every edl range into graded segment files sharing one output frame rate
 def extract_all_segments(
     edl: dict,
     edit_dir: Path,
@@ -420,10 +442,12 @@ def extract_all_segments(
 # -------- Lossless concat ----------------------------------------------------
 
 
+# join segment files losslessly with the concat demuxer
 def concat_segments(segment_paths: list[Path], out_path: Path, edit_dir: Path) -> None:
     """Lossless concat via the concat demuxer. No re-encode."""
     out_path.parent.mkdir(parents=True, exist_ok=True)
     concat_list = edit_dir / "_concat.txt"
+    # the concat demuxer reads a text file listing each segment path
     concat_list.write_text("".join(f"file '{p.resolve()}'\n" for p in segment_paths))
 
     cmd = [
@@ -445,6 +469,7 @@ def concat_segments(segment_paths: list[Path], out_path: Path, edit_dir: Path) -
 PUNCT_BREAK = set(".,!?;:")
 
 
+# format seconds as an srt timestamp with millisecond precision
 def _srt_timestamp(seconds: float) -> str:
     total_ms = int(round(seconds * 1000))
     h, rem = divmod(total_ms, 3600_000)
@@ -453,6 +478,7 @@ def _srt_timestamp(seconds: float) -> str:
     return f"{h:02d}:{m:02d}:{s:02d},{ms:03d}"
 
 
+# return transcript words that overlap the given source time range
 def _words_in_range(transcript: dict, t_start: float, t_end: float) -> list[dict]:
     out: list[dict] = []
     for w in transcript.get("words", []):
@@ -462,12 +488,14 @@ def _words_in_range(transcript: dict, t_start: float, t_end: float) -> list[dict
         we = w.get("end")
         if ws is None or we is None:
             continue
+        # keep only words that overlap the range
         if we <= t_start or ws >= t_end:
             continue
         out.append(w)
     return out
 
 
+# build an output timeline srt from per source transcripts using two word uppercase chunks
 def build_master_srt(edl: dict, edit_dir: Path, out_path: Path) -> None:
     """Build an output-timeline SRT from per-source transcripts.
 
@@ -513,6 +541,7 @@ def build_master_srt(edl: dict, edit_dir: Path, out_path: Path) -> None:
             chunks.append(current)
 
         for chunk in chunks:
+            # clamp chunk times to the segment then shift them onto the output timeline
             local_start = max(seg_start, chunk[0].get("start", seg_start))
             local_end = min(seg_end, chunk[-1].get("end", seg_end))
             out_start = max(0.0, local_start - seg_start) + seg_offset
@@ -550,6 +579,7 @@ LOUDNORM_TP = -1.0
 LOUDNORM_LRA = 11.0
 
 
+# run the loudnorm first pass and parse its json measurement from stderr
 def measure_loudness(
     video_path: Path,
     integrated_lufs: float = LOUDNORM_I,
@@ -583,12 +613,14 @@ def measure_loudness(
         data = json.loads(stderr[start : end + 1])
     except json.JSONDecodeError:
         return None
+    # require every measured field the second pass needs
     needed = {"input_i", "input_tp", "input_lra", "input_thresh", "target_offset"}
     if not needed.issubset(data.keys()):
         return None
     return data
 
 
+# normalize audio with two pass loudnorm or a one pass approximation in preview mode
 def apply_loudnorm_two_pass(
     input_path: Path,
     output_path: Path,
@@ -631,6 +663,7 @@ def apply_loudnorm_two_pass(
         true_peak_dbtp=true_peak_dbtp,
         lra=lra,
     )
+    # fall back to the one pass filter when measurement did not produce json
     if measurement is None:
         print("  loudnorm measurement failed — falling back to 1-pass")
         return apply_loudnorm_two_pass(
@@ -645,6 +678,7 @@ def apply_loudnorm_two_pass(
     print(f"    measured: I={measurement['input_i']} LUFS  "
           f"TP={measurement['input_tp']}  LRA={measurement['input_lra']}")
 
+    # feed the measured values back so the second pass applies a linear gain
     filter_str = (
         f"loudnorm=I={integrated_lufs}:TP={true_peak_dbtp}:LRA={lra}"
         f":measured_I={measurement['input_i']}"
@@ -671,6 +705,7 @@ def apply_loudnorm_two_pass(
 # -------- Per-deliverable reframing -----------------------------------------
 
 
+# load and validate subject center keyframes from inline data or a json track file
 def _load_track_keyframes(reframe: dict, edit_dir: Path) -> list[dict]:
     """Load normalized subject-center keyframes from inline data or JSON."""
     raw = reframe.get("keyframes")
@@ -685,6 +720,7 @@ def _load_track_keyframes(reframe: dict, edit_dir: Path) -> list[dict]:
             payload = json.loads(track_path.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError) as exc:
             raise ValueError(f"could not read tracked reframe data: {track_path}") from exc
+        # a file with named tracks needs a track_id to pick one
         if isinstance(payload, dict) and isinstance(payload.get("tracks"), dict):
             track_id = reframe.get("track_id")
             if not track_id:
@@ -706,6 +742,7 @@ def _load_track_keyframes(reframe: dict, edit_dir: Path) -> list[dict]:
             raise ValueError(f"tracked reframe keyframe {index} must be an object")
         try:
             timestamp = float(item.get("time", item.get("t")))
+            # accept a center pair or a subject box or separate center fields
             center = item.get("center")
             box = item.get("subject_box") or item.get("box")
             if isinstance(center, (list, tuple)) and len(center) == 2:
@@ -722,6 +759,7 @@ def _load_track_keyframes(reframe: dict, edit_dir: Path) -> list[dict]:
             raise ValueError(
                 f"tracked reframe keyframe {index} requires numeric time, center_x, and center_y"
             ) from exc
+        # keyframes must be strictly increasing so the piecewise expression is well defined
         if timestamp < 0 or timestamp <= previous_time:
             raise ValueError("tracked reframe keyframe times must be non-negative and increasing")
         if not 0.0 <= center_x <= 1.0 or not 0.0 <= center_y <= 1.0:
@@ -731,6 +769,7 @@ def _load_track_keyframes(reframe: dict, edit_dir: Path) -> list[dict]:
     return keyframes
 
 
+# build a nested if expression that interpolates one center coordinate over time
 def _piecewise_track_expression(
     keyframes: list[dict],
     coordinate: str,
@@ -748,7 +787,9 @@ def _piecewise_track_expression(
         end = float(second["time"])
         first_value = float(first[coordinate])
         delta = float(second[coordinate]) - first_value
+        # progress runs from 0 to 1 across this keyframe pair and is clamped outside it
         progress = f"max(0,min(1,(t-{start:.8f})/{end - start:.8f}))"
+        # smoothstep easing for smooth and a frozen start value for hold
         if interpolation == "smooth":
             progress = f"({progress})*({progress})*(3-2*({progress}))"
         elif interpolation == "hold":
@@ -757,12 +798,14 @@ def _piecewise_track_expression(
             raise ValueError("track interpolation must be linear, smooth, or hold")
         segment_expression = f"{first_value:.8f}+({delta:.8f})*({progress})"
         expressions.append((end, segment_expression))
+    # nest the segments from last to first so each if guards its own end time
     result = f"{float(keyframes[-1][coordinate]):.8f}"
     for end, interpolation in reversed(expressions):
         result = f"if(lt(t,{end:.8f}),{interpolation},{result})"
     return result
 
 
+# crop or letterbox the base into one deliverable aspect ratio while keeping its audio
 def build_reframed_base(
     base_path: Path,
     output_path: Path,
@@ -784,6 +827,7 @@ def build_reframed_base(
     """
     source_width, source_height = probe_video_size(base_path)
     mode = str(reframe.get("mode") or "cover")
+    # contain scales to fit then pads to the target size with a background color
     if mode == "contain":
         background = str(reframe.get("background") or "black").replace("'", "")
         video_filter = (
@@ -792,6 +836,7 @@ def build_reframed_base(
             f"setsar=1,fps={fps}"
         )
     else:
+        # pick the largest even crop that matches the target ratio inside the source
         source_ratio = source_width / source_height
         target_ratio = width / height
         if source_ratio > target_ratio:
@@ -810,6 +855,7 @@ def build_reframed_base(
             center_y = _piecewise_track_expression(
                 keyframes, "center_y", interpolation
             )
+            # center the crop on the tracked point and clamp so it stays inside the frame
             crop_x = f"max(0,min(iw-ow,({center_x})*iw-ow/2))"
             crop_y = f"max(0,min(ih-oh,({center_y})*ih-oh/2))"
         elif mode == "cover":
@@ -875,6 +921,7 @@ COMPOSITION_LAYOUTS = {
 }
 
 
+# validate a rectangle given as fractions of the output frame
 def _normalized_rect(value: dict, label: str) -> dict[str, float]:
     """Validate an EDL rectangle expressed as fractions of the output frame."""
     try:
@@ -884,6 +931,7 @@ def _normalized_rect(value: dict, label: str) -> dict[str, float]:
             f"{label} must contain numeric x, y, width, and height values"
         ) from exc
 
+    # reject rects with a negative origin or non positive size or that spill past the frame edge
     if rect["x"] < 0 or rect["y"] < 0 or rect["width"] <= 0 or rect["height"] <= 0:
         raise ValueError(f"{label} must use non-negative x/y and positive width/height")
     if rect["x"] + rect["width"] > 1.000001 or rect["y"] + rect["height"] > 1.000001:
@@ -891,7 +939,9 @@ def _normalized_rect(value: dict, label: str) -> dict[str, float]:
     return rect
 
 
+# report whether two normalized rectangles overlap in space
 def _rects_intersect(a: dict[str, float], b: dict[str, float]) -> bool:
+    # two rects miss when one is entirely left right above or below the other
     return not (
         a["x"] + a["width"] <= b["x"]
         or b["x"] + b["width"] <= a["x"]
@@ -900,6 +950,7 @@ def _rects_intersect(a: dict[str, float], b: dict[str, float]) -> bool:
     )
 
 
+# report whether two half open time ranges overlap
 def _time_ranges_intersect(
     first_start: float,
     first_end: float,
@@ -909,6 +960,7 @@ def _time_ranges_intersect(
     return first_start < second_end and second_start < first_end
 
 
+# read and validate the output timeline start and end of an overlay
 def overlay_time_range(overlay: dict) -> tuple[float, float]:
     try:
         start = float(overlay["start_in_output"])
@@ -920,6 +972,7 @@ def overlay_time_range(overlay: dict) -> tuple[float, float]:
     return start, start + duration
 
 
+# resolve an overlay layout or rect into a normalized rectangle that stays clear of the caption rail
 def resolve_overlay_rect(
     overlay: dict,
     has_subtitles: bool,
@@ -934,6 +987,7 @@ def resolve_overlay_rect(
     composition = overlay.get("composition")
     layout = overlay.get("layout")
     custom = overlay.get("rect")
+    # a composition name fixes the layout so conflicting layout or rect values are rejected
     if composition is not None:
         allowed = {*COMPOSITION_LAYOUTS, "picture_in_picture"}
         if composition not in allowed:
@@ -979,6 +1033,7 @@ def resolve_overlay_rect(
             if caption_region["x"] == 0.0 and caption_region["width"] == 1.0:
                 rect["height"] = min(rect["height"], caption_region["y"])
 
+    # any remaining overlap with the caption rail is a hard error
     if caption_region and _rects_intersect(rect, caption_region):
         raise ValueError(
             "overlay rectangle intersects captions.safe_region; move or resize the "
@@ -987,6 +1042,7 @@ def resolve_overlay_rect(
     return rect
 
 
+# reject overlays that collide with each other or protected regions and check web asset provenance
 def validate_overlay_contracts(
     overlays: list[dict],
     protected_regions: list[dict] | None,
@@ -1003,6 +1059,7 @@ def validate_overlay_contracts(
         rect = resolve_overlay_rect(overlay, has_subtitles, caption_config)
         resolved.append((overlay, rect, start, end))
 
+        # web overlays must carry provenance and may only repeat via reuse_of
         if overlay.get("media_kind") == "web":
             required = ("source_url", "source_start", "source_end", "asset_id")
             missing = [field for field in required if overlay.get(field) in (None, "")]
@@ -1028,6 +1085,7 @@ def validate_overlay_contracts(
             else:
                 seen_web_assets[asset_id] = overlay
 
+    # protected illustration regions only conflict with overlays active in the same interval and cutaways are exempt
     for region_index, region in enumerate(protected_regions):
         label = str(region.get("owner") or region.get("id") or region_index)
         try:
@@ -1052,6 +1110,7 @@ def validate_overlay_contracts(
                     "during the same output interval; use a cutaway or move the overlay"
                 )
 
+    # overlays that share space and time are rejected unless one allows overlap
     for index, (first, first_rect, first_start, first_end) in enumerate(resolved):
         if first_rect is None or first.get("allow_overlap"):
             continue
@@ -1068,6 +1127,7 @@ def validate_overlay_contracts(
                 )
 
 
+# convert a normalized value to an even pixel count clamped within bounds
 def _even_pixel(value: float, maximum: int, *, minimum: int = 0) -> int:
     """Convert a normalized coordinate/size to an even pixel value for yuv420p."""
     pixels = int(round(value * maximum))
@@ -1077,6 +1137,7 @@ def _even_pixel(value: float, maximum: int, *, minimum: int = 0) -> int:
     return max(minimum, pixels)
 
 
+# composite overlays onto the base and burn subtitles last in one ffmpeg filter graph
 def build_final_composite(
     base_path: Path,
     overlays: list[dict],
@@ -1112,6 +1173,7 @@ def build_final_composite(
     for idx, ov in enumerate(overlays, start=1):
         t = float(ov["start_in_output"])
         rect = resolve_overlay_rect(ov, has_subs, caption_config)
+        # legacy overlays without a layout fill the whole frame
         if rect is None:
             filter_parts.append(
                 f"[{idx}:v]scale={base_width}:{base_height}:"
@@ -1123,6 +1185,7 @@ def build_final_composite(
 
         width = _even_pixel(rect["width"], base_width, minimum=2)
         height = _even_pixel(rect["height"], base_height, minimum=2)
+        # cover fills the rect by cropping and contain letterboxes with a background
         fit = ov.get("fit", "cover")
         if fit == "cover":
             geometry = (
@@ -1155,6 +1218,7 @@ def build_final_composite(
             x = _even_pixel(rect["x"], base_width)
             y = _even_pixel(rect["y"], base_height)
             position = f"x={x}:y={y}"
+        # enable limits the overlay to its output window even though the input is pts shifted
         filter_parts.append(
             f"{current}[a{idx}]overlay={position}:enable="
             f"'between(t,{t:.3f},{end:.3f})'{next_label}"
@@ -1163,7 +1227,9 @@ def build_final_composite(
 
     # Subtitles LAST — Rule 1
     if has_subs:
+        # escape colons and quotes so the path survives filter option parsing
         subs_abs = str(subtitles_path.resolve()).replace(":", r"\:").replace("'", r"\'")
+        # ass files carry their own style while srt gets the forced style
         if subtitles_path.suffix.lower() == ".ass":
             filter_parts.append(f"{current}subtitles='{subs_abs}'[outv]")
         else:
@@ -1199,8 +1265,10 @@ def build_final_composite(
     subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
 
 
+# grab one frame from a video or normalize a still image for the preflight sheet
 def _extract_review_frame(media: Path, timestamp: float, output: Path) -> None:
     """Extract one video frame, or normalize a still image, for preflight."""
+    # still images are converted directly instead of going through ffmpeg
     if media.suffix.casefold() in {".png", ".jpg", ".jpeg", ".webp", ".tif", ".tiff"}:
         from PIL import Image
 
@@ -1224,6 +1292,7 @@ def _extract_review_frame(media: Path, timestamp: float, output: Path) -> None:
     subprocess.run(command, check=True)
 
 
+# draw an entry middle and exit contact sheet for every overlay without rendering the video
 def build_overlay_preflight(
     base_path: Path,
     overlays: list[dict],
@@ -1271,6 +1340,7 @@ def build_overlay_preflight(
         for row, overlay in enumerate(overlays):
             start, end = overlay_time_range(overlay)
             duration = end - start
+            # sample just inside each edge and at the middle of the overlay window
             inset = min(0.10, duration / 4)
             local_samples = (inset, duration / 2, max(inset, duration - inset))
             rect = resolve_overlay_rect(overlay, has_subtitles, caption_config)
@@ -1298,6 +1368,7 @@ def build_overlay_preflight(
                 y = int(round(rect["y"] * cell_height))
                 width = max(1, int(round(rect["width"] * cell_width)))
                 height = max(1, int(round(rect["height"] * cell_height)))
+                # mirror the contain and cover math from the final composite
                 if overlay.get("fit", "cover") == "contain":
                     background = Image.new(
                         "RGBA", (width, height), str(overlay.get("background", "#050914"))
@@ -1318,6 +1389,7 @@ def build_overlay_preflight(
 
                 draw = ImageDraw.Draw(frame, "RGBA")
                 draw.rectangle((x, y, x + width - 1, y + height - 1), outline="#48E0A4", width=3)
+                # tint the caption rail and outline protected regions that are active at this time
                 if caption_region is not None:
                     cx = int(round(caption_region["x"] * cell_width))
                     cy = int(round(caption_region["y"] * cell_height))
@@ -1359,6 +1431,7 @@ def build_overlay_preflight(
 # -------- Main ---------------------------------------------------------------
 
 
+# reframe composite and normalize one output or deliverable and clean up intermediates
 def render_one_output(
     *,
     base_path: Path,
@@ -1381,6 +1454,7 @@ def render_one_output(
         "lra": LOUDNORM_LRA,
     }
     overlays = edl.get("overlays") or []
+    # a deliverable gets a reframed base and its own loudness and optional overlay list
     if deliverable is not None:
         reframed_path = out_path.with_suffix(".reframed.mp4")
         build_reframed_base(
@@ -1399,6 +1473,7 @@ def render_one_output(
         if "overlays" in deliverable:
             overlays = deliverable.get("overlays") or []
 
+    # the prenorm composite and reframed base are removed even when a step fails
     try:
         if no_loudnorm:
             build_final_composite(
@@ -1447,6 +1522,7 @@ def render_one_output(
     print(f"done:{label} {out_path} ({size_mb:.1f} MB)")
 
 
+# command line entry point that validates the edl and runs the full pipeline
 def main() -> None:
     ap = argparse.ArgumentParser(description="Render a video from an EDL")
     ap.add_argument("edl", type=Path, help="Path to edl.json")
@@ -1528,6 +1604,7 @@ def main() -> None:
         deliverables = normalize_deliverables(edl, edit_dir, output_dir=output_dir)
     except EDLValidationError as exc:
         sys.exit(str(exc))
+    # cross check the output selectors before any media work starts
     if args.output_dir and not (args.all_deliverables or args.deliverable):
         ap.error("--output-dir requires --deliverable or --all-deliverables")
     if args.all_deliverables and not deliverables:
@@ -1552,6 +1629,7 @@ def main() -> None:
     out_path = args.output.resolve() if args.output else None
     overlays = edl.get("overlays") or []
 
+    # a preflight base skips extraction and concat and only draws the contact sheet
     if args.preflight_base is not None:
         if not args.preflight_overlays:
             ap.error("--preflight-base requires --preflight-overlays")
@@ -1599,6 +1677,7 @@ def main() -> None:
                 print(f"warning: subtitles path in EDL does not exist: {subs_path}")
                 subs_path = None
 
+    # preflight after concat uses the freshly built base
     if args.preflight_overlays:
         if out_path is None:
             ap.error("overlay preflight requires -o/--output")
@@ -1616,6 +1695,7 @@ def main() -> None:
     # 4. Reframe each delivery, composite overlays/subtitles LAST, then loudnorm.
     if selected_deliverables:
         for deliverable in selected_deliverables:
+            # a single selected deliverable may be redirected with the output flag
             delivery_output = (
                 out_path
                 if len(selected_deliverables) == 1 and out_path is not None

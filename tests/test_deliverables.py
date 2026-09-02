@@ -1,3 +1,6 @@
+# tests for deliverable normalization and the reframing and loudness parts of the renderer
+# they check alias handling tracked reframe validation and the ffmpeg commands built for deliveries
+
 import json
 import subprocess
 from pathlib import Path
@@ -9,6 +12,7 @@ from helpers.edl import EDLValidationError, normalize_deliverables, validate_edl
 from helpers import render
 
 
+# build a minimal version one edl pointing at the given source path
 def _ready_edl(source: Path) -> dict:
     return {
         "version": 1,
@@ -17,6 +21,7 @@ def _ready_edl(source: Path) -> dict:
     }
 
 
+# a blocked edl reports every problem at once before any render
 def test_blocked_edl_is_rejected_before_render(tmp_path: Path) -> None:
     edl = {
         "status": "blocked_missing_source_media",
@@ -38,6 +43,7 @@ def test_blocked_edl_is_rejected_before_render(tmp_path: Path) -> None:
     assert "at least one playable edit range" in message
 
 
+# agent style aliases for mode tracking asset and loudness normalize to the public names
 def test_agent_authored_delivery_aliases_normalize_to_public_contract(
     tmp_path: Path,
 ) -> None:
@@ -97,6 +103,7 @@ def test_agent_authored_delivery_aliases_normalize_to_public_contract(
     }
 
 
+# track mode without keyframes or a track file is rejected
 def test_tracked_delivery_without_tracking_data_is_rejected(tmp_path: Path) -> None:
     source = tmp_path / "source.mp4"
     source.write_bytes(b"video")
@@ -115,6 +122,7 @@ def test_tracked_delivery_without_tracking_data_is_rejected(tmp_path: Path) -> N
         validate_edl(edl, tmp_path)
 
 
+# a named track that exists but is empty is rejected
 def test_empty_named_track_is_rejected_before_render(tmp_path: Path) -> None:
     source = tmp_path / "source.mp4"
     source.write_bytes(b"video")
@@ -138,6 +146,7 @@ def test_empty_named_track_is_rejected_before_render(tmp_path: Path) -> None:
         validate_edl(edl, tmp_path)
 
 
+# subject boxes in a named track are converted to center points
 def test_named_track_supports_subject_boxes(tmp_path: Path) -> None:
     track = tmp_path / "track.json"
     track.write_text(
@@ -172,6 +181,7 @@ def test_named_track_supports_subject_boxes(tmp_path: Path) -> None:
     ]
 
 
+# a codec other than h264 raises instead of being silently replaced
 def test_unsupported_delivery_codec_is_rejected_instead_of_ignored(
     tmp_path: Path,
 ) -> None:
@@ -193,6 +203,7 @@ def test_unsupported_delivery_codec_is_rejected_instead_of_ignored(
         validate_edl(edl, tmp_path)
 
 
+# the reframe command crops to the target ratio and uses a time based expression and the requested fps
 def test_reframe_command_uses_dynamic_track_and_requested_format(tmp_path: Path) -> None:
     output = tmp_path / "vertical.mp4"
     completed = subprocess.CompletedProcess([], 0, stdout="", stderr="")
@@ -224,6 +235,7 @@ def test_reframe_command_uses_dynamic_track_and_requested_format(tmp_path: Path)
     assert "fps=30/1" in video_filter
 
 
+# smooth interpolation produces a smoothstep expression with per segment guards
 def test_smooth_tracking_uses_eased_interpolation() -> None:
     expression = render._piecewise_track_expression(
         [
@@ -238,6 +250,7 @@ def test_smooth_tracking_uses_eased_interpolation() -> None:
     assert "if(lt(t,2.00000000)" in expression
 
 
+# the per delivery loudness targets reach both the measurement and the second pass filter
 def test_loudnorm_passes_per_delivery_targets_to_measurement(tmp_path: Path) -> None:
     measurement = {
         "input_i": "-20.0",

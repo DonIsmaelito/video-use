@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# build caption safe ass subtitle files from word timestamps or elevenlabs character alignment
+# it groups words into short readable cues and writes them into a bottom rail that matches the edl safe region
+# the command line entry point reads an alignment json file and writes one ass file
+
 """Turn word or ElevenLabs character timestamps into caption-safe ASS subtitles.
 
 The generated captions sit inside a dedicated bottom rail. Use the same rail in
@@ -19,6 +23,7 @@ from pathlib import Path
 PUNCTUATION_BREAKS = ".?!;:"
 
 
+# normalize one raw word entry into text start and end and drop entries without usable timing
 def _as_word(item: dict) -> dict[str, float | str] | None:
     text = str(item.get("text") or item.get("word") or "").strip()
     if not text:
@@ -33,6 +38,7 @@ def _as_word(item: dict) -> dict[str, float | str] | None:
     return {"text": text, "start": start, "end": end}
 
 
+# rebuild words from elevenlabs per character timings by splitting on whitespace
 def _words_from_char_alignment(alignment: dict) -> list[dict[str, float | str]]:
     characters = alignment.get("characters") or []
     starts = alignment.get("character_start_times_seconds") or []
@@ -45,6 +51,7 @@ def _words_from_char_alignment(alignment: dict) -> list[dict[str, float | str]]:
     word_start: float | None = None
     word_end: float | None = None
 
+    # emit the buffered characters as one word and reset the buffer
     def flush() -> None:
         nonlocal buffer, word_start, word_end
         text = "".join(buffer).strip()
@@ -66,6 +73,7 @@ def _words_from_char_alignment(alignment: dict) -> list[dict[str, float | str]]:
     return words
 
 
+# accept either an elevenlabs alignment payload or a plain words array and return timed words
 def load_words(payload: dict) -> list[dict[str, float | str]]:
     """Read a generic word list or an ElevenLabs timestamp response."""
     for key in ("normalized_alignment", "alignment"):
@@ -83,6 +91,7 @@ def load_words(payload: dict) -> list[dict[str, float | str]]:
     raise ValueError("expected ElevenLabs alignment data or a words array")
 
 
+# group timed words into short cues that break on punctuation and word or character limits
 def chunk_words(
     words: list[dict[str, float | str]],
     *,
@@ -93,6 +102,7 @@ def chunk_words(
     cues: list[tuple[float, float, str]] = []
     current: list[dict[str, float | str]] = []
 
+    # turn the current word group into one cue and start a new group
     def flush() -> None:
         nonlocal current
         if not current:
@@ -103,6 +113,7 @@ def chunk_words(
 
     for word in words:
         proposed = " ".join(str(item["text"]) for item in [*current, word])
+        # flush before adding this word when the group would exceed the word or character limit
         if current and (len(current) >= max_words or len(proposed) > max_characters):
             flush()
         current.append(word)
@@ -112,6 +123,7 @@ def chunk_words(
     return cues
 
 
+# format seconds as an ass timestamp with centisecond precision
 def _ass_time(seconds: float) -> str:
     centiseconds = max(0, int(round(seconds * 100)))
     hours, remainder = divmod(centiseconds, 360_000)
@@ -120,16 +132,19 @@ def _ass_time(seconds: float) -> str:
     return f"{hours}:{minutes:02d}:{secs:02d}.{cs:02d}"
 
 
+# escape backslashes and braces so text is not read as ass override tags
 def _ass_escape(text: str) -> str:
     return text.replace("\\", r"\\").replace("{", r"\{").replace("}", r"\}")
 
 
+# split long cue text into two balanced lines using the ass line break
 def _wrap_two_lines(text: str, max_line_characters: int = 30) -> str:
     if len(text) <= max_line_characters:
         return _ass_escape(text)
     words = text.split()
     if len(words) < 2:
         return _ass_escape(text)
+    # try every split point and pick the one with the shortest longest line and the smallest imbalance
     candidates = []
     for index in range(1, len(words)):
         left = " ".join(words[:index])
@@ -139,6 +154,7 @@ def _wrap_two_lines(text: str, max_line_characters: int = 30) -> str:
     return f"{_ass_escape(left)}\\N{_ass_escape(right)}"
 
 
+# write cues into an ass file with a caption style that sits inside the bottom safe rail
 def write_ass(
     cues: list[tuple[float, float, str]],
     output: Path,
@@ -151,6 +167,7 @@ def write_ass(
 ) -> None:
     if not 0.10 <= safe_bottom <= 0.35:
         raise ValueError("safe_bottom must be between 0.10 and 0.35")
+    # scale the vertical margin with the safe rail while keeping a floor of 28 pixels
     margin_v = max(28, int(height * safe_bottom * 0.22))
     header = f"""[Script Info]
 ScriptType: v4.00+
@@ -178,6 +195,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
     output.write_text(header + "\n".join(events) + "\n")
 
 
+# command line entry point that reads alignment json and writes an ass file
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("alignment", type=Path, help="ElevenLabs response or generic words JSON")
