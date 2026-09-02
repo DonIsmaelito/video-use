@@ -1,7 +1,3 @@
-# shared construction helpers for the semantic domain kit
-# it builds labeled boxes circle nodes arrows and rows and validates indices amounts and themes
-# every domain module imports from here so the components share one look
-
 """Shared construction helpers for the style-neutral semantic domain kit."""
 
 from __future__ import annotations

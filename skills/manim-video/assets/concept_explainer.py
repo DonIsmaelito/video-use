@@ -1,7 +1,3 @@
-# layout guards for narrated 16 by 9 manim explainers that share the frame with captions
-# it defines split composition regions and helpers that fit text and panels and assert nothing leaves its bounds
-# a script imports these so authored visuals stay above the caption rail before rendering
-
 """Small layout guards for narrated 16:9 Manim explainers.
 
 Import these helpers into a project's ``script.py``. They keep authored visuals

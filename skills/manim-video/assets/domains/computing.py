@@ -1,6 +1,3 @@
-# semantic components for algorithms machine learning and ai
-# it defines ArrayModel GraphModel StateMachine TokenFlow and NeuralLayer built on SemanticMobject
-
 """Semantic components for algorithms, machine learning, and AI."""
 
 from __future__ import annotations

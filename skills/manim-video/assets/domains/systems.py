@@ -1,6 +1,3 @@
-# semantic components for software systems and data architecture
-# it defines RequestFlow ServiceGraph QueueModel and DataPipeline built on SemanticMobject
-
 """Semantic components for software systems and data architecture."""
 
 from __future__ import annotations

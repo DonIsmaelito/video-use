@@ -1,6 +1,3 @@
-# semantic components for cellular sequence and population processes
-# it defines CellProcess SequenceProcess and PopulationFlow built on SemanticMobject
-
 """Semantic components for cellular, sequence, and population processes."""
 
 from __future__ import annotations

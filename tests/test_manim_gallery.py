@@ -1,5 +1,6 @@
-# renders the gallery fixture scenes at low quality through the manim cli
-# it skips when manim is missing and checks each scene produced a video
+"""renders the gallery fixture scenes at low quality through the manim cli
+it skips when manim is missing and checks each scene produced a video
+"""
 
 from __future__ import annotations
 

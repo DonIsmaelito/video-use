@@ -1,6 +1,3 @@
-# semantic components for mathematical explanations
-# it defines NumberLineModel VectorMap MatrixMap LinkedPlot and ProbabilityMass built on SemanticMobject
-
 """Semantic components for mathematical explanations."""
 
 from __future__ import annotations

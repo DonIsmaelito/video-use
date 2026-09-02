@@ -1,6 +1,3 @@
-# semantic components for mechanics waves and circuits
-# it defines BodySystem ForceVector WaveField and CircuitFlow built on SemanticMobject
-
 """Semantic components for mechanics, waves, and circuits."""
 
 from __future__ import annotations

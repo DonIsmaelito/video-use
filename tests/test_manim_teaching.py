@@ -1,5 +1,6 @@
-# tests for the semantic teaching primitives in teaching py
-# it covers part and anchor registration focus and restore transforms linked values and the three d scene
+"""tests for the semantic teaching primitives in teaching py
+it covers part and anchor registration focus and restore transforms linked values and the three d scene
+"""
 
 from __future__ import annotations
 

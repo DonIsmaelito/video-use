@@ -1,6 +1,3 @@
-# semantic components for finance business and resource explanations
-# it defines CashFlow CompoundTimeline Funnel FeedbackLoop and ResourceFlow built on SemanticMobject
-
 """Semantic components for finance, business, and resource explanations."""
 
 from __future__ import annotations

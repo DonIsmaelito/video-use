@@ -1,5 +1,6 @@
-# tests that every domain component is semantic frame safe and theme aware
-# it also checks a handful of component actions update their state
+"""tests that every domain component is semantic frame safe and theme aware
+it also checks a handful of component actions update their state
+"""
 
 from __future__ import annotations
 

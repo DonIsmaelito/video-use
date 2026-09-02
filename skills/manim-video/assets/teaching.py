@@ -1,7 +1,3 @@
-# semantic building blocks for teaching scenes built on manim
-# it defines themes named parts anchors linked values and the base scene classes chapters extend
-# everything here is meant to be reused across the domain kits so scenes stay consistent
-
 """Style-neutral semantic authoring primitives for Manim Community explainers.
 
 The classes in this module manage meaning, continuity, and attention.  They do

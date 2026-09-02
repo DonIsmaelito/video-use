@@ -1,8 +1,4 @@
 #!/usr/bin/env python3
-# command line tool that renders chosen manim scene classes at low quality into a project edit verify folder
-# it probes the output with ffprobe and extracts first last and contact sheet frames with ffmpeg
-# every step raises PreviewError with a clear message so failures are easy to act on
-
 """Render selected Manim chapters and build small authoring-review artifacts."""
 
 from __future__ import annotations

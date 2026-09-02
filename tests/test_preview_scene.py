@@ -1,5 +1,6 @@
-# tests for the preview_scene script
-# it loads the script from its path and checks error handling and one real low quality render
+"""tests for the preview_scene script
+it loads the script from its path and checks error handling and one real low quality render
+"""
 
 from __future__ import annotations
 

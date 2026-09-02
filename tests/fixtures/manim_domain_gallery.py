@@ -1,5 +1,6 @@
-# gallery of tiny manim scenes used by the rendering test
-# each scene shows one domain component or exercises the teaching scene api
+"""gallery of tiny manim scenes used by the rendering test
+each scene shows one domain component or exercises the teaching scene api
+"""
 
 from __future__ import annotations
 
