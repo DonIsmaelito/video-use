@@ -10,6 +10,32 @@ explicitly requests silence. Do not create a silent placeholder track: generate
 speech, use its measured duration for timing, and verify the assembled audio has
 finite loudness and audible samples before normalization.
 
+## Scope and legibility contract
+
+These limits come from measured runs and are not taste. Treat them as hard.
+
+1. **One mechanism per explainer under a minute.** A 45 second piece teaches one idea
+   completely. If the narration needs a second mechanism to make sense, cut the first
+   one down or ask for a longer runtime. At most three chapters for 45 seconds.
+2. **Narration pace 150 to 185 words per minute.** Land the runtime by editing words or by
+   setting the voice speed before locking the take. Never time stretch a recorded
+   narration to fit; a take more than five percent long is a script problem.
+3. **Original explainers are Manim with the teaching assets.** PIL is for overlay cards
+   only. A whole explainer rendered as raster frames is a failed handoff even when the
+   layout manifest passes.
+4. **Chapters share geometry.** Build persistent objects through one base scene or shared
+   builders so every carried object has identical position and size at a chapter boundary.
+   Compare the exit frame of each chapter with the entry frame of the next before rendering.
+5. **Legibility floor at 1920x1080.** Labels use font_size 24 or larger, titles 36 or larger,
+   raster text at least 28 px cap height. At most four foreground groups on screen at any
+   critical frame. The bottom 16 percent of the frame is the caption rail and stays empty.
+6. **Declare color roles once.** The plan names the role of each color (key, hash path,
+   success, warning) and those roles never change during the video.
+7. **Plan depth.** The beat table has about one row per four seconds of runtime, each row
+   naming its objects, the state change, and what the beat proves.
+8. **Hold the payoff.** Narration ends at least two seconds before the video does and the
+   final frame holds still.
+
 ## Efficient Production Order
 
 1. Research the topic and verify every factual claim and worked value.

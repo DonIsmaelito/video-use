@@ -212,7 +212,9 @@ independently renderable Manim class per narrative chapter with named internal
 beats, and build persistent semantic objects from
 `skills/manim-video/assets/teaching.py` and `skills/manim-video/assets/domains/`.
 Narration is part of this deliverable by default unless the user explicitly
-requests silence. This requirement does not apply to clip editing or an isolated
+requests silence. Teach one mechanism per explainer under a minute, keep chapters to
+three, never time stretch recorded narration to fit, and keep labels at font size 24
+or larger; the full contract is in `skills/manim-video/references/concept-explainer.md`. This requirement does not apply to clip editing or an isolated
 illustration overlay. Read `skills/manim-video/references/concept-explainer.md`
 before authoring a Manim scene.
 

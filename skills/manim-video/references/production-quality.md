@@ -28,7 +28,7 @@ if text.width > config.frame_width - 1.0:
     text.scale_to_fit_width(config.frame_width - 1.0)
 ```
 
-- Keep ordinary text at `font_size=18` or larger.
+- Keep labels at `font_size=24` or larger and titles at 36 or larger; keep at most four foreground groups on screen at any critical frame.
 - Use the approved typography; monospace is optional, not universal.
 - Test selected fonts on the render host.
 - Run `assert_inside_frame()` and `assert_no_overlap()` for every chapter ending.
