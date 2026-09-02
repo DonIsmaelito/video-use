@@ -54,7 +54,7 @@ def extract_frames(video: Path, start: float, end: float, n: int, dest_dir: Path
             "-i", str(video),
             "-frames:v", "1",
             "-q:v", "4",
-            "-vf", "scale=320:-2",
+            "-vf", "scale=320:-2,format=yuvj420p",
             str(out),
         ]
         subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
