@@ -85,9 +85,14 @@ class ArrayModel(SemanticMobject):
         left_position = cells[left].get_center().copy()
         right_position = cells[right].get_center().copy()
         self.values[left], self.values[right] = self.values[right], self.values[left]
+        left_cell, right_cell = cells[left], cells[right]
+        # reorder the group and the anchors so later index lookups match the new visual order
+        cells.submobjects[left], cells.submobjects[right] = right_cell, left_cell
+        self._semantic_anchors[f"index_{left}"] = right_cell
+        self._semantic_anchors[f"index_{right}"] = left_cell
         return AnimationGroup(
-            cells[left].animate.move_to(right_position),
-            cells[right].animate.move_to(left_position),
+            left_cell.animate.move_to(right_position),
+            right_cell.animate.move_to(left_position),
             lag_ratio=0,
         )
 

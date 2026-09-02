@@ -10,6 +10,9 @@ from itertools import combinations
 
 from manim import DOWN, UP, Mobject, Rectangle, RoundedRectangle, Text, VGroup, config
 
+# re exported so chapter scripts import portable easing names from this asset
+from manim.utils.rate_functions import ease_in_out_cubic, ease_out_cubic  # noqa: F401
+
 
 CAPTION_RAIL_FRACTION = 0.16
 
@@ -235,5 +238,6 @@ def source_footer(
         color=color,
     )
     rail_height = config.frame_height * CAPTION_RAIL_FRACTION
-    footer.to_edge(DOWN, buff=rail_height + 0.12)
+    # the buffer must clear the margin that assert_inside_frame enforces
+    footer.to_edge(DOWN, buff=rail_height + 0.2)
     return assert_inside_frame(footer)
