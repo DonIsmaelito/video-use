@@ -43,7 +43,7 @@ def audit(text):
         # decorators sit between the comment and the definition so look above the first decorator
         start = min([node.lineno, *[item.lineno for item in node.decorator_list]])
         above = start - 1
-        if above not in comments:
+        if above not in comments or not comments[above]:
             problems.append(f"line {node.lineno} has no comment above {node.name}")
             continue
         if PUNCTUATION.search(comments[above]):
