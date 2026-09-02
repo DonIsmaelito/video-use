@@ -1,7 +1,3 @@
-# batch transcribes every video in a directory using a thread pool of scribe workers
-# it reuses transcribe_one so per file caching still applies and only pending sources are uploaded
-# failures are collected and reported at the end with a non zero exit
-
 """Batch-transcribe every video in a directory with 4 parallel workers.
 
 Walks <videos_dir> for common video extensions, runs ElevenLabs Scribe on

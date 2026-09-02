@@ -1,5 +1,6 @@
-# tests for portrait detection in the render helper including rotation side data
-# it loads the helper from its file path and patches ffprobe so no real media is needed
+"""tests for portrait detection in the render helper including rotation side data
+it loads the helper from its file path and patches ffprobe so no real media is needed
+"""
 
 import importlib.util
 import json

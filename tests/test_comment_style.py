@@ -1,7 +1,9 @@
-# guards the comment convention across every python file in the repo
-# each file starts with a plain header block and every def or class has one plain comment line above it
-# comments must not carry punctuation so they stay short and readable at a glance
+"""guards the comment convention across every python file in the repo
+each file opens with a module docstring and every def or class has one plain comment line above it
+comments must not carry punctuation so they stay short and readable at a glance
+"""
 
+import ast
 import re
 import unittest
 from pathlib import Path
@@ -23,9 +25,15 @@ def python_files():
 def audit(text):
     lines = text.splitlines()
     problems = []
+    # the file opens with a docstring and not with a block of hash comments
     first = [line for line in lines[:6] if line.strip() and not line.startswith("#!")]
-    if not first or not first[0].startswith("#"):
-        problems.append("missing header comment block")
+    if first and first[0].startswith("#"):
+        problems.append("hash comment header should be a module docstring")
+    try:
+        if ast.get_docstring(ast.parse(text)) is None:
+            problems.append("missing module docstring")
+    except SyntaxError:
+        problems.append("file does not parse")
     for index, line in enumerate(lines):
         if not DEFINITION.match(line):
             continue

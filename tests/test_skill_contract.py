@@ -1,7 +1,3 @@
-# tests that guard the public editing contract documented in skill md
-# they check that the numbered hard rules stay present and in order and that every referenced helper or reference path exists
-# the hard rules list is append only so new rules go at the end
-
 """Guard the public editing contract in SKILL.md.
 
 Two failure modes this protects against when several agents edit the file:

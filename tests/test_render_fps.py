@@ -1,6 +1,7 @@
-# unit tests for the frame rate handling in helpers render py
-# they cover parse_fps canonical forms probe_source_fps ffprobe parsing and the rate resolution in extract_all_segments
-# render py is loaded by file path so the tests do not depend on it being importable as a package
+"""unit tests for the frame rate handling in helpers render py
+they cover parse_fps canonical forms probe_source_fps ffprobe parsing and the rate resolution in extract_all_segments
+render py is loaded by file path so the tests do not depend on it being importable as a package
+"""
 
 import argparse
 import contextlib

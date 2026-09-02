@@ -1,7 +1,3 @@
-# renders a filmstrip and waveform composite png for a time range of a video
-# frames come from ffmpeg the audio envelope is a windowed rms over a temp wav and transcript words and silences are drawn over the ribbon
-# meant as an on demand drill down at cut decisions rather than a bulk index
-
 """Filmstrip + waveform composite PNG for a time range of a video.
 
 The only visual drill-down tool. Given a video and a [start, end] range,

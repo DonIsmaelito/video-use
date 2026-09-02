@@ -1,7 +1,3 @@
-# color grading helper that builds ffmpeg filter strings and applies them to a video
-# it ships a few named presets and an auto mode that samples frame stats to pick a small corrective eq
-# render py imports get_preset and auto_grade_for_clip and the cli wraps the same functions
-
 """Apply a color grade to a video via ffmpeg filter chain.
 
 Two modes:

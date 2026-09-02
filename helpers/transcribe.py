@@ -1,7 +1,3 @@
-# transcribes a single video with elevenlabs scribe and caches the response as json
-# audio is extracted to a mono 16khz wav with ffmpeg then uploaded with diarization audio events and word timestamps
-# transcribe_batch imports load_api_key and transcribe_one to fan the same work out across files
-
 """Transcribe a video with ElevenLabs Scribe.
 
 Extracts mono 16kHz audio via ffmpeg, uploads to Scribe with verbatim +

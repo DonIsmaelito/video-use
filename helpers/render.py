@@ -1,7 +1,3 @@
-# the ffmpeg render pipeline that turns an edl into a finished video file
-# it extracts graded segments and concatenates them and then composites overlays and subtitles and normalizes loudness
-# it also builds the master srt from transcripts and holds the command line entry point
-
 """Render a video from an EDL.
 
 Implements the HEURISTICS render pipeline in the correct order:

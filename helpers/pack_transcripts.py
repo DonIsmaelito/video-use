@@ -1,7 +1,3 @@
-# packs scribe word level transcript json files into one phrase level markdown document
-# words are grouped into phrases split on long silences or speaker changes and each phrase carries a start and end stamp
-# the editor sub agent reads the result to pick cuts so it favors compactness over raw detail
-
 """Pack all Scribe transcripts in <edit>/transcripts/ into one readable markdown.
 
 Groups word-level entries into phrase-level lines, breaking on any silence
