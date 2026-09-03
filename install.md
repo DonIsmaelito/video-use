@@ -167,15 +167,16 @@ ffprobe -version | head -1
 
 A Scribe transcription test is optional at install time — it burns credits. Better to wait until the user hands you their first clip.
 
-If the local engine was chosen, prove it once on a synthetic clip instead — no credits involved. This first run downloads the ~1.6 GB model weights, so ask the user to confirm the download before running it (the probe already showed the size and free disk). Use the repo's interpreter: `uv run python` when the deps were installed with `uv sync`, or plain `python` from the environment where `pip install -e` ran.
+If the local engine was chosen, prove it once on a synthetic clip instead — no credits involved. This first run downloads the ~1.6 GB model weights, so ask the user to confirm the download before running it (the probe already showed the size and free disk). Pick the interpreter that matches step 2: `uv run --no-sync python` when the deps came from `uv sync` (`--no-sync` keeps the extra you just installed), or plain `python` from the environment where `pip install -e` ran.
 
 ```bash
 cd ~/Developer/video-use
+PY="uv run --no-sync python"        # pip path: PY=python
 say -o /tmp/vu_check.aiff "local transcription check one two three" \
   && ffmpeg -y -loglevel error -f lavfi -i color=c=black:s=320x240:r=25 -i /tmp/vu_check.aiff \
        -shortest -c:v libx264 -c:a aac /tmp/vu_check.mp4 \
-  && uv run python helpers/transcribe.py /tmp/vu_check.mp4 --edit-dir /tmp/vu_check_edit \
-  && uv run python helpers/pack_transcripts.py --edit-dir /tmp/vu_check_edit \
+  && $PY helpers/transcribe.py /tmp/vu_check.mp4 --edit-dir /tmp/vu_check_edit \
+  && $PY helpers/pack_transcripts.py --edit-dir /tmp/vu_check_edit \
   && cat /tmp/vu_check_edit/takes_packed.md
 ```
 

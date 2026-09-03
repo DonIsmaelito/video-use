@@ -87,7 +87,27 @@ class InstallAndModelTests(unittest.TestCase):
         with patch.object(local_stt.importlib, "import_module", missing):
             with self.assertRaises(SystemExit) as ctx:
                 local_stt.require_library("faster-whisper")
+            with self.assertRaises(SystemExit) as gpu:
+                local_stt.require_library("faster-whisper", cuda=True)
         self.assertIn("uv sync --extra stt-cpu", str(ctx.exception))
+        self.assertIn("uv sync --extra stt-cuda", str(gpu.exception))
+
+    # the preflight probes and imports once per process and hands back the same library afterwards
+    def test_preflight_settles_once(self):
+        calls = []
+
+        # count how often the probe runs
+        def counting_probe():
+            calls.append(1)
+            return fake_probe(False, cuda=True)
+
+        with patch.object(local_stt, "probe", counting_probe), \
+             patch.object(local_stt, "require_library", lambda _lib, _cuda: None), \
+             patch.dict(local_stt._PREFLIGHTED, {}, clear=True):
+            first = local_stt.preflight()
+            second = local_stt.preflight()
+        self.assertEqual((first, second), ("faster-whisper", "faster-whisper"))
+        self.assertEqual(len(calls), 1)
 
     # the default model is downloaded at its pinned revision and the label records it
     def test_ensure_model_pins_revision(self):
@@ -308,9 +328,10 @@ class TranscribeWavTests(unittest.TestCase):
             return segments, "de"
 
         with patch.object(local_stt, "probe", lambda: fake_probe(True)), \
-             patch.object(local_stt, "require_library", lambda _lib: None), \
+             patch.object(local_stt, "require_library", lambda _lib, _cuda: None), \
              patch.object(local_stt, "ensure_model", lambda _lib, _model: (Path("/m"), "repo@abc")), \
              patch.object(local_stt, "frame_energy", lambda _wav: [1.0] * 100), \
+             patch.dict(local_stt._PREFLIGHTED, {}, clear=True), \
              patch.dict(local_stt.RUNNERS, {"mlx-whisper": runner}):
             payload = local_stt.transcribe_wav(Path("clip.wav"))
         self.assertEqual(calls, [(None, local_stt.VERBATIM_PROMPT), ("de", None)])

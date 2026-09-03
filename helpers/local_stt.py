@@ -139,11 +139,18 @@ def install_command(library: str, cuda: bool = False) -> str:
     return f"uv sync --extra {extra}    (or: pip install -e '.[{extra}]')"
 
 
-# settle the library before any audio work so a missing install fails first
+# libraries already settled in this process keyed by the override that asked for them
+_PREFLIGHTED: dict[str | None, str] = {}
+
+
+# settle the library before any audio work so a missing install fails first and later calls are free
 def preflight(library: str | None = None) -> str:
-    library = choose_library(probe(), library)
-    require_library(library)
-    return library
+    if library not in _PREFLIGHTED:
+        info = probe()
+        chosen = choose_library(info, library)
+        require_library(chosen, info["cuda"])
+        _PREFLIGHTED[library] = chosen
+    return _PREFLIGHTED[library]
 
 
 # true only when ctranslate2 can see a cuda device with its runtime libraries loaded
@@ -157,14 +164,14 @@ def cuda_available() -> bool:
 
 
 # import the library or exit with the install command so nothing expensive starts
-def require_library(library: str):
+def require_library(library: str, cuda: bool = False):
     module = LIBRARY_INFO[library]["module"]
     try:
         return importlib.import_module(module)
     except ImportError:
         raise SystemExit(
             f"{library} is not installed. From the video-use repo run:\n"
-            f"  {install_command(library)}"
+            f"  {install_command(library, cuda)}"
         ) from None
 
 

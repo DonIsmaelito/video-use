@@ -68,7 +68,7 @@ cp .env.example .env
 $EDITOR .env                    # ELEVENLABS_API_KEY=...   or   VIDEO_USE_TRANSCRIBER=local
 # local engine only: probe the machine, then run the install command it prints
 python helpers/local_stt.py probe
-uv sync --extra stt-mlx         # or stt-cpu / stt-cuda, whichever the probe named
+uv sync --extra <extra the probe printed>   # stt-mlx on Apple Silicon, stt-cpu, or stt-cuda
 ```
 
 ## How it works
