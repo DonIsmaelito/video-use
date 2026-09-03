@@ -60,10 +60,23 @@ class ChooseLibraryTests(unittest.TestCase):
 
 # missing libraries and pinned downloads
 class InstallAndModelTests(unittest.TestCase):
-    # the install command names the extra for the library
+    # the install command names the extra for the library and the cuda extra when a gpu is present
     def test_install_command_names_extra(self):
         self.assertIn("stt-mlx", local_stt.install_command("mlx-whisper"))
         self.assertIn("stt-cpu", local_stt.install_command("faster-whisper"))
+        self.assertIn("stt-cuda", local_stt.install_command("faster-whisper", cuda=True))
+        self.assertIn("stt-mlx", local_stt.install_command("mlx-whisper", cuda=True))
+
+    # without ctranslate2 or a visible device the cuda check is false instead of raising
+    def test_cuda_available_is_false_without_runtime(self):
+        with patch.dict(sys.modules, {"ctranslate2": None}):
+            self.assertFalse(local_stt.cuda_available())
+        fake = types.SimpleNamespace(get_cuda_device_count=lambda: 0)
+        with patch.dict(sys.modules, {"ctranslate2": fake}):
+            self.assertFalse(local_stt.cuda_available())
+        fake = types.SimpleNamespace(get_cuda_device_count=lambda: 1)
+        with patch.dict(sys.modules, {"ctranslate2": fake}):
+            self.assertTrue(local_stt.cuda_available())
 
     # a missing library exits with the install command instead of a traceback
     def test_require_library_exits_with_install_command(self):
@@ -164,6 +177,20 @@ class CleanWordsTests(unittest.TestCase):
         kept = local_stt.clean_words(words)
         self.assertEqual(len(kept), local_stt.MAX_REPEATS)
 
+    # distinct words in a non latin script are never mistaken for a repetition loop
+    def test_non_latin_words_are_kept(self):
+        texts = ["これ", "は", "テスト", "です", "ね", "Привет", "мир"]
+        words = [
+            {"type": "word", "text": t, "start": i * 0.3, "end": i * 0.3 + 0.2, "speaker_id": None}
+            for i, t in enumerate(texts)
+        ]
+        self.assertEqual([w["text"] for w in local_stt.clean_words(words)], texts)
+        repeated = [
+            {"type": "word", "text": "はい", "start": i * 0.3, "end": i * 0.3 + 0.2, "speaker_id": None}
+            for i in range(10)
+        ]
+        self.assertEqual(len(local_stt.clean_words(repeated)), local_stt.MAX_REPEATS)
+
     # a run of words that repeats the prompt is removed and everything else stays
     def test_removes_prompt_echo(self):
         prompt = "Umm, let me think"
@@ -218,6 +245,41 @@ class TrimOnsetsTests(unittest.TestCase):
         self.assertEqual(len(energy), 20)
         self.assertEqual(float(energy[0]), 0.0)
         self.assertGreater(float(energy[-1]), 1000.0)
+
+    # anything but mono sixteen bit pcm is rejected instead of producing wrong energies
+    def test_frame_energy_rejects_other_formats(self):
+        import wave
+
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "stereo.wav"
+            with wave.open(str(path), "wb") as handle:
+                handle.setnchannels(2)
+                handle.setsampwidth(2)
+                handle.setframerate(16000)
+                handle.writeframes(b"\x00\x00" * 3200)
+            with self.assertRaises(ValueError):
+                local_stt.frame_energy(path)
+
+    # chunked reading gives the same frames as one pass over a file longer than a single read
+    def test_frame_energy_chunks_match(self):
+        import wave
+
+        import numpy as np
+
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "long.wav"
+            rng = np.random.default_rng(0)
+            samples = (rng.standard_normal(16000 * 3) * 3000).astype(np.int16)
+            with wave.open(str(path), "wb") as handle:
+                handle.setnchannels(1)
+                handle.setsampwidth(2)
+                handle.setframerate(16000)
+                handle.writeframes(samples.tobytes())
+            with patch.object(local_stt, "ENERGY_READ_FRAMES", 7):
+                energy = local_stt.frame_energy(path)
+        expected = np.sqrt(np.mean(samples[: 300 * 160].reshape(300, 160).astype(np.float32) ** 2, axis=1))
+        self.assertEqual(len(energy), 300)
+        self.assertTrue(np.allclose(energy, expected))
 
 
 # when the verbatim prompt applies

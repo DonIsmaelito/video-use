@@ -17,6 +17,7 @@ animations = ["manim"]
 # local transcription: one of these per machine, chosen by helpers/local_stt.py probe
 stt-mlx = ["mlx-whisper>=0.4.3"]
 stt-cpu = ["faster-whisper>=1.2.1"]
+stt-cuda = ["faster-whisper>=1.2.1", "nvidia-cublas-cu12", "nvidia-cudnn-cu12>=9"]
 
 [build-system]
 requires = ["setuptools>=61.0"]

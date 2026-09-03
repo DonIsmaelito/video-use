@@ -27,7 +27,7 @@ These are the things where deviation produces silent failures or broken output. 
 6. **Never cut inside a word.** Snap every cut edge to a word boundary from the transcript.
 7. **Pad every cut edge.** Working window: 30–200ms. Transcript timestamps drift 50–100ms whichever engine made them — padding absorbs the drift. Tighter for fast-paced, looser for cinematic.
 8. **Word-level verbatim ASR only.** Never SRT/phrase mode (loses sub-second gap data). Never normalized fillers (loses editorial signal).
-9. **Cache transcripts per source.** Never re-transcribe unless the source file itself changed.
+9. **Cache transcripts per source.** Never re-transcribe unless the source file itself changed or the user explicitly asks to redo a transcript with the other engine (`transcribe.py --force`).
 10. **Parallel sub-agents for multiple animations.** Never sequential. Spawn N at once via the `Agent` tool; total wall time ≈ slowest one.
 11. **Strategy confirmation before execution.** Never touch the cut until the user has approved the plain-English plan.
 12. **All session outputs in `<videos_dir>/edit/`.** Never write inside the `video-use/` project directory.

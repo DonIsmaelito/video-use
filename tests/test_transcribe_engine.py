@@ -73,6 +73,13 @@ class LoadEnvTests(unittest.TestCase):
             env = transcribe.load_env([])
         self.assertEqual(env["ELEVENLABS_API_KEY"], ("k", "environment"))
 
+    # a hash inside quotes is part of the value and a bare trailing comment is not
+    def test_quoted_hash_is_kept(self):
+        self.assertEqual(transcribe.dotenv_value('"abc#def"'), "abc#def")
+        self.assertEqual(transcribe.dotenv_value("'abc#def'  # note"), "abc#def")
+        self.assertEqual(transcribe.dotenv_value("abc # note"), "abc")
+        self.assertEqual(transcribe.dotenv_value("  plain  "), "plain")
+
     # an empty assignment counts as unset
     def test_empty_value_is_unset(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -173,10 +180,27 @@ class TranscribeOneTests(unittest.TestCase):
     def test_local_path_never_posts(self):
         fake = {"engine": "local", "library": "x", "model": "y", "language_code": "en", "text": "hi", "words": []}
         with patch.object(transcribe.requests, "post", side_effect=AssertionError("posted")), \
+             patch.object(transcribe, "preflight_local", lambda _options: "mlx-whisper"), \
              patch.object(transcribe, "call_local", lambda *_args: fake):
             with contextlib.redirect_stdout(io.StringIO()):
                 transcribe.transcribe_one(self.video, self.edit_dir, engine="local")
         self.assertEqual(json.loads(self.out.read_text())["engine"], "local")
+
+    # a missing local library stops the run before any audio is extracted
+    def test_missing_library_fails_before_extraction(self):
+        with patch.object(transcribe, "preflight_local", side_effect=SystemExit("install it")), \
+             patch.object(transcribe, "extract_audio", side_effect=AssertionError("extracted")):
+            with self.assertRaises(SystemExit):
+                transcribe.transcribe_one(self.video, self.edit_dir, engine="local")
+        self.assertFalse(self.out.exists())
+
+    # callers from before the engine flag still pass the key as the third positional argument
+    def test_legacy_positional_api_key(self):
+        with patch.object(transcribe.requests, "post", return_value=FakeResponse()) as post:
+            with contextlib.redirect_stdout(io.StringIO()):
+                transcribe.transcribe_one(self.video, self.edit_dir, "k", None, None, False, 0)
+        self.assertEqual(post.call_args.kwargs["headers"], {"xi-api-key": "k"})
+        self.assertEqual(json.loads(self.out.read_text())["engine"], "elevenlabs")
 
     # a transcript from before the engine key existed is reused without a mismatch note
     def test_old_transcript_without_engine_is_reused(self):
@@ -206,14 +230,16 @@ class TranscribeOneTests(unittest.TestCase):
         self.out.parent.mkdir(parents=True)
         original = json.dumps({"engine": "elevenlabs", "words": [{"type": "word", "text": "paid"}]})
         self.out.write_text(original)
-        with patch.object(transcribe, "call_local", side_effect=RuntimeError("model crashed")):
+        with patch.object(transcribe, "preflight_local", lambda _options: "mlx-whisper"), \
+             patch.object(transcribe, "call_local", side_effect=RuntimeError("model crashed")):
             with contextlib.redirect_stdout(io.StringIO()):
                 with self.assertRaises(RuntimeError):
                     transcribe.transcribe_one(self.video, self.edit_dir, engine="local", force=True)
         self.assertEqual(self.out.read_text(), original)
         self.assertEqual(list(self.out.parent.glob("*.tmp")), [])
         fake = {"engine": "local", "words": []}
-        with patch.object(transcribe, "call_local", lambda *_args: fake):
+        with patch.object(transcribe, "preflight_local", lambda _options: "mlx-whisper"), \
+             patch.object(transcribe, "call_local", lambda *_args: fake):
             with contextlib.redirect_stdout(io.StringIO()):
                 transcribe.transcribe_one(self.video, self.edit_dir, engine="local", force=True)
         self.assertEqual(json.loads(self.out.read_text())["engine"], "local")

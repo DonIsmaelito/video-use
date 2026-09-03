@@ -101,9 +101,10 @@ Configuration is one line in `~/Developer/video-use/.env`: either `ELEVENLABS_AP
 1. Check existing state in this order and stop at the first hit:
 
     ```bash
-    # a) local engine already chosen
-    grep -q '^VIDEO_USE_TRANSCRIBER=local' ~/Developer/video-use/.env 2>/dev/null && echo "local"
-    # b) env var already exported
+    # a) local engine already chosen in .env or exported (either one wins over a key at runtime)
+    grep -q '^VIDEO_USE_TRANSCRIBER=local' ~/Developer/video-use/.env 2>/dev/null && echo "local (.env)"
+    [ "$VIDEO_USE_TRANSCRIBER" = "local" ] && echo "local (env)"
+    # b) key already exported
     [ -n "$ELEVENLABS_API_KEY" ] && echo "env"
     # c) .env at repo root already has a key
     grep -q '^ELEVENLABS_API_KEY=..' ~/Developer/video-use/.env 2>/dev/null && echo "dotenv"
@@ -139,9 +140,12 @@ Configuration is one line in `~/Developer/video-use/.env`: either `ELEVENLABS_AP
     The probe prints the library for this machine (`mlx-whisper` on Apple Silicon, `faster-whisper` on CPU-only or NVIDIA), whether it is already installed, free disk, the model size, and the exact install command. Tell the user the download size, then after confirmation run the printed command — one of:
 
     ```bash
-    uv sync --extra stt-mlx        # Apple Silicon        (or: pip install -e '.[stt-mlx]')
-    uv sync --extra stt-cpu        # CPU-only or NVIDIA   (or: pip install -e '.[stt-cpu]')
+    uv sync --extra stt-mlx        # Apple Silicon   (or: pip install -e '.[stt-mlx]')
+    uv sync --extra stt-cpu        # CPU-only        (or: pip install -e '.[stt-cpu]')
+    uv sync --extra stt-cuda       # NVIDIA: adds the CUDA 12 cuBLAS and cuDNN 9 wheels faster-whisper needs on the GPU
     ```
+
+    On an NVIDIA machine without those runtime libraries the engine still works, on the CPU, and prints the `stt-cuda` command.
 
     Then persist the choice:
 
@@ -163,18 +167,19 @@ ffprobe -version | head -1
 
 A Scribe transcription test is optional at install time — it burns credits. Better to wait until the user hands you their first clip.
 
-If the local engine was chosen, prove it once on a synthetic clip instead — no credits involved, and it triggers the one-time model download while the user is still around:
+If the local engine was chosen, prove it once on a synthetic clip instead — no credits involved. This first run downloads the ~1.6 GB model weights, so ask the user to confirm the download before running it (the probe already showed the size and free disk). Use the repo's interpreter: `uv run python` when the deps were installed with `uv sync`, or plain `python` from the environment where `pip install -e` ran.
 
 ```bash
+cd ~/Developer/video-use
 say -o /tmp/vu_check.aiff "local transcription check one two three" \
   && ffmpeg -y -loglevel error -f lavfi -i color=c=black:s=320x240:r=25 -i /tmp/vu_check.aiff \
        -shortest -c:v libx264 -c:a aac /tmp/vu_check.mp4 \
-  && python ~/Developer/video-use/helpers/transcribe.py /tmp/vu_check.mp4 --edit-dir /tmp/vu_check_edit \
-  && python ~/Developer/video-use/helpers/pack_transcripts.py --edit-dir /tmp/vu_check_edit \
+  && uv run python helpers/transcribe.py /tmp/vu_check.mp4 --edit-dir /tmp/vu_check_edit \
+  && uv run python helpers/pack_transcripts.py --edit-dir /tmp/vu_check_edit \
   && cat /tmp/vu_check_edit/takes_packed.md
 ```
 
-`say` is macOS only; on Linux skip the synthetic clip and verify on the user's first real file.
+`say` is macOS only; on Linux skip the synthetic clip and verify on the user's first real file, again after confirming the download.
 
 ### 7. Hand off
 

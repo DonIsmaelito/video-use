@@ -28,6 +28,7 @@ from transcribe import (
     announce_engine,
     load_env,
     local_options_from,
+    preflight_local,
     resolve_engine,
     transcribe_one,
     transcript_path,
@@ -111,6 +112,11 @@ def main() -> None:
         print("nothing to do")
         return
 
+    # settle the local library once here so a missing install exits with its message instead of failing every worker
+    local_options = local_options_from(args)
+    if engine == "local":
+        preflight_local(local_options)
+
     workers = worker_count(engine, args.workers)
     if workers != args.workers:
         print(f"local engine runs one file at a time (requested {args.workers} workers)")
@@ -131,7 +137,7 @@ def main() -> None:
                 verbose=False,
                 audio_track=args.audio_track,
                 force=args.force,
-                local_options=local_options_from(args),
+                local_options=local_options,
             ): v
             for v in pending
         }

@@ -68,6 +68,8 @@ ONSET_FRAME_SECONDS = 0.01
 ONSET_RATIO = 0.2
 # a trimmed word always keeps at least this much duration
 ONSET_MIN_KEEP = 0.05
+# energy frames read per pass so a long take never sits in memory at once
+ENERGY_READ_FRAMES = 4096
 # no real word lasts this long so longer ones are decoder artifacts
 MAX_WORD_SECONDS = 3.0
 # the same word this many times in a row is a repetition loop
@@ -131,10 +133,27 @@ def choose_library(info: dict, override: str | None = None) -> str:
     return "mlx-whisper" if info.get("apple_silicon") else "faster-whisper"
 
 
-# the exact commands that add a library to this checkout
-def install_command(library: str) -> str:
-    extra = LIBRARY_INFO[library]["extra"]
+# the exact commands that add a library to this checkout with the cuda runtime libraries when a gpu is present
+def install_command(library: str, cuda: bool = False) -> str:
+    extra = "stt-cuda" if library == "faster-whisper" and cuda else LIBRARY_INFO[library]["extra"]
     return f"uv sync --extra {extra}    (or: pip install -e '.[{extra}]')"
+
+
+# settle the library before any audio work so a missing install fails first
+def preflight(library: str | None = None) -> str:
+    library = choose_library(probe(), library)
+    require_library(library)
+    return library
+
+
+# true only when ctranslate2 can see a cuda device with its runtime libraries loaded
+def cuda_available() -> bool:
+    try:
+        import ctranslate2
+
+        return ctranslate2.get_cuda_device_count() > 0
+    except (ImportError, RuntimeError):
+        return False
 
 
 # import the library or exit with the install command so nothing expensive starts
@@ -208,11 +227,14 @@ def run_faster_whisper(wav: Path, model_path: Path, language: str | None, prompt
     faster_whisper = require_library("faster-whisper")
     key = str(model_path)
     if key not in _FASTER_MODELS:
-        cuda = shutil.which("nvidia-smi") is not None
+        device = "cuda" if cuda_available() else "cpu"
+        if device == "cpu" and shutil.which("nvidia-smi") is not None:
+            print("  nvidia gpu found but the cuda runtime libraries are missing; running on cpu "
+                  f"({install_command('faster-whisper', cuda=True)})", flush=True)
         _FASTER_MODELS[key] = faster_whisper.WhisperModel(
             key,
-            device="cuda" if cuda else "cpu",
-            compute_type="float16" if cuda else "int8",
+            device=device,
+            compute_type="float16" if device == "cuda" else "int8",
         )
     model = _FASTER_MODELS[key]
     raw_segments, info = model.transcribe(
@@ -259,9 +281,9 @@ def words_from_segments(segments: list[dict], no_speech_threshold: float = NO_SP
     return words
 
 
-# lowercase alphanumeric form of a word for repeat and prompt echo checks
+# casefolded letters and digits of a word in any script for repeat and prompt echo checks
 def _plain(text: str) -> str:
-    return re.sub(r"[^a-z0-9']+", "", text.lower())
+    return re.sub(r"[^\w']+", "", text.casefold())
 
 
 # drop decoder artifacts that survive the segment filter
@@ -301,20 +323,27 @@ def remove_prompt_echo(words: list[dict], prompt: str) -> list[dict]:
     return [word for position, word in enumerate(words) if position not in drop]
 
 
-# root mean square energy of a mono sixteen bit wav in fixed frames
+# root mean square energy of a mono sixteen bit wav in fixed frames read in chunks so long takes never load at once
 def frame_energy(wav: Path, frame_seconds: float = ONSET_FRAME_SECONDS):
     import wave
 
     import numpy as np
 
+    chunks = []
     with wave.open(str(wav), "rb") as handle:
-        rate = handle.getframerate()
-        pcm = np.frombuffer(handle.readframes(handle.getnframes()), dtype=np.int16).astype(np.float32)
-    hop = max(1, int(rate * frame_seconds))
-    count = len(pcm) // hop
-    if count == 0:
+        if handle.getnchannels() != 1 or handle.getsampwidth() != 2:
+            raise ValueError(f"{wav} must be mono 16 bit pcm for onset trimming")
+        hop = max(1, int(handle.getframerate() * frame_seconds))
+        # every read is a whole number of frames so chunk edges never split a frame
+        while data := handle.readframes(hop * ENERGY_READ_FRAMES):
+            pcm = np.frombuffer(data, dtype=np.int16).astype(np.float32)
+            count = len(pcm) // hop
+            if count == 0:
+                break
+            chunks.append(np.sqrt(np.mean(pcm[: count * hop].reshape(count, hop) ** 2, axis=1)))
+    if not chunks:
         return np.zeros(0, dtype=np.float32)
-    return np.sqrt(np.mean(pcm[: count * hop].reshape(count, hop) ** 2, axis=1))
+    return np.concatenate(chunks)
 
 
 # move each word start forward to its first audible frame because whisper folds pauses into the next word
@@ -359,8 +388,7 @@ def transcribe_wav(
     model: str | None = None,
     verbatim: bool = True,
 ) -> dict:
-    library = choose_library(probe(), library)
-    require_library(library)
+    library = preflight(library)
     model_path, model_label = ensure_model(library, model)
     runner = RUNNERS[library]
     prompt = verbatim_prompt_for(language, verbatim)
@@ -370,7 +398,8 @@ def transcribe_wav(
         prompt = None
         segments, detected = runner(wav, model_path, detected, None)
     words = clean_words(words_from_segments(segments), prompt)
-    words = trim_onsets(words, frame_energy(wav))
+    if words:
+        words = trim_onsets(words, frame_energy(wav))
     return build_payload(library, model_label, language or detected, words)
 
 
@@ -394,7 +423,7 @@ def main() -> None:
         info["library"] = library
         info["model"] = MODELS[library]
         info["installed_for_library"] = info["installed"][library]
-        info["install_command"] = install_command(library)
+        info["install_command"] = install_command(library, info["cuda"])
         print(json.dumps(info, indent=2))
         return
 

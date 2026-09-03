@@ -49,6 +49,15 @@ def dotenv_candidates() -> list[Path]:
     return [Path(__file__).resolve().parent.parent / ".env", Path(".env")]
 
 
+# unwrap a quoted dotenv value keeping any hash inside the quotes or drop a trailing comment from a bare one
+def dotenv_value(raw: str) -> str:
+    raw = raw.strip()
+    quote = raw[:1]
+    if quote in ('"', "'") and raw.find(quote, 1) > 0:
+        return raw[1:raw.index(quote, 1)]
+    return raw.split("#", 1)[0].strip()
+
+
 # read the two settings this tool understands from dotenv files then the environment
 def load_env(candidates: list[Path] | None = None) -> dict[str, tuple[str, str]]:
     """Map each known name to (value, source). A dotenv value wins over the environment."""
@@ -65,7 +74,7 @@ def load_env(candidates: list[Path] | None = None) -> dict[str, tuple[str, str]]
                 continue
             k, v = line.split("=", 1)
             k = k.strip()
-            v = v.split("#", 1)[0].strip().strip('"').strip("'")
+            v = dotenv_value(v)
             if k in ENV_NAMES and v and k not in found:
                 found[k] = (v, ".env")
     for name in ENV_NAMES:
@@ -177,6 +186,13 @@ def call_scribe(
     return resp.json()
 
 
+# make sure the local library is installed before any audio is extracted
+def preflight_local(local_options: dict) -> str:
+    import local_stt
+
+    return local_stt.preflight(local_options.get("library"))
+
+
 # run the local whisper engine on the extracted wav
 def call_local(audio_path: Path, language: str | None, local_options: dict) -> dict:
     # imported here so the elevenlabs path never needs the local module or its libraries
@@ -219,19 +235,22 @@ def cached_engine(path: Path) -> str:
 def transcribe_one(
     video: Path,
     edit_dir: Path,
-    engine: str = "elevenlabs",
     api_key: str | None = None,
     language: str | None = None,
     num_speakers: int | None = None,
     verbose: bool = True,
     audio_track: int = 0,
+    *,
+    engine: str = "elevenlabs",
     force: bool = False,
     local_options: dict | None = None,
 ) -> Path:
     """Transcribe a single video. Returns path to transcript JSON.
 
-    Cached: returns the existing path immediately unless force is set. A cached file made by
-    the other engine is still reused; the note tells the agent how to redo it.
+    The positional parameters keep their historical order so older callers still work; the
+    engine controls are keyword only. Cached: returns the existing path immediately unless
+    force is set. A cached file made by the other engine is still reused; the note tells the
+    agent how to redo it.
     """
     if engine not in ENGINES:
         raise ValueError(f"unknown engine {engine!r}")
@@ -251,6 +270,10 @@ def transcribe_one(
             return out_path
         if verbose:
             print(f"  replacing {out_path.name} (made by {previous}) with a {engine} transcript", flush=True)
+
+    # a missing local library must fail here not after minutes of audio extraction
+    if engine == "local":
+        preflight_local(local_options or {})
 
     if verbose:
         print(f"  extracting audio from {video.name}", flush=True)
