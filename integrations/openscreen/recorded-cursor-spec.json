@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "background": {
+    "preset": "aurora",
+    "padding": 40,
+    "border_radius": 24,
+    "shadow": 0.35,
+    "motion_blur": 0.15
+  },
+  "cursor": {
+    "mode": "recorded",
+    "size": 4.5,
+    "smoothing": 0.67,
+    "motion_blur": 0.2,
+    "click_bounce": 1.0,
+    "interaction_zooms": true,
+    "zoom_depth": 1
+  },
+  "zooms": []
+}

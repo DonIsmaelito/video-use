@@ -9,7 +9,12 @@ import plistlib
 import subprocess
 
 SHA = "47ab52fd0907ed07336fa1ff868e671d5d5a469f"
-PATCH = Path(__file__).resolve().parent / "patches/cli-source-dimensions.patch"
+PATCH_DIR = Path(__file__).resolve().parent / "patches"
+PATCHES = (
+    PATCH_DIR / "cli-source-dimensions.patch",
+    PATCH_DIR / "cli-cursor-settings.patch",
+    PATCH_DIR / "cli-wallpaper-file-url.patch",
+)
 
 
 def run(command, cwd=None):
@@ -28,16 +33,20 @@ def stamp(runtime, app):
     revision = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=runtime, text=True).strip()
     if revision != SHA:
         raise ValueError("Expected the pinned OpenScreen v1.11.0 checkout")
-    run(["git", "apply", "--reverse", "--check", str(PATCH)], runtime)
+    for patch in PATCHES:
+        run(["git", "apply", "--reverse", "--check", str(patch)], runtime)
     addon = app / "Contents/Resources/electron/native/bin/darwin-arm64/compositor_view.node"
     files = list((runtime / "dist").rglob("*")) + list((runtime / "dist-electron").rglob("*"))
     if not files or not (runtime / "dist/index.html").exists():
         raise ValueError("Run npm run build-vite before stamping the runtime")
     files += list((runtime / "src/cli").rglob("*.ts*"))
+    files.append(runtime / "src/components/video-editor/projectPersistence.ts")
+    files.append(runtime / "electron/native-bridge/services/compositorViewService.ts")
     native_dir = addon.parent
     native_files = {str(p.relative_to(native_dir)): digest(p)
                     for p in native_dir.rglob("*") if p.is_file()}
-    manifest = {"schema_version": 1, "upstream_sha": SHA, "patch_sha256": digest(PATCH),
+    manifest = {"schema_version": 1, "upstream_sha": SHA,
+                "patches": {patch.name: digest(patch) for patch in PATCHES},
                 "native_addon_sha256": digest(addon),
                 "native_files": native_files,
                 "files": {str(p.relative_to(runtime)): digest(p) for p in files if p.is_file()}}
@@ -67,9 +76,13 @@ def main():
         revision = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=runtime, text=True).strip()
         if revision != SHA:
             raise ValueError("Upstream tag changed; refusing to install an unpinned runtime")
-        run(["git", "apply", str(PATCH)], runtime)
+        for patch in PATCHES:
+            run(["git", "apply", str(patch)], runtime)
         run(["npm", "ci"], runtime)
-        run(["npx", "vitest", "--run", "src/cli/probedVideoMetadata.test.ts"], runtime)
+        run(["npx", "vitest", "--run", "src/cli/probedVideoMetadata.test.ts",
+             "src/cli/cursorSettings.test.ts",
+             "electron/native-bridge/services/compositorViewService.test.ts",
+             "src/components/video-editor/projectPersistence.test.ts"], runtime)
         run(["npx", "tsc", "--noEmit"], runtime)
         run(["npx", "tsc", "-p", "tsconfig.test.json", "--noEmit"], runtime)
         run(["npm", "run", "build-vite"], runtime)

@@ -3,11 +3,13 @@ import importlib.util
 import json
 import shutil
 import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
 
+sys.path.insert(0, str(Path(__file__).parents[1] / "helpers"))
 
 SPEC = importlib.util.spec_from_file_location(
     "openscreen_project", Path(__file__).parents[1] / "helpers" / "openscreen_project.py"
@@ -32,6 +34,25 @@ class SpecTests(unittest.TestCase):
         self.assertEqual(data["editor"]["cropRegion"], {"x": 0, "y": 0, "width": 1, "height": 1})
         self.assertFalse(data["editor"]["autoZoomEnabled"])
         self.assertFalse(data["editor"]["autoFocusAll"])
+        self.assertEqual(normalized["background"]["preset"], "aurora")
+        self.assertTrue(data["editor"]["wallpaper"].startswith("file://"))
+
+    def test_explicit_gradients_retain_their_previous_native_settings(self):
+        for raw in ({"colors": ["#ABCDEF", "#102030"]}, {"angle": 80}):
+            with self.subTest(background=raw):
+                normalized = project.validate_spec({"background": raw}, 10)
+                self.assertNotIn("preset", normalized["background"])
+                data = project.build_project(Path("/recording.mov"), normalized)
+                colors = [c.lower() for c in raw.get("colors", ["#283653", "#101722"])]
+                self.assertEqual(data["editor"]["wallpaper"],
+                                 f"linear-gradient({raw.get('angle', 135)}deg, {colors[0]}, {colors[1]})")
+
+    def test_preset_paths_can_point_to_the_reproducible_bundle(self):
+        normalized = project.validate_spec({"background": {"preset": "spectrum", "padding": 25}}, 10)
+        path = Path("/project with spaces/background.jpg")
+        data = project.build_project(Path("/recording.mov"), normalized, wallpaper_path=path)
+        self.assertEqual(data["editor"]["wallpaper"], path.as_uri())
+        self.assertEqual(data["editor"]["padding"], 25)
 
     def test_cues_account_for_native_settle_offset(self):
         normalized = project.validate_spec({"zooms": [cue()]}, 12)
@@ -51,6 +72,9 @@ class SpecTests(unittest.TestCase):
             {"background": {"colors": ["red", "#ffffff"]}},
             {"background": {"padding": float("nan")}}, {"background": {"padding": True}},
             {"background": {"motion_blur": 2}}, {"zooms": "automatic"},
+            {"background": {"preset": "unknown"}}, {"background": {"preset": None}},
+            {"background": {"preset": "aurora", "colors": ["#000000", "#ffffff"]}},
+            {"background": {"preset": "aurora", "angle": 20}},
         ]
         for spec in bad:
             with self.subTest(spec=spec), self.assertRaises(ValueError):
@@ -113,6 +137,54 @@ class ProbeTests(unittest.TestCase):
             self.assertEqual(metadata["audio_duration_s"], 10)
 
 
+class CaptureBundleTests(unittest.TestCase):
+    def test_native_capture_preserves_hashed_telemetry_and_disables_webcam(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "capture.mp4"
+            source.write_bytes(b"fixture source only for preparation not rendering")
+            capture = root / "capture.openscreen"
+            capture.write_text(json.dumps({"version": 2, "media": {
+                "screenVideoPath": str(source), "cursorCaptureMode": "editable-overlay",
+                "webcamVideoPath": "ignored-webcam.mp4"}}))
+            sidecar = Path(str(source) + ".cursor.json")
+            sidecar.write_text(json.dumps({"version": 2, "samples": [
+                {"timeMs": 0, "cx": .4, "cy": .5, "interactionType": "move"},
+                {"timeMs": 4000, "cx": .4, "cy": .5, "interactionType": "click"},
+                {"timeMs": 4100, "cx": .4, "cy": .5, "interactionType": "mouseup"},
+                {"timeMs": 9990, "cx": .4, "cy": .5, "interactionType": "move"}]}))
+            spec = {"cursor": {"mode": "recorded"}}
+            with patch.object(project, "probe_source", return_value={"duration_s": 10}):
+                with self.assertRaisesRegex(ValueError, "recording-project"):
+                    project.prepare_project(source, spec, root / "missing")
+                report = project.prepare_project(source, spec, root / "bundle", recording_project=capture)
+            data = project.read_json(Path(report["project_path"]))
+            self.assertNotIn("webcamVideoPath", data["media"])
+            self.assertEqual(data["editor"]["webcamLayoutPreset"], "no-webcam")
+            self.assertTrue(data["editor"]["cursorShow"])
+            self.assertEqual(data["editor"]["cursorSize"], 4.5)
+            self.assertEqual(data["editor"]["zoomRegions"][0]["focusMode"], "auto")
+            copied_sidecar = Path(str(Path(report["source_path"])) + ".cursor.json")
+            self.assertEqual(sidecar.read_bytes(), copied_sidecar.read_bytes())
+            self.assertEqual(report["artifacts"]["cursor_data"]["sha256"], project.sha256_file(sidecar))
+            for artifact in report["artifacts"].values():
+                self.assertEqual(project.sha256_file(root / "bundle" / artifact["path"]), artifact["sha256"])
+            hidden_data = project.read_json(sidecar)
+            hidden_data["samples"][1]["visible"] = False
+            sidecar.write_text(json.dumps(hidden_data))
+            with patch.object(project, "probe_source", return_value={"duration_s": 10}):
+                with self.assertRaisesRegex(ValueError, "hidden cursor intervals"):
+                    project.prepare_project(source, spec, root / "hidden", recording_project=capture)
+            self.assertFalse((root / "hidden").exists())
+
+    def test_manual_and_automatic_cameras_cannot_overlap(self):
+        with self.assertRaisesRegex(ValueError, "combining them can overlap"):
+            project.validate_spec({"cursor": {"mode": "recorded"}, "zooms": [cue()]}, 12)
+        spec = project.validate_spec({"cursor": {"mode": "recorded", "interaction_zooms": False},
+                                      "zooms": [cue()]}, 12)
+        self.assertFalse(spec["cursor"]["interaction_zooms"])
+
+
 @unittest.skipUnless(shutil.which("ffmpeg") and shutil.which("ffprobe"), "ffmpeg required")
 class RealMediaTests(unittest.TestCase):
     def test_prepare_preserves_source_and_creates_portable_evidence(self):
@@ -142,12 +214,19 @@ class RealMediaTests(unittest.TestCase):
             self.assertEqual(report["status"], "prepared")
             self.assertEqual(report["timeline"]["source_end_s"], 1)
             saved = project.read_json(Path(report["manifest_path"]))
+            self.assertIn("background", saved["artifacts"])
+            wallpaper = root / "bundle" / saved["artifacts"]["background"]["path"]
+            data = project.read_json(Path(report["project_path"]))
+            self.assertEqual(data["editor"]["wallpaper"], wallpaper.resolve().as_uri())
             for artifact in saved["artifacts"].values():
                 self.assertFalse(Path(artifact["path"]).is_absolute())
                 self.assertEqual(project.sha256_file(root / "bundle" / artifact["path"]), artifact["sha256"])
             self.assertEqual(list((root / "bundle").glob("*.cursor.json")), [])
             with self.assertRaisesRegex(ValueError, "already exists"):
                 project.prepare_project(source, {}, root / "bundle")
+            gradient = project.prepare_project(source, {"background": {"angle": 135}}, root / "gradient")
+            self.assertNotIn("background", gradient["artifacts"])
+            self.assertEqual(list((root / "gradient").glob("background-*.jpg")), [])
 
     def test_failed_copy_cleans_only_its_new_bundle(self):
         with tempfile.TemporaryDirectory() as directory:

@@ -31,8 +31,10 @@ def runtime_command(runtime: Path, app: Path):
     stamp = read_json(runtime / "video-use-runtime.json")
     if stamp.get("upstream_sha") != UPSTREAM_SHA:
         raise ValueError("Unrecognized runtime revision; run the documented setup first")
-    patch = ROOT / "integrations/openscreen/patches/cli-source-dimensions.patch"
-    if stamp.get("patch_sha256") != sha256_file(patch):
+    patches = ROOT / "integrations/openscreen/patches"
+    expected_patches = {name: sha256_file(patches / name) for name in (
+        "cli-source-dimensions.patch", "cli-cursor-settings.patch", "cli-wallpaper-file-url.patch")}
+    if stamp.get("patches") != expected_patches:
         raise ValueError("Runtime was built with a different integration patch; rebuild it")
     for rel, digest in stamp["files"].items():
         if sha256_file(runtime / rel) != digest:
@@ -349,6 +351,9 @@ def main():
     prepare.add_argument("source", type=Path)
     prepare.add_argument("--spec", required=True, type=Path)
     prepare.add_argument("--out", required=True, type=Path)
+    prepare.add_argument("--recording-project", type=Path,
+                         help="Original OpenScreen v2 editable-overlay capture project")
+    commands.add_parser("backgrounds", help="List the bundled background presets")
     export = commands.add_parser("export")
     export.add_argument("manifest", type=Path)
     export.add_argument("--runtime", required=True, type=Path)
@@ -361,7 +366,11 @@ def main():
     args = parser.parse_args()
     try:
         if args.command == "prepare":
-            result = prepare_project(args.source, read_json(args.spec), args.out)
+            result = prepare_project(args.source, read_json(args.spec), args.out,
+                                     recording_project=args.recording_project)
+        elif args.command == "backgrounds":
+            from openscreen_backgrounds import list_backgrounds
+            result = list_backgrounds()
         elif args.command == "export":
             result = export_project(args.manifest, args.runtime, args.app, args.out)
         else:

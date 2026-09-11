@@ -1,8 +1,7 @@
 {
   "schema_version": 1,
   "background": {
-    "colors": ["#172b4d", "#879fbe"],
-    "angle": 135,
+    "preset": "aurora",
     "padding": 40,
     "border_radius": 24,
     "shadow": 0.35,

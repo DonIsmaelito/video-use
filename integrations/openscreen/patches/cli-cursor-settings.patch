@@ -1,0 +1,140 @@
+diff --git a/src/cli/cursorSettings.test.ts b/src/cli/cursorSettings.test.ts
+new file mode 100644
+index 0000000..b913ad4
+--- /dev/null
++++ b/src/cli/cursorSettings.test.ts
+@@ -0,0 +1,80 @@
++import { describe, expect, it } from "vitest";
++import { normalizeProjectEditor } from "@/components/video-editor/projectPersistence";
++import {
++	DEFAULT_CURSOR_CLICK_BOUNCE,
++	DEFAULT_CURSOR_CLIP_TO_BOUNDS,
++	DEFAULT_CURSOR_MOTION_BLUR,
++	DEFAULT_CURSOR_SIZE,
++	DEFAULT_CURSOR_SMOOTHING,
++} from "@/components/video-editor/types";
++import { migrateProjectDataToAxcutDocument } from "@/lib/ai-edition/document/migrate";
++import { buildSceneDescription } from "@/native/sceneDescription";
++
++describe("CLI cursor project settings", () => {
++	it.each([
++		true,
++		false,
++	])("preserves show=%s and cursor effects through native scene migration", (show) => {
++		const doc = migrateProjectDataToAxcutDocument({
++			version: 2,
++			media: { screenVideoPath: "/recordings/demo.mov" },
++			editor: normalizeProjectEditor({
++				cursorShow: show,
++				cursorSize: 4.5,
++				cursorSmoothing: 0.42,
++				cursorMotionBlur: 0.2,
++				cursorClickBounce: 1.5,
++				cursorClipToBounds: true,
++				cursorTheme: "default",
++			}),
++		});
++		expect(buildSceneDescription(doc).cursor).toEqual({
++			show,
++			size: 4.5,
++			smoothing: 0.42,
++			motionBlur: 0.2,
++			clickBounce: 1.5,
++			clipToBounds: true,
++			theme: "default",
++		});
++	});
++
++	it("retains existing defaults when old projects omit cursor settings", () => {
++		expect(normalizeProjectEditor({})).toMatchObject({
++			cursorShow: true,
++			cursorSize: DEFAULT_CURSOR_SIZE,
++			cursorSmoothing: DEFAULT_CURSOR_SMOOTHING,
++			cursorMotionBlur: DEFAULT_CURSOR_MOTION_BLUR,
++			cursorClickBounce: DEFAULT_CURSOR_CLICK_BOUNCE,
++			cursorClipToBounds: DEFAULT_CURSOR_CLIP_TO_BOUNDS,
++		});
++	});
++
++	it("rejects nonfinite settings and bounds numerical input like the native inspector", () => {
++		expect(
++			normalizeProjectEditor({
++				cursorSize: Number.NaN,
++				cursorSmoothing: -1,
++				cursorMotionBlur: 9,
++				cursorClickBounce: Number.POSITIVE_INFINITY,
++				cursorShow: "false" as never,
++				cursorClipToBounds: "true" as never,
++			}),
++		).toMatchObject({
++			cursorSize: DEFAULT_CURSOR_SIZE,
++			cursorSmoothing: 0,
++			cursorMotionBlur: 1,
++			cursorClickBounce: DEFAULT_CURSOR_CLICK_BOUNCE,
++			cursorShow: true,
++			cursorClipToBounds: DEFAULT_CURSOR_CLIP_TO_BOUNDS,
++		});
++		expect(normalizeProjectEditor({ cursorSize: -1, cursorClickBounce: -1 })).toMatchObject({
++			cursorSize: 0.5,
++			cursorClickBounce: 0,
++		});
++		expect(normalizeProjectEditor({ cursorSize: 20, cursorClickBounce: 20 })).toMatchObject({
++			cursorSize: 10,
++			cursorClickBounce: 5,
++		});
++	});
++});
+diff --git a/src/components/video-editor/projectPersistence.ts b/src/components/video-editor/projectPersistence.ts
+index 6274028..a8da0d2 100644
+--- a/src/components/video-editor/projectPersistence.ts
++++ b/src/components/video-editor/projectPersistence.ts
+@@ -26,6 +26,11 @@ import {
+ 	DEFAULT_BLUR_DATA,
+ 	DEFAULT_BLUR_FREEHAND_POINTS,
+ 	DEFAULT_BLUR_INTENSITY,
++	DEFAULT_CURSOR_CLICK_BOUNCE,
++	DEFAULT_CURSOR_CLIP_TO_BOUNDS,
++	DEFAULT_CURSOR_MOTION_BLUR,
++	DEFAULT_CURSOR_SIZE,
++	DEFAULT_CURSOR_SMOOTHING,
+ 	DEFAULT_FIGURE_DATA,
+ 	DEFAULT_PLAYBACK_SPEED,
+ 	DEFAULT_WEBCAM_MIRRORED,
+@@ -94,6 +99,13 @@ export interface ProjectEditorState {
+ 	gifLoop: boolean;
+ 	gifSizePreset: GifSizePreset;
+ 	cursorTheme: string;
++	// Optional for old project writers; normalization supplies the native defaults.
++	cursorShow?: boolean;
++	cursorSize?: number;
++	cursorSmoothing?: number;
++	cursorMotionBlur?: number;
++	cursorClickBounce?: number;
++	cursorClipToBounds?: boolean;
+ }
+ 
+ export interface EditorProjectData {
+@@ -471,6 +483,23 @@ export function normalizeProjectEditor(editor: Partial<ProjectEditorState>): Pro
+ 
+ 	return {
+ 		cursorTheme: normalizeCursorThemeId(editor.cursorTheme),
++		cursorShow: typeof editor.cursorShow === "boolean" ? editor.cursorShow : true,
++		cursorSize: isFiniteNumber(editor.cursorSize)
++			? clamp(editor.cursorSize, 0.5, 10)
++			: DEFAULT_CURSOR_SIZE,
++		cursorSmoothing: isFiniteNumber(editor.cursorSmoothing)
++			? clamp(editor.cursorSmoothing, 0, 1)
++			: DEFAULT_CURSOR_SMOOTHING,
++		cursorMotionBlur: isFiniteNumber(editor.cursorMotionBlur)
++			? clamp(editor.cursorMotionBlur, 0, 1)
++			: DEFAULT_CURSOR_MOTION_BLUR,
++		cursorClickBounce: isFiniteNumber(editor.cursorClickBounce)
++			? clamp(editor.cursorClickBounce, 0, 5)
++			: DEFAULT_CURSOR_CLICK_BOUNCE,
++		cursorClipToBounds:
++			typeof editor.cursorClipToBounds === "boolean"
++				? editor.cursorClipToBounds
++				: DEFAULT_CURSOR_CLIP_TO_BOUNDS,
+ 		wallpaper:
+ 			typeof editor.wallpaper === "string"
+ 				? normalizeWallpaperValue(editor.wallpaper)

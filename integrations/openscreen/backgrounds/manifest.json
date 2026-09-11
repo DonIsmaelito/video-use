@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "upstream_repository": "https://github.com/getopenscreen/openscreen",
+  "upstream_revision": "47ab52fd0907ed07336fa1ff868e671d5d5a469f",
+  "license": "MIT",
+  "license_file": "../OPENSCREEN-LICENSE",
+  "assets": [
+    {
+      "name": "aurora",
+      "label": "Aurora",
+      "description": "Flowing teal, coral and cream ribbons frame dark product interfaces.",
+      "file": "aurora.jpg",
+      "width": 3840,
+      "height": 2482,
+      "sha256": "ffc8e20f419933370d71fe4bbaba5a7cb5ff5f9b9ab376c6ca3b63831bbf6972",
+      "upstream_path": "public/wallpapers/wallpaper14.jpg"
+    },
+    {
+      "name": "spectrum",
+      "label": "Spectrum",
+      "description": "Bold blue and orange painterly sweeps add energy around the recording.",
+      "file": "spectrum.jpg",
+      "width": 3840,
+      "height": 2489,
+      "sha256": "3f1122043643f995637cdebe78dad5a34593885e2e66349c4400ab0439515feb",
+      "upstream_path": "public/wallpapers/wallpaper17.jpg"
+    },
+    {
+      "name": "coastline",
+      "label": "Coastline",
+      "description": "Layered teal and gold scenery gives the product a colorful, calmer frame.",
+      "file": "coastline.jpg",
+      "width": 3840,
+      "height": 2489,
+      "sha256": "b0ef809200d5f7085806788a3ddd8d5f93241f138bcab14312939b2465de44db",
+      "upstream_path": "public/wallpapers/wallpaper18.jpg"
+    }
+  ]
+}

@@ -7,8 +7,9 @@ build a replacement compositor, transcribe silent footage, invent cursor clicks,
 or use montage cuts for this full-length route.
 
 Read [setup and commands](../integrations/openscreen/README.md). The current
-adapter is a tested Apple Silicon macOS import path. OpenScreen itself also
-supports recording and other platforms; those are distinct integration paths.
+adapter targets Apple Silicon macOS, with separate baked-video and editable
+cursor import paths. Browser Harness must validate its actual OS recording
+integration; synthetic export tests do not establish recorder correctness.
 
 ## Editorial choices
 
@@ -24,6 +25,13 @@ supports recording and other platforms; those are distinct integration paths.
 - Existing visible cursors stay in the source. Replacing or smoothing a cursor
   requires a recording made with editable cursor telemetry; do not draw a
   second cursor over an imported one.
+- For genuine editable captures, use `recorded-cursor-spec.json` and the original
+  recorder project. Larger native cursors and click feedback require no drawing
+  code. Recorded interactions drive short focus moves and cursor-following drags;
+  inspect `interaction-report.json` for uncovered actions. Avoid combining manual
+  zooms with the automatic interaction planner.
+- Start with the expressive `aurora` wallpaper. `spectrum` and `coastline` are
+  alternatives. Preserve readable UI and full-screen context; leave the webcam off.
 
 The cue contract uses `settle_s` (fully zoomed) and `hold_end_s` (start returning).
 OpenScreen v1.11.0's native transition starts about 1.523 seconds before settling

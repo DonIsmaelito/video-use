@@ -437,7 +437,9 @@ class RuntimeEvidenceTests(unittest.TestCase):
             built.write_text("tested code")
             stamp = {
                 "upstream_sha": export.UPSTREAM_SHA,
-                "patch_sha256": export.sha256_file(export.ROOT / "integrations/openscreen/patches/cli-source-dimensions.patch"),
+                "patches": {name: export.sha256_file(export.ROOT / "integrations/openscreen/patches" / name)
+                            for name in ("cli-source-dimensions.patch", "cli-cursor-settings.patch",
+                                         "cli-wallpaper-file-url.patch")},
                 "files": {"compiled.js": export.sha256_file(built)},
                 "native_addon_sha256": export.sha256_file(addon),
                 "native_files": {p.name: export.sha256_file(p) for p in (addon, library)},
@@ -452,7 +454,7 @@ class RuntimeEvidenceTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "Native library changed"):
                 export.runtime_command(runtime, app)
             library.write_bytes(b"tested codec library")
-            stamp["patch_sha256"] = "stale patch"
+            stamp["patches"]["cli-cursor-settings.patch"] = "stale patch"
             stamp_path.write_text(json.dumps(stamp))
             with self.assertRaisesRegex(ValueError, "different integration patch"):
                 export.runtime_command(runtime, app)

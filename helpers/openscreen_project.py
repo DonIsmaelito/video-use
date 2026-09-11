@@ -14,6 +14,15 @@ import shutil
 import subprocess
 from pathlib import Path
 
+try:
+    from .openscreen_backgrounds import DEFAULT_PRESET, resolve_preset
+    from .openscreen_cursor import validate_cursor_spec, validate_capture_project, editor_cursor_settings
+    from .openscreen_interactions import interaction_zooms
+except ImportError:
+    from openscreen_backgrounds import DEFAULT_PRESET, resolve_preset
+    from openscreen_cursor import validate_cursor_spec, validate_capture_project, editor_cursor_settings
+    from openscreen_interactions import interaction_zooms
+
 
 OPENSCREEN_VERSION = "1.11.0"
 OPENSCREEN_REVISION = "47ab52fd0907ed07336fa1ff868e671d5d5a469f"
@@ -23,13 +32,13 @@ ZOOM_OUT_S = 1.01505
 MIN_OVERVIEW_GAP_S = 2.0
 MIN_EDGE_OVERVIEW_S = 1.0
 DEFAULT_BACKGROUND = {
-    "colors": ["#283653", "#101722"],
-    "angle": 135,
+    "preset": DEFAULT_PRESET,
     "padding": 30,
     "border_radius": 24,
     "shadow": 0.35,
     "motion_blur": 0.15,
 }
+DEFAULT_GRADIENT = {"colors": ["#283653", "#101722"], "angle": 135}
 
 
 def read_json(path: Path) -> dict:
@@ -78,20 +87,31 @@ def validate_spec(spec: dict, duration_s: float) -> dict:
     This also prevents OpenScreen's automatic chaining of neighboring zooms.
     """
     _number(duration_s, 0.001, 24 * 3600, "source duration")
-    spec = _object(spec, {"schema_version", "background", "zooms"}, "spec")
+    spec = _object(spec, {"schema_version", "background", "zooms", "cursor"}, "spec")
+    cursor = validate_cursor_spec(spec.get("cursor", {}))
     version = spec.get("schema_version", 1)
     if type(version) is not int or version != 1:
         raise ValueError("schema_version must be 1")
-    background = _object(spec.get("background", {}), DEFAULT_BACKGROUND, "background")
-    background = {**DEFAULT_BACKGROUND, **background}
-    colors = background["colors"]
-    if not isinstance(colors, list) or len(colors) != 2:
-        raise ValueError("background.colors requires exactly two colors")
-    if any(not isinstance(c, str) or not re.fullmatch(r"#[0-9a-fA-F]{6}", c) for c in colors):
-        raise ValueError("background.colors requires #RRGGBB colors")
-    background["colors"] = [c.lower() for c in colors]
+    raw_background = _object(spec.get("background", {}),
+                             set(DEFAULT_BACKGROUND) | set(DEFAULT_GRADIENT), "background")
+    gradient = bool({"colors", "angle"} & raw_background.keys())
+    if gradient and "preset" in raw_background:
+        raise ValueError("background.preset cannot be combined with colors or angle")
+    layout = {key: value for key, value in DEFAULT_BACKGROUND.items() if key != "preset"}
+    background = {**layout, **(DEFAULT_GRADIENT if gradient else {"preset": DEFAULT_PRESET}),
+                  **raw_background}
+    if gradient:
+        colors = background["colors"]
+        if not isinstance(colors, list) or len(colors) != 2:
+            raise ValueError("background.colors requires exactly two colors")
+        if any(not isinstance(c, str) or not re.fullmatch(r"#[0-9a-fA-F]{6}", c) for c in colors):
+            raise ValueError("background.colors requires #RRGGBB colors")
+        background["colors"] = [c.lower() for c in colors]
+        _number(background["angle"], 0, 360, "background.angle")
+    else:
+        resolve_preset(background["preset"])
     for key, bounds in {
-        "angle": (0, 360), "padding": (0, 100), "border_radius": (0, 200),
+        "padding": (0, 100), "border_radius": (0, 200),
         "shadow": (0, 1), "motion_blur": (0, 1),
     }.items():
         _number(background[key], *bounds, f"background.{key}")
@@ -129,7 +149,9 @@ def validate_spec(spec: dict, duration_s: float) -> dict:
         last_effect_end = effect_end
         zooms.append({"settle_s": settle, "hold_end_s": end, "depth": depth,
                       "focus": list(focus), "reason": reason.strip()})
-    return {"schema_version": 1, "background": background, "zooms": zooms}
+    if zooms and cursor.get("interaction_zooms"):
+        raise ValueError("Choose manual zooms or recorded interaction zooms; combining them can overlap")
+    return {"schema_version": 1, "background": background, "zooms": zooms, "cursor": cursor}
 
 
 def probe_source(source: Path) -> dict:
@@ -190,21 +212,33 @@ def probe_source(source: Path) -> dict:
                 "audio_start_s": audio_start} if audio else {})}
 
 
-def build_project(copied_source: Path, normalized_spec: dict) -> dict:
+def build_project(copied_source: Path, normalized_spec: dict, *, wallpaper_path: Path | None = None,
+                  interaction_regions: list | None = None) -> dict:
     """Build the supported v2 envelope; source duration is probed by OpenScreen."""
     background = normalized_spec["background"]
-    c0, c1 = background["colors"]
+    if "preset" in background:
+        image = wallpaper_path if wallpaper_path is not None else resolve_preset(background["preset"])
+        wallpaper = Path(image).resolve().as_uri()
+    else:
+        if wallpaper_path is not None:
+            raise ValueError("An image wallpaper path cannot override a gradient specification")
+        c0, c1 = background["colors"]
+        wallpaper = f"linear-gradient({background['angle']}deg, {c0}, {c1})"
     zooms = [{"id": f"product-focus-{i + 1}",
               "startMs": round(cue["settle_s"] * 1000) - 500,
               "endMs": round(cue["hold_end_s"] * 1000), "depth": cue["depth"],
               "focus": {"cx": cue["focus"][0], "cy": cue["focus"][1]},
               "focusMode": "manual", "source": "manual"}
              for i, cue in enumerate(normalized_spec["zooms"])]
+    cursor = normalized_spec["cursor"]
+    if interaction_regions is not None:
+        zooms = interaction_regions
     return {
         "version": 2,
-        "media": {"screenVideoPath": str(Path(copied_source).resolve()), "cursorCaptureMode": "system"},
+        "media": {"screenVideoPath": str(Path(copied_source).resolve()),
+                  "cursorCaptureMode": "editable-overlay" if cursor["mode"] == "recorded" else "system"},
         "editor": {
-            "wallpaper": f"linear-gradient({background['angle']}deg, {c0}, {c1})",
+            "wallpaper": wallpaper,
             "shadowIntensity": background["shadow"], "showBlur": False,
             "motionBlurAmount": background["motion_blur"],
             "borderRadius": background["border_radius"], "padding": background["padding"],
@@ -217,6 +251,7 @@ def build_project(copied_source: Path, normalized_spec: dict) -> dict:
             "webcamReactiveZoom": False, "webcamSizePreset": 25, "webcamPosition": None,
             "exportQuality": "good", "exportFormat": "mp4", "gifFrameRate": 15,
             "gifLoop": True, "gifSizePreset": "medium", "cursorTheme": "default",
+            **editor_cursor_settings(cursor),
         },
     }
 
@@ -225,13 +260,37 @@ def _write_json(path: Path, value: dict) -> None:
     path.write_text(json.dumps(value, indent=2, allow_nan=False) + "\n", encoding="utf-8")
 
 
-def prepare_project(source: Path, spec: dict, destination: Path) -> dict:
+def prepare_project(source: Path, spec: dict, destination: Path, *,
+                    recording_project: Path | None = None) -> dict:
     """Create a fresh, self-contained input bundle. Never mark an export verified."""
     source, destination = Path(source).resolve(strict=True), Path(destination).resolve()
     if destination.exists():
         raise ValueError(f"Destination already exists; choose a fresh directory: {destination}")
     metadata = probe_source(source)
     normalized = validate_spec(spec, metadata["duration_s"])
+    capture_inputs = {}
+    interactions = None
+    if normalized["cursor"]["mode"] == "recorded":
+        if recording_project is None:
+            raise ValueError("Recorded cursor effects require --recording-project from the real capture")
+        recording_project = Path(recording_project).resolve(strict=True)
+        capture_hash = sha256_file(recording_project)
+        sidecar = validate_capture_project(read_json(recording_project), recording_project, source)
+        # Hash before reading to reject a concurrent recorder still writing its sidecar.
+        capture_inputs = {"capture_project": (recording_project, capture_hash),
+                          "cursor_data": (sidecar, sha256_file(sidecar))}
+        cursor_data = read_json(sidecar)
+        if isinstance(cursor_data, dict) and isinstance(cursor_data.get("samples"), list):
+            for sample in cursor_data["samples"]:
+                if isinstance(sample, dict) and sample.get("visible", True) is not True:
+                    raise ValueError("Pinned native renderer cannot preserve hidden cursor intervals; "
+                                     "use baked capture or a visibility-aware native runtime")
+        interactions = interaction_zooms(cursor_data, metadata["duration_s"],
+                                         depth=normalized["cursor"]["zoom_depth"])
+    elif recording_project is not None:
+        raise ValueError("Set cursor.mode to recorded to import editable capture data")
+    preset_name = normalized["background"].get("preset")
+    preset_path = resolve_preset(preset_name) if preset_name is not None else None
     source_hash = sha256_file(source)
     if shutil.disk_usage(destination.parent if destination.parent.exists() else source.parent).free < source.stat().st_size + 16 * 1024 * 1024:
         raise ValueError("Insufficient free space to copy the source into a project bundle")
@@ -241,25 +300,57 @@ def prepare_project(source: Path, spec: dict, destination: Path) -> dict:
         shutil.copy2(source, media_path)
         if sha256_file(media_path) != source_hash:
             raise ValueError("Source bytes changed while preparing the project")
+        capture_artifacts = {}
+        for name, (original, digest) in capture_inputs.items():
+            copied = (Path(str(media_path) + ".cursor.json") if name == "cursor_data"
+                      else destination / "capture-original.openscreen")
+            shutil.copy2(original, copied)
+            if sha256_file(copied) != digest:
+                raise ValueError("Capture evidence changed while preparing the project")
+            capture_artifacts[name] = {"path": copied.name, "sha256": digest,
+                                       "bytes": copied.stat().st_size}
+        regions = None
+        if interactions is not None:
+            interactions["enabled"] = normalized["cursor"]["interaction_zooms"]
+            if interactions["enabled"]:
+                regions = interactions["zoom_regions"]
+            report_path = destination / "interaction-report.json"
+            _write_json(report_path, interactions)
+            capture_artifacts["interaction_report"] = {"path": report_path.name,
+                                                       "sha256": sha256_file(report_path)}
         project_path, spec_path = destination / "demo.openscreen", destination / "demo-spec.json"
-        _write_json(project_path, build_project(media_path, normalized))
+        wallpaper_path = None
+        background_artifact = None
+        if preset_path is not None:
+            wallpaper_path = destination / f"background-{preset_name}.jpg"
+            preset_hash = sha256_file(preset_path)
+            shutil.copy2(preset_path, wallpaper_path)
+            if sha256_file(wallpaper_path) != preset_hash:
+                raise ValueError("Background bytes changed while preparing the project")
+            background_artifact = {"path": wallpaper_path.name, "sha256": preset_hash,
+                                   "bytes": wallpaper_path.stat().st_size}
+        _write_json(project_path, build_project(media_path, normalized, wallpaper_path=wallpaper_path,
+                                               interaction_regions=regions))
         _write_json(spec_path, normalized)
         native_duration = min(metadata["duration_s"], math.floor(metadata["duration_s"] * 1000 + 0.5) / 1000)
         frames = max(1, math.ceil((native_duration - 0.001) * OUTPUT_FPS))
         manifest = {
             "schema_version": 1, "status": "prepared", "render_verified": False,
             "openscreen": {"version": OPENSCREEN_VERSION, "revision": OPENSCREEN_REVISION,
-                           "requires_cli_dimension_fix": True},
+                           "requires_cli_dimension_fix": True, "requires_cli_cursor_fix": True},
             "artifacts": {
                 "source": {"path": media_path.name, "sha256": source_hash, "bytes": media_path.stat().st_size},
                 "project": {"path": project_path.name, "sha256": sha256_file(project_path)},
                 "spec": {"path": spec_path.name, "sha256": sha256_file(spec_path)},
+                **({"background": background_artifact} if background_artifact is not None else {}),
+                **capture_artifacts,
             },
             "source_metadata": metadata,
             "expected_video": {"width": 1920, "height": 1080, "fps": OUTPUT_FPS,
                                "frame_count": frames, "duration_s": frames / OUTPUT_FPS},
             "timeline": {"source_start_s": 0, "source_end_s": metadata["duration_s"], "speed": 1,
-                         "cuts": [], "cursor": "baked source cursor retained; no sidecar copied"},
+                         "cuts": [], "cursor": ("recorded editable overlay with original telemetry"
+                          if capture_inputs else "baked source cursor retained; no sidecar copied")},
         }
         manifest_path = destination / "manifest.json"
         _write_json(manifest_path, manifest)

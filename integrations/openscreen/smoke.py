@@ -29,7 +29,9 @@ def main():
         "-bsf:v", "h264_metadata=video_full_range_flag=0:colour_primaries=1:transfer_characteristics=1:matrix_coefficients=1",
         "-color_range", "tv", "-colorspace", "bt709", "-color_primaries", "bt709",
         "-color_trc", "bt709", str(source)], check=True)
-    prepared = prepare_project(source, {"schema_version": 1, "zooms": []}, base / "project")
+    prepared = prepare_project(source, {"schema_version": 1, "zooms": [],
+                                       "background": {"colors": ["#283653", "#101722"], "angle": 135}},
+                               base / "project")
     output = base / "native-smoke.mp4"
     result = export_project(Path(prepared["manifest_path"]), args.runtime, args.app, output)
     rgb = subprocess.check_output(["ffmpeg", "-v", "error", "-ss", "0.5", "-i", str(output),

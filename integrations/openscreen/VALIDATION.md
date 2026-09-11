@@ -26,11 +26,38 @@ Validated locally on Apple Silicon macOS using OpenScreen v1.11.0
 - The final adapter also passed the actual native geometry/audio smoke after
   adding durable checkpoints and single-pass decode verification.
 
+## Cursor and expressive background revision
+
+- 77 repository tests pass. New cases cover capture provenance, preserved
+  telemetry, cursor settings, hidden-interval rejection, interaction coverage,
+  immutable wallpapers and the three-patch runtime stamp.
+- The cursor loader fix passed 27 targeted upstream tests; the local wallpaper
+  URL fix passed 36 native-bridge tests. Both TypeScript configurations and the
+  Vite build passed. The native binary is still the official unmodified addon.
+- Two actual native 15-second exports compared a normal size-3 pointer with
+  the production size-4.5 pointer, click bounce 1.0 and interaction zooms. The
+  fixture is explicitly synthetic: authored UI and 60Hz pointer samples, with
+  a click at 4s and a drag at 10–11.5s. Both outputs fully decoded with 900 frames.
+- Encoded cursor height increased from 87px to 130px (1.494x). The press was
+  99px, rebound 151px. The camera magnified the scene 1.245x during the click;
+  it shifted 282px following the drag versus zero in the control, and returned
+  to final overview. These checks measure native output, not only JSON settings.
+- The original click-bounce value 2.5 produced a visibly excessive press and
+  rebound (52px to 182px). Production default and example were reduced to 1.0
+  and the actual native test was repeated successfully.
+- Review caught a native wallpaper loader issue: the editor understood file
+  URLs but the image decoder needed a filesystem path. The bridge now decodes
+  valid local URLs and rejects invalid, missing or remote wallpaper inputs.
+- New recordings use the actual CLI flag `--cursor editable-overlay` and the
+  original recorder project. Baked cursor imports explicitly disable overlays.
+  Per-sample hidden intervals fail because the pinned native binary ignores
+  that field; the adapter does not pretend those intervals were respected.
+
 Not tested here: native Browser Harness recording, recording permissions,
-webcam capture, editable cursor capture, Windows/Linux operation, or arbitrary
-OpenScreen GUI edits. The first integration supports imported recordings with
-their captured cursor. The internal-tool agent should validate the native
-recording route separately as described in README.
+webcam capture, actual editable cursor capture, Windows/Linux operation, or
+arbitrary OpenScreen GUI edits. The synthetic cursor test verifies export with
+known telemetry, not capture. The internal-tool agent must validate the real
+recording path separately as described in README.
 
 The original media, generated demo and private logs are local artifacts and
 are not included in this repository. The supplied smoke command is the public,

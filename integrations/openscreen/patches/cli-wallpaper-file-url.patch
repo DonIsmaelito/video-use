@@ -1,0 +1,130 @@
+diff --git a/electron/native-bridge/services/compositorViewService.test.ts b/electron/native-bridge/services/compositorViewService.test.ts
+index 29f492b..ef6d054 100644
+--- a/electron/native-bridge/services/compositorViewService.test.ts
++++ b/electron/native-bridge/services/compositorViewService.test.ts
+@@ -1,6 +1,7 @@
+ import fs from "node:fs";
+ import os from "node:os";
+ import path from "node:path";
++import { pathToFileURL } from "node:url";
+ import { afterEach, beforeEach, describe, expect, it } from "vitest";
+ import { CURSOR_THEMES, DEFAULT_CURSOR_SPRITES } from "../../../src/lib/cursor/cursorThemes";
+ import {
+@@ -338,6 +339,52 @@ describe("resolveSceneAssetPaths", () => {
+ 		expect(fs.existsSync(out.background.path)).toBe(true);
+ 	});
+ 
++	it("decodes a local wallpaper URL with spaces and Unicode to the exact native image path", () => {
++		const image = path.join(resources, "custom écran coral.jpg");
++		const original = path.resolve("public/wallpapers/wallpaper14.jpg");
++		fs.copyFileSync(original, image);
++		const out = resolved({ background: { kind: "image", path: pathToFileURL(image).href } });
++		expect(out.background.path).toBe(image);
++		expect(fs.readFileSync(out.background.path)).toEqual(fs.readFileSync(original));
++	});
++
++	it("also resolves a local file URL in a camera background", () => {
++		const image = path.join(resources, "wallpapers", "wallpaper1.jpg");
++		const out = resolved({
++			webcamEffect: {
++				mode: "custom",
++				background: { kind: "image", path: pathToFileURL(image).href },
++			},
++		});
++		expect(out.webcamEffect.background.path).toBe(image);
++	});
++
++	it.each([
++		"file://remote.example/share/wallpaper.jpg",
++		"file:///bad%2Fencoded-path.jpg",
++		"file:///bad%ZZescape.jpg",
++		"file:///wallpaper.jpg?different-image",
++		"file:///wallpaper.jpg#different-image",
++	])("rejects an invalid or remote wallpaper file URL instead of silently losing its image: %s", (value) => {
++		expect(() => resolved({ background: { kind: "image", path: value } })).toThrow(
++			"Invalid local wallpaper file URL",
++		);
++	});
++
++	it("rejects missing files and directories before native image decoding", () => {
++		for (const image of [path.join(resources, "missing.jpg"), resources]) {
++			expect(() =>
++				resolved({ background: { kind: "image", path: pathToFileURL(image).href } }),
++			).toThrow("Wallpaper image file does not exist");
++		}
++	});
++
++	it("leaves blank, data URL and plain custom image paths unchanged", () => {
++		for (const value of ["", "data:image/png;base64,abc", path.join(resources, "custom.jpg")]) {
++			expect(resolved({ background: { kind: "image", path: value } }).background.path).toBe(value);
++		}
++	});
++
+ 	// The camera's own background under the "custom" mode. It was NOT resolved, and the failure
+ 	// was silent and total: the compositor got "/wallpapers/wallpaper1.jpg", could not open it,
+ 	// and painted the bubble black — behind every one of the 18 bundled wallpapers, including
+diff --git a/electron/native-bridge/services/compositorViewService.ts b/electron/native-bridge/services/compositorViewService.ts
+index 59d0ee5..1494f0e 100644
+--- a/electron/native-bridge/services/compositorViewService.ts
++++ b/electron/native-bridge/services/compositorViewService.ts
+@@ -120,6 +120,30 @@ function resolveCursorSpritePaths(
+  *  process, and the renderer has no business knowing the on-disk layout. */
+ const SEGMENTATION_MODEL_ASSET = "mediapipe/selfie_segmentation/selfie_segmentation_landscape.onnx";
+ 
++class InvalidWallpaperFileUrlError extends Error {}
++
++/** Native image decoders need OS paths; the editor persists local images as file URLs. */
++function wallpaperFileUrlPath(value: string): string {
++	try {
++		const url = new URL(value);
++		if (url.hostname !== "" && url.hostname !== "localhost") {
++			throw new Error("Remote file authorities are unsupported");
++		}
++		if (url.search || url.hash) {
++			throw new Error("Wallpaper file URLs cannot contain a query or fragment");
++		}
++		const localPath = fileURLToPath(url);
++		if (!realExistsSync(localPath) || !fs.statSync(localPath).isFile()) {
++			throw new Error("Wallpaper image file does not exist");
++		}
++		return localPath;
++	} catch (error) {
++		throw new InvalidWallpaperFileUrlError(
++			`Invalid local wallpaper file URL: ${error instanceof Error ? error.message : String(error)}`,
++		);
++	}
++}
++
+ export function resolveSceneAssetPaths(sceneJson: string): string {
+ 	try {
+ 		const scene = JSON.parse(sceneJson) as {
+@@ -140,11 +164,14 @@ export function resolveSceneAssetPaths(sceneJson: string): string {
+ 		// "/wallpapers/wallpaper1.jpg", `image::open` cannot find it, and the PiP falls back to
+ 		// a flat colour with only a line on stderr to say so.
+ 		const resolveBackgroundImage = (target?: { kind?: string; path?: string }): boolean => {
+-			if (
+-				target?.kind !== "image" ||
+-				typeof target.path !== "string" ||
+-				!target.path.startsWith("/")
+-			) {
++			if (target?.kind !== "image" || typeof target.path !== "string") {
++				return false;
++			}
++			if (/^file:/i.test(target.path)) {
++				target.path = wallpaperFileUrlPath(target.path);
++				return true;
++			}
++			if (!target.path.startsWith("/")) {
+ 				return false;
+ 			}
+ 			// strip the leading slash so path.join keeps it under the base dir
+@@ -173,7 +200,8 @@ export function resolveSceneAssetPaths(sceneJson: string): string {
+ 			}
+ 		}
+ 		return changed ? JSON.stringify(scene) : sceneJson;
+-	} catch {
++	} catch (error) {
++		if (error instanceof InvalidWallpaperFileUrlError) throw error;
+ 		return sceneJson;
+ 	}
+ }

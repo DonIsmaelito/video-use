@@ -5,6 +5,12 @@ compositor**, camera easing, backgrounds, shadow, rounded window and encoder.
 This integration contains no alternate renderer and does not change the signed
 OpenScreen application. It is isolated from the video-use-fast cloud/UI work.
 
+The Python code here is the integration layer. OpenScreen's Electron/TypeScript
+application drives its native Rust compositor. The agent chooses editorial
+intent; helpers translate and validate it; OpenScreen produces the frames.
+Recorded interaction planning is deterministic Python code, not an additional
+model invocation for each click or animation frame.
+
 ## Start here
 
 Tested platform: Apple Silicon macOS. Requirements: Python 3.10+, ffmpeg/ffprobe,
@@ -19,11 +25,11 @@ runtime and exported media. Then run from this Video Use checkout:
 python3 integrations/openscreen/setup.py --runtime "$HOME/Developer/openscreen-runtime"
 ```
 
-Setup clones the pinned upstream source, applies one small CLI geometry fix,
-installs its locked dependencies, tests the fix and builds the JS application.
+Setup clones the pinned upstream source, applies the CLI geometry, cursor-settings and wallpaper-path fixes,
+installs its locked dependencies, tests the fixes and builds the JS application.
 The native addon comes from the official installed app; no Rust rebuild or
 modification of its signed bundle is needed. Setup is done once, not per video.
-The stamp records built files, the patch and all native-library hashes so export rejects a
+The stamp records built files, all three patches and all native-library hashes so export rejects a
 changed or mismatched runtime.
 
 Confirm the installed native runtime with a two-second 4:3 geometry/audio test:
@@ -36,6 +42,18 @@ python3 integrations/openscreen/smoke.py \
 This calls the actual renderer, measures whether a square remains square, and
 compares delivered AAC packets with the original. Unit tests run separately:
 `python3 -m unittest discover -s tests -p 'test_openscreen*.py'`.
+
+Test the enlarged cursor, subtle press/rebound, click zoom, drag following and
+return to overview using an explicitly **synthetic** 15-second fixture:
+
+```sh
+python3 integrations/openscreen/cursor_smoke.py \
+  --runtime "$HOME/Developer/openscreen-runtime" --out /path/to/edit/cursor-smoke
+```
+
+This renders a control and a polished version sequentially, measures encoded
+pixels and saves a labeled contact sheet. It tests the renderer and adapter;
+it does not test native recording permissions or Browser Harness integration.
 
 ```sh
 python3 helpers/openscreen.py prepare /path/to/recording.mov \
@@ -66,8 +84,13 @@ OpenScreen editor feature.
 | --- | --- |
 | `helpers/openscreen_project.py` | Validate cues/source; copy media; write project and hashed preparation manifest |
 | `helpers/openscreen.py` | Invoke native CLI; retain real logs; verify and publish MP4 without overwrites |
+| `helpers/openscreen_cursor.py` | Validate cursor styling and original editable capture provenance |
+| `helpers/openscreen_interactions.py` | Plan focus moves from recorded clicks and drags, reporting coverage |
+| `helpers/openscreen_backgrounds.py` | Resolve licensed, hash-checked wallpaper presets |
 | `setup.py` | Build and fingerprint the pinned runtime using the installed native addon |
 | `patches/cli-source-dimensions.patch` | Fill actual source dimensions before OpenScreen lays out an imported recording |
+| `patches/cli-cursor-settings.patch` | Preserve visibility, size and click effects through the native export loader |
+| `patches/cli-wallpaper-file-url.patch` | Decode local wallpaper file URLs for the native image loader |
 | `references/openscreen-product-demo.md` | Product-demo editorial guidance and visual review |
 
 The patch is against upstream commit
@@ -84,12 +107,12 @@ regression tests cover the supplied 2940x1760 ratio, 4:3 and portrait sources.
 2. For already-recorded footage with a visible cursor, use `prepare` and
    `export` above. The cue specification is the agent's editing interface;
    all effect implementation stays inside OpenScreen.
-3. For new native recordings, OpenScreen already has `sources`, `record`,
-   `pack` and `export` commands. Use its returned `.openscreen` project and
-   `<video>.cursor.json` together to retain editable cursor data. **Do not
-   pass that project through the import helper**, which deliberately treats
-   the source cursor as baked in. Native recording integration is the next
-   separate path for the Browser Harness agent to wire and test.
+3. For new native recordings, use OpenScreen's `record --cursor editable-overlay`
+   and retain the returned original `.openscreen` project and `<video>.cursor.json`.
+   Pass `--recording-project` to `prepare` and use `cursor.mode: "recorded"` as
+   shown below. The adapter verifies that the recording project declares editable
+   capture and references the same video; the sidecar is copied and hashed.
+   Browser Harness still needs to wire and test its actual OS capture process.
 4. Keep the recorder process alive while Browser Harness acts. Wait for the
    actual recording-started event before actions, then write `stop\n` to its
    stdin after the task finishes and await the successful final event. Use a
@@ -116,13 +139,57 @@ not all capture helper paths:
 
 ```sh
 /Applications/Openscreen.app/Contents/MacOS/Openscreen \
-  record --window "My Product" --project /path/to/demo.openscreen --json
+  record --window "My Product" --cursor editable-overlay \
+  --project /path/to/capture.openscreen --json
 ```
 
-Native recordings and direct editor changes do not use the import helper's
-manifest contract. Their integration must preserve telemetry, validate their
-own scene inputs and perform the same final-media checks. We do not claim
-Browser Harness recording has been tested by the imported-video smoke test.
+## Larger cursors and interaction zooms
+
+For a new editable recording:
+
+```sh
+python3 helpers/openscreen.py prepare /path/to/recording.mp4 \
+  --recording-project /path/to/capture.openscreen \
+  --spec integrations/openscreen/recorded-cursor-spec.json \
+  --out /path/to/edit/interactive-demo
+```
+
+The recorded spec sets cursor size **4.5** (native default 3), smooth movement,
+subtle click bounce (1.0) and depth-1 (1.25x) interaction zooms. These are native slider
+units, not a claim that the cursor is 4.5 times the source pointer. The native
+engine enlarges the pointer, animates presses and follows its actual path.
+`interaction-report.json` records which actions received focus and why others
+did not. Close clicks share a shot; idle pointer movement does not trigger one.
+Short click holds and overview gaps keep the whole app understandable. Continuous
+drags can stay focused longer, bounded at ten seconds. Events at the beginning or
+end may stay in overview; the report identifies partial or omitted coverage.
+No scroll events are invented from pointer motion.
+
+The small `cursor` schema supports `mode` (`baked` or `recorded`), `size` (0.5–10),
+`smoothing` and `motion_blur` (0–1), `click_bounce` (0–5), `interaction_zooms`
+(boolean), and `zoom_depth` (1–6). Unknown keys fail. Manual `zooms` and automatic
+interaction zooms cannot be combined; turn `interaction_zooms` off for hand-authored
+camera cues. Neither route adds a webcam or shortens the source.
+
+Existing MOVs with a visible cursor use the default `baked` mode. That explicitly
+disables the overlay. A sidecar alone does not prove the original cursor was hidden;
+never manufacture capture provenance or draw a duplicate pointer. The original
+capture project is a recorder declaration, not pixel-level detection of an old
+cursor. Use the recorder's actual returned artifact. This adapter currently accepts
+its version-2 project envelope. Arbitrary GUI projects require separate validation.
+The pinned native compositor does not honor per-sample hidden cursor intervals;
+the adapter rejects those sidecars instead of silently drawing a visible cursor.
+It also holds the first/last pointer position outside the sampled time range.
+
+## Backgrounds
+
+`python3 helpers/openscreen.py backgrounds` lists `aurora` (teal/coral/cream ribbons,
+the default), `spectrum` (blue/orange strokes), and `coastline` (teal/gold scenery).
+Choose `"background": {"preset": "aurora", "padding": 40}` in the spec. Original
+3840px OpenScreen wallpapers are vendored with their MIT license and hashes.
+The selected image is copied into each project bundle and verified like the video.
+Explicit two-color gradients remain supported; a preset cannot be mixed with
+`colors` or `angle` in the same spec.
 
 ## Delivery and known limits
 
@@ -134,7 +201,7 @@ Browser Harness recording has been tested by the imported-video smoke test.
   `faststart`, then checks dimensions, fps, frame count, duration and complete
   decoding. Frame counting happens during that single full decode. No second
   image encode or separate frame-count decode occurs.
-- Source/project/spec hashes are checked before and after export. Failed jobs
+- Source/project/spec, wallpaper and any captured telemetry hashes are checked before and after export. Failed jobs
   retain evidence but publish no final output. Existing outputs are never
   replaced, including when another process creates the destination mid-render.
 - A completed native render is checkpointed before packaging. If packaging
@@ -149,7 +216,8 @@ Browser Harness recording has been tested by the imported-video smoke test.
 - Native easing and background units differ from the earlier custom renderer:
   padding is OpenScreen's 0–100 slider; gradients use two colors; zoom depths
   are 1.25x, 1.5x, 1.8x, 2.2x, 3.5x and 5x. Custom easing, mesh CSS, arbitrary
-  zoom scales and cursor replacement are not exposed by this import contract.
+  zoom scales are not exposed by this import contract. Editable cursor effects
+  require the explicit recorded path; they cannot replace a baked source cursor.
 
 Authoritative context: [recording](https://getopenscreen.com/docs/recording/),
 [editing](https://getopenscreen.com/docs/editing-timeline/),
