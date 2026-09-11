@@ -1,0 +1,2 @@
+# Unified diff context intentionally includes a space before upstream tabs.
+integrations/openscreen/patches/*.patch -whitespace
