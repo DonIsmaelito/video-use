@@ -5,6 +5,8 @@ description: Edit any video by conversation. Transcribe, cut, color grade, gener
 
 # Video Use
 
+For Screen Studio-style product demos from real screen recordings, use [the OpenScreen workflow](references/openscreen-product-demo.md). OpenScreen owns the camera, background and native rendering; the adapter preserves the recording and verifies delivery.
+
 ## Principle
 
 1. **LLM reasons from raw transcript + on-demand visuals.** The only derived artifact that earns its keep is a packed phrase-level transcript (`takes_packed.md`). Everything else — filler tagging, retake detection, shot classification, emphasis scoring — you derive at decision time.
@@ -70,6 +72,8 @@ First-time install lives in `install.md` (clone, deps, ffmpeg, skill registratio
 Helpers (`helpers/transcribe.py`, `helpers/render.py`, etc.) live alongside this SKILL.md. Resolve their paths relative to the directory containing this file — the skill is typically symlinked at `~/.claude/skills/video-use/` or `~/.codex/skills/video-use/`.
 
 ## Helpers
+
+- **`openscreen.py prepare|export|resume`** — editable OpenScreen projects and verified native exports for full-length product demos; setup and agent handoff in [the integration guide](integrations/openscreen/README.md).
 
 - **`transcribe.py <video>`** — single-file Scribe call. `--num-speakers N` optional. Cached.
 - **`transcribe_batch.py <videos_dir>`** — 4-worker parallel transcription. Use for multi-take.

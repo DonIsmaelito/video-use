@@ -1,0 +1,138 @@
+diff --git a/src/cli/CliExportRunner.tsx b/src/cli/CliExportRunner.tsx
+index 9a7f1b5..cb1ac72 100644
+--- a/src/cli/CliExportRunner.tsx
++++ b/src/cli/CliExportRunner.tsx
+@@ -20,7 +20,6 @@ import {
+ 	pickExtremeDims,
+ 	resolveAspectRatioValue,
+ } from "@/lib/ai-edition/document/outputFormat";
+-import { applyProbedDuration } from "@/lib/ai-edition/document/timeline";
+ import type { AxcutDocument } from "@/lib/ai-edition/schema";
+ import { getEditorSettings } from "@/lib/ai-edition/store/editorSettings";
+ import { assetCameraSource } from "@/lib/ai-edition/timeline/camera";
+@@ -35,6 +34,7 @@ import { mixVoiceoverIntoVideo } from "@/lib/exporter/voiceoverMix";
+ import { exportGifNative, exportMultiNative, nativeBridgeClient } from "@/native";
+ import type { CompositorClipInput } from "@/native/contracts";
+ import { buildSceneDescription, resolveVisibleClips } from "@/native/sceneDescription";
++import { applyProbedVideoMetadata } from "./probedVideoMetadata";
+ import { clampZoomFocus } from "./vendor/zoomHelpers";
+ 
+ const MP4_EXPORT_FPS = 60;
+@@ -208,9 +208,7 @@ async function runExport(request: CliExportRequest): Promise<CliDoneResult> {
+ 	if (!primaryAssetId) {
+ 		throw new Error("Project migration produced no media asset");
+ 	}
+-	if (probed.durationMs > 0) {
+-		axcutDocument = applyProbedDuration(axcutDocument, primaryAssetId, probed.durationMs / 1000);
+-	}
++	axcutDocument = applyProbedVideoMetadata(axcutDocument, primaryAssetId, probed);
+ 
+ 	// The camera's dimensions decide the PiP's layout box, and this is the one caller the
+ 	// document cannot answer for: there is no editor session here to have probed and saved
+diff --git a/src/cli/probedVideoMetadata.test.ts b/src/cli/probedVideoMetadata.test.ts
+new file mode 100644
+index 0000000..73a6c72
+--- /dev/null
++++ b/src/cli/probedVideoMetadata.test.ts
+@@ -0,0 +1,57 @@
++import { describe, expect, it } from "vitest";
++import { normalizeProjectEditor } from "@/components/video-editor/projectPersistence";
++import { migrateProjectDataToAxcutDocument } from "@/lib/ai-edition/document/migrate";
++import { buildSceneDescription } from "@/native/sceneDescription";
++import { applyProbedVideoMetadata } from "./probedVideoMetadata";
++
++function makeProject() {
++	return migrateProjectDataToAxcutDocument({
++		version: 2,
++		media: { screenVideoPath: "/recordings/demo.mov", cursorCaptureMode: "system" },
++		editor: normalizeProjectEditor({
++			aspectRatio: "16:9",
++			padding: 50,
++			webcamLayoutPreset: "no-webcam",
++		}),
++	});
++}
++
++describe("CLI probed source geometry", () => {
++	it.each([
++		[2940, 1760],
++		[1440, 1080],
++		[1080, 1920],
++	])("contain fits a %i by %i recording without changing its aspect", (width, height) => {
++		const original = makeProject();
++		const assetId = original.assets[0].id;
++		const document = applyProbedVideoMetadata(original, assetId, {
++			width,
++			height,
++			durationMs: 187725,
++		});
++		const scene = buildSceneDescription(document);
++		const rect = scene.layout.screenRect;
++		expect(rect).toBeDefined();
++		if (!rect) throw new Error("No screen rectangle");
++		const ratio = (rect.width * 1920) / (rect.height * 1080);
++		expect(ratio).toBeCloseTo(width / height, 2);
++		expect(rect.x).toBeGreaterThanOrEqual(0);
++		expect(rect.y).toBeGreaterThanOrEqual(0);
++		expect(rect.x + rect.width).toBeLessThanOrEqual(1);
++		expect(rect.y + rect.height).toBeLessThanOrEqual(1);
++		expect(scene.clips[0].sourceStartSec).toBe(0);
++		expect(scene.clips[0].sourceEndSec).toBe(187.725);
++		expect(original.assets[0].video).toBeUndefined();
++	});
++
++	it("rejects a failed dimensions probe instead of silently rendering 16:9", () => {
++		const document = makeProject();
++		expect(() =>
++			applyProbedVideoMetadata(document, document.assets[0].id, {
++				width: 0,
++				height: 0,
++				durationMs: 10000,
++			}),
++		).toThrow("invalid source dimensions");
++	});
++});
+diff --git a/src/cli/probedVideoMetadata.ts b/src/cli/probedVideoMetadata.ts
+new file mode 100644
+index 0000000..b8914bb
+--- /dev/null
++++ b/src/cli/probedVideoMetadata.ts
+@@ -0,0 +1,38 @@
++import { applyProbedDuration } from "@/lib/ai-edition/document/timeline";
++import type { AxcutDocument } from "@/lib/ai-edition/schema";
++
++/** Persist the screen probe before building the native scene. Output sizing alone
++ * does not update the document: layout would otherwise assume a 16:9 source. */
++export function applyProbedVideoMetadata(
++	document: AxcutDocument,
++	assetId: string,
++	probed: { width: number; height: number; durationMs: number },
++): AxcutDocument {
++	if (
++		!Number.isInteger(probed.width) ||
++		!Number.isInteger(probed.height) ||
++		probed.width <= 0 ||
++		probed.height <= 0
++	) {
++		throw new Error("Video metadata probe returned invalid source dimensions");
++	}
++	const withDimensions: AxcutDocument = {
++		...document,
++		assets: document.assets.map((asset) =>
++			asset.id === assetId
++				? {
++						...asset,
++						video: {
++							codec: asset.video?.codec ?? "unknown",
++							fps: asset.video?.fps ?? 0,
++							width: probed.width,
++							height: probed.height,
++						},
++					}
++				: asset,
++		),
++	};
++	return probed.durationMs > 0
++		? applyProbedDuration(withDimensions, assetId, probed.durationMs / 1000)
++		: withDimensions;
++}

@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "background": {
+    "colors": ["#172b4d", "#879fbe"],
+    "angle": 135,
+    "padding": 40,
+    "border_radius": 24,
+    "shadow": 0.35,
+    "motion_blur": 0.15
+  },
+  "zooms": [
+    {
+      "settle_s": 3.5,
+      "hold_end_s": 5.2,
+      "depth": 1,
+      "focus": [0.5, 0.47],
+      "reason": "Briefly show the meaningful interaction then return to the complete app"
+    }
+  ]
+}
