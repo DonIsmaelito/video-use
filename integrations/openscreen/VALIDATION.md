@@ -48,6 +48,22 @@ Validated locally on Apple Silicon macOS using OpenScreen v1.11.0
 - Review caught a native wallpaper loader issue: the editor understood file
   URLs but the image decoder needed a filesystem path. The bridge now decodes
   valid local URLs and rejects invalid, missing or remote wallpaper inputs.
+- The refreshed original 187.725-second recording rendered with Aurora in
+  99.20 seconds and delivered 11,264 frames at 1920x1080/60fps, 187.733333 seconds,
+  BT709 limited, silent. The original baked cursor is retained; this particular
+  MOV has no editable cursor telemetry.
+- Two agents inspected the refreshed encoded timeline: 12 sample times and
+  full-resolution overview/focus/end frames. Aurora loaded visibly, proportions
+  stayed intact, rounded edges and shadow looked clean, and final overview showed
+  the whole app and Download. No blocking findings, webcam or duplicate cursor
+  were observed. This is sampled review, not a complete temporal watch-through.
+- Packaging again hit the Mac's disk limit. An old downloadable test source
+  and the failed mux partial were removed, retaining acquisition metadata,
+  native output and error logs. iCloud hydration briefly delayed reading the
+  manifest. The public `resume` command then packaged and fully verified the
+  existing native render successfully. No second picture render was performed.
+  For unattended use, choose local scratch storage with adequate free space;
+  avoid an actively offloading iCloud project directory.
 - New recordings use the actual CLI flag `--cursor editable-overlay` and the
   original recorder project. Baked cursor imports explicitly disable overlays.
   Per-sample hidden intervals fail because the pinned native binary ignores
