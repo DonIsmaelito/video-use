@@ -15,7 +15,9 @@ export default function Home() {
         <a href={repository} target="_blank" rel="noreferrer">
           video-use <ArrowUpRight size={16} />
         </a>
-        <span>Made to make things. Open source, always.</span>
+        <a href={`${repository}#setup-prompt`} target="_blank" rel="noreferrer">
+          Get started <ArrowUpRight size={16} />
+        </a>
         <a href="#">Back to top ↑</a>
       </footer>
     </main>

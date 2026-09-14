@@ -8,7 +8,6 @@ import {
   Copy,
   Link2,
   Play,
-  VolumeX,
   X,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -167,18 +166,6 @@ function VideoCard({
         <span className="video-duration">
           {formatDuration(example.duration)}
         </span>
-        <span className="preview-status">
-          {failed ? (
-            'Open video'
-          ) : playing ? (
-            <>
-              <VolumeX size={12} /> Preview
-            </>
-          ) : (
-            'Watch & remix'
-          )}
-          <ArrowUpRight size={13} />
-        </span>
       </button>
       <div className="card-meta">
         <span className="category-tag">{example.category}</span>
@@ -194,11 +181,10 @@ function VideoCard({
       </div>
       <h3>
         <button type="button" onClick={open}>
-          {example.title}
+          <span className="card-title">{example.title}</span>
           <ArrowUpRight size={14} />
         </button>
       </h3>
-      <p>{example.description}</p>
     </article>
   );
 }
@@ -252,9 +238,28 @@ export function Gallery() {
         className="gallery-section"
         aria-label="Video examples and prompts"
       >
-        <div className="gallery-kicker">
-          <span className="eyebrow">A STARTING POINT FOR YOUR NEXT VIDEO</span>
-          <span>Find a spark. Make it yours.</span>
+        <div className="gallery-toolbar">
+          <Button
+            variant="ghost"
+            className="clear-filter"
+            disabled={category === 'All examples'}
+            onClick={() => setCategory('All examples')}
+          >
+            <X size={16} /> Clear filters
+          </Button>
+          <label className="sort-control">
+            <span>Sort by:</span>
+            <select
+              aria-label="Sort examples"
+              value={sort}
+              onChange={(event) => setSort(event.target.value)}
+            >
+              <option value="curated">Handpicked</option>
+              <option value="shortest">Shortest first</option>
+              <option value="az">Title A–Z</option>
+            </select>
+            <ChevronDown size={16} />
+          </label>
         </div>
         <div className="filter-bar">
           <div
@@ -270,7 +275,7 @@ export function Gallery() {
                 aria-pressed={category === item}
                 onClick={() => setCategory(item)}
               >
-                {item}
+                {item === 'All examples' ? 'All' : item}
                 <span className="filter-count">
                   {item === 'All examples'
                     ? examples.length
@@ -281,39 +286,9 @@ export function Gallery() {
             ))}
           </div>
         </div>
-        <div className="gallery-toolbar">
-          <div className="results-count" aria-live="polite">
-            {visible.length} {visible.length === 1 ? 'example' : 'examples'}
-            {category !== 'All examples' && (
-              <Button
-                variant="ghost"
-                className="clear-filter"
-                onClick={() => setCategory('All examples')}
-                aria-label="Clear category filter"
-              >
-                <X size={12} />
-                Clear filter
-              </Button>
-            )}
-          </div>
-          <div className="gallery-options">
-            <span className="hover-hint">
-              <Play size={11} /> Hover to preview
-            </span>
-            <label className="sort-control">
-              <span className="sr-only">Sort examples</span>
-              <select
-                value={sort}
-                onChange={(event) => setSort(event.target.value)}
-              >
-                <option value="curated">Handpicked</option>
-                <option value="shortest">Shortest first</option>
-                <option value="az">Title A–Z</option>
-              </select>
-              <ChevronDown size={13} />
-            </label>
-          </div>
-        </div>
+        <p className="sr-only" aria-live="polite">
+          {visible.length} examples
+        </p>
         <div className="video-grid" key={category + sort}>
           {visible.map((example) => (
             <VideoCard
@@ -331,17 +306,6 @@ export function Gallery() {
               suspended={selected !== null || !!manualCopy}
             />
           ))}
-        </div>
-        <div className="gallery-end">
-          <span className="end-mark">✳</span>
-          <p>Same tools. Entirely your imagination.</p>
-          <a
-            href={`${repository}#setup-prompt`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Get video-use <ArrowUpRight size={15} />
-          </a>
         </div>
       </section>
       <Dialog
@@ -376,9 +340,7 @@ export function Gallery() {
             <div className="dialog-body">
               <div className="dialog-heading">
                 <span className="category-tag">{selected.category}</span>
-                <span>
-                  {formatDuration(selected.duration)} · Made with video-use
-                </span>
+                <span>{formatDuration(selected.duration)}</span>
               </div>
               <DialogTitle className="dialog-title">
                 {selected.title}
@@ -388,7 +350,6 @@ export function Gallery() {
               </DialogDescription>
               <div className="prompt-heading">
                 <span>{selected.promptKind}</span>
-                <span>Yours to make your own ↙</span>
               </div>
               <div className="prompt-text">{selected.prompt}</div>
               {selected.orientation === 'portrait' && (
@@ -433,7 +394,6 @@ export function Gallery() {
                 </Button>
               </div>
               <p className="getting-started">
-                Paste into your agent with video-use installed.{' '}
                 <a
                   href={`${repository}#setup-prompt`}
                   target="_blank"

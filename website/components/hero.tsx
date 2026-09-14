@@ -131,7 +131,6 @@ export function Hero() {
           </a>
         </div>
         <div className="hero-foot">
-          <span>VIDEO-USE · OPEN SOURCE</span>
           <div className="hero-foot-right">
             {!reducedMotion && (
               <Button
@@ -146,8 +145,12 @@ export function Hero() {
                 {paused ? <Play size={12} /> : <Pause size={12} />}
               </Button>
             )}
-            <a href="#examples">
-              A little inspiration goes a long way <ArrowDown size={15} />
+            <a
+              href="#examples"
+              aria-label="Explore video examples"
+              className="scroll-cue"
+            >
+              <ArrowDown size={20} />
             </a>
           </div>
         </div>
