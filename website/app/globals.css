@@ -2,24 +2,6 @@
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
 @font-face {
-  font-family: Inter;
-  src: url('/fonts/inter-regular.ttf') format('truetype');
-  font-weight: 400;
-  font-display: swap;
-}
-@font-face {
-  font-family: Inter;
-  src: url('/fonts/inter-medium.ttf') format('truetype');
-  font-weight: 500;
-  font-display: swap;
-}
-@font-face {
-  font-family: Inter;
-  src: url('/fonts/inter-semibold.ttf') format('truetype');
-  font-weight: 600;
-  font-display: swap;
-}
-@font-face {
   font-family: 'Instrument Serif';
   src: url('/fonts/instrument-serif.ttf') format('truetype');
   font-weight: 400;
@@ -35,8 +17,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: Inter, Arial, sans-serif;
-  --font-heading: Inter, Arial, sans-serif;
+  --font-sans: var(--font-display);
+  --font-heading: var(--font-display);
+  --font-mono: var(--font-display);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-popover: var(--popover);
@@ -53,6 +36,7 @@
 }
 :root {
   color-scheme: dark;
+  --font-display: 'Instrument Serif', Georgia, serif;
   --background: #000;
   --foreground: #f1f0ee;
   --primary: #b28af7;
@@ -75,9 +59,18 @@ body {
   margin: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: Inter, Arial, sans-serif;
-  font-size: 14px;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-synthesis: none;
   -webkit-font-smoothing: antialiased;
+}
+button,
+input,
+textarea,
+code,
+pre {
+  font-family: inherit;
+  font-weight: 400;
 }
 a {
   color: inherit;
@@ -144,7 +137,7 @@ svg {
   z-index: 2;
 }
 .hero h1 {
-  font-family: 'Instrument Serif', Georgia, serif;
+  font-family: var(--font-display);
   font-weight: 400;
   color: var(--lavender);
   font-size: clamp(110px, 14.6vw, 250px);
@@ -177,6 +170,73 @@ svg {
 }
 .hero-word {
   display: block;
+}
+/* Two quiet, copyable setup steps occupy the space below “prompt”. */
+.getting-started {
+  position: absolute;
+  left: 0;
+  bottom: 8px;
+  width: min(43%, 460px);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #b28af73d;
+  border-radius: 10px;
+  background: #b28af705;
+  overflow: hidden;
+}
+.setup-step {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: auto;
+  min-height: 56px;
+  padding: 15px 18px;
+  gap: 14px;
+  border: 0;
+  border-radius: 0;
+  color: #e6dbf6;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.25;
+  text-align: left;
+  white-space: normal;
+  transition: background 0.2s;
+}
+.setup-step + .setup-step {
+  border-top: 1px solid #b28af726;
+}
+.setup-step:hover {
+  background: #b28af70c;
+}
+.setup-step:focus-visible {
+  outline-offset: -3px;
+}
+.setup-number {
+  align-self: flex-start;
+  color: #b28af78c;
+  font-size: 18px;
+  line-height: 1.4;
+}
+.setup-command,
+.setup-label {
+  flex: 1;
+  min-width: 0;
+}
+.setup-command {
+  font-size: 18px;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+.setup-command > span {
+  display: block;
+}
+.setup-command > span:first-child {
+  color: #a394b7;
+}
+.setup-step > svg {
+  color: var(--lavender);
 }
 .hero-foot {
   position: absolute;
@@ -235,13 +295,27 @@ svg {
     font-size: 15vw;
   }
 }
+@media (max-width: 1000px) {
+  .hero {
+    height: auto;
+    min-height: 100svh;
+    max-height: none;
+    padding-top: 145px;
+    padding-bottom: 110px;
+  }
+  .getting-started {
+    position: relative;
+    width: min(100%, 460px);
+    margin-top: 38px;
+    bottom: auto;
+  }
+}
 @media (max-width: 760px) {
   .site-header {
     height: 82px;
   }
   .hero {
-    height: 85svh;
-    min-height: 590px;
+    min-height: max(660px, 95svh);
     padding-top: 115px;
   }
   .hero h1 {
@@ -267,7 +341,7 @@ svg {
 }
 @media (max-width: 440px) {
   .hero {
-    min-height: 550px;
+    min-height: max(640px, 95svh);
   }
   .hero h1 {
     font-size: 19vw;
@@ -378,7 +452,8 @@ svg {
   border: 1px solid #ffffff0f;
   border-radius: 4px;
   padding: 2px 5px;
-  font-size: 10px;
+  font-size: 16px;
+  line-height: 1;
   z-index: 4;
   color: #f2eff7;
   font-variant-numeric: tabular-nums;
@@ -402,7 +477,7 @@ svg {
   padding: 64px 32px;
   scroll-margin-top: 0;
   color: #f5f5f5;
-  letter-spacing: -0.03em;
+  letter-spacing: 0;
 }
 .filter-bar {
   margin-bottom: 40px;
@@ -424,15 +499,15 @@ svg {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  height: 38px;
+  height: 42px;
   padding: 8px 16px;
   border: 1px solid #1a1a1a80;
   border-radius: 9999px;
   background: #000;
   color: #c4c4c4;
-  font-size: 14px;
-  line-height: 20px;
-  font-weight: 500;
+  font-size: 22px;
+  line-height: 24px;
+  font-weight: 400;
   white-space: nowrap;
   transition:
     background 0.2s,
@@ -452,8 +527,8 @@ svg {
   outline-offset: -3px;
 }
 .filter-count {
-  font-size: 12px;
-  line-height: 16px;
+  font-size: 17px;
+  line-height: 20px;
   opacity: 0.6;
   font-variant-numeric: tabular-nums;
 }
@@ -476,19 +551,19 @@ svg {
   flex-shrink: 0;
   padding: 4px 10px;
   border-radius: 6px;
-  background: #0f0f0f;
-  color: #c4c4c4;
-  font-size: 12px;
+  background: var(--lavender);
+  color: #fff;
+  font-size: 18px;
   font-weight: 400;
-  line-height: 16px;
+  line-height: 22px;
 }
 .copy-card {
-  height: 24px;
+  height: 30px;
   padding: 2px 0 2px 6px;
   gap: 6px;
   background: transparent !important;
   color: #8c8c8c;
-  font-size: 12px;
+  font-size: 18px;
   font-weight: 400;
 }
 .copy-card:hover,
@@ -542,12 +617,22 @@ svg {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  font-size: 12px;
+  font-size: 20px;
   color: var(--lavender);
   margin-top: 15px;
 }
 .manual-copy-dialog {
   max-width: min(550px, calc(100vw - 32px));
+  font-size: 20px;
+}
+.manual-copy-dialog [data-slot='dialog-title'] {
+  font-size: 26px;
+  font-weight: 400;
+}
+.manual-copy-dialog [data-slot='dialog-description'],
+.manual-copy-dialog [data-slot='button'] {
+  font-size: 20px;
+  font-weight: 400;
 }
 .manual-copy-dialog textarea {
   width: 100%;
@@ -574,7 +659,7 @@ svg {
   padding: 13px 19px;
   box-shadow: 0 8px 25px #0004;
   z-index: 100;
-  font-size: 12px;
+  font-size: 20px;
   opacity: 0;
   pointer-events: none;
   transition:
@@ -611,7 +696,7 @@ svg {
     max-width: 180px;
   }
   .toast-message {
-    font-size: 11px;
+    font-size: 18px;
     max-width: calc(100vw - 24px);
     white-space: normal;
   }
@@ -660,8 +745,8 @@ svg {
   height: 22px;
 }
 .github-stars {
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 22px;
+  font-weight: 400;
   letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
   min-width: 3ch;
@@ -731,22 +816,22 @@ svg {
   max-height: 170px;
   overflow: auto;
   white-space: pre-wrap;
-  font-size: 13px;
-  line-height: 1.8;
-  color: #bfbfc5;
+  font-size: 22px;
+  line-height: 1.45;
+  color: #d1cdd7;
 }
 .dialog-actions {
   flex-shrink: 0;
   padding-top: 2px;
 }
 .copy-primary {
-  height: 38px;
+  height: 42px;
   padding: 0 14px;
   gap: 8px;
   border: 0;
   border-radius: 6px;
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 20px;
+  font-weight: 400;
   background: #e4ddf1;
   color: #19151e;
 }
@@ -758,64 +843,21 @@ svg {
   gap: 18px;
 }
 
-/* Oversized pixel typography dissolves into the lower edge of the page. */
-.pixel-footer {
-  display: block;
-  overflow: hidden;
-  padding: clamp(70px, 9vw, 160px) clamp(20px, 3vw, 64px) 0;
+/* The closing wordmark uses the same clear lavender serif as the opening. */
+.site-footer {
+  padding: clamp(80px, 10vw, 180px) var(--page-gutter) 32px;
   background: #000;
-  border: 0;
-  user-select: none;
-  contain: paint;
 }
-.pixel-crop {
-  width: 100%;
-  max-width: 1800px;
-  aspect-ratio: 49/5.25;
+.footer-wordmark {
   margin: 0 auto;
-  overflow: hidden;
-  mask-image: linear-gradient(
-    to bottom,
-    #000 0%,
-    #000 28%,
-    #000b 62%,
-    transparent 100%
-  );
-}
-.pixel-wordmark {
-  display: block;
-  width: 100%;
-  height: auto;
-  color: #302b36;
-}
-.wordmark-pixel {
-  animation: pixel-current 9s ease-in-out var(--phase) infinite;
-  animation-play-state: paused;
-  transform-box: fill-box;
-  transform-origin: center;
-}
-.pixel-footer.is-active .wordmark-pixel {
-  animation-play-state: running;
-}
-@keyframes pixel-current {
-  0%,
-  32%,
-  100% {
-    fill: #29262e;
-    opacity: 0.8;
-  }
-  46% {
-    fill: #564960;
-    opacity: 1;
-  }
-  57% {
-    fill: #302a38;
-    opacity: 0.95;
-  }
-  76% {
-    fill: #1b191e;
-    opacity: 0.72;
-  }
+  color: var(--lavender);
+  font-family: var(--font-display);
+  font-size: clamp(64px, 24.5vw, 440px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  text-align: center;
+  white-space: nowrap;
 }
 @media (max-width: 760px) {
   .brand img {
@@ -826,7 +868,7 @@ svg {
     gap: 8px;
   }
   .github-stars {
-    font-size: 13px;
+    font-size: 20px;
   }
   .example-dialog {
     max-width: calc(100vw - 24px);
@@ -838,7 +880,7 @@ svg {
   }
   .prompt-text {
     max-height: 190px;
-    font-size: 13px;
+    font-size: 20px;
   }
   .dialog-video.landscape {
     max-height: 56svh;
@@ -846,16 +888,17 @@ svg {
   .dialog-video.portrait {
     height: 56svh;
   }
-  .pixel-footer {
-    padding-top: 90px;
-    padding-left: 14px;
-    padding-right: 14px;
+  .site-footer {
+    padding-bottom: 24px;
   }
 }
-@media (prefers-reduced-motion: reduce) {
-  .wordmark-pixel {
-    animation: none;
-    fill: #302b36;
-    opacity: 0.9;
+@media (max-width: 440px) {
+  .setup-step {
+    gap: 10px;
+    padding: 14px;
+    font-size: 19px;
+  }
+  .setup-command {
+    font-size: 17px;
   }
 }

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { ArrowDown } from 'lucide-react';
+import { GettingStarted } from '@/components/getting-started';
 import { repository } from '@/lib/gallery';
 
 const words = ['edits', 'motion', 'stories', 'video'];
@@ -105,6 +106,7 @@ export function Hero() {
               </span>
             </span>
           </h1>
+          <GettingStarted />
         </div>
         <div className="hero-foot">
           <div className="hero-foot-right">

@@ -1,6 +1,6 @@
 import { Hero } from '@/components/hero';
 import { Gallery } from '@/components/gallery';
-import { PixelWordmark } from '@/components/pixel-wordmark';
+import { Wordmark } from '@/components/wordmark';
 
 export default function Home() {
   return (
@@ -10,7 +10,7 @@ export default function Home() {
       </a>
       <Hero />
       <Gallery />
-      <PixelWordmark />
+      <Wordmark />
     </main>
   );
 }

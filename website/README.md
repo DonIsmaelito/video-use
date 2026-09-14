@@ -24,8 +24,9 @@ npm run check
 - `app/page.tsx` composes the opening, gallery, and footer.
 - `app/globals.css` owns the lavender palette, typography, layout, responsive behavior, and animation.
 - `components/hero.tsx` rotates the headline, respects reduced motion, and reads GitHub's public stars count. If GitHub is unavailable the link remains available without inventing a count.
+- `components/getting-started.tsx` supplies two copyable steps below the headline: clone to a stable directory, then paste setup instructions into a coding agent. The agent follows the repository's `install.md` to install dependencies and register the skill. A manual-copy dialog handles unavailable clipboard access.
 - `components/gallery.tsx` owns filters, hover previews, the accessible detail dialog, and clipboard feedback. Videos load metadata near the viewport, play silently on hover or focus, and pause on exit or when a dialog opens. Touch users tap to open the full player.
-- `components/pixel-wordmark.tsx` draws the cropped VIDEO USE footer with square-pixel letterforms and a gentle light wave. Animation pauses offscreen and respects reduced motion.
+- `components/wordmark.tsx` closes the page with a full, readable VIDEO USE wordmark in the headline's lavender serif.
 - `lib/gallery.ts` provides filtering and duration formatting.
 - `data/examples.json` is the gallery content. Add a record here to add a video. Category counts update automatically.
 - `public/media/` contains four original motion pieces and their posters. Twelve other examples stream from the existing public video-use R2 library.
@@ -34,7 +35,7 @@ npm run check
 
 ## Design and assets
 
-The opening takes its large serif composition and lavender rule from https://studiohuncho.com/work. The gallery follows https://motionimo.xyz/resources with four columns, 24px horizontal gaps, 4:3 media windows, pill filters, and Inter metadata. Instrument Serif is the open-font alternative for the headline. Fonts are bundled locally with their OFL licenses.
+The opening takes its large serif composition and lavender rule from https://studiohuncho.com/work. The gallery follows https://motionimo.xyz/resources with four columns, 24px horizontal gaps, 4:3 media windows, and pill filters. Instrument Serif carries through the headline, filters, counts, prompts, setup steps, and footer. Category labels use the headline's lavender with white text. Fonts are bundled locally with their OFL licenses.
 
 The Browser Use mark comes from https://browser-use.com/logo-primary.svg. The GitHub icon comes from Simple Icons. All gallery clips come from prior video-use runs; `data/media-sources.json` records the run IDs and source types. The share image is an original generated asset.
 
