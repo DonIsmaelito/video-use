@@ -20,13 +20,7 @@ new Function('require', 'exports', outputText)(
       : require(specifier),
   exports,
 );
-const {
-  examples,
-  categories,
-  filterExamples,
-  formatDuration,
-  referencePrompt,
-} = exports;
+const { examples, categories, filterExamples, formatDuration } = exports;
 
 assert.equal(
   new Set(examples.map((example) => example.id)).size,
@@ -37,32 +31,12 @@ assert.ok(
   examples.length >= 16,
   'The initial gallery should include sixteen real examples',
 );
-assert.deepEqual(filterExamples('All examples', 'curated'), examples);
+assert.deepEqual(filterExamples('All examples'), examples);
 for (const category of categories.slice(1)) {
-  const results = filterExamples(category, 'curated');
+  const results = filterExamples(category);
   assert.ok(results.length > 0, `${category} needs a working example`);
   assert.ok(results.every((example) => example.category === category));
 }
-const shortest = filterExamples('All examples', 'shortest');
-assert.ok(
-  shortest.every(
-    (example, index) =>
-      index === 0 || shortest[index - 1].duration <= example.duration,
-  ),
-);
-const alphabetized = filterExamples('All examples', 'az');
-assert.ok(
-  alphabetized.every(
-    (example, index) =>
-      index === 0 ||
-      alphabetized[index - 1].title.localeCompare(example.title) <= 0,
-  ),
-);
-assert.notDeepEqual(
-  shortest.map((example) => example.id),
-  examples.map((example) => example.id),
-  'Sorting must not mutate the curated list',
-);
 assert.equal(formatDuration(59.8), '1:00');
 assert.equal(formatDuration(8), '0:08');
 assert.equal(formatDuration(75.77), '1:16');
@@ -84,12 +58,7 @@ for (const example of examples) {
       assert.equal(new URL(asset).protocol, 'https:');
     }
   }
-  const reference = referencePrompt(example, 'http://localhost:3001');
-  assert.ok(
-    reference.includes(new URL(example.video, 'http://localhost:3001').href),
-  );
-  assert.ok(reference.includes(example.prompt));
 }
 console.log(
-  `Verified ${examples.length} examples, ${categories.length - 1} filters, sorting, durations, local media, and copy-reference content`,
+  `Verified ${examples.length} examples, ${categories.length - 1} filters, durations, local media, and prompt content`,
 );

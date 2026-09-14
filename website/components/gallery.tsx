@@ -1,15 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import {
-  ArrowUpRight,
-  Check,
-  ChevronDown,
-  Copy,
-  Link2,
-  Play,
-  X,
-} from 'lucide-react';
+import { ArrowUpRight, Check, Copy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -22,8 +14,6 @@ import {
   examples,
   filterExamples,
   formatDuration,
-  referencePrompt,
-  repository,
   type Example,
 } from '@/lib/gallery';
 
@@ -112,7 +102,7 @@ function VideoCard({
   };
 
   return (
-    <article className="video-card">
+    <article className="video-card" aria-label={example.title}>
       <button
         ref={frame}
         type="button"
@@ -160,9 +150,6 @@ function VideoCard({
           />
         )}
         <span className="video-shade" />
-        <span className="play-indicator">
-          <Play size={15} fill="currentColor" />
-        </span>
         <span className="video-duration">
           {formatDuration(example.duration)}
         </span>
@@ -179,19 +166,12 @@ function VideoCard({
           {copied ? 'Copied' : 'Copy prompt'}
         </Button>
       </div>
-      <h3>
-        <button type="button" onClick={open}>
-          <span className="card-title">{example.title}</span>
-          <ArrowUpRight size={14} />
-        </button>
-      </h3>
     </article>
   );
 }
 
 export function Gallery() {
   const [category, setCategory] = useState('All examples');
-  const [sort, setSort] = useState('curated');
   const [selected, setSelected] = useState<Example | null>(null);
   const [copied, setCopied] = useState('');
   const [message, setMessage] = useState('');
@@ -199,7 +179,7 @@ export function Gallery() {
   const [videoError, setVideoError] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const manualText = useRef<HTMLTextAreaElement>(null);
-  const visible = filterExamples(category, sort);
+  const visible = filterExamples(category);
 
   useEffect(
     () => () => {
@@ -238,29 +218,6 @@ export function Gallery() {
         className="gallery-section"
         aria-label="Video examples and prompts"
       >
-        <div className="gallery-toolbar">
-          <Button
-            variant="ghost"
-            className="clear-filter"
-            disabled={category === 'All examples'}
-            onClick={() => setCategory('All examples')}
-          >
-            <X size={16} /> Clear filters
-          </Button>
-          <label className="sort-control">
-            <span>Sort by:</span>
-            <select
-              aria-label="Sort examples"
-              value={sort}
-              onChange={(event) => setSort(event.target.value)}
-            >
-              <option value="curated">Handpicked</option>
-              <option value="shortest">Shortest first</option>
-              <option value="az">Title A–Z</option>
-            </select>
-            <ChevronDown size={16} />
-          </label>
-        </div>
         <div className="filter-bar">
           <div
             className="filter-list"
@@ -289,18 +246,14 @@ export function Gallery() {
         <p className="sr-only" aria-live="polite">
           {visible.length} examples
         </p>
-        <div className="video-grid" key={category + sort}>
+        <div className="video-grid" key={category}>
           {visible.map((example) => (
             <VideoCard
               key={example.id}
               example={example}
               open={() => open(example)}
               copy={() =>
-                copyText(
-                  example.prompt,
-                  example.id,
-                  'Prompt copied. Make it yours.',
-                )
+                copyText(example.prompt, example.id, 'Prompt copied.')
               }
               copied={copied === example.id}
               suspended={selected !== null || !!manualCopy}
@@ -315,7 +268,11 @@ export function Gallery() {
         }}
       >
         {selected && (
-          <DialogContent className="example-dialog">
+          <DialogContent className={`example-dialog ${selected.orientation}`}>
+            <DialogTitle className="sr-only">{selected.title}</DialogTitle>
+            <DialogDescription className="sr-only">
+              Watch the video and copy its prompt.
+            </DialogDescription>
             <div className={`dialog-video ${selected.orientation}`}>
               {!videoError ? (
                 <video
@@ -338,35 +295,12 @@ export function Gallery() {
               )}
             </div>
             <div className="dialog-body">
-              <div className="dialog-heading">
-                <span className="category-tag">{selected.category}</span>
-                <span>{formatDuration(selected.duration)}</span>
-              </div>
-              <DialogTitle className="dialog-title">
-                {selected.title}
-              </DialogTitle>
-              <DialogDescription className="dialog-description">
-                {selected.description}
-              </DialogDescription>
-              <div className="prompt-heading">
-                <span>{selected.promptKind}</span>
-              </div>
               <div className="prompt-text">{selected.prompt}</div>
-              {selected.orientation === 'portrait' && (
-                <p className="source-note">
-                  Bring your own recording or footage to make a version of this
-                  edit.
-                </p>
-              )}
               <div className="dialog-actions">
                 <Button
                   className="copy-primary"
                   onClick={() =>
-                    copyText(
-                      selected.prompt,
-                      selected.id,
-                      'Prompt copied. Make it yours.',
-                    )
+                    copyText(selected.prompt, selected.id, 'Prompt copied.')
                   }
                 >
                   {copied === selected.id ? (
@@ -376,32 +310,7 @@ export function Gallery() {
                   )}
                   {copied === selected.id ? 'Copied!' : 'Copy prompt'}
                 </Button>
-                <Button
-                  variant="outline"
-                  className="reference-button"
-                  onClick={() =>
-                    copyText(
-                      referencePrompt(selected, window.location.origin),
-                      `${selected.id}-reference`,
-                      'Prompt and video reference copied.',
-                    )
-                  }
-                >
-                  <Link2 size={15} />
-                  {copied === `${selected.id}-reference`
-                    ? 'Copied!'
-                    : 'Copy reference'}
-                </Button>
               </div>
-              <p className="getting-started">
-                <a
-                  href={`${repository}#setup-prompt`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Get started <ArrowUpRight size={11} />
-                </a>
-              </p>
             </div>
           </DialogContent>
         )}

@@ -1,15 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { ArrowDown, ArrowUpRight, Pause, Play, Star } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { examples, repository } from '@/lib/gallery';
+import { ArrowDown } from 'lucide-react';
+import { repository } from '@/lib/gallery';
 
 const words = ['edits', 'motion', 'stories', 'video'];
 
 export function Hero() {
   const [index, setIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(true);
   const [stars, setStars] = useState<number | null>(null);
 
@@ -22,13 +20,13 @@ export function Hero() {
   }, []);
 
   useEffect(() => {
-    if (paused || reducedMotion) return;
+    if (reducedMotion) return;
     const interval = window.setInterval(
       () => setIndex((current) => (current + 1) % words.length),
       2900,
     );
     return () => window.clearInterval(interval);
-  }, [paused, reducedMotion]);
+  }, [reducedMotion]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -57,39 +55,34 @@ export function Hero() {
           <img
             src="/brand/browser-use.svg"
             alt="Browser Use"
-            width="38"
-            height="38"
+            width="46"
+            height="46"
           />
         </a>
         <a
           className="github-link"
+          aria-label={
+            stars === null
+              ? 'View video-use on GitHub'
+              : `View video-use on GitHub · ${stars.toLocaleString()} stars`
+          }
           href={repository}
           target="_blank"
           rel="noreferrer"
         >
-          <img src="/brand/github.svg" alt="" width="17" height="17" />
-          <span>video-use</span>
-          <span
-            className="github-stars"
-            aria-label={
-              stars === null
-                ? 'Star video-use on GitHub'
-                : `${stars.toLocaleString()} GitHub stars`
-            }
-          >
-            <Star size={13} />
+          <img src="/brand/github.svg" alt="" width="22" height="22" />
+          <span className="github-stars" aria-hidden="true">
             {stars === null
-              ? 'Star'
+              ? '—'
               : new Intl.NumberFormat('en', {
                   notation: 'compact',
                   maximumFractionDigits: 1,
                 }).format(stars)}
           </span>
-          <ArrowUpRight size={15} />
         </a>
       </header>
       <section
-        className={`hero ${paused ? 'motion-paused' : ''}`}
+        className="hero"
         aria-label="Make edits, motion, stories, and video with a prompt"
       >
         <div className="hero-composition">
@@ -112,39 +105,9 @@ export function Hero() {
               </span>
             </span>
           </h1>
-          <a
-            className="hero-previews"
-            href="#examples"
-            aria-label="Explore the video gallery"
-          >
-            {[examples[0], examples[1], examples[8]].map((example, i) => (
-              <span
-                className={`floating-preview preview-${i}`}
-                key={example.id}
-              >
-                <img src={example.poster} alt="" width="180" height="112" />
-                <span className="preview-corner">
-                  <Play size={9} fill="currentColor" />
-                </span>
-              </span>
-            ))}
-          </a>
         </div>
         <div className="hero-foot">
           <div className="hero-foot-right">
-            {!reducedMotion && (
-              <Button
-                className="motion-toggle"
-                variant="ghost"
-                size="icon"
-                aria-label={
-                  paused ? 'Resume hero animation' : 'Pause hero animation'
-                }
-                onClick={() => setPaused(!paused)}
-              >
-                {paused ? <Play size={12} /> : <Pause size={12} />}
-              </Button>
-            )}
             <a
               href="#examples"
               aria-label="Explore video examples"
