@@ -1,0 +1,98 @@
+[
+  {
+    "id": "optical-assembly",
+    "kind": "original authored motion design",
+    "promptSource": "adapted starter grounded in delivered source documentation; exact original user prompt unavailable",
+    "sourceRun": "optical-assembly"
+  },
+  {
+    "id": "02-orbit",
+    "kind": "original authored motion design",
+    "promptSource": "adapted starter grounded in delivered source documentation; exact original user prompt unavailable",
+    "sourceRun": "02-orbit"
+  },
+  {
+    "id": "04-fold",
+    "kind": "original authored motion design",
+    "promptSource": "adapted starter grounded in delivered source documentation; exact original user prompt unavailable",
+    "sourceRun": "04-fold"
+  },
+  {
+    "id": "05-flow",
+    "kind": "original authored motion design",
+    "promptSource": "adapted starter grounded in delivered source documentation; exact original user prompt unavailable",
+    "sourceRun": "05-flow"
+  },
+  {
+    "id": "lane-2-b2b5d2289148",
+    "kind": "original explainer",
+    "promptSource": "original saved prompt",
+    "sourceRun": "lane-2-b2b5d2289148"
+  },
+  {
+    "id": "lane-1-1c3b0807ec32",
+    "kind": "original explainer",
+    "promptSource": "original saved prompt",
+    "sourceRun": "lane-1-1c3b0807ec32"
+  },
+  {
+    "id": "lane-3-0f3389565faa",
+    "kind": "original explainer",
+    "promptSource": "original saved prompt",
+    "sourceRun": "lane-3-0f3389565faa"
+  },
+  {
+    "id": "lane-2-a3a0cb418862",
+    "kind": "original explainer",
+    "promptSource": "original saved prompt",
+    "sourceRun": "lane-2-a3a0cb418862"
+  },
+  {
+    "id": "lane-3-efdc06d815f3",
+    "kind": "edited source footage",
+    "promptSource": "adapted starter from original saved prompt; local transcript instructions removed",
+    "sourceRun": "lane-3-efdc06d815f3"
+  },
+  {
+    "id": "lane-4-3646297afe39",
+    "kind": "edited source footage",
+    "promptSource": "adapted starter from original saved prompt; local transcript instructions removed",
+    "sourceRun": "lane-4-3646297afe39"
+  },
+  {
+    "id": "lane-2-6540714b4c12",
+    "kind": "edited source footage",
+    "promptSource": "self-contained starter adapted from original saved prompt",
+    "sourceRun": "lane-2-6540714b4c12"
+  },
+  {
+    "id": "lane-3-21ccc82dbd81",
+    "kind": "edited source footage",
+    "promptSource": "self-contained starter adapted from original saved prompt",
+    "sourceRun": "lane-3-21ccc82dbd81"
+  },
+  {
+    "id": "generated-20260906-lighthouse",
+    "kind": "original generated footage",
+    "promptSource": "original saved prompt",
+    "sourceRun": "generated-20260906-lighthouse"
+  },
+  {
+    "id": "anime-20260906-ren",
+    "kind": "original generated footage",
+    "promptSource": "adapted starter from original saved prompt; account credit instruction removed",
+    "sourceRun": "anime-20260906-ren"
+  },
+  {
+    "id": "cinematic-20260907-flux-crime",
+    "kind": "original generated footage",
+    "promptSource": "adapted starter from original saved prompt; absent reference replaced with self-contained direction",
+    "sourceRun": "cinematic-20260907-flux-crime"
+  },
+  {
+    "id": "cinematic-20260907-kling-hero",
+    "kind": "original generated footage",
+    "promptSource": "adapted starter from original saved prompt; absent reference replaced with self-contained direction",
+    "sourceRun": "cinematic-20260907-kling-hero"
+  }
+]
