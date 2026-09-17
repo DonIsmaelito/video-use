@@ -7,8 +7,7 @@ compositing a final video. Text and its timing must come from the chosen speech 
 an explicitly authored title; these tools do not transcribe audio.
 
 Pillow and NumPy are base dependencies. FFmpeg is required for transparent movie
-export and reading the FFconcat image timeline. Bundled Inter Tight Bold and Alfa
-Slab One fonts include their Open Font License files under
+export and reading the FFconcat image timeline. The bundled Alfa Slab One font includes its Open Font License file under
 `assets/fonts/`; no companion skill is required to use them.
 
 ## Styled SRT caption images
@@ -33,7 +32,7 @@ The API measures and wraps all words, shrinks within declared font-size limits,
 and rejects text that cannot fit. Position and width values in 0–1 are canvas
 fractions; larger values are pixels. Supported styling includes font choice,
 outline, shadow and rounded backgrounds. Colors use RGB or RGBA hex values.
-Existing output images are rejected. The default font is bundled Inter Tight;
+Existing output images are rejected. The default font is bundled Alfa Slab One;
 a configured font must exist and be loadable.
 
 `build_caption_track(srt_path, output_dir, width=..., height=...,
@@ -68,7 +67,7 @@ excluded. Line positions are relative to the picture region, not the full canvas
   "total_frames": 24,
   "picture": [0, 0, 640, 360],
   "font_layout": "basic",
-  "fonts": {"body": "@assets/fonts/InterTight-Bold.ttf"},
+  "fonts": {"body": "@assets/fonts/AlfaSlabOne.ttf"},
   "cards": [{
     "id": "title",
     "start_frame": 0,

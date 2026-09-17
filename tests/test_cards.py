@@ -22,7 +22,7 @@ def manifest():
         "total_frames": 12,
         "picture": [0, 0, 320, 180],
         "font_layout": "basic",
-        "fonts": {"body": "@assets/fonts/InterTight-Bold.ttf"},
+        "fonts": {"body": "@assets/fonts/AlfaSlabOne.ttf"},
         "cards": [
             {
                 "id": "title",
@@ -177,7 +177,7 @@ def test_cli_preserves_existing_sidecar(manifest, tmp_path):
 # older project font aliases render the same pixels after shared assets move
 def test_legacy_font_alias_matches_shared_assets(manifest, tmp_path):
     legacy = copy.deepcopy(manifest)
-    legacy["fonts"]["body"] = "@skill/assets/fonts/InterTight-Bold.ttf"
+    legacy["fonts"]["body"] = "@skill/assets/fonts/AlfaSlabOne.ttf"
     current = cards.CardRenderer(manifest, tmp_path).frame(6)
     previous = cards.CardRenderer(legacy, tmp_path).frame(6)
     assert np.array_equal(np.array(current), np.array(previous))

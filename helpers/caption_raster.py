@@ -24,7 +24,7 @@ PUNCT_BREAK = set(".,!?;:")
 FONT_CANDIDATES = (
     str(
         Path(__file__).resolve().parents[1]
-        / "assets/fonts/InterTight-Bold.ttf"
+        / "assets/fonts/AlfaSlabOne.ttf"
     ),
     "/System/Library/Fonts/Helvetica.ttc",
     "/System/Library/Fonts/Supplemental/Arial Bold.ttf",
