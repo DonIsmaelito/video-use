@@ -58,6 +58,7 @@ def test_filter_preserves_count_and_reduces_low_frequency(tmp_path):
     "row",
     [
         {"type": "atempo", "frequency_hz": 100},
+        {"type": "highpass", "frequency_hz": 100, "gain_db": 5},
         {"type": "highpass", "frequency_hz": 24000},
         {"type": "highpass", "frequency_hz": float("nan")},
         {"type": "equalizer", "frequency_hz": 100, "q": 0},
