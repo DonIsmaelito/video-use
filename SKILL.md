@@ -71,6 +71,8 @@ Helpers (`helpers/transcribe.py`, `helpers/render.py`, etc.) live alongside this
 
 ## Helpers
 
+- **`visuals.py`, `effects.py`, `track_mask.py`** — compose canvas treatments and layers and track reviewed masks. See [effects and masks](references/effects.md).
+
 - **`caption_raster.py`, `cards.py`** — render styled caption images and measured word cards. See [caption rendering](references/caption-rendering.md).
 
 - **`source_scan.py`, `prepare_source.py`, `find_shot.py`, `project_state.py`** — inspect selected sources and retain provenance. See [source inspection](references/sources.md).
