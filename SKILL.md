@@ -76,6 +76,8 @@ Helpers (`helpers/transcribe.py`, `helpers/render.py`, etc.) live alongside this
 
 ## Helpers
 
+- **`board.py <board.json> -o <video.mp4>`**, **`boardlib.py`** — author and render timed text, image and clip sequences with narration anchors and layout checks. See `references/editing/board-spec.md`.
+
 - **`fetch_asset.py image|logo|emoji`** — acquire still assets with source metadata and protected outputs. See `references/assets.md`.
 - **`web_shot.py capture|card`** — capture webpage evidence and prepare transparent image cards. See `references/assets.md`.
 
