@@ -231,7 +231,7 @@ Pick the engine per animation slot. Do not default to Remotion just because the 
 - **Manim** — formal diagrams, state machines, equation derivations, graph morphs. Read `skills/manim-video/SKILL.md` and its references for depth.
 - **Penrose** — constraint-driven mathematical structures, relationship tables,
   and dense layouts where facts should remain separate from visual constraints.
-  Especially strong for the included quaternion multiplication-table treatment.
+  Supply your own diagram specification; no third-party example is bundled.
   Read `references/penrose.md`; render with `helpers/render_illustration.py`.
 - **CeTZ** — general vector STEM figures in Typst: geometry, physics apparatus,
   axes, circuits, trees, and scientific diagrams. Read `references/cetz.md`;

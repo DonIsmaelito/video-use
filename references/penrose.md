@@ -1,42 +1,19 @@
-# Penrose for structural mathematical diagrams
+# Penrose diagrams
 
-Use Penrose when the input is mathematical structure and the desired drawing is
-best expressed through constraints: multiplication tables, incidence and set
-relationships, graph layouts, geometric configurations, or a dense matrix-like
-view. It is a specialized option, not the default for every linear-algebra beat.
+Penrose can render constraint-based mathematical diagrams from a domain, style
+and substance specification. Use it when the diagram benefits from explicit
+relationships and automatic constraint solving.
 
-Penrose separates a diagram into three programs:
+Author your own specification or supply one with suitable reuse permission.
+No third-party diagram example is bundled with video-use. Keep attribution and
+license notices with any externally sourced diagram files.
 
-- **Domain** declares mathematical object and predicate types.
-- **Substance** declares the actual objects, relationships, and labels.
-- **Style** maps those facts to shapes and constraints.
+```bash
+python helpers/render_illustration.py penrose edit/diagram/figure.trio.json -o edit/diagram/figure.svg
+```
 
-A `.trio.json` file points to all three and fixes the `variation` seed. Preserve
-that seed after layout approval so later renders do not unexpectedly rearrange.
+Inspect the resulting SVG for layout and correctness, then use it as an asset in
+the chosen video workflow. The helper checks inputs and invokes the optional
+Penrose tooling; it does not establish mathematical correctness or reuse rights.
 
-## Video-use workflow
-
-1. Copy `assets/illustrations/penrose-quaternion-table/` into the animation slot.
-2. Change the Substance facts and labels before changing visual styling.
-3. Keep labels short enough to survive a 16:9 delivery frame.
-4. Render:
-
-   ```bash
-   python helpers/render_illustration.py penrose \
-     <slot>/quaternion-table.trio.json -o <slot>/diagram.svg
-   ```
-
-5. Inspect the SVG. If the diagram is correct, import it into Manim with
-   `SVGMobject` and animate meaningful groups such as one row, one column, and
-   their product cell.
-
-`render_illustration.py` pins `@penrose/roger` 3.3.1 and caches it on first use.
-Pass `--dump-steps` only when the optimization process itself is useful footage;
-ordinary explainers should use the final stable SVG.
-
-The included starter is adapted from Penrose's official
-`group-theory/quaternion-multiplication-table` example:
-https://penrose.cs.cmu.edu/try/?examples=group-theory/quaternion-multiplication-table
-
-Roger CLI documentation:
-https://penrose.cs.cmu.edu/docs/ref/using#command-line-interface-roger
+Official documentation: https://penrose.cs.cmu.edu/docs/ref/using
