@@ -47,3 +47,14 @@ author controls timing and composition with `self.play()`.
 - Restore focus and highlights before starting another attention context. The
   helpers preserve the previous opacity and style exactly.
 - Use `begin_beat()` for inspectable `next_section()` metadata inside a chapter.
+
+## Measured layout evidence
+
+Use `measured_layout_frame(time, objects, width=1920, height=1080)` from
+`assets/concept_explainer.py` to export named foreground rectangles in delivery
+pixels. Clipped bounds remain outside the canvas rather than being clamped away.
+For an unrotated moving camera, pass its frame as camera_frame. Rotated and
+perspective cameras require separate screen-space measurements. This exports
+evidence only; it does not validate overlap or visibility, inspect internal labels,
+or automatically approve layout. The optional layout_qc helper proposed in #148
+can consume these records; it is not required to export measurements.

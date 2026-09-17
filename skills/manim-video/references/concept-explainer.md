@@ -201,3 +201,15 @@ Inspect only a few candidate moments from each source. If a source cannot be
 cleared or does not teach the beat better than illustration, omit it rather than
 lowering relevance. Keep provenance in a restrained source footer instead of
 adding decorative title hierarchy.
+
+## Preview clocks and fresh attempts
+
+The preview_scene.py script accepts --fps and --quality low, medium or high.
+Low remains the default for fast drafts. Set delivery FPS explicitly when
+checking synchronization, and use high for a larger layout review. The preview
+path contains the source path hash and a fresh attempt directory, preventing an
+older video from validating a failed or empty new render. Successful attempts
+retain full-resolution endpoint frames and a five-position contact sheet;
+endpoints are decoded once. Failed attempts remain available for diagnosis.
+Source hashes identify paths, not file contents, and this is not a render cache.
+Inspect the resulting motion and actual encoded frame rate before delivery.

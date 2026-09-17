@@ -6,6 +6,9 @@ above the caption rail and make text fit its container before rendering.
 
 from __future__ import annotations
 
+import math
+from typing import Any
+
 from itertools import combinations
 
 from manim import DOWN, UP, Mobject, Rectangle, RoundedRectangle, Text, VGroup, config
@@ -241,3 +244,45 @@ def source_footer(
     # the buffer must clear the margin that assert_inside_frame enforces
     footer.to_edge(DOWN, buff=rail_height + 0.2)
     return assert_inside_frame(footer)
+
+
+# measure named foreground bounds in delivery pixels without hiding clipping
+def measured_layout_frame(
+    time: float,
+    objects: dict[str, Mobject],
+    *,
+    width: int = 1920,
+    height: int = 1080,
+    camera_frame: Mobject | None = None,
+) -> dict[str, Any]:
+    """Measure a 2D teaching state for layout_qc without clipping its bounds.
+
+    Supply the current unrotated moving-camera frame when it pans or zooms.
+    Perspective/rotated cameras need screen-space measurements instead. Choose
+    independent foreground groups; inspect internal labels separately. This
+    builds evidence, not a validation result or automatic overlap exemption.
+    """
+    if not math.isfinite(time) or time < 0 or width <= 0 or height <= 0:
+        raise ValueError('layout time and canvas dimensions must be finite and valid')
+    if not math.isfinite(width) or not math.isfinite(height) or not objects:
+        raise ValueError('provide finite canvas dimensions and named objects')
+    frame_width = float(camera_frame.width) if camera_frame is not None else float(config.frame_width)
+    frame_height = float(camera_frame.height) if camera_frame is not None else float(config.frame_height)
+    left = float(camera_frame.get_left()[0]) if camera_frame is not None else -frame_width / 2
+    top = float(camera_frame.get_top()[1]) if camera_frame is not None else frame_height / 2
+    if not all(math.isfinite(v) for v in (frame_width, frame_height, left, top)) or min(frame_width, frame_height) <= 0:
+        raise ValueError('camera frame must have finite positive dimensions')
+    elements = []
+    for name, obj in objects.items():
+        if not isinstance(name, str) or not name.strip() or name != name.strip():
+            raise ValueError('layout objects require nonempty unpadded names')
+        rect = {
+            'x': (float(obj.get_left()[0]) - left) / frame_width * width,
+            'y': (top - float(obj.get_top()[1])) / frame_height * height,
+            'width': float(obj.width) / frame_width * width,
+            'height': float(obj.height) / frame_height * height,
+        }
+        if not all(math.isfinite(v) for v in rect.values()):
+            raise ValueError(f'nonfinite measured bounds for {name}')
+        elements.append({'id': name, 'rect': rect})
+    return {'time': float(time), 'elements': elements}
