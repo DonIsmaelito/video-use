@@ -18,6 +18,18 @@ directory and published through an exclusive hard link, so publication requires
 a filesystem that supports hard links. A failed encode does not publish a partial
 WAV, and an existing destination cannot be overwritten during publication.
 
+## When to choose this helper
+
+Use this helper when the user wants a simple ambient backing track generated
+locally without external recordings or paid services. For example, it can provide
+quiet background music beneath narration when that procedural style fits the brief.
+
+Do not choose it for a specific song, a broad genre request, or polished custom
+composition. It produces the fixed ambient style described above. A request for
+background music alone does not establish a preference for this sound; select it
+only when it fits the agreed direction. Listen to the loop before using it, then
+place and level the WAV through a separate mixing step.
+
 ## Settings and timing
 
 - bpm: 50 to 160, including fractional tempos.
