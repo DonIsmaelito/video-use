@@ -31,7 +31,9 @@ Second paragraph [laughs] here.
 def test_parse_script_keeps_v3_tags_only_for_v3() -> None:
     paragraphs = narrate.parse_script("Hello [sarcastic] world.", keep_v3_tags=True)
     assert "[sarcastic]" in paragraphs[0]["text"]
-    paragraphs = narrate.parse_script("Hello [sarcastic] world. [pause]", keep_v3_tags=False)
+    paragraphs = narrate.parse_script(
+        "Hello [sarcastic] world. [pause]", keep_v3_tags=False
+    )
     assert "[sarcastic]" not in paragraphs[0]["text"]
     assert '<break time="0.5s" />' in paragraphs[0]["text"]
 
@@ -54,7 +56,9 @@ def test_chunk_paragraphs_respects_limit() -> None:
 
 # ssml breaks are not counted as spoken characters
 def test_spoken_characters_ignores_breaks() -> None:
-    assert narrate.spoken_characters('Hi <break time="0.5s" /> there') == len("Hi  there")
+    assert narrate.spoken_characters('Hi <break time="0.5s" /> there') == len(
+        "Hi  there"
+    )
 
 
 # build a character level alignment from timed tokens
@@ -70,13 +74,26 @@ def _alignment(tokens: list[tuple[str, float, float]]) -> dict:
             chars.append(" ")
             starts.append(end)
             ends.append(end)
-    return {"characters": chars, "character_start_times_seconds": starts, "character_end_times_seconds": ends}
+    return {
+        "characters": chars,
+        "character_start_times_seconds": starts,
+        "character_end_times_seconds": ends,
+    }
 
 
 # markup tokens are dropped and word times are offset
 def test_words_from_alignment_drops_markup_and_offsets_times() -> None:
-    alignment = _alignment([("Because", 0.0, 0.4), ("<break", 0.4, 0.4), ('time="0.5s"', 0.4, 0.4), ("/>", 0.4, 0.4),
-                            ("it's", 0.9, 1.1), ("[laughs]", 1.1, 1.1), ("bad.", 1.2, 1.5)])
+    alignment = _alignment(
+        [
+            ("Because", 0.0, 0.4),
+            ("<break", 0.4, 0.4),
+            ('time="0.5s"', 0.4, 0.4),
+            ("/>", 0.4, 0.4),
+            ("it's", 0.9, 1.1),
+            ("[laughs]", 1.1, 1.1),
+            ("bad.", 1.2, 1.5),
+        ]
+    )
     words = narrate.words_from_alignment(alignment, offset=10.0)
     assert [w["text"] for w in words] == ["Because", "it's", "bad."]
     assert words[0]["start"] == 10.0
@@ -87,12 +104,21 @@ def test_words_from_alignment_drops_markup_and_offsets_times() -> None:
 # alignment arrays of different lengths are an error
 def test_words_from_alignment_rejects_mismatched_arrays() -> None:
     with pytest.raises(ValueError):
-        narrate.words_from_alignment({"characters": ["a"], "character_start_times_seconds": [], "character_end_times_seconds": []})
+        narrate.words_from_alignment(
+            {
+                "characters": ["a"],
+                "character_start_times_seconds": [],
+                "character_end_times_seconds": [],
+            }
+        )
 
 
 # srt cues break on sentence ends
 def test_write_srt_breaks_on_sentences(tmp_path: Path) -> None:
-    words = [{"text": t, "start": i * 0.3, "end": i * 0.3 + 0.25} for i, t in enumerate("If you woke up today. Go back to sleep.".split())]
+    words = [
+        {"text": t, "start": i * 0.3, "end": i * 0.3 + 0.25}
+        for i, t in enumerate("If you woke up today. Go back to sleep.".split())
+    ]
     cues = narrate.write_srt(words, tmp_path / "out.srt")
     assert cues == 2
     text = (tmp_path / "out.srt").read_text()
@@ -103,32 +129,51 @@ def test_write_srt_breaks_on_sentences(tmp_path: Path) -> None:
 
 # v3 pause tags stay native and timed ssml pauses fail before generation
 def test_v3_pause_contract():
-    assert narrate.parse_script('Hello [pause] world', keep_v3_tags=True)[0]['text'] == 'Hello [pause] world'
-    for text in ['Hello [pause 0.5]', 'Hello <break time="1s" />']:
+    assert (
+        narrate.parse_script("Hello [pause] world", keep_v3_tags=True)[0]["text"]
+        == "Hello [pause] world"
+    )
+    for text in ["Hello [pause 0.5]", 'Hello <break time="1s" />']:
         with pytest.raises(ValueError):
             narrate.parse_script(text, keep_v3_tags=True)
 
 
 # multiword tags do not hide the spoken words after them
 def test_multiword_alignment_tags():
-    words = narrate.words_from_alignment(_alignment([('[clears', 0, 0), ('throat]', 0, 0), ('Hello', 0.1, 0.5)]))
-    assert [word['text'] for word in words] == ['Hello']
+    words = narrate.words_from_alignment(
+        _alignment([("[clears", 0, 0), ("throat]", 0, 0), ("Hello", 0.1, 0.5)])
+    )
+    assert [word["text"] for word in words] == ["Hello"]
 
 
 # malformed provider times cannot produce apparently valid captions
-@pytest.mark.parametrize('start,end', [(-1, 1), (float('nan'), 1), (0, float('inf')), (1, 0), (0, 0)])
+@pytest.mark.parametrize(
+    "start,end", [(-1, 1), (float("nan"), 1), (0, float("inf")), (1, 0), (0, 0)]
+)
 def test_reject_invalid_alignment_times(start, end):
     with pytest.raises(ValueError):
-        narrate.words_from_alignment({'characters':['x'], 'character_start_times_seconds':[start], 'character_end_times_seconds':[end]})
+        narrate.words_from_alignment(
+            {
+                "characters": ["x"],
+                "character_start_times_seconds": [start],
+                "character_end_times_seconds": [end],
+            }
+        )
 
 
 # short caption cues retain their true end instead of overlapping the next cue
 def test_short_cues_do_not_extend(tmp_path):
-    narrate.write_srt([{'text':'Hi.', 'start':0, 'end':0.1}, {'text':'Bye.', 'start':0.1, 'end':0.2}], tmp_path/'out.srt')
-    assert '00:00:00,000 --> 00:00:00,100' in (tmp_path/'out.srt').read_text()
+    narrate.write_srt(
+        [
+            {"text": "Hi.", "start": 0, "end": 0.1},
+            {"text": "Bye.", "start": 0.1, "end": 0.2},
+        ],
+        tmp_path / "out.srt",
+    )
+    assert "00:00:00,000 --> 00:00:00,100" in (tmp_path / "out.srt").read_text()
 
 
 # silence markers alone do not trigger a speech request
 def test_pause_only_script_rejected():
     with pytest.raises(ValueError):
-        narrate.parse_script('[pause]', keep_v3_tags=False)
+        narrate.parse_script("[pause]", keep_v3_tags=False)
