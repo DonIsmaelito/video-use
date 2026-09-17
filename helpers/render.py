@@ -40,6 +40,10 @@ if HELPERS_DIR not in sys.path:
     sys.path.insert(0, HELPERS_DIR)
 
 from edl import EDLValidationError, normalize_deliverables, validate_edl
+from captions import build_caption_track, choose_caption_renderer
+from captions import build_master_srt as _styled_master_srt
+from visuals import (build_reframe_filter, build_treatment_filters, canvas_dimensions,
+                     probe_video, render_graphic_layers, scale_visual_specs)
 
 try:
     from grade import get_preset, auto_grade_for_clip  # same directory
@@ -91,6 +95,11 @@ def resolve_grade_filter(grade_field: str | None) -> str:
         return ""
     if grade_field == "auto":
         return "__AUTO__"
+    # a sentence typed into the grade field is caught here as well as in the validator
+    if re.search(r"\s", grade_field.strip()) or ";" in grade_field:
+        raise ValueError(
+            f"grade must be a preset name, auto, or an ffmpeg filter chain; got: {grade_field[:60]!r}"
+        )
     # Preset names are short identifiers, filter strings contain '=' or ','.
     if re.fullmatch(r"[a-zA-Z0-9_\-]+", grade_field):
         try:
@@ -308,6 +317,7 @@ def extract_segment(
     preview: bool = False,
     draft: bool = False,
     rate: str | None = None,
+    reframe: dict | None = None,
 ) -> None:
     """Extract a cut range as its own MP4 with grade + 30ms audio fades baked in.
 
@@ -333,6 +343,8 @@ def extract_segment(
     if is_hdr_source(source):
         vf_parts.append(TONEMAP_CHAIN)
     vf_parts.append(scale)
+    if reframe:
+        vf_parts.append(build_reframe_filter(reframe))
     if grade_filter:
         vf_parts.append(grade_filter)
     vf = ",".join(vf_parts)
@@ -430,7 +442,8 @@ def extract_all_segments(
         print(f"  [{i:02d}] {src_name}  {start:7.2f}-{end:7.2f}  ({duration:5.2f}s)  {note}")
         if is_auto:
             print(f"        grade: {seg_filter or '(none)'}")
-        extract_segment(src_path, start, duration, seg_filter, out_path, preview=preview, draft=draft, rate=out_rate)
+        options = {"reframe": r["reframe"]} if r.get("reframe") else {}
+        extract_segment(src_path, start, duration, seg_filter, out_path, preview=preview, draft=draft, rate=out_rate, **options)
         seg_paths.append(out_path)
 
     return seg_paths
@@ -492,79 +505,11 @@ def _words_in_range(transcript: dict, t_start: float, t_end: float) -> list[dict
     return out
 
 
-# build an output timeline srt from per source transcripts using two word uppercase chunks
+# delegate transcript timing and styling to the shared caption helper
 def build_master_srt(edl: dict, edit_dir: Path, out_path: Path) -> None:
-    """Build an output-timeline SRT from per-source transcripts.
-
-    - 2-word chunks (break on any punctuation in between)
-    - UPPERCASE text
-    - Output times computed as word.start - segment_start + segment_offset
-    """
-    transcripts_dir = edit_dir / "transcripts"
-    sources = edl["sources"]
-
-    entries: list[tuple[float, float, str]] = []
-    seg_offset = 0.0
-
-    for r in edl["ranges"]:
-        src_name = r["source"]
-        seg_start = float(r["start"])
-        seg_end = float(r["end"])
-        seg_duration = seg_end - seg_start
-
-        tr_path = transcripts_dir / f"{src_name}.json"
-        if not tr_path.exists():
-            print(f"  no transcript for {src_name}, skipping captions for this segment")
-            seg_offset += seg_duration
-            continue
-
-        transcript = json.loads(tr_path.read_text())
-        words_in_seg = _words_in_range(transcript, seg_start, seg_end)
-
-        # Group into 2-word chunks, break on punctuation
-        chunks: list[list[dict]] = []
-        current: list[dict] = []
-        for w in words_in_seg:
-            text = (w.get("text") or "").strip()
-            if not text:
-                continue
-            current.append(w)
-            # Break if the current text ends in punctuation or we hit 2 words
-            ends_in_punct = bool(text) and text[-1] in PUNCT_BREAK
-            if len(current) >= 2 or ends_in_punct:
-                chunks.append(current)
-                current = []
-        if current:
-            chunks.append(current)
-
-        for chunk in chunks:
-            # clamp chunk times to the segment then shift them onto the output timeline
-            local_start = max(seg_start, chunk[0].get("start", seg_start))
-            local_end = min(seg_end, chunk[-1].get("end", seg_end))
-            out_start = max(0.0, local_start - seg_start) + seg_offset
-            out_end = max(0.0, local_end - seg_start) + seg_offset
-            if out_end <= out_start:
-                out_end = out_start + 0.4
-            text = " ".join((w.get("text") or "").strip() for w in chunk)
-            text = re.sub(r"\s+", " ", text).strip()
-            # Strip trailing punctuation for cleaner uppercase look
-            text = text.rstrip(",;:")
-            text = text.upper()
-            entries.append((out_start, out_end, text))
-
-        seg_offset += seg_duration
-
-    # Sort and write as SRT
-    entries.sort(key=lambda e: e[0])
-    lines: list[str] = []
-    for i, (a, b, t) in enumerate(entries, start=1):
-        lines.append(str(i))
-        lines.append(f"{_srt_timestamp(a)} --> {_srt_timestamp(b)}")
-        lines.append(t)
-        lines.append("")
-    out_path.write_text("\n".join(lines))
-    print(f"master SRT → {out_path.name} ({len(entries)} cues)")
-
+    """Build styled captions with exact output offsets through the shared backend."""
+    cues = _styled_master_srt(edl, edit_dir, out_path)
+    print(f"master SRT → {out_path.name} ({len(cues)} cues)")
 
 # -------- Loudness normalization (social-ready audio) -----------------------
 
@@ -1146,6 +1091,8 @@ def build_final_composite(
     edit_dir: Path,
     caption_config: dict | None = None,
     protected_regions: list[dict] | None = None,
+    *,
+    treatment: dict | None = None,
 ) -> None:
     """Final pass: base → overlays (PTS-shifted) → subtitles LAST → out.
 
@@ -1157,18 +1104,36 @@ def build_final_composite(
         overlays, protected_regions, has_subs, caption_config
     )
 
-    if not has_overlays and not has_subs:
+    if not has_overlays and not has_subs and not treatment:
         # Nothing to do — just rename/copy base to final name
         run(["ffmpeg", "-y", "-i", str(base_path), "-c", "copy", str(out_path)], quiet=True)
         return
 
     inputs: list[str] = ["-i", str(base_path)]
+    metadata = probe_video(base_path) if treatment or (has_subs and subtitles_path.suffix.lower() != ".ass") else None
     for ov in overlays:
         ov_path = resolve_path(ov["file"], edit_dir)
-        inputs += ["-i", str(ov_path)]
+        if ov.get("kind") == "image" or ov_path.suffix.lower() in {".png", ".jpg", ".jpeg", ".webp"}:
+            metadata = metadata or probe_video(base_path)
+            inputs += ["-loop", "1", "-framerate", metadata.get("fps") or "30", "-i", str(ov_path)]
+        else:
+            inputs += ["-i", str(ov_path)]
 
-    base_width, base_height = probe_video_size(base_path)
+    base_width, base_height = (int(metadata["width"]), int(metadata["height"])) if metadata else probe_video_size(base_path)
     filter_parts: list[str] = []
+    current = "[0:v]"
+    if treatment:
+        filter_parts, current, (base_width, base_height) = build_treatment_filters(
+            current, treatment, fallback_width=base_width, fallback_height=base_height)
+    caption_renderer = None
+    caption_input_index = None
+    if has_subs:
+        caption_renderer = "libass" if subtitles_path.suffix.lower() == ".ass" else choose_caption_renderer(caption_config)
+        if caption_renderer == "pil":
+            caption_track = build_caption_track(subtitles_path, edit_dir / "overlays/captions",
+                width=base_width, height=base_height, total_duration=float(metadata["duration"]), config=caption_config)
+            caption_input_index = len(overlays) + 1
+            inputs += ["-f", "concat", "-safe", "0", "-i", str(caption_track)]
     # PTS-shift every overlay so its frame 0 lands at start_in_output
     for idx, ov in enumerate(overlays, start=1):
         t = float(ov["start_in_output"])
@@ -1176,7 +1141,7 @@ def build_final_composite(
         # legacy overlays without a layout fill the whole frame
         if rect is None:
             filter_parts.append(
-                f"[{idx}:v]scale={base_width}:{base_height}:"
+                f"[{idx}:v]format=rgba,scale={base_width}:{base_height}:"
                 "force_original_aspect_ratio=increase,"
                 f"crop={base_width}:{base_height},setsar=1,"
                 f"setpts=PTS-STARTPTS+{t}/TB[a{idx}]"
@@ -1205,7 +1170,6 @@ def build_final_composite(
         )
 
     # Chain overlays on top of base
-    current = "[0:v]"
     for idx, ov in enumerate(overlays, start=1):
         t = float(ov["start_in_output"])
         dur = float(ov["duration"])
@@ -1221,12 +1185,16 @@ def build_final_composite(
         # enable limits the overlay to its output window even though the input is pts shifted
         filter_parts.append(
             f"{current}[a{idx}]overlay={position}:enable="
-            f"'between(t,{t:.3f},{end:.3f})'{next_label}"
+            f"'gte(t,{t:.3f})*lt(t,{end:.3f})':eof_action=pass{next_label}"
         )
         current = next_label
 
     # Subtitles LAST — Rule 1
-    if has_subs:
+    if caption_renderer == "pil":
+        filter_parts.append(f"[{caption_input_index}:v]format=rgba,setpts=PTS-STARTPTS[raster_subs]")
+        filter_parts.append(f"{current}[raster_subs]overlay=eof_action=pass:repeatlast=0[outv]")
+        out_label = "[outv]"
+    elif has_subs:
         # escape colons and quotes so the path survives filter option parsing
         subs_abs = str(subtitles_path.resolve()).replace(":", r"\:").replace("'", r"\'")
         # ASS files carry their own style while srt gets the forced style
@@ -1239,7 +1207,7 @@ def build_final_composite(
         out_label = "[outv]"
     else:
         # Rename the last overlay output to [outv] for consistency
-        if has_overlays:
+        if has_overlays or treatment:
             filter_parts.append(f"{current}null[outv]")
             out_label = "[outv]"
         else:
@@ -1247,19 +1215,24 @@ def build_final_composite(
 
     filter_complex = ";".join(filter_parts)
 
-    ffmpeg_binary = ffmpeg_with_subtitles() if has_subs else "ffmpeg"
+    ffmpeg_binary = ffmpeg_with_subtitles() if caption_renderer == "libass" else "ffmpeg"
     cmd = [
         ffmpeg_binary, "-y",
         *inputs,
         "-filter_complex", filter_complex,
         "-map", out_label,
-        "-map", "0:a",
+        "-map", "0:a?",
         "-c:v", "libx264", "-preset", "fast", "-crf", "18",
         "-pix_fmt", "yuv420p",
         "-c:a", "copy",
         "-movflags", "+faststart",
-        str(out_path),
     ]
+    if metadata:
+        if metadata.get("fps") and metadata["fps"] != "0/0":
+            cmd.extend(["-r", str(metadata["fps"])])
+        if float(metadata.get("duration", 0)) > 0:
+            cmd.extend(["-t", f"{float(metadata['duration']):.6f}"])
+    cmd.append(str(out_path))
     print(f"compositing → {out_path.name}")
     print(f"  overlays: {len(overlays)}, subtitles: {'yes' if has_subs else 'no'}")
     subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
@@ -1453,7 +1426,12 @@ def render_one_output(
         "true_peak_dbtp": LOUDNORM_TP,
         "lra": LOUDNORM_LRA,
     }
-    overlays = edl.get("overlays") or []
+    overlays = list(edl.get("overlays") or [])
+    treatment = edl.get("treatment") or {}
+    graphics = edl.get("graphics") or []
+    caption_config = edl.get("captions")
+    if deliverable is not None and treatment.get("canvas"):
+        raise ValueError("choose deliverables or treatment.canvas for output dimensions not both")
     # a deliverable gets a reframed base and its own loudness and optional overlay list
     if deliverable is not None:
         reframed_path = out_path.with_suffix(".reframed.mp4")
@@ -1473,6 +1451,22 @@ def render_one_output(
         if "overlays" in deliverable:
             overlays = deliverable.get("overlays") or []
 
+    if treatment or graphics:
+        width, height = probe_video_size(render_base)
+        if (preview or draft) and treatment.get("canvas"):
+            treatment, graphics, caption_config, _ = scale_visual_specs(
+                treatment, graphics, caption_config,
+                fallback_width=width, fallback_height=height,
+                max_dimension=720 if draft else 1280,
+            )
+        width, height = canvas_dimensions(treatment, width, height)
+        if graphics:
+            overlays = list(overlays) + render_graphic_layers(
+                graphics, edit_dir / "overlays" / "generated",
+                width=width, height=height, base_dir=edit_dir,
+            )
+    composite_options = {"treatment": treatment} if treatment else {}
+
     # the prenorm composite and reframed base are removed even when a step fails
     try:
         if no_loudnorm:
@@ -1482,8 +1476,9 @@ def render_one_output(
                 subtitles_path,
                 out_path,
                 edit_dir,
-                edl.get("captions"),
+                caption_config,
                 edl.get("protected_regions"),
+                **composite_options,
             )
         else:
             tmp_composite = out_path.with_suffix(".prenorm.mp4")
@@ -1494,8 +1489,9 @@ def render_one_output(
                     subtitles_path,
                     tmp_composite,
                     edit_dir,
-                    edl.get("captions"),
+                    caption_config,
                     edl.get("protected_regions"),
+                    **composite_options,
                 )
                 print(
                     "loudness normalization → "
@@ -1599,6 +1595,16 @@ def main() -> None:
         validate_edl(edl, edit_dir)
     except EDLValidationError as exc:
         sys.exit(str(exc))
+    if edl.get("version") in (3, "music-story-edit/1"):
+        unsupported = [key for key in ("deliverable", "all_deliverables", "output_dir", "preview", "draft", "build_subtitles", "no_subtitles", "no_loudnorm", "preflight_overlays", "preflight_base", "fps") if getattr(args, key)]
+        if unsupported:
+            ap.error("Composition EDL declares its own picture/audio contract; unsupported options: " + ", ".join(unsupported))
+        if args.output is None:
+            ap.error("Composition EDL requires -o/--output")
+        from _composition import build
+        build(edl_path, args.output)
+        print(f"Rendered composition: {args.output}")
+        return
     output_dir = args.output_dir.resolve() if args.output_dir else None
     try:
         deliverables = normalize_deliverables(edl, edit_dir, output_dir=output_dir)
