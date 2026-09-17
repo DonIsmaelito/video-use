@@ -71,6 +71,8 @@ Helpers (`helpers/transcribe.py`, `helpers/render.py`, etc.) live alongside this
 
 ## Helpers
 
+- **`song_scan.py`, `identify_track.py`, `motion_audio.py`** — measure music timing, compare supplied recordings, and export audio controls. See [audio analysis](references/audio-analysis.md).
+
 - **`source_scan.py`, `prepare_source.py`, `find_shot.py`, `project_state.py`** — inspect selected sources and retain provenance. See [source inspection](references/sources.md).
 
 - **`transcribe.py <video>`** — single-file Scribe call. `--num-speakers N` optional. Cached.
