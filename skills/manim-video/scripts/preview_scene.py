@@ -5,7 +5,9 @@ from __future__ import annotations
 
 import argparse
 import ast
+import hashlib
 import json
+import math
 import os
 import shutil
 import subprocess
@@ -61,7 +63,7 @@ def require_executable(value: str, *, purpose: str) -> str:
     path = shutil.which(value)
     if path is None:
         raise PreviewError(f"{purpose} is unavailable: executable {value!r} was not found")
-    return path
+    return str(Path(path).absolute())
 
 
 # run a command through the injected runner and turn failures into PreviewError
@@ -211,6 +213,10 @@ def build_review_frames(
         temp_dir = Path(temp_name)
         frame_paths: list[Path] = []
         for index, proportion in enumerate((0.0, 0.25, 0.5, 0.75, 1.0)):
+            # endpoints already exist at full resolution; do not decode them twice
+            if index in (0, 4):
+                frame_paths.append(initial if index == 0 else final)
+                continue
             frame = temp_dir / f"frame_{index}.png"
             _extract_frame(
                 video,
@@ -283,7 +289,15 @@ def render_scene(
     ffprobe_bin: str = "ffprobe",
     runner: Runner = subprocess.run,
     timeout_s: float = 900.0,
+    fps: float | None = None,
+    quality: str = "low",
 ) -> dict[str, Any]:
+    if quality not in ("low", "medium", "high"):
+        raise PreviewError("quality must be low, medium or high")
+    if fps is not None and (not math.isfinite(fps) or fps <= 0):
+        raise PreviewError("fps must be positive and finite")
+    if not math.isfinite(timeout_s) or timeout_s <= 0:
+        raise PreviewError("timeout must be positive and finite")
     script = script.resolve()
     if not script.is_file():
         raise PreviewError(f"Manim script does not exist: {script}")
@@ -291,20 +305,24 @@ def render_scene(
         raise PreviewError(f"scene class {scene_name!r} was not found in {script.name}")
     resolved_edit = resolve_edit_dir(script, edit_dir)
     verify_root = (resolved_edit / "verify").resolve()
-    destination = verify_root / "manim_previews" / script.stem / scene_name
-    destination.mkdir(parents=True, exist_ok=True)
+    source_id = hashlib.sha256(str(script).encode("utf-8")).hexdigest()[:16]
+    scene_root = verify_root / "manim_previews" / f"{script.stem}-{source_id}" / scene_name
     # refuse to write anywhere outside the verify folder
-    if not destination.resolve().is_relative_to(verify_root):
+    if not scene_root.resolve().is_relative_to(verify_root):
         raise PreviewError("refusing to write preview artifacts outside edit/verify")
 
     manim = require_executable(manim_bin, purpose="Manim")
     ffmpeg = require_executable(ffmpeg_bin, purpose="ffmpeg")
     ffprobe = require_executable(ffprobe_bin, purpose="ffprobe")
+    scene_root.mkdir(parents=True, exist_ok=True)
+    # isolate every attempt so older videos cannot validate a render that wrote nothing
+    destination = Path(tempfile.mkdtemp(prefix="attempt-", dir=scene_root))
     media_dir = destination / "media"
     command = [
         manim,
         "render",
-        "-ql",
+        {"low": "-ql", "medium": "-qm", "high": "-qh"}[quality],
+        *(["--fps", f"{fps:g}"] if fps is not None else []),
         "--save_sections",
         "--media_dir",
         str(media_dir),
@@ -343,6 +361,7 @@ def render_scene(
     )
     report = {
         "scene": scene_name,
+        "script": str(script),
         "status": "ok",
         "video": str(scene_video),
         **frames,
@@ -379,6 +398,8 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--edit-dir", type=Path, help="Explicit project edit directory")
     parser.add_argument("--manim-bin", default="manim", help="Manim executable name or path")
     parser.add_argument("--timeout-s", type=float, default=900.0, help="Per-command timeout")
+    parser.add_argument("--fps", type=float, help="Explicit frame clock; use the delivery FPS when checking synchronization")
+    parser.add_argument("--quality", choices=("low", "medium", "high"), default="low", help="Low for motion drafts; high for delivery-size layout inspection")
     return parser.parse_args(argv)
 
 
@@ -392,8 +413,10 @@ def main(argv: Sequence[str] | None = None) -> int:
             edit_dir=args.edit_dir,
             manim_bin=args.manim_bin,
             timeout_s=args.timeout_s,
+            fps=args.fps,
+            quality=args.quality,
         )
-    except PreviewError as exc:
+    except (PreviewError, OSError) as exc:
         print(f"preview failed: {exc}", file=sys.stderr)
         return 1
     print(json.dumps(report, indent=2, sort_keys=True))
