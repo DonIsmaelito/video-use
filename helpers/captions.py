@@ -14,6 +14,25 @@ import argparse
 import json
 import math
 import re
+try:
+    from . import caption_raster as _raster
+except ImportError:
+    import caption_raster as _raster
+
+# Keep the existing SRT and raster APIs alongside the ASS alignment interface
+CaptionCue = _raster.CaptionCue
+parse_srt = _raster.parse_srt
+parse_srt_timestamp = _raster.parse_srt_timestamp
+srt_timestamp = _raster.srt_timestamp
+build_master_srt = _raster.build_master_srt
+render_caption_image = _raster.render_caption_image
+build_caption_track = _raster.build_caption_track
+ffmpeg_has_subtitle_filter = _raster.ffmpeg_has_subtitle_filter
+
+
+# Select the raster backend using the public dependency probe
+def choose_caption_renderer(config=None):
+    return _raster.choose_caption_renderer(config, libass_available=ffmpeg_has_subtitle_filter())
 from pathlib import Path
 
 
@@ -99,8 +118,11 @@ def chunk_words(
     *,
     max_words: int = 6,
     max_characters: int = 44,
+    break_on_punctuation: bool | None = None,
 ) -> list[tuple[float, float, str]]:
     """Create short, readable cues with punctuation-aware boundaries."""
+    if break_on_punctuation is not None:
+        return _raster.chunk_words(words, max_words=max_words, break_on_punctuation=break_on_punctuation)
     cues: list[tuple[float, float, str]] = []
     current: list[dict[str, float | str]] = []
 
@@ -195,6 +217,10 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         )
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(header + "\n".join(events) + "\n", encoding="utf-8")
+
+
+# Preserve the earlier public ASS writer name without a second implementation
+write_ass = write_substation
 
 
 # command line entry point that reads alignment json and writes an ASS file

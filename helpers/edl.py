@@ -413,6 +413,22 @@ def _track_keyframes(reframe: dict[str, Any], edit_dir: Path) -> list[Any] | Non
     return raw if isinstance(raw, list) else None
 
 
+# shape of a plain ffmpeg filter chain with no whitespace or statement separators
+_GRADE_CHAIN = re.compile(r"^[A-Za-z0-9_]+(=[^\s;]*)?(,[A-Za-z0-9_]+(=[^\s;]*)?)*$")
+
+
+# return a problem string when a grade value is prose instead of a preset auto or a filter chain
+def grade_problem(value: Any, label: str) -> str | None:
+    if value is None or value == "":
+        return None
+    if not isinstance(value, str):
+        return f"{label} grade must be a string"
+    text = value.strip()
+    if text == "auto" or re.fullmatch(r"[A-Za-z0-9_\-]+", text) or _GRADE_CHAIN.fullmatch(text):
+        return None
+    return f"{label} grade must be a preset name, auto, or an ffmpeg filter chain; got a sentence"
+
+
 # run every structural check on an edl and raise one error listing all problems
 def validate_edl(
     edl: dict[str, Any],
@@ -432,6 +448,13 @@ def validate_edl(
     if not isinstance(edl, dict):
         raise EDLValidationError("EDL is not renderable:\n- edl must be a JSON object")
     raw_version = edl.get("version", 1)
+    if raw_version in (3, "music-story-edit/1") and not isinstance(raw_version, bool):
+        try:
+            from cut_list import validate
+            validate(edl, edit_dir, check_files=check_files)
+        except (ValueError, KeyError, TypeError, OSError) as exc:
+            raise EDLValidationError(f"EDL composition is not renderable: {exc}") from exc
+        return
     # a fractional version is malformed rather than a legacy version so it must not truncate
     if isinstance(raw_version, bool) or not (
         isinstance(raw_version, int) or (isinstance(raw_version, float) and raw_version.is_integer())
@@ -499,6 +522,14 @@ def validate_edl(
                 raise ValueError
         except (KeyError, TypeError, ValueError):
             problems.append(f"range {index} requires finite start >= 0 and end > start")
+        # a prose grade would reach ffmpeg as a filter and fail after all the extraction work
+        range_grade = grade_problem(value.get("grade"), f"range {index}")
+        if range_grade:
+            problems.append(range_grade)
+
+    top_grade = grade_problem(edl.get("grade"), "top-level")
+    if top_grade:
+        problems.append(top_grade)
 
     try:
         deliverables = normalize_deliverables(edl, edit_dir)
