@@ -9,8 +9,7 @@ an explicitly authored title; these tools do not transcribe audio.
 Pillow and NumPy are base dependencies. FFmpeg is required for transparent movie
 export and reading the FFconcat image timeline. Bundled Inter Tight Bold and Alfa
 Slab One fonts include their Open Font License files under
-`skills/music-story-edit/assets/fonts/`; the surrounding companion skill is not
-required to use them.
+`assets/fonts/`; no companion skill is required to use them.
 
 ## Styled SRT caption images
 
@@ -69,7 +68,7 @@ excluded. Line positions are relative to the picture region, not the full canvas
   "total_frames": 24,
   "picture": [0, 0, 640, 360],
   "font_layout": "basic",
-  "fonts": {"body": "@skill/assets/fonts/InterTight-Bold.ttf"},
+  "fonts": {"body": "@assets/fonts/InterTight-Bold.ttf"},
   "cards": [{
     "id": "title",
     "start_frame": 0,

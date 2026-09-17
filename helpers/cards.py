@@ -41,14 +41,11 @@ def font_at(path, size, layout="basic"):
 # resolve project fonts or bundled licensed font assets
 def font_path(manifest, root, name):
     value = manifest["fonts"][name]
-    if value.startswith("@skill/"):
-        return str(
-            (
-                Path(__file__).resolve().parents[1]
-                / "skills/music-story-edit"
-                / value[7:]
-            ).resolve()
-        )
+    assets = Path(__file__).resolve().parents[1] / "assets"
+    if value.startswith("@assets/"):
+        return str((assets / value[len("@assets/"):]).resolve())
+    if value.startswith("@skill/assets/fonts/"):
+        return str((assets / "fonts" / value[len("@skill/assets/fonts/"):]).resolve())
     return str(resolve(root, value))
 
 
