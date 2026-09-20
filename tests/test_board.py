@@ -233,3 +233,25 @@ def test_cli_rejects_aliases_before_writing(tmp_path):
         str(path), '--resolve-only', '--manifest', str(output), '--timeline', str(output)], capture_output=True, text=True)
     assert result.returncode != 0 and 'distinct path' in result.stderr
     assert not output.exists()
+
+
+# a beat without a start follows the explicitly resolved previous end
+@pytest.mark.parametrize('at', [None, 'next'])
+def test_review_implicit_beat_start(tmp_path, at):
+    spec = _spec()
+    spec['beats'][0]['end'] = 1
+    if at is None:
+        del spec['beats'][1]['at']
+    else:
+        spec['beats'][1]['at'] = at
+    board = Board(spec, tmp_path, verbose=False)
+    assert [(beat.start, beat.end) for beat in board.beats] == [(0, 1), (1, 2)]
+
+
+# unsupported element treatments cannot silently render as a different treatment
+@pytest.mark.parametrize('field,value', [('enter','type'), ('fit','typo')])
+def test_review_bad_element_treatment(tmp_path, field, value):
+    spec = _spec()
+    spec['beats'][0]['elements'][0][field] = value
+    with pytest.raises(BoardError):
+        Board(spec, tmp_path, verbose=False)

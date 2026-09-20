@@ -61,7 +61,7 @@ class BoardBuilder:
         }
         board.update(self.defaults)
         board.update(overrides)
-        ids = [e["id"] for b in self.beats for e in b["elements"]]
+        ids = [e["id"] for b in board["beats"] for e in b["elements"]]
         duplicates = sorted({i for i in ids if ids.count(i) > 1})
         if duplicates:
             raise ValueError(f"duplicate element ids: {', '.join(duplicates)}")

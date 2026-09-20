@@ -23,6 +23,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import hashlib
 import math
 import os
 import random
@@ -686,7 +687,9 @@ class Board:
         # fill implicit starts from previous ends and compute ends
         for index, (beat, raw) in enumerate(pending):
             if beat.start < 0:
-                beat.start = pending[index - 1][0].start
+                beat.start = pending[index - 1][0].end
+                if beat.start < 0:
+                    raise BoardError(f"beat {beat.id!r} needs an explicit start or a previous beat end")
             if raw.get("end") not in (None, "next"):
                 beat.end = resolve_time(raw["end"], words=self.words, base=beat.start, after=beat.start, label=f"beat '{beat.id}'.end")
             elif index + 1 < len(pending) and pending[index + 1][0].start >= 0 and pending[index + 1][1].get("at") not in (None, "next"):
@@ -780,6 +783,10 @@ class Board:
             enter = str(raw.get("enter", "pop" if kind in {"text", "emoji", "box"} else "fade"))
             if enter not in ENTER_DEFAULTS:
                 raise BoardError(f"element '{element_id}' has unknown enter '{enter}'; choose {sorted(ENTER_DEFAULTS)}")
+            if enter == "type" and kind != "code":
+                raise BoardError("type entry animation requires a code element")
+            if raw.get("fit", "contain") not in {"cover", "contain"}:
+                raise BoardError("fit must be cover or contain")
             exit_kind = str(raw.get("exit", "none"))
             if exit_kind not in EXIT_DEFAULTS:
                 raise BoardError(f"element '{element_id}' has unknown exit '{exit_kind}'; choose {sorted(EXIT_DEFAULTS)}")
@@ -797,7 +804,7 @@ class Board:
                 z=int(raw.get("z", index)), rotate=float(raw.get("rotate", 0.0)), opacity=float(raw.get("opacity", 1.0)),
                 motion=str(raw.get("motion", "none")), motion_amount=float(raw.get("motion_amount", 1.0)),
                 allow_overlap_with=[str(v) for v in raw.get("allow_overlap_with", [])], raw=raw,
-                seed=abs(hash(element_id)) % (2 ** 31),
+                seed=int.from_bytes(hashlib.sha256(element_id.encode()).digest()[:4], "big") % (2 ** 31),
             ))
             sfx = SFX_FOR_ENTER.get(enter)
             if raw.get("sfx") is not None:
@@ -840,6 +847,8 @@ class Board:
 
     # scale an image to cover or fit the canvas and center it on a transparent layer
     def _fit_canvas(self, image: Image.Image, fit: str, target: tuple[int, int] | None = None) -> Image.Image:
+        if fit not in {"cover", "contain"}:
+            raise BoardError("fit must be cover or contain")
         width, height = target or (self.width, self.height)
         scale = (max if fit == "cover" else min)(width / image.width, height / image.height)
         resized = image.resize((max(1, round(image.width * scale)), max(1, round(image.height * scale))), Image.LANCZOS)
@@ -936,7 +945,7 @@ class Board:
         size = int(float(element.raw.get("size", 160)) * self.scale)
         try:
             image, _ = render_emoji(str(element.raw.get("text", "🔥")), size, element.raw.get("font"))
-        except SystemExit as exc:
+        except (SystemExit, ValueError) as exc:
             raise BoardError(
                 f"emoji element '{element.id}' cannot be rendered ({exc}); "
                 "choose a glyph supported by the installed font or provide a rendered image asset"
