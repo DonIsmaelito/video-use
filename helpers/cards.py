@@ -105,7 +105,10 @@ def curve_mask(
         yy = round(pad + y - min(0, bend) - glyph.height / 2)
         patch = out.crop((x, yy, x + glyph.width, yy + glyph.height))
         out.paste(ImageChops.lighter(patch, glyph), (x, yy))
-    return out.crop(out.getbbox())
+    box = out.getbbox()
+    if box is None:
+        raise ValueError("caption has no visible glyphs")
+    return out.crop(box)
 
 
 # size and color a measured line of text
@@ -141,9 +144,13 @@ def line_sprite(line, manifest, root):
         raise ValueError("invalid caption dimensions")
     mask = mask.resize((width, height), Image.Resampling.LANCZOS)
     color = ImageColor.getrgb(line.get("color", "#ffffff"))
+    if len(color) != 3:
+        raise ValueError("card colors must use RGB values without alpha")
     layer = Image.new("RGBA", mask.size, (*color, 255))
     if line.get("gradient"):
         end = np.array(ImageColor.getrgb(line["gradient"]["to"]), float)
+        if len(end) != 3:
+            raise ValueError("card gradient colors must use RGB values without alpha")
         first = np.array(color, float)
         rgb = np.round(
             first[None, :] + (end - first)[None, :] * np.linspace(0, 1, height)[:, None]
@@ -278,6 +285,16 @@ class CardRenderer:
                 <= manifest["total_frames"]
             ):
                 raise ValueError("card interval must fit the output timeline")
+            animation = card.get("animation", {})
+            duration = animation.get("entry_frames", 0)
+            if type(duration) is not int or duration < 0:
+                raise ValueError("entry_frames must be a nonnegative integer")
+            for key, default in (("power", 0.6), ("scale_from", 1), ("blur_from", 0), ("blur_to", 0)):
+                value = float(animation.get(key, default))
+                if not math.isfinite(value) or value < 0 or (key in ("power", "scale_from") and value == 0):
+                    raise ValueError("invalid caption animation")
+            if card.get("occlusion_mask"):
+                validate_mask(card["occlusion_mask"], card["start_frame"], card["end_frame"], self.size, self.root)
             if card["id"] in self.sprites:
                 raise ValueError("duplicate caption id")
             self.sprites[card["id"]] = [
@@ -399,8 +416,32 @@ class CardRenderer:
             canvas.alpha_composite(card_layer)
         return (canvas, boxes) if measure else canvas
 
-    # encode transparent frames without replacing an existing output
+    # stage the movie so encoder failures leave no final output
     def write_movie(self, path):
+        import os
+        import tempfile
+
+        path = Path(path)
+        log_path = path.with_suffix(".log")
+        if path == log_path:
+            raise ValueError("movie path collides with encoder log")
+        for output in (path, log_path):
+            if output.exists() or output.is_symlink():
+                raise FileExistsError("choose new caption movie and log paths")
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with tempfile.TemporaryDirectory(prefix=".cards-", dir=path.parent) as work:
+            staged = Path(work) / path.name
+            self._write_movie(staged)
+            os.link(staged, path)
+            try:
+                os.link(staged.with_suffix(".log"), log_path)
+            except BaseException:
+                if path.exists() and path.samefile(staged):
+                    path.unlink()
+                raise
+
+    # encode transparent frames without replacing an existing output
+    def _write_movie(self, path):
         import subprocess
 
         path = Path(path)
@@ -411,13 +452,15 @@ class CardRenderer:
         log_path = path.parent / (path.stem + ".log")
         if log_path.exists() or log_path.is_symlink():
             raise FileExistsError("choose a new caption log path")
-        with log_path.open("wb") as log:
+        if path == log_path:
+            raise ValueError("movie path collides with encoder log")
+        with log_path.open("xb") as log:
             proc = subprocess.Popen(
                 [
                     "ffmpeg",
                     "-v",
                     "error",
-                    "-y",
+                    "-n",
                     "-threads",
                     "2",
                     "-f",

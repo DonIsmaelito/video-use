@@ -254,12 +254,14 @@ def _wrap_text(
     text: str,
     font: ImageFont.FreeTypeFont,
     max_width: int,
+    stroke_width: int = 0,
 ) -> list[str]:
     lines: list[str] = []
     current = ""
     for word in text.split():
         candidate = f"{current} {word}".strip()
-        width = draw.textbbox((0, 0), candidate, font=font)[2]
+        box = draw.textbbox((0, 0), candidate, font=font, stroke_width=stroke_width)
+        width = box[2] - box[0]
         if current and width > max_width:
             lines.append(current)
             current = word
@@ -282,10 +284,12 @@ def _fit_text(
     max_lines = max(1, min(4, int(config.get("max_lines", 2))))
     initial_size = _pixel_value(config.get("font_size"), height, 0.045)
     minimum_size = max(12, _pixel_value(config.get("min_font_size"), height, 0.025))
-    for size in range(max(initial_size, minimum_size), minimum_size - 1, -2):
+    stroke_width = _pixel_value(config.get("stroke_width"), height, 0.004)
+    for size in range(max(initial_size, minimum_size), minimum_size - 1, -1):
         font = _load_font(config, size)
-        lines = _wrap_text(draw, text, font, max_width)
-        widest = max(draw.textbbox((0, 0), line, font=font)[2] for line in lines)
+        lines = _wrap_text(draw, text, font, max_width, stroke_width)
+        boxes = [draw.textbbox((0, 0), line, font=font, stroke_width=stroke_width) for line in lines]
+        widest = max(box[2] - box[0] for box in boxes)
         if len(lines) <= max_lines and widest <= max_width:
             return font, lines
     raise ValueError(
