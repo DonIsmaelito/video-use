@@ -104,3 +104,11 @@ def test_compiled_shots_cover_requested_frames():
     result = compile_shots(rows)
     assert [(s["start_frame"], s["end_frame"]) for s in result] == [(0, 7), (7, 18)]
     assert "start_frame" not in rows[0]
+
+
+# phrase cards align to their first word while covering later spoken words
+def test_review_multiword_card_timing():
+    manifest = {'words':{'a':{'text':'hello','start_sample':0}, 'b':{'text':'world','start_sample':9600}}, 'cards':[{'word_ids':['a','b'],'start_frame':0,'end_frame':15}]}
+    assert all(row['within_one_frame'] for row in caption_timing(manifest))
+    manifest['cards'][0]['end_frame'] = 3
+    assert not caption_timing(manifest)[1]['within_one_frame']

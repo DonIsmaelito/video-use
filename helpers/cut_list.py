@@ -161,8 +161,9 @@ def validate(manifest, root, check_files=True):
         from mix_audio import filter_chain, gain_envelope
 
         filter_chain(clip.get("filters", []))
-        gain_envelope(1, [], clip.get("gain_db", 0))
+        gain_envelope(clip["sample_count"], clip.get("gain_points", []), clip.get("gain_db", 0))
     for ident, word in words.items():
+        known(word, "text source source_start_sample source_end_sample start_sample end_sample audio_clip", "word")
         if word.get("source") not in manifest["sources"]:
             raise ValueError(f"{ident}: missing word source")
         for key in (

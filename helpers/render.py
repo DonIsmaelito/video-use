@@ -344,7 +344,9 @@ def extract_segment(
         vf_parts.append(TONEMAP_CHAIN)
     vf_parts.append(scale)
     if reframe:
-        vf_parts.append(build_reframe_filter(reframe))
+        reframe_filter = build_reframe_filter(reframe)
+        if reframe_filter:
+            vf_parts.append(reframe_filter)
     if grade_filter:
         vf_parts.append(grade_filter)
     vf = ",".join(vf_parts)

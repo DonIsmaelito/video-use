@@ -41,14 +41,17 @@ def caption_timing(manifest):
         if not cards:
             continue
         first = min(cards, key=lambda c: c["start_frame"])
-        delta = frame_to_sample(first["start_frame"]) - word["start_sample"]
+        linked = [manifest["words"][key] for key in first["word_ids"]]
+        first_word_start = min(w["start_sample"] for w in linked)
+        delta = frame_to_sample(first["start_frame"]) - first_word_start
+        covered = "end_frame" not in first or word["start_sample"] < frame_to_sample(first["end_frame"])
         rows.append(
             {
                 "word": word["text"],
                 "word_id": ident,
                 "first_frame": first["start_frame"],
                 "offset_ms": delta / 48,
-                "within_one_frame": abs(delta) <= 1600,
+                "within_one_frame": abs(delta) <= 1600 and covered,
                 "exception": first.get("timing_exception"),
             }
         )
@@ -111,7 +114,7 @@ def review_sheets(manifest, video, dest):
             xx = i % 2 * 540
             yy = i // 2 * (th + 30)
             sheet.paste(images[frame].resize((540, th)), (xx, yy + 30))
-            draw.text((xx + 5, yy + 5), f"f{frame} {label}", fill="white", font_size=14)
+            draw.text((xx + 5, yy + 5), f"f{frame} {label}", fill="white")
         path = dest / f"review_{offset//10+1:03}.jpg"
         sheet.save(path, quality=92)
         paths.append(str(path))

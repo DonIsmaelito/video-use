@@ -349,9 +349,10 @@ def build(manifest_path, out):
         ],
         log=work / "mux.log",
     )
-    from verify_edit import verify
+    from verify_edit import verify, review_sheets
 
     report = verify(m, root, out, work)
+    report["review_sheets"] = review_sheets(m, out, work / "review")
     save_json(work / "verification.json", report)
     if not report["technical_pass"]:
         raise RuntimeError(
