@@ -65,8 +65,8 @@ def validate_settings(bpm, key, progression, bars_per_chord, seed, peak_dbfs):
         )
     if not math.isfinite(peak_dbfs) or not -60 <= peak_dbfs <= 0:
         raise ValueError("peak dbfs must be between minus 60 and zero")
-    if isinstance(key, bool) or not isinstance(key, int):
-        raise ValueError("key must be an integer MIDI note")
+    if isinstance(key, bool) or not isinstance(key, int) or not 0 <= key <= 127:
+        raise ValueError("key must be an integer MIDI note from 0 through 127")
     if len(progression) != 4 or any(
         isinstance(v, bool) or not isinstance(v, int) for v in progression
     ):
@@ -139,7 +139,7 @@ def write_wav(samples: np.ndarray, out: Path) -> None:
     if out.suffix.lower() != ".wav":
         raise ValueError("output must have a wav extension")
     samples = np.asarray(samples)
-    if samples.ndim != 1 or not samples.size or not np.isfinite(samples).all():
+    if np.iscomplexobj(samples) or samples.ndim != 1 or not samples.size or not np.isfinite(samples).all():
         raise ValueError("samples must be a nonempty finite mono array")
     if np.max(np.abs(samples)) > 1:
         raise ValueError("samples exceed the PCM amplitude range")

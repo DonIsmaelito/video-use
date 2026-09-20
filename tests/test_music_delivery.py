@@ -72,6 +72,7 @@ def test_existing_output_protected(tmp_path, symlink):
     with pytest.raises(FileExistsError):
         music_bed.write_wav(np.zeros(10), out)
     assert out.is_symlink() if symlink else out.read_bytes() == b"keep"
+    assert not (tmp_path / "missing").exists()
 
 
 # invalid audio cannot create a partial output
@@ -126,3 +127,16 @@ def test_cli_delivery(tmp_path):
     result = subprocess.run(command, capture_output=True, text=True)
     assert result.returncode != 0 and "already exists" in result.stderr
     assert out.read_bytes() == before
+
+
+# complex samples must not silently lose their imaginary component
+def test_review_complex_samples(tmp_path):
+    with pytest.raises(ValueError):
+        music_bed.write_wav(np.array([0.1 + 0.2j]), tmp_path / 'out.wav')
+    assert not (tmp_path / 'out.wav').exists()
+
+
+# a progression cannot compensate for an invalid base midi key
+def test_review_invalid_midi_key():
+    with pytest.raises(ValueError):
+        music_bed.validate_settings(90, -1, [2, 3, 4, 5], 1, 0, -12)
