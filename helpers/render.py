@@ -912,7 +912,7 @@ def overlay_time_range(overlay: dict) -> tuple[float, float]:
         duration = float(overlay["duration"])
     except (KeyError, TypeError, ValueError) as exc:
         raise ValueError("overlay requires numeric start_in_output and duration") from exc
-    if start < 0 or duration <= 0:
+    if not all(map(math.isfinite, (start, duration, start + duration))) or start < 0 or duration <= 0:
         raise ValueError("overlay requires start_in_output >= 0 and duration > 0")
     return start, start + duration
 
@@ -1405,7 +1405,7 @@ def build_overlay_preflight(
 
 
 # reframe composite and normalize one output or deliverable and clean up intermediates
-def render_one_output(
+def _render_one_output(
     *,
     base_path: Path,
     edl: dict,
@@ -1516,6 +1516,21 @@ def render_one_output(
     size_mb = out_path.stat().st_size / (1024 * 1024)
     label = f" [{deliverable['id']}]" if deliverable else ""
     print(f"done:{label} {out_path} ({size_mb:.1f} MB)")
+
+
+# publish a completed delivery without replacing prior work or input aliases
+def render_one_output(*, out_path: Path, **kwargs) -> None:
+    import os
+    import tempfile
+
+    if out_path.exists() or out_path.is_symlink():
+        raise FileExistsError("output already exists choose a new delivery path")
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix=".delivery-", dir=out_path.parent) as work:
+        staged = Path(work) / out_path.name
+        _render_one_output(out_path=staged, **kwargs)
+        os.link(staged, out_path)
+    print(f"published: {out_path}")
 
 
 # command line entry point that validates the edl and runs the full pipeline
@@ -1632,7 +1647,7 @@ def main() -> None:
     if args.output is not None and args.all_deliverables:
         ap.error("-o/--output cannot be combined with --all-deliverables; use --output-dir")
 
-    out_path = args.output.resolve() if args.output else None
+    out_path = args.output.absolute() if args.output else None
     overlays = edl.get("overlays") or []
 
     # a preflight base skips extraction and concat and only draws the contact sheet

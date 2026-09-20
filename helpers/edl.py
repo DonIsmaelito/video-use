@@ -62,7 +62,7 @@ def _has_timed_speech(payload: Any) -> bool:
                 end = float(item["end"])
             except (KeyError, TypeError, ValueError):
                 continue
-            if text and end > start >= 0:
+            if text and math.isfinite(start) and math.isfinite(end) and end > start >= 0:
                 return True
 
     # fall back to elevenlabs character alignment when no words array has timing
@@ -85,7 +85,7 @@ def _has_timed_speech(payload: Any) -> bool:
                 end = float(end_value)
             except (TypeError, ValueError):
                 continue
-            if end > start >= 0:
+            if math.isfinite(start) and math.isfinite(end) and end > start >= 0:
                 return True
     return False
 
@@ -155,7 +155,7 @@ def _caption_contract_problems(
             continue
         try:
             payload = json.loads(evidence_path.read_text(encoding="utf-8"))
-        except (OSError, json.JSONDecodeError) as exc:
+        except (OSError, UnicodeError, json.JSONDecodeError) as exc:
             problems.append(f"caption evidence could not be read: {evidence_path}: {exc}")
             continue
         if not _has_timed_speech(payload):
@@ -179,10 +179,12 @@ def _dimensions(item: dict[str, Any], label: str) -> tuple[int, int]:
             width, height = match.groups()
     try:
         width_i, height_i = int(width), int(height)
-    except (TypeError, ValueError) as exc:
+    except (TypeError, ValueError, OverflowError) as exc:
         raise EDLValidationError(
             f"{label} requires width and height or a resolution such as 1080x1920"
         ) from exc
+    if isinstance(width, bool) or isinstance(height, bool) or float(width) != width_i or float(height) != height_i:
+        raise EDLValidationError(f"{label} dimensions must be integers")
     if width_i < 2 or height_i < 2 or width_i > 8192 or height_i > 8192:
         raise EDLValidationError(f"{label} dimensions must be between 2 and 8192 pixels")
     if width_i % 2 or height_i % 2:
@@ -355,6 +357,11 @@ def normalize_deliverables(
         if sample_rate != 48_000:
             raise EDLValidationError(f"{label} currently supports only 48000 Hz audio")
         declared_file = str(item.get("file") or f"deliverables/{deliverable_id}.mp4")
+        raw_output = output_dir / f"{deliverable_id}.mp4" if output_dir is not None else Path(declared_file).expanduser()
+        if not raw_output.is_absolute():
+            raw_output = edit_dir / raw_output
+        if raw_output.exists() or raw_output.is_symlink():
+            raise EDLValidationError(f"{label} output already exists choose a new path")
         # an output directory override replaces the declared file name
         output_path = (
             (output_dir / f"{deliverable_id}.mp4").resolve()
@@ -405,7 +412,8 @@ def _track_keyframes(reframe: dict[str, Any], edit_dir: Path) -> list[Any] | Non
     # named track files need a track_id to pick one track
     if isinstance(payload, dict) and isinstance(payload.get("tracks"), dict):
         track_id = reframe.get("track_id")
-        return payload["tracks"].get(str(track_id)) if track_id else None
+        raw = payload["tracks"].get(str(track_id)) if track_id else None
+        return raw if isinstance(raw, list) else None
     if isinstance(payload, dict):
         raw = payload.get("keyframes")
     else:
@@ -548,7 +556,7 @@ def validate_edl(
                     continue
                 try:
                     keyframes = _track_keyframes(reframe, edit_dir)
-                except (OSError, json.JSONDecodeError) as exc:
+                except (OSError, UnicodeError, json.JSONDecodeError) as exc:
                     problems.append(
                         f"deliverable '{deliverable['id']}' track data could not be read: {exc}"
                     )

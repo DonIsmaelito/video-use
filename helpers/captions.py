@@ -82,7 +82,15 @@ def _words_from_char_alignment(alignment: dict) -> list[dict[str, float | str]]:
         word_start = None
         word_end = None
 
+    previous_start = previous_end = 0.0
     for char, start, end in zip(characters, starts, ends):
+        try:
+            start, end = float(start), float(end)
+        except (TypeError, ValueError) as exc:
+            raise ValueError("character timestamps must be finite and ordered") from exc
+        if not math.isfinite(start) or not math.isfinite(end) or start < previous_start or end < previous_end or end < start:
+            raise ValueError("character timestamps must be finite nonnegative and ordered")
+        previous_start, previous_end = start, end
         if str(char).isspace():
             flush()
             continue
@@ -216,7 +224,8 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
             f"{_wrap_two_lines(text)}"
         )
     output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(header + "\n".join(events) + "\n", encoding="utf-8")
+    with output.open("x", encoding="utf-8") as stream:
+        stream.write(header + "\n".join(events) + "\n")
 
 
 # Preserve the earlier public ASS writer name without a second implementation
