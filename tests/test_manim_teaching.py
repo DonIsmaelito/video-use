@@ -159,3 +159,16 @@ def test_three_d_scene_supports_registry_and_immediate_focus(theme: VisualTheme)
 
     assert scene.recall("focus") is focus
     np.testing.assert_allclose(scene.camera.frame_center, original_center)
+
+
+# immediate focus uses and restores live camera trackers after prior camera movement
+def test_review_three_d_camera_trackers(theme):
+    scene = TeachingThreeDScene()
+    scene.set_camera_orientation(phi=0.8, theta=-0.7, gamma=0.2, zoom=1.3)
+    scene.remember('focus', manim.Sphere(radius=0.25))
+    scene.focus_on('focus', animate=False)
+    assert scene.camera.get_zoom() > 1.3
+    scene.restore_context(animate=False)
+    assert scene.camera.get_zoom() == pytest.approx(1.3)
+    assert scene.camera.get_phi() == pytest.approx(0.8)
+    assert scene.camera.get_theta() == pytest.approx(-0.7)
