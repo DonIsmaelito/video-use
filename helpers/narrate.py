@@ -120,7 +120,7 @@ def parse_script(text: str, *, keep_v3_tags: bool) -> list[dict[str, Any]]:
     Non v3 pause markers become SSML breaks. V3 keeps untimed pause tags and
     rejects timed pauses. Headings and HTML comments are not spoken.
     """
-    text = re.sub(r"<!--.*?-->", "", text, flags=re.S)
+    text = re.sub(r"<!--.*?-->", " ", text, flags=re.S)
     paragraphs: list[dict[str, Any]] = []
     for raw in re.split(r"\n\s*\n", text.strip()):
         lines = [ln.strip() for ln in raw.splitlines()]
@@ -219,7 +219,14 @@ def words_from_alignment(
         previous_start, previous_end = start, end
     text = "".join(chars)
     # blank markup without changing the character positions used by provider timestamps
-    text = re.sub(r"<[^>]*>|\[[^\]]*\]", lambda match: " " * len(match.group()), text)
+    # only provider control tokens are removed from the spoken word list
+    def strip_control(match):
+        token = match.group()
+        label = token[1:-1].strip().lower()
+        known = label in V3_TAG_WORDS or re.fullmatch(r"pause(?:\s+[0-9.]+)?", label)
+        return " " * len(token) if known or token.lower().startswith("<break") else token
+
+    text = re.sub(r"<[^>]*>|\[[^\]]*\]", strip_control, text)
     words = []
     for match in re.finditer(r"\S+", text):
         start = round(starts[match.start()] + offset, 3)
@@ -256,7 +263,7 @@ def write_srt(
 
     for word in words:
         proposed = " ".join(w["text"] for w in [*current, word])
-        if current and (len(current) >= max_words or len(proposed) > max_chars):
+        if current and (word["start"] - current[-1]["end"] >= CHUNK_GAP_S - 0.002 or len(current) >= max_words or len(proposed) > max_chars):
             flush()
         current.append(word)
         if word["text"][-1:] in ".?!":

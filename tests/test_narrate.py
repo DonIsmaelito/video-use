@@ -177,3 +177,18 @@ def test_short_cues_do_not_extend(tmp_path):
 def test_pause_only_script_rejected():
     with pytest.raises(ValueError):
         narrate.parse_script("[pause]", keep_v3_tags=False)
+
+
+# ordinary bracketed speech survives provider alignment conversion
+def test_review_bracketed_words():
+    from helpers.narrate import words_from_alignment
+    text = 'hello [world] [laughs]'
+    words = words_from_alignment({'characters':list(text), 'character_start_times_seconds':[i * .1 for i in range(len(text))], 'character_end_times_seconds':[(i + 1) * .1 for i in range(len(text))]})
+    assert [w['text'] for w in words] == ['hello', '[world]']
+
+
+# paragraph silence terminates a subtitle cue even without punctuation
+def test_review_caption_gap(tmp_path):
+    from helpers.narrate import write_srt
+    path = tmp_path / 'out.srt'
+    assert write_srt([{'text':'hello','start':0,'end':.5},{'text':'world','start':.82,'end':1}], path) == 2
