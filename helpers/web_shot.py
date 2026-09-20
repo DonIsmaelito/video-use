@@ -81,10 +81,10 @@ def validate_url(url: str) -> str:
 # locate a chrome like browser binary from the environment known app paths or the path
 def find_chrome() -> str | None:
     env = os.environ.get("VIDEO_USE_CHROME")
-    if env and Path(env).exists():
+    if env and Path(env).is_file() and os.access(env, os.X_OK):
         return env
     for candidate in CHROME_CANDIDATES:
-        if Path(candidate).exists():
+        if Path(candidate).is_file() and os.access(candidate, os.X_OK):
             return candidate
     for name in CHROME_NAMES:
         found = shutil.which(name)
@@ -134,8 +134,16 @@ def capture_playwright(
         title = page.title()
         final_url = page.url
         if selector:
-            page.locator(selector).first.screenshot(path=str(out))
+            element = page.locator(selector).first
+            box = element.bounding_box()
+            if box is None or box["width"] * box["height"] * scale ** 2 > 80_000_000:
+                raise ValueError("element capture exceeds the pixel budget or is not visible")
+            element.screenshot(path=str(out))
         else:
+            if full_page:
+                dimensions = page.evaluate("[Math.max(document.documentElement.scrollWidth, document.body?.scrollWidth || 0), Math.max(document.documentElement.scrollHeight, document.body?.scrollHeight || 0)]")
+                if dimensions[0] * dimensions[1] * scale ** 2 > 80_000_000:
+                    raise ValueError("full page capture exceeds 80 million pixels")
             page.screenshot(path=str(out), full_page=full_page)
         browser.close()
     return {"tool": "playwright", "title": title, "final_url": final_url}
@@ -369,9 +377,13 @@ def make_card(
         image = image.crop((x, y, x + w, y + h))
     # trim by diffing against the top left pixel color and keeping a small pad around the content
     if trim:
-        rgb = image.convert("RGB")
-        background = Image.new("RGB", rgb.size, rgb.getpixel((0, 0)))
-        bbox = ImageChops.difference(rgb, background).getbbox()
+        background = Image.new("RGBA", image.size, image.getpixel((0, 0)))
+        difference = ImageChops.difference(image, background)
+        bands = difference.split()
+        combined = bands[0]
+        for band in bands[1:]:
+            combined = ImageChops.lighter(combined, band)
+        bbox = combined.getbbox()
         if bbox:
             pad = 8
             image = image.crop(

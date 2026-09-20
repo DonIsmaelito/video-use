@@ -266,3 +266,14 @@ def test_card_invalid_geometry(tmp_path, png_bytes, options):
     source.write_bytes(png_bytes)
     with pytest.raises(ValueError):
         web_shot.make_card(source, **options)
+
+
+# transport errors follow the normal helper error path
+def test_review_download_error(monkeypatch):
+    import requests
+    # simulate a timed out transport without making a network request
+    def fail(*args, **kwargs):
+        raise requests.Timeout('fixture timeout')
+    monkeypatch.setattr(requests, 'get', fail)
+    with pytest.raises(ValueError, match='asset download failed'):
+        _asset_io.download('https://example.com', headers={}, max_bytes=10)
