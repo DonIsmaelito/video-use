@@ -10,6 +10,7 @@ const state = {
   videoJob: null,
   projectRequest: 0,
   jobRequest: 0,
+  listRequest: 0,
 };
 let noticeTimer;
 function notice(text, failure = false) {
@@ -129,8 +130,10 @@ async function enterStudio() {
   const consent = new URLSearchParams(location.search).get("authorize");
   if (consent) await showConsent(consent);
 }
-async function refreshProjects() {
+async function refreshProjects(preferredId = null) {
+  const request = ++state.listRequest;
   const projects = await api("/api/projects");
+  if (request !== state.listRequest) return;
   const list = $("project-list");
   list.replaceChildren();
   for (const project of projects) {
@@ -142,7 +145,9 @@ async function refreshProjects() {
     list.append(button);
   }
   const wanted =
-    state.project?.id || new URLSearchParams(location.search).get("project");
+    preferredId ||
+    state.project?.id ||
+    new URLSearchParams(location.search).get("project");
   if (wanted && projects.some((p) => p.id === wanted)) {
     await selectProject(wanted);
   } else if (projects.length) {
@@ -151,6 +156,15 @@ async function refreshProjects() {
     $("project-empty").hidden = false;
     $("project-panel").hidden = true;
   }
+}
+async function refreshCurrentProject(id) {
+  const navigation = state.projectRequest;
+  if (state.project?.id !== id) return false;
+  const project = await api("/api/projects/" + id);
+  if (state.project?.id !== id || navigation !== state.projectRequest)
+    return false;
+  state.project = project;
+  return true;
 }
 async function selectProject(id) {
   clearTimeout(state.poll);
@@ -211,10 +225,11 @@ function renderMedia() {
     remove.setAttribute("aria-label", "Remove " + asset.name);
     remove.addEventListener("click", () =>
       guarded(async () => {
-        await api("/api/projects/" + state.project.id + "/media/" + asset.id, {
+        const pid = state.project.id;
+        await api("/api/projects/" + pid + "/media/" + asset.id, {
           method: "DELETE",
         });
-        state.project = await api("/api/projects/" + state.project.id);
+        if (!(await refreshCurrentProject(pid))) return;
         renderMedia();
         $("project-count").textContent =
           state.project.assets.length + " sources";
@@ -277,7 +292,11 @@ async function selectJob(id) {
   if (["queued", "running", "cancelling"].includes(job.status)) {
     state.poll = setTimeout(() => guarded(() => selectJob(id)), 4000);
   } else {
-    state.project = await api("/api/projects/" + state.project.id);
+    if (
+      !(await refreshCurrentProject(projectId)) ||
+      request !== state.jobRequest
+    )
+      return;
     renderRevisions();
     document
       .querySelectorAll(".revision-button")
@@ -328,10 +347,12 @@ $("project-form").addEventListener("submit", (event) => {
       method: "POST",
       body: { title: $("new-title").value.trim() },
     });
+    ++state.projectRequest;
+    ++state.jobRequest;
     state.project = p;
     $("project-dialog").close();
     $("brief").value = "";
-    await refreshProjects();
+    await refreshProjects(p.id);
   }, event.submitter);
 });
 $("brief-form").addEventListener("submit", (event) => {
@@ -341,11 +362,15 @@ $("brief-form").addEventListener("submit", (event) => {
       await openSettings();
       return;
     }
-    const job = await api("/api/projects/" + state.project.id + "/jobs", {
+    const pid = state.project.id;
+    const job = await api("/api/projects/" + pid + "/jobs", {
       method: "POST",
       body: { prompt: $("brief").value, request_id: crypto.randomUUID() },
     });
-    state.project = await api("/api/projects/" + state.project.id);
+    if (!(await refreshCurrentProject(pid))) {
+      notice("Production started. Open that project to follow its progress.");
+      return;
+    }
     renderRevisions();
     await selectJob(job.id);
     notice(
@@ -355,8 +380,9 @@ $("brief-form").addEventListener("submit", (event) => {
 });
 $("cancel-job").addEventListener("click", () =>
   guarded(async () => {
-    await api("/api/jobs/" + state.job.id + "/cancel", { method: "POST" });
-    await selectJob(state.job.id);
+    const jid = state.job.id;
+    await api("/api/jobs/" + jid + "/cancel", { method: "POST" });
+    if (state.job?.id === jid) await selectJob(jid);
   }),
 );
 async function uploadFiles(files) {
@@ -377,8 +403,7 @@ async function uploadFiles(files) {
         body: data,
       });
     }
-    if (state.project.id === pid) {
-      state.project = await api("/api/projects/" + pid);
+    if (await refreshCurrentProject(pid)) {
       renderMedia();
       $("project-count").textContent = state.project.assets.length + " sources";
     }

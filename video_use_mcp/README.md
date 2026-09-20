@@ -176,6 +176,8 @@ node --check video_use_mcp/static/studio.js
 Tests cover real OAuth exchanges and MCP HTTP requests, secret privacy, account
 isolation, upload rules, idempotent submission, signed download links, and restart
 recovery. Live provider and Modal tests consume credits and are run separately.
+See the [dated verification record](VERIFICATION.md) for completed hosted video
+creation, upload/editing and revision checks, and the limits of client testing.
 
 Official integration references:
 [OpenAI MCP authentication](https://developers.openai.com/plugins/build/auth),

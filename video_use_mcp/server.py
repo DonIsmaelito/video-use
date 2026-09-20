@@ -212,7 +212,11 @@ def create_app(settings=None, *, store=None, manager=None):
         """Check progress or retrieve a finished MP4 and editable source ZIP. Download links expire after one hour; calling again refreshes them. Do not busy-poll: direct the user to the live workspace while production runs."""
         return public_job(store.job(mcp_user(), job_id))
 
-    @mcp.tool(annotations=write)
+    @mcp.tool(
+        annotations=ToolAnnotations(
+            readOnlyHint=False, destructiveHint=True, openWorldHint=False
+        )
+    )
     def cancel_video_job(job_id: str) -> dict[str, Any]:
         """Stop an active production job. Previous successful revisions and uploaded media are retained. Provider work already completed may still be billed."""
         return public_job(manager.cancel(mcp_user(True), job_id))
