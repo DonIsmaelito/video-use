@@ -181,3 +181,34 @@ def test_legacy_font_alias_matches_shared_assets(manifest, tmp_path):
     current = cards.CardRenderer(manifest, tmp_path).frame(6)
     previous = cards.CardRenderer(legacy, tmp_path).frame(6)
     assert np.array_equal(np.array(current), np.array(previous))
+
+
+# malformed animations fail before an encoder can create an output
+@pytest.mark.parametrize('animation', [{'entry_frames':-1}, {'entry_frames':0.5}, {'power':float('nan')}, {'scale_from':float('inf')}, {'blur_from':float('nan')}])
+def test_review_invalid_animation(manifest, tmp_path, animation):
+    manifest['cards'][0]['animation'] = animation
+    with pytest.raises(ValueError):
+        cards.CardRenderer(manifest, tmp_path)
+
+
+# failed encodes leave no final output and preserve a concurrent writer
+@pytest.mark.parametrize('race', [False, True])
+def test_review_staged_movie_failure(manifest, tmp_path, monkeypatch, race):
+    renderer = cards.CardRenderer(manifest, tmp_path)
+    output = tmp_path / 'cards.mov'
+    # simulate a partial encoder result or a concurrent output
+    def encode(path):
+        path.write_bytes(b'partial')
+        if race:
+            output.write_bytes(b'other writer')
+            path.with_suffix('.log').write_text('log')
+        else:
+            raise RuntimeError('encoder failed')
+    monkeypatch.setattr(renderer, '_write_movie', encode)
+    with pytest.raises(FileExistsError if race else RuntimeError):
+        renderer.write_movie(output)
+    if race:
+        assert output.read_bytes() == b'other writer'
+    else:
+        assert not output.exists()
+    assert not list(tmp_path.glob('.cards-*'))
