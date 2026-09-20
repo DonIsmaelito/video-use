@@ -20,7 +20,7 @@ PHASES = {
 # check artifact metadata and reject missing or cyclic dependencies
 def validate(data):
     """Check artifact metadata and reject missing or cyclic dependencies."""
-    rows = data.get("artifacts", {})
+    rows = data.setdefault("artifacts", {})
     visiting = set()
     visited = set()
 
@@ -46,6 +46,8 @@ def validate(data):
             raise ValueError("unknown evidence status")
         if not row.get("path") or not row.get("summary"):
             raise ValueError("context needs an artifact path and a useful summary")
+        if not isinstance(row.get("sha256"), str) or len(row["sha256"]) != 64:
+            raise ValueError("context artifact needs a sha256 fingerprint")
         visit(ident)
 
 
@@ -54,11 +56,16 @@ def record(context, ident, entry):
     """Save an artifact fingerprint and the dependency versions it was built from."""
     context = Path(context)
     data = load_json(context) if context.exists() else {"version": 1, "artifacts": {}}
+    data.setdefault("artifacts", {})
     path = resolve(context.parent, entry["path"])
+    if path == context.resolve() or (path.exists() and context.exists() and path.samefile(context)):
+        raise ValueError("context cannot record itself as an artifact")
     if not path.is_file():
         raise FileNotFoundError(path)
     entry = dict(entry)
     entry["sha256"] = sha256(path)
+    data["artifacts"][ident] = entry
+    validate(data)
     entry["dependency_hashes"] = {
         dep: data["artifacts"][dep]["sha256"] for dep in entry.get("depends_on", [])
     }
@@ -95,7 +102,7 @@ def view(context, phase=None):
 
     return {
         "artifacts": [
-            {"id": ident, **row, "stale": stale(ident)}
+            {**row, "id": ident, "stale": stale(ident)}
             for ident, row in rows.items()
             if phase is None or row["phase"] == phase
         ],

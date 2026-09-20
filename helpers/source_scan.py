@@ -2,6 +2,7 @@
 
 import argparse
 import json
+import math
 import subprocess
 from pathlib import Path
 import numpy as np
@@ -13,7 +14,9 @@ from edit_io import probe, run, save_json, sha256
 def catalog(path):
     """Record native presentation timestamps and the source file fingerprint."""
     data = probe(path)
-    stream = next(s for s in data["streams"] if s["codec_type"] == "video")
+    stream = next((s for s in data["streams"] if s["codec_type"] == "video"), None)
+    if stream is None:
+        raise ValueError(f"no video stream in {path}")
     frames = json.loads(
         run(
             [
@@ -30,8 +33,11 @@ def catalog(path):
             ]
         ).stdout
     )["frames"]
-    pts = [float(f["best_effort_timestamp_time"]) for f in frames]
-    if not pts or any(b <= a for a, b in zip(pts, pts[1:])):
+    try:
+        pts = [float(f["best_effort_timestamp_time"]) for f in frames]
+    except (KeyError, TypeError, ValueError) as exc:
+        raise ValueError("source frame is missing a usable presentation timestamp") from exc
+    if not pts or not all(map(math.isfinite, pts)) or any(b <= a for a, b in zip(pts, pts[1:])):
         raise ValueError(
             "source needs nonempty strictly increasing presentation timestamps"
         )
@@ -50,7 +56,9 @@ def selected_frames(path, frames, width=None):
     frames = sorted(set(frames))
     if not frames or any(type(f) is not int or f < 0 for f in frames):
         raise ValueError("select nonnegative native frame indices")
-    stream = next(s for s in probe(path)["streams"] if s["codec_type"] == "video")
+    stream = next((s for s in probe(path)["streams"] if s["codec_type"] == "video"), None)
+    if stream is None:
+        raise ValueError(f"no video stream in {path}")
     width = width or stream["width"]
     height = max(1, round(width * stream["height"] / stream["width"]))
 
@@ -77,6 +85,8 @@ def selected_frames(path, frames, width=None):
             "2",
             "-i",
             str(path),
+            "-map",
+            "0:v:0",
             "-an",
             "-sn",
             "-dn",
@@ -141,10 +151,12 @@ def main():
     args = parser.parse_args()
     if Path(args.source).resolve() == Path(args.out).resolve():
         parser.error("output cannot replace source")
+    if Path(args.out).exists() or Path(args.out).is_symlink():
+        parser.error("output already exists choose a new catalog path")
     data = catalog(args.source)
     if args.scenes:
         data["scene_candidates"] = scene_candidates(args.source, data)
-    save_json(args.out, data)
+    save_json(args.out, data, exclusive=True)
 
 
 if __name__ == "__main__":
