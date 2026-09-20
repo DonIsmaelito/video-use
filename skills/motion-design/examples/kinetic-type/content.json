@@ -1,0 +1,9 @@
+{
+  "opening": ["ONE", "MORE", "THING"],
+  "interruptions": ["WHAT IF", "DID I?", "NOT YET", "REMEMBER", "ALSO", "WAIT", "TOMORROW", "RIGHT NOW"],
+  "pressure": "TOO MUCH",
+  "release": "breathe.",
+  "resolution": ["one clear", "thought."],
+  "palette": {"paper":"#eee9df", "ink":"#191b1a", "accent":"#ef5734"},
+  "seed": "thoughts-20260915"
+}

@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "authoringStatus": "ready",
+  "prompt": "prompt.txt",
+  "creativeContract": "creative-contract.md",
+  "entry": "index.html",
+  "render": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "duration": 16,
+    "output": "renders/final.mp4",
+    "audio": "soundtrack.wav",
+    "posterTime": 11.8,
+    "stills": [
+      0.8,
+      3.5,
+      7.8,
+      11.8,
+      15.5
+    ]
+  },
+  "provenance": [
+    {
+      "file": "soundtrack.wav",
+      "origin": "Original authored score",
+      "sha256": "5cca328f0585e2c746d82b850b58cb4f059c2672222d31002d0f6a1ebc354225"
+    },
+    {
+      "file": "analysis.json",
+      "origin": "Computed audio analysis of local original soundtrack",
+      "sha256": "5d645b01687f4cdb68c1977c100554d03e4119a67d0aeedcabf90cfd66f237b0"
+    }
+  ],
+  "runtime": {
+    "node": ">=22.12",
+    "chrome": "Chrome or Chromium",
+    "ffmpeg": "ffmpeg and ffprobe on PATH",
+    "dependencyDirectory": "runtime"
+  }
+}

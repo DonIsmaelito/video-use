@@ -34,6 +34,7 @@ Thumbs.db
 # Node / Remotion (installed on demand, not vendored)
 node_modules/
 package-lock.json
+!skills/motion-design/runtime/package-lock.json
 yarn.lock
 .npm/
 
@@ -58,3 +59,26 @@ master.srt
 takes_packed.md
 edl.json
 project.md
+
+# Agent benchmark raw data and local exports
+# The runner defaults to /Users/ismaelito/Movies/video-use-tests/benchmark-runs.
+benchmark-runs/
+benchmarks/raw/
+benchmarks/workspaces/
+benchmarks/baselines/*.local.json
+*.tts_metrics.json
+
+# InsForge & AI agent skills
+.insforge
+.agent
+.agents
+.augment
+.claude
+.cline
+.github/copilot*
+.kilocode
+.qoder
+.qwen
+.roo
+.trae
+.windsurf

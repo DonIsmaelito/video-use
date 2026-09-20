@@ -1,0 +1,7 @@
+{
+  "colors": {"ink":"#162d32","paper":"#f5f0df","blue":"#164eff","orange":"#f17848"},
+  "images": {"city":"assets/city.png","coast":"assets/coast.png","water":"assets/water.png"},
+  "copy": ["too close.","a little\nfurther.","take the long way.","room to\nbreathe."],
+  "shots": [3.5,4.5,4.5,5.5],
+  "seed": "a route from architecture to water"
+}

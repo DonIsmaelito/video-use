@@ -1,0 +1,9 @@
+# Beach umbrella
+
+Original Three.js fabric-and-linkage illustration: a peppermint disc keeps its indexed coral/cream sectors as it becomes an umbrella. `createBeachUmbrella({panels=12,radius=1.9})` returns `group`, `setState`, `dispose`, `parts` and the two fabric `materials`. Panel count must be an even integer 8–24; radius must be finite and positive. Twelve panels at the default radius are the proven composition; reframe other dimensions.
+
+`setState({bloom=0,pole=bloom,spin=0,ripple=.4,phase=0})` assigns absolute state. All values must be finite. `bloom` and `pole` clamp 0–1. Bloom straightens the initial spiral sectors, expands the rim, raises the apex and moves the runner. Pole controls telescoping shaft extension. Spin is radians around group Y; ripple and phase drive small fabric displacement. Caller staging may set other group rotations/position after setState. Ribs and brace endpoints use the same canopy coordinates; their visual relationships survive backward seeks.
+
+The module owns its generated geometry/materials. `dispose()` releases these once, detaches the group and rejects later state calls. Caller-added texture maps remain caller-owned; the demo adds original woven bump grain. The caller also owns renderer, camera, timing, readiness, HDR loading and studio. No downloads or animation loop live in the component.
+
+The silent eight-second demo pins Three.js 0.186.0 and uses the verified Poly Haven Studio Small 09 CC0 HDR for illumination. Its initial peppermint disc and final upper canopy establish stripe identity; the lower ending camera exposes braces and runner. A real maximum-bloom 0.65 control is rendered under the same pole timing and camera. This is a designed mechanical/fabric approximation, not a cloth solver or an engineering-valid umbrella folding rig. Inspect actual intermediate poses after changing geometry, not just the final canopy.

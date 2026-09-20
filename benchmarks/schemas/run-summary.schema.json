@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://video-use.local/schemas/agent-benchmark-run-v1.json",
+  "title": "Video Use agent benchmark run",
+  "description": "Agent-neutral envelope for one measured benchmark run.",
+  "type": "object",
+  "properties": {
+    "schema_version": {"const": 1},
+    "run_id": {"type": "string"},
+    "task": {
+      "type": "object",
+      "required": ["id", "version"],
+      "properties": {
+        "id": {"type": "string"},
+        "version": {"type": "integer", "minimum": 1},
+        "definition_sha256": {"type": ["string", "null"]},
+        "prompt_sha256": {"type": ["string", "null"]}
+      },
+      "additionalProperties": true
+    },
+    "agent": {
+      "type": "object",
+      "required": ["adapter", "adapter_version"],
+      "properties": {
+        "adapter": {"type": "string"},
+        "adapter_version": {"type": "integer", "minimum": 1}
+      },
+      "additionalProperties": true
+    },
+    "environment": {"type": "object"},
+    "status": {"type": "string"},
+    "timing": {"type": "object"},
+    "tokens": {"type": "object"},
+    "cost": {"type": "object"},
+    "steps": {"type": "object"},
+    "stops": {"type": "object"},
+    "operations": {"type": "object"},
+    "iterations": {"type": "object"},
+    "outputs": {"type": "object"},
+    "normalized": {"type": "object"},
+    "validation": {
+      "type": "object",
+      "required": ["passed"],
+      "properties": {"passed": {"type": "boolean"}},
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "schema_version",
+    "run_id",
+    "task",
+    "agent",
+    "environment",
+    "status",
+    "validation"
+  ],
+  "additionalProperties": true
+}

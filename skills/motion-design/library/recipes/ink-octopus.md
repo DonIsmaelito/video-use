@@ -1,0 +1,9 @@
+# Ink octopus
+
+An original Canvas character grows from one droplet into an eight-arm ink octopus. `createInkOctopus({ink='#172994',paper='#f5edda',seed=8231})` returns `draw(ctx,state)`, `controls` and `dispose()`. A browser Canvas/DOM environment is required; no font, image or external package is fetched. Seed must be finite. The demo proves the default palette; changing ink alone does not recolor every intentionally fixed dark/light pool tone.
+
+`draw(ctx,{x=0,y=0,scale=1,rotation=0,form=1,phase=0,jet=1,curl=1})` reconstructs its frame from absolute state and restores the caller's drawing state. All values must be finite. Form and jet clamp 0–1; curl clamps 0.2–1.5. Form rounds the original drop contour, grows eight arms and develops negative-space details. Phase and jet coordinate mantle pulse and traveling curvature waves. Curl changes terminal coil strength. Pose coordinates use the local mantle center as origin; radians apply to rotation and phase.
+
+Each arm is an integrated curved ribbon anchored inside the mantle. Suckers use the same sampled curve and tangent. The module owns two cached canvases for its ink surface and fixed seeded texture; dispose clears them and rejects later drawing. The caller owns paper/background, timeline, world drift and output Canvas. The fixed local surface is sized for the authored control range; inspect bounds after changing the implementation's arm lengths.
+
+The silent eight-second demo uses no third-party artwork, downloaded asset or generated image. A real curl 0.55 versus1 control opens the arm coils while preserving form, phase, timing and whole-character transform. Repeated/backward rendered seeks establish reproducibility. This is an art-directed ink illustration, not a physical fluid solver or a biological locomotion model. Review the transition and overlap of eight arms at delivery size when adapting it.

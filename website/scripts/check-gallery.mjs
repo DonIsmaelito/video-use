@@ -10,7 +10,11 @@ const source = await readFile(
   'utf8',
 );
 const { outputText } = ts.transpileModule(source, {
-  compilerOptions: { module: ts.ModuleKind.CommonJS, esModuleInterop: true },
+  compilerOptions: {
+    module: ts.ModuleKind.CommonJS,
+    target: ts.ScriptTarget.ES2022,
+    esModuleInterop: true,
+  },
 });
 const exports = {};
 new Function('require', 'exports', outputText)(
@@ -21,7 +25,6 @@ new Function('require', 'exports', outputText)(
   exports,
 );
 const { examples, categories, filterExamples, formatDuration } = exports;
-
 assert.equal(
   new Set(examples.map((example) => example.id)).size,
   examples.length,
@@ -32,6 +35,12 @@ assert.ok(
   'The initial gallery should include sixteen real examples',
 );
 assert.deepEqual(filterExamples('All examples'), examples);
+assert.equal(new Set(categories).size, categories.length);
+assert.deepEqual(
+  new Set(categories.slice(1)),
+  new Set(examples.map((example) => example.category)),
+  'Every example category must appear in the continuous gallery',
+);
 for (const category of categories.slice(1)) {
   const results = filterExamples(category);
   assert.ok(results.length > 0, `${category} needs a working example`);
@@ -42,7 +51,7 @@ assert.equal(formatDuration(8), '0:08');
 assert.equal(formatDuration(75.77), '1:16');
 
 for (const example of examples) {
-  assert.ok(categories.includes(example.category));
+  assert.ok(typeof example.category === 'string' && example.category.trim());
   assert.ok(example.prompt.trim().length >= 25);
   assert.ok(['Original prompt', 'Starter prompt'].includes(example.promptKind));
   assert.ok(Number.isFinite(example.duration) && example.duration > 0);

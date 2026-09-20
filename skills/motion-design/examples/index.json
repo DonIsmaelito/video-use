@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Authored examples and exact prompts for inspection and adaptation; never consumed as a prompt dispatcher.",
+  "examples": [
+    {
+      "id": "kinetic-type",
+      "title": "One clear thought",
+      "approaches": [
+        "typography"
+      ],
+      "prompt": "Make a short typographic film about the feeling of having too many tabs open in your head, then finding one clear thought. Let the words behave like the feeling. Use only type and simple graphic shapes.",
+      "project": "kinetic-type/motion-project.json",
+      "contract": "kinetic-type/creative-contract.md"
+    },
+    {
+      "id": "coast-to-coast",
+      "title": "Room to breathe",
+      "approaches": [
+        "collage",
+        "photography"
+      ],
+      "prompt": "Make a tactile editorial film about leaving the city for the ocean. Let photographs, cut paper, and drawn lines hand off movement to one another. No voiceover.",
+      "project": "coast-to-coast/motion-project.json",
+      "contract": "coast-to-coast/creative-contract.md"
+    },
+    {
+      "id": "small-courage",
+      "title": "Small courage",
+      "approaches": [
+        "character performance"
+      ],
+      "prompt": "Animate a small paper character trying to carry a circle that is much too big. Give it hesitation, a failed attempt, a clever solution, and a quiet proud ending. No dialogue or captions.",
+      "project": "small-courage/motion-project.json",
+      "contract": "small-courage/creative-contract.md"
+    },
+    {
+      "id": "open-field",
+      "title": "Open Field",
+      "approaches": [
+        "product UI",
+        "brand identity",
+        "editorial title"
+      ],
+      "prompt": "Create a launch film for an imaginary creative workspace called Open Field. Show scattered ideas becoming a connected project, then extend the same visual language into a logo ident and an editorial title.",
+      "project": "open-field/motion-project.json",
+      "contract": "open-field/creative-contract.md"
+    },
+    {
+      "id": "signal-garden",
+      "title": "Signal Garden",
+      "approaches": [
+        "audio reactive",
+        "generative graphics"
+      ],
+      "prompt": "Turn an original electronic rhythm into a living graphic garden. Let bass, bright percussion, and quiet passages produce visibly different movement, with a clear build and release.",
+      "project": "signal-garden/motion-project.json",
+      "contract": "signal-garden/creative-contract.md"
+    }
+  ]
+}

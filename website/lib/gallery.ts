@@ -2,15 +2,13 @@ import data from '@/data/examples.json';
 
 export type Example = (typeof data)[number];
 export const examples: Example[] = data;
-export const categories = [
-  'All examples',
-  'Motion design',
+const categoryOrder = [
+  'Video Edits',
+  'Video Creation',
+  'Motion Design',
   'Explainers',
-  'YouTube edits',
-  'Podcast edits',
-  'Social edits',
-  'Short films',
-] as const;
+];
+export const categories = ['All examples', ...categoryOrder];
 export const repository = 'https://github.com/browser-use/video-use';
 
 export function filterExamples(category: string): Example[] {

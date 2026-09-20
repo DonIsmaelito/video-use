@@ -1,0 +1,30 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Toy Planet</title>
+<style>html,body{margin:0;overflow:hidden;background:#ebc762}canvas{display:block}</style>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+</head><body><script type="module">
+import * as THREE from 'three';
+import {HDRLoader} from 'three/addons/loaders/HDRLoader.js';
+import {RectAreaLightUniformsLib} from 'three/addons/lights/RectAreaLightUniformsLib.js';
+import {createToyPlanet} from './toy-planet.mjs';
+const DESIGN={width:1920,height:1080,duration:8,wagonCount:2};
+const scene=new THREE.Scene();scene.background=new THREE.Color('#edcc72');scene.fog=new THREE.Fog('#edcc72',15,55);
+const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});renderer.setSize(DESIGN.width,DESIGN.height);renderer.setPixelRatio(1);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.87;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;document.body.appendChild(renderer.domElement);
+const camera=new THREE.PerspectiveCamera(36,DESIGN.width/DESIGN.height,.1,80);
+const world=createToyPlanet({wagonCount:DESIGN.wagonCount});scene.add(world.group);window.toyPlanet=world;
+const floor=new THREE.Mesh(new THREE.PlaneGeometry(200,200),new THREE.MeshStandardMaterial({color:'#e7be5b',roughness:.94,metalness:0,envMapIntensity:.12}));floor.rotation.x=-Math.PI/2;floor.position.y=-2.32;floor.receiveShadow=true;scene.add(floor);
+RectAreaLightUniformsLib.init();const softbox=new THREE.RectAreaLight('#fff5d9',5,5,6);softbox.position.set(-5,7,5);softbox.lookAt(0,0,0);scene.add(softbox);
+const key=new THREE.DirectionalLight('#fff5dc',2.0);key.position.set(-3,7,5);key.castShadow=true;key.shadow.mapSize.set(1024,1024);Object.assign(key.shadow.camera,{left:-5,right:5,top:5,bottom:-5,near:.5,far:20});key.shadow.normalBias=.012;key.shadow.bias=-.0002;key.shadow.radius=4;scene.add(key);
+const fill=new THREE.DirectionalLight('#b7eff1',.7);fill.position.set(5,3,-4);scene.add(fill);scene.add(new THREE.HemisphereLight('#fff2d6','#985c22',.45));
+const clamp=x=>Math.max(0,Math.min(1,x)),ease=x=>{x=clamp(x);return x*x*(3-2*x)};
+function pose(seconds){
+  if(!Number.isFinite(seconds))throw new Error('seek requires finite seconds');
+  const t=Math.max(0,Math.min(8,seconds)),u=t/8,travel=.135+1.095*(.78*u+.22*ease(u));
+  world.setState({travel,trackProgress:Math.min(1,travel+.09),landscapeProgress:travel-.08,pull:1});
+  const frame=world.trackFrame(travel),theta=Math.atan2(frame.position.z,frame.position.x);
+  const azimuth=theta-.18,elevation=.35+.025*ease((t-5)/3),distance=11.8+.25*ease((t-3)/4);
+  camera.position.set(Math.cos(azimuth)*Math.cos(elevation)*distance,Math.sin(elevation)*distance,Math.sin(azimuth)*Math.cos(elevation)*distance);camera.lookAt(0,.25,0);
+  renderer.render(scene,camera);
+}
+window.motionReady=(async()=>{const hdr=await new HDRLoader().loadAsync('./assets/studio_small_09_1k.hdr');const pmrem=new THREE.PMREMGenerator(renderer),env=pmrem.fromEquirectangular(hdr);scene.environment=env.texture;scene.environmentIntensity=.50;scene.environmentRotation.y=.85;hdr.dispose();pmrem.dispose();pose(0)})();
+window.seek=async seconds=>{await window.motionReady;pose(seconds)};
+</script></body></html>

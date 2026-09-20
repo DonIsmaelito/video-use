@@ -1,51 +1,1155 @@
 [
   {
+    "id": "cloud-edit-messi",
+    "kind": "original edit of independently acquired source footage",
+    "sourceBatch": "edit-cloud-20260915",
+    "sourceRun": "cloud-edit-messi",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "integration/latest-video-use-20260908",
+    "frameworkCommit": "a501db6f98692aabd2c7a1b9a772cbbf5d17e742",
+    "frameworkArchiveSha256": "05fd8b423534aa11b3583c38c376a957e150e46d0b385157fd22a4ac9fb53374",
+    "production": "Agent, yt-dlp downloads, transcription, rendering, verification, and uploads ran in Modal",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "c7a525289123c2bde76ac36eabbf98bc8fa1ee92649e30b969dcf7e674d62368",
+    "promptSource": "exact creative prompt; technical delivery instructions stored separately",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-messi/source.zip",
+    "sourceArchiveScope": "Editable code, EDL, transcripts, source URLs and review evidence; original media and audio stems retained in the durable Modal project",
+    "cloudProject": "video-use-edit-gallery-20260915/cloud-edit-messi/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-messi/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-messi/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-messi/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-messi/creative-prompt.txt",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-messi/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-messi/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "cloud-edit-podcast",
+    "kind": "original edit of independently acquired source footage",
+    "sourceBatch": "edit-cloud-20260915",
+    "sourceRun": "cloud-edit-podcast",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "integration/latest-video-use-20260908",
+    "frameworkCommit": "a501db6f98692aabd2c7a1b9a772cbbf5d17e742",
+    "frameworkArchiveSha256": "05fd8b423534aa11b3583c38c376a957e150e46d0b385157fd22a4ac9fb53374",
+    "production": "Agent, yt-dlp downloads, transcription, rendering, verification, and uploads ran in Modal",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "e8d8df944e60ee73e792b859cf769f3bc86d071488512e80d2ce860c97d8afac",
+    "promptSource": "exact creative prompt; technical delivery instructions stored separately",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-podcast/source.zip",
+    "sourceArchiveScope": "Editable code, EDL, transcripts, source URLs and review evidence; original media and audio stems retained in the durable Modal project",
+    "cloudProject": "video-use-edit-gallery-20260915/cloud-edit-podcast/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-podcast/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-podcast/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-podcast/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-podcast/creative-prompt.txt",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-podcast/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-podcast/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "cloud-edit-nacho",
+    "kind": "original edit of independently acquired source footage",
+    "sourceBatch": "edit-cloud-20260915",
+    "sourceRun": "cloud-edit-nacho",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "integration/latest-video-use-20260908",
+    "frameworkCommit": "a501db6f98692aabd2c7a1b9a772cbbf5d17e742",
+    "frameworkArchiveSha256": "05fd8b423534aa11b3583c38c376a957e150e46d0b385157fd22a4ac9fb53374",
+    "production": "Agent, yt-dlp downloads, transcription, rendering, verification, and uploads ran in Modal",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "a9e57cf37757e36d27821fbd96b5726bc4f21a1485f2ea8f2911c39242b536b9",
+    "promptSource": "exact creative prompt; technical delivery instructions stored separately",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-nacho/source.zip",
+    "sourceArchiveScope": "Editable code, EDL, transcripts, source URLs and review evidence; original media and audio stems retained in the durable Modal project",
+    "cloudProject": "video-use-edit-gallery-20260915/cloud-edit-nacho/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-nacho/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-nacho/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-nacho/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-nacho/creative-prompt.txt",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-nacho/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-nacho/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "cloud-edit-food",
+    "kind": "original edit of independently acquired source footage",
+    "sourceBatch": "edit-cloud-20260915",
+    "sourceRun": "cloud-edit-food",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "integration/latest-video-use-20260908",
+    "frameworkCommit": "a501db6f98692aabd2c7a1b9a772cbbf5d17e742",
+    "frameworkArchiveSha256": "05fd8b423534aa11b3583c38c376a957e150e46d0b385157fd22a4ac9fb53374",
+    "production": "Agent, yt-dlp downloads, transcription, rendering, verification, and uploads ran in Modal",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "9544ad380fe7c7417c577cb98c638bb11c6be8eb52e386224bd34d10c75ce355",
+    "promptSource": "exact creative prompt; technical delivery instructions stored separately",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-food/source.zip",
+    "sourceArchiveScope": "Editable code, EDL, transcripts, source URLs and review evidence; original media and audio stems retained in the durable Modal project",
+    "cloudProject": "video-use-edit-gallery-20260915/cloud-edit-food/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-food/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-food/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-food/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-food/creative-prompt.txt",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-food/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-food/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "cloud-edit-comedy",
+    "kind": "original edit of independently acquired source footage",
+    "sourceBatch": "edit-cloud-20260915",
+    "sourceRun": "cloud-edit-comedy",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "integration/latest-video-use-20260908",
+    "frameworkCommit": "a501db6f98692aabd2c7a1b9a772cbbf5d17e742",
+    "frameworkArchiveSha256": "05fd8b423534aa11b3583c38c376a957e150e46d0b385157fd22a4ac9fb53374",
+    "production": "Agent, yt-dlp downloads, transcription, rendering, verification, and uploads ran in Modal",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "401041e8500cf524469265de37a517b76c99044c29e745a6022de9932ef0c41f",
+    "promptSource": "exact creative prompt; technical delivery instructions stored separately",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-comedy/source.zip",
+    "sourceArchiveScope": "Editable code, EDL, transcripts, source URLs and review evidence; original media and audio stems retained in the durable Modal project",
+    "cloudProject": "video-use-edit-gallery-20260915/cloud-edit-comedy/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-comedy/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-comedy/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-comedy/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-comedy/creative-prompt.txt",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-comedy/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-comedy/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "cloud-edit-recipe",
+    "kind": "original edit of independently acquired source footage",
+    "sourceBatch": "edit-cloud-20260915",
+    "sourceRun": "cloud-edit-recipe",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "integration/latest-video-use-20260908",
+    "frameworkCommit": "a501db6f98692aabd2c7a1b9a772cbbf5d17e742",
+    "frameworkArchiveSha256": "05fd8b423534aa11b3583c38c376a957e150e46d0b385157fd22a4ac9fb53374",
+    "production": "Agent, yt-dlp downloads, transcription, rendering, verification, and uploads ran in Modal",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "c9a5093e535f9848c07c3b985ecadd3e578873a617ef16ed0d7f3440ee2f5602",
+    "promptSource": "exact creative prompt; technical delivery instructions stored separately",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-recipe/source.zip",
+    "sourceArchiveScope": "Editable code, EDL, transcripts, source URLs and review evidence; original media and audio stems retained in the durable Modal project",
+    "cloudProject": "video-use-edit-gallery-20260915/cloud-edit-recipe/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-recipe/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-recipe/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-recipe/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-recipe/creative-prompt.txt",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-recipe/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-recipe/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "cloud-edit-restoration",
+    "kind": "original edit of independently acquired source footage",
+    "sourceBatch": "edit-cloud-20260915",
+    "sourceRun": "cloud-edit-restoration",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "integration/latest-video-use-20260908",
+    "frameworkCommit": "a501db6f98692aabd2c7a1b9a772cbbf5d17e742",
+    "frameworkArchiveSha256": "05fd8b423534aa11b3583c38c376a957e150e46d0b385157fd22a4ac9fb53374",
+    "production": "Agent, yt-dlp downloads, transcription, rendering, verification, and uploads ran in Modal",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "002d526f5f1af7bdbf4d78f207350deb639fa499d8bbe8aafcd6a6800292b936",
+    "promptSource": "exact creative prompt; technical delivery instructions stored separately",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-restoration/source.zip",
+    "sourceArchiveScope": "Editable code, EDL, transcripts, source URLs and review evidence; original media and audio stems retained in the durable Modal project",
+    "cloudProject": "video-use-edit-gallery-20260915/cloud-edit-restoration/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-restoration/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-restoration/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-restoration/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-restoration/creative-prompt.txt",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-restoration/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-restoration/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "cloud-edit-travel",
+    "kind": "original edit of independently acquired source footage",
+    "sourceBatch": "edit-cloud-20260915",
+    "sourceRun": "cloud-edit-travel",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "integration/latest-video-use-20260908",
+    "frameworkCommit": "a501db6f98692aabd2c7a1b9a772cbbf5d17e742",
+    "frameworkArchiveSha256": "05fd8b423534aa11b3583c38c376a957e150e46d0b385157fd22a4ac9fb53374",
+    "production": "Agent, yt-dlp downloads, transcription, rendering, verification, and uploads ran in Modal",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "62d38a27821dc2198e2f0e18c54354f54c376085dc55d143ee69461f3750281f",
+    "promptSource": "exact creative prompt; technical delivery instructions stored separately",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-travel/source.zip",
+    "sourceArchiveScope": "Editable code, EDL, transcripts, source URLs and review evidence; original media and audio stems retained in the durable Modal project",
+    "cloudProject": "video-use-edit-gallery-20260915/cloud-edit-travel/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-travel/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-travel/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-travel/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-travel/creative-prompt.txt",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-travel/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-travel/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "generated-20260906-bubbles",
+    "kind": "existing original explainer selected from R2",
+    "model": "gpt-6-astra",
+    "modelEvidence": "saved run trace",
+    "sourceRun": "generated-20260906-bubbles",
+    "sourceArtifact": "runs/generated-20260906-bubbles/final.mp4",
+    "promptSource": "exact saved prompt",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "669347e6fcf8014291225d5de033ee660f172e3c40f7f5939eb924e877c22103",
+    "width": 1920,
+    "height": 1080,
+    "fullDecodePassed": true,
+    "review": "Sixteen encoded frames across the full timeline inspected; original video unchanged; listening and real-time playback not performed",
+    "reviewStoryboard": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/review/explainer-bubbles.jpg",
+    "posterTime": 17,
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/runs/generated-20260906-bubbles/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/explainers/20260915/bubbles-poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "lane-4-617badcfbde9",
+    "kind": "existing original explainer selected from R2",
+    "model": "claude-fable-5-1",
+    "modelEvidence": "docs/reference-candidates.md identifies this run as Fable high",
+    "sourceRun": "lane-4-617badcfbde9",
+    "sourceArtifact": "runs/lane-4-617badcfbde9/preview.mp4",
+    "promptSource": "reusable starter adapted from the delivered explanation; not the exact generating request",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "c0a8f2d83ee2acd6cbf82041b71ee361ffcb164f401423e7998f80c1c038e593",
+    "width": 1920,
+    "height": 1080,
+    "fullDecodePassed": true,
+    "review": "Sixteen encoded frames across the full timeline inspected; original video unchanged; listening and real-time playback not performed",
+    "reviewStoryboard": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/review/explainer-jet.jpg",
+    "posterTime": 22,
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/runs/lane-4-617badcfbde9/preview.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/explainers/20260915/jet-poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "lane-1-6eca5ba640fc",
+    "kind": "existing original explainer selected from R2",
+    "model": "gpt-6-astra",
+    "modelEvidence": "saved Codex protocol identifies this run as Astra",
+    "sourceRun": "lane-1-6eca5ba640fc",
+    "sourceArtifact": "runs/lane-1-6eca5ba640fc/preview.mp4",
+    "promptSource": "reusable starter adapted from the delivered explanation; not the exact generating request",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "8841c2913d0605a519abc762edc26d45ee13466087364547d5bbc69c8ff7af82",
+    "width": 1920,
+    "height": 1080,
+    "fullDecodePassed": true,
+    "review": "Sixteen encoded frames across the full timeline inspected; original video unchanged; listening and real-time playback not performed",
+    "reviewStoryboard": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/review/explainer-gpu.jpg",
+    "posterTime": 19,
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/runs/lane-1-6eca5ba640fc/preview.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/explainers/20260915/gpu-poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "lane-1-1d556a445024",
+    "kind": "existing original explainer selected from R2",
+    "model": "gpt-6-astra",
+    "modelEvidence": "saved Codex protocol identifies this run as Astra",
+    "sourceRun": "lane-1-1d556a445024",
+    "sourceArtifact": "runs/lane-1-1d556a445024/final.mp4",
+    "promptSource": "reusable starter adapted from the delivered explanation; not the exact generating request",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "5fb40000ce6105ae64bf88f8b7a533bb13deecd9ebca2fb581d41904a2b0ee65",
+    "width": 1920,
+    "height": 1080,
+    "fullDecodePassed": true,
+    "review": "Sixteen encoded frames across the full timeline inspected; original video unchanged; listening and real-time playback not performed",
+    "reviewStoryboard": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/review/explainer-diffusion.jpg",
+    "posterTime": 34,
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/runs/lane-1-1d556a445024/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/explainers/20260915/diffusion-poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "lane-1-ee1aba7e491f",
+    "kind": "existing original explainer selected from R2",
+    "model": "gpt-6-astra",
+    "modelEvidence": "saved Codex protocol identifies this run as Astra",
+    "sourceRun": "lane-1-ee1aba7e491f",
+    "sourceArtifact": "runs/lane-1-ee1aba7e491f/final.mp4",
+    "promptSource": "reusable starter adapted from the delivered explanation; not the exact generating request",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "0372fb1a6fccd80832f1ca67dd0b2817dbc7994d57dbc0708550346156671693",
+    "width": 1920,
+    "height": 1080,
+    "fullDecodePassed": true,
+    "review": "Sixteen encoded frames across the full timeline inspected; original video unchanged; listening and real-time playback not performed",
+    "reviewStoryboard": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/review/explainer-binary.jpg",
+    "posterTime": 12,
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/runs/lane-1-ee1aba7e491f/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/explainers/20260915/binary-poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "lane-4-abb5d572651b",
+    "kind": "existing original explainer selected from R2",
+    "model": "claude-fable-5-1",
+    "modelEvidence": "docs/reference-candidates.md identifies this run as Fable high",
+    "sourceRun": "lane-4-abb5d572651b",
+    "sourceArtifact": "runs/lane-4-abb5d572651b/preview.mp4",
+    "promptSource": "reusable starter adapted from the delivered explanation; not the exact generating request",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "bb3117e6fa330c2d20e539d5040fdda4412e3cd8547ec6d9694e23cc9705bb22",
+    "width": 1920,
+    "height": 1080,
+    "fullDecodePassed": true,
+    "review": "Sixteen encoded frames across the full timeline inspected; original video unchanged; listening and real-time playback not performed",
+    "reviewStoryboard": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/review/explainer-hash.jpg",
+    "posterTime": 32,
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/runs/lane-4-abb5d572651b/preview.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/explainers/20260915/hash-poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "cloud-motion-01-make-room",
+    "kind": "original authored motion design",
+    "promptSource": "exact creative request; full request and delivery contract saved at promptUrl",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-01-make-room/prompt.txt",
+    "sourceRun": "cloud-motion-01-make-room",
+    "sourceBatch": "motion-cloud-20260915",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "fix-review-recovery",
+    "frameworkCommit": "2c25bb58cabdfb02203ff2a637b48d60143b7dc4",
+    "frameworkSha256": "a6d193154b9459d38ea919d4969e0960cfefc26be9f054e2e6d32c830145b8b7",
+    "websiteSha256": "c0f7c0cdc87bc1bbbec490facaf811c2a9151f3d81fc0226771e768f7b7dc259",
+    "websiteAudio": "none; original silent render",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-01-make-room/source.zip",
+    "storage": "Cloudflare R2",
+    "production": "Independent Modal container; generation, rendering, verification, and upload in cloud",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-01-make-room/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-01-make-room/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-01-make-room/storyboard.jpg",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-01-make-room/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-01-make-room/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "cloud-motion-02-night-shift",
+    "kind": "original authored motion design",
+    "promptSource": "exact creative request; full request and delivery contract saved at promptUrl",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-02-night-shift/prompt.txt",
+    "sourceRun": "cloud-motion-02-night-shift",
+    "sourceBatch": "motion-cloud-20260915",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "fix-review-recovery",
+    "frameworkCommit": "2c25bb58cabdfb02203ff2a637b48d60143b7dc4",
+    "frameworkSha256": "a6d193154b9459d38ea919d4969e0960cfefc26be9f054e2e6d32c830145b8b7",
+    "websiteSha256": "caace58fd4150c2b80f0da7c396cbd4946cd397373765cfe7ab26f534a1bf03e",
+    "websiteAudio": "none; original silent render",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-02-night-shift/source.zip",
+    "storage": "Cloudflare R2",
+    "production": "Independent Modal container; generation, rendering, verification, and upload in cloud",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-02-night-shift/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-02-night-shift/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-02-night-shift/storyboard.jpg",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-02-night-shift/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-02-night-shift/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "cloud-motion-03-paper-current",
+    "kind": "original authored motion design",
+    "promptSource": "exact creative request; full request and delivery contract saved at promptUrl",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-03-paper-current/prompt.txt",
+    "sourceRun": "cloud-motion-03-paper-current",
+    "sourceBatch": "motion-cloud-20260915",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "fix-review-recovery",
+    "frameworkCommit": "2c25bb58cabdfb02203ff2a637b48d60143b7dc4",
+    "frameworkSha256": "a6d193154b9459d38ea919d4969e0960cfefc26be9f054e2e6d32c830145b8b7",
+    "websiteSha256": "50f1331720ed37d3a89ca3d79e3d60afdf43fe5a1398de6d42ed1773eb4dbb52",
+    "websiteAudio": "none; original silent render",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-03-paper-current/source.zip",
+    "storage": "Cloudflare R2",
+    "production": "Independent Modal container; generation, rendering, verification, and upload in cloud",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-03-paper-current/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-03-paper-current/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-03-paper-current/storyboard.jpg",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-03-paper-current/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-03-paper-current/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "cloud-motion-04-little-weather",
+    "kind": "original authored motion design",
+    "promptSource": "exact creative request; full request and delivery contract saved at promptUrl",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-04-little-weather/prompt.txt",
+    "sourceRun": "cloud-motion-04-little-weather",
+    "sourceBatch": "motion-cloud-20260915",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "fix-review-recovery",
+    "frameworkCommit": "2c25bb58cabdfb02203ff2a637b48d60143b7dc4",
+    "frameworkSha256": "a6d193154b9459d38ea919d4969e0960cfefc26be9f054e2e6d32c830145b8b7",
+    "websiteSha256": "2ecb330d1caa4cd5521f79915c23a98909b4c491574cd0d2d44e0c0ad8d66a53",
+    "websiteAudio": "none; original silent render",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-04-little-weather/source.zip",
+    "storage": "Cloudflare R2",
+    "production": "Independent Modal container; generation, rendering, verification, and upload in cloud",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-04-little-weather/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-04-little-weather/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-04-little-weather/storyboard.jpg",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-04-little-weather/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-04-little-weather/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "cloud-motion-05-woven-signal",
+    "kind": "original authored motion design",
+    "promptSource": "exact creative request; full request and delivery contract saved at promptUrl",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-05-woven-signal/prompt.txt",
+    "sourceRun": "cloud-motion-05-woven-signal",
+    "sourceBatch": "motion-cloud-20260915",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "fix-review-recovery",
+    "frameworkCommit": "2c25bb58cabdfb02203ff2a637b48d60143b7dc4",
+    "frameworkSha256": "a6d193154b9459d38ea919d4969e0960cfefc26be9f054e2e6d32c830145b8b7",
+    "websiteSha256": "6518d906bf60e7153f93411ddf60b0f32f622a49c53154f34d729d16b4f3fc82",
+    "websiteAudio": "none; original silent render",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-05-woven-signal/source.zip",
+    "storage": "Cloudflare R2",
+    "production": "Independent Modal container; generation, rendering, verification, and upload in cloud",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-05-woven-signal/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-05-woven-signal/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-05-woven-signal/storyboard.jpg",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-05-woven-signal/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-05-woven-signal/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "cloud-motion-06-ink-relay",
+    "kind": "original authored motion design",
+    "promptSource": "exact creative request; full request and delivery contract saved at promptUrl",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-06-ink-relay/prompt.txt",
+    "sourceRun": "cloud-motion-06-ink-relay",
+    "sourceBatch": "motion-cloud-20260915",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "fix-review-recovery",
+    "frameworkCommit": "2c25bb58cabdfb02203ff2a637b48d60143b7dc4",
+    "frameworkSha256": "a6d193154b9459d38ea919d4969e0960cfefc26be9f054e2e6d32c830145b8b7",
+    "websiteSha256": "249f326246c3a957935cbb02092aabf66a18218bfde94c6989c0b0bd225b02b3",
+    "websiteAudio": "none; original silent render",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-06-ink-relay/source.zip",
+    "storage": "Cloudflare R2",
+    "production": "Independent Modal container; generation, rendering, verification, and upload in cloud",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-06-ink-relay/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-06-ink-relay/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-06-ink-relay/storyboard.jpg",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-06-ink-relay/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-06-ink-relay/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "cloud-motion-07-one-good-day",
+    "kind": "original authored motion design",
+    "promptSource": "exact creative request; full request and delivery contract saved at promptUrl",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-07-one-good-day/prompt.txt",
+    "sourceRun": "cloud-motion-07-one-good-day",
+    "sourceBatch": "motion-cloud-20260915",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "fix-review-recovery",
+    "frameworkCommit": "2c25bb58cabdfb02203ff2a637b48d60143b7dc4",
+    "frameworkSha256": "a6d193154b9459d38ea919d4969e0960cfefc26be9f054e2e6d32c830145b8b7",
+    "websiteSha256": "7c271b8a1da006026e54bdca67746cc5c962f790f34935707420c6435ac32eac",
+    "websiteAudio": "none; original silent render",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-07-one-good-day/source.zip",
+    "storage": "Cloudflare R2",
+    "production": "Independent Modal container; generation, rendering, verification, and upload in cloud",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-07-one-good-day/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-07-one-good-day/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-07-one-good-day/storyboard.jpg",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-07-one-good-day/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-07-one-good-day/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "cloud-motion-08-shape-jazz",
+    "kind": "original authored motion design",
+    "promptSource": "exact creative request; full request and delivery contract saved at promptUrl",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-08-shape-jazz/prompt.txt",
+    "sourceRun": "cloud-motion-08-shape-jazz",
+    "sourceBatch": "motion-cloud-20260915",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "fix-review-recovery",
+    "frameworkCommit": "2c25bb58cabdfb02203ff2a637b48d60143b7dc4",
+    "frameworkSha256": "a6d193154b9459d38ea919d4969e0960cfefc26be9f054e2e6d32c830145b8b7",
+    "websiteSha256": "ce9085fd68b19c57c834121b7039dbf208e495de80381c4cc84db9f9c2b44063",
+    "websiteAudio": "none; original silent render",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-08-shape-jazz/source.zip",
+    "storage": "Cloudflare R2",
+    "production": "Independent Modal container; generation, rendering, verification, and upload in cloud",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-08-shape-jazz/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-08-shape-jazz/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-08-shape-jazz/storyboard.jpg",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-08-shape-jazz/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-08-shape-jazz/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "11-rotary-telephone",
+    "kind": "original authored motion design",
+    "promptSource": "exact saved short prompt; expanded creative direction and repairs retained in source archive",
+    "sourceRun": "11-rotary-telephone",
+    "sourceBatch": "motion-web-batch-20260914",
+    "sourceSha256": "a5d98503adef94ee7678f31e77fd78398da31028ca52b8a98b5b5dd6ce2f466c",
+    "websiteSha256": "a85396d04128386005e3774e485d751923f6a636b72d6c26806076b246af2646",
+    "websiteAudio": "none; video stream copied without audio",
+    "sourceArchive": "five-for-website-20260914/source.zip",
+    "storage": "Cloudflare R2",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/11-rotary-telephone-a85396d041283860.mp4",
+        "bytes": 1221692,
+        "sha256": "a85396d04128386005e3774e485d751923f6a636b72d6c26806076b246af2646"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/11-rotary-telephone-2b55acbecf3b5522.jpg",
+        "bytes": 35269,
+        "sha256": "2b55acbecf3b552261a51b41fbb63eb450a65404e202505830b6105cfe8a6579"
+      }
+    ]
+  },
+  {
+    "id": "12-glass-staircase",
+    "kind": "original authored motion design",
+    "promptSource": "exact saved short prompt; expanded creative direction and repairs retained in source archive",
+    "sourceRun": "12-glass-staircase",
+    "sourceBatch": "motion-web-batch-20260914",
+    "sourceSha256": "9ff7ef6eace1f02763792b29a0c25584bc948c035c79b6f7dabff3486afcb607",
+    "websiteSha256": "a6fffba95b4036fa5fee930488652fcd13dd28e0c1323059b63cc547a736fbf7",
+    "websiteAudio": "none; video stream copied without audio",
+    "sourceArchive": "five-for-website-20260914/source.zip",
+    "storage": "Cloudflare R2",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/12-glass-staircase-a6fffba95b4036fa.mp4",
+        "bytes": 1959991,
+        "sha256": "a6fffba95b4036fa5fee930488652fcd13dd28e0c1323059b63cc547a736fbf7"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/12-glass-staircase-ceab7a76ddba67ed.jpg",
+        "bytes": 24542,
+        "sha256": "ceab7a76ddba67ed73a95be812e15b4ba356180e43330fb397622fbdd33f4c82"
+      }
+    ]
+  },
+  {
+    "id": "13-beach-umbrella",
+    "kind": "original authored motion design",
+    "promptSource": "exact saved short prompt; expanded creative direction and repairs retained in source archive",
+    "sourceRun": "13-beach-umbrella",
+    "sourceBatch": "motion-web-batch-20260914",
+    "sourceSha256": "715e2c3fc72d083c0a72c6633aa7d3b30995bebdda3c59ecc7b33abe9d17708b",
+    "websiteSha256": "49ce5f560892acd39c3b644b0aa7833ebbf1142d8889167ee42b9c26298c9886",
+    "websiteAudio": "none; video stream copied without audio",
+    "sourceArchive": "five-for-website-20260914/source.zip",
+    "storage": "Cloudflare R2",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/13-beach-umbrella-49ce5f560892acd3.mp4",
+        "bytes": 1609163,
+        "sha256": "49ce5f560892acd39c3b644b0aa7833ebbf1142d8889167ee42b9c26298c9886"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/13-beach-umbrella-18d95496d0556f23.jpg",
+        "bytes": 19347,
+        "sha256": "18d95496d0556f2303c2011bc56b2e0b9c8a7e1067bcd052c6ecbd4da96a85ac"
+      }
+    ]
+  },
+  {
+    "id": "14-ink-octopus",
+    "kind": "original authored motion design",
+    "promptSource": "exact saved short prompt; expanded creative direction and repairs retained in source archive",
+    "sourceRun": "14-ink-octopus",
+    "sourceBatch": "motion-web-batch-20260914",
+    "sourceSha256": "dff46f892d001c1640b95459491404f9c478abfeb08cc545aad833ac98b73455",
+    "websiteSha256": "5119258be3b0a88540f397ac34b31101f19de8ea408239b5d6a73c76d5f0ab59",
+    "websiteAudio": "none; video stream copied without audio",
+    "sourceArchive": "five-for-website-20260914/source.zip",
+    "storage": "Cloudflare R2",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/14-ink-octopus-5119258be3b0a885.mp4",
+        "bytes": 1288704,
+        "sha256": "5119258be3b0a88540f397ac34b31101f19de8ea408239b5d6a73c76d5f0ab59"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/14-ink-octopus-35435d5f409bfdfd.jpg",
+        "bytes": 29368,
+        "sha256": "35435d5f409bfdfde22766844befdce34933f064630d4c394870c261dbdcda25"
+      }
+    ]
+  },
+  {
+    "id": "15-color-zipper",
+    "kind": "original authored motion design",
+    "promptSource": "exact saved short prompt; expanded creative direction and repairs retained in source archive",
+    "sourceRun": "15-color-zipper",
+    "sourceBatch": "motion-web-batch-20260914",
+    "sourceSha256": "f913ff813043ea21a689a9b3a6fad21f4be9e5cc45e5149b2958ee6ad795fc47",
+    "websiteSha256": "b794b9830ea4b12a34dd175dc9238b09bcc7cbc08b72c1d43b61ba9bd1079d7f",
+    "websiteAudio": "none; video stream copied without audio",
+    "sourceArchive": "five-for-website-20260914/source.zip",
+    "storage": "Cloudflare R2",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/15-color-zipper-b794b9830ea4b12a.mp4",
+        "bytes": 3532064,
+        "sha256": "b794b9830ea4b12a34dd175dc9238b09bcc7cbc08b72c1d43b61ba9bd1079d7f"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/15-color-zipper-bcdf0abe775105c0.jpg",
+        "bytes": 60213,
+        "sha256": "bcdf0abe775105c0f5fd95107cb504d840da1dc1861f2fbb528d8493cdf0f049"
+      }
+    ]
+  },
+  {
+    "id": "01-paper-koi",
+    "kind": "original authored motion design",
+    "promptSource": "exact saved short prompt; expanded creative direction and repairs retained in source archive",
+    "sourceRun": "01-paper-koi",
+    "sourceBatch": "five-prompts-20260914",
+    "sourceSha256": "465e30917796a957180eadc070b4f891656efd58546f759dc422abb631515564",
+    "websiteSha256": "7f0db0f17388e799575f03e0d471119be454c18bd2e606f907c21db1cc160e1e",
+    "websiteAudio": "none; video stream copied without audio",
+    "sourceArchive": "five-prompts-20260914/source.zip",
+    "storage": "Cloudflare R2",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/01-paper-koi-7f0db0f17388e799.mp4",
+        "bytes": 2318225,
+        "sha256": "7f0db0f17388e799575f03e0d471119be454c18bd2e606f907c21db1cc160e1e"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/01-paper-koi-217e15573427dfcf.jpg",
+        "bytes": 40267,
+        "sha256": "217e15573427dfcf37376d646e602e8b3c3fd090798af7ff691850df3bd58bf7"
+      }
+    ]
+  },
+  {
+    "id": "02-jelly-chair",
+    "kind": "original authored motion design",
+    "promptSource": "exact saved short prompt; expanded creative direction and repairs retained in source archive",
+    "sourceRun": "02-jelly-chair",
+    "sourceBatch": "five-prompts-20260914",
+    "sourceSha256": "ec1e59317d60436a0674f9fef326441baa17cdc10f741872f36f26827a277c79",
+    "websiteSha256": "926b7a036dd3bbe6962636b1a9fa875b1d793b39193853bd9b3afe96924aff04",
+    "websiteAudio": "none; video stream copied without audio",
+    "sourceArchive": "five-prompts-20260914/source.zip",
+    "storage": "Cloudflare R2",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/02-jelly-chair-926b7a036dd3bbe6.mp4",
+        "bytes": 1410889,
+        "sha256": "926b7a036dd3bbe6962636b1a9fa875b1d793b39193853bd9b3afe96924aff04"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/02-jelly-chair-2bdc1a54afa8a1a3.jpg",
+        "bytes": 28477,
+        "sha256": "2bdc1a54afa8a1a33efb4f656c5b989c322f5828ac3fdde03a695b7c301eb941"
+      }
+    ]
+  },
+  {
+    "id": "03-chrome-beetle",
+    "kind": "original authored motion design",
+    "promptSource": "exact saved short prompt; expanded creative direction and repairs retained in source archive",
+    "sourceRun": "03-chrome-beetle",
+    "sourceBatch": "five-prompts-20260914",
+    "sourceSha256": "a3253510612fa7e40a59e7f923af151ade14997bee1326949f45bb160e12b8eb",
+    "websiteSha256": "5a4b2b08f1ce6ab4ccc7dcf1469ef66a24a3b72ba16994fa568d581294a2bae2",
+    "websiteAudio": "none; video stream copied without audio",
+    "sourceArchive": "five-prompts-20260914/source.zip",
+    "storage": "Cloudflare R2",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/03-chrome-beetle-5a4b2b08f1ce6ab4.mp4",
+        "bytes": 4596946,
+        "sha256": "5a4b2b08f1ce6ab4ccc7dcf1469ef66a24a3b72ba16994fa568d581294a2bae2"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/03-chrome-beetle-3aa943597044c143.jpg",
+        "bytes": 38472,
+        "sha256": "3aa943597044c143b99a768bde5eeed9f3c7073bf10e51732af575a317de7710"
+      }
+    ]
+  },
+  {
+    "id": "04-melt",
+    "kind": "original authored motion design",
+    "promptSource": "exact saved short prompt; expanded creative direction and repairs retained in source archive",
+    "sourceRun": "04-melt",
+    "sourceBatch": "five-prompts-20260914",
+    "sourceSha256": "88299aaa75aff4c33c77619600bc5e2d1dde48bc810658a7a6dd6b6ad997cd5d",
+    "websiteSha256": "4b23e0f6892faf14f3b66af44ec1ba862abfb0c7cbdcfc8e8916a0e9cb675f77",
+    "websiteAudio": "none; video stream copied without audio",
+    "sourceArchive": "five-prompts-20260914/source.zip",
+    "storage": "Cloudflare R2",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/04-melt-4b23e0f6892faf14.mp4",
+        "bytes": 778839,
+        "sha256": "4b23e0f6892faf14f3b66af44ec1ba862abfb0c7cbdcfc8e8916a0e9cb675f77"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/04-melt-75074d40d88c5526.jpg",
+        "bytes": 37044,
+        "sha256": "75074d40d88c55262a1283ab4b22661c07dab3748b6135bef45317a64573c423"
+      }
+    ]
+  },
+  {
+    "id": "05-night-bloom",
+    "kind": "original authored motion design",
+    "promptSource": "exact saved short prompt; expanded creative direction and repairs retained in source archive",
+    "sourceRun": "05-night-bloom",
+    "sourceBatch": "five-prompts-20260914",
+    "sourceSha256": "5f62345441e2c8a2474a323be0641cab98a14fd91ce7642fc0d9775ff993620f",
+    "websiteSha256": "819d84e7cc14ada4e50296330628dfbbc99a65c8bedb9b964ddbcb2fad5c0bda",
+    "websiteAudio": "none; video stream copied without audio",
+    "sourceArchive": "five-prompts-20260914/source.zip",
+    "storage": "Cloudflare R2",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/05-night-bloom-819d84e7cc14ada4.mp4",
+        "bytes": 7392356,
+        "sha256": "819d84e7cc14ada4e50296330628dfbbc99a65c8bedb9b964ddbcb2fad5c0bda"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/05-night-bloom-a64dde767b2ae8a3.jpg",
+        "bytes": 120322,
+        "sha256": "a64dde767b2ae8a39200d0667f30dbc939651a3577239d5257ba37c0b06751e1"
+      }
+    ]
+  },
+  {
+    "id": "06-satin-bow",
+    "kind": "original authored motion design",
+    "promptSource": "exact saved short prompt; expanded creative direction and repairs retained in source archive",
+    "sourceRun": "06-satin-bow",
+    "sourceBatch": "five-more-20260914",
+    "sourceSha256": "5d53d5df66c5a5b22cc61f43524923918ffd697f1959ee82dae16488e96824a5",
+    "websiteSha256": "0c51efd1da2f35d2b44e40966e4276354f974ec747258f8cd49b25b970090e5d",
+    "websiteAudio": "none; video stream copied without audio",
+    "sourceArchive": "five-more-20260914/source.zip",
+    "storage": "Cloudflare R2",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/06-satin-bow-0c51efd1da2f35d2.mp4",
+        "bytes": 1327056,
+        "sha256": "0c51efd1da2f35d2b44e40966e4276354f974ec747258f8cd49b25b970090e5d"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/06-satin-bow-01a821bddb2d9813.jpg",
+        "bytes": 24971,
+        "sha256": "01a821bddb2d981386119af01ad93c959fe15b92be0a278b92126d8d273b7c44"
+      }
+    ]
+  },
+  {
+    "id": "07-blood-orange",
+    "kind": "original authored motion design",
+    "promptSource": "exact saved short prompt; expanded creative direction and repairs retained in source archive",
+    "sourceRun": "07-blood-orange",
+    "sourceBatch": "five-more-20260914",
+    "sourceSha256": "a916af3f9e8bc0d564a6269badf5a7108105b9381aa073a7be31057c209f9eee",
+    "websiteSha256": "00f36da8ee8fdfa91ef1ebaf74222f51298502afcbac477a2bdc520840fed0a9",
+    "websiteAudio": "none; video stream copied without audio",
+    "sourceArchive": "five-more-20260914/source.zip",
+    "storage": "Cloudflare R2",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/07-blood-orange-00f36da8ee8fdfa9.mp4",
+        "bytes": 5047539,
+        "sha256": "00f36da8ee8fdfa91ef1ebaf74222f51298502afcbac477a2bdc520840fed0a9"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/07-blood-orange-fedeee7f9ed745cf.jpg",
+        "bytes": 50614,
+        "sha256": "fedeee7f9ed745cf856c6c4c114f3be6b4be9ba63d5aa42c3e699ee60ca0079e"
+      }
+    ]
+  },
+  {
+    "id": "08-toy-planet",
+    "kind": "original authored motion design",
+    "promptSource": "exact saved short prompt; expanded creative direction and repairs retained in source archive",
+    "sourceRun": "08-toy-planet",
+    "sourceBatch": "five-more-20260914",
+    "sourceSha256": "07dec7a76ed7740e89ac121810c65250b366da314e2d6ff057f349d770ef6702",
+    "websiteSha256": "f841936084cd8e7d4c1fd3d14f06e9982fa3dacc8f093992d899dafbad2f7359",
+    "websiteAudio": "none; video stream copied without audio",
+    "sourceArchive": "five-more-20260914/source.zip",
+    "storage": "Cloudflare R2",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/08-toy-planet-f841936084cd8e7d.mp4",
+        "bytes": 3440971,
+        "sha256": "f841936084cd8e7d4c1fd3d14f06e9982fa3dacc8f093992d899dafbad2f7359"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/08-toy-planet-d4455120540d136c.jpg",
+        "bytes": 30678,
+        "sha256": "d4455120540d136cd388570eb158bd1053b616331f40e2d4f1654a29af1d9968"
+      }
+    ]
+  },
+  {
+    "id": "09-jellyfish",
+    "kind": "original authored motion design",
+    "promptSource": "exact saved short prompt; expanded creative direction and repairs retained in source archive",
+    "sourceRun": "09-jellyfish",
+    "sourceBatch": "five-more-20260914",
+    "sourceSha256": "0f9541722b23c50f35ad20f07c14585e660f2672a46bea6ba8ae9e47d6e03545",
+    "websiteSha256": "d8ec62bd1e25b414ee31f181c3155dc4e6dec231a66c0adccd5b17c8c461639b",
+    "websiteAudio": "none; video stream copied without audio",
+    "sourceArchive": "five-more-20260914/source.zip",
+    "storage": "Cloudflare R2",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/09-jellyfish-d8ec62bd1e25b414.mp4",
+        "bytes": 5230885,
+        "sha256": "d8ec62bd1e25b414ee31f181c3155dc4e6dec231a66c0adccd5b17c8c461639b"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/09-jellyfish-6fd7bfcb31bac8e0.jpg",
+        "bytes": 36320,
+        "sha256": "6fd7bfcb31bac8e06ab079b995dc5f8132f00c9dca00c5cb8e530a9beccbf8c8"
+      }
+    ]
+  },
+  {
+    "id": "10-checker-zebra",
+    "kind": "original authored motion design",
+    "promptSource": "exact saved short prompt; expanded creative direction and repairs retained in source archive",
+    "sourceRun": "10-checker-zebra",
+    "sourceBatch": "five-more-20260914",
+    "sourceSha256": "ff53543f4dad57b95ff86ae1775af96d553d61c843ae302c82a16d5bab9a308a",
+    "websiteSha256": "84454ebb55b7940ef816ed66ce9d8c35aaed0fffeb0918c098b26e0840c56ae6",
+    "websiteAudio": "none; video stream copied without audio",
+    "sourceArchive": "five-more-20260914/source.zip",
+    "storage": "Cloudflare R2",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/10-checker-zebra-84454ebb55b7940e.mp4",
+        "bytes": 2092498,
+        "sha256": "84454ebb55b7940ef816ed66ce9d8c35aaed0fffeb0918c098b26e0840c56ae6"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/10-checker-zebra-318c394a91887803.jpg",
+        "bytes": 30936,
+        "sha256": "318c394a91887803b852b9f46267b1fa8d4012a3816e8afc76dcb84514a24e92"
+      }
+    ]
+  },
+  {
     "id": "optical-assembly",
     "kind": "original authored motion design",
     "promptSource": "adapted starter grounded in delivered source documentation; exact original user prompt unavailable",
-    "sourceRun": "optical-assembly"
+    "sourceRun": "optical-assembly",
+    "sourceSha256": "582e285b61aa511e0faf95301661098de52620d8125aff262712afc6b7ef0bd0",
+    "websiteSha256": "018702cdf71330f3c585ca0331e286453bbe374f012b1acb9fbddab55f20d6a0",
+    "websiteAudio": "none; original prompt retained and audio removed for website playback",
+    "storage": "Cloudflare R2",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/optical-assembly-018702cdf71330f3.mp4",
+        "bytes": 3284624,
+        "sha256": "018702cdf71330f3c585ca0331e286453bbe374f012b1acb9fbddab55f20d6a0"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/optical-assembly-448f3cdcbace747e.jpg",
+        "bytes": 35800,
+        "sha256": "448f3cdcbace747ebb92384602b4e307724af8939ef6eefeb2d7cabbdf2e7d45"
+      }
+    ]
   },
   {
     "id": "02-orbit",
     "kind": "original authored motion design",
-    "promptSource": "adapted starter grounded in delivered source documentation; exact original user prompt unavailable",
-    "sourceRun": "02-orbit"
+    "promptSource": "adapted starter grounded in delivered documentation and updated for silent website playback; exact original user prompt unavailable",
+    "sourceRun": "02-orbit",
+    "sourceSha256": "63c488d930af0d0d73365287d1729c93477e0603ae2976dd765be3b51dea157f",
+    "websiteSha256": "14cf7cd8f2eeafa8c89704cd83339778d0fbeb2cbe2b45eda0ebd8bdb3f70bca",
+    "websiteAudio": "none; video stream copied without audio",
+    "storage": "Cloudflare R2",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/02-orbit-14cf7cd8f2eeafa8.mp4",
+        "bytes": 3079965,
+        "sha256": "14cf7cd8f2eeafa8c89704cd83339778d0fbeb2cbe2b45eda0ebd8bdb3f70bca"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/02-orbit-d5621c3865ca0306.jpg",
+        "bytes": 30798,
+        "sha256": "d5621c3865ca03065b3aa5f13e408488592ecbda82166509889239d1cf733dc7"
+      }
+    ]
   },
   {
     "id": "04-fold",
     "kind": "original authored motion design",
-    "promptSource": "adapted starter grounded in delivered source documentation; exact original user prompt unavailable",
-    "sourceRun": "04-fold"
+    "promptSource": "adapted starter grounded in delivered documentation and updated for silent website playback; exact original user prompt unavailable",
+    "sourceRun": "04-fold",
+    "sourceSha256": "43066878efdd128fa73087cd6b6e9e2e6d40e9e32a4b5d052e0a29d13e946d07",
+    "websiteSha256": "86cf78fd61b8a83094e3585d12a2711a33ce39e6d0667572a13b883fa7682064",
+    "websiteAudio": "none; video stream copied without audio",
+    "storage": "Cloudflare R2",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/04-fold-86cf78fd61b8a830.mp4",
+        "bytes": 9038419,
+        "sha256": "86cf78fd61b8a83094e3585d12a2711a33ce39e6d0667572a13b883fa7682064"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/04-fold-e8320ce99fe8aaa0.jpg",
+        "bytes": 47342,
+        "sha256": "e8320ce99fe8aaa0e3495d7503560b1641d48e2961db9aa1c8fb27f9b51cc56e"
+      }
+    ]
   },
   {
     "id": "05-flow",
     "kind": "original authored motion design",
-    "promptSource": "adapted starter grounded in delivered source documentation; exact original user prompt unavailable",
-    "sourceRun": "05-flow"
-  },
-  {
-    "id": "lane-2-b2b5d2289148",
-    "kind": "original explainer",
-    "promptSource": "original saved prompt",
-    "sourceRun": "lane-2-b2b5d2289148"
-  },
-  {
-    "id": "lane-1-1c3b0807ec32",
-    "kind": "original explainer",
-    "promptSource": "original saved prompt",
-    "sourceRun": "lane-1-1c3b0807ec32"
-  },
-  {
-    "id": "lane-3-0f3389565faa",
-    "kind": "original explainer",
-    "promptSource": "original saved prompt",
-    "sourceRun": "lane-3-0f3389565faa"
-  },
-  {
-    "id": "lane-2-a3a0cb418862",
-    "kind": "original explainer",
-    "promptSource": "original saved prompt",
-    "sourceRun": "lane-2-a3a0cb418862"
+    "promptSource": "adapted starter grounded in delivered documentation and updated for silent website playback; exact original user prompt unavailable",
+    "sourceRun": "05-flow",
+    "sourceSha256": "b3b4feb45705afe5af4c87a276a48b6506ef65452e12317c76515124a1a03d78",
+    "websiteSha256": "93a28f1c9eb70ed19c6351415a497fda5efa7fab9647457a4aad313ddaa12eb5",
+    "websiteAudio": "none; video stream copied without audio",
+    "storage": "Cloudflare R2",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/05-flow-93a28f1c9eb70ed1.mp4",
+        "bytes": 1758854,
+        "sha256": "93a28f1c9eb70ed19c6351415a497fda5efa7fab9647457a4aad313ddaa12eb5"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/05-flow-550da21a509a7167.jpg",
+        "bytes": 21061,
+        "sha256": "550da21a509a71673aeb6ba2fc01a8f7adede915b121b7dbe5eeec22db035737"
+      }
+    ]
   },
   {
     "id": "lane-3-efdc06d815f3",
@@ -94,5 +1198,1379 @@
     "kind": "original generated footage",
     "promptSource": "adapted starter from original saved prompt; absent reference replaced with self-contained direction",
     "sourceRun": "cinematic-20260907-kling-hero"
+  },
+  {
+    "id": "lunar-freeze-breakdown",
+    "kind": "edited source footage",
+    "batch": "lunar-edits-20260915",
+    "promptSource": "original saved creative prompt",
+    "model": "gpt-5.6-luna",
+    "reasoningEffort": "high",
+    "container": "ta-01M2KNJWA790VE2GW11RFS0NRR",
+    "frameworkCommit": "a501db6f98692aabd2c7a1b9a772cbbf5d17e742",
+    "sourcePage": "https://www.youtube.com/watch?v=7o3Oi9JWsyM",
+    "sourceVideo": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/lunar-edits/20260915/source.mp4",
+    "sourceCredit": "NASA archival film via NasaHD",
+    "sourceAcquisition": "yt-dlp in Modal",
+    "sourceSha256": "3c81ed2ab6f35a040178bf96f43810288fe68299849341629f4d7c46681b9d91",
+    "outputSha256": "9d4fe8e8f9f2547d2475ff6f1c448cbaaf6ab5333f520e7b9fdb1088301a6234",
+    "duration": 12.0,
+    "review": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/lunar-edits/20260915/lunar-freeze-breakdown/review.md",
+    "verification": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/lunar-edits/20260915/lunar-freeze-breakdown/verification.json",
+    "editableSource": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/lunar-edits/20260915/lunar-freeze-breakdown/source.zip",
+    "prompt": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/lunar-edits/20260915/lunar-freeze-breakdown/creative-prompt.txt"
+  },
+  {
+    "id": "lunar-time-triptych",
+    "kind": "edited source footage",
+    "batch": "lunar-edits-20260915",
+    "promptSource": "original saved creative prompt",
+    "model": "gpt-5.6-luna",
+    "reasoningEffort": "high",
+    "container": "ta-01M2KNK0QZ9EHHC4S47B02KF9R",
+    "frameworkCommit": "a501db6f98692aabd2c7a1b9a772cbbf5d17e742",
+    "sourcePage": "https://www.youtube.com/watch?v=7o3Oi9JWsyM",
+    "sourceVideo": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/lunar-edits/20260915/source.mp4",
+    "sourceCredit": "NASA archival film via NasaHD",
+    "sourceAcquisition": "yt-dlp in Modal",
+    "sourceSha256": "3c81ed2ab6f35a040178bf96f43810288fe68299849341629f4d7c46681b9d91",
+    "outputSha256": "0f7d08422f616ec913ac340dc21c9d2f957015ccd378f2c12da257e9d820d13f",
+    "duration": 12.0,
+    "review": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/lunar-edits/20260915/lunar-time-triptych/review.md",
+    "verification": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/lunar-edits/20260915/lunar-time-triptych/verification.json",
+    "editableSource": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/lunar-edits/20260915/lunar-time-triptych/source.zip",
+    "prompt": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/lunar-edits/20260915/lunar-time-triptych/creative-prompt.txt"
+  },
+  {
+    "id": "lunar-tracked-spotlight",
+    "kind": "edited source footage",
+    "batch": "lunar-edits-20260915",
+    "promptSource": "original saved creative prompt",
+    "model": "gpt-5.6-luna",
+    "reasoningEffort": "high",
+    "container": "ta-01M2KNK4A3RKX1X1N957GYDKVR",
+    "frameworkCommit": "a501db6f98692aabd2c7a1b9a772cbbf5d17e742",
+    "sourcePage": "https://www.youtube.com/watch?v=7o3Oi9JWsyM",
+    "sourceVideo": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/lunar-edits/20260915/source.mp4",
+    "sourceCredit": "NASA archival film via NasaHD",
+    "sourceAcquisition": "yt-dlp in Modal",
+    "sourceSha256": "3c81ed2ab6f35a040178bf96f43810288fe68299849341629f4d7c46681b9d91",
+    "outputSha256": "52c288f1a875b0f190357350a7d9519b7408adf9fbfaa07b3d26a8551229be7c",
+    "duration": 12.0,
+    "review": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/lunar-edits/20260915/lunar-tracked-spotlight/review.md",
+    "verification": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/lunar-edits/20260915/lunar-tracked-spotlight/verification.json",
+    "editableSource": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/lunar-edits/20260915/lunar-tracked-spotlight/source.zip",
+    "prompt": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/lunar-edits/20260915/lunar-tracked-spotlight/creative-prompt.txt"
+  },
+  {
+    "id": "lunar-analog-monitor",
+    "kind": "edited source footage",
+    "batch": "lunar-edits-20260915",
+    "promptSource": "original saved creative prompt",
+    "model": "gpt-5.6-luna",
+    "reasoningEffort": "high",
+    "container": "ta-01M2KNJTR02Y137Y154SQG1D3R",
+    "frameworkCommit": "a501db6f98692aabd2c7a1b9a772cbbf5d17e742",
+    "sourcePage": "https://www.youtube.com/watch?v=7o3Oi9JWsyM",
+    "sourceVideo": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/lunar-edits/20260915/source.mp4",
+    "sourceCredit": "NASA archival film via NasaHD",
+    "sourceAcquisition": "yt-dlp in Modal",
+    "sourceSha256": "3c81ed2ab6f35a040178bf96f43810288fe68299849341629f4d7c46681b9d91",
+    "outputSha256": "5b3a8328452aee4da1eeaabcc65c0014e0a15de5be434b104be2f22616e9c40c",
+    "duration": 12.0,
+    "review": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/lunar-edits/20260915/lunar-analog-monitor/review.md",
+    "verification": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/lunar-edits/20260915/lunar-analog-monitor/verification.json",
+    "editableSource": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/lunar-edits/20260915/lunar-analog-monitor/source.zip",
+    "prompt": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/lunar-edits/20260915/lunar-analog-monitor/creative-prompt.txt"
+  },
+  {
+    "id": "practical-cut-pauses",
+    "kind": "practical edit of independently acquired raw footage",
+    "sourceBatch": "practical-edits-20260915",
+    "sourceRun": "practical-cut-pauses",
+    "sourceTitle": "Sony ZV-E10 Unboxing & First Impressions (Real & Unedited!)",
+    "sourcePage": "https://www.youtube.com/watch?v=WYAHYdDLT20",
+    "sourceUploader": "Booked And Profitable",
+    "sourceMedia": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/sources/unboxing/source.mp4",
+    "sourceSha256": "e81e9354e042ed9e4b6fd2a84c0bf0302754531f33b303a2349d3fe8c4eff334",
+    "transcriptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/sources/unboxing/transcript.json",
+    "model": "gpt-5.6-luna",
+    "reasoningEffort": "high",
+    "container": "ta-01M2KRF3YB0ST7NN5WTZFDCMPR",
+    "frameworkCommit": "a501db6f98692aabd2c7a1b9a772cbbf5d17e742",
+    "frameworkArchiveSha256": "05fd8b423534aa11b3583c38c376a957e150e46d0b385157fd22a4ac9fb53374",
+    "production": "yt-dlp acquisition and four independent editing agents ran in Modal",
+    "websiteReview": {
+      "approved": true,
+      "sha256": "93ce2d022c09fd06610ac1d0344f8a7a62673b602cee8ae7ff8e11bb0907af6d",
+      "checks": [
+        "16-frame encoded storyboard inspected",
+        "6 actual source selections and removed spans checked against EDL",
+        "Independent final Scribe retains coherent product comments",
+        "Audio peak -0.8 dB, full decode passed"
+      ],
+      "limitation": "No real-time human audition"
+    },
+    "storage": "Cloudflare R2",
+    "websiteSha256": "93ce2d022c09fd06610ac1d0344f8a7a62673b602cee8ae7ff8e11bb0907af6d",
+    "promptSource": "exact creative prompt; technical delivery instructions stored separately",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/practical-cut-pauses/source.zip",
+    "sourceArchiveScope": "Editable EDL, scripts, transcript, timing decisions and review evidence",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/practical-cut-pauses/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/practical-cut-pauses/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/practical-cut-pauses/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/practical-cut-pauses/creative-prompt.txt",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/practical-cut-pauses/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/practical-cut-pauses/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "practical-show-details",
+    "kind": "practical edit of independently acquired raw footage",
+    "sourceBatch": "practical-edits-20260915",
+    "sourceRun": "practical-show-details",
+    "sourceTitle": "Sony ZV-E10 Unboxing & First Impressions (Real & Unedited!)",
+    "sourcePage": "https://www.youtube.com/watch?v=WYAHYdDLT20",
+    "sourceUploader": "Booked And Profitable",
+    "sourceMedia": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/sources/unboxing/source.mp4",
+    "sourceSha256": "e81e9354e042ed9e4b6fd2a84c0bf0302754531f33b303a2349d3fe8c4eff334",
+    "transcriptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/sources/unboxing/transcript.json",
+    "model": "gpt-5.6-luna",
+    "reasoningEffort": "high",
+    "container": "ta-01M2KRYT326X0HRSVYCY0MANGR",
+    "frameworkCommit": "a501db6f98692aabd2c7a1b9a772cbbf5d17e742",
+    "frameworkArchiveSha256": "05fd8b423534aa11b3583c38c376a957e150e46d0b385157fd22a4ac9fb53374",
+    "production": "yt-dlp acquisition and four independent editing agents ran in Modal",
+    "websiteReview": {
+      "approved": true,
+      "sha256": "249b664611dd0b0776a9c92d9a08430bed9ecde1e4cb734e70379bb1defe56b8",
+      "checks": [
+        "16-frame encoded storyboard inspected",
+        "3 source selections show full camera lens and finished state",
+        "Independent final Scribe contains complete source statements",
+        "Audio peak -1.2 dB full decode passed"
+      ],
+      "limitation": "No real-time human audition"
+    },
+    "storage": "Cloudflare R2",
+    "websiteSha256": "249b664611dd0b0776a9c92d9a08430bed9ecde1e4cb734e70379bb1defe56b8",
+    "promptSource": "exact creative prompt; technical delivery instructions stored separately",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/practical-show-details/source.zip",
+    "sourceArchiveScope": "Editable EDL, scripts, transcript, timing decisions and review evidence",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/practical-show-details/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/practical-show-details/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/practical-show-details/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/practical-show-details/creative-prompt.txt",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/practical-show-details/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/practical-show-details/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "practical-skip-waiting",
+    "kind": "practical edit of independently acquired raw footage",
+    "sourceBatch": "practical-edits-20260915",
+    "sourceRun": "practical-skip-waiting",
+    "sourceTitle": "Sony ZV-E10 Unboxing & First Impressions (Real & Unedited!)",
+    "sourcePage": "https://www.youtube.com/watch?v=WYAHYdDLT20",
+    "sourceUploader": "Booked And Profitable",
+    "sourceMedia": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/sources/unboxing/source.mp4",
+    "sourceSha256": "e81e9354e042ed9e4b6fd2a84c0bf0302754531f33b303a2349d3fe8c4eff334",
+    "transcriptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/sources/unboxing/transcript.json",
+    "model": "gpt-5.6-luna",
+    "reasoningEffort": "high",
+    "container": "ta-01M2KRQBD8C62KAVSVJDB79A5R",
+    "frameworkCommit": "a501db6f98692aabd2c7a1b9a772cbbf5d17e742",
+    "frameworkArchiveSha256": "05fd8b423534aa11b3583c38c376a957e150e46d0b385157fd22a4ac9fb53374",
+    "production": "yt-dlp acquisition and four independent editing agents ran in Modal",
+    "websiteReview": {
+      "approved": true,
+      "sha256": "4b8ad0539a2938d2a437c8d3a7f9cea0032c9007830c45180606dd58d5d30406",
+      "checks": [
+        "Revised encoded storyboard inspected",
+        "Five decisive actions in source order",
+        "Independent final Scribe confirms all source sentences complete after word-boundary correction",
+        "Audio peak -1.0 dB full decode passed"
+      ],
+      "correction": "Final source boundaries revised in website QC to preserve complete speech",
+      "limitation": "No real-time human audition"
+    },
+    "storage": "Cloudflare R2",
+    "websiteSha256": "4b8ad0539a2938d2a437c8d3a7f9cea0032c9007830c45180606dd58d5d30406",
+    "promptSource": "exact creative prompt; technical delivery instructions stored separately",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/practical-skip-waiting/speech-boundaries-v2/source.zip",
+    "sourceArchiveScope": "Editable EDL, scripts, transcript, timing decisions and review evidence",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/practical-skip-waiting/speech-boundaries-v2/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/practical-skip-waiting/speech-boundaries-v2/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/practical-skip-waiting/speech-boundaries-v2/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/practical-skip-waiting/speech-boundaries-v2/creative-prompt.txt",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/practical-skip-waiting/speech-boundaries-v2/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/practical-skip-waiting/speech-boundaries-v2/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "practical-vertical-reframe",
+    "kind": "practical edit of independently acquired raw footage",
+    "sourceBatch": "practical-edits-20260915",
+    "sourceRun": "practical-vertical-reframe",
+    "sourceTitle": "Sony ZV-E10 Unboxing & First Impressions (Real & Unedited!)",
+    "sourcePage": "https://www.youtube.com/watch?v=WYAHYdDLT20",
+    "sourceUploader": "Booked And Profitable",
+    "sourceMedia": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/sources/unboxing/source.mp4",
+    "sourceSha256": "e81e9354e042ed9e4b6fd2a84c0bf0302754531f33b303a2349d3fe8c4eff334",
+    "transcriptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/sources/unboxing/transcript.json",
+    "model": "gpt-5.6-luna",
+    "reasoningEffort": "high",
+    "container": "ta-01M2KRF4V2V935448VM3B884SR",
+    "frameworkCommit": "a501db6f98692aabd2c7a1b9a772cbbf5d17e742",
+    "frameworkArchiveSha256": "05fd8b423534aa11b3583c38c376a957e150e46d0b385157fd22a4ac9fb53374",
+    "production": "yt-dlp acquisition and four independent editing agents ran in Modal",
+    "websiteReview": {
+      "approved": true,
+      "sha256": "999baffb413509cb25f56e122165cafa7a70d0ae7a4f6bbeaf9a8eb28021f42c",
+      "checks": [
+        "Final v4 encoded storyboard inspected",
+        "Captions centered in clear wall above product throughout all six text states",
+        "Five source selections remove 16.05 seconds of handling gaps",
+        "Source-backed speech independently transcribed; final caption compositor copies AAC audio unchanged",
+        "Full decode passed"
+      ],
+      "correction": "Captions composited after portrait crop with explicit upper placement through saved render_caption_placement.py",
+      "limitation": "No real-time human audition"
+    },
+    "storage": "Cloudflare R2",
+    "websiteSha256": "999baffb413509cb25f56e122165cafa7a70d0ae7a4f6bbeaf9a8eb28021f42c",
+    "promptSource": "exact creative prompt; technical delivery instructions stored separately",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/practical-vertical-reframe/caption-placement-v4/source.zip",
+    "sourceArchiveScope": "Editable EDL, scripts, transcript, timing decisions and review evidence",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/practical-vertical-reframe/caption-placement-v4/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/practical-vertical-reframe/caption-placement-v4/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/practical-vertical-reframe/caption-placement-v4/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/practical-vertical-reframe/caption-placement-v4/creative-prompt.txt",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/practical-vertical-reframe/caption-placement-v4/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/practical-vertical-reframe/caption-placement-v4/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "edit-velocity",
+    "kind": "new edit of one shared licensed source film",
+    "model": "gpt-5.6-luna",
+    "reasoningEffort": "high",
+    "containerId": "ta-01M2KP4WR9R5956BKA0G02KV8R",
+    "lane": 1,
+    "sourceRun": "edit-velocity",
+    "sourceCommit": "2c25bb58cabdfb02203ff2a637b48d60143b7dc4",
+    "frameworkSha256": "a6d193154b9459d38ea919d4969e0960cfefc26be9f054e2e6d32c830145b8b7",
+    "promptSource": "Exact creative request, unchanged; full request includes shared delivery and review instructions",
+    "creativePrompt": "Use only the supplied Tears of Steel source video to make a 12-second widescreen action edit called Velocity. Inspect the source first and choose four genuinely energetic shots with clear camera or subject motion; avoid dialogue-only holds and credits. Build a readable arc: 0–2s an intriguing moving detail, 2–5s three escalating action cuts, 5–8s one hero movement that eases from 100% to 45% speed for its peak then accelerates to 220%, 8–11s a decisive payoff, 11–12s a clean visual finish. Cut on matching movement directions and use two 6-frame whip transitions only where source motion supports them. Add a single 6% punch-in on the strongest impact. Preserve sharp faces and edges; use frame sampling if interpolation bends objects. Keep original environmental sound where useful, add a restrained original percussive pulse and two synchronized impacts, and duck the pulse under any retained intelligible speech. No stock footage, no new generated scenes, no full-screen captions, and no random flash/glitch effects. Deliver one polished 1920x1080 H264 MP4 with intentional crops, no stretched image, plus source timecodes and an edit decision list. The edit must still clearly communicate acceleration and payoff when muted.",
+    "fullPromptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/edit-velocity/prompt.txt",
+    "sourceFootage": {
+      "title": "Tears of Steel",
+      "credit": "(CC) Blender Foundation | mango.blender.org",
+      "url": "https://www.youtube.com/watch?v=R6MlUcmOul8",
+      "license": "https://creativecommons.org/licenses/by/3.0/",
+      "licenseDeclaration": "https://mango.blender.org/sharing/",
+      "acquisition": "yt-dlp",
+      "sha256": "3673b5d17318ec2629b566f6c3d83992547888da540ae948543d0230e5c5ab32",
+      "modifications": "Acceleration, a slow-motion peak, and cuts that follow the action."
+    },
+    "storage": "Cloudflare R2",
+    "websiteSha256": "2a245d64a59e19472e6fd827ab1855e256193eeab8a9bf02bf319422a2602fd6",
+    "width": 1920,
+    "height": 1080,
+    "fullDecodePassed": true,
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/edit-velocity/recovered-2/verification.json",
+    "editableSourceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/edit-velocity/recovered-2/source.zip",
+    "reviewStoryboard": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/edit-velocity/recovered-2/storyboard.jpg",
+    "agentReviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/edit-velocity/recovered-2/review.md",
+    "criticalFrameReviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/review/edit-velocity-2a245d64a59e-p2_4/critical.jpg",
+    "revisionContainerId": "ta-01M2KTV76923X86G1RJ1M83TTR",
+    "priorRevisionContainerId": "ta-01M2KRR2S1QX7N1S7D05S3TXZR",
+    "deliveryContainerId": "ta-01M2KTV76923X86G1RJ1M83TTR",
+    "deliveryMethod": "Durable Luna high targeted repair and host delivery",
+    "repairPromptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/edit-velocity/recovered-2/repair_prompt.txt",
+    "finishPromptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/edit-velocity/recovered-2/finish_prompt.txt",
+    "review": [
+      "Continuous smoothstep speed1→0.45→2.2 and integrated source-time map independently evaluated; source and speed joins are continuous, with smooth2.2→1 payoff return.",
+      "Final implementation uses six-frame whips88–93 and116–121, one-based overlay(n-1)/5 and zero-based maskN/5; translation ends at0 and mask becomes opaque.",
+      "Independently decoded candidate frames86–95 and114–123 show no retained outgoing strip, black gap, or prior10percent tail-registration snap.",
+      "Independently decoded ramp frames149–250 show advancing source motion and no interpolation deformation; code-derived timing establishes continuous acceleration, beyond what stills alone can show.",
+      "Both settled punch branches scale2034x1144 then center-crop1920x1080. Encoded frames327–333 show continuing source motion without an additional scale reset.",
+      "Final candidate hash matches the author repair_checks ledger."
+    ],
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/edit-velocity/recovered-2/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/review/edit-velocity-2a245d64a59e-p2_4/feature-poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "edit-freeze_poster",
+    "kind": "new edit of one shared licensed source film",
+    "model": "gpt-5.6-luna",
+    "reasoningEffort": "high",
+    "containerId": "ta-01M2KP4XK2DMFJ0FEMKNKBRDPR",
+    "lane": 2,
+    "sourceRun": "edit-freeze_poster",
+    "sourceCommit": "2c25bb58cabdfb02203ff2a637b48d60143b7dc4",
+    "frameworkSha256": "a6d193154b9459d38ea919d4969e0960cfefc26be9f054e2e6d32c830145b8b7",
+    "promptSource": "Exact creative request, unchanged; full request includes shared delivery and review instructions",
+    "creativePrompt": "Turn the same supplied Tears of Steel source into a 12-second widescreen moving film poster. Choose one continuous shot with at least 6 seconds of usable motion with a clear expressive character or striking mechanical silhouette. Start full-screen in motion for 2.5s; stop precisely on the strongest pose with a clean 8-frame camera ease, then animate the frozen image into a large offset rectangular crop over a warm ivory background. Reveal three small close-up tiles from that exact same frame—an eye or face detail, a mechanical detail, and a texture—with precise staggered slides. Use bold condensed black typography reading 'A MOMENT / IN MOTION', one small burnt-orange index '01', and thin alignment rules. Keep the frozen hero recognizably photographic and let scale/position supply depth; do not attempt a rough automatic cutout. Hold the completed editorial poster from 6.5–9s, then resolve the tiles into the full original frame and resume its source motion from the exact held frame for the final 3s. Use restrained dry camera clicks and the source ambience. No footage beyond the one source. Deliver 1920x1080 H264 MP4, crisp type, generous margins, no unreadable microtext, source timecodes, and the edit decision list.",
+    "fullPromptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/edit-freeze_poster/prompt.txt",
+    "sourceFootage": {
+      "title": "Tears of Steel",
+      "credit": "(CC) Blender Foundation | mango.blender.org",
+      "url": "https://www.youtube.com/watch?v=R6MlUcmOul8",
+      "license": "https://creativecommons.org/licenses/by/3.0/",
+      "licenseDeclaration": "https://mango.blender.org/sharing/",
+      "acquisition": "yt-dlp",
+      "sha256": "3673b5d17318ec2629b566f6c3d83992547888da540ae948543d0230e5c5ab32",
+      "modifications": "A moving shot becomes an editorial poster, then returns to motion."
+    },
+    "storage": "Cloudflare R2",
+    "websiteSha256": "a3efc69b40d1e5d09854b8fecdd06ce5ceffd7760378df9384d460956acaf4fa",
+    "width": 1920,
+    "height": 1080,
+    "fullDecodePassed": true,
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/edit-freeze_poster/verification.json",
+    "editableSourceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/edit-freeze_poster/source.zip",
+    "reviewStoryboard": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/edit-freeze_poster/storyboard.jpg",
+    "agentReviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/edit-freeze_poster/review.md",
+    "criticalFrameReviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/review/edit-freeze_poster-a3efc69b40d1-p7_2/critical.jpg",
+    "revisionContainerId": null,
+    "priorRevisionContainerId": null,
+    "deliveryContainerId": null,
+    "deliveryMethod": "Author container rendering and verified host upload",
+    "repairPromptUrl": null,
+    "finishPromptUrl": null,
+    "review": [
+      "Critical encoded frames 74/75/76/83 show continuous shot entering frozen poster; short layered transition is intentional and resolves cleanly.",
+      "Poster has readable condensed two-line title, warm ivory board, orange 01, thin rules, and three distinct same-pose detail crops. No visible clipping or stretched subject.",
+      "Encoded frames 195,216,269 show stable completed poster through the required 6.5–9 second hold.",
+      "Frames 270/271 begin the poster resolve; 285,315,359 show returned full-frame shot and advancing motion without a visible source-shot jump.",
+      "Metadata confirms 12 seconds, 360 decoded frames, 1920x1080 H264 30fps and stereo 48kHz AAC. Cloud review independently confirms byte range and faststart."
+    ],
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/edit-freeze_poster/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/review/edit-freeze_poster-a3efc69b40d1-p7_2/feature-poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "edit-triptych",
+    "kind": "new edit of one shared licensed source film",
+    "model": "gpt-5.6-luna",
+    "reasoningEffort": "high",
+    "containerId": "ta-01M2KP4YJ0CVAXTCKV2EFJ02CR",
+    "lane": 3,
+    "sourceRun": "edit-triptych",
+    "sourceCommit": "2c25bb58cabdfb02203ff2a637b48d60143b7dc4",
+    "frameworkSha256": "a6d193154b9459d38ea919d4969e0960cfefc26be9f054e2e6d32c830145b8b7",
+    "promptSource": "Exact creative request, unchanged; full request includes shared delivery and review instructions",
+    "creativePrompt": "Create a 12-second 1920x1080 widescreen editorial split-screen film using only the same supplied Tears of Steel source. Pick one short sequence with a clear subject and useful wide, medium, and close-up views. Open as one uninterrupted full-width shot for 1.5s. Slide two thin cream dividers into place over 0.5s to reveal a deliberate 25% / 50% / 25% triptych: left is an environment or gesture detail, center is the hero action, right is a face or mechanical detail. Use different source moments or crops, never three identical copies; align the most important actions to meet at 5s. At 6s smoothly transfer the center panel's dominance to the right by resizing the panels over 12 frames, maintaining every subject's framing. At 9s make a clean synchronized match cut across all three panels. From 10.5–12s expand the strongest panel to full screen and finish on a satisfying moving frame. White balance all panels coherently and use warm off-white 5px gutters, no rounded app-card styling. Retain a continuous source ambience with gentle edit accents. No captions except small optional '01', '02', '03' outside faces. Deliver the MP4 and exact crop/timecode decisions. Every panel must visibly contribute a different view.",
+    "fullPromptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/edit-triptych/prompt.txt",
+    "sourceFootage": {
+      "title": "Tears of Steel",
+      "credit": "(CC) Blender Foundation | mango.blender.org",
+      "url": "https://www.youtube.com/watch?v=R6MlUcmOul8",
+      "license": "https://creativecommons.org/licenses/by/3.0/",
+      "licenseDeclaration": "https://mango.blender.org/sharing/",
+      "acquisition": "yt-dlp",
+      "sha256": "3673b5d17318ec2629b566f6c3d83992547888da540ae948543d0230e5c5ab32",
+      "modifications": "Three views share the frame and exchange emphasis."
+    },
+    "storage": "Cloudflare R2",
+    "websiteSha256": "7f3d432833ed5cf540e631a14b53fff3b2ef4ac2a5b418c64bad21c7b11a5a16",
+    "width": 1920,
+    "height": 1080,
+    "fullDecodePassed": true,
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/edit-triptych/verification.json",
+    "editableSourceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/edit-triptych/source.zip",
+    "reviewStoryboard": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/edit-triptych/storyboard.jpg",
+    "agentReviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/edit-triptych/review.md",
+    "criticalFrameReviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/review/edit-triptych-7f3d432833ed-p8_9667/critical.jpg",
+    "revisionContainerId": null,
+    "priorRevisionContainerId": null,
+    "deliveryContainerId": null,
+    "deliveryMethod": "Author container rendering and verified host upload",
+    "repairPromptUrl": null,
+    "finishPromptUrl": null,
+    "review": [
+      "Encoded frames 44/45/53/59/60 show full-width opening, intentional blended divider reveal, and settled 25/50/25 layout by 2 seconds.",
+      "Frames149/150 show distinct source moments and crops with coherent cool white balance, fine warm cream dividers, and no obvious stretched subject.",
+      "Frames179/180/186/192 show the center-to-right geometry transfer settling into 25/25/50 at6.4 seconds; mechanical/rifle detail remains visible during the transfer.",
+      "Before-cut frame269 shows three active face views. Later314/315 show synchronized alternate content in all three panels; exact frame270 cut is not independently established because frame270 appears very similar to269 in the critical sheet.",
+      "Frames315/359 show the dominant right panel expanding into full width; final facial expression has changed, providing visible evidence of continuing source motion.",
+      "Metadata reports12 seconds/360 picture frames and12.011-second container from AAC padding,1920x1080 H26430fps, stereo48kHz AAC, and successful full decode."
+    ],
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/edit-triptych/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/review/edit-triptych-7f3d432833ed-p8_9667/feature-poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "edit-after_dark",
+    "kind": "new edit of one shared licensed source film",
+    "model": "gpt-5.6-luna",
+    "reasoningEffort": "high",
+    "containerId": "ta-01M2KP4ZKGNZZQTN89K2X9R1HR",
+    "lane": 4,
+    "sourceRun": "edit-after_dark",
+    "sourceCommit": "2c25bb58cabdfb02203ff2a637b48d60143b7dc4",
+    "frameworkSha256": "a6d193154b9459d38ea919d4969e0960cfefc26be9f054e2e6d32c830145b8b7",
+    "promptSource": "Exact creative request, unchanged; full request includes shared delivery and review instructions",
+    "creativePrompt": "Create a 10-second cinematic color transformation from the same supplied Tears of Steel source. Select one continuous shot with a face, strong practical lights or glowing machinery, and meaningful shadow detail. For the first 1.25s show the untouched source. Then let a thin vertical comparison edge travel from left to right over 1.25s, revealing a carefully balanced nocturnal grade: deep cool shadows, warm controlled highlights, natural skin, gentle highlight rolloff, and readable blacks. During 2.5–7.5s give the graded image a very restrained 4% camera push while keeping the shot continuous and preserving its actual action. In the final 2.5s show a concise moving 50/50 original-versus-grade comparison with small crisp 'SOURCE' and 'AFTER DARK' labels in the lower safe area. The change must be obvious but tasteful—no crushed eyes, orange faces, excessive saturation, faux scratches, or synthetic grain. Do not call an already graded source LOG and do not add fake camera metadata. Preserve source ambience and use no new music. Deliver one 1920x1080 H264 MP4 plus source timecode and a concise list of the actual grading adjustments.",
+    "fullPromptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/edit-after_dark/repair-baseline/prompt.txt",
+    "sourceFootage": {
+      "title": "Tears of Steel",
+      "credit": "(CC) Blender Foundation | mango.blender.org",
+      "url": "https://www.youtube.com/watch?v=R6MlUcmOul8",
+      "license": "https://creativecommons.org/licenses/by/3.0/",
+      "licenseDeclaration": "https://mango.blender.org/sharing/",
+      "acquisition": "yt-dlp",
+      "sha256": "3673b5d17318ec2629b566f6c3d83992547888da540ae948543d0230e5c5ab32",
+      "modifications": "A moving comparison reveals cool shadows and controlled warm highlights."
+    },
+    "storage": "Cloudflare R2",
+    "websiteSha256": "d42c634df88e61c0e5bf841bd6332f6eae6186ae3e464ad17715bfe99c857849",
+    "width": 1920,
+    "height": 1080,
+    "fullDecodePassed": true,
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/edit-after_dark/revision-2/verification.json",
+    "editableSourceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/edit-after_dark/revision-2/source.zip",
+    "reviewStoryboard": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/edit-after_dark/revision-2/storyboard.jpg",
+    "agentReviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/edit-after_dark/revision-2/review.md",
+    "criticalFrameReviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/review/edit-after_dark-d42c634df88e-p8_5/critical.jpg",
+    "revisionContainerId": "ta-01M2KTV5DC1J810ENX7HXY349R",
+    "priorRevisionContainerId": null,
+    "deliveryContainerId": null,
+    "deliveryMethod": "Author container rendering and verified host upload",
+    "repairPromptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/edit-after_dark/revision-2/repair_prompt.txt",
+    "finishPromptUrl": null,
+    "review": [
+      "Encoded 1.2667–2.4667s reveals graded pixels behind the left-to-right edge, with source ahead.",
+      "Encoded 7.4667–7.5s retains settled 104% framing; the previous widening jump is fixed.",
+      "Original and graded halves remain registered; natural skin and controlled highlights are preserved.",
+      "300 frames at 30fps,1920x1080 H264 yuv420p,48kHz stereo AAC.",
+      "Poster at8.5s clearly shows the comparison labels.",
+      "The full public video download SHA matches the independently reviewed snapshot."
+    ],
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/edit-after_dark/revision-2/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/review/edit-after_dark-d42c634df88e-p8_5/feature-poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "local-motion-20260916-01-pressure-type",
+    "kind": "original authored motion design",
+    "sourceBatch": "motion-local-20260916",
+    "sourceRun": "01-pressure-type",
+    "family": "Graphic motion",
+    "production": "Original procedural artwork and choreography authored locally; local browser rendering and FFmpeg encoding",
+    "promptSource": "Authored production brief for this study, preserved separately from the original open-ended collection request; presented as a reusable starter prompt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/01-pressure-type-feceba8fa41f/prompt.txt",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "feceba8fa41ff1e4558f299a4573ce7391ba49adf825be8108b9010906a7c7b1",
+    "websiteAudio": "none; original silent render",
+    "rendererSha256": "250ef13bace5e0fcb56f20ddb6a4571e83b582567570edb384d0b7f11e23fe59",
+    "sourceCodeSha256": "f3c9fe1b9660de39772fbd735b834ade766d6537e90d16b1ec2a3a1ed9614292",
+    "sourceAvailability": "Editable browser projects and pinned dependencies retained in the local Motion Design Collection delivery",
+    "reviewMethod": "Rendered proof images, 20 decoded frames per export, independent cross-review of selected pieces, and complete technical decoding; no real-time aesthetic playback review",
+    "verification": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "duration": 10,
+      "decodedFrames": 300,
+      "technicalPass": true,
+      "publicRangeVerified": true
+    },
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/01-pressure-type-feceba8fa41f/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/01-pressure-type-feceba8fa41f/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "local-motion-20260916-02-chromatic-weave",
+    "kind": "original authored motion design",
+    "sourceBatch": "motion-local-20260916",
+    "sourceRun": "02-chromatic-weave",
+    "family": "Graphic motion",
+    "production": "Original procedural artwork and choreography authored locally; local browser rendering and FFmpeg encoding",
+    "promptSource": "Authored production brief for this study, preserved separately from the original open-ended collection request; presented as a reusable starter prompt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/02-chromatic-weave-a393bfde7e4c/prompt.txt",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "a393bfde7e4c46634fe534cc92d2f61ccfce31265ef78c70d6965c392a8b4c38",
+    "websiteAudio": "none; original silent render",
+    "rendererSha256": "250ef13bace5e0fcb56f20ddb6a4571e83b582567570edb384d0b7f11e23fe59",
+    "sourceCodeSha256": "904537fb24842dca7f9f115611225514d481ebe710872f3e941705809e662630",
+    "sourceAvailability": "Editable browser projects and pinned dependencies retained in the local Motion Design Collection delivery",
+    "reviewMethod": "Rendered proof images, 20 decoded frames per export, independent cross-review of selected pieces, and complete technical decoding; no real-time aesthetic playback review",
+    "verification": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "duration": 10,
+      "decodedFrames": 300,
+      "technicalPass": true,
+      "publicRangeVerified": true
+    },
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/02-chromatic-weave-a393bfde7e4c/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/02-chromatic-weave-a393bfde7e4c/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "local-motion-20260916-03-slice-clock",
+    "kind": "original authored motion design",
+    "sourceBatch": "motion-local-20260916",
+    "sourceRun": "03-slice-clock",
+    "family": "Graphic motion",
+    "production": "Original procedural artwork and choreography authored locally; local browser rendering and FFmpeg encoding",
+    "promptSource": "Authored production brief for this study, preserved separately from the original open-ended collection request; presented as a reusable starter prompt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/03-slice-clock-0cfc967e0ec6/prompt.txt",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "0cfc967e0ec6510062cfd0e15b288494fd024d3aaa7d61aa30ba7fe9345301d1",
+    "websiteAudio": "none; original silent render",
+    "rendererSha256": "250ef13bace5e0fcb56f20ddb6a4571e83b582567570edb384d0b7f11e23fe59",
+    "sourceCodeSha256": "b60b329f4919d1e5b8ee3e6b87228b5dcd10c1c6f716c60c13c6b45dd1342ee1",
+    "sourceAvailability": "Editable browser projects and pinned dependencies retained in the local Motion Design Collection delivery",
+    "reviewMethod": "Rendered proof images, 20 decoded frames per export, independent cross-review of selected pieces, and complete technical decoding; no real-time aesthetic playback review",
+    "verification": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "duration": 10,
+      "decodedFrames": 300,
+      "technicalPass": true,
+      "publicRangeVerified": true
+    },
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/03-slice-clock-0cfc967e0ec6/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/03-slice-clock-0cfc967e0ec6/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "local-motion-20260916-04-ink-relay",
+    "kind": "original authored motion design",
+    "sourceBatch": "motion-local-20260916",
+    "sourceRun": "04-ink-relay",
+    "family": "Graphic motion",
+    "production": "Original procedural artwork and choreography authored locally; local browser rendering and FFmpeg encoding",
+    "promptSource": "Authored production brief for this study, preserved separately from the original open-ended collection request; presented as a reusable starter prompt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/04-ink-relay-8ef8e5449def/prompt.txt",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "8ef8e5449def3043c492f5b53d2465e742943a465a156a0ad27f17ea2b22d726",
+    "websiteAudio": "none; original silent render",
+    "rendererSha256": "250ef13bace5e0fcb56f20ddb6a4571e83b582567570edb384d0b7f11e23fe59",
+    "sourceCodeSha256": "3be29a049a6cbb2921e1640c0a10d222c921f9b3f13c04cc44352ccc683f9829",
+    "sourceAvailability": "Editable browser projects and pinned dependencies retained in the local Motion Design Collection delivery",
+    "reviewMethod": "Rendered proof images, 20 decoded frames per export, independent cross-review of selected pieces, and complete technical decoding; no real-time aesthetic playback review",
+    "verification": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "duration": 10,
+      "decodedFrames": 300,
+      "technicalPass": true,
+      "publicRangeVerified": true
+    },
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/04-ink-relay-8ef8e5449def/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/04-ink-relay-8ef8e5449def/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "local-motion-20260916-05-elastic-grid",
+    "kind": "original authored motion design",
+    "sourceBatch": "motion-local-20260916",
+    "sourceRun": "05-elastic-grid",
+    "family": "Graphic motion",
+    "production": "Original procedural artwork and choreography authored locally; local browser rendering and FFmpeg encoding",
+    "promptSource": "Authored production brief for this study, preserved separately from the original open-ended collection request; presented as a reusable starter prompt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/05-elastic-grid-b6f40de89453/prompt.txt",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "b6f40de89453328aa93cbf37361a55b06b02ed68b8f46b963bdc699f03a9656c",
+    "websiteAudio": "none; original silent render",
+    "rendererSha256": "250ef13bace5e0fcb56f20ddb6a4571e83b582567570edb384d0b7f11e23fe59",
+    "sourceCodeSha256": "b91dccfe4d417dee537c5d3462e6a6451897daefea5361d6a6c9e986b4c6f03b",
+    "sourceAvailability": "Editable browser projects and pinned dependencies retained in the local Motion Design Collection delivery",
+    "reviewMethod": "Rendered proof images, 20 decoded frames per export, independent cross-review of selected pieces, and complete technical decoding; no real-time aesthetic playback review",
+    "verification": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "duration": 10,
+      "decodedFrames": 300,
+      "technicalPass": true,
+      "publicRangeVerified": true
+    },
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/05-elastic-grid-b6f40de89453/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/05-elastic-grid-b6f40de89453/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "local-motion-20260916-06-folded-arrows",
+    "kind": "original authored motion design",
+    "sourceBatch": "motion-local-20260916",
+    "sourceRun": "06-folded-arrows",
+    "family": "Graphic motion",
+    "production": "Original procedural artwork and choreography authored locally; local browser rendering and FFmpeg encoding",
+    "promptSource": "Authored production brief for this study, preserved separately from the original open-ended collection request; presented as a reusable starter prompt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/06-folded-arrows-00014fd5a4b1/prompt.txt",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "00014fd5a4b1db1bbcdd63ac879e0145cbf07d22d95d40387fa6c0f0fb5d88b8",
+    "websiteAudio": "none; original silent render",
+    "rendererSha256": "250ef13bace5e0fcb56f20ddb6a4571e83b582567570edb384d0b7f11e23fe59",
+    "sourceCodeSha256": "6cb9cdcf8ca7192668bc8864a1fec7008e27e3671997b1d5ff6a3439c09bc547",
+    "sourceAvailability": "Editable browser projects and pinned dependencies retained in the local Motion Design Collection delivery",
+    "reviewMethod": "Rendered proof images, 20 decoded frames per export, independent cross-review of selected pieces, and complete technical decoding; no real-time aesthetic playback review",
+    "verification": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "duration": 10,
+      "decodedFrames": 300,
+      "technicalPass": true,
+      "publicRangeVerified": true
+    },
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/06-folded-arrows-00014fd5a4b1/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/06-folded-arrows-00014fd5a4b1/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "local-motion-20260916-07-typographic-tunnel",
+    "kind": "original authored motion design",
+    "sourceBatch": "motion-local-20260916",
+    "sourceRun": "07-typographic-tunnel",
+    "family": "Graphic motion",
+    "production": "Original procedural artwork and choreography authored locally; local browser rendering and FFmpeg encoding",
+    "promptSource": "Authored production brief for this study, preserved separately from the original open-ended collection request; presented as a reusable starter prompt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/07-typographic-tunnel-9c973a1114e6/prompt.txt",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "9c973a1114e69081f9961ba5c0c7f09bd681d1bcfb9c7d08dd3c6d5b6cc4599c",
+    "websiteAudio": "none; original silent render",
+    "rendererSha256": "250ef13bace5e0fcb56f20ddb6a4571e83b582567570edb384d0b7f11e23fe59",
+    "sourceCodeSha256": "7fb90cda24312c172abd73e0736a697e286a6503266dbcfca877eaff69dec7e4",
+    "sourceAvailability": "Editable browser projects and pinned dependencies retained in the local Motion Design Collection delivery",
+    "reviewMethod": "Rendered proof images, 20 decoded frames per export, independent cross-review of selected pieces, and complete technical decoding; no real-time aesthetic playback review",
+    "verification": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "duration": 10,
+      "decodedFrames": 300,
+      "technicalPass": true,
+      "publicRangeVerified": true
+    },
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/07-typographic-tunnel-9c973a1114e6/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/07-typographic-tunnel-9c973a1114e6/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "local-motion-20260916-08-orbit-score",
+    "kind": "original authored motion design",
+    "sourceBatch": "motion-local-20260916",
+    "sourceRun": "08-orbit-score",
+    "family": "Graphic motion",
+    "production": "Original procedural artwork and choreography authored locally; local browser rendering and FFmpeg encoding",
+    "promptSource": "Authored production brief for this study, preserved separately from the original open-ended collection request; presented as a reusable starter prompt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/08-orbit-score-53e87c61adae/prompt.txt",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "53e87c61adae33f139cb309a0e5b445302b753210f5098844ac1f663879e02a6",
+    "websiteAudio": "none; original silent render",
+    "rendererSha256": "250ef13bace5e0fcb56f20ddb6a4571e83b582567570edb384d0b7f11e23fe59",
+    "sourceCodeSha256": "d0c4880580cc0af5d10abeb7c17b1c6a75ef92dc559700032f43de8dd565226d",
+    "sourceAvailability": "Editable browser projects and pinned dependencies retained in the local Motion Design Collection delivery",
+    "reviewMethod": "Rendered proof images, 20 decoded frames per export, independent cross-review of selected pieces, and complete technical decoding; no real-time aesthetic playback review",
+    "verification": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "duration": 10,
+      "decodedFrames": 300,
+      "technicalPass": true,
+      "publicRangeVerified": true
+    },
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/08-orbit-score-53e87c61adae/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/08-orbit-score-53e87c61adae/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "local-motion-20260916-09-porcelain-bloom",
+    "kind": "original authored motion design",
+    "sourceBatch": "motion-local-20260916",
+    "sourceRun": "09-porcelain-bloom",
+    "family": "Sculptural 3D",
+    "production": "Original procedural artwork and choreography authored locally; local browser rendering and FFmpeg encoding",
+    "promptSource": "Authored production brief for this study, preserved separately from the original open-ended collection request; presented as a reusable starter prompt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/09-porcelain-bloom-776489881f52/prompt.txt",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "776489881f5266a026347c580b6f262e433094352357e4160765e09c13d93c54",
+    "websiteAudio": "none; original silent render",
+    "rendererSha256": "250ef13bace5e0fcb56f20ddb6a4571e83b582567570edb384d0b7f11e23fe59",
+    "sourceCodeSha256": "4aa2dafa566b0216344c8fded7a4d2e70199780cf867447495806b9550894e24",
+    "sourceAvailability": "Editable browser projects and pinned dependencies retained in the local Motion Design Collection delivery",
+    "reviewMethod": "Rendered proof images, 20 decoded frames per export, independent cross-review of selected pieces, and complete technical decoding; no real-time aesthetic playback review",
+    "verification": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "duration": 10,
+      "decodedFrames": 300,
+      "technicalPass": true,
+      "publicRangeVerified": true
+    },
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/09-porcelain-bloom-776489881f52/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/09-porcelain-bloom-776489881f52/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "local-motion-20260916-10-ribbon-knot",
+    "kind": "original authored motion design",
+    "sourceBatch": "motion-local-20260916",
+    "sourceRun": "10-ribbon-knot",
+    "family": "Sculptural 3D",
+    "production": "Original procedural artwork and choreography authored locally; local browser rendering and FFmpeg encoding",
+    "promptSource": "Authored production brief for this study, preserved separately from the original open-ended collection request; presented as a reusable starter prompt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/10-ribbon-knot-4ef8b06d66ac/prompt.txt",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "4ef8b06d66ac128ae18af6fc0dd9c8460e8e021ee79538f8d236b669d9410500",
+    "websiteAudio": "none; original silent render",
+    "rendererSha256": "250ef13bace5e0fcb56f20ddb6a4571e83b582567570edb384d0b7f11e23fe59",
+    "sourceCodeSha256": "a70d3ab1b318743d48f428d4198fcc360eb918cc46ba690e11711973a36253c8",
+    "sourceAvailability": "Editable browser projects and pinned dependencies retained in the local Motion Design Collection delivery",
+    "reviewMethod": "Rendered proof images, 20 decoded frames per export, independent cross-review of selected pieces, and complete technical decoding; no real-time aesthetic playback review",
+    "verification": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "duration": 10,
+      "decodedFrames": 300,
+      "technicalPass": true,
+      "publicRangeVerified": true
+    },
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/10-ribbon-knot-4ef8b06d66ac/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/10-ribbon-knot-4ef8b06d66ac/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "local-motion-20260916-11-magnetic-totem",
+    "kind": "original authored motion design",
+    "sourceBatch": "motion-local-20260916",
+    "sourceRun": "11-magnetic-totem",
+    "family": "Sculptural 3D",
+    "production": "Original procedural artwork and choreography authored locally; local browser rendering and FFmpeg encoding",
+    "promptSource": "Authored production brief for this study, preserved separately from the original open-ended collection request; presented as a reusable starter prompt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/11-magnetic-totem-1bdf67cf33df/prompt.txt",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "1bdf67cf33df893457e9891fc71dbb3f242144a3160bafb5c4f03714277798cb",
+    "websiteAudio": "none; original silent render",
+    "rendererSha256": "250ef13bace5e0fcb56f20ddb6a4571e83b582567570edb384d0b7f11e23fe59",
+    "sourceCodeSha256": "958d759694bdb1ca3a8dcfbafa5e3aa27612f911b5f2b8035e8b981ae529423c",
+    "sourceAvailability": "Editable browser projects and pinned dependencies retained in the local Motion Design Collection delivery",
+    "reviewMethod": "Rendered proof images, 20 decoded frames per export, independent cross-review of selected pieces, and complete technical decoding; no real-time aesthetic playback review",
+    "verification": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "duration": 10,
+      "decodedFrames": 300,
+      "technicalPass": true,
+      "publicRangeVerified": true
+    },
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/11-magnetic-totem-1bdf67cf33df/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/11-magnetic-totem-1bdf67cf33df/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "local-motion-20260916-12-glass-tide",
+    "kind": "original authored motion design",
+    "sourceBatch": "motion-local-20260916",
+    "sourceRun": "12-glass-tide",
+    "family": "Sculptural 3D",
+    "production": "Original procedural artwork and choreography authored locally; local browser rendering and FFmpeg encoding",
+    "promptSource": "Authored production brief for this study, preserved separately from the original open-ended collection request; presented as a reusable starter prompt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/12-glass-tide-db03ccf02fe2/prompt.txt",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "db03ccf02fe27fa9d51b5d31e626fc81dd280cf5a5aaa8d54119be8ca2afd1f6",
+    "websiteAudio": "none; original silent render",
+    "rendererSha256": "250ef13bace5e0fcb56f20ddb6a4571e83b582567570edb384d0b7f11e23fe59",
+    "sourceCodeSha256": "f4ae1b968636fea7e1b48b81131f3b92e8ca61dcf2b92fb9f9b6f81a89dcaeda",
+    "sourceAvailability": "Editable browser projects and pinned dependencies retained in the local Motion Design Collection delivery",
+    "reviewMethod": "Rendered proof images, 20 decoded frames per export, independent cross-review of selected pieces, and complete technical decoding; no real-time aesthetic playback review",
+    "verification": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "duration": 10,
+      "decodedFrames": 300,
+      "technicalPass": true,
+      "publicRangeVerified": true
+    },
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/12-glass-tide-db03ccf02fe2/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/12-glass-tide-db03ccf02fe2/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "local-motion-20260916-13-cam-dance",
+    "kind": "original authored motion design",
+    "sourceBatch": "motion-local-20260916",
+    "sourceRun": "13-cam-dance",
+    "family": "Sculptural 3D",
+    "production": "Original procedural artwork and choreography authored locally; local browser rendering and FFmpeg encoding",
+    "promptSource": "Authored production brief for this study, preserved separately from the original open-ended collection request; presented as a reusable starter prompt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/13-cam-dance-f7e3b6e291c1/prompt.txt",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "f7e3b6e291c1e5cbc1f80667d2e5337944232c1f6f4f07a297ad5ce0a966fe60",
+    "websiteAudio": "none; original silent render",
+    "rendererSha256": "250ef13bace5e0fcb56f20ddb6a4571e83b582567570edb384d0b7f11e23fe59",
+    "sourceCodeSha256": "041be5d22227642600adfd8c5fa5d31b6066da036eaaa3da81d607025568f38c",
+    "sourceAvailability": "Editable browser projects and pinned dependencies retained in the local Motion Design Collection delivery",
+    "reviewMethod": "Rendered proof images, 20 decoded frames per export, independent cross-review of selected pieces, and complete technical decoding; no real-time aesthetic playback review",
+    "verification": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "duration": 10,
+      "decodedFrames": 300,
+      "technicalPass": true,
+      "publicRangeVerified": true
+    },
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/13-cam-dance-f7e3b6e291c1/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/13-cam-dance-f7e3b6e291c1/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "local-motion-20260916-14-pleated-sun",
+    "kind": "original authored motion design",
+    "sourceBatch": "motion-local-20260916",
+    "sourceRun": "14-pleated-sun",
+    "family": "Sculptural 3D",
+    "production": "Original procedural artwork and choreography authored locally; local browser rendering and FFmpeg encoding",
+    "promptSource": "Authored production brief for this study, preserved separately from the original open-ended collection request; presented as a reusable starter prompt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/14-pleated-sun-181644098f06/prompt.txt",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "181644098f063286b2d0745578ccef03a157199691351813d4ed690e1fb4f5ed",
+    "websiteAudio": "none; original silent render",
+    "rendererSha256": "250ef13bace5e0fcb56f20ddb6a4571e83b582567570edb384d0b7f11e23fe59",
+    "sourceCodeSha256": "36364acc5faf37ff4cea3489de985c2a3cef2175f04d8b0bc7fefe730d37ceb9",
+    "sourceAvailability": "Editable browser projects and pinned dependencies retained in the local Motion Design Collection delivery",
+    "reviewMethod": "Rendered proof images, 20 decoded frames per export, independent cross-review of selected pieces, and complete technical decoding; no real-time aesthetic playback review",
+    "verification": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "duration": 10,
+      "decodedFrames": 300,
+      "technicalPass": true,
+      "publicRangeVerified": true
+    },
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/14-pleated-sun-181644098f06/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/14-pleated-sun-181644098f06/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "local-motion-20260916-15-soft-landing",
+    "kind": "original authored motion design",
+    "sourceBatch": "motion-local-20260916",
+    "sourceRun": "15-soft-landing",
+    "family": "Sculptural 3D",
+    "production": "Original procedural artwork and choreography authored locally; local browser rendering and FFmpeg encoding",
+    "promptSource": "Authored production brief for this study, preserved separately from the original open-ended collection request; presented as a reusable starter prompt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/15-soft-landing-2ea2afa4aa8a/prompt.txt",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "2ea2afa4aa8ab794d9aad59f415cf88e46a810dbe6d84123a829b35c6725a70d",
+    "websiteAudio": "none; original silent render",
+    "rendererSha256": "250ef13bace5e0fcb56f20ddb6a4571e83b582567570edb384d0b7f11e23fe59",
+    "sourceCodeSha256": "4e16253ddcad425c605ed7b3ac544aa865d86c91b3d2ff4cfbf256e7a1e95863",
+    "sourceAvailability": "Editable browser projects and pinned dependencies retained in the local Motion Design Collection delivery",
+    "reviewMethod": "Rendered proof images, 20 decoded frames per export, independent cross-review of selected pieces, and complete technical decoding; no real-time aesthetic playback review",
+    "verification": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "duration": 10,
+      "decodedFrames": 300,
+      "technicalPass": true,
+      "publicRangeVerified": true
+    },
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/15-soft-landing-2ea2afa4aa8a/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/15-soft-landing-2ea2afa4aa8a/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "local-motion-20260916-16-orbital-rings",
+    "kind": "original authored motion design",
+    "sourceBatch": "motion-local-20260916",
+    "sourceRun": "16-orbital-rings",
+    "family": "Sculptural 3D",
+    "production": "Original procedural artwork and choreography authored locally; local browser rendering and FFmpeg encoding",
+    "promptSource": "Authored production brief for this study, preserved separately from the original open-ended collection request; presented as a reusable starter prompt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/16-orbital-rings-c20f228cd49c/prompt.txt",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "c20f228cd49cc6517cf3e588ff59edaac37c25504e08a44a41aab160840abf5c",
+    "websiteAudio": "none; original silent render",
+    "rendererSha256": "250ef13bace5e0fcb56f20ddb6a4571e83b582567570edb384d0b7f11e23fe59",
+    "sourceCodeSha256": "f385362e02846fa3eb08ec410de2597d481074d520570fbf608a255a0bb26371",
+    "sourceAvailability": "Editable browser projects and pinned dependencies retained in the local Motion Design Collection delivery",
+    "reviewMethod": "Rendered proof images, 20 decoded frames per export, independent cross-review of selected pieces, and complete technical decoding; no real-time aesthetic playback review",
+    "verification": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "duration": 10,
+      "decodedFrames": 300,
+      "technicalPass": true,
+      "publicRangeVerified": true
+    },
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/16-orbital-rings-c20f228cd49c/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/16-orbital-rings-c20f228cd49c/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "local-motion-20260916-17-night-tram",
+    "kind": "original authored motion design",
+    "sourceBatch": "motion-local-20260916",
+    "sourceRun": "17-night-tram",
+    "family": "Illustrated motion",
+    "production": "Original procedural artwork and choreography authored locally; local browser rendering and FFmpeg encoding",
+    "promptSource": "Authored production brief for this study, preserved separately from the original open-ended collection request; presented as a reusable starter prompt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/17-night-tram-1a152575892c/prompt.txt",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "1a152575892cf009cb05b2216eb48f75f76c2985a210713db96d114173a45e60",
+    "websiteAudio": "none; original silent render",
+    "rendererSha256": "250ef13bace5e0fcb56f20ddb6a4571e83b582567570edb384d0b7f11e23fe59",
+    "sourceCodeSha256": "8392416520b796a5c0c2a2029182db0ac4d7d06c1b3b4ba59f0460097e8163fa",
+    "sourceAvailability": "Editable browser projects and pinned dependencies retained in the local Motion Design Collection delivery",
+    "reviewMethod": "Rendered proof images, 20 decoded frames per export, independent cross-review of selected pieces, and complete technical decoding; no real-time aesthetic playback review",
+    "verification": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "duration": 10,
+      "decodedFrames": 300,
+      "technicalPass": true,
+      "publicRangeVerified": true
+    },
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/17-night-tram-1a152575892c/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/17-night-tram-1a152575892c/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "local-motion-20260916-18-lemon-press",
+    "kind": "original authored motion design",
+    "sourceBatch": "motion-local-20260916",
+    "sourceRun": "18-lemon-press",
+    "family": "Illustrated motion",
+    "production": "Original procedural artwork and choreography authored locally; local browser rendering and FFmpeg encoding",
+    "promptSource": "Authored production brief for this study, preserved separately from the original open-ended collection request; presented as a reusable starter prompt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/18-lemon-press-c291b57fcc96/prompt.txt",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "c291b57fcc962d934f2b6bf8a1eeabf40de9fc1ad7f4d5cd2b192f7814b52178",
+    "websiteAudio": "none; original silent render",
+    "rendererSha256": "250ef13bace5e0fcb56f20ddb6a4571e83b582567570edb384d0b7f11e23fe59",
+    "sourceCodeSha256": "4b8f317e9dac5e4a235986840fb3c0b0e7553192623fda3118bcdc490988b7d6",
+    "sourceAvailability": "Editable browser projects and pinned dependencies retained in the local Motion Design Collection delivery",
+    "reviewMethod": "Rendered proof images, 20 decoded frames per export, independent cross-review of selected pieces, and complete technical decoding; no real-time aesthetic playback review",
+    "verification": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "duration": 10,
+      "decodedFrames": 300,
+      "technicalPass": true,
+      "publicRangeVerified": true
+    },
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/18-lemon-press-c291b57fcc96/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/18-lemon-press-c291b57fcc96/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "local-motion-20260916-19-paper-aviary",
+    "kind": "original authored motion design",
+    "sourceBatch": "motion-local-20260916",
+    "sourceRun": "19-paper-aviary",
+    "family": "Illustrated motion",
+    "production": "Original procedural artwork and choreography authored locally; local browser rendering and FFmpeg encoding",
+    "promptSource": "Authored production brief for this study, preserved separately from the original open-ended collection request; presented as a reusable starter prompt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/19-paper-aviary-cf159da0f07c/prompt.txt",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "cf159da0f07c7d09b27923e69fc7ac15969c38f247fb7daf73dce99035763be7",
+    "websiteAudio": "none; original silent render",
+    "rendererSha256": "250ef13bace5e0fcb56f20ddb6a4571e83b582567570edb384d0b7f11e23fe59",
+    "sourceCodeSha256": "73cb30f4e6f6c1bec60dabb1f814a210b857bcb4b0600d6412b170b1877b713a",
+    "sourceAvailability": "Editable browser projects and pinned dependencies retained in the local Motion Design Collection delivery",
+    "reviewMethod": "Rendered proof images, 20 decoded frames per export, independent cross-review of selected pieces, and complete technical decoding; no real-time aesthetic playback review",
+    "verification": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "duration": 10,
+      "decodedFrames": 300,
+      "technicalPass": true,
+      "publicRangeVerified": true
+    },
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/19-paper-aviary-cf159da0f07c/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/19-paper-aviary-cf159da0f07c/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "local-motion-20260916-20-tidal-postcard",
+    "kind": "original authored motion design",
+    "sourceBatch": "motion-local-20260916",
+    "sourceRun": "20-tidal-postcard",
+    "family": "Illustrated motion",
+    "production": "Original procedural artwork and choreography authored locally; local browser rendering and FFmpeg encoding",
+    "promptSource": "Authored production brief for this study, preserved separately from the original open-ended collection request; presented as a reusable starter prompt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/20-tidal-postcard-fcbdfd8fb668/prompt.txt",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "fcbdfd8fb668174bdef806be5b76f5c84c7854d7ff06b9e993c4b5bec87201c0",
+    "websiteAudio": "none; original silent render",
+    "rendererSha256": "250ef13bace5e0fcb56f20ddb6a4571e83b582567570edb384d0b7f11e23fe59",
+    "sourceCodeSha256": "fbd625c4c6eab8f2fd6bf1c916de8b18dd822bc0a18fa0de92a76b860ce3f7c3",
+    "sourceAvailability": "Editable browser projects and pinned dependencies retained in the local Motion Design Collection delivery",
+    "reviewMethod": "Rendered proof images, 20 decoded frames per export, independent cross-review of selected pieces, and complete technical decoding; no real-time aesthetic playback review",
+    "verification": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "duration": 10,
+      "decodedFrames": 300,
+      "technicalPass": true,
+      "publicRangeVerified": true
+    },
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/20-tidal-postcard-fcbdfd8fb668/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/20-tidal-postcard-fcbdfd8fb668/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "local-motion-20260916-21-matchbox-garden",
+    "kind": "original authored motion design",
+    "sourceBatch": "motion-local-20260916",
+    "sourceRun": "21-matchbox-garden",
+    "family": "Illustrated motion",
+    "production": "Original procedural artwork and choreography authored locally; local browser rendering and FFmpeg encoding",
+    "promptSource": "Authored production brief for this study, preserved separately from the original open-ended collection request; presented as a reusable starter prompt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/21-matchbox-garden-8b15047f4c02/prompt.txt",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "8b15047f4c021de1c65ab420a73a15d71f9351e63de9ba0ee645839b4b4a5cbb",
+    "websiteAudio": "none; original silent render",
+    "rendererSha256": "250ef13bace5e0fcb56f20ddb6a4571e83b582567570edb384d0b7f11e23fe59",
+    "sourceCodeSha256": "9a3da17c2b19cbb844c737162c677c167f3129835f524dc7406b2ec4430fc2ab",
+    "sourceAvailability": "Editable browser projects and pinned dependencies retained in the local Motion Design Collection delivery",
+    "reviewMethod": "Rendered proof images, 20 decoded frames per export, independent cross-review of selected pieces, and complete technical decoding; no real-time aesthetic playback review",
+    "verification": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "duration": 10,
+      "decodedFrames": 300,
+      "technicalPass": true,
+      "publicRangeVerified": true
+    },
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/21-matchbox-garden-8b15047f4c02/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/21-matchbox-garden-8b15047f4c02/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "local-motion-20260916-22-lantern-parade",
+    "kind": "original authored motion design",
+    "sourceBatch": "motion-local-20260916",
+    "sourceRun": "22-lantern-parade",
+    "family": "Illustrated motion",
+    "production": "Original procedural artwork and choreography authored locally; local browser rendering and FFmpeg encoding",
+    "promptSource": "Authored production brief for this study, preserved separately from the original open-ended collection request; presented as a reusable starter prompt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/22-lantern-parade-e5bd479e7c1f/prompt.txt",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "e5bd479e7c1fa5b7055043a5c1ad7ff5a33ec4e53b98bd1104a3caefff4dab02",
+    "websiteAudio": "none; original silent render",
+    "rendererSha256": "250ef13bace5e0fcb56f20ddb6a4571e83b582567570edb384d0b7f11e23fe59",
+    "sourceCodeSha256": "9514b9a8444df1563b58957cf36311da9113badb2e8f6b0944dbc7dba7541c87",
+    "sourceAvailability": "Editable browser projects and pinned dependencies retained in the local Motion Design Collection delivery",
+    "reviewMethod": "Rendered proof images, 20 decoded frames per export, independent cross-review of selected pieces, and complete technical decoding; no real-time aesthetic playback review",
+    "verification": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "duration": 10,
+      "decodedFrames": 300,
+      "technicalPass": true,
+      "publicRangeVerified": true
+    },
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/22-lantern-parade-e5bd479e7c1f/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/22-lantern-parade-e5bd479e7c1f/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "local-motion-20260916-23-tiny-observatory",
+    "kind": "original authored motion design",
+    "sourceBatch": "motion-local-20260916",
+    "sourceRun": "23-tiny-observatory",
+    "family": "Illustrated motion",
+    "production": "Original procedural artwork and choreography authored locally; local browser rendering and FFmpeg encoding",
+    "promptSource": "Authored production brief for this study, preserved separately from the original open-ended collection request; presented as a reusable starter prompt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/23-tiny-observatory-b9b0e05b2fd9/prompt.txt",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "b9b0e05b2fd9b4e2f81a01cbfd494f3914507f0477b4bdda0dc8bff46b0ff480",
+    "websiteAudio": "none; original silent render",
+    "rendererSha256": "250ef13bace5e0fcb56f20ddb6a4571e83b582567570edb384d0b7f11e23fe59",
+    "sourceCodeSha256": "1a33426b7e51f6538f0c7d1bd69d69df9d7b0123823eb0ee6379ed0f2553de72",
+    "sourceAvailability": "Editable browser projects and pinned dependencies retained in the local Motion Design Collection delivery",
+    "reviewMethod": "Rendered proof images, 20 decoded frames per export, independent cross-review of selected pieces, and complete technical decoding; no real-time aesthetic playback review",
+    "verification": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "duration": 10,
+      "decodedFrames": 300,
+      "technicalPass": true,
+      "publicRangeVerified": true
+    },
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/23-tiny-observatory-b9b0e05b2fd9/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/23-tiny-observatory-b9b0e05b2fd9/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "local-motion-20260916-24-moon-laundromat",
+    "kind": "original authored motion design",
+    "sourceBatch": "motion-local-20260916",
+    "sourceRun": "24-moon-laundromat",
+    "family": "Illustrated motion",
+    "production": "Original procedural artwork and choreography authored locally; local browser rendering and FFmpeg encoding",
+    "promptSource": "Authored production brief for this study, preserved separately from the original open-ended collection request; presented as a reusable starter prompt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/24-moon-laundromat-8189a3b6f9d8/prompt.txt",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "8189a3b6f9d8425fade110962b085ffe112da981f83b75799c8c37bf16512033",
+    "websiteAudio": "none; original silent render",
+    "rendererSha256": "250ef13bace5e0fcb56f20ddb6a4571e83b582567570edb384d0b7f11e23fe59",
+    "sourceCodeSha256": "2774c91832dd6bf2406cb993b19372d4f5789908f5390db58ad1de31ee58a0ec",
+    "sourceAvailability": "Editable browser projects and pinned dependencies retained in the local Motion Design Collection delivery",
+    "reviewMethod": "Rendered proof images, 20 decoded frames per export, independent cross-review of selected pieces, and complete technical decoding; no real-time aesthetic playback review",
+    "verification": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "duration": 10,
+      "decodedFrames": 300,
+      "technicalPass": true,
+      "publicRangeVerified": true
+    },
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/24-moon-laundromat-8189a3b6f9d8/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/24-moon-laundromat-8189a3b6f9d8/poster.jpg"
+      }
+    ]
   }
 ]

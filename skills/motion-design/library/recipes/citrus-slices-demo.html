@@ -1,0 +1,23 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Blood orange</title><style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#f4d3a0}canvas{display:block;width:100%;height:100%}</style><script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script></head><body><script type="module">
+import * as THREE from 'three';import {HDRLoader} from 'three/addons/loaders/HDRLoader.js';import {RectAreaLightUniformsLib} from 'three/addons/lights/RectAreaLightUniformsLib.js';import {createCitrusSlices} from './citrus-slices.mjs';
+const DESIGN={sliceCount:7,spiral:1};
+const scene=new THREE.Scene();scene.background=new THREE.Color('#f3d5ac');scene.fog=new THREE.Fog('#f3d5ac',15,35);
+const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});renderer.setSize(1920,1080);renderer.setPixelRatio(1);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.91;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.VSMShadowMap;document.body.appendChild(renderer.domElement);
+const camera=new THREE.OrthographicCamera(-4,4,2.25,-2.25,.1,60);
+const floor=new THREE.Mesh(new THREE.PlaneGeometry(200,200),new THREE.MeshStandardMaterial({color:'#f1cc94',roughness:.87}));floor.rotation.x=-Math.PI/2;floor.position.y=-.01;floor.receiveShadow=true;scene.add(floor);
+RectAreaLightUniformsLib.init();const box=new THREE.RectAreaLight('#fff5df',4.8,4,5);box.position.set(-3,6,4);box.lookAt(0,2,0);scene.add(box);
+const strip=new THREE.RectAreaLight('#fff7e9',3,2,4);strip.position.set(4,4,-2);strip.lookAt(0,2,0);scene.add(strip);
+const key=new THREE.DirectionalLight('#fff0d9',2.1);key.position.set(-4,6,3);key.castShadow=true;key.shadow.mapSize.set(512,512);Object.assign(key.shadow.camera,{left:-5,right:5,top:6,bottom:-3,near:.5,far:20});key.shadow.radius=5;key.shadow.blurSamples=10;key.shadow.normalBias=.02;key.shadow.bias=-.0002;scene.add(key);scene.add(new THREE.HemisphereLight('#fff3df','#ba7449',1));
+let orange;
+const clamp=x=>Math.max(0,Math.min(1,x)),ease=x=>{x=clamp(x);return x*x*x*(x*(x*6-15)+10)};
+const range=(t,a,b)=>ease((t-a)/(b-a));
+function state(t){const separation=range(t,1.05,3.2)*(1-range(t,4.95,5.75));return {separation,spiral:DESIGN.spiral,rotation:-.15+.27*range(t,1.2,3.8)}}
+function pose(t){t=Math.max(0,Math.min(8,Number(t)));const p=state(t);orange.setState(p);orange.group.position.y=1.35+1.4*p.separation;orange.group.rotation.y=-.18+.25*range(t,0,6.9);
+  const macro=t>=4.05&&t<4.9;const height=macro?2.5:3.65+2.45*p.separation;
+  const target=macro?new THREE.Vector3(-.03,2.83,1.25):new THREE.Vector3(0,1.34+1.8*p.separation,.10*p.separation);
+  const elevation=macro?.86:.29+.31*p.separation,azimuth=.50;
+  camera.left=-height*8/9;camera.right=height*8/9;camera.top=height/2;camera.bottom=-height/2;camera.updateProjectionMatrix();
+  camera.position.set(target.x+Math.sin(azimuth)*Math.cos(elevation)*10,target.y+Math.sin(elevation)*10,target.z+Math.cos(azimuth)*Math.cos(elevation)*10);camera.lookAt(target);renderer.render(scene,camera);
+}
+window.motionReady=(async()=>{const cutImage=new Image();cutImage.src='./assets/blood-orange-cut-face.png';await cutImage.decode();const hdr=await new HDRLoader().loadAsync('./assets/studio_small_09_1k.hdr');hdr.mapping=THREE.EquirectangularReflectionMapping;const generator=new THREE.PMREMGenerator(renderer);const env=generator.fromEquirectangular(hdr);scene.environment=env.texture;scene.environmentIntensity=.6;scene.environmentRotation.y=2.1;hdr.dispose();generator.dispose();orange=createCitrusSlices({sliceCount:DESIGN.sliceCount,cutImage});scene.add(orange.group);window.orange=orange;pose(0)})();window.seek=async t=>{await window.motionReady;pose(t)};
+</script></body></html>

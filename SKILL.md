@@ -9,7 +9,7 @@ description: Edit any video by conversation. Transcribe, cut, color grade, gener
 
 1. **LLM reasons from raw transcript + on-demand visuals.** The only derived artifact that earns its keep is a packed phrase-level transcript (`takes_packed.md`). Everything else — filler tagging, retake detection, shot classification, emphasis scoring — you derive at decision time.
 2. **Audio is primary, visuals follow.** Cut candidates come from speech boundaries and silence gaps. Drill into visuals only at decision points.
-3. **Ask → confirm → execute → iterate → persist.** Never touch the cut until the user has confirmed the strategy in plain English.
+3. **Ask when needed → agree on direction → execute → iterate → persist.** Establish the strategy from the conversation, respecting explicit approval and delegated creative autonomy.
 4. **Generalize.** Do not assume what kind of video this is. Look at the material, ask the user, then edit.
 5. **Artistic freedom is the default.** Every specific value, preset, font, color, duration, pitch structure, and technique in this document is a *worked example* from one proven video — not a mandate. Read them to understand what's possible and why each worked. Then make your own taste calls based on what the material actually is and what the user actually wants. **The only things you MUST do are in the Hard Rules section below.** Everything else is yours.
 6. **Invent freely.** If the material calls for a technique not described here — split-screen, picture-in-picture, lower-third identity cards, reaction cuts, speed ramps, freeze frames, crossfades, match cuts, L-cuts, J-cuts, speed ramps over breath, whatever — build it. The helpers are ffmpeg and PIL. They can do anything the format supports. Do not wait for permission.
@@ -29,7 +29,7 @@ These are the things where deviation produces silent failures or broken output. 
 8. **Word-level verbatim ASR only.** Never SRT/phrase mode (loses sub-second gap data). Never normalized fillers (loses editorial signal).
 9. **Cache transcripts per source.** Never re-transcribe unless the source file itself changed.
 10. **Parallel sub-agents for multiple animations.** Never sequential. Spawn N at once via the `Agent` tool; total wall time ≈ slowest one.
-11. **Strategy confirmation before execution.** Never touch the cut until the user has approved the plain-English plan.
+11. **Respect the agreed strategy.** Confirm a cut strategy when the user has not already approved it or authorized autonomous execution. Existing authorization carries forward; do not add another approval step for routine implementation or an explicitly open-ended creative task.
 12. **All session outputs in `<videos_dir>/edit/`.** Never write inside the `video-use/` project directory.
 
 Everything else in this document is a worked example. Deviate whenever the material calls for it.
@@ -47,6 +47,7 @@ The skill lives in `video-use/`. User footage lives wherever they put it. All se
     ├── edl.json                 ← cut decisions
     ├── transcripts/<name>.json  ← cached raw Scribe JSON
     ├── animations/slot_<id>/    ← per-animation source + render + reasoning
+    ├── overlays/                 ← generated graphics + raster caption layers
     ├── clips_graded/            ← per-segment extracts with grade + fades
     ├── master.srt               ← output-timeline subtitles
     ├── downloads/               ← yt-dlp outputs
@@ -76,6 +77,8 @@ Helpers (`helpers/transcribe.py`, `helpers/render.py`, etc.) live alongside this
 - **`pack_transcripts.py --edit-dir <dir>`** — `transcripts/*.json` → `takes_packed.md` (phrase-level, break on silence ≥ 0.5s).
 - **`timeline_view.py <video> <start> <end>`** — filmstrip + waveform PNG. On-demand visual drill-down. **Not a scan tool** — use it at decision points, not constantly.
 - **`render.py <edl.json> -o <out>`** — per-segment extract → concat → overlays (PTS-shifted) → subtitles LAST. `--preview` for 720p fast. `--build-subtitles` to generate master.srt inline.
+- **`captions.py`** — configurable word-level caption chunking plus libass/PIL renderer selection. PIL is the fallback when ffmpeg lacks the subtitles filter and the path for pixel-specific caption styling.
+- **`visuals.py`** — reusable canvas treatments, per-range reframing, and style-neutral text/line/box/image graphic layers.
 - **`grade.py <in> -o <out>`** — ffmpeg filter chain grade. Presets + `--filter '<raw>'` for custom.
 
 For animations, create `<edit>/animations/slot_<id>/` with `Bash` and spawn a sub-agent via the `Agent` tool.
@@ -85,8 +88,8 @@ For animations, create `<edit>/animations/slot_<id>/` with `Bash` and spawn a su
 1. **Inventory.** `ffprobe` every source. `transcribe_batch.py` on the directory. `pack_transcripts.py` to produce `takes_packed.md`. Sample one or two `timeline_view`s for a visual first impression.
 2. **Pre-scan for problems.** One pass over `takes_packed.md` to note verbal slips, obvious mis-speaks, or phrasings to avoid. Plain list, feed into the editor brief.
 3. **Converse.** Describe what you see in plain English. Ask questions *shaped by the material*. Collect: content type, target length/aspect, aesthetic/brand direction, pacing feel, must-preserve moments, must-cut moments, animation and grade preferences, subtitle needs. Do not use a fixed checklist — the right questions are different every time.
-4. **Propose strategy.** 4–8 sentences: shape, take choices, cut direction, animation plan, grade direction, subtitle style, length estimate. **Wait for confirmation.**
-5. **Execute.** Produce `edl.json` via the editor sub-agent brief. Drill into `timeline_view` at ambiguous moments. Build animations in parallel sub-agents. Apply grade per-segment. Compose via `render.py`.
+4. **Establish strategy.** State the creative contract in 4–8 sentences: story and viewer takeaway; selected and tightened material; attention and framing; typography and graphics; motion; audio; delivery format and length estimate. Say `none` when a category does not help the material. Confirm unresolved material choices; continue when the strategy or autonomous execution is already authorized.
+5. **Execute.** Produce `edl.json` via the editor sub-agent brief and carry the approved treatment decisions in its optional fields. Drill into `timeline_view` at ambiguous moments. Build animations in parallel sub-agents. Apply grade per-segment. Compose via `render.py`.
 6. **Preview.** `render.py --preview`.
 7. **Self-eval (before showing the user).** Run `timeline_view` on the **rendered output** (not the sources) at every cut boundary (±1.5s window). Check each image for:
    - Visual discontinuity / flash / jump at the cut
@@ -94,13 +97,19 @@ For animations, create `<edit>/animations/slot_<id>/` with `Bash` and spawn a su
    - Subtitle hidden behind an overlay (Rule 1 violation)
    - Overlay misaligned or showing wrong frames (Rule 4 violation)
 
-   Also sample: first 2s, last 2s, and 2–3 mid-points — check grade consistency, subtitle readability, overall coherence. Run `ffprobe` on the output to verify duration matches the EDL expectation.
+   Also sample: first 2s, last 2s, and 2–3 mid-points. Compare the render against the approved strategy: does the opening set the right expectation, is attention directed to the right place, is typography readable at real delivery size, does the treatment support the content instead of decorating it, and does the ending feel intentional? Check grade consistency, subtitle readability, and overall coherence. Run `ffprobe` on the output to verify duration matches the EDL expectation.
+
+   For generated animation, treat clipped titles, labels, equations, or payoff
+   text as a failed render even when codec validation passes. Use the animation
+   engine's frame-safe checks before production and verify the final teaching
+   frame visually.
 
    If anything fails: fix → re-render → re-eval. **Cap at 3 self-eval passes** — if issues remain after 3, flag them to the user rather than looping forever. Only present the preview once the self-eval passes.
 8. **Iterate + persist.** Natural-language feedback, re-plan, re-render. Never re-transcribe. Final render on confirmation. Append to `project.md`.
 
 ## Cut craft (techniques)
 
+- **Selection is not editing.** Review every continuous passage for false starts, repeated ideas, fillers, dead air, redundant context, and weak openings or endings. Leave a passage continuous only when its natural delivery is stronger than another cut, and record that reason.
 - **Audio-first.** Candidate cuts from word boundaries and silence gaps.
 - **Preserve peaks.** Laughs, punchlines, emphasis beats. Extend past punchlines to include reactions — the laugh IS the beat.
 - **Speaker handoffs** benefit from air between utterances. Common values: 400–600ms. Less for fast-paced, more for cinematic. Taste call.
@@ -108,6 +117,19 @@ For animations, create `<edit>/animations/slot_<id>/` with `Bash` and spawn a su
 - **Silence gaps are cut candidates.** Silences ≥400ms are usually the cleanest. 150–400ms phrase boundaries are usable with a visual check. <150ms is unsafe (mid-phrase).
 - **Example cut padding** (the launch video shipped with this): 50ms before the first kept word, 80ms after the last. Tighter for montage energy, looser for documentary. Stay in the 30–200ms working window (Hard Rule 7).
 - **Never reason audio and video independently.** Every cut must work on both tracks.
+
+## Creative treatment
+
+An intentional visual hierarchy is universal; any particular visual device is not. An interview, tutorial, montage, and technical explainer should not all receive the same caption card, border, crop, or hero text. Choose only the devices that clarify the approved strategy.
+
+The EDL can express reusable treatment decisions without baking in a preset:
+
+- `treatment.canvas` sets the output width, height, and `cover`, `contain`, or `blur` fit. A blur canvas may also define the foreground video's size and position.
+- Each range may use `reframe` with `zoom`, `focus_x`, and `focus_y` to hold attention on the important region.
+- `graphics` supports timed `text`, `line`, `box`, and `image` layers. Coordinates from 0 through 1 are relative to the output canvas; larger values are pixels. Text can define a maximum width so it wraps and fits instead of clipping.
+- `captions` controls chunking, case, renderer, font, size, position, stroke, shadow, and background. Use `renderer: auto` unless a specific renderer is required.
+
+These are primitives, not templates. The strategy decides whether to use them and how they should look.
 
 ## The packed transcript (primary reading view)
 
@@ -179,6 +201,8 @@ Hard rules: apply **per-segment during extraction** (not post-concat, which re-e
 
 Subtitles have three dimensions worth reasoning about: **chunking** (1/2/3/sentence per line), **case** (UPPER/Title/Natural), and **placement** (margin from bottom). The right combo depends on content.
 
+Put the selected choices in the EDL's `captions` object. `max_words`, `break_on_punctuation`, and `case` control the generated master SRT. Pixel-specific font, sizing, position, stroke, shadow, or background fields select the PIL renderer; otherwise `auto` uses ffmpeg's subtitle filter when available and falls back safely. `render.py` always composites captions last, so do not recreate caption timing or filter ordering in one-off commands.
+
 **Worked styles** — pick, adapt, or invent:
 
 **`bold-overlay`** — short-form tech launch, fast-paced social. 2-word chunks, UPPERCASE, break on punctuation, Helvetica 18 Bold, white-on-outline, `MarginV=35`. `render.py` ships with this as `SUB_FORCE_STYLE`.
@@ -196,7 +220,16 @@ Invent a third style if neither fits. Hard rules: subtitles LAST (Rule 1), outpu
 
 ## Animations (when requested)
 
-Animations match the content and the brand. **Get the palette, font, and visual language from the conversation** — never assume a default. If the user hasn't told you, propose a palette in the strategy phase and wait for confirmation before building anything.
+Animations match the content and the brand. Use the conversation and actual reference frames to determine the visual language. When the user delegates creative direction, choose and record it, then continue through rendering and review.
+
+For original motion graphics, kinetic typography, brand films, product UI motion,
+or abstract material studies, read [skills/motion-design/SKILL.md](skills/motion-design/SKILL.md).
+It adds reference analysis, art direction, component proof frames, choreography,
+and visual repair to the rendering workflow below. Use Manim's specialized skill
+for formal teaching animations. The research behind this addition is in
+[docs/higgsfield-motion-design-research.md](docs/higgsfield-motion-design-research.md).
+For the curated motion studies, reusable asset sources and original mechanisms,
+use [the motion library guide](skills/motion-design/references/library.md).
 
 **Tool options:**
 
@@ -204,8 +237,16 @@ Pick the engine per animation slot. Do not default to Remotion just because the 
 
 - **HyperFrames** — Browser-native HTML/CSS/GSAP video compositions: product UI motion, website-to-video or mockup-to-video captures, kinetic typography, landing-page/storyboard promos, data-driven UI states, transparent WebM overlays, and clips that need deterministic frame capture plus HyperFrames lint/validate/render checks. Best when the animation should be authored and verified like a web composition instead of a React component tree.
 - **Remotion** — React/CSS compositions with component state, reusable React primitives, or an existing Remotion brand system. Best when the user specifically asks for React/Remotion or when React composition is the simpler authoring model.
+- **Direct browser / Three.js** — custom HTML, canvas, SVG, and WebGL compositions with an absolute animation clock. `helpers/motion_render.mjs` captures exact frame times, checks asset readiness and repeated seeks, and exports MP4 with proof frames. `helpers/motion_qa.py` inspects the encoded video and produces a contact sheet and technical report. See the motion-design skill's browser rendering reference for the contract and dependencies.
 - **Manim** — formal diagrams, state machines, equation derivations, graph morphs. Read `skills/manim-video/SKILL.md` and its references for depth.
 - **PIL + PNG sequence + ffmpeg** — simple overlay cards: counters, typewriter text, single bar reveals, progressive draws. Fast to iterate, any aesthetic you want. The launch video used this.
+
+For an original end-to-end explainer, complete `edit/visual_plan.md`, use one
+independently renderable Manim class per narrative chapter with named internal
+beats, and build persistent semantic objects from `assets/teaching.py` and
+`assets/domains/`. This requirement does not apply to clip editing or an
+isolated illustration overlay. The EDL schema, protected regions, composition
+modes, overlay preflight, and captions-last renderer remain unchanged.
 
 For HyperFrames slots, scaffold the slot inside `edit/animations/slot_<id>/` with `npx --yes hyperframes init . --example blank --non-interactive --skip-skills`, build the HTML composition there, run the HyperFrames checks that fit the slot (`lint`, `validate`, and a draft render when practical), then produce the final overlay video with `npx --yes hyperframes render . -o render.mp4` or `--format webm -o render.webm` when alpha is required. Point the EDL overlay `file` at the actual rendered path.
 
@@ -217,13 +258,13 @@ None is mandatory. Invent hybrids if useful (e.g., PIL background with a HyperFr
 
 - **Sync-to-narration explanations.** A viewer needs to parse the content at 1×. Rough floor 3s, typical 5–7s for simple cards, 8–14s for complex diagrams. The launch video shipped at 5–7s per simple card.
 - **Beat-synced accents** (music video, fast montage). 0.5–2s is fine — they're visual accents, not information. The "readable at 1×" rule becomes *"recognizable at 1×"*, not *"fully parseable."*
-- **Hold the final frame ≥ 1s** before the cut (universal).
-- **Over voiceover:** total duration ≥ `narration_length + 1s` (universal).
-- **Never parallel-reveal independent elements** — the eye can't track two new things at once. One thing, pause, next thing.
+- Hold a payoff long enough for recognition or reading. A continuous loop or beat-driven handoff can end in motion.
+- Over voiceover, leave enough time for the visual payoff and sentence ending; derive this from the spoken timing.
+- Coordinate simultaneous motion around one focal event. Stagger competing new information; supporting layers may move together.
 
 **Animation payoff timing (rule for sync-to-narration):** get the payoff word's timestamp. Start the overlay `reveal_duration` seconds earlier so the landing frame coincides with the spoken payoff word. Without this sync the animation feels disconnected.
 
-**Easing** (universal — never `linear`, it looks robotic):
+**Easing examples** (select curves for the intended behavior):
 
 ```python
 def ease_out_cubic(t):    return 1 - (1 - t) ** 3
@@ -232,7 +273,7 @@ def ease_in_out_cubic(t):
     return 1 - (-2 * t + 2) ** 3 / 2
 ```
 
-`ease_out_cubic` for single reveals (slow landing). `ease_in_out_cubic` for continuous draws.
+`ease_out_cubic` gives reveals a slow landing; `ease_in_out_cubic` eases both ends of a move. Springs, overshoot, decisive cuts, and constant-speed orbits serve different purposes. Avoid applying a single curve to every property.
 
 **Typing text anchor trick:** center on the FULL string's width, not the partial-string width — otherwise text slides left during reveal.
 
@@ -244,7 +285,7 @@ def ease_in_out_cubic(t):
 - ≤ 2 accent colors, ~40% empty space, minimal chrome
 - Result: terminal / retro tech feel
 
-This is one style. If the brand is warm and serif, use that. If it's colorful and playful, use that. If the user handed you a style guide, follow it. If they didn't, propose one and confirm.
+This is one style. Follow supplied brand guidance; when creative direction is delegated, choose a direction that suits the piece and verify it in actual proof frames.
 
 **Parallel sub-agent brief** — each animation is one sub-agent spawned via the `Agent` tool. Each prompt is self-contained (sub-agents have no parent context). Include:
 
@@ -253,10 +294,10 @@ This is one style. If the brand is warm and serif, use that. If it's colorful an
 3. Exact technical spec: resolution, fps, codec, pix_fmt, CRF, duration
 4. Style palette as concrete values (RGB tuples, hex, or reference to a design system)
 5. Font path with index
-6. Frame-by-frame timeline (what happens when, with easing)
-7. Anti-list ("no chrome, no extras, no titles unless specified")
-8. Code pattern reference (copy helpers inline, don't import across slots)
-9. Deliverable checklist (script, render, verify duration via ffprobe, report)
+6. Narrative beats, focal event, signature transformation, and timing constraints; leave detailed choreography to the designer unless the user specified it
+7. Relevant constraints from the actual brief and observed reference qualities
+8. Shared renderer/asset contracts and isolated source ownership
+9. Deliverable checklist (editable source and assets, proof frames, complete render, technical QA, visual revision notes)
 10. **"Do not ask questions. If anything is ambiguous, pick the most obvious interpretation and proceed."**
 
 One sub-agent = one file (unique filenames, parallel agents don't overwrite each other).
@@ -273,20 +314,36 @@ Match the source unless the user asked for something specific. Common targets: `
   "sources": {"C0103": "/abs/path/C0103.MP4", "C0108": "/abs/path/C0108.MP4"},
   "ranges": [
     {"source": "C0103", "start": 2.42, "end": 6.85,
-     "beat": "HOOK", "quote": "...", "reason": "Cleanest delivery, stops before slip at 38.46."},
+     "beat": "HOOK", "quote": "...", "reason": "Cleanest delivery, stops before slip at 38.46.",
+     "reframe": {"zoom": 1.12, "focus_x": 0.44, "focus_y": 0.42}},
     {"source": "C0108", "start": 14.30, "end": 28.90,
      "beat": "SOLUTION", "quote": "...", "reason": "Only take without the false start."}
   ],
   "grade": "warm_cinematic",
-  "overlays": [
-    {"file": "edit/animations/slot_1/render.mp4", "start_in_output": 0.0, "duration": 5.0}
+  "treatment": {
+    "canvas": {"width": 1080, "height": 1920, "fit": "blur",
+      "foreground": {"width": 1080, "height": 608, "x": 0, "y": 0.25}}
+  },
+  "graphics": [
+    {"type": "text", "text": "THE CORE IDEA", "start_in_output": 0.0, "duration": 3.0,
+     "x": 0.08, "y": 0.08, "anchor": "top_left", "max_width": 0.84,
+     "font_size": 72, "color": "#FFFFFF"},
+    {"type": "line", "start_in_output": 0.0, "duration": 3.0,
+     "x1": 0.08, "y1": 0.17, "x2": 0.92, "y2": 0.17, "line_width": 5, "color": "#76B900"}
   ],
-  "subtitles": "edit/master.srt",
+  "overlays": [
+    {"file": "animations/slot_1/render.mp4", "start_in_output": 0.0, "duration": 5.0}
+  ],
+  "subtitles": "master.srt",
+  "captions": {
+    "renderer": "auto", "max_words": 3, "break_on_punctuation": true, "case": "upper",
+    "font_size": 58, "x": 0.5, "y": 0.83, "stroke_width": 4
+  },
   "total_duration_s": 87.4
 }
 ```
 
-`grade` is a preset name or raw ffmpeg filter. `overlays` are rendered animation clips. `subtitles` is optional and applied LAST.
+`grade` is a preset name or raw ffmpeg filter. `treatment`, `reframe`, `graphics`, and `captions` are optional reusable visual decisions. Relative file paths resolve from the EDL's directory. `overlays` are rendered animation clips. `subtitles` is optional and applied LAST.
 
 ## Memory — `project.md`
 
@@ -313,10 +370,10 @@ Things that consistently fail regardless of style:
 - **Running Whisper locally on CPU.** Slow and it normalizes fillers. Use hosted Scribe.
 - **Burning subtitles into base before compositing overlays.** Overlays hide them. (Hard Rule 1.)
 - **Single-pass filtergraph when you have overlays.** Double re-encodes. Use per-segment extract → concat.
-- **Linear animation easing.** Looks robotic. Always cubic.
+- **Identical easing on every movement.** Choose timing that expresses the object's behavior.
 - **Hard audio cuts at segment boundaries.** Audible pops. (Hard Rule 3.)
 - **Typing text centered on the partial string.** Text slides left as it grows.
 - **Sequential sub-agents for multiple animations.** Always parallel.
-- **Editing before confirming the strategy.** Never.
+- **Ignoring the agreed creative scope.** Preserve existing approval and delegated autonomy.
 - **Re-transcribing cached sources.** Immutable outputs of immutable inputs.
 - **Assuming what kind of video it is.** Look first, ask second, edit last.

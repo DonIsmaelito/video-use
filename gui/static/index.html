@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>video-use gui tool</title>
+    <link rel="stylesheet" href="/static/styles.css?v=9" />
+  </head>
+  <body>
+    <header class="site-header">
+      <h1>video-use gui tool</h1>
+      <span class="connection" id="connection">connecting</span>
+    </header>
+
+    <main class="lane-grid" id="lane-grid" aria-label="Video generation lanes"></main>
+
+    <section class="history-section" aria-labelledby="history-title">
+      <header class="history-header">
+        <h2 id="history-title">previous runs</h2>
+        <span class="history-count" id="history-count">0</span>
+      </header>
+      <p class="history-error" id="history-error" role="alert" hidden></p>
+      <p class="history-empty" id="history-empty">no completed runs yet</p>
+      <div class="history-grid" id="history-grid"></div>
+    </section>
+
+    <dialog class="history-dialog" id="history-dialog">
+      <div class="history-dialog-shell">
+        <header class="history-dialog-header">
+          <span class="history-dialog-title">previous run</span>
+          <button type="button" class="history-dialog-close" aria-label="Close video">close</button>
+        </header>
+        <div class="history-player-shell">
+          <video controls playsinline preload="metadata"></video>
+        </div>
+        <nav class="history-artifacts" aria-label="Video outputs"></nav>
+        <section class="history-query-section">
+          <h2>query</h2>
+          <pre class="history-query"></pre>
+        </section>
+      </div>
+    </dialog>
+
+    <dialog class="lane-detail-dialog" id="lane-detail-dialog">
+      <div class="lane-detail-shell">
+        <header class="lane-detail-header">
+          <div>
+            <span class="lane-detail-title">lane</span>
+            <span class="lane-detail-context"></span>
+          </div>
+          <button type="button" class="lane-detail-close" aria-label="Close expanded lane">close</button>
+        </header>
+        <div class="lane-detail-body">
+          <section class="lane-detail-pane">
+            <h2>query</h2>
+            <pre class="lane-detail-query"></pre>
+          </section>
+          <section class="lane-detail-pane">
+            <h2>agent trace</h2>
+            <ol class="event-log lane-detail-trace" aria-live="polite"></ol>
+          </section>
+        </div>
+      </div>
+    </dialog>
+
+    <template id="lane-template">
+      <section class="lane" data-lane>
+        <div class="lane-bar">
+          <div class="lane-identity">
+            <span class="lane-name"></span>
+            <span class="task-context" hidden></span>
+          </div>
+          <div class="lane-meta">
+            <button
+              type="button"
+              class="approval-shortcut"
+              data-decision="acceptForSession"
+              disabled
+            >allow lane</button>
+            <span class="lane-status" data-status>idle</span>
+          </div>
+        </div>
+
+        <div class="video-shell">
+          <video controls playsinline preload="metadata"></video>
+          <div class="video-empty">no output</div>
+          <nav class="artifact-links" aria-label="Video outputs"></nav>
+          <div class="progress-track" aria-hidden="true">
+            <span class="progress-fill"></span>
+          </div>
+        </div>
+
+        <div class="lane-workspace">
+          <form class="run-form">
+            <div class="agent-controls">
+              <label>
+                <span>model</span>
+                <select class="model-select" aria-label="Codex model"></select>
+              </label>
+              <label>
+                <span>reasoning</span>
+                <select
+                  class="reasoning-select"
+                  aria-label="Reasoning effort"
+                ></select>
+              </label>
+              <div class="run-flags">
+                <span
+                  class="fresh-context"
+                  title="Every task starts a new ephemeral Codex thread"
+                >fresh</span>
+                <label
+                  class="auto-approval"
+                  title="Automatically approve this run's Codex commands, file changes, network access, and permission requests"
+                >
+                  <input class="auto-approve" type="checkbox" checked />
+                  <span>auto allow</span>
+                </label>
+              </div>
+            </div>
+            <input
+              class="project-input"
+              type="text"
+              autocomplete="off"
+              spellcheck="false"
+              placeholder="/path/to/video project"
+              aria-label="Video project path"
+            />
+            <div class="prompt-row">
+              <textarea
+                class="prompt-input"
+                rows="2"
+                required
+                placeholder="video task"
+                aria-label="Video task"
+              ></textarea>
+              <div class="run-actions">
+                <time
+                  class="lane-timer"
+                  datetime="PT0S"
+                  aria-label="Elapsed run time"
+                  title="Elapsed run time"
+                >00:00</time>
+                <div class="run-action-stack">
+                  <button type="button" class="expand-button" aria-expanded="false">expand</button>
+                  <button type="submit" class="run-button">run</button>
+                </div>
+              </div>
+            </div>
+          </form>
+
+          <div class="trace-column">
+            <div class="trace-toolbar">
+              <span>agent trace</span>
+              <a class="trace-download" hidden download>json</a>
+            </div>
+            <section class="approval-panel" hidden aria-live="assertive">
+              <div class="approval-heading">
+                <span>approval needed</span>
+                <span class="approval-kind"></span>
+              </div>
+              <p class="approval-summary"></p>
+              <code class="approval-command"></code>
+              <p class="approval-reason"></p>
+              <div class="approval-actions">
+                <button type="button" data-decision="accept">allow once</button>
+                <button type="button" data-decision="acceptForSession">allow lane</button>
+                <button type="button" data-decision="decline">deny</button>
+              </div>
+            </section>
+            <ol class="event-log" aria-live="polite"></ol>
+          </div>
+        </div>
+      </section>
+    </template>
+
+    <script src="/static/app.js?v=9" defer></script>
+  </body>
+</html>

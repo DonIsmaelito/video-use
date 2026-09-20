@@ -1,0 +1,42 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Jelly chair</title>
+<style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#ecd0bb}canvas{display:block;width:100%;height:100%}</style>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script></head><body><script type="module">
+import * as THREE from 'three';
+import {HDRLoader} from 'three/addons/loaders/HDRLoader.js';
+import {RectAreaLightUniformsLib} from 'three/addons/lights/RectAreaLightUniformsLib.js';
+import {createJellyChair} from './jelly-chair.mjs';
+const scene=new THREE.Scene();scene.background=new THREE.Color('#ead0bc');scene.fog=new THREE.Fog('#ead0bc',13,32);
+const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});renderer.setSize(1920,1080);renderer.setPixelRatio(1);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.82;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.VSMShadowMap;document.body.appendChild(renderer.domElement);
+const camera=new THREE.OrthographicCamera(-4,4,2.25,-2.25,.1,60);camera.position.set(4.8,3.45,6.0);
+const floor=new THREE.Mesh(new THREE.PlaneGeometry(200,200),new THREE.MeshStandardMaterial({color:'#e9c7af',roughness:.88}));floor.rotation.x=-Math.PI/2;floor.position.y=-.012;floor.receiveShadow=true;scene.add(floor);
+RectAreaLightUniformsLib.init();
+const soft=new THREE.RectAreaLight('#fff2df',5,4.5,5);soft.position.set(-3.8,5.5,4.0);soft.lookAt(0,1,0);scene.add(soft);
+const strip=new THREE.RectAreaLight('#fff7ed',3.5,2,4);strip.position.set(3.8,3,-2.5);strip.lookAt(0,1,0);scene.add(strip);
+const key=new THREE.DirectionalLight('#ffedde',1.45);key.position.set(-3,6,3);key.castShadow=true;key.shadow.mapSize.set(512,512);Object.assign(key.shadow.camera,{left:-4,right:4,top:4,bottom:-4,near:.5,far:16});key.shadow.bias=-.0004;key.shadow.normalBias=.02;key.shadow.radius=5;key.shadow.blurSamples=10;scene.add(key);
+scene.add(new THREE.HemisphereLight('#fff0dd','#b96d53',1.05));
+// Broad diffuse contact, fading and spreading with actual lift; geometric shadow adds shape.
+const contact=new THREE.Mesh(new THREE.PlaneGeometry(5.8,4.7),new THREE.ShaderMaterial({transparent:true,depthWrite:false,uniforms:{strength:{value:.2}},vertexShader:'varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',fragmentShader:'varying vec2 vUv;uniform float strength;void main(){vec2 p=(vUv-.5)*2.;float a=exp(-dot(p,p)*5.);gl_FragColor=vec4(.24,.065,.035,a*strength);}'}));contact.rotation.x=-Math.PI/2;contact.position.y=.002;scene.add(contact);
+const skin=new THREE.MeshPhysicalMaterial({color:'#aa0b24',roughness:.36,metalness:0,transmission:.35,thickness:.8,ior:1.38,clearcoat:.32,clearcoatRoughness:.28,attenuationColor:'#b60b29',attenuationDistance:2,envMapIntensity:.24});
+const cushionSkin=skin.clone();cushionSkin.specularIntensity=.12;cushionSkin.clearcoat=.08;cushionSkin.transmission=.22;cushionSkin.roughness=.42;
+const seam=new THREE.MeshPhysicalMaterial({color:'#ab1429',roughness:.3,clearcoat:.5});
+let chair;
+const clamp=x=>Math.max(0,Math.min(1,x)),smooth=x=>{x=clamp(x);return x*x*x*(x*(x*6-15)+10)},mix=(a,b,t)=>a+(b-a)*t;
+function keyframes(t,frames){for(let i=1;i<frames.length;i++)if(t<frames[i][0])return mix(frames[i-1][1],frames[i][1],smooth((t-frames[i-1][0])/(frames[i][0]-frames[i-1][0])));return frames.at(-1)[1]}
+function state(t){
+  let lift;
+  if(t<.72)lift=.93+.05*Math.sin(t/.72*Math.PI);
+  else if(t<1.43){const q=(t-.72)/.71;lift=.93*(1-q*q)}
+  else if(t<1.93)lift=0;
+  else if(t<3.0){const q=(t-1.93)/1.07;lift=.40*Math.sin(q*Math.PI)}
+  else lift=0;
+  const squash=keyframes(t,[[0,1],[.75,1.01],[1.3,1.12],[1.43,.97],[1.67,.58],[1.93,1.17],[2.35,1.10],[2.78,1.02],[3.04,.80],[3.45,1.09],[3.92,.95],[4.35,1.026],[4.92,.986],[5.55,1.005],[6.4,1],[8,1]]);
+  const bend=t<1.4?.015*Math.sin(t*2):.20*Math.exp(-(t-1.4)*.8)*Math.sin((t-1.4)*7.7);
+  return {lift,squash,bend,yaw:mix(-.08,.065,smooth((t-1.4)/3.8))};
+}
+function pose(t){t=Math.max(0,Math.min(8,Number(t)));const p=state(t);chair.setState(p);
+  const push=smooth((t-1.7)/4.7),height=mix(4.38,3.75,push);camera.left=-height*16/18;camera.right=height*16/18;camera.top=height/2;camera.bottom=-height/2;camera.updateProjectionMatrix();camera.lookAt(0,mix(1.48,1.17,push)-.38*smooth((t-.9)/.6)*(1-smooth((t-1.9)/.8)),0);
+  contact.material.uniforms.strength.value=.19*Math.exp(-p.lift*1.3);contact.scale.setScalar(1+p.lift*.30);renderer.render(scene,camera);
+}
+window.motionReady=(async()=>{const hdr=await new HDRLoader().loadAsync('./assets/studio_small_09_1k.hdr');hdr.mapping=THREE.EquirectangularReflectionMapping;const pmrem=new THREE.PMREMGenerator(renderer);const env=pmrem.fromEquirectangular(hdr);scene.environment=env.texture;scene.environmentIntensity=.85;scene.environmentRotation.y=1.8;hdr.dispose();pmrem.dispose();chair=createJellyChair({material:skin,seamMaterial:seam});chair.parts.cushion.material=cushionSkin;scene.add(chair.group);window.chair=chair;pose(0)})();
+window.seek=async t=>{await window.motionReady;pose(t)};
+</script></body></html>

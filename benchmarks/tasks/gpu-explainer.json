@@ -1,0 +1,35 @@
+{
+  "id": "gpu-explainer",
+  "version": 2,
+  "display_name": "Narrated GPU technical explainer",
+  "model": "gpt-5.6-sol",
+  "reasoning_effort": "high",
+  "max_turns": 6,
+  "timeout_seconds": 7200,
+  "preflight": {
+    "executables": ["codex", "ffmpeg", "ffprobe", "manim", "pdflatex"],
+    "environment": ["ELEVENLABS_API_KEY", "ELEVENLABS_VOICE_ID"],
+    "elevenlabs_min_remaining_credits": 1000
+  },
+  "approval_response": "Approved. Execute the storyboard exactly as proposed, verify the complete narrated video, and continue until the task is complete.",
+  "input_fallback": "Use your best judgment from the material and stated requirements.",
+  "prompt": "Using {repo_root}/SKILL.md and {repo_root}/skills/manim-video/SKILL.md, create an original 55-65 second explainer titled How GPUs Accelerate AI. Explain parallel arithmetic, matrix multiplication, memory bandwidth, and their benefit to AI with Manim visuals and audible ElevenLabs narration. Deliver one 1920x1080@30 H.264/AAC video at {workspace}/deliverables/gpu_explainer.mp4. Write narration to {workspace}/narration.txt and generate it with: python {repo_root}/benchmarks/elevenlabs_tts.py --text-file {workspace}/narration.txt -o {workspace}/narration.mp3 --model eleven_multilingual_v2 --output-format mp3_44100_128. Work only in {workspace} and leave the repository unchanged.",
+  "outputs": {
+    "glob": "deliverables/gpu_explainer.mp4",
+    "min_count": 1,
+    "validation": {
+      "min_duration_s": 55.0,
+      "max_duration_s": 65.0,
+      "width": 1920,
+      "height": 1080,
+      "fps": 30.0,
+      "fps_tolerance": 0.02,
+      "video_codec": "h264",
+      "audio_codec": "aac",
+      "require_audio": true,
+      "require_audible_audio": true,
+      "audible_threshold_db": -50.0,
+      "require_caption_sidecar": false
+    }
+  }
+}

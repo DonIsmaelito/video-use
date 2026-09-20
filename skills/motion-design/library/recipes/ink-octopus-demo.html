@@ -1,0 +1,7 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Ink octopus</title><style>html,body{margin:0;overflow:hidden;background:#f5edda}canvas{display:block}</style></head><body><canvas width="1920" height="1080"></canvas><script type="module">
+import {createInkOctopus} from './ink-octopus.mjs';const DESIGN={curl:1};const canvas=document.querySelector('canvas'),ctx=canvas.getContext('2d',{willReadFrequently:true}),hero=createInkOctopus();
+const paper=document.createElement('canvas');paper.width=1920;paper.height=1080;const p=paper.getContext('2d');p.fillStyle='#f5edda';p.fillRect(0,0,1920,1080);let seed=12833;const random=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296};for(let i=0;i<47000;i++){p.fillStyle=i%2?'rgba(142,120,79,.07)':'rgba(255,252,239,.19)';p.fillRect(random()*1920,random()*1080,.4+random(),.5+random()*1.5);}
+const ease=x=>{x=Math.max(0,Math.min(1,x));return x*x*x*(x*(x*6-15)+10)};
+function pose(t){if(!Number.isFinite(t))throw new Error('finite time required');t=Math.max(0,Math.min(8,t));const form=ease((t-.75)/2.7),swim=ease((t-2.7)/1.1),phase=Math.max(0,t-2.7)*2.8;ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=1;ctx.filter='none';ctx.globalCompositeOperation='source-over';ctx.drawImage(paper,0,0);hero.draw(ctx,{x:960+80*Math.sin((t-3)*.58)*swim,y:475-105*form+22*Math.sin(phase)*swim,scale:.94,rotation:-.035+.10*Math.sin((t-3)*.8)*swim,form,phase,jet:swim,curl:DESIGN.curl});}
+window.motionReady=Promise.resolve();window.seek=async t=>pose(t);pose(0);
+</script></body></html>

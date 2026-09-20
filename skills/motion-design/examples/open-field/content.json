@@ -1,0 +1,25 @@
+{
+  "brand": "Open Field",
+  "opening": ["Good ideas", "start anywhere."],
+  "workspace": "A place to bring it together.",
+  "project": "A new direction",
+  "collection": "Field notes",
+  "closing": ["Space for", "what’s next."],
+  "edition": "A journal of things becoming",
+  "palette": {
+    "paper": "#f2efe7",
+    "ink": "#222922",
+    "accent": "#ec573c",
+    "lilac": "#c6c4e5",
+    "leaf": "#d1db83",
+    "line": "#d4d4c8"
+  },
+  "cards": [
+    {"title": "First thought", "body": "Leave room for the unexpected.", "kind": "note"},
+    {"title": "Visual direction", "body": "A little more possibility.", "kind": "art"},
+    {"title": "Color studies", "body": "Warm. Open. Alive.", "kind": "palette"},
+    {"title": "A shared idea", "body": "Something worth making together.", "kind": "note"},
+    {"title": "Shape language", "body": "Simple forms. New connections.", "kind": "shape"},
+    {"title": "Ready to grow", "body": "From a thought to a whole world.", "kind": "type"}
+  ]
+}

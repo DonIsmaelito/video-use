@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "authoringStatus": "ready",
+  "title": "One clear thought",
+  "prompt": "prompt.txt",
+  "creativeContract": "creative-contract.md",
+  "entry": "index.html",
+  "content": "content.json",
+  "render": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "duration": 16,
+    "output": "renders/final.mp4",
+    "audio": null,
+    "posterTime": 14,
+    "stills": [0, 2.3, 4.5, 6.7, 8.2, 9.6, 10.8, 14]
+  },
+  "provenance": [
+    {"file":"assets/inter-semibold.ttf","origin":"https://github.com/rsms/inter","license":"OFL-1.1"},
+    {"file":"assets/instrument-serif.ttf","origin":"https://github.com/Instrument/instrument-serif","license":"OFL-1.1"}
+  ],
+  "runtime": {
+    "node": ">=22.12",
+    "chrome": "Chrome or Chromium",
+    "ffmpeg": "ffmpeg and ffprobe on PATH",
+    "dependencyDirectory": "runtime"
+  },
+  "review": {
+    "method": "Rendered proof frames plus a 32-frame contact sheet spanning the encoded film and a targeted encoded frame at 12.8 seconds",
+    "technical": "Full decode passed: 480 frames, 1920x1080, 30 fps, 16 seconds; repeated and backward seeks passed; intentionally silent",
+    "editability": "Replaced every phrase, palette, and seed in a temporary content.json while keeping scene code unchanged; longer copy fit and rendered seek checks passed",
+    "repairs": [
+      "Opening starts with a visible thought instead of an empty first frame",
+      "Final text mask expanded and underline lowered to preserve the serif g descender",
+      "First interruption begins before the cut so its incoming frame is visible",
+      "Final underline settles below the descenders before the second line becomes visible"
+    ],
+    "limitation": "Normal-speed playback was not directly reviewed; dense encoded frames and transition proofs were inspected. Source and assets reproduce the scene; the same natural-language prompt alone does not guarantee the same creative decisions"
+  }
+}

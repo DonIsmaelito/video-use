@@ -1,15 +1,45 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
+
+.media-attribution {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.6;
+  opacity: 0.65;
+}
+
+.media-attribution a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+@font-face {
+  font-family: Inter;
+  src: url('/fonts/inter-regular.woff2') format('woff2'), url('/fonts/inter-regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: Inter;
+  src: url('/fonts/inter-medium.woff2') format('woff2'), url('/fonts/inter-medium.ttf') format('truetype');
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: Inter;
+  src: url('/fonts/inter-semibold.woff2') format('woff2'), url('/fonts/inter-semibold.ttf') format('truetype');
+  font-weight: 600;
+  font-display: swap;
+}
 @font-face {
   font-family: 'Instrument Serif';
-  src: url('/fonts/instrument-serif.ttf') format('truetype');
+  src: url('/fonts/instrument-serif.woff2') format('woff2'), url('/fonts/instrument-serif.ttf') format('truetype');
   font-weight: 400;
   font-display: swap;
 }
 @font-face {
   font-family: 'Instrument Serif';
-  src: url('/fonts/instrument-serif-italic.ttf') format('truetype');
+  src: url('/fonts/instrument-serif-italic.woff2') format('woff2'), url('/fonts/instrument-serif-italic.ttf') format('truetype');
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -17,9 +47,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-display);
-  --font-heading: var(--font-display);
-  --font-mono: var(--font-display);
+  --font-sans: var(--font-ui);
+  --font-heading: var(--font-ui);
+  --font-mono: var(--font-code);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-popover: var(--popover);
@@ -37,6 +67,8 @@
 :root {
   color-scheme: dark;
   --font-display: 'Instrument Serif', Georgia, serif;
+  --font-ui: Inter, Arial, sans-serif;
+  --font-code: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --background: #000;
   --foreground: #f1f0ee;
   --primary: #b28af7;
@@ -59,18 +91,20 @@ body {
   margin: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-display);
-  font-size: 20px;
+  font-family: var(--font-ui);
+  font-size: 14px;
   font-synthesis: none;
   -webkit-font-smoothing: antialiased;
 }
 button,
 input,
-textarea,
-code,
-pre {
+textarea {
   font-family: inherit;
   font-weight: 400;
+}
+code,
+pre {
+  font-family: var(--font-code);
 }
 a {
   color: inherit;
@@ -117,6 +151,7 @@ svg {
 .brand {
   display: inline-flex;
   align-items: center;
+  height: 56px;
 }
 .hero {
   background: #09090a;
@@ -130,6 +165,7 @@ svg {
   overflow: hidden;
 }
 .hero-composition {
+  --hero-font-size: clamp(110px, 14.6vw, 250px);
   width: 100%;
   max-width: 1600px;
   margin: 0 auto;
@@ -140,7 +176,7 @@ svg {
   font-family: var(--font-display);
   font-weight: 400;
   color: var(--lavender);
-  font-size: clamp(110px, 14.6vw, 250px);
+  font-size: var(--hero-font-size);
   line-height: 0.96;
   letter-spacing: -0.045em;
 }
@@ -171,71 +207,57 @@ svg {
 .hero-word {
   display: block;
 }
-/* Two quiet, copyable setup steps occupy the space below “prompt”. */
+/* Align the command center to the 1.1em word stage plus .06em bottom padding. */
 .getting-started {
   position: absolute;
   left: 0;
-  bottom: 8px;
-  width: min(43%, 460px);
+  bottom: calc(var(--hero-font-size) * 0.61);
+  transform: translateY(50%);
+  width: min(48%, 580px);
   min-width: 0;
   margin: 0;
   padding: 0;
-  border: 1px solid #b28af73d;
-  border-radius: 10px;
-  background: #b28af705;
-  overflow: hidden;
+  border: 0;
 }
-.setup-step {
-  display: flex;
+.clone-command {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: flex-start;
   width: 100%;
   height: auto;
-  min-height: 56px;
-  padding: 15px 18px;
-  gap: 14px;
-  border: 0;
-  border-radius: 0;
-  color: #e6dbf6;
-  font-size: 20px;
+  min-height: 76px;
+  padding: 22px 24px;
+  gap: 20px;
+  border: 1px solid #ffffff26;
+  border-radius: 8px;
+  background: #ffffff04;
+  color: #bcb8c2;
+  font-size: 14px;
   font-weight: 400;
-  line-height: 1.25;
+  line-height: 1.5;
   text-align: left;
   white-space: normal;
-  transition: background 0.2s;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
 }
-.setup-step + .setup-step {
-  border-top: 1px solid #b28af726;
+.clone-command:hover {
+  color: #f1eef5;
+  background: #ffffff06;
+  border-color: #b28af759;
 }
-.setup-step:hover {
-  background: #b28af70c;
-}
-.setup-step:focus-visible {
+.clone-command:focus-visible {
   outline-offset: -3px;
 }
-.setup-number {
-  align-self: flex-start;
-  color: #b28af78c;
-  font-size: 18px;
-  line-height: 1.4;
-}
-.setup-command,
-.setup-label {
-  flex: 1;
+.clone-command-text {
   min-width: 0;
-}
-.setup-command {
-  font-size: 18px;
-  line-height: 1.3;
+  font-size: 14px;
+  line-height: 1.6;
   overflow-wrap: anywhere;
+  word-break: break-all;
 }
-.setup-command > span {
-  display: block;
-}
-.setup-command > span:first-child {
-  color: #a394b7;
-}
-.setup-step > svg {
+.clone-command-action {
+  font-size: 12px;
   color: var(--lavender);
 }
 .hero-foot {
@@ -262,25 +284,20 @@ svg {
   color: var(--lavender);
 }
 .video-card {
+  position: relative;
   min-width: 0;
 }
 .video-frame {
   position: relative;
-  aspect-ratio: 4/3;
+  aspect-ratio: 16/9;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: 10px;
   background: #0f0f0f;
 }
 .video-frame img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-.video-card img {
-  transition: transform 0.5s ease;
-}
-.video-card:hover img {
-  transform: scale(1.05);
 }
 @media (min-width: 1800px) {
   .hero-composition {
@@ -291,8 +308,8 @@ svg {
   .hero {
     min-height: 650px;
   }
-  .hero h1 {
-    font-size: 15vw;
+  .hero-composition {
+    --hero-font-size: 15vw;
   }
 }
 @media (max-width: 1000px) {
@@ -305,12 +322,20 @@ svg {
   }
   .getting-started {
     position: relative;
-    width: min(100%, 460px);
+    width: min(100%, 580px);
     margin-top: 38px;
     bottom: auto;
+    transform: none;
   }
 }
 @media (max-width: 760px) {
+  .clone-command {
+    padding: 20px;
+    gap: 16px;
+  }
+  .clone-command-text {
+    font-size: 13px;
+  }
   .site-header {
     height: 82px;
   }
@@ -318,8 +343,8 @@ svg {
     min-height: max(660px, 95svh);
     padding-top: 115px;
   }
-  .hero h1 {
-    font-size: 18vw;
+  .hero-composition {
+    --hero-font-size: 18vw;
   }
   .hero-top {
     gap: 20px;
@@ -343,8 +368,8 @@ svg {
   .hero {
     min-height: max(640px, 95svh);
   }
-  .hero h1 {
-    font-size: 19vw;
+  .hero-composition {
+    --hero-font-size: 19vw;
   }
   .hero-top {
     gap: 14px;
@@ -365,31 +390,50 @@ svg {
   }
 }
 
-/* Hero choreography: staggered rotating type. */
+/* Match the reference's upward cube roll: 500ms move, 1200ms hold. */
+.hero-word-stage {
+  position: relative;
+  display: block;
+  width: 3.2em;
+  height: 1.1em;
+  perspective: 1600px;
+  transform-style: preserve-3d;
+  overflow: visible;
+}
 .hero-word {
-  perspective: 800px;
-  min-height: 1em;
+  position: absolute;
+  inset: 0;
+  height: 1.1em;
+  line-height: 1.1;
+  text-align: right;
   white-space: nowrap;
+  transform-origin: 50% 50% -0.55em;
+  backface-visibility: hidden;
 }
-.hero-word > span {
-  display: inline-block;
-  transform-origin: 50% 85%;
-  animation: word-arrive 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+.hero-word-in {
+  animation: word-roll-in 500ms cubic-bezier(0.65, 0.05, 0.36, 1) both;
 }
-@keyframes word-arrive {
+.hero-word-out {
+  animation: word-roll-out 500ms cubic-bezier(0.65, 0.05, 0.36, 1) both;
+}
+@keyframes word-roll-in {
   from {
-    transform: translateY(65%) rotateX(-65deg);
-    opacity: 0;
-    filter: blur(6px);
+    transform: rotateX(-90deg);
   }
   to {
-    transform: translateY(0) rotateX(0);
-    opacity: 1;
-    filter: blur(0);
+    transform: rotateX(0deg);
+  }
+}
+@keyframes word-roll-out {
+  from {
+    transform: rotateX(0deg);
+  }
+  to {
+    transform: rotateX(90deg);
   }
 }
 .hero-bottom {
-  overflow: clip;
+  overflow: visible;
   padding-bottom: 0.06em;
 }
 .hero-foot-right {
@@ -398,7 +442,7 @@ svg {
   gap: 24px;
 }
 
-/* Gallery: four columns, consistent media windows, compact metadata. */
+/* Five-column cinematic gallery with in-frame prompts. */
 .video-frame {
   display: block;
   width: 100%;
@@ -408,34 +452,26 @@ svg {
   cursor: pointer;
   isolation: isolate;
 }
-.video-frame .card-poster {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  opacity: 1;
-  transition:
-    opacity 0.35s,
-    transform 0.5s ease;
-}
+.video-frame .card-poster,
 .video-frame video {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
+  object-position: center;
+}
+.video-frame .card-poster {
+  z-index: 1;
+}
+.video-frame video {
+  z-index: 2;
   background: #0b0a0d;
   opacity: 0;
-  transition: opacity 0.35s;
+  transition: opacity 0.25s ease;
 }
 .video-frame.is-playing video {
   opacity: 1;
-  z-index: 2;
-}
-.video-frame.is-playing .card-poster {
-  opacity: 0;
-}
-.video-frame.portrait .card-poster {
-  object-fit: cover;
 }
 .video-shade {
   position: absolute;
@@ -446,14 +482,14 @@ svg {
 }
 .video-duration {
   position: absolute;
-  right: 10px;
-  bottom: 12px;
+  left: 10px;
+  top: 10px;
   background: #0006;
   border: 1px solid #ffffff0f;
   border-radius: 4px;
   padding: 2px 5px;
-  font-size: 16px;
-  line-height: 1;
+  font-size: 10px;
+  line-height: 1.4;
   z-index: 4;
   color: #f2eff7;
   font-variant-numeric: tabular-nums;
@@ -469,21 +505,22 @@ svg {
   }
 }
 
-/* Reference gallery: open horizontal filters and unboxed media cards. */
+/* Melies reference: category sections, 16:9 tiles and 6px gutters. */
 .gallery-section {
   width: 100%;
-  max-width: 1400px;
+  max-width: 1920px;
   margin: 0 auto;
-  padding: 64px 32px;
+  padding: 40px 24px 64px;
   scroll-margin-top: 0;
   color: #f5f5f5;
   letter-spacing: 0;
 }
 .filter-bar {
-  margin-bottom: 40px;
+  margin-bottom: 24px;
 }
 .filter-list {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 8px;
   padding: 3px 0 12px;
@@ -499,15 +536,15 @@ svg {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  height: 42px;
-  padding: 8px 16px;
-  border: 1px solid #1a1a1a80;
-  border-radius: 9999px;
-  background: #000;
+  height: 34px;
+  padding: 0 12px;
+  border: 1px solid #ffffff14;
+  border-radius: 10px;
+  background: #ffffff08;
   color: #c4c4c4;
-  font-size: 22px;
-  line-height: 24px;
-  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
   white-space: nowrap;
   transition:
     background 0.2s,
@@ -519,60 +556,129 @@ svg {
   border-color: #1a1a1a;
 }
 .filter-pill.active {
-  background: #f5f5f5;
-  border-color: transparent;
-  color: #0a0a0a;
+  background: #b28af726;
+  border-color: #b28af76b;
+  color: #ece9ff;
 }
 .filter-pill:focus-visible {
   outline-offset: -3px;
 }
 .filter-count {
-  font-size: 17px;
-  line-height: 20px;
+  font-size: 12px;
+  line-height: 16px;
   opacity: 0.6;
   font-variant-numeric: tabular-nums;
 }
 .video-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 24px;
+  gap: 6px;
   animation: gallery-appear 0.35s ease-out;
 }
-.card-meta {
+.gallery-category {
+  padding: 8px 0 28px;
+}
+.category-heading {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
-  margin: 12px 0 8px;
+  gap: 12px;
+  margin: 0 2px 10px;
+  padding: 4px 2px;
 }
-.category-tag {
-  display: inline-flex;
-  align-items: center;
-  flex-shrink: 0;
-  padding: 4px 10px;
-  border-radius: 6px;
-  background: var(--lavender);
-  color: #fff;
+.category-heading h2 {
   font-size: 18px;
-  font-weight: 400;
-  line-height: 22px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+.category-heading > span {
+  color: #85818c;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+.card-title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 4;
+  padding: 32px 12px 12px;
+  background: linear-gradient(transparent, #000b);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.card-prompt {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  padding: 38px 12px 12px;
+  background: #08080ae8;
+  opacity: 0;
+  transition: opacity 180ms ease;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+.card-prompt-label {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #a9a3b4;
+}
+.card-prompt-text {
+  display: block;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  color: #f1eef5;
+}
+.card-meta {
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  z-index: 6;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+}
+.video-card:focus-within .card-prompt,
+.video-card:focus-within .card-meta {
+  opacity: 1;
+  pointer-events: auto;
+}
+@media (hover: hover) {
+  .video-card:hover .card-prompt,
+  .video-card:hover .card-meta {
+    opacity: 1;
+    pointer-events: auto;
+  }
 }
 .copy-card {
-  height: 30px;
-  padding: 2px 0 2px 6px;
+  height: 28px;
+  padding: 2px 4px;
   gap: 6px;
   background: transparent !important;
-  color: #8c8c8c;
-  font-size: 18px;
+  color: #c8c1d3;
+  font-size: 11px;
   font-weight: 400;
 }
 .copy-card:hover,
 .copy-card.copied {
-  color: #f5f5f5;
+  color: #fff;
 }
 .copy-card svg {
-  width: 13px !important;
-  height: 13px !important;
+  width: 12px !important;
+  height: 12px !important;
 }
 .scroll-cue {
   display: grid !important;
@@ -580,19 +686,19 @@ svg {
   width: 36px;
   height: 36px;
 }
-@media (min-width: 640px) {
+@media (min-width: 540px) {
   .video-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
-@media (min-width: 1024px) {
+@media (min-width: 800px) {
   .video-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 @media (min-width: 1280px) {
   .video-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 }
 @media (max-width: 639px) {
@@ -617,21 +723,21 @@ svg {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  font-size: 20px;
+  font-size: 12px;
   color: var(--lavender);
   margin-top: 15px;
 }
 .manual-copy-dialog {
   max-width: min(550px, calc(100vw - 32px));
-  font-size: 20px;
+  font-size: 14px;
 }
 .manual-copy-dialog [data-slot='dialog-title'] {
-  font-size: 26px;
-  font-weight: 400;
+  font-size: 16px;
+  font-weight: 500;
 }
 .manual-copy-dialog [data-slot='dialog-description'],
 .manual-copy-dialog [data-slot='button'] {
-  font-size: 20px;
+  font-size: 14px;
   font-weight: 400;
 }
 .manual-copy-dialog textarea {
@@ -659,7 +765,7 @@ svg {
   padding: 13px 19px;
   box-shadow: 0 8px 25px #0004;
   z-index: 100;
-  font-size: 20px;
+  font-size: 12px;
   opacity: 0;
   pointer-events: none;
   transition:
@@ -696,7 +802,7 @@ svg {
     max-width: 180px;
   }
   .toast-message {
-    font-size: 18px;
+    font-size: 12px;
     max-width: calc(100vw - 24px);
     white-space: normal;
   }
@@ -706,21 +812,22 @@ svg {
     max-width: 180px;
   }
   .video-frame {
-    aspect-ratio: 4/3;
+    aspect-ratio: 16/9;
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero-word > span {
-    opacity: 1;
-    filter: none;
+  .hero-word {
     transform: none;
+  }
+  .hero-word-out {
+    display: none;
   }
 }
 
-/* The header uses only a clean brand mark and an unboxed repository link. */
+/* Browser Use mark with an unboxed repository link. */
 .brand img {
-  width: 46px;
-  height: 46px;
+  width: 56px;
+  height: 56px;
   display: block;
 }
 .brand {
@@ -733,7 +840,7 @@ svg {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  height: 44px;
+  height: 56px;
   color: #d9d7dc;
   transition: opacity 0.2s;
 }
@@ -745,8 +852,8 @@ svg {
   height: 22px;
 }
 .github-stars {
-  font-size: 22px;
-  font-weight: 400;
+  font-size: 14px;
+  font-weight: 500;
   letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
   min-width: 3ch;
@@ -816,22 +923,22 @@ svg {
   max-height: 170px;
   overflow: auto;
   white-space: pre-wrap;
-  font-size: 22px;
-  line-height: 1.45;
-  color: #d1cdd7;
+  font-size: 13px;
+  line-height: 1.8;
+  color: #bfbfc5;
 }
 .dialog-actions {
   flex-shrink: 0;
   padding-top: 2px;
 }
 .copy-primary {
-  height: 42px;
+  height: 38px;
   padding: 0 14px;
   gap: 8px;
   border: 0;
   border-radius: 6px;
-  font-size: 20px;
-  font-weight: 400;
+  font-size: 12px;
+  font-weight: 500;
   background: #e4ddf1;
   color: #19151e;
 }
@@ -843,14 +950,14 @@ svg {
   gap: 18px;
 }
 
-/* The closing wordmark uses the same clear lavender serif as the opening. */
+/* Crop the bottom 30% of the serif letterforms at the page edge. */
 .site-footer {
-  padding: clamp(80px, 10vw, 180px) var(--page-gutter) 32px;
+  padding: clamp(80px, 10vw, 180px) var(--page-gutter) 0;
   background: #000;
 }
 .footer-wordmark {
   margin: 0 auto;
-  color: var(--lavender);
+  color: color-mix(in srgb, var(--lavender) 65%, #000);
   font-family: var(--font-display);
   font-size: clamp(64px, 24.5vw, 440px);
   font-weight: 400;
@@ -858,17 +965,19 @@ svg {
   letter-spacing: -0.045em;
   text-align: center;
   white-space: nowrap;
+  height: 0.63em;
+  overflow: hidden;
 }
 @media (max-width: 760px) {
   .brand img {
-    width: 38px;
-    height: 38px;
+    width: 46px;
+    height: 46px;
   }
   .github-link {
     gap: 8px;
   }
   .github-stars {
-    font-size: 20px;
+    font-size: 14px;
   }
   .example-dialog {
     max-width: calc(100vw - 24px);
@@ -880,25 +989,12 @@ svg {
   }
   .prompt-text {
     max-height: 190px;
-    font-size: 20px;
+    font-size: 13px;
   }
   .dialog-video.landscape {
     max-height: 56svh;
   }
   .dialog-video.portrait {
     height: 56svh;
-  }
-  .site-footer {
-    padding-bottom: 24px;
-  }
-}
-@media (max-width: 440px) {
-  .setup-step {
-    gap: 10px;
-    padding: 14px;
-    font-size: 19px;
-  }
-  .setup-command {
-    font-size: 17px;
   }
 }

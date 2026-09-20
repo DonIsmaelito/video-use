@@ -1,0 +1,61 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Optical assembly</title>
+<style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#111313}canvas{display:block;width:100%;height:100%}</style>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+</head><body><script type="module">
+import * as THREE from 'three';
+import { HDRLoader } from 'three/addons/loaders/HDRLoader.js';
+import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUniformsLib.js';
+import { createOpticalAssembly } from './optical-assembly.mjs';
+
+// This demonstration owns staging and time. The reusable recipe owns neither.
+const DESIGN={bladeCount:8,width:1920,height:1080,duration:8};
+const ASSETS={environment:'./assets/studio_small_09_1k.hdr',diffuse:'./assets/metal_plate_02_diff_1k.jpg',roughness:'./assets/metal_plate_02_rough_1k.jpg',metalness:'./assets/metal_plate_02_metal_1k.jpg',normal:'./assets/metal_plate_02_nor_gl_1k.jpg'};
+const scene=new THREE.Scene();scene.background=new THREE.Color('#111313');
+const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});
+renderer.setPixelRatio(1);renderer.setSize(DESIGN.width,DESIGN.height);
+renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.82;
+document.body.appendChild(renderer.domElement);
+const camera=new THREE.PerspectiveCamera(33,DESIGN.width/DESIGN.height,.1,100);
+const stage=new THREE.Group();scene.add(stage);
+RectAreaLightUniformsLib.init();
+const softbox=new THREE.RectAreaLight('#e2edee',6.0,7,5);softbox.position.set(-2,4,7);softbox.lookAt(0,0,0);scene.add(softbox);
+const key=new THREE.DirectionalLight('#ffdda9',2.1);key.position.set(-4,6,6);scene.add(key);
+const rim=new THREE.DirectionalLight('#b6e0e7',2.0);rim.position.set(4,-1,2);scene.add(rim);
+scene.add(new THREE.HemisphereLight('#e8e8de','#1b2228',.65));
+const textureLoader=new THREE.TextureLoader(),hdrLoader=new HDRLoader();
+let mechanism;
+const clamp=x=>Math.max(0,Math.min(1,x));
+const smooth=x=>{x=clamp(x);return x*x*x*(x*(x*6-15)+10)};
+const between=(t,a,b)=>smooth((t-a)/(b-a));
+function state(t){
+  const open=between(t,.45,2.5)*(1-.72*between(t,6.4,7.9));
+  const separation=between(t,2.25,3.65)*(1-between(t,4.5,6.15));
+  const orbit=between(t,.2,4.2)*(1-between(t,5.0,7.8));
+  return {aperture:.045+.945*open,separation,rotation:-.10+.15*between(t,.3,2.5)-.09*between(t,5.6,7.7),orbit};
+}
+function pose(seconds){
+  const t=Math.max(0,Math.min(DESIGN.duration,Number(seconds))),p=state(t);
+  mechanism.setState(p);
+  stage.rotation.set(.09-.12*p.orbit,.05+.06*p.orbit,0);
+  const azimuth=.28+.22*p.orbit,elevation=.20+.06*p.orbit,distance=10.7+.7*p.separation;
+  camera.position.set(Math.sin(azimuth)*Math.cos(elevation)*distance,Math.sin(elevation)*distance,Math.cos(azimuth)*Math.cos(elevation)*distance);
+  camera.lookAt(0,0,-.23-.30*p.separation);
+  renderer.render(scene,camera);
+}
+window.motionReady=(async()=>{
+  const [hdr,diffuse,roughness,metalness,normal]=await Promise.all([hdrLoader.loadAsync(ASSETS.environment),textureLoader.loadAsync(ASSETS.diffuse),textureLoader.loadAsync(ASSETS.roughness),textureLoader.loadAsync(ASSETS.metalness),textureLoader.loadAsync(ASSETS.normal)]);
+  hdr.mapping=THREE.EquirectangularReflectionMapping;
+  const pmrem=new THREE.PMREMGenerator(renderer);scene.environment=pmrem.fromEquirectangular(hdr).texture;hdr.dispose();pmrem.dispose();scene.environmentIntensity=1.1;scene.environmentRotation.y=.9;
+  diffuse.colorSpace=THREE.SRGBColorSpace;
+  for(const map of [diffuse,roughness,metalness,normal]){map.wrapS=map.wrapT=THREE.RepeatWrapping;map.repeat.set(.28,.28);map.anisotropy=8;}
+  const shell=new THREE.MeshPhysicalMaterial({color:'#a6abad',map:diffuse,roughnessMap:roughness,metalnessMap:metalness,normalMap:normal,normalScale:new THREE.Vector2(.20,.20),metalness:.88,roughness:.62,clearcoat:.12});
+  const blade=new THREE.MeshPhysicalMaterial({color:'#7e8b8e',metalness:.93,roughness:.44,anisotropy:.45,clearcoat:.06,envMapIntensity:.55,side:THREE.DoubleSide});
+  const trim=new THREE.MeshPhysicalMaterial({color:'#b89a66',metalness:.9,roughness:.27});
+  const lens=new THREE.MeshPhysicalMaterial({color:'#acd6d8',metalness:0,roughness:.055,transmission:.91,thickness:.42,ior:1.51,iridescence:.22,clearcoat:1});
+  mechanism=createOpticalAssembly({bladeCount:DESIGN.bladeCount,shellMaterial:shell,bladeMaterial:blade,trimMaterial:trim,lensMaterial:lens});stage.add(mechanism.group);
+  window.opticalMechanism=mechanism;
+  pose(0);
+})();
+window.seek=async seconds=>{await window.motionReady;pose(seconds)};
+</script></body></html>

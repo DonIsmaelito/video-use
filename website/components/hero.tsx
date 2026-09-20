@@ -1,14 +1,16 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { ArrowDown } from 'lucide-react';
 import { GettingStarted } from '@/components/getting-started';
 import { repository } from '@/lib/gallery';
 
 const words = ['edits', 'motion', 'stories', 'video'];
+const wordTransitionMs = 500;
+const wordHoldMs = 1200;
 
 export function Hero() {
-  const [index, setIndex] = useState(0);
+  const [step, setStep] = useState(0);
+  const index = step % words.length;
   const [reducedMotion, setReducedMotion] = useState(true);
   const [stars, setStars] = useState<number | null>(null);
 
@@ -22,11 +24,12 @@ export function Hero() {
 
   useEffect(() => {
     if (reducedMotion) return;
-    const interval = window.setInterval(
-      () => setIndex((current) => (current + 1) % words.length),
-      2900,
-    );
-    return () => window.clearInterval(interval);
+    let timer = window.setTimeout(advance, wordHoldMs);
+    function advance() {
+      setStep((current) => current + 1);
+      timer = window.setTimeout(advance, wordHoldMs + wordTransitionMs);
+    }
+    return () => window.clearTimeout(timer);
   }, [reducedMotion]);
 
   useEffect(() => {
@@ -56,8 +59,8 @@ export function Hero() {
           <img
             src="/brand/browser-use.svg"
             alt="Browser Use"
-            width="46"
-            height="46"
+            width="56"
+            height="56"
           />
         </a>
         <a
@@ -71,7 +74,7 @@ export function Hero() {
           target="_blank"
           rel="noreferrer"
         >
-          <img src="/brand/github.svg" alt="" width="22" height="22" />
+          <span>GitHub</span>
           <span className="github-stars" aria-hidden="true">
             {stars === null
               ? '—'
@@ -97,27 +100,22 @@ export function Hero() {
               <span className="hero-amp">&</span>
             </span>
             <span aria-hidden="true" className="hero-bottom">
-              <span key={index} className="hero-word">
-                {words[index].split('').map((letter, i) => (
-                  <span key={i} style={{ animationDelay: `${i * 40}ms` }}>
-                    {letter}
+              <span className="hero-word-stage">
+                {step > 0 && !reducedMotion && (
+                  <span key={`out-${step}`} className="hero-word hero-word-out">
+                    {words[(index + words.length - 1) % words.length]}
                   </span>
-                ))}
+                )}
+                <span
+                  key={`in-${step}`}
+                  className={`hero-word ${step > 0 && !reducedMotion ? 'hero-word-in' : ''}`}
+                >
+                  {words[index]}
+                </span>
               </span>
             </span>
           </h1>
           <GettingStarted />
-        </div>
-        <div className="hero-foot">
-          <div className="hero-foot-right">
-            <a
-              href="#examples"
-              aria-label="Explore video examples"
-              className="scroll-cue"
-            >
-              <ArrowDown size={20} />
-            </a>
-          </div>
         </div>
       </section>
     </>

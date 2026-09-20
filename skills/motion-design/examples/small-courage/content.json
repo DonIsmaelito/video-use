@@ -1,0 +1,7 @@
+{
+  "colors":{"paper":"#f1eadc","body":"#3057be","edge":"#15316f","ball":"#f17748","stripe":"#facda1","ink":"#192b45"},
+  "character":{"armUpper":86,"armLower":84},
+  "ball":{"radius":250,"startX":1090,"travel":370},
+  "groundY":855,
+  "seed":"a small act of courage"
+}

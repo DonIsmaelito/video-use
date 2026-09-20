@@ -36,6 +36,7 @@ function VideoCard({
   const [nearby, setNearby] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [failed, setFailed] = useState(false);
+  const [inView, setInView] = useState(false);
 
   const stop = () => {
     wantsPlayback.current = false;
@@ -44,62 +45,63 @@ function VideoCard({
   };
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    const target = frame.current;
+    if (!target) return;
+    // Mount media just before it enters view; only visible cards play.
+    const preloadObserver = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) setNearby(true);
-        else {
-          wantsPlayback.current = false;
-          video.current?.pause();
-          setPlaying(false);
+        if (entry.isIntersecting) {
+          setNearby(true);
+          preloadObserver.disconnect();
         }
       },
       { rootMargin: '200px' },
     );
-    if (frame.current) observer.observe(frame.current);
-    const onVisibility = () => {
-      if (document.hidden) stop();
-    };
-    document.addEventListener('visibilitychange', onVisibility);
+    const playbackObserver = new IntersectionObserver(([entry]) => {
+      setInView(entry.isIntersecting);
+    });
+    preloadObserver.observe(target);
+    playbackObserver.observe(target);
     return () => {
-      observer.disconnect();
-      document.removeEventListener('visibilitychange', onVisibility);
+      preloadObserver.disconnect();
+      playbackObserver.disconnect();
     };
   }, []);
 
   useEffect(() => {
-    if (suspended) stop();
-  }, [suspended]);
-
-  useEffect(() => {
-    // A fast hover or keyboard focus can arrive before lazy media mounts.
-    if (nearby && wantsPlayback.current && video.current) {
-      const player = video.current;
-      player
-        .play()
-        .then(() => {
-          if (!wantsPlayback.current) player.pause();
-        })
-        .catch(() => {});
-    }
-  }, [nearby]);
-
-  const play = () => {
-    if (
-      suspended ||
-      failed ||
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    )
-      return;
-    wantsPlayback.current = true;
-    setNearby(true);
-    if (!video.current) return;
-    video.current
-      .play()
-      .then(() => {
-        if (!wantsPlayback.current) video.current?.pause();
-      })
-      .catch(() => {});
-  };
+    const player = video.current;
+    if (!player) return;
+    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const syncPlayback = () => {
+      const shouldPlay =
+        inView &&
+        !suspended &&
+        !failed &&
+        !document.hidden &&
+        !preference.matches;
+      wantsPlayback.current = shouldPlay;
+      if (shouldPlay) {
+        player
+          .play()
+          .then(() => {
+            if (!wantsPlayback.current) player.pause();
+          })
+          .catch(() => {});
+      } else {
+        player.pause();
+        setPlaying(false);
+      }
+    };
+    syncPlayback();
+    document.addEventListener('visibilitychange', syncPlayback);
+    preference.addEventListener('change', syncPlayback);
+    return () => {
+      wantsPlayback.current = false;
+      player.pause();
+      document.removeEventListener('visibilitychange', syncPlayback);
+      preference.removeEventListener('change', syncPlayback);
+    };
+  }, [nearby, inView, suspended, failed]);
 
   return (
     <article className="video-card" aria-label={example.title}>
@@ -107,16 +109,7 @@ function VideoCard({
         ref={frame}
         type="button"
         className={`video-frame ${playing ? 'is-playing' : ''} ${example.orientation}`}
-        onPointerEnter={(event) => {
-          if (event.pointerType === 'mouse') play();
-        }}
-        onPointerLeave={stop}
-        onFocus={play}
-        onBlur={stop}
-        onClick={() => {
-          stop();
-          open();
-        }}
+        onClick={open}
         aria-label={`Watch ${example.title} and view its prompt`}
       >
         <img
@@ -150,12 +143,16 @@ function VideoCard({
           />
         )}
         <span className="video-shade" />
+        <span className="card-title">{example.title}</span>
+        <span className="card-prompt" aria-hidden="true">
+          <span className="card-prompt-label">Prompt</span>
+          <span className="card-prompt-text">{example.prompt}</span>
+        </span>
         <span className="video-duration">
           {formatDuration(example.duration)}
         </span>
       </button>
       <div className="card-meta">
-        <span className="category-tag">{example.category}</span>
         <Button
           variant="ghost"
           className={`copy-card ${copied ? 'copied' : ''}`}
@@ -246,20 +243,39 @@ export function Gallery() {
         <p className="sr-only" aria-live="polite">
           {visible.length} examples
         </p>
-        <div className="video-grid" key={category}>
-          {visible.map((example) => (
-            <VideoCard
-              key={example.id}
-              example={example}
-              open={() => open(example)}
-              copy={() =>
-                copyText(example.prompt, example.id, 'Prompt copied.')
-              }
-              copied={copied === example.id}
-              suspended={selected !== null || !!manualCopy}
-            />
-          ))}
-        </div>
+        {categories
+          .slice(1)
+          .filter((item) => category === 'All examples' || category === item)
+          .map((item) => {
+            const items = filterExamples(item);
+            const headingId = `category-${item.toLowerCase().replaceAll(' ', '-')}`;
+            return (
+              <section
+                key={item}
+                className="gallery-category"
+                aria-labelledby={headingId}
+              >
+                <header className="category-heading">
+                  <h2 id={headingId}>{item}</h2>
+                  <span>{items.length}</span>
+                </header>
+                <div className="video-grid">
+                  {items.map((example) => (
+                    <VideoCard
+                      key={example.id}
+                      example={example}
+                      open={() => open(example)}
+                      copy={() =>
+                        copyText(example.prompt, example.id, 'Prompt copied.')
+                      }
+                      copied={copied === example.id}
+                      suspended={selected !== null || !!manualCopy}
+                    />
+                  ))}
+                </div>
+              </section>
+            );
+          })}
       </section>
       <Dialog
         open={selected !== null}
@@ -282,6 +298,8 @@ export function Gallery() {
                   controls
                   playsInline
                   autoPlay
+                  muted={selected.category === 'Motion Design'}
+                  loop={selected.category === 'Motion Design'}
                   preload="metadata"
                   onError={() => setVideoError(true)}
                 />
@@ -296,6 +314,39 @@ export function Gallery() {
             </div>
             <div className="dialog-body">
               <div className="prompt-text">{selected.prompt}</div>
+              {[
+                'edit-velocity',
+                'edit-freeze_poster',
+                'edit-triptych',
+                'edit-after_dark',
+              ].includes(selected.id) && (
+                <p className="media-attribution">
+                  Edited from{' '}
+                  <a
+                    href="https://www.youtube.com/watch?v=R6MlUcmOul8"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Tears of Steel
+                  </a>
+                  {' · (CC) Blender Foundation | '}
+                  <a
+                    href="https://mango.blender.org/"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    mango.blender.org
+                  </a>
+                  {' · '}
+                  <a
+                    href="https://creativecommons.org/licenses/by/3.0/"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    CC BY 3.0
+                  </a>
+                </p>
+              )}
               <div className="dialog-actions">
                 <Button
                   className="copy-primary"

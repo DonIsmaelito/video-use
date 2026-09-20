@@ -1,0 +1,607 @@
+{
+  "version": 3,
+  "date": "2026-09-14",
+  "purpose": "Agent-authored prompt trials with creative expansion; not a measured autonomous benchmark or native image-to-video generation",
+  "shared_contract": {
+    "duration_seconds": 8,
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "content": "Hero only; no supporting copy, labels or UI. A word appears only when it is the requested hero, as in MELT."
+  },
+  "path_convention": "detail, demo and implementation resolve relative to this library. Each example selects batches[batch_id]; export resolves in its delivery directory, and source.archive_member resolves inside its editable_archive. Project evidence paths resolve beside that source HTML after extraction. Sound provenance belongs to the selected batch; shared visual settings do not imply shared audio requirements.",
+  "batches": {
+    "five-prompts-20260914": {
+      "directory": "/Users/ismaelito/Movies/video-use-tests/five-prompts-20260914",
+      "reel": "all-five.mp4",
+      "editable_archive": "source.zip",
+      "sound_provenance": {
+        "method": "Original procedural scores and movement cues; no sampled music or third-party recordings",
+        "source_in_delivery": "source/make_scores.py inside each batch editable_archive",
+        "sample_rate": 48000,
+        "channels": 2
+      }
+    },
+    "five-more-20260914": {
+      "directory": "/Users/ismaelito/Movies/video-use-tests/five-more-20260914",
+      "reel": "all-five.mp4",
+      "editable_archive": "source.zip",
+      "sound_provenance": {
+        "method": "Original procedural scores and movement cues; no sampled music or third-party recordings",
+        "source_in_delivery": "source/make_scores.py inside each batch editable_archive",
+        "sample_rate": 48000,
+        "channels": 2
+      }
+    },
+    "five-for-website-20260914": {
+      "directory": "/Users/ismaelito/Movies/video-use-tests/five-for-website-20260914",
+      "reel": "all-five.mp4",
+      "editable_archive": "source.zip",
+      "sound_provenance": {
+        "method": "Intentionally silent; no score, sampled sound or attached audio stream",
+        "audio_streams": 0
+      }
+    }
+  },
+  "examples": [
+    {
+      "id": "01-paper-koi",
+      "prompt": "Make a red paper koi unfold from a square and swim through blue ink ripples.",
+      "direction": {
+        "hero": "Original red paper koi",
+        "action": "Square-to-fish construction and attached swimming wave",
+        "world": "Ivory paper with blue ink ripples",
+        "representation": "Canvas geometry and procedural grain"
+      },
+      "selected_registry_ids": [
+        "ordinary-folk-dreams",
+        "mediawork-office-motion-tests",
+        "mediawork-pinterest-objects"
+      ],
+      "recipe_id": "paper-koi",
+      "detail": "recipes/paper-koi.md",
+      "demo": "recipes/paper-koi-demo.html",
+      "export": "01-paper-koi.mp4",
+      "asset_provenance": [
+        "Original geometry and seeded paper marks; no external hero assets"
+      ],
+      "iterations": [
+        "Oval construction pose: introduced a persistent spine hinge",
+        "Faint ripples and tight upper turn: strengthened ink and lowered path"
+      ],
+      "batch_id": "five-prompts-20260914",
+      "source": {
+        "archive_member": "source/01-paper-koi/index.html"
+      }
+    },
+    {
+      "id": "02-jelly-chair",
+      "prompt": "Make a cherry-red jelly chair land, squash, and spring back into shape.",
+      "direction": {
+        "hero": "Original continuous cherry lounge chair",
+        "action": "Grounded squash, rebound and settlement",
+        "world": "Peach studio with broad HDR reflections",
+        "representation": "Three.js geometry and absolute deformation"
+      },
+      "selected_registry_ids": [
+        "mediawork-pinterest-objects",
+        "polyhaven-studio-small-09-1k"
+      ],
+      "recipe_id": "jelly-chair",
+      "detail": "recipes/jelly-chair.md",
+      "demo": "recipes/jelly-chair-demo.html",
+      "export": "02-jelly-chair.mp4",
+      "asset_provenance": [
+        "Poly Haven Studio Small 09 HDR, CC0; local verified receipt",
+        "Original chair geometry"
+      ],
+      "iterations": [
+        "Interior back pinch: analytic horseshoe curve",
+        "Hard shadow and white reflections: softer shadow and moderated material response"
+      ],
+      "batch_id": "five-prompts-20260914",
+      "source": {
+        "archive_member": "source/02-jelly-chair/index.html"
+      }
+    },
+    {
+      "id": "03-chrome-beetle",
+      "prompt": "Make a chrome beetle open its wing cases and take flight.",
+      "direction": {
+        "hero": "Original chrome jewel beetle with six legs and veined wings",
+        "action": "Rigid case opening, membrane unfolding, wingbeat and lift",
+        "world": "Inky violet studio",
+        "representation": "Three.js articulated geometry"
+      },
+      "selected_registry_ids": [
+        "mediawork-pinterest-objects",
+        "music-player-state-journey",
+        "optical-assembly",
+        "polyhaven-studio-small-09-1k"
+      ],
+      "recipe_id": "chrome-beetle",
+      "detail": "recipes/chrome-beetle.md",
+      "demo": "recipes/chrome-beetle-demo.html",
+      "export": "03-chrome-beetle.mp4",
+      "asset_provenance": [
+        "Poly Haven Studio Small 09 HDR, CC0; local verified receipt",
+        "Original insect geometry"
+      ],
+      "iterations": [
+        "Foot clearance: wider opening camera",
+        "Membrane intersection: in-plane distal fold",
+        "Wingbeat cadence reduced for readable 30fps poses"
+      ],
+      "batch_id": "five-prompts-20260914",
+      "source": {
+        "archive_member": "source/03-chrome-beetle/index.html"
+      }
+    },
+    {
+      "id": "04-melt",
+      "prompt": "Make the word MELT turn into warm yellow liquid and pull itself back into letters.",
+      "direction": {
+        "hero": "The word MELT in warm yellow",
+        "action": "Glyphs sag into a connected puddle and recover",
+        "world": "Saturated cobalt",
+        "representation": "Live font-derived distance field and deterministic liquid shader"
+      },
+      "selected_registry_ids": [
+        "google-fonts-sora-variable",
+        "animography",
+        "mediawork-office-motion-tests"
+      ],
+      "recipe_id": "liquid-word",
+      "detail": "recipes/liquid-word.md",
+      "demo": "recipes/liquid-word-demo.html",
+      "export": "04-melt.mp4",
+      "asset_provenance": [
+        "Sora variable font and complete OFL-1.1; local verified receipt",
+        "No Animography artwork or code"
+      ],
+      "iterations": [
+        "Diagonal bevel quantization: full-resolution floating-point field",
+        "Detached drips: anchors follow the glyph baseline and connected pool"
+      ],
+      "batch_id": "five-prompts-20260914",
+      "source": {
+        "archive_member": "source/04-melt/index.html"
+      }
+    },
+    {
+      "id": "05-night-bloom",
+      "prompt": "Make a purple passionflower become a bold, wordless botanical fashion film.",
+      "direction": {
+        "hero": "One generated purple passionflower",
+        "action": "Related macros, strip reveals and radial reconstruction",
+        "world": "Dark photographic botanical still life",
+        "representation": "Authored editorial motion of one image"
+      },
+      "selected_registry_ids": [
+        "lilium-flower-family",
+        "ordinary-folk-dreams"
+      ],
+      "recipe_id": "botanical-editorial",
+      "detail": "recipes/botanical-editorial.md",
+      "demo": "recipes/botanical-editorial-demo.html",
+      "export": "05-night-bloom.mp4",
+      "asset_provenance": [
+        "Built-in image_gen photographic-style hero; assets/manifest.json",
+        "Exact image prompt: IMAGE-PROMPT.txt",
+        "No reference film pixels reused"
+      ],
+      "iterations": [
+        "Visible photographic plate rectangle: runtime margin feather",
+        "Pollen and filament crops confirmed usable detail"
+      ],
+      "batch_id": "five-prompts-20260914",
+      "source": {
+        "archive_member": "source/05-night-bloom/index.html"
+      }
+    },
+    {
+      "id": "06-satin-bow",
+      "recipe_id": "satin-bow",
+      "direction": {
+        "hero": "One continuous fuchsia satin ribbon",
+        "action": "Left bight, center crossing, right loop, cinch and settling flutter",
+        "world": "Pale mint and cream studio",
+        "representation": "Original continuous Three.js strip with transported width frames and procedural grain"
+      },
+      "selected_registry_ids": [
+        "mediawork-pinterest-objects",
+        "mediawork-office-motion-tests",
+        "polyhaven-studio-small-09-1k"
+      ],
+      "asset_provenance": [
+        "Original ribbon surface, selvedges and procedural satin grain",
+        "Poly Haven Studio Small 09 HDR, CC0; verified local receipt"
+      ],
+      "iterations": [
+        "Pinched center and faulty cut ends: transported strip frames, smoother wrap and distributed chevron cuts",
+        "Neon finish and edge-on collar: deeper fuchsia midtones and a locally guided broad central band"
+      ],
+      "control": {
+        "parameter": "loopSpread",
+        "main": 1,
+        "variant": 1.24,
+        "scope": "Rendered the wider loops under the same material, camera and timeline; authored knot approximation, not a validated cloth simulation.",
+        "source": "control-proof.html",
+        "manifest": "control-proof.render/stills.json"
+      },
+      "prompt": "Make a satin ribbon tie itself into a floating bow.",
+      "batch_id": "five-more-20260914",
+      "detail": "recipes/satin-bow.md",
+      "implementation": "recipes/satin-bow.mjs",
+      "demo": "recipes/satin-bow-demo.html",
+      "source": {
+        "archive_member": "source/06-satin-bow/index.html"
+      },
+      "export": "06-satin-bow.mp4"
+    },
+    {
+      "id": "07-blood-orange",
+      "recipe_id": "citrus-slices",
+      "direction": {
+        "hero": "One blood orange with seven matching cut bands",
+        "action": "Separate on the cut axis, spiral open, show pulp macro and rapidly restack",
+        "world": "Warm cream and pale ochre studio",
+        "representation": "Original Three.js sliced geometry and dimpled peel with one generated cut-face appearance texture"
+      },
+      "selected_registry_ids": [
+        "mediawork-pinterest-objects",
+        "lilium-flower-family",
+        "polyhaven-studio-small-09-1k"
+      ],
+      "asset_provenance": [
+        "Original sliced geometry, matched peel bands and seeded pores",
+        "Built-in imagegen cut-face appearance: IMAGE-PROMPT.txt and assets/blood-orange-cut-face.manifest.json; photographic microglints are baked appearance, not a measured PBR scan",
+        "Poly Haven Studio Small 09 HDR, CC0; verified local receipt"
+      ],
+      "iterations": [
+        "Illustrated pulp and heavy membrane spokes: generated and inspected one original cut-face appearance image",
+        "Top cap grazed the frame: widened and raised the full-spiral camera while retaining the intentional macro crop"
+      ],
+      "control": {
+        "parameter": "spiral",
+        "main": 1,
+        "variant": 0.45,
+        "scope": "Rendered narrower angular/radial opening of the same seven bands, retaining image, separation amount, camera and timing; other slice counts are not visually approved.",
+        "source": "control-spiral.html",
+        "manifest": "control-spiral.render/stills.json"
+      },
+      "prompt": "Make a blood orange split into juicy slices, spiral open, and snap back together.",
+      "batch_id": "five-more-20260914",
+      "detail": "recipes/citrus-slices.md",
+      "implementation": "recipes/citrus-slices.mjs",
+      "demo": "recipes/citrus-slices-demo.html",
+      "source": {
+        "archive_member": "source/07-blood-orange/index.html"
+      },
+      "export": "07-blood-orange.mp4"
+    },
+    {
+      "id": "08-toy-planet",
+      "recipe_id": "toy-planet",
+      "direction": {
+        "hero": "Red toy locomotive and wagons on a teal ceramic planet",
+        "action": "Rails form ahead; the train pulls trees and cottages into place and crosses a viaduct",
+        "world": "Warm yellow miniature studio",
+        "representation": "Original Three.js geometry with shared curved rail frames and independently sampled axles"
+      },
+      "selected_registry_ids": [
+        "ordinary-folk-webflow",
+        "mediawork-pinterest-objects",
+        "polyhaven-studio-small-09-1k"
+      ],
+      "asset_provenance": [
+        "Original planet, train, rail, bridge and landscape geometry",
+        "Poly Haven Studio Small 09 HDR, CC0; verified local receipt"
+      ],
+      "iterations": [
+        "Sideways locomotive and hidden scenery: upper-hemisphere rail, redistributed scenery and near-profile tracking camera",
+        "Blank dark reflective orb: higher final view, brighter diffuse teal and softer ceramic highlights",
+        "Opening rear axle coverage and rolling phase corrected for the latitude circle"
+      ],
+      "control": {
+        "parameter": "wagonCount",
+        "main": 2,
+        "variant": 1,
+        "scope": "Rendered one wagon and four axles instead of two wagons and six axles at the bridge, under the same final camera and timing; rear tether follows the new final wagon.",
+        "source": "control-one-wagon.html",
+        "manifest": "control-final.render/stills.json"
+      },
+      "prompt": "Make a tiny train race around a ceramic planet and pull its landscape into place.",
+      "batch_id": "five-more-20260914",
+      "detail": "recipes/toy-planet.md",
+      "implementation": "recipes/toy-planet.mjs",
+      "demo": "recipes/toy-planet-demo.html",
+      "source": {
+        "archive_member": "source/08-toy-planet/index.html"
+      },
+      "export": "08-toy-planet.mp4"
+    },
+    {
+      "id": "09-jellyfish",
+      "recipe_id": "luminous-jellyfish",
+      "direction": {
+        "hero": "Lilac translucent jellyfish with oral frills and eighteen threads",
+        "action": "Bell contractions lead lagging frills and ribbons through a slow drift",
+        "world": "Inky blue underwater stage",
+        "representation": "Original parametric Three.js anatomy, Fresnel membrane and restrained bloom"
+      },
+      "selected_registry_ids": [
+        "jelly-chair",
+        "chrome-beetle",
+        "lilium-flower-family",
+        "polyhaven-studio-small-09-1k"
+      ],
+      "asset_provenance": [
+        "Original bell, ribs, organs, frills and trailing threads",
+        "Poly Haven Studio Small 09 HDR, CC0; verified local receipt"
+      ],
+      "iterations": [
+        "Rigid umbrella silhouette: finer ribs, translucent Fresnel membrane and clearer inner anatomy",
+        "Glow hid the frills: reduced bloom and illumination",
+        "Trailing threads approached the frame: shortened them to retain at least 34 pixels of bottom margin in the checked sequence"
+      ],
+      "control": {
+        "parameter": "tentacleCount",
+        "main": 18,
+        "variant": 8,
+        "scope": "Rendered eight actual trailing threads under the same camera and phase; pulse/current anatomy is authored motion, not a fluid simulation.",
+        "source": "control.html",
+        "manifest": "control.render/stills.json"
+      },
+      "prompt": "Make a translucent jellyfish pulse through an inky sea, trailing glowing ribbons.",
+      "batch_id": "five-more-20260914",
+      "detail": "recipes/luminous-jellyfish.md",
+      "implementation": "recipes/luminous-jellyfish.mjs",
+      "demo": "recipes/luminous-jellyfish-demo.html",
+      "source": {
+        "archive_member": "source/09-jellyfish/index.html"
+      },
+      "export": "09-jellyfish.mp4"
+    },
+    {
+      "id": "10-checker-zebra",
+      "recipe_id": "checker-zebra",
+      "direction": {
+        "hero": "A checkerboard becoming a striped galloping character",
+        "action": "Perimeter peels into body and neck; attached limbs extend and the pattern aligns into stripes",
+        "world": "Acid-yellow graphic stage",
+        "representation": "Original Canvas contours, patterned fill and articulated character drawing"
+      },
+      "selected_registry_ids": [
+        "paper-koi",
+        "mediawork-office-motion-tests",
+        "ordinary-folk-dreams"
+      ],
+      "asset_provenance": [
+        "Original Canvas character and procedural pattern; no external hero image, font or model"
+      ],
+      "iterations": [
+        "Floating mid-transform limbs and tail: anchors follow the same perimeter interpolation as the body",
+        "Premature stub-like limbs: delayed extension until the body mostly forms",
+        "Partial-shape face detachment: facial landmarks now follow the developing contour"
+      ],
+      "control": {
+        "parameter": "peel multiplier",
+        "main": 1,
+        "variant": 0.82,
+        "scope": "Rendered the partial silhouette under the same choreography, keeping face, legs and tail attached; not a biomechanical gait validation.",
+        "source": "control.html",
+        "manifest": "control.render/stills.json"
+      },
+      "prompt": "Make a checkerboard peel itself into a galloping zebra.",
+      "batch_id": "five-more-20260914",
+      "detail": "recipes/checker-zebra.md",
+      "implementation": "recipes/checker-zebra.mjs",
+      "demo": "recipes/checker-zebra-demo.html",
+      "source": {
+        "archive_member": "source/10-checker-zebra/index.html"
+      },
+      "export": "10-checker-zebra.mp4"
+    },
+    {
+      "id": "11-rotary-telephone",
+      "recipe_id": "rotary-telephone",
+      "direction": {
+        "hero": "Original glossy red desk telephone with curved receiver and real rotary finger holes",
+        "action": "Body springs into volume, receiver seats, coiled cord draws a connected loop, and dial turns",
+        "world": "Warm cream tabletop with broad studio reflections",
+        "representation": "Original Three.js molded geometry and absolute cable/part kinematics"
+      },
+      "selected_registry_ids": [
+        "mediawork-pinterest-objects",
+        "polyhaven-studio-small-09-1k"
+      ],
+      "asset_provenance": [
+        "Original phone, rotary wheel, finger stop, receiver and helical cord",
+        "Poly Haven Studio Small 09 HDR, CC0; verified local receipt"
+      ],
+      "iterations": [
+        "Opening receiver clipped: reduced the initial lift while preserving the settled pose",
+        "Body bevel showed faceted normals: increased curve sampling and averaged coincident bevel normals"
+      ],
+      "control": {
+        "parameter": "cordLoop maximum",
+        "main": 1,
+        "variant": 0.5,
+        "scope": "The connected cord draws a smaller loop with the same phone, camera, materials and timing; authored cable kinematics, not physical simulation.",
+        "source": "control-proof.html",
+        "manifest": "control-proof.render/stills.json"
+      },
+      "prompt": "Make a glossy red rotary telephone spring into shape as its coiled cord draws a looping path.",
+      "batch_id": "five-for-website-20260914",
+      "detail": "recipes/rotary-telephone.md",
+      "implementation": "recipes/rotary-telephone.mjs",
+      "demo": "recipes/rotary-telephone-demo.html",
+      "source": {
+        "archive_member": "source/11-rotary-telephone/index.html"
+      },
+      "export": "11-rotary-telephone.mp4"
+    },
+    {
+      "id": "12-glass-staircase",
+      "recipe_id": "glass-staircase",
+      "direction": {
+        "hero": "Twenty beveled colored glass tiles",
+        "action": "An aligned stack releases bottom-to-top into radially oriented spiral treads",
+        "world": "Deep blue architectural stage with controlled glass edges",
+        "representation": "Original Three.js geometry with real-time transmission and alpha blending"
+      },
+      "selected_registry_ids": [
+        "tendril-ibm-sovereign",
+        "ordinary-folk-webflow",
+        "polyhaven-studio-small-09-1k"
+      ],
+      "asset_provenance": [
+        "Original tile geometry, bevels and colored edge layers",
+        "Poly Haven Studio Small 09 HDR, CC0; verified local receipt"
+      ],
+      "iterations": [
+        "Opaque-looking glass and gray stage: introduced controlled transparency and a deep unlit backdrop",
+        "Treads pointed in the wrong direction: corrected radial orientation while retaining ordered cascade"
+      ],
+      "control": {
+        "parameter": "turns at construction",
+        "main": 1.1,
+        "variant": 0.8,
+        "scope": "A lower-turn spiral retains twenty tiles, camera, lighting and timing; real-time glass approximation, not ray-traced optics.",
+        "source": "control-proof.html",
+        "manifest": "control-proof.render/stills.json"
+      },
+      "prompt": "Make a stack of translucent colored glass tiles cascade into a spiral staircase.",
+      "batch_id": "five-for-website-20260914",
+      "detail": "recipes/glass-staircase.md",
+      "implementation": "recipes/glass-staircase.mjs",
+      "demo": "recipes/glass-staircase-demo.html",
+      "source": {
+        "archive_member": "source/12-glass-staircase/index.html"
+      },
+      "export": "12-glass-staircase.mp4"
+    },
+    {
+      "id": "13-beach-umbrella",
+      "recipe_id": "beach-umbrella",
+      "direction": {
+        "hero": "One coral-and-cream peppermint disc becoming a striped umbrella",
+        "action": "The same sectors bloom into a canopy while pole, runner, ribs and braces follow shared attachment coordinates",
+        "world": "Pale coastal cyan studio",
+        "representation": "Original indexed Three.js fabric and linkage geometry with procedural woven grain"
+      },
+      "selected_registry_ids": [
+        "mediawork-pinterest-objects",
+        "chrome-beetle",
+        "satin-bow",
+        "polyhaven-studio-small-09-1k"
+      ],
+      "asset_provenance": [
+        "Original canopy, hem, ribs, shaft, runner and procedural woven grain",
+        "Poly Haven Studio Small 09 HDR, CC0; verified local receipt"
+      ],
+      "iterations": [
+        "Upper hero view hid the ribs: added a later camera move below the rim to reveal runner and brace construction",
+        "Preserved the same indexed striped surface from flat spinning disc to raised canopy"
+      ],
+      "control": {
+        "parameter": "maximum bloom",
+        "main": 1,
+        "variant": 0.65,
+        "scope": "A shallower canopy and altered runner position retain pole timing, spin, camera and materials; four exact control seeks passed.",
+        "source": "control.html",
+        "manifest": "control.render/stills.json"
+      },
+      "prompt": "Make a striped beach umbrella bloom from a spinning peppermint disc.",
+      "batch_id": "five-for-website-20260914",
+      "detail": "recipes/beach-umbrella.md",
+      "implementation": "recipes/beach-umbrella.mjs",
+      "demo": "recipes/beach-umbrella-demo.html",
+      "source": {
+        "archive_member": "source/13-beach-umbrella/index.html"
+      },
+      "export": "13-beach-umbrella.mp4"
+    },
+    {
+      "id": "14-ink-octopus",
+      "recipe_id": "ink-octopus",
+      "direction": {
+        "hero": "One ultramarine ink droplet becoming an eight-arm octopus",
+        "action": "The droplet rounds into a mantle and attached arms grow, curl and carry swimming waves",
+        "world": "Warm ivory paper with original ink porosity and pooled edges",
+        "representation": "Original Canvas contours, integrated arm ribbons, suckers and seeded cached textures"
+      },
+      "selected_registry_ids": [
+        "paper-koi",
+        "checker-zebra",
+        "ordinary-folk-dreams",
+        "liquid-word"
+      ],
+      "asset_provenance": [
+        "Original Canvas character, ink appearance and procedural grain; no downloaded or generated hero asset"
+      ],
+      "iterations": [
+        "Small dimple in the mantle crown: changed tangent controls to preserve a continuously rounded curve",
+        "Arm roots and suckers remain attached through the same sampled curves during formation and swimming"
+      ],
+      "control": {
+        "parameter": "curl",
+        "main": 1,
+        "variant": 0.55,
+        "scope": "Open arm coils retain form, phase, whole-character staging and timing; four exact control seeks passed. This is authored illustration, not fluid simulation.",
+        "source": "control.html",
+        "manifest": "control.render/stills.json"
+      },
+      "prompt": "Make a single blue ink droplet become a swimming octopus.",
+      "batch_id": "five-for-website-20260914",
+      "detail": "recipes/ink-octopus.md",
+      "implementation": "recipes/ink-octopus.mjs",
+      "demo": "recipes/ink-octopus-demo.html",
+      "source": {
+        "archive_member": "source/14-ink-octopus/index.html"
+      },
+      "export": "14-ink-octopus.mp4"
+    },
+    {
+      "id": "15-color-zipper",
+      "recipe_id": "color-zipper",
+      "direction": {
+        "hero": "Hollow silver pull, staggered teeth and midnight woven panels",
+        "action": "The moving zipper separates attached edges to reveal a broad flowing river of layered color",
+        "world": "Close hardware view widening into a dark diagonal fabric surface",
+        "representation": "Original Three.js zipper, deforming panel/tape grids, anchored instances and continuous ribbon surfaces"
+      },
+      "selected_registry_ids": [
+        "mediawork-pinterest-objects",
+        "ordinary-folk-webflow",
+        "polyhaven-studio-small-09-1k"
+      ],
+      "asset_provenance": [
+        "Original zipper, tooth, pull, cloth weave, stitching and colored ribbon geometry",
+        "Poly Haven Studio Small 09 HDR, CC0; verified local receipt, explicitly bound to hardware for selective reflection intensity"
+      ],
+      "iterations": [
+        "White hardware and pale river: deepened palette and fabric, moved light off the strongest reflection angle and reduced selective hardware reflection intensity",
+        "Stitch height now uses the same cloth surface function while the zipper's separation paths and timing remain fixed"
+      ],
+      "control": {
+        "parameter": "spread",
+        "main": 1.45,
+        "variant": 0.85,
+        "scope": "The same slider, camera, flow and lighting expose a narrower river while fabric, tape, teeth and stitches remain attached; four exact control seeks passed.",
+        "source": "control.html",
+        "manifest": "control.render/stills.json"
+      },
+      "prompt": "Make a silver zipper unzip a midnight surface and reveal a flowing river of color.",
+      "batch_id": "five-for-website-20260914",
+      "detail": "recipes/color-zipper.md",
+      "implementation": "recipes/color-zipper.mjs",
+      "demo": "recipes/color-zipper-demo.html",
+      "source": {
+        "archive_member": "source/15-color-zipper/index.html"
+      },
+      "export": "15-color-zipper.mp4"
+    }
+  ]
+}

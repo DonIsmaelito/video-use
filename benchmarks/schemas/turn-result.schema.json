@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Video Use benchmark turn result",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["needs_approval", "needs_input", "complete", "blocked"]
+    },
+    "phase": {
+      "type": "string",
+      "enum": ["planning", "production", "verification", "finalization"]
+    },
+    "summary": {"type": "string"},
+    "questions": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "outputs": {
+      "type": "array",
+      "items": {"type": "string"}
+    }
+  },
+  "required": ["status", "phase", "summary", "questions", "outputs"],
+  "additionalProperties": false
+}

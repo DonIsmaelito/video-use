@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "authoringStatus": "ready",
+  "prompt": "prompt.txt",
+  "creativeContract": "creative-contract.md",
+  "entry": "index.html",
+  "render": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "duration": 18,
+    "output": "renders/final.mp4",
+    "audio": null,
+    "posterTime": 9.5,
+    "stills": [
+      0,
+      3.4,
+      4.8,
+      9.5,
+      14.5,
+      17.5
+    ]
+  },
+  "runtime": {
+    "node": ">=22.12.0",
+    "chrome": "Chrome or Chromium",
+    "ffmpeg": "ffmpeg and ffprobe on PATH",
+    "dependencyDirectory": "runtime"
+  },
+  "provenance": [
+    {
+      "file": "assets/city.png",
+      "source": "Original built-in imagegen output",
+      "promptRecord": "assets/image-prompts.json",
+      "type": "generated"
+    },
+    {
+      "file": "assets/coast.png",
+      "source": "Original built-in imagegen output",
+      "promptRecord": "assets/image-prompts.json",
+      "type": "generated"
+    },
+    {
+      "file": "assets/water.png",
+      "source": "Original built-in imagegen output",
+      "promptRecord": "assets/image-prompts.json",
+      "type": "generated"
+    },
+    {
+      "file": "assets/instrument-serif.ttf",
+      "license": "OFL-1.1",
+      "licenseFile": "assets/InstrumentSerif-OFL.txt"
+    },
+    {
+      "file": "assets/instrument-serif-italic.ttf",
+      "license": "OFL-1.1",
+      "licenseFile": "assets/InstrumentSerif-OFL.txt"
+    }
+  ]
+}

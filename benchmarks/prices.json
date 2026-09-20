@@ -1,0 +1,29 @@
+{
+  "version": "2026-08-30",
+  "models": {
+    "gpt-5.6-sol": {
+      "input_usd_per_million": 4.0,
+      "cached_input_usd_per_million": 0.4,
+      "cache_write_input_usd_per_million": 5.0,
+      "output_usd_per_million": 20.0,
+      "long_context_threshold_tokens": 272000,
+      "long_context_input_multiplier": 2.0,
+      "long_context_output_multiplier": 1.5,
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.6-sol"
+    },
+    "gpt-5.6-luna": {
+      "input_usd_per_million": 0.2,
+      "cached_input_usd_per_million": 0.02,
+      "cache_write_input_usd_per_million": 0.25,
+      "output_usd_per_million": 1.2,
+      "long_context_threshold_tokens": 272000,
+      "long_context_input_multiplier": 2.0,
+      "long_context_output_multiplier": 1.5,
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.6-luna"
+    }
+  },
+  "elevenlabs": {
+    "tts_usd_per_1000_characters": null,
+    "note": "Set --elevenlabs-usd-per-1000-characters or ELEVENLABS_USD_PER_1000_CHARACTERS for an account-specific estimate. Raw character-cost units are always retained."
+  }
+}

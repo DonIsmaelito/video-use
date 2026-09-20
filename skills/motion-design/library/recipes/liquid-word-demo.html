@@ -1,0 +1,8 @@
+<!doctype html><html><head><meta charset="utf-8"><title>MELT</title><style>html,body{margin:0;overflow:hidden;background:#151b8f}canvas{display:block}</style><script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js"}}</script></head><body><script type="module">
+import * as THREE from 'three';import {createLiquidWord} from './liquid-word.mjs';
+const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});renderer.setSize(1920,1080);renderer.setPixelRatio(1);renderer.outputColorSpace=THREE.SRGBColorSpace;document.body.appendChild(renderer.domElement);
+const scene=new THREE.Scene(),camera=new THREE.Camera();let hero;
+const ease=x=>{x=Math.max(0,Math.min(1,x));return x*x*x*(x*(x*6-15)+10)};
+function pose(t){const melt=ease((t-.65)/3.3)*(1-ease((t-4.9)/2.4));hero.setState({liquefaction:melt,phase:t});renderer.render(scene,camera)}
+window.motionReady=(async()=>{const font=new FontFace('Sora','url(./assets/Sora-wght.ttf)',{weight:'100 800'});await font.load();document.fonts.add(font);await document.fonts.load('800 215px Sora');hero=createLiquidWord({text:'MELT'});scene.add(hero.mesh);pose(0)})();window.seek=async t=>{await window.motionReady;pose(t)};
+</script></body></html>

@@ -17,6 +17,7 @@ Try video-use in [Browser Use Cloud](https://cloud.browser-use.com/v4?utm_campai
 - **30ms audio fades** at every cut so you never hear a pop
 - **Burns subtitles** in your style — 2-word UPPERCASE chunks by default, fully customizable
 - **Generates animation overlays** via [HyperFrames](https://github.com/heygen-com/hyperframes), [Remotion](https://www.remotion.dev/), [Manim](https://www.manim.community/), or PIL — spawned in parallel sub-agents, one per animation
+- **Develops original motion design** with [observed studio techniques, selected assets and authored mechanisms](skills/motion-design/references/library.md); asset files download into individual projects, keeping the framework small
 - **Self-evaluates the rendered output** at every cut boundary before showing you anything
 - **Persists session memory** in `project.md` so next week's session picks up where you left off
 
@@ -68,6 +69,21 @@ cp .env.example .env
 $EDITOR .env                    # ELEVENLABS_API_KEY=...
 ```
 
+## Original motion design
+
+The [motion-design skill](skills/motion-design/SKILL.md) authors typography, collage, character performances, product films, brand identities, and sound-driven graphics. Its [creative-range examples](skills/motion-design/examples/index.json) preserve exact prompts separately from the agent's design decisions. Shared timing, layout, media, rig and analysis helpers accept arbitrary inputs; they do not match prompts to fixed videos.
+
+Ask your agent to use the motion-design skill with a brief and an output folder. It creates editable source, renders it, inspects the result and packages the selected interpretation. A fresh run of the same prompt may make different creative choices. To reproduce a particular example, render its saved project:
+
+```sh
+# Node >=22.12, Chrome/Chromium, Python >=3.10, ffmpeg and ffprobe are required
+npm ci --prefix skills/motion-design/runtime
+python3 helpers/motion_project.py render skills/motion-design/examples/kinetic-type \
+  --deps skills/motion-design/runtime --output /path/to/your/videos/edit/kinetic-type.mp4
+```
+
+[Portable project packages](skills/motion-design/references/project-replay.md) include the prompt, source, local assets, font licenses, pinned Node dependencies, replay helpers, and checksums. Pure browser-rendered motion does not require transcription credentials. Optional audio analysis uses the project's NumPy dependency; [planar footage tracking](skills/motion-design/references/footage-tracking.md) uses the `motion-tracking` extra.
+
 ## How it works
 
 The LLM never watches the video. It **reads** it — through two layers that together give it everything it needs to cut with word-boundary precision.
@@ -110,3 +126,10 @@ The self-eval loop runs `timeline_view` on the _rendered output_ at every cut bo
 5. **12 hard rules, artistic freedom elsewhere.** Production-correctness is non-negotiable. Taste isn't.
 
 See [`SKILL.md`](./SKILL.md) for the full production rules and editing craft.
+
+## Agent benchmarks
+
+The manual Codex-first benchmark harness measures repeatable Jensen-to-TikTok and
+GPU-explainer workloads without putting raw traces, source media, transcripts, or
+rendered videos in Git. See [`benchmarks/README.md`](./benchmarks/README.md) for
+one-time setup, run commands, metrics, and comparison rules.

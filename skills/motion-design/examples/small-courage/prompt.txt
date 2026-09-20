@@ -1,0 +1,1 @@
+Animate a small paper character trying to carry a circle that is much too big. Give it hesitation, a failed attempt, a clever solution, and a quiet proud ending. No dialogue or captions.

@@ -1,0 +1,16 @@
+node_modules/
+.next/
+.vinext/
+.wrangler/
+.vercel/
+.git/
+.insforge/
+.env*
+*.log
+.DS_Store
+docs/
+.openai/
+README.md
+.oxfmtrc.json
+.oxlintrc.json
+tsconfig.tsbuildinfo

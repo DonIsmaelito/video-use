@@ -1,0 +1,44 @@
+{
+  "id": "jensen-tiktok",
+  "version": 2,
+  "display_name": "Jensen interview to TikTok clips",
+  "model": "gpt-5.6-sol",
+  "reasoning_effort": "high",
+  "max_turns": 6,
+  "timeout_seconds": 7200,
+  "source": {
+    "env": "VIDEO_USE_JENSEN_SOURCE",
+    "default": "/Users/ismaelito/Movies/video-use-tests/test-01/jensen_test1.mp4",
+    "workspace_name": "jensen_test1.mp4",
+    "expected_duration_s": 6192.413605,
+    "duration_tolerance_s": 1.0
+  },
+  "transcript": {
+    "env": "VIDEO_USE_JENSEN_TRANSCRIPT",
+    "default": "/Users/ismaelito/Movies/video-use-tests/test-01/edit/transcripts/jensen_test1.json",
+    "workspace_relative": "edit/transcripts/jensen_test1.json"
+  },
+  "preflight": {
+    "executables": ["codex", "ffmpeg", "ffprobe"],
+    "environment": []
+  },
+  "approval_response": "Approved. Execute the strategy exactly as proposed, verify every deliverable, and continue until the task is complete.",
+  "input_fallback": "Use your best judgment from the material and stated requirements.",
+  "prompt": "Using the Video Use workflow in {repo_root}/SKILL.md, turn the full interview at {source} into one or more postable TikTok clips, choosing the moments and clip count yourself. Use the cached transcript at {transcript}; do not re-transcribe. Deliver at least one standalone 20-90 second 1080x1920 H.264/AAC MP4 with audible audio and readable burned captions, plus a matching SRT, in {workspace}/deliverables. Work only in {workspace} and leave the source and repository unchanged.",
+  "outputs": {
+    "glob": "deliverables/*.mp4",
+    "min_count": 1,
+    "validation": {
+      "min_duration_s": 20.0,
+      "max_duration_s": 90.0,
+      "aspect_ratio": "9:16",
+      "aspect_tolerance": 0.01,
+      "video_codec": "h264",
+      "audio_codec": "aac",
+      "require_audio": true,
+      "require_audible_audio": true,
+      "audible_threshold_db": -50.0,
+      "require_caption_sidecar": true
+    }
+  }
+}

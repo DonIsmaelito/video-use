@@ -1,0 +1,11 @@
+# Checker zebra
+
+An original Canvas character that develops from a checkerboard through a changing silhouette and tile alignment, then carries a galloping cycle. `createCheckerZebra({ink,ivory})` returns `draw(ctx,state)` and `dispose()`. No third-party assets or fonts are required. The host owns the canvas, background, staging, shadow, soundtrack and time.
+
+State contains `x`, `y`, `scale`, `rotation`, `peel`, `phase` and `gallop`. All values must be finite; peel and gallop clamp to0–1. `peel` develops the perimeter, aligns the checker cells into stripes, extends the attached limbs and reveals facial landmarks. `phase` controls the limb cycle and tail. `gallop` blends phase gain and body tilt into the running sequence. Clear the full frame before calling draw; the function restores drawing state. The no-op dispose exists for a common caller cleanup interface; no retained canvases or GPU resources are allocated.
+
+The anatomy is an authored flat illustration, with a dark muzzle, upright mane, long ears, hoof shapes and curved stripes. It is not a physical cloth solver or a biomechanical gait model. Reserve room for the raised ears, tail and the full limb arc; the resolved body occupies roughly−400 to280 horizontally and−325 to220 vertically at scale1 before caller rotation.
+
+Simple prompt: “Make a checkerboard peel itself into a galloping zebra.” Copy [the demo](checker-zebra-demo.html) and [module](checker-zebra.mjs) into an isolated folder. It uses built-in Canvas and an absolute seek function. The paper-koi example supplies the idea of persistent attachments, and the Office deformation reference informs early mechanism proof; neither supplies copied artwork.
+
+The delivered control caps peel at 0.82 under the same pose at 3.4 seconds. It exposed facial marks that initially detached from the partial body; the final version attaches those landmarks and the mane to the changing perimeter and clips partial face marks inside the body. Earlier proof repairs attached the legs and tail to the same contour and delayed leg extension. Final export and control passed four repeated backward seeks; the eight-second film passed 240-frame technical and audio validation. This proves the recorded demo and control, not every possible pose or caller transform. Proofs and exact prompt history are retained in the second batch source archive.

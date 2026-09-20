@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "authoringStatus": "ready",
+  "id": "open-field",
+  "title": "Open Field",
+  "prompt": "prompt.txt",
+  "creativeContract": "creative-contract.md",
+  "entry": "index.html",
+  "content": "content.json",
+  "render": {"width": 1920, "height": 1080, "fps": 30, "duration": 18, "output": "renders/final.mp4", "audio": null, "posterTime": 16.7, "stills": [1.2, 4.2, 6.7, 9.4, 10.8, 12.6, 14.7, 16.7]},
+  "provenance": [
+    {"file": "assets/inter-regular.ttf", "origin": "Inter font family", "license": "SIL Open Font License 1.1", "licenseFile": "assets/Inter-OFL.txt"},
+    {"file": "assets/inter-semibold.ttf", "origin": "Inter font family", "license": "SIL Open Font License 1.1", "licenseFile": "assets/Inter-OFL.txt"},
+    {"file": "assets/instrument-serif.ttf", "origin": "Instrument Serif font family", "license": "SIL Open Font License 1.1", "licenseFile": "assets/InstrumentSerif-OFL.txt"},
+    {"file": "assets/instrument-serif-italic.ttf", "origin": "Instrument Serif font family", "license": "SIL Open Font License 1.1", "licenseFile": "assets/InstrumentSerif-OFL.txt"},
+    {"file": "scene.mjs", "origin": "Original authored Canvas composition and geometric brand mark", "license": "Repository license"}
+  ],
+  "runtime": {"node": ">=22.12", "chrome": "Chrome or Chromium", "ffmpeg": "ffmpeg and ffprobe on PATH", "dependencyDirectory": "runtime"}
+}

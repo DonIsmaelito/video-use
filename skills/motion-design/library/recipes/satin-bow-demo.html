@@ -1,0 +1,19 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Satin bow</title><style>html,body{margin:0;width:1920px;height:1080px;overflow:hidden;background:#e9efdf}canvas{display:block}</style><script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script></head><body><script type="module">
+import * as THREE from 'three';
+import {RGBELoader} from 'three/addons/loaders/RGBELoader.js';
+import {createSatinBow} from './satin-bow.mjs';
+const renderer=new THREE.WebGLRenderer({antialias:true,alpha:false,preserveDrawingBuffer:true});renderer.setSize(1920,1080);renderer.setPixelRatio(1);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.1;document.body.appendChild(renderer.domElement);
+const scene=new THREE.Scene();scene.background=new THREE.Color('#e9efdf');
+const camera=new THREE.PerspectiveCamera(35,1920/1080,.1,80);camera.position.set(.7,.95,11.6);camera.lookAt(0,-.10,0);
+scene.add(new THREE.HemisphereLight('#fff6ed','#ccd8c1',.7));const key=new THREE.DirectionalLight('#fff5e6',2.0);key.position.set(-4,6,7);scene.add(key);const fill=new THREE.DirectionalLight('#e4faff',.65);fill.position.set(4,1,4);scene.add(fill);
+const weave=document.createElement('canvas');weave.width=weave.height=256;const wc=weave.getContext('2d');wc.fillStyle='#ffffff';wc.fillRect(0,0,256,256);for(let i=0;i<256;i++){wc.fillStyle=i%3?'rgba(193,178,187,.035)':'rgba(193,178,187,.075)';wc.fillRect(0,i,256,.6)}
+const weaveMap=new THREE.CanvasTexture(weave);weaveMap.wrapS=weaveMap.wrapT=THREE.RepeatWrapping;weaveMap.repeat.set(32,1);weaveMap.colorSpace=THREE.SRGBColorSpace;weaveMap.anisotropy=8;
+const satin=new THREE.MeshPhysicalMaterial({color:'#9e104d',map:weaveMap,roughness:.34,metalness:.06,sheen:.65,sheenColor:'#ee5b98',sheenRoughness:.46,anisotropy:.72,anisotropyRotation:0,clearcoat:.08,clearcoatRoughness:.34,side:THREE.DoubleSide,envMapIntensity:1.0});
+const edge=new THREE.MeshStandardMaterial({color:'#ec6aa7',metalness:.18,roughness:.38,envMapIntensity:1.15});const bow=createSatinBow({width:.65,material:satin,edgeMaterial:edge});scene.add(bow.group);
+const shadowCanvas=document.createElement('canvas');shadowCanvas.width=shadowCanvas.height=256;const sc=shadowCanvas.getContext('2d'),gr=sc.createRadialGradient(128,128,3,128,128,128);gr.addColorStop(0,'rgba(56,77,47,.16)');gr.addColorStop(1,'rgba(56,77,47,0)');sc.fillStyle=gr;sc.fillRect(0,0,256,256);const shadowMap=new THREE.CanvasTexture(shadowCanvas);const shadow=new THREE.Mesh(new THREE.PlaneGeometry(7,1.55),new THREE.MeshBasicMaterial({map:shadowMap,transparent:true,depthWrite:false}));shadow.position.set(0,-2.6,-1.2);scene.add(shadow);
+const clamp=v=>Math.max(0,Math.min(1,v)),ease=v=>{v=clamp(v);return v*v*v*(v*(v*6-15)+10)};
+const variant=new URLSearchParams(location.search).get('variant')==='wide';
+function pose(t){const tie=ease((t-.65)/4.05),cinch=ease((t-3.35)/1.8),flutter=.32*(1-ease((t-5.1)/2.6))+.045,phase=t*2.55;
+ bow.setState({tie,cinch,flutter,phase,loopSpread:variant?1.24:1,tailDrop:1});bow.group.rotation.set(.05*Math.sin(t*.6),-.16+.13*Math.sin(t*.49),-.075+.10*ease((t-4.3)/2.3));bow.group.position.y=.05+Math.sin(t*.9)*.07;shadow.material.opacity=.55+.12*tie;renderer.render(scene,camera)}
+window.motionReady=(async()=>{const hdr=await new RGBELoader().loadAsync('./assets/studio_small_09_1k.hdr');const pmrem=new THREE.PMREMGenerator(renderer);scene.environment=pmrem.fromEquirectangular(hdr).texture;scene.environmentIntensity=.9;hdr.dispose();pmrem.dispose();await renderer.compileAsync(scene,camera);pose(0)})();window.seek=async t=>{await window.motionReady;pose(Math.max(0,Math.min(8,t)))};
+</script></body></html>

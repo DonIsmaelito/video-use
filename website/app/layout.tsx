@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.SITE_URL || 'http://localhost:3001'),
+  metadataBase: new URL(process.env.SITE_URL || 'https://video-use.insforge.site'),
   title: 'video-use — Prompt something worth watching',
   description:
     'An open-source video toolkit. Explore real edits, motion design, and explainers. Copy a prompt, bring a reference, and make it yours.',
@@ -37,6 +37,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link
+          rel="preload"
+          href="/fonts/instrument-serif.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/inter-regular.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link rel="preconnect" href="https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev" />
+      </head>
       <body>{children}</body>
     </html>
   );
