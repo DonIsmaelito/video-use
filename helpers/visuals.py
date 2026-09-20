@@ -101,7 +101,7 @@ def _scaled_pixel_value(value: Any, scale: float) -> Any:
     if 0.0 <= numeric <= 1.0:
         return value
     scaled = numeric * scale
-    return max(1.000001, scaled)
+    return max(1.000001, scaled) if numeric >= 0 else scaled
 
 
 # resize graphics and canvas settings together for previews
@@ -209,7 +209,7 @@ def build_reframe_filter(spec: dict[str, Any] | None) -> str:
     if zoom == 1.0:
         return ""
     return (
-        f"scale=trunc(iw*{zoom:.6f}/2)*2:trunc(ih*{zoom:.6f}/2)*2,"
+        f"scale=ceil(iw*{zoom:.6f}/2)*2:ceil(ih*{zoom:.6f}/2)*2,"
         f"crop=trunc(iw/{zoom:.6f}/2)*2:trunc(ih/{zoom:.6f}/2)*2:"
         f"(iw-ow)*{focus_x:.6f}:(ih-oh)*{focus_y:.6f}"
     )
@@ -400,7 +400,7 @@ def _fit_font(
     max_width = max(1, _pixel(spec.get("max_width"), width, 0.9))
     max_lines = max(1, min(8, int(spec.get("max_lines", 3))))
     stroke_width = max(0, _pixel(spec.get("stroke_width"), height, 0.0))
-    for size in range(initial, minimum - 1, -2):
+    for size in range(max(initial, minimum), minimum - 1, -1):
         font = _load_font(spec, size)
         lines = _wrap_text(draw, text, font, max_width, stroke_width)
         widest = max(

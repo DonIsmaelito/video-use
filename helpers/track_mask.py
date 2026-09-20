@@ -81,6 +81,9 @@ def track(frames, seed_frame, polygon, max_error=20, max_bad_fraction=0.25):
         or not np.isfinite(points_array).all()
     ):
         raise ValueError("polygon needs at least three finite pixel coordinates")
+    area = np.sum(points_array[:, 0] * np.roll(points_array[:, 1], -1) - points_array[:, 1] * np.roll(points_array[:, 0], -1))
+    if abs(area) <= 1e-9:
+        raise ValueError("seed polygon must enclose a nonzero area")
     h, w = shape
     if (
         np.any(points_array < 0)
@@ -100,7 +103,7 @@ def track(frames, seed_frame, polygon, max_error=20, max_bad_fraction=0.25):
     rows = {
         seed_frame: {
             "frame": seed_frame,
-            "polygon": polygon,
+            "polygon": points_array.tolist(),
             "needs_review": False,
             "seed": True,
         }
@@ -179,6 +182,9 @@ def main():
         raise FileExistsError("tracking output must be a new file")
     seed = load_json(a.seed_json)
     cap = cv2.VideoCapture(a.prepared_picture)
+    if not np.isclose(cap.get(cv2.CAP_PROP_FPS), 30, rtol=0, atol=1e-6):
+        cap.release()
+        raise ValueError("prepared picture must use the composition clock of 30 fps")
     frames = []
     while True:
         ok, bgr = cap.read()
@@ -187,7 +193,7 @@ def main():
         frames.append(cv2.cvtColor(bgr, cv2.COLOR_BGR2GRAY))
     cap.release()
     result = track(frames, seed["frame"], seed["polygon"])
-    save_json(a.out, result)
+    save_json(a.out, result, exclusive=True)
     print(
         "Tracked",
         len(frames),

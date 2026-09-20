@@ -1,6 +1,7 @@
 """Find visual correspondence candidates in independently acquired source footage."""
 
 import argparse
+import math
 from pathlib import Path
 import cv2
 import numpy as np
@@ -34,6 +35,8 @@ def correspondence(query, candidate):
         return {"inliers": 0, "matches": len(matches), "reprojection_px": None}
     projected = cv2.perspectiveTransform(a[:, None, :], matrix)[:, 0, :]
     valid = mask[:, 0].astype(bool)
+    if not valid.any():
+        return {"inliers": 0, "matches": len(matches), "reprojection_px": None}
     return {
         "inliers": int(valid.sum()),
         "matches": len(matches),
@@ -47,7 +50,7 @@ def correspondence(query, candidate):
 # rank sampled source frames against a query image for later visual review
 def search(query, source, every=1, limit=12):
     """Rank sampled source frames against a query image for later visual review."""
-    if every <= 0:
+    if not math.isfinite(every) or every <= 0:
         raise ValueError("sampling interval must be positive")
     index = catalog(source)
     selected = []
@@ -71,7 +74,7 @@ def search(query, source, every=1, limit=12):
     return {
         "source_sha256": index["sha256"],
         "candidates": sorted(
-            results, key=lambda r: (-r["inliers"], r["reprojection_px"] or 1e9)
+            results, key=lambda r: (-r["inliers"], r["reprojection_px"] if r["reprojection_px"] is not None else 1e9)
         )[:limit],
         "limit": "Visual candidates need native-frame and semantic review; coarse sampling cannot certify exact action timing",
     }
@@ -88,7 +91,9 @@ def main():
     a = p.parse_args()
     if Path(a.out).resolve() in (Path(a.query).resolve(), Path(a.source).resolve()):
         p.error("output would overwrite input")
-    save_json(a.out, search(a.query, a.source, a.every))
+    if Path(a.out).exists() or Path(a.out).is_symlink():
+        p.error("output already exists choose a new report path")
+    save_json(a.out, search(a.query, a.source, a.every), exclusive=True)
 
 
 if __name__ == "__main__":
