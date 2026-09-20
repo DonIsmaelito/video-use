@@ -15,6 +15,17 @@ dependencies = [
 [project.optional-dependencies]
 animations = ["manim"]
 motion-tracking = ["opencv-python-headless>=4.8,<5"]
+mcp = [
+    "mcp>=1.30,<2",
+    "fastapi>=0.115,<1",
+    "uvicorn[standard]>=0.34,<1",
+    "python-multipart>=0.0.20,<1",
+    "python-dotenv>=1,<2",
+    "cryptography>=44",
+    "argon2-cffi>=23",
+    "httpx>=0.28,<1",
+    "modal>=1.5,<2",
+]
 
 [build-system]
 requires = ["setuptools>=61.0"]

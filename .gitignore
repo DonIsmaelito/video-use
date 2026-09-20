@@ -1,6 +1,11 @@
 # Secrets
 .env
 .env.local
+.env.*
+!.env.example
+.mcp-data/
+.mcp-runtime/
+ttref*.mp4
 *.pem
 *.key
 

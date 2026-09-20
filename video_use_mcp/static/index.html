@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f3ed" />
+    <title>video-use · Studio</title>
+    <link rel="stylesheet" href="/static/studio.css" />
+    <script src="/static/studio.js" defer></script>
+  </head>
+  <body>
+    <header class="masthead">
+      <a href="/" class="wordmark">video-use<span class="brand-dot"></span></a
+      ><span class="edition">YOUR IDEAS, IN MOTION</span>
+      <nav id="nav" hidden>
+        <button id="connect-button" class="quiet">Connect assistant ↗</button
+        ><button id="settings-button" class="quiet">Settings</button
+        ><button id="logout" class="quiet">Sign out</button>
+      </nav>
+    </header>
+    <div id="notice" role="status" hidden></div>
+    <main>
+      <section id="auth-screen" class="auth-layout">
+        <div class="intro">
+          <p class="eyebrow">THE VIDEO-USE WORKSPACE</p>
+          <h1>A little direction.<br />A whole new <em>film.</em></h1>
+          <p class="lede">
+            Bring an idea, a folder of footage, or something halfway there. Make
+            it into a video with your favorite assistant.
+          </p>
+          <div class="intro-footer">
+            <span>01 / CREATE</span><span>02 / REFINE</span
+            ><span>03 / MAKE IT YOURS</span>
+          </div>
+        </div>
+        <form id="auth-form" class="auth-card">
+          <p class="eyebrow" id="auth-kicker">WELCOME BACK</p>
+          <h2 id="auth-title">Your next film starts here.</h2>
+          <label
+            >Username<input
+              id="username"
+              name="username"
+              autocomplete="username"
+              minlength="3"
+              required
+              placeholder="Choose your studio name" /></label
+          ><label
+            >Password<input
+              id="password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              minlength="12"
+              required
+              placeholder="At least 12 characters" /></label
+          ><label id="invite-label" hidden
+            >Invitation code<input
+              id="invite"
+              name="invite"
+              autocomplete="off"
+              placeholder="Your invitation code" /></label
+          ><button class="primary" id="auth-submit">
+            Open workspace <span>→</span>
+          </button>
+          <p class="small">
+            New here?
+            <button type="button" id="auth-toggle" class="text-button">
+              Create an account
+            </button>
+          </p>
+          <p class="small muted">
+            Your media and keys stay in your account. Video production uses your
+            connected provider credits.
+          </p>
+        </form>
+      </section>
+      <section id="studio" hidden>
+        <div class="studio-heading">
+          <div>
+            <p class="eyebrow">YOUR STUDIO</p>
+            <h1>What are we <em>making?</em></h1>
+          </div>
+          <button class="outline" id="new-project">New project +</button>
+        </div>
+        <div class="studio-grid">
+          <aside class="sidebar">
+            <p class="eyebrow">PROJECTS</p>
+            <div id="project-list"></div>
+            <div class="sidebar-note">
+              Make it here.<br />Keep the conversation going in ChatGPT or
+              Claude.
+            </div>
+          </aside>
+          <div id="project-empty" class="empty-state">
+            <div class="empty-mark">↗</div>
+            <h2>Everything starts with an idea.</h2>
+            <p>
+              Create a project, add footage if you have it, and describe the
+              film you want to see.
+            </p>
+            <button id="first-project" class="primary">
+              Start a project →
+            </button>
+          </div>
+          <section id="project-panel" hidden>
+            <div class="project-title">
+              <h2 id="project-title"></h2>
+              <div class="project-controls">
+                <span class="pill" id="project-count"></span
+                ><button id="delete-project" class="quiet">
+                  Delete project
+                </button>
+              </div>
+            </div>
+            <div id="key-hint" class="hint" hidden>
+              Add a model API key in
+              <button class="text-button" id="key-settings">Settings</button> to
+              start creating.
+            </div>
+            <div class="creation-grid">
+              <div class="brief-column">
+                <form id="brief-form">
+                  <label for="brief" class="eyebrow">THE DIRECTION</label
+                  ><textarea
+                    id="brief"
+                    rows="7"
+                    required
+                    minlength="3"
+                    maxlength="16000"
+                    placeholder="Make a 12-second launch film for a quiet, beautifully designed coffee brand. Warm morning light, expressive typography, and an unhurried finish."
+                  ></textarea>
+                  <div class="brief-footer">
+                    <span class="small muted" id="model-label"
+                      >Your model, your creative direction.</span
+                    ><button class="primary" id="create-button">
+                      Make video <span>↗</span>
+                    </button>
+                  </div>
+                </form>
+                <div class="media-heading">
+                  <p class="eyebrow">YOUR MATERIAL</p>
+                  <span class="small muted"
+                    >Optional for original creations</span
+                  >
+                </div>
+                <label class="dropzone" id="dropzone" for="media-input"
+                  ><span class="upload-symbol">＋</span
+                  ><strong>Drop something to work with</strong
+                  ><span>Video, audio, or images · up to 500 MB each</span
+                  ><input
+                    id="media-input"
+                    type="file"
+                    multiple
+                    accept="video/*,audio/*,image/png,image/jpeg,image/webp"
+                    hidden
+                /></label>
+                <div id="upload-progress" class="small" hidden></div>
+                <ul id="media-list" class="media-list"></ul>
+              </div>
+              <div class="screen-column">
+                <div class="preview-screen" id="preview-screen">
+                  <div id="preview-empty">
+                    <span class="frame-corner tl"></span
+                    ><span class="frame-corner tr"></span
+                    ><span class="frame-corner bl"></span
+                    ><span class="frame-corner br"></span
+                    ><span class="preview-monogram">vu.</span>
+                    <p>Your next film lives here.</p>
+                  </div>
+                  <video
+                    id="player"
+                    controls
+                    playsinline
+                    preload="metadata"
+                    hidden
+                  ></video>
+                </div>
+                <div id="result-actions" class="result-actions" hidden>
+                  <a id="download-video" class="outline" download
+                    >Download film ↓</a
+                  ><a id="download-source" class="quiet">Editable source ↗</a>
+                </div>
+                <p class="small muted" id="result-summary"></p>
+                <div id="job-panel" hidden>
+                  <div class="job-heading">
+                    <span id="job-status" class="pill"></span
+                    ><button id="cancel-job" class="text-button" hidden>
+                      Stop job
+                    </button>
+                  </div>
+                  <div
+                    id="job-events"
+                    class="job-events"
+                    aria-live="polite"
+                  ></div>
+                  <p id="job-error" class="error" hidden></p>
+                </div>
+              </div>
+            </div>
+            <section id="revisions-panel" hidden>
+              <p class="eyebrow">REVISIONS</p>
+              <div id="revision-list" class="revision-list"></div>
+            </section>
+          </section>
+        </div>
+      </section>
+    </main>
+    <dialog id="project-dialog">
+      <form id="project-form">
+        <p class="eyebrow">A NEW BEGINNING</p>
+        <h2>Name your project.</h2>
+        <label
+          >Project title<input
+            id="new-title"
+            maxlength="120"
+            required
+            placeholder="The launch film"
+            autofocus
+        /></label>
+        <div class="dialog-actions">
+          <button type="button" class="quiet" data-close="project-dialog">
+            Cancel</button
+          ><button class="primary">Create project →</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="settings-dialog">
+      <form id="settings-form">
+        <p class="eyebrow">MAKE IT YOURS</p>
+        <h2>Your creative toolkit.</h2>
+        <p class="muted">
+          Connect a model to direct your videos. Keys are encrypted on the
+          server and never sent to your assistant or render worker.
+        </p>
+        <div class="form-row">
+          <label
+            >Provider<select id="provider">
+              <option value="openai">OpenAI</option>
+              <option value="anthropic">Anthropic</option>
+              <option value="openrouter">OpenRouter</option>
+            </select></label
+          ><label
+            >Model ID<input
+              id="model"
+              required
+              placeholder="Model ID from your provider"
+          /></label>
+        </div>
+        <label
+          >Provider API key <span id="key-state" class="small muted"></span
+          ><input
+            id="api-key"
+            type="password"
+            autocomplete="new-password"
+            placeholder="Paste a key, or leave blank to keep the saved key"
+        /></label>
+        <div class="divider"></div>
+        <p class="eyebrow">SPEECH & NARRATION · OPTIONAL</p>
+        <label
+          >ElevenLabs API key <span id="eleven-state" class="small muted"></span
+          ><input
+            id="eleven-key"
+            type="password"
+            autocomplete="new-password"
+            placeholder="For speech edits and generated narration" /></label
+        ><label
+          >ElevenLabs voice ID<input
+            id="eleven-voice"
+            placeholder="Optional · default voice if left empty"
+        /></label>
+        <p class="small muted">
+          OpenAI keys also support word-timed transcription. Narration uses
+          ElevenLabs. Model calls and render time are billed separately from
+          your ChatGPT or Claude subscription.
+        </p>
+        <div class="dialog-actions">
+          <button type="button" class="quiet" data-close="settings-dialog">
+            Close</button
+          ><button class="primary">Save toolkit →</button>
+        </div>
+      </form>
+      <details>
+        <summary>Account & key removal</summary>
+        <form id="password-form">
+          <label
+            >New password<input
+              id="new-password"
+              type="password"
+              minlength="12"
+              autocomplete="new-password"
+              required
+              placeholder="At least 12 characters" /></label
+          ><button class="outline">Save password</button>
+        </form>
+        <button id="remove-keys" class="text-button danger">
+          Remove all saved API keys
+        </button>
+      </details>
+    </dialog>
+    <dialog id="connect-dialog">
+      <p class="eyebrow">KEEP THE CONVERSATION GOING</p>
+      <h2>Meet your assistant.</h2>
+      <p>
+        Connect this workspace once. Your projects, footage, and revisions stay
+        together.
+      </p>
+      <label
+        >MCP server URL
+        <div class="copy-row">
+          <input id="mcp-url" readonly /><button id="copy-url" class="outline">
+            Copy
+          </button>
+        </div></label
+      >
+      <ol class="connect-steps">
+        <li>
+          <strong>ChatGPT</strong
+          ><span
+            >In Settings → Security and login, enable developer mode where
+            available. In Plugins, use the plus button to add this URL. Choose
+            OAuth and sign in here.</span
+          >
+        </li>
+        <li>
+          <strong>Claude web</strong
+          ><span
+            >In Connectors, add a custom connector with this URL. Sign in and
+            allow access.</span
+          >
+        </li>
+        <li>
+          <strong>Claude Code</strong
+          ><span
+            >Run the command below, then use <code>/mcp</code> to
+            authenticate.</span
+          >
+        </li>
+      </ol>
+      <div class="command-row">
+        <code id="claude-command"></code
+        ><button class="quiet" id="copy-command">Copy</button>
+      </div>
+      <p class="small muted">
+        Try: “Create a video-use project for my launch film.” Your assistant can
+        start jobs, check progress, and revise existing projects. Upload media
+        here when it gives you a workspace link.
+      </p>
+      <div class="dialog-actions">
+        <button class="primary" data-close="connect-dialog">Got it →</button>
+      </div>
+    </dialog>
+    <dialog id="consent-dialog">
+      <p class="eyebrow">CONNECT YOUR WORKSPACE</p>
+      <h2 id="consent-title">Allow your assistant?</h2>
+      <p>
+        Your assistant will be able to view projects and media names, start
+        video jobs using your saved provider credits, retrieve results, and
+        cancel jobs. Your API keys stay private.
+      </p>
+      <p class="small muted">
+        Only connect an assistant you recognize. You can remove the connection
+        from its settings.
+      </p>
+      <div class="dialog-actions">
+        <button id="deny-consent" class="quiet">Decline</button
+        ><button id="allow-consent" class="primary">Allow connection →</button>
+      </div>
+    </dialog>
+    <footer>
+      <span>VIDEO-USE / OPEN SOURCE VIDEO CREATION</span
+      ><span>FROM AN IDEA TO A FILM.</span>
+    </footer>
+  </body>
+</html>

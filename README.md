@@ -10,6 +10,11 @@ Drop raw footage in a folder, chat with Claude Code, get `final.mp4` back. Works
 
 Try video-use in [Browser Use Cloud](https://cloud.browser-use.com/v4?utm_campaign=video-use-use-in-cloud&utm_source=github).
 
+For browser uploads and video creation through ChatGPT, Claude web, or Claude
+Code, see the [MCP server and browser studio](video_use_mcp/README.md). It uses
+this branch's editing harness with persistent projects, your own model keys,
+and isolated render jobs.
+
 ## What it does
 
 - **Cuts out filler words** (`umm`, `uh`, false starts) and dead space between takes
