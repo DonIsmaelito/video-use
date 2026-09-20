@@ -336,7 +336,7 @@ def render_scene(
     _run(
         command,
         runner=runner,
-        cwd=script.parent,
+        cwd=resolved_edit.parent,
         timeout_s=timeout_s,
         purpose=f"Manim render for {scene_name}",
     )

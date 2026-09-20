@@ -220,3 +220,16 @@ def test_preview_real_manim_render_stays_under_edit_verify(tmp_path: Path) -> No
         artifact = Path(report[key]).resolve()
         assert artifact.is_file()
         assert artifact.is_relative_to((edit_dir / "verify").resolve())
+
+
+# preview renders load the same project configuration and relative assets as production
+def test_review_project_working_directory(tmp_path):
+    script = _scene_script(tmp_path / 'project' / 'edit' / 'animations' / 'scene.py')
+    calls = []
+    # stop after observing the requested working directory
+    def runner(command, **kwargs):
+        calls.append(kwargs['cwd'])
+        return subprocess.CompletedProcess(command, 1, '', 'intentional stop')
+    with pytest.raises(preview_scene.PreviewError, match='intentional stop'):
+        preview_scene.render_scene(script, 'Demo', runner=runner, manim_bin='/usr/bin/true', ffmpeg_bin='/usr/bin/true', ffprobe_bin='/usr/bin/true')
+    assert calls == [str(tmp_path / 'project')]

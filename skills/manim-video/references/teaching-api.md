@@ -1,6 +1,6 @@
 # Semantic Teaching API
 
-Copy `assets/teaching.py` and the needed `assets/domains/` modules into an
+Copy `assets/teaching.py`, `assets/concept_explainer.py`, and the needed `assets/domains/` modules into an
 original explainer workspace. Pass one shared `VisualTheme` to every component.
 These APIs manage semantic identity, linked state, attention, and continuity;
 ordinary Manim remains available for custom visuals.
