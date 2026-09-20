@@ -9,8 +9,9 @@ from edit_io import probe, run, save_json, sha256
 def prepare(source, out, crop=None, tonemap=False):
     """Create a new FFV1 working copy and record its explicit transformations."""
     source = Path(source).resolve()
-    out = Path(out).resolve()
-    if out.exists() or source == out:
+    out = Path(out).absolute()
+    outputs = [out, Path(str(out) + ".log"), Path(str(out) + ".json")]
+    if any(p.exists() or p.is_symlink() for p in outputs) or source == out:
         raise FileExistsError("choose a new source derivative path")
     if out.suffix.lower() != ".mkv":
         raise ValueError("lossless prepared sources use a Matroska mkv file")
@@ -22,7 +23,7 @@ def prepare(source, out, crop=None, tonemap=False):
     if tonemap and not hdr:
         raise ValueError("tonemap requires tagged PQ or HLG input")
     filters = []
-    if crop:
+    if crop is not None:
         if (
             len(crop) != 4
             or any(type(v) is not int or v % 2 for v in crop)
@@ -91,7 +92,7 @@ def prepare(source, out, crop=None, tonemap=False):
         "output_probe": probe(out, True),
         "review": "Compare native frames for color and crop; reacquire if source quality is inadequate",
     }
-    save_json(str(out) + ".json", result)
+    save_json(str(out) + ".json", result, exclusive=True)
     return result
 
 
