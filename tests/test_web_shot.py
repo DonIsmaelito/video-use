@@ -60,3 +60,13 @@ def test_validate_url_rejects_non_http() -> None:
     with pytest.raises(ValueError):
         web_shot.validate_url("ftp://example.com/x")
     assert web_shot.validate_url("https://example.com/") == "https://example.com/"
+
+
+# alpha differences keep black artwork visible to transparent border trimming
+def test_review_transparent_black_trim(tmp_path):
+    from PIL import ImageDraw
+    image = Image.new('RGBA', (100, 100), (0, 0, 0, 0))
+    ImageDraw.Draw(image).rectangle((40, 40, 59, 59), fill=(0, 0, 0, 255))
+    path = tmp_path / 'source.png'; image.save(path)
+    assert web_shot.make_card(path, trim=True).size == (36, 36)
+    assert web_shot.validate_url('file:///tmp/page.html') == 'file:///tmp/page.html'

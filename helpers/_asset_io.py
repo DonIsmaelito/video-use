@@ -5,6 +5,9 @@ import functools
 import hashlib
 import json
 import tempfile
+import os
+import io
+import contextlib
 from pathlib import Path
 
 
@@ -36,7 +39,8 @@ def staged_asset(function):
             staged = Path(directory) / output.name
             copied = argparse.Namespace(**vars(args))
             copied.output = staged
-            function(copied)
+            with contextlib.redirect_stdout(io.StringIO()):
+                function(copied)
             metadata_path = staged.with_suffix(staged.suffix + ".json")
             metadata = json.loads(metadata_path.read_text())
             metadata["sha256"] = file_hash(staged)
@@ -49,14 +53,12 @@ def staged_asset(function):
             try:
                 for destination in destinations:
                     source = Path(directory) / destination.name
-                    with destination.open("xb") as target:
-                        created.append(destination)
-                        with source.open("rb") as incoming:
-                            while chunk := incoming.read(1024 * 1024):
-                                target.write(chunk)
+                    os.link(source, destination)
+                    created.append((source, destination))
             except BaseException:
-                for path in created:
-                    path.unlink(missing_ok=True)
+                for source, destination in created:
+                    if destination.exists() and not destination.is_symlink() and destination.samefile(source):
+                        destination.unlink()
                 raise
         print(f"saved {output}")
 
@@ -67,15 +69,18 @@ def staged_asset(function):
 def download(url, *, headers, max_bytes):
     import requests
 
-    with requests.get(url, headers=headers, timeout=60, stream=True) as response:
-        if response.status_code != 200:
-            raise ValueError(f"download failed with HTTP {response.status_code}")
-        length = response.headers.get("Content-Length")
-        if length and int(length) > max_bytes:
-            raise ValueError("download exceeds the byte limit")
-        data = bytearray()
-        for chunk in response.iter_content(chunk_size=65536):
-            if len(data) + len(chunk) > max_bytes:
+    try:
+        with requests.get(url, headers=headers, timeout=60, stream=True) as response:
+            if response.status_code != 200:
+                raise ValueError(f"download failed with HTTP {response.status_code}")
+            length = response.headers.get("Content-Length")
+            if length and int(length) > max_bytes:
                 raise ValueError("download exceeds the byte limit")
-            data.extend(chunk)
-        return bytes(data), response.headers.get("Content-Type", ""), response.url
+            data = bytearray()
+            for chunk in response.iter_content(chunk_size=65536):
+                if len(data) + len(chunk) > max_bytes:
+                    raise ValueError("download exceeds the byte limit")
+                data.extend(chunk)
+            return bytes(data), response.headers.get("Content-Type", ""), response.url
+    except requests.RequestException as exc:
+        raise ValueError(f"asset download failed: {exc}") from exc

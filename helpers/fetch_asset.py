@@ -91,8 +91,10 @@ def fetch_image(args: argparse.Namespace) -> None:
     tmp.write_bytes(data)
     try:
         with Image.open(tmp) as image:
-            image.load()
             width, height = image.size
+            if width * height > 80_000_000:
+                raise ValueError("image exceeds 80 million pixels")
+            image.load()
             if getattr(image, "n_frames", 1) != 1:
                 raise ValueError(
                     "animated images are not supported by the still image helper"
@@ -267,9 +269,10 @@ def render_emoji(text: str, size: int, font_path: str | None = None):
                     raise ValueError("emoji rendered no pixels")
                 image = canvas.crop(box)
                 scale = size / image.height
-                image = image.resize(
-                    (max(1, int(image.width * scale)), size), Image.LANCZOS
-                )
+                target_width = max(1, int(image.width * scale))
+                if target_width * size > 80_000_000:
+                    raise ValueError("emoji exceeds 80 million pixels")
+                image = image.resize((target_width, size), Image.LANCZOS)
                 return image, path
             except Exception as exc:  # pragma: no cover - font specific
                 last_error = exc
