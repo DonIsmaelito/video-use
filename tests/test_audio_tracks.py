@@ -98,3 +98,11 @@ def test_voice_fades_do_not_apply_to_music():
     assert voice[1440, 0] == 1
     np.testing.assert_array_equal(music, audio)
     assert voice.shape == music.shape == audio.shape
+
+
+# malformed envelope rows fail with actionable errors instead of indexing crashes
+@pytest.mark.parametrize('points', [[[]], [[0]], [None], [1]])
+def test_review_malformed_gain_points(points):
+    from mix_audio import gain_envelope
+    with pytest.raises(ValueError, match='pairs'):
+        gain_envelope(100, points)
