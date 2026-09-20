@@ -103,7 +103,7 @@ def validate_effects(spec):
 def validate_time_map(points, count):
     if (
         not isinstance(points, list)
-        or len(points) < 2
+        or len(points) < (1 if count == 1 else 2)
         or any(not isinstance(p, list) or len(p) != 2 for p in points)
     ):
         raise ValueError("time_map needs output-frame/source-frame pairs")
@@ -112,8 +112,8 @@ def validate_time_map(points, count):
     if (
         out[0] != 0
         or out[-1] != count - 1
-        or out != sorted(set(out))
         or any(type(f) is not int for f in out)
+        or out != sorted(set(out))
     ):
         raise ValueError(
             "time_map must span output frames 0 through shot length minus one"
@@ -373,6 +373,9 @@ def render_layers(manifest, root, picture, staged, out):
     out = Path(out)
     check_output(out, Path(str(out) + ".log"))
     fps = output_fps(manifest)
+    from edit_clock import check_partition
+
+    check_partition(manifest.get("shots", []), manifest["total_frames"])
     compositor = LayerCompositor(manifest, root, staged)
     reader = cv2.VideoCapture(str(picture))
     index = 0
@@ -442,6 +445,8 @@ def stage_mapped(manifest, root, shot, path):
     width, height = manifest["picture"][2:]
     validate_time_map(shot["time_map"], count)
     validate_source_window(shot)
+    if any(key in shot for key in ("source_start", "source_frame", "speed")):
+        raise ValueError("time_map uses absolute native frames and cannot combine with source origin or speed")
     points = np.asarray(shot["time_map"])
     targets = np.floor(
         np.interp(np.arange(count), points[:, 0], points[:, 1]) + 0.5
@@ -497,6 +502,8 @@ def stage_mapped(manifest, root, shot, path):
                 cropped = image
                 if shot.get("source_crop"):
                     x, y, w, h = shot["source_crop"]
+                    if x + w > image.width or y + h > image.height:
+                        raise ValueError("source_crop extends outside source dimensions")
                     cropped = image.crop((x, y, x + w, y + h))
                 writer.stdin.write(
                     ImageOps.pad(

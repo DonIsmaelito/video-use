@@ -4,9 +4,10 @@ import json
 import subprocess
 from pathlib import Path
 
-import cv2
 import numpy as np
 import pytest
+
+cv2 = pytest.importorskip("cv2", reason="install the editing extra")
 from PIL import Image, ImageDraw
 
 from helpers import effects
@@ -189,3 +190,10 @@ def test_retime_and_composite_encoded_frames(tmp_path):
 def test_bad_time_map(points):
     with pytest.raises(ValueError):
         effects.validate_time_map(points, 3)
+
+
+# one output frame needs exactly one native source position
+def test_review_single_frame_map():
+    effects.validate_time_map([[0, 4]], 1)
+    with pytest.raises(ValueError):
+        effects.validate_time_map([[0, 1], ['bad', 2], [2, 3]], 3)

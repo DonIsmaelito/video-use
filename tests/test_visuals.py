@@ -88,7 +88,7 @@ def test_reframe_filter_encodes_zoom_and_focus() -> None:
     value = visuals.build_reframe_filter(
         {"zoom": 1.08, "focus_x": 0.4, "focus_y": 0.25}
     )
-    assert "scale=trunc(iw*1.080000" in value
+    assert "scale=ceil(iw*1.080000" in value
     assert "(iw-ow)*0.400000" in value
     assert "(ih-oh)*0.250000" in value
 
@@ -282,3 +282,9 @@ def test_canvas_filters_encode(fit, tmp_path):
     )
     with Image.open(output) as image:
         assert image.size == dimensions == (64, 96)
+
+
+# negative graphic coordinates preserve their direction when previewed
+def test_review_negative_preview_coordinate():
+    from helpers.visuals import _scaled_pixel_value
+    assert _scaled_pixel_value(-100, 0.5) == -50

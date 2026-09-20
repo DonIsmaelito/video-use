@@ -5,9 +5,10 @@ import subprocess
 import sys
 from pathlib import Path
 
-import cv2
 import numpy as np
 import pytest
+
+cv2 = pytest.importorskip("cv2", reason="install the editing extra")
 
 from helpers.track_mask import track, refine_mask, self_intersects
 
@@ -81,3 +82,15 @@ def test_cli_preserves_seed(tmp_path):
     )
     assert result.returncode != 0 and "new file" in result.stderr
     assert seed.read_bytes() == before
+
+
+# zero area polygons cannot seed a usable matte
+def test_review_zero_area_seed():
+    with pytest.raises(ValueError, match='area'):
+        track([np.zeros((32, 32), dtype=np.uint8)], 0, [[1, 1], [2, 2], [3, 3]])
+
+
+# numpy polygons serialize without a special json encoder
+def test_review_numpy_seed():
+    result = track([np.zeros((32, 32), dtype=np.uint8)], 0, np.array([[2, 2], [20, 2], [20, 20]]))
+    json.dumps(result, allow_nan=False)
