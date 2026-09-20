@@ -57,11 +57,13 @@ def load_json(path):
 
 
 # write readable JSON while rejecting nonfinite measurement values
-def save_json(path, data):
+def save_json(path, data, *, exclusive=False):
     """Write readable JSON while rejecting nonfinite measurement values."""
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(data, indent=2, allow_nan=False) + "\n")
+    payload = json.dumps(data, indent=2, allow_nan=False) + "\n"
+    with path.open("x" if exclusive else "w") as stream:
+        stream.write(payload)
 
 
 # resolve an artifact path relative to its project directory
@@ -82,7 +84,10 @@ def source_path(manifest, root, source_id):
     path = resolve(root, source["file"])
     if not path.is_file():
         raise FileNotFoundError(path)
-    for blocked in manifest.get("study_media", []):
+    blocked_paths = manifest.get("study_media", [])
+    if not isinstance(blocked_paths, list):
+        raise ValueError("study_media must be a list of paths")
+    for blocked in blocked_paths:
         other = resolve(root, blocked)
         if path == other or (other.exists() and path.samefile(other)):
             raise ValueError("study media entered the render graph")
@@ -92,9 +97,15 @@ def source_path(manifest, root, source_id):
 # recover the last decodable JSON object from command output
 def last_json(text):
     """Recover the last decodable JSON object from command output."""
-    for start in reversed([i for i, c in enumerate(text) if c == "{"]):
+    candidates = []
+    for start, char in enumerate(text):
+        if char != "{":
+            continue
         try:
-            return json.JSONDecoder().raw_decode(text[start:])[0]
+            value, length = json.JSONDecoder().raw_decode(text[start:])
+            candidates.append((start + length, -start, value))
         except json.JSONDecodeError:
             pass
-    raise ValueError("no JSON measurement in command output")
+    if not candidates:
+        raise ValueError("no JSON measurement in command output")
+    return max(candidates, key=lambda row: row[:2])[2]

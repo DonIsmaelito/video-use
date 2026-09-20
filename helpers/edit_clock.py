@@ -6,6 +6,19 @@ import math
 SAMPLE_RATE = 48000
 
 
+# require a finite positive clock rate before conversion
+def clock_rate(value):
+    if isinstance(value, bool):
+        raise ValueError("clock rate must be finite and positive")
+    try:
+        result = fraction(value)
+    except (ValueError, ZeroDivisionError, OverflowError) as exc:
+        raise ValueError("clock rate must be finite and positive") from exc
+    if result <= 0:
+        raise ValueError("clock rate must be finite and positive")
+    return result
+
+
 # convert decimal or rational input without introducing binary float rounding
 def fraction(value):
     """Convert decimal or rational input without introducing binary float rounding."""
@@ -22,7 +35,7 @@ def nearest(value):
 # convert seconds to a frame boundary using the requested rounding policy
 def seconds_to_frame(seconds, fps=30, mode="nearest"):
     """Convert seconds to a frame boundary using the requested rounding policy."""
-    value = fraction(seconds) * fraction(fps)
+    value = fraction(seconds) * clock_rate(fps)
     if mode == "nearest":
         return nearest(value)
     if mode == "ceil":
@@ -35,26 +48,26 @@ def seconds_to_frame(seconds, fps=30, mode="nearest"):
 # map a frame boundary onto the audio sample clock
 def frame_to_sample(frame, fps=30, rate=SAMPLE_RATE):
     """Map a frame boundary onto the audio sample clock."""
-    return nearest(Fraction(frame * rate, 1) / fraction(fps))
+    return nearest(fraction(frame) * clock_rate(rate) / clock_rate(fps))
 
 
 # map seconds onto the audio sample clock
 def seconds_to_sample(seconds, rate=SAMPLE_RATE):
     """Map seconds onto the audio sample clock."""
-    return nearest(fraction(seconds) * rate)
+    return nearest(fraction(seconds) * clock_rate(rate))
 
 
 # floor a frame boundary to the centisecond clock used by ASS subtitles
 def ass_stamp(frame, fps=30):
     """Floor to the ASS clock so a 30 fps end boundary cannot leak one frame."""
-    cs = math.floor(Fraction(frame * 100, 1) / fraction(fps))
+    cs = math.floor(fraction(frame) * 100 / clock_rate(fps))
     return f"{cs//360000}:{cs//6000%60:02}:{cs//100%60:02}.{cs%100:02}"
 
 
 # distribute a fixed frame budget across positive shot weights
 def allocate_frames(total, weights):
     """Largest-remainder allocation preserves total; it does not choose edit points."""
-    if not weights or total < len(weights) or any(fraction(w) <= 0 for w in weights):
+    if type(total) is not int or not weights or total < len(weights) or any(fraction(w) <= 0 for w in weights):
         raise ValueError("positive weights and at least one frame per shot required")
     exact = [fraction(w) * total / sum(map(fraction, weights)) for w in weights]
     counts = [math.floor(v) for v in exact]
@@ -63,7 +76,11 @@ def allocate_frames(total, weights):
     )[: total - sum(counts)]:
         counts[i] += 1
     if min(counts) < 1:
-        raise ValueError("duration is too short for these shot proportions")
+        extra = total - len(weights)
+        exact = [fraction(w) * extra / sum(map(fraction, weights)) for w in weights]
+        counts = [1 + math.floor(v) for v in exact]
+        for i in sorted(range(len(weights)), key=lambda i: (exact[i] % 1, -i), reverse=True)[:total - sum(counts)]:
+            counts[i] += 1
     return counts
 
 
