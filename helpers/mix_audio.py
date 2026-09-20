@@ -92,6 +92,8 @@ def decode_window(path, start, count, filters=None):
 def gain_envelope(count, points, base_db=0):
     if type(count) is not int or count <= 0:
         raise ValueError("gain envelope needs a positive integer sample count")
+    if not isinstance(points, (list, tuple)) or any(not isinstance(p, (list, tuple)) or len(p) != 2 for p in points):
+        raise ValueError("gain points must be sample and gain pairs")
     if not math.isfinite(float(base_db)) or any(
         not math.isfinite(float(p[1])) for p in points
     ):
@@ -248,6 +250,8 @@ def build(manifest, root, dest):
         if clip["start_sample"] + clip["sample_count"] > count:
             raise ValueError("audio exceeds timeline")
         source_path(manifest, root, clip["source"])
+    if dest.is_symlink():
+        raise ValueError("audio output directory cannot be a symlink")
     dest.mkdir(parents=True, exist_ok=True)
     buses = {r: np.zeros((count, 2), np.float32) for r in ("voice", "music", "effects")}
     clips = []

@@ -21,6 +21,8 @@ def map_words(transcript, clip, source_id, prefix="w"):
     for i, word in enumerate(transcript["words"]):
         if word.get("type", "word") != "word":
             continue
+        if float(word["start"]) < 0 or float(word["end"]) <= float(word["start"]):
+            raise ValueError("word timestamps must describe a positive nonnegative interval")
         a = seconds_to_sample(word["start"])
         b = seconds_to_sample(word["end"])
         if a < 0 or b <= a:
@@ -128,7 +130,7 @@ def main():
             if c["role"] == "voice"
         ]
         result = compare_words(manifest["words"], load_json(a.final_asr), intervals)
-    save_json(a.out, result)
+    save_json(a.out, result, exclusive=True)
 
 
 if __name__ == "__main__":
