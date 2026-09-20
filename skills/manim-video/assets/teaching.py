@@ -316,7 +316,10 @@ class LinkedValue:
         if isinstance(name, Mobject):
             dependent = name
             callback = mobject
-            binding_name = f"dependent_{len(self._bindings)}"
+            index = 0
+            while f"dependent_{index}" in self._bindings:
+                index += 1
+            binding_name = f"dependent_{index}"
         else:
             binding_name = name
             dependent = mobject
@@ -664,11 +667,11 @@ class TeachingThreeDScene(_TeachingSceneMixin, ThreeDScene):
     # capture every camera setting that focus may change
     def _camera_values(self) -> dict[str, Any]:
         return {
-            "phi": float(self.camera.phi),
-            "theta": float(self.camera.theta),
-            "gamma": float(self.camera.gamma),
-            "zoom": float(self.camera.zoom),
-            "focal_distance": float(self.camera.focal_distance),
+            "phi": float(self.camera.get_phi()),
+            "theta": float(self.camera.get_theta()),
+            "gamma": float(self.camera.get_gamma()),
+            "zoom": float(self.camera.get_zoom()),
+            "focal_distance": float(self.camera.get_focal_distance()),
             "frame_center": np.asarray(self.camera.frame_center, dtype=float).copy(),
         }
 
@@ -690,7 +693,7 @@ class TeachingThreeDScene(_TeachingSceneMixin, ThreeDScene):
         )
         self.move_camera(
             frame_center=group.get_center(),
-            zoom=min(float(self.camera.zoom) * scale, 8.0),
+            zoom=min(float(self.camera.get_zoom()) * scale, 8.0),
             added_anims=dim_animations,
             run_time=run_time,
         )
@@ -704,8 +707,7 @@ class TeachingThreeDScene(_TeachingSceneMixin, ThreeDScene):
             float(config.frame_width) / max(group.width + 2 * margin, 1e-6),
             float(config.frame_height) / max(group.height + 2 * margin, 1e-6),
         )
-        self.camera.frame_center = group.get_center()
-        self.camera.zoom = min(float(self.camera.zoom) * scale, 8.0)
+        self.set_camera_orientation(frame_center=group.get_center(), zoom=min(float(self.camera.get_zoom()) * scale, 8.0))
 
     # restore the saved three d camera settings by animation or direct assignment
     def _restore_focus_camera(self, *, run_time: float, animate: bool) -> None:
@@ -714,8 +716,7 @@ class TeachingThreeDScene(_TeachingSceneMixin, ThreeDScene):
         if animate:
             self.move_camera(**self._camera_context, run_time=run_time)
         else:
-            for name, value in self._camera_context.items():
-                setattr(self.camera, name, value)
+            self.set_camera_orientation(**self._camera_context)
         self._camera_context = None
 
 

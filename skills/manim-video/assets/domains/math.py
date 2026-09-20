@@ -233,6 +233,8 @@ class LinkedPlot(SemanticMobject):
         )
         graph = axes.plot(function, x_range=self.x_range, color=theme.primary)
         self.x_value = float(x_value)
+        if not np.isfinite(self.x_value) or not x_range[0] <= self.x_value <= x_range[1]:
+            raise ValueError("initial x value must be finite and inside the axis range")
         point = Dot(axes.c2p(self.x_value, function(self.x_value)), color=theme.accent)
         guide = DashedLine(
             axes.c2p(self.x_value, 0),

@@ -178,6 +178,8 @@ def frame_safe(component: Mobject) -> Mobject:
 
 # validate that an index falls inside zero to size minus one
 def ensure_index(index: int, size: int, *, name: str = "index") -> int:
+    if isinstance(index, bool) or not isinstance(index, (int, np.integer)):
+        raise ValueError(f"{name} must be an integer")
     if not 0 <= int(index) < size:
         raise IndexError(f"{name} {index} is outside 0..{size - 1}")
     return int(index)
@@ -186,6 +188,10 @@ def ensure_index(index: int, size: int, *, name: str = "index") -> int:
 # validate a non negative amount and optionally that it does not exceed what is available
 def ensure_amount(amount: float, *, available: float | None = None) -> float:
     value = float(amount)
+    if not np.isfinite(value):
+        raise ValueError("amount must be finite")
+    if available is not None and not np.isfinite(available):
+        raise ValueError("available amount must be finite")
     if value < 0:
         raise ValueError("amount cannot be negative")
     if available is not None and value > available + 1e-9:

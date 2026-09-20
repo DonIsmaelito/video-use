@@ -150,6 +150,8 @@ def assert_inside_frame(
     margin: float = 0.18,
 ) -> Mobject:
     """Raise before render if a mobject leaves the frame or caption-safe area."""
+    if not np.isfinite(margin) or margin < 0 or not np.isfinite(caption_rail_fraction) or not 0 <= caption_rail_fraction < 1:
+        raise ValueError("frame margin and caption rail must be finite nonnegative bounds")
     # compute the allowed bounds with the caption rail folded into the bottom edge
     left = -config.frame_width / 2 + margin
     right = config.frame_width / 2 - margin
@@ -187,13 +189,13 @@ def assert_inside_region(
 # describe a final state mobject as a normalized rectangle the edl can protect
 def normalized_bounds(mobject: Mobject, *, padding: float = 0.0) -> dict[str, float]:
     """Return an EDL-ready protected rectangle for a final-state mobject."""
-    if padding < 0:
+    if not np.isfinite(padding) or padding < 0:
         raise ValueError("padding must be non-negative")
     # clamp the padded bounds to the frame then convert to top left normalized units
-    left = max(-config.frame_width / 2, mobject.get_left()[0] - padding)
-    right = min(config.frame_width / 2, mobject.get_right()[0] + padding)
-    top = min(config.frame_height / 2, mobject.get_top()[1] + padding)
-    bottom = max(-config.frame_height / 2, mobject.get_bottom()[1] - padding)
+    left = np.clip(mobject.get_left()[0] - padding, -config.frame_width / 2, config.frame_width / 2)
+    right = np.clip(mobject.get_right()[0] + padding, -config.frame_width / 2, config.frame_width / 2)
+    top = np.clip(mobject.get_top()[1] + padding, -config.frame_height / 2, config.frame_height / 2)
+    bottom = np.clip(mobject.get_bottom()[1] - padding, -config.frame_height / 2, config.frame_height / 2)
     return {
         "x": (left + config.frame_width / 2) / config.frame_width,
         "y": (config.frame_height / 2 - top) / config.frame_height,

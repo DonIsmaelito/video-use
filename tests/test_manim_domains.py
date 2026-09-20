@@ -71,3 +71,18 @@ def test_domain_actions_update_semantic_state() -> None:
     timeline.compound(2)
     assert timeline.balance_at(2) == pytest.approx(121)
 
+
+
+# invalid transfers cannot poison balances with nonfinite values
+@pytest.mark.parametrize('amount', [float('nan'), float('inf'), -float('inf')])
+def test_review_nonfinite_transfer(amount):
+    from domains._common import ensure_amount
+    with pytest.raises(ValueError):
+        ensure_amount(amount, available=10)
+
+
+# fractional indices cannot silently select a different element
+def test_review_fractional_index():
+    from domains._common import ensure_index
+    with pytest.raises(ValueError):
+        ensure_index(1.5, 3)
