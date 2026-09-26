@@ -141,14 +141,20 @@ def build_scene(scene: str, dest: Path, words: list[str], pal: dict, motion: str
     return dest / "index.html"
 
 
-def main() -> None:
-    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("prompt"); ap.add_argument("--out", default="edit/fast_motion"); ap.add_argument("--width", type=int, default=1280); ap.add_argument("--height", type=int, default=720); ap.add_argument("--fps", type=int, default=30)
-    ap.add_argument("--duration", type=float, default=None, help="override the pace-derived duration"); ap.add_argument("--scene", default=None, help="override Jev's scene choice"); ap.add_argument("--no-gate", action="store_true")
-    a = ap.parse_args()
-    t0 = time.perf_counter(); stages = {}
-    jev = Jev(log_path=Path(a.out) / "jev_decisions.jsonl")
-    state = {"prompt": a.prompt, "task": "Choose how to realise this motion-design prompt with one of the instant scenes and a fixed set of design controls."}
+def run_pipeline(prompt: str, out: str | Path, *, width: int = 1280, height: int = 720, fps: int = 30, duration: float | None = None, scene_override: str | None = None, gate: bool = True, on_event=None) -> dict:
+    """Run the Jev-only path and report every stage through on_event(dict). Returns the report."""
+    t0 = time.perf_counter()
+    stages: dict = {}
+
+    def emit(stage: str, msg: str, **data):
+        ev = {"t": round(time.perf_counter() - t0, 2), "stage": stage, "msg": msg, **data}
+        if on_event:
+            on_event(ev)
+        return ev
+
+    emit("start", f"prompt: {prompt}")
+    jev = Jev(log_path=Path(out) / "jev_decisions.jsonl")
+    state = {"prompt": prompt, "task": "Choose how to realise this motion-design prompt with one of the instant scenes and a fixed set of design controls."}
     qs = {
         "scene": choice("Which instant scene best realises the prompt?", SCENES),
         "palette": choice("Which colour palette fits the prompt's mood and subject?", {k: v["desc"] for k, v in PALETTES.items()}),
@@ -157,40 +163,84 @@ def main() -> None:
         "ending": choice("How should the piece end?", ENDING),
         "dark": noul("The prompt calls for a dark background."),
     }
+    emit("jev", f"asking Jev six questions in one request ({jev.route} route)", questions=list(qs))
     r = jev.ask(state, qs, tag="fast_motion")
     stages["jev_s"] = round(time.perf_counter() - t0, 2)
-    sc = r.choice("scene"); scene = a.scene or (sc.choice if sc.passes(0.35, 0.08) else "word-pop")
-    palette = r.choice("palette").choice; pace = r.choice("pace").choice; motion = r.choice("motion").choice; ending = r.choice("ending").choice
+    for key in ("scene", "palette", "pace", "motion", "ending"):
+        a = r.choice(key)
+        top = sorted(a.probabilities.items(), key=lambda kv: -kv[1])[:3]
+        emit("jev", f"{key}: {a.choice}  (p={a.p_choice:.2f}, margin={a.choice_margin:.2f})", question=key, choice=a.choice, p=round(a.p_choice, 2), margin=round(a.choice_margin, 2), top=[(k, round(v, 2)) for k, v in top])
     dark = r.noul("dark").noul
+    emit("jev", f"dark background: p={dark:.2f}", question="dark", p=round(dark, 2))
+    emit("jev", f"Jev answered in {r.latency_ms:.0f} ms ({r.input_tokens} input tokens)", latency_ms=round(r.latency_ms), model=r.model)
+    sc = r.choice("scene")
+    scene = scene_override or (sc.choice if sc.passes(0.35, 0.08) else "word-pop")
+    if not scene_override and scene != sc.choice:
+        emit("jev", f"scene gate not met (p={sc.p_choice:.2f}, margin={sc.choice_margin:.2f}); falling back to word-pop")
+    palette = r.choice("palette").choice; pace = r.choice("pace").choice; motion = r.choice("motion").choice; ending = r.choice("ending").choice
     if dark >= 0.6 and palette in ("ivory-ink-acid", "paper-cobalt", "cream-vermilion"):
+        emit("jev", f"dark background requested; swapping {palette} for midnight-neon")
         palette = "midnight-neon"
-    duration = a.duration or PACE_S[pace]
-    words = extract_words(a.prompt, limit=5 if scene == "kinetic-type" else 2)
-    decisions = {"prompt": a.prompt, "scene": scene, "scene_p": round(sc.p_choice, 2), "scene_margin": round(sc.choice_margin, 2), "scene_probs": {k: round(v, 2) for k, v in sc.probabilities.items()},
-                 "palette": palette, "pace": pace, "motion": motion, "ending": ending, "dark_p": round(dark, 2), "duration_s": duration, "words": words, "jev_latency_ms": round(r.latency_ms)}
-    slug = re.sub(r"[^a-z0-9]+", "-", a.prompt.lower())[:40].strip("-") or "piece"
-    dest = Path(a.out) / slug
+    dur = duration or PACE_S[pace]
+    words = extract_words(prompt, limit=5 if scene == "kinetic-type" else 2)
+    decisions = {"prompt": prompt, "scene": scene, "scene_p": round(sc.p_choice, 2), "scene_margin": round(sc.choice_margin, 2), "scene_probs": {k: round(v, 2) for k, v in sc.probabilities.items()},
+                 "palette": palette, "pace": pace, "motion": motion, "ending": ending, "dark_p": round(dark, 2), "duration_s": dur, "words": words, "jev_latency_ms": round(r.latency_ms)}
+    slug = re.sub(r"[^a-z0-9]+", "-", prompt.lower())[:40].strip("-") or "piece"
+    dest = Path(out) / slug
     t1 = time.perf_counter()
-    entry = build_scene(scene, dest, words, PALETTES[palette], motion, ending, duration)
+    entry = build_scene(scene, dest, words, PALETTES[palette], motion, ending, dur)
     stages["build_s"] = round(time.perf_counter() - t1, 2)
+    emit("build", f"scene {scene} written with words {words}, palette {palette}, {dur:g} s ({stages['build_s']} s)", path=str(entry), decisions=decisions)
     (dest / "decisions.json").write_text(json.dumps(decisions, indent=1))
     t2 = time.perf_counter()
     out_mp4 = dest / "render.mp4"
-    cmd = ["node", str(HERE / "motion_render.mjs"), str(entry), "-o", str(out_mp4), "--duration", str(duration), "--width", str(a.width), "--height", str(a.height), "--fps", str(a.fps), "--deps", str(RUNTIME), "--chrome", CHROME, "--crf", "22", "--preset", "veryfast", "--overwrite"]
-    proc = subprocess.run(cmd, capture_output=True, text=True)
+    total_frames = int(round(dur * fps))
+    cmd = ["node", str(HERE / "motion_render.mjs"), str(entry), "-o", str(out_mp4), "--duration", str(dur), "--width", str(width), "--height", str(height), "--fps", str(fps), "--deps", str(RUNTIME), "--chrome", CHROME, "--crf", "22", "--preset", "veryfast", "--overwrite"]
+    emit("render", f"rendering {total_frames} frames at {width}x{height} {fps} fps", frames=total_frames)
+    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+    last_line = ""
+    for line in proc.stdout:  # type: ignore[union-attr]
+        line = line.strip()
+        if not line:
+            continue
+        last_line = line
+        m = re.match(r"Frame (\d+)/(\d+)", line)
+        if m:
+            emit("render", line, frame=int(m.group(1)), frames=int(m.group(2)))
+    proc.wait()
     stages["render_s"] = round(time.perf_counter() - t2, 2)
     if proc.returncode != 0:
-        print(proc.stderr[-1200:]); raise SystemExit(f"render failed for scene {scene}")
-    gate = None
-    if not a.no_gate:
+        emit("error", f"render failed: {last_line[-300:]}")
+        raise RuntimeError(f"render failed for scene {scene}: {last_line[-300:]}")
+    emit("render", f"encoded {out_mp4.name} in {stages['render_s']} s", path=str(out_mp4))
+    gate_result = None
+    if gate:
         t3 = time.perf_counter()
-        g = subprocess.run([sys.executable, str(HERE / "motion_gate.py"), str(out_mp4), "--width", str(a.width), "--height", str(a.height), "--fps", str(a.fps), "--min-s", str(duration - 0.2), "--max-s", str(duration + 0.5), "--silent", "--out", str(dest / "verify")], capture_output=True, text=True)
+        g = subprocess.run([sys.executable, str(HERE / "motion_gate.py"), str(out_mp4), "--width", str(width), "--height", str(height), "--fps", str(fps), "--min-s", str(dur - 0.2), "--max-s", str(dur + 0.5), "--silent", "--out", str(dest / "verify")], capture_output=True, text=True)
         stages["gate_s"] = round(time.perf_counter() - t3, 2)
-        gate = {"verdict": "ship" if g.returncode == 0 else "fix", "line": (g.stdout.strip().splitlines() or [""])[0][:200]}
+        first = (g.stdout.strip().splitlines() or [""])[0]
+        gate_result = {"verdict": "ship" if g.returncode == 0 else "fix", "line": first[:300]}
+        try:
+            gate_result["report"] = json.loads((dest / "verify" / "motion_gate.json").read_text())
+        except Exception:  # noqa: BLE001
+            pass
+        emit("gate", f"motion gate: {gate_result['verdict'].upper()} ({stages['gate_s']} s) {first[:160]}", verdict=gate_result["verdict"], p_ready=(gate_result.get("report") or {}).get("jev_p_ready"))
     stages["total_s"] = round(time.perf_counter() - t0, 2)
-    report = {"decisions": decisions, "stages": stages, "gate": gate, "output": str(out_mp4)}
+    report = {"decisions": decisions, "stages": stages, "gate": gate_result, "output": str(out_mp4)}
     (dest / "report.json").write_text(json.dumps(report, indent=1))
-    print(f"{stages['total_s']:5.1f}s total | jev {stages['jev_s']}s build {stages['build_s']}s render {stages['render_s']}s gate {stages.get('gate_s')}s | {scene} {palette} {pace} {motion} {ending} {duration}s words={words} | gate={gate['verdict'] if gate else '-'} | {out_mp4}")
+    emit("done", f"{stages['total_s']} s total", report=report)
+    return report
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("prompt"); ap.add_argument("--out", default="edit/fast_motion"); ap.add_argument("--width", type=int, default=1280); ap.add_argument("--height", type=int, default=720); ap.add_argument("--fps", type=int, default=30)
+    ap.add_argument("--duration", type=float, default=None, help="override the pace-derived duration"); ap.add_argument("--scene", default=None, help="override Jev's scene choice"); ap.add_argument("--no-gate", action="store_true"); ap.add_argument("--verbose", action="store_true")
+    a = ap.parse_args()
+    report = run_pipeline(a.prompt, a.out, width=a.width, height=a.height, fps=a.fps, duration=a.duration, scene_override=a.scene, gate=not a.no_gate, on_event=(lambda e: print(f"[{e['t']:6.2f}s] {e['stage']:6s} {e['msg']}")) if a.verbose else None)
+    d, s = report["decisions"], report["stages"]
+    g = report["gate"]
+    print(f"{s['total_s']:5.1f}s total | jev {s['jev_s']}s build {s['build_s']}s render {s['render_s']}s gate {s.get('gate_s')}s | {d['scene']} {d['palette']} {d['pace']} {d['motion']} {d['ending']} {d['duration_s']}s words={d['words']} | gate={g['verdict'] if g else '-'} | {report['output']}")
 
 
 if __name__ == "__main__":

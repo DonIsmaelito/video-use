@@ -1,0 +1,1159 @@
+{
+ "summary": {
+  "readiness": {
+   "n": 144,
+   "acc_by_kind": {
+    "original": "7/24",
+    "technical_failure": "24/24",
+    "audio_present": "24/24",
+    "flat_black": "24/24",
+    "wrong_fps": "24/24",
+    "duration_out_of_range": "24/24"
+   },
+   "overall": 0.882
+  },
+  "intentional_hold": {
+   "n": 12,
+   "agree": 10,
+   "acc": 0.833
+  },
+  "jev_latency_ms": {
+   "n": 156,
+   "median": 131.38,
+   "mean": 146.03,
+   "p90": 167.15,
+   "min": 91.55,
+   "max": 499.55
+  }
+ },
+ "rows": [
+  {
+   "scene": "01-pressure-type",
+   "kind": "original",
+   "label_ready": true,
+   "p_ready": 0.4,
+   "correct": false
+  },
+  {
+   "scene": "01-pressure-type",
+   "kind": "technical_failure",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "01-pressure-type",
+   "kind": "audio_present",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "01-pressure-type",
+   "kind": "flat_black",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "01-pressure-type",
+   "kind": "wrong_fps",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "01-pressure-type",
+   "kind": "duration_out_of_range",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "02-chromatic-weave",
+   "kind": "original",
+   "label_ready": true,
+   "p_ready": 0.54,
+   "correct": true
+  },
+  {
+   "scene": "02-chromatic-weave",
+   "kind": "technical_failure",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "02-chromatic-weave",
+   "kind": "audio_present",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "02-chromatic-weave",
+   "kind": "flat_black",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "02-chromatic-weave",
+   "kind": "wrong_fps",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "02-chromatic-weave",
+   "kind": "duration_out_of_range",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "03-slice-clock",
+   "kind": "original",
+   "label_ready": true,
+   "p_ready": 0.31,
+   "correct": false
+  },
+  {
+   "scene": "03-slice-clock",
+   "kind": "technical_failure",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "03-slice-clock",
+   "kind": "audio_present",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "03-slice-clock",
+   "kind": "flat_black",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "03-slice-clock",
+   "kind": "wrong_fps",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "03-slice-clock",
+   "kind": "duration_out_of_range",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "04-ink-relay",
+   "kind": "original",
+   "label_ready": true,
+   "p_ready": 0.23,
+   "correct": false
+  },
+  {
+   "scene": "04-ink-relay",
+   "kind": "technical_failure",
+   "label_ready": false,
+   "p_ready": 0.01,
+   "correct": true
+  },
+  {
+   "scene": "04-ink-relay",
+   "kind": "audio_present",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "04-ink-relay",
+   "kind": "flat_black",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "04-ink-relay",
+   "kind": "wrong_fps",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "04-ink-relay",
+   "kind": "duration_out_of_range",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "05-elastic-grid",
+   "kind": "original",
+   "label_ready": true,
+   "p_ready": 0.31,
+   "correct": false
+  },
+  {
+   "scene": "05-elastic-grid",
+   "kind": "technical_failure",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "05-elastic-grid",
+   "kind": "audio_present",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "05-elastic-grid",
+   "kind": "flat_black",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "05-elastic-grid",
+   "kind": "wrong_fps",
+   "label_ready": false,
+   "p_ready": 0.04,
+   "correct": true
+  },
+  {
+   "scene": "05-elastic-grid",
+   "kind": "duration_out_of_range",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "06-folded-arrows",
+   "kind": "original",
+   "label_ready": true,
+   "p_ready": 0.3,
+   "correct": false
+  },
+  {
+   "scene": "06-folded-arrows",
+   "kind": "technical_failure",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "06-folded-arrows",
+   "kind": "audio_present",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "06-folded-arrows",
+   "kind": "flat_black",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "06-folded-arrows",
+   "kind": "wrong_fps",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "06-folded-arrows",
+   "kind": "duration_out_of_range",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "07-typographic-tunnel",
+   "kind": "original",
+   "label_ready": true,
+   "p_ready": 0.58,
+   "correct": true
+  },
+  {
+   "scene": "07-typographic-tunnel",
+   "kind": "technical_failure",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "07-typographic-tunnel",
+   "kind": "audio_present",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "07-typographic-tunnel",
+   "kind": "flat_black",
+   "label_ready": false,
+   "p_ready": 0.04,
+   "correct": true
+  },
+  {
+   "scene": "07-typographic-tunnel",
+   "kind": "wrong_fps",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "07-typographic-tunnel",
+   "kind": "duration_out_of_range",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "08-orbit-score",
+   "kind": "original",
+   "label_ready": true,
+   "p_ready": 0.27,
+   "correct": false
+  },
+  {
+   "scene": "08-orbit-score",
+   "kind": "technical_failure",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "08-orbit-score",
+   "kind": "audio_present",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "08-orbit-score",
+   "kind": "flat_black",
+   "label_ready": false,
+   "p_ready": 0.04,
+   "correct": true
+  },
+  {
+   "scene": "08-orbit-score",
+   "kind": "wrong_fps",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "08-orbit-score",
+   "kind": "duration_out_of_range",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "09-porcelain-bloom",
+   "kind": "original",
+   "label_ready": true,
+   "p_ready": 0.32,
+   "correct": false
+  },
+  {
+   "scene": "09-porcelain-bloom",
+   "kind": "technical_failure",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "09-porcelain-bloom",
+   "kind": "audio_present",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "09-porcelain-bloom",
+   "kind": "flat_black",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "09-porcelain-bloom",
+   "kind": "wrong_fps",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "09-porcelain-bloom",
+   "kind": "duration_out_of_range",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "10-ribbon-knot",
+   "kind": "original",
+   "label_ready": true,
+   "p_ready": 0.55,
+   "correct": true
+  },
+  {
+   "scene": "10-ribbon-knot",
+   "kind": "technical_failure",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "10-ribbon-knot",
+   "kind": "audio_present",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "10-ribbon-knot",
+   "kind": "flat_black",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "10-ribbon-knot",
+   "kind": "wrong_fps",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "10-ribbon-knot",
+   "kind": "duration_out_of_range",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "11-magnetic-totem",
+   "kind": "original",
+   "label_ready": true,
+   "p_ready": 0.3,
+   "correct": false
+  },
+  {
+   "scene": "11-magnetic-totem",
+   "kind": "technical_failure",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "11-magnetic-totem",
+   "kind": "audio_present",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "11-magnetic-totem",
+   "kind": "flat_black",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "11-magnetic-totem",
+   "kind": "wrong_fps",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "11-magnetic-totem",
+   "kind": "duration_out_of_range",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "12-glass-tide",
+   "kind": "original",
+   "label_ready": true,
+   "p_ready": 0.54,
+   "correct": true
+  },
+  {
+   "scene": "12-glass-tide",
+   "kind": "technical_failure",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "12-glass-tide",
+   "kind": "audio_present",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "12-glass-tide",
+   "kind": "flat_black",
+   "label_ready": false,
+   "p_ready": 0.04,
+   "correct": true
+  },
+  {
+   "scene": "12-glass-tide",
+   "kind": "wrong_fps",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "12-glass-tide",
+   "kind": "duration_out_of_range",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "13-cam-dance",
+   "kind": "original",
+   "label_ready": true,
+   "p_ready": 0.67,
+   "correct": true
+  },
+  {
+   "scene": "13-cam-dance",
+   "kind": "technical_failure",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "13-cam-dance",
+   "kind": "audio_present",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "13-cam-dance",
+   "kind": "flat_black",
+   "label_ready": false,
+   "p_ready": 0.04,
+   "correct": true
+  },
+  {
+   "scene": "13-cam-dance",
+   "kind": "wrong_fps",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "13-cam-dance",
+   "kind": "duration_out_of_range",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "14-pleated-sun",
+   "kind": "original",
+   "label_ready": true,
+   "p_ready": 0.37,
+   "correct": false
+  },
+  {
+   "scene": "14-pleated-sun",
+   "kind": "technical_failure",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "14-pleated-sun",
+   "kind": "audio_present",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "14-pleated-sun",
+   "kind": "flat_black",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "14-pleated-sun",
+   "kind": "wrong_fps",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "14-pleated-sun",
+   "kind": "duration_out_of_range",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "15-soft-landing",
+   "kind": "original",
+   "label_ready": true,
+   "p_ready": 0.22,
+   "correct": false
+  },
+  {
+   "scene": "15-soft-landing",
+   "kind": "technical_failure",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "15-soft-landing",
+   "kind": "audio_present",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "15-soft-landing",
+   "kind": "flat_black",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "15-soft-landing",
+   "kind": "wrong_fps",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "15-soft-landing",
+   "kind": "duration_out_of_range",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "16-orbital-rings",
+   "kind": "original",
+   "label_ready": true,
+   "p_ready": 0.36,
+   "correct": false
+  },
+  {
+   "scene": "16-orbital-rings",
+   "kind": "technical_failure",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "16-orbital-rings",
+   "kind": "audio_present",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "16-orbital-rings",
+   "kind": "flat_black",
+   "label_ready": false,
+   "p_ready": 0.04,
+   "correct": true
+  },
+  {
+   "scene": "16-orbital-rings",
+   "kind": "wrong_fps",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "16-orbital-rings",
+   "kind": "duration_out_of_range",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "17-night-tram",
+   "kind": "original",
+   "label_ready": true,
+   "p_ready": 0.56,
+   "correct": true
+  },
+  {
+   "scene": "17-night-tram",
+   "kind": "technical_failure",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "17-night-tram",
+   "kind": "audio_present",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "17-night-tram",
+   "kind": "flat_black",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "17-night-tram",
+   "kind": "wrong_fps",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "17-night-tram",
+   "kind": "duration_out_of_range",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "18-lemon-press",
+   "kind": "original",
+   "label_ready": true,
+   "p_ready": 0.3,
+   "correct": false
+  },
+  {
+   "scene": "18-lemon-press",
+   "kind": "technical_failure",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "18-lemon-press",
+   "kind": "audio_present",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "18-lemon-press",
+   "kind": "flat_black",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "18-lemon-press",
+   "kind": "wrong_fps",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "18-lemon-press",
+   "kind": "duration_out_of_range",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "19-paper-aviary",
+   "kind": "original",
+   "label_ready": true,
+   "p_ready": 0.19,
+   "correct": false
+  },
+  {
+   "scene": "19-paper-aviary",
+   "kind": "technical_failure",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "19-paper-aviary",
+   "kind": "audio_present",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "19-paper-aviary",
+   "kind": "flat_black",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "19-paper-aviary",
+   "kind": "wrong_fps",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "19-paper-aviary",
+   "kind": "duration_out_of_range",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "20-tidal-postcard",
+   "kind": "original",
+   "label_ready": true,
+   "p_ready": 0.61,
+   "correct": true
+  },
+  {
+   "scene": "20-tidal-postcard",
+   "kind": "technical_failure",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "20-tidal-postcard",
+   "kind": "audio_present",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "20-tidal-postcard",
+   "kind": "flat_black",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "20-tidal-postcard",
+   "kind": "wrong_fps",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "20-tidal-postcard",
+   "kind": "duration_out_of_range",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "21-matchbox-garden",
+   "kind": "original",
+   "label_ready": true,
+   "p_ready": 0.28,
+   "correct": false
+  },
+  {
+   "scene": "21-matchbox-garden",
+   "kind": "technical_failure",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "21-matchbox-garden",
+   "kind": "audio_present",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "21-matchbox-garden",
+   "kind": "flat_black",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "21-matchbox-garden",
+   "kind": "wrong_fps",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "21-matchbox-garden",
+   "kind": "duration_out_of_range",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "22-lantern-parade",
+   "kind": "original",
+   "label_ready": true,
+   "p_ready": 0.29,
+   "correct": false
+  },
+  {
+   "scene": "22-lantern-parade",
+   "kind": "technical_failure",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "22-lantern-parade",
+   "kind": "audio_present",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "22-lantern-parade",
+   "kind": "flat_black",
+   "label_ready": false,
+   "p_ready": 0.04,
+   "correct": true
+  },
+  {
+   "scene": "22-lantern-parade",
+   "kind": "wrong_fps",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "22-lantern-parade",
+   "kind": "duration_out_of_range",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "23-tiny-observatory",
+   "kind": "original",
+   "label_ready": true,
+   "p_ready": 0.24,
+   "correct": false
+  },
+  {
+   "scene": "23-tiny-observatory",
+   "kind": "technical_failure",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "23-tiny-observatory",
+   "kind": "audio_present",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "23-tiny-observatory",
+   "kind": "flat_black",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "23-tiny-observatory",
+   "kind": "wrong_fps",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "23-tiny-observatory",
+   "kind": "duration_out_of_range",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "24-moon-laundromat",
+   "kind": "original",
+   "label_ready": true,
+   "p_ready": 0.18,
+   "correct": false
+  },
+  {
+   "scene": "24-moon-laundromat",
+   "kind": "technical_failure",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "24-moon-laundromat",
+   "kind": "audio_present",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "24-moon-laundromat",
+   "kind": "flat_black",
+   "label_ready": false,
+   "p_ready": 0.04,
+   "correct": true
+  },
+  {
+   "scene": "24-moon-laundromat",
+   "kind": "wrong_fps",
+   "label_ready": false,
+   "p_ready": 0.03,
+   "correct": true
+  },
+  {
+   "scene": "24-moon-laundromat",
+   "kind": "duration_out_of_range",
+   "label_ready": false,
+   "p_ready": 0.02,
+   "correct": true
+  },
+  {
+   "scene": "01-pressure-type",
+   "range": [
+    8.0333,
+    10.0
+   ],
+   "label_intentional": true,
+   "p_intentional": 0.84,
+   "correct": true
+  },
+  {
+   "scene": "03-slice-clock",
+   "range": [
+    0.0333,
+    1.3333
+   ],
+   "label_intentional": false,
+   "p_intentional": 0.18,
+   "correct": true
+  },
+  {
+   "scene": "03-slice-clock",
+   "range": [
+    4.2333,
+    5.0333
+   ],
+   "label_intentional": true,
+   "p_intentional": 0.75,
+   "correct": true
+  },
+  {
+   "scene": "03-slice-clock",
+   "range": [
+    5.8333,
+    6.7
+   ],
+   "label_intentional": true,
+   "p_intentional": 0.74,
+   "correct": true
+  },
+  {
+   "scene": "04-ink-relay",
+   "range": [
+    5.2667,
+    6.9667
+   ],
+   "label_intentional": true,
+   "p_intentional": 0.85,
+   "correct": true
+  },
+  {
+   "scene": "04-ink-relay",
+   "range": [
+    9.2333,
+    10.0
+   ],
+   "label_intentional": true,
+   "p_intentional": 0.82,
+   "correct": true
+  },
+  {
+   "scene": "05-elastic-grid",
+   "range": [
+    3.0333,
+    4.2333
+   ],
+   "label_intentional": true,
+   "p_intentional": 0.85,
+   "correct": true
+  },
+  {
+   "scene": "05-elastic-grid",
+   "range": [
+    6.9333,
+    8.3333
+   ],
+   "label_intentional": false,
+   "p_intentional": 0.18,
+   "correct": true
+  },
+  {
+   "scene": "05-elastic-grid",
+   "range": [
+    8.3667,
+    10.0
+   ],
+   "label_intentional": false,
+   "p_intentional": 0.42,
+   "correct": true
+  },
+  {
+   "scene": "06-folded-arrows",
+   "range": [
+    4.3333,
+    6.3333
+   ],
+   "label_intentional": true,
+   "p_intentional": 0.85,
+   "correct": true
+  },
+  {
+   "scene": "06-folded-arrows",
+   "range": [
+    8.5333,
+    10.0
+   ],
+   "label_intentional": false,
+   "p_intentional": 0.51,
+   "correct": false
+  },
+  {
+   "scene": "08-orbit-score",
+   "range": [
+    8.3667,
+    10.0
+   ],
+   "label_intentional": false,
+   "p_intentional": 0.51,
+   "correct": false
+  }
+ ]
+}
