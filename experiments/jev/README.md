@@ -136,3 +136,31 @@ needs camera and microphone permission the first time.
 
 Not built yet: the phone page and the Modal backend (same WebSocket protocol, HTTPS endpoint), and a
 keyframe-copy renderer that would take the per-clip render under 3 s.
+
+### Live editing on Modal, and the three-panel page
+
+`experiments/jev/live_api.py` is the session API shared by the local server (`live_server.py`, port
+8791) and the Modal app (`modal_live.py`, `https://iaredur--jev-live-web.modal.run`): a session is
+created, audio streams in over a WebSocket as 16 kHz PCM, the browser's or ffmpeg's recording is
+appended over HTTP as it grows, events stream back, and clips are served when ready. The engine runs
+in `remote` mode on either side; on Modal it encodes with `h264_nvenc` on a T4 and burns captions with
+libass, on the Mac with VideoToolbox and the PIL caption band.
+
+Modal compute: one container (sessions are in-process), T4, 8 CPUs, 16 GB, warm for ten minutes after
+the last request; deploy with `JEV_LIVE_MIN_CONTAINERS=1` to keep one warm at all times (about a T4's
+hourly rate while idle). Cold start is one to two minutes, so open the page before you want to record.
+Secrets used: `video-use-elevenlabs`, `video-use-jev`.
+
+`live.html` is the page for both: camera on the left (the browser captures video and audio; an iPhone
+next to the Mac appears as a Continuity Camera in the picker), Jev's trace in the middle, clips on the
+right as they land. `live_client.py` is the scripted equivalent for replay tests:
+
+```bash
+python3 experiments/jev/live_client.py --url https://iaredur--jev-live-web.modal.run --mode replay \
+  --source ~/Movies/video-use-tests/harness-projects/jensen-iltb/iltb_jensen.mp4 --start 776 --duration 125
+```
+
+Measured (125 s replay through Modal, 2026-09-26): 433 words, 48 Jev calls at 279 ms mean from the
+container (108 ms from the Mac), two clips rendered during the recording in 13.4 s and 8.0 s, done
+1.9 s after stop. The render is not encoder-bound on the T4; the next speed-up is to keep the
+recording on container-local disk instead of the Volume and to decode on the GPU.

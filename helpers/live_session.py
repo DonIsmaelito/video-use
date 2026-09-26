@@ -34,6 +34,26 @@ from transcribe import load_api_key  # noqa: E402
 REALTIME_URL = "wss://api.elevenlabs.io/v1/speech-to-text/realtime"
 CHUNK_BYTES = 8000  # 250 ms of 16 kHz mono int16
 AUDIO_EVENT = re.compile(r"^\W*\(\[?[a-z ]+\]?\)\W*$", re.I)
+
+
+def _ffmpeg_caps() -> dict:
+    """Which encoder and caption path this machine's ffmpeg supports (probed once)."""
+    import platform
+    enc = subprocess.run(["ffmpeg", "-hide_banner", "-encoders"], capture_output=True, text=True).stdout
+    filt = subprocess.run(["ffmpeg", "-hide_banner", "-filters"], capture_output=True, text=True).stdout
+    forced = os.environ.get("JEV_VIDEO_ENCODER")
+    if forced:
+        encoder = forced
+    elif "h264_nvenc" in enc and (Path("/dev/nvidia0").exists() or Path("/dev/nvidiactl").exists()):
+        encoder = "h264_nvenc"
+    elif "h264_videotoolbox" in enc and platform.system() == "Darwin":
+        encoder = "h264_videotoolbox"
+    else:
+        encoder = "libx264"
+    return {"encoder": encoder, "subtitles": " subtitles " in filt}
+
+
+_CAPS: dict = {}
 HOOK = {"0": "generic setup, context or a question; nothing quotable", "1": "an ordinary point, mildly interesting",
         "2": "a clear, interesting claim or story beat in the first line", "3": "surprising, funny, provocative or quotable from the first sentence"}
 
@@ -48,14 +68,14 @@ def rms(pcm: bytes) -> float:
 
 class LiveSession:
     def __init__(self, session_dir: str | os.PathLike, *, mode: str = "mic", source: str | None = None, start_s: float = 0.0, duration_s: float | None = None,
-                 frame: str = "crop", video_device: str = "0", audio_device: str = "0", on_event=None, language: str = "en",
+                 frame: str = "crop", video_device: str = "0", audio_device: str = "0", on_event=None, language: str = "en", container: str = "mp4",
                  phrase_gap: float = 0.5, unit_gap: float = 2.0, tighten: float = 0.9, min_clip: float = 15.0, max_clip: float = 90.0, clip_threshold: float = 0.35):
         self.dir = Path(session_dir); self.dir.mkdir(parents=True, exist_ok=True); (self.dir / "clips").mkdir(exist_ok=True)
         self.mode, self.source, self.start_s, self.duration_s, self.frame = mode, source, start_s, duration_s, frame
         self.video_device, self.audio_device, self.language = video_device, audio_device, language
         self.on_event = on_event or (lambda e: None)
         self.phrase_gap, self.unit_gap, self.tighten, self.min_clip, self.max_clip, self.clip_threshold = phrase_gap, unit_gap, tighten, min_clip, max_clip, clip_threshold
-        self.recording = self.dir / "recording.mp4"
+        self.recording = self.dir / f"recording.{container if mode == 'remote' else 'mp4'}"
         self.jev = Jev(log_path=self.dir / "jev_decisions.jsonl")
         self.words: list[dict] = []; self.phrases: list[dict] = []; self.units: list[dict] = []; self.clips: list[dict] = []
         self._audio_q: queue.Queue = queue.Queue(); self._word_q: queue.Queue = queue.Queue()
@@ -365,14 +385,22 @@ class LiveSession:
                 framing = "crop=ih*9/16:ih,scale=1080:1920"
             else:
                 framing = "split[bg][fg];[bg]scale=270:480:force_original_aspect_ratio=increase,crop=270:480,boxblur=8:2,scale=1080:1920,eq=brightness=-0.15[bgb];[fg]scale=1080:-2[fgs];[bgb][fgs]overlay=(W-w)/2:(H-h)/2"
-            fc.append(f"[cv]{framing}[fr];[{cap_index}:v]format=rgba[cap];[fr][cap]overlay=0:{band_y}:eof_action=pass:format=auto[outv];[ca]loudnorm=I=-14:TP=-1:LRA=11[outa]")
+            if not _CAPS:
+                _CAPS.update(_ffmpeg_caps())
+            if _CAPS["subtitles"]:
+                # libass is present: burn the ASS directly (fast) and drop the PNG band input
+                inputs = inputs[:-6]  # drop "-f concat -safe 0 -i <track>"
+                fc.append(f"[cv]{framing},subtitles={ass.name}[outv];[ca]loudnorm=I=-14:TP=-1:LRA=11[outa]")
+            else:
+                fc.append(f"[cv]{framing}[fr];[{cap_index}:v]format=rgba[cap];[fr][cap]overlay=0:{band_y}:eof_action=pass:format=auto[outv];[ca]loudnorm=I=-14:TP=-1:LRA=11[outa]")
+            enc = {"h264_nvenc": ["-c:v", "h264_nvenc", "-preset", "p4", "-b:v", "8M"], "h264_videotoolbox": ["-c:v", "h264_videotoolbox", "-b:v", "8M"], "libx264": ["-c:v", "libx264", "-preset", "veryfast", "-crf", "20"]}[_CAPS["encoder"]]
             cmd = ["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", *inputs, "-filter_complex", ";".join(fc), "-map", "[outv]", "-map", "[outa]",
-                   "-c:v", "h264_videotoolbox", "-b:v", "8M", "-pix_fmt", "yuv420p", "-r", "30", "-c:a", "aac", "-b:a", "160k", "-movflags", "+faststart", str(out)]
+                   *enc, "-pix_fmt", "yuv420p", "-r", "30", "-c:a", "aac", "-b:a", "160k", "-movflags", "+faststart", str(out)]
             proc = subprocess.run(cmd, capture_output=True, text=True, cwd=str(self.dir / "clips"))
             if proc.returncode != 0:
                 raise RuntimeError(proc.stderr[-400:])
             dur = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(out)], capture_output=True, text=True).stdout.strip() or 0)
-            meta = {"clip": name, "file": str(out), "srt": str(srt), "duration_s": round(dur, 2), "source_ranges": [{"start": r["start"], "end": r["end"]} for r in ranges], "unit": unit["idx"],
+            meta = {"clip": name, "file": str(out), "srt": str(srt), "duration_s": round(dur, 2), "encoder": _CAPS.get("encoder"), "captions": "libass" if _CAPS.get("subtitles") else "pil-band", "source_ranges": [{"start": r["start"], "end": r["end"]} for r in ranges], "unit": unit["idx"],
                     "hook_line": ranges[0]["text"][:120], "text": " ".join(r["text"] for r in ranges), "scores": {k: unit.get(k) for k in ("standalone", "hook", "payoff", "score")},
                     "cues": len(cues), "render_s": round(time.perf_counter() - t0, 2), "frame": self.frame}
             (self.dir / "clips" / f"{name}.json").write_text(json.dumps(meta, indent=1))
@@ -391,7 +419,7 @@ class LiveSession:
     def _write_ass(self, path: Path, cues) -> None:
         head = ("[Script Info]\nScriptType: v4.00+\nPlayResX: 1080\nPlayResY: 1920\nWrapStyle: 0\n\n[V4+ Styles]\n"
                 "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding\n"
-                "Style: Cap,Helvetica,84,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,-1,0,0,0,100,100,0,0,1,5,0,2,60,60,420,1\n\n[Events]\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\n")
+                "Style: Cap,Liberation Sans,84,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,-1,0,0,0,100,100,0,0,1,5,0,2,60,60,420,1\n\n[Events]\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\n")
         lines = [head]
         for a, b, text in cues:
             lines.append(f"Dialogue: 0,{self._ass_time(a)},{self._ass_time(b)},Cap,,0,0,0,,{text.replace(chr(10), ' ')}\n")
@@ -405,40 +433,67 @@ class LiveSession:
         path.write_text("".join(f"{i}\n{ts(a)} --> {ts(b)}\n{t}\n\n" for i, (a, b, t) in enumerate(cues, 1)))
 
     # ------------------------------------------------------------ lifecycle
+    # remote mode: a client streams 16 kHz mono int16 audio and appends the growing recording file
+    def feed_audio(self, pcm: bytes) -> None:
+        self._audio_q.put(pcm)
+
+    def append_video(self, data: bytes, offset: int | None = None) -> int:
+        with self._video_lock:
+            with open(self.recording, "ab") as f:
+                if offset is not None and offset < f.tell():
+                    return f.tell()  # duplicate chunk after a retry
+                f.write(data)
+                return f.tell()
+
     def start(self) -> None:
         self.started_at = time.time()
-        self._proc = subprocess.Popen(self._capture_cmd(), stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        self.emit("status", f"recording started ({self.mode}) -> {self.recording.name}", mode=self.mode)
-        for name, fn in (("pcm", self._pcm_reader), ("asr", self._asr), ("editor", self._editor)):
+        if self.mode == "remote":
+            self._video_lock = threading.Lock()
+            self.recording.touch()
+            self.emit("status", "remote session started: waiting for audio and video", mode=self.mode)
+            threads = (("asr", self._asr), ("editor", self._editor))
+        else:
+            self._proc = subprocess.Popen(self._capture_cmd(), stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            self.emit("status", f"recording started ({self.mode}) -> {self.recording.name}", mode=self.mode)
+            threads = (("pcm", self._pcm_reader), ("asr", self._asr), ("editor", self._editor))
+        for name, fn in threads:
             t = threading.Thread(target=fn, daemon=True, name=name); t.start(); self._threads.append(t)
 
     def stop(self) -> dict:
+        if self.stopped_at:
+            return self._summary()
         self._stop.set(); self.stopped_at = time.time()
         self.emit("status", "stopping: finalising transcript and remaining clips")
-        try:
-            if self._proc and self._proc.stdin and self._proc.poll() is None:
-                self._proc.stdin.write(b"q"); self._proc.stdin.flush()
-        except Exception:  # noqa: BLE001
-            pass
-        try:
-            if self._proc and self._proc.stdin:
-                self._proc.stdin.close()
-        except Exception:  # noqa: BLE001
-            pass
-        try:
-            self._proc.wait(timeout=15)
-        except Exception:  # noqa: BLE001
-            self._proc.kill()
+        if self.mode == "remote":
+            self._audio_q.put(None)
+        else:
+            try:
+                if self._proc and self._proc.stdin and self._proc.poll() is None:
+                    self._proc.stdin.write(b"q"); self._proc.stdin.flush()
+            except Exception:  # noqa: BLE001
+                pass
+            try:
+                if self._proc and self._proc.stdin:
+                    self._proc.stdin.close()
+            except Exception:  # noqa: BLE001
+                pass
+            try:
+                self._proc.wait(timeout=15)
+            except Exception:  # noqa: BLE001
+                self._proc.kill()
         for t in self._threads:
-            t.join(timeout=30)
+            t.join(timeout=60)
         for f in list(self._clip_futures):
             try: f.result(timeout=180)
             except Exception: pass
-        summary = {"mode": self.mode, "recording": str(self.recording), "seconds_recorded": round(self.stopped_at - self.started_at, 1), "words": len(self.words), "phrases": len(self.phrases),
-                   "units": len(self.units), "clips": self.clips, "jev_calls": self.jev.calls, "jev_mean_ms": round(self.jev.total_latency_ms / max(self.jev.calls, 1)), "finished_s_after_stop": round(time.time() - self.stopped_at, 1)}
+        summary = self._summary()
         (self.dir / "session.json").write_text(json.dumps(summary, indent=1))
         self.emit("done", f"{len(self.clips)} clips ready {summary['finished_s_after_stop']}s after stop", **{k: v for k, v in summary.items() if k != "clips"}, n_clips=len(self.clips))
         return summary
+
+    def _summary(self) -> dict:
+        return {"mode": self.mode, "recording": str(self.recording), "seconds_recorded": round((self.stopped_at or time.time()) - self.started_at, 1), "words": len(self.words), "phrases": len(self.phrases),
+                "units": len(self.units), "clips": self.clips, "jev_calls": self.jev.calls, "jev_mean_ms": round(self.jev.total_latency_ms / max(self.jev.calls, 1)), "finished_s_after_stop": round(time.time() - (self.stopped_at or time.time()), 1)}
 
 
 if __name__ == "__main__":

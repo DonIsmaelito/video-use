@@ -1,58 +1,85 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Jev live editing</title>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Jev live</title>
 <style>
-:root{--bg:#0e1116;--panel:#161b23;--line:#242b36;--ink:#e8ecf2;--muted:#8b95a5;--jev:#5cf2c3;--cut:#ff6f59;--keep:#dfff00;--clip:#7dd3fc}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 -apple-system,Inter,Helvetica,Arial,sans-serif}
-header{padding:24px 28px 8px;display:flex;align-items:baseline;gap:14px}header h1{margin:0;font-size:22px}header span{color:var(--muted);font-size:13px}
-main{display:grid;grid-template-columns:380px 1fr 420px;gap:16px;padding:10px 28px 28px}@media(max-width:1100px){main{grid-template-columns:1fr}}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px}
-label{display:block;color:var(--muted);font-size:12px;margin-top:10px}select,input{width:100%;background:#0b0e13;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:8px;font:14px inherit}
-.row{display:flex;gap:10px;align-items:center;margin-top:14px}
-button{border:0;border-radius:10px;padding:12px 20px;font-weight:700;font-size:15px;cursor:pointer}#start{background:var(--keep);color:#111}#stop{background:var(--cut);color:#111}button:disabled{opacity:.4;cursor:default}
-.timer{font:600 30px/1 "SF Mono",Menlo,monospace;margin-left:auto}.timer.on{color:var(--keep)}
-.stat{display:flex;gap:14px;margin-top:14px;flex-wrap:wrap;font-size:12px;color:var(--muted)}.stat b{color:var(--ink);font-size:18px;display:block}
-.partial{min-height:64px;background:#0b0e13;border:1px solid var(--line);border-radius:10px;padding:12px;font-size:17px;color:var(--ink);margin-bottom:10px}
-.phrases{height:560px;overflow:auto;font-size:14px}
-.ph{padding:6px 8px;border-left:3px solid var(--keep);margin:4px 0;background:#0b0e13;border-radius:0 8px 8px 0}.ph.cut{border-left-color:var(--cut);color:var(--muted);text-decoration:line-through}
-.ph small{color:var(--muted);margin-left:8px;font:11px "SF Mono",Menlo,monospace}.ph .tag{color:var(--jev);font-size:11px;margin-left:6px}
-.unit{margin:10px 0 4px;color:var(--muted);font-size:12px;border-top:1px dashed var(--line);padding-top:6px}
-.clips{display:flex;flex-direction:column;gap:12px;height:640px;overflow:auto}
-.clip{background:#0b0e13;border:1px solid var(--line);border-radius:10px;padding:10px}.clip video{width:100%;border-radius:8px;background:#000}.clip .m{font-size:12px;color:var(--muted);margin-top:6px}.clip b{color:var(--clip)}
-.log{font:11.5px/1.5 "SF Mono",Menlo,monospace;color:var(--muted);height:150px;overflow:auto;margin-top:10px;background:#0b0e13;border-radius:8px;padding:8px}
+:root{--bg:#0d1015;--panel:#151a22;--line:#242b36;--ink:#e9edf3;--muted:#8b95a5;--jev:#5cf2c3;--cut:#ff6f59;--keep:#dfff00;--clip:#7dd3fc;--rec:#ff3b30}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 -apple-system,Inter,Helvetica,Arial,sans-serif}
+header{padding:16px 22px 6px;display:flex;align-items:baseline;gap:14px}header h1{margin:0;font-size:20px}header span{color:var(--muted);font-size:12px}
+main{display:grid;grid-template-columns:minmax(300px,1fr) minmax(380px,1.3fr) minmax(320px,1fr);gap:14px;padding:8px 22px 22px;height:calc(100vh - 60px)}
+@media(max-width:1000px){main{grid-template-columns:1fr;height:auto}}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;min-height:0}
+.panel h2{margin:0 0 8px;font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.3px;text-transform:uppercase}
+.cam{position:relative;background:#000;border-radius:10px;overflow:hidden;aspect-ratio:16/9}.cam video{width:100%;height:100%;object-fit:cover;display:block}
+.rec{position:absolute;top:10px;left:10px;display:flex;align-items:center;gap:8px;background:rgba(0,0,0,.55);padding:6px 10px;border-radius:999px;font:600 13px "SF Mono",Menlo,monospace}
+.rec i{width:10px;height:10px;border-radius:50%;background:#555}.rec.on i{background:var(--rec);box-shadow:0 0 12px var(--rec);animation:blink 1s infinite}@keyframes blink{50%{opacity:.35}}
+label{display:block;color:var(--muted);font-size:11px;margin-top:8px}select,input{width:100%;background:#0b0e13;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:7px;font:13px inherit}
+.row{display:flex;gap:8px;align-items:center;margin-top:10px}button{border:0;border-radius:10px;padding:11px 18px;font-weight:700;font-size:14px;cursor:pointer}#start{background:var(--keep);color:#111;flex:1}#stop{background:var(--cut);color:#111;flex:1}button:disabled{opacity:.35;cursor:default}
+.stat{display:flex;gap:12px;margin-top:10px;flex-wrap:wrap;font-size:11px;color:var(--muted)}.stat b{color:var(--ink);font-size:17px;display:block}
+.partial{background:#0b0e13;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:16px;min-height:58px;color:var(--ink)}
+.trace{flex:1;overflow:auto;margin-top:8px;font-size:13.5px;min-height:0}
+.ph{padding:5px 8px;border-left:3px solid var(--keep);margin:4px 0;background:#0b0e13;border-radius:0 8px 8px 0}.ph.cut{border-left-color:var(--cut);color:var(--muted);text-decoration:line-through}.ph.q{border-left-color:var(--clip)}
+.ph small{color:var(--muted);margin-left:6px;font:11px "SF Mono",Menlo,monospace}.tag{color:var(--jev);font-size:11px;margin-left:6px}
+.cand{margin:6px 0;padding:6px 8px;border:1px dashed var(--line);border-radius:8px;font-size:12px;color:var(--muted)}.cand.clip{border-color:var(--clip);color:var(--ink)}
+.clips{flex:1;overflow:auto;display:flex;flex-direction:column;gap:12px;min-height:0}
+.clip{background:#0b0e13;border:1px solid var(--line);border-radius:10px;padding:10px;animation:pop .4s ease}@keyframes pop{from{transform:scale(.96);opacity:0}}
+.clip video{width:100%;max-height:52vh;border-radius:8px;background:#000}.clip .m{font-size:12px;color:var(--muted);margin-top:6px}.clip b{color:var(--clip)}.clip a{color:var(--clip)}
+.log{font:11px/1.5 "SF Mono",Menlo,monospace;color:var(--muted);height:90px;overflow:auto;margin-top:8px;background:#0b0e13;border-radius:8px;padding:6px}
+.timer{font:600 26px/1 "SF Mono",Menlo,monospace;margin-left:auto}.timer.on{color:var(--keep)}
 </style></head><body>
-<header><h1>Jev live editing</h1><span>record, transcribe as you speak, Jev judges every phrase and answer, clips render while you talk</span></header>
+<header><h1>Jev live</h1><span>camera in, transcript as you speak, Jev judges every phrase and answer, clips render while you talk</span></header>
 <main>
 <section class="panel">
-  <label>Mode</label><select id="mode"><option value="mic">Mac camera + microphone</option><option value="replay" selected>Replay a file at real time (test)</option></select>
-  <div id="replayOpts"><label>Replay source</label><input id="source" value=""><label>Start (s) / duration (s)</label><div style="display:flex;gap:8px"><input id="rstart" value="776"><input id="rdur" value="120"></div></div>
-  <label>Vertical frame</label><select id="frame"><option value="crop">Center crop (single speaker)</option><option value="contain" selected>Full frame on blurred background</option></select>
-  <div class="row"><button id="start">Start</button><button id="stop" disabled>Stop</button><div class="timer" id="timer">0.0 s</div></div>
-  <div class="stat"><div>words<b id="sWords">0</b></div><div>phrases<b id="sPh">0</b></div><div>cut<b id="sCut">0</b></div><div>units<b id="sUnits">0</b></div><div>clips<b id="sClips">0</b></div><div>Jev ms<b id="sJev">–</b></div></div>
+  <h2>Camera</h2>
+  <div class="cam"><video id="preview" autoplay muted playsinline></video><div class="rec" id="rec"><i></i><span id="timer">0.0 s</span></div></div>
+  <label>Camera (an iPhone nearby shows up as a Continuity Camera)</label><select id="vdev"></select>
+  <label>Microphone</label><select id="adev"></select>
+  <label>Server</label><input id="server" placeholder="this origin">
+  <label>Vertical frame</label><select id="frame"><option value="crop">Center crop (single speaker)</option><option value="contain">Full frame on blurred background</option></select>
+  <div class="row"><button id="start">Start</button><button id="stop" disabled>Stop</button></div>
+  <div class="stat"><div>words<b id="sWords">0</b></div><div>phrases<b id="sPh">0</b></div><div>cut<b id="sCut">0</b></div><div>clips<b id="sClips">0</b></div><div>Jev ms<b id="sJev">–</b></div><div>uploaded<b id="sUp">0 MB</b></div></div>
   <div class="log" id="log"></div>
 </section>
-<section class="panel"><div class="partial" id="partial">…</div><div class="phrases" id="phrases"></div></section>
-<section class="panel"><div style="margin-bottom:8px"><b>Clips</b> <span style="color:var(--muted);font-size:12px">ready to post; each has an .srt and .json beside it</span></div><div class="clips" id="clips"></div></section>
+<section class="panel"><h2>Jev working</h2><div class="partial" id="partial">…</div><div class="trace" id="trace"></div></section>
+<section class="panel"><h2>Clips, ready to post</h2><div class="clips" id="clips"></div></section>
 </main>
 <script>
-const $=s=>document.querySelector(s);let es=null,tick=null,t0=0,sid=null,cutN=0,phN=0,unitSeen=0,jevMs=[];
-$('#mode').onchange=()=>{$('#replayOpts').style.display=$('#mode').value==='replay'?'block':'none'};
+const $=s=>document.querySelector(s);const base=()=>($('#server').value.trim()||location.origin).replace(/\/$/,'');
+let stream=null,sid=null,ws=null,rec=null,actx=null,proc=null,t0=0,tick=null,offset=0,uploads=Promise.resolve(),phN=0,cutN=0,jev=[],stopping=false;
 function log(m){const d=$('#log');d.textContent+=m+'\n';d.scrollTop=d.scrollHeight}
 function fmt(s){return s.toFixed(1)+' s'}
-function ui(running){$('#start').disabled=running;$('#stop').disabled=!running;$('#timer').classList.toggle('on',running)}
-function listen(){if(es)es.close();es=new EventSource('/api/events');es.onmessage=m=>{const e=JSON.parse(m.data);
-  if(e.type==='partial'){$('#partial').textContent=e.msg;return}
-  if(e.type==='phrase'){phN++;$('#sPh').textContent=phN;if(!e.kept){cutN++;$('#sCut').textContent=cutN}if(e.jev_ms){jevMs.push(e.jev_ms);$('#sJev').textContent=Math.round(jevMs.reduce((a,b)=>a+b,0)/jevMs.length)}
-    if(e.unit!==unitSeen){unitSeen=e.unit;const u=document.createElement('div');u.className='unit';u.textContent='unit '+e.unit;$('#phrases').appendChild(u)}
-    const d=document.createElement('div');d.className='ph'+(e.kept?'':' cut');d.innerHTML=`${e.msg}<small>${e.start.toFixed(1)}–${e.end.toFixed(1)}</small><span class="tag">cut ${e.disposable??'–'} · end ${e.ends_thought??'–'}${e.hook!=null?' · hook '+e.hook:''}</span>`;$('#phrases').appendChild(d);$('#phrases').scrollTop=$('#phrases').scrollHeight;return}
-  if(e.type==='committed'){$('#sWords').textContent=(+$('#sWords').textContent)+(e.words||0);return}
-  if(e.type==='unit'){$('#sUnits').textContent=e.idx;log(`[${e.t}] ${e.msg}`);return}
-  if(e.type==='clip_ready'){$('#sClips').textContent=(+$('#sClips').textContent)+1;const c=document.createElement('div');c.className='clip';c.innerHTML=`<b>${e.clip}</b> · ${e.duration_s}s · rendered in ${e.render_s}s<video src="/clips/${sid}/${e.clip}.mp4" controls autoplay muted playsinline></video><div class="m">hook: ${e.hook_line}<br>score ${e.scores.score} (payoff ${e.scores.payoff}, hook ${e.scores.hook}, standalone ${e.scores.standalone}) · <a style="color:var(--clip)" href="/clips/${sid}/${e.clip}.srt" target="_blank">srt</a></div>`;$('#clips').prepend(c);log(`[${e.t}] ${e.msg}`);return}
-  if(e.type==='done'){ui(false);clearInterval(tick);log(`[${e.t}] ${e.msg}`);return}
-  log(`[${e.t}] ${e.type}: ${e.msg}`)}}
-$('#start').onclick=async()=>{const body={mode:$('#mode').value,frame:$('#frame').value,start:+$('#rstart').value,duration:+$('#rdur').value};if($('#source').value)body.source=$('#source').value;
-  const r=await fetch('/api/start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok){log(await r.text());return}
-  const j=await r.json();sid=j.id;$('#phrases').innerHTML='';$('#clips').innerHTML='';$('#log').textContent='';cutN=phN=unitSeen=0;jevMs=[];['sWords','sPh','sCut','sUnits','sClips'].forEach(i=>$('#'+i).textContent='0');
-  t0=performance.now();tick=setInterval(()=>{$('#timer').textContent=fmt((performance.now()-t0)/1000)},100);ui(true);listen()};
-$('#stop').onclick=async()=>{$('#stop').disabled=true;log('stopping…');await fetch('/api/stop',{method:'POST'})};
-fetch('/api/state').then(r=>r.json()).then(s=>{if(s.running){ui(true);listen()}});
+async function listDevices(){try{const tmp=await navigator.mediaDevices.getUserMedia({video:true,audio:true});tmp.getTracks().forEach(t=>t.stop())}catch(e){log('permission: '+e.message)}
+  const devs=await navigator.mediaDevices.enumerateDevices();const v=$('#vdev'),a=$('#adev');v.innerHTML='';a.innerHTML='';
+  devs.filter(d=>d.kind==='videoinput').forEach(d=>{const o=document.createElement('option');o.value=d.deviceId;o.textContent=d.label||'camera';if(/iphone/i.test(d.label))o.selected=true;v.appendChild(o)});
+  devs.filter(d=>d.kind==='audioinput').forEach(d=>{const o=document.createElement('option');o.value=d.deviceId;o.textContent=d.label||'microphone';if(/iphone/i.test(d.label))o.selected=true;a.appendChild(o)});
+  startPreview()}
+async function startPreview(){if(stream)stream.getTracks().forEach(t=>t.stop());
+  stream=await navigator.mediaDevices.getUserMedia({video:{deviceId:$('#vdev').value?{exact:$('#vdev').value}:undefined,width:{ideal:1280},height:{ideal:720},frameRate:{ideal:30}},audio:{deviceId:$('#adev').value?{exact:$('#adev').value}:undefined,echoCancellation:false,noiseSuppression:false,autoGainControl:false}});
+  $('#preview').srcObject=stream}
+$('#vdev').onchange=$('#adev').onchange=startPreview;
+function pcmSender(){actx=new (window.AudioContext||window.webkitAudioContext)({sampleRate:16000});const src=actx.createMediaStreamSource(stream);proc=actx.createScriptProcessor(4096,1,1);const ratio=actx.sampleRate/16000;
+  proc.onaudioprocess=e=>{if(!ws||ws.readyState!==1)return;const f=e.inputBuffer.getChannelData(0);const n=Math.floor(f.length/ratio);const out=new Int16Array(n);for(let i=0;i<n;i++){const s=Math.max(-1,Math.min(1,f[Math.floor(i*ratio)]));out[i]=s<0?s*0x8000:s*0x7fff}ws.send(out.buffer)};
+  src.connect(proc);proc.connect(actx.destination);if(actx.sampleRate!==16000)log('audio context at '+actx.sampleRate+' Hz, resampling to 16 kHz')}
+function recorder(container){const mime=container==='mp4'?'video/mp4':'video/webm;codecs=vp8,opus';rec=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:6e6,audioBitsPerSecond:128e3});
+  rec.ondataavailable=e=>{if(!e.data.size)return;const my=offset;offset+=e.data.size;uploads=uploads.then(async()=>{const buf=await e.data.arrayBuffer();for(let i=0;i<3;i++){try{await fetch(`${base()}/api/session/${sid}/video?offset=${my}`,{method:'POST',body:buf});$('#sUp').textContent=(offset/1e6).toFixed(1)+' MB';return}catch(err){await new Promise(r=>setTimeout(r,800))}}log('upload failed for a chunk')})};
+  rec.start(1000)}
+function addPhrase(e){phN++;$('#sPh').textContent=phN;if(!e.kept){cutN++;$('#sCut').textContent=cutN}if(e.jev_ms){jev.push(e.jev_ms);$('#sJev').textContent=Math.round(jev.reduce((a,b)=>a+b,0)/jev.length)}
+  const d=document.createElement('div');d.className='ph'+(e.kept?'':' cut')+((e.question||0)>=0.4?' q':'');d.innerHTML=`${e.msg}<small>${e.start.toFixed(1)}–${e.end.toFixed(1)}</small><span class="tag">cut ${e.disposable??'–'} · end ${e.ends_thought??'–'} · q ${e.question??'–'}${e.hook!=null?' · hook '+e.hook:''}</span>`;$('#trace').appendChild(d);$('#trace').scrollTop=$('#trace').scrollHeight}
+function addCand(e){const d=document.createElement('div');d.className='cand'+(e.verdict==='clip'?' clip':'');d.textContent=`[${e.t.toFixed(1)}s] ${e.msg}`;$('#trace').appendChild(d);$('#trace').scrollTop=$('#trace').scrollHeight}
+function addClip(e){$('#sClips').textContent=(+$('#sClips').textContent)+1;const c=document.createElement('div');c.className='clip';c.innerHTML=`<b>${e.clip}</b> · ${e.duration_s}s · rendered in ${e.render_s}s (${e.encoder||''})<video src="${base()}/clips/${sid}/${e.clip}.mp4" controls autoplay muted playsinline></video><div class="m">hook: ${e.hook_line}<br>score ${e.scores.score} (payoff ${e.scores.payoff}, hook ${e.scores.hook}, standalone ${e.scores.standalone}) · <a href="${base()}/clips/${sid}/${e.clip}.srt" target="_blank">srt</a> · <a href="${base()}/clips/${sid}/${e.clip}.json" target="_blank">json</a></div>`;$('#clips').prepend(c)}
+async function events(){let since=0;while(sid){try{const r=await fetch(`${base()}/api/session/${sid}/events?since=${since}&wait=45`);const reader=r.body.getReader();const dec=new TextDecoder();let buf='';let ended=false;
+  while(true){const {value,done}=await reader.read();if(done)break;buf+=dec.decode(value,{stream:true});let idx;while((idx=buf.indexOf('\n\n'))>=0){const chunk=buf.slice(0,idx);buf=buf.slice(idx+2);const line=chunk.split('\n').find(l=>l.startsWith('data: '));if(!line)continue;const e=JSON.parse(line.slice(6));
+    if(e.type==='more'){since=e.i;continue}if(e.type==='end'){ended=true;since=e.i;continue}since=e.i+1;
+    if(e.type==='partial'){$('#partial').textContent=e.msg;continue}if(e.type==='phrase'){addPhrase(e);continue}if(e.type==='committed'){$('#sWords').textContent=(+$('#sWords').textContent)+(e.words||0);continue}
+    if(e.type==='unit'){addCand(e);continue}if(e.type==='clip_ready'){addClip(e);log(`[${e.t}] ${e.msg}`);continue}if(e.type==='done'){log(`[${e.t}] ${e.msg}`);continue}log(`[${e.t}] ${e.type}: ${e.msg}`)}}
+  if(ended)return}catch(err){await new Promise(r=>setTimeout(r,1000))}}}
+$('#start').onclick=async()=>{if(!stream){log('no camera stream');return}$('#start').disabled=true;const container=MediaRecorder.isTypeSupported('video/mp4')?'mp4':'webm';
+  try{const r=await fetch(`${base()}/api/session`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({frame:$('#frame').value,container})});sid=(await r.json()).id}catch(err){log('server: '+err.message);$('#start').disabled=false;return}
+  $('#trace').innerHTML='';$('#clips').innerHTML='';$('#log').textContent='';phN=cutN=offset=0;jev=[];['sWords','sPh','sCut','sClips'].forEach(i=>$('#'+i).textContent='0');uploads=Promise.resolve();
+  const wsUrl=base().replace(/^http/,'ws')+`/ws/${sid}/audio`;ws=new WebSocket(wsUrl);ws.binaryType='arraybuffer';
+  ws.onopen=()=>{pcmSender();recorder(container);t0=performance.now();tick=setInterval(()=>{$('#timer').textContent=fmt((performance.now()-t0)/1000)},100);$('#rec').classList.add('on');$('#timer').classList.add('on');$('#stop').disabled=false;log(`session ${sid} (${container}) recording`);events()};
+  ws.onerror=()=>log('audio websocket error');};
+$('#stop').onclick=async()=>{$('#stop').disabled=true;stopping=true;log('stopping: flushing the last chunk, then the server finishes the clips');
+  await new Promise(res=>{rec.onstop=res;rec.stop()});await uploads;try{ws.send('stop')}catch(e){}ws.close();if(proc){proc.disconnect();actx.close()}
+  clearInterval(tick);$('#rec').classList.remove('on');$('#timer').classList.remove('on');
+  const r=await fetch(`${base()}/api/session/${sid}/stop`,{method:'POST'});const s=await r.json();log(`done: ${s.clips.length} clips, ${s.finished_s_after_stop}s after stop`);$('#start').disabled=false};
+listDevices();
 </script></body></html>
