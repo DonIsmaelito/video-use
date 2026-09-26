@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Jev live editing</title>
+<style>
+:root{--bg:#0e1116;--panel:#161b23;--line:#242b36;--ink:#e8ecf2;--muted:#8b95a5;--jev:#5cf2c3;--cut:#ff6f59;--keep:#dfff00;--clip:#7dd3fc}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 -apple-system,Inter,Helvetica,Arial,sans-serif}
+header{padding:24px 28px 8px;display:flex;align-items:baseline;gap:14px}header h1{margin:0;font-size:22px}header span{color:var(--muted);font-size:13px}
+main{display:grid;grid-template-columns:380px 1fr 420px;gap:16px;padding:10px 28px 28px}@media(max-width:1100px){main{grid-template-columns:1fr}}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px}
+label{display:block;color:var(--muted);font-size:12px;margin-top:10px}select,input{width:100%;background:#0b0e13;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:8px;font:14px inherit}
+.row{display:flex;gap:10px;align-items:center;margin-top:14px}
+button{border:0;border-radius:10px;padding:12px 20px;font-weight:700;font-size:15px;cursor:pointer}#start{background:var(--keep);color:#111}#stop{background:var(--cut);color:#111}button:disabled{opacity:.4;cursor:default}
+.timer{font:600 30px/1 "SF Mono",Menlo,monospace;margin-left:auto}.timer.on{color:var(--keep)}
+.stat{display:flex;gap:14px;margin-top:14px;flex-wrap:wrap;font-size:12px;color:var(--muted)}.stat b{color:var(--ink);font-size:18px;display:block}
+.partial{min-height:64px;background:#0b0e13;border:1px solid var(--line);border-radius:10px;padding:12px;font-size:17px;color:var(--ink);margin-bottom:10px}
+.phrases{height:560px;overflow:auto;font-size:14px}
+.ph{padding:6px 8px;border-left:3px solid var(--keep);margin:4px 0;background:#0b0e13;border-radius:0 8px 8px 0}.ph.cut{border-left-color:var(--cut);color:var(--muted);text-decoration:line-through}
+.ph small{color:var(--muted);margin-left:8px;font:11px "SF Mono",Menlo,monospace}.ph .tag{color:var(--jev);font-size:11px;margin-left:6px}
+.unit{margin:10px 0 4px;color:var(--muted);font-size:12px;border-top:1px dashed var(--line);padding-top:6px}
+.clips{display:flex;flex-direction:column;gap:12px;height:640px;overflow:auto}
+.clip{background:#0b0e13;border:1px solid var(--line);border-radius:10px;padding:10px}.clip video{width:100%;border-radius:8px;background:#000}.clip .m{font-size:12px;color:var(--muted);margin-top:6px}.clip b{color:var(--clip)}
+.log{font:11.5px/1.5 "SF Mono",Menlo,monospace;color:var(--muted);height:150px;overflow:auto;margin-top:10px;background:#0b0e13;border-radius:8px;padding:8px}
+</style></head><body>
+<header><h1>Jev live editing</h1><span>record, transcribe as you speak, Jev judges every phrase and answer, clips render while you talk</span></header>
+<main>
+<section class="panel">
+  <label>Mode</label><select id="mode"><option value="mic">Mac camera + microphone</option><option value="replay" selected>Replay a file at real time (test)</option></select>
+  <div id="replayOpts"><label>Replay source</label><input id="source" value=""><label>Start (s) / duration (s)</label><div style="display:flex;gap:8px"><input id="rstart" value="776"><input id="rdur" value="120"></div></div>
+  <label>Vertical frame</label><select id="frame"><option value="crop">Center crop (single speaker)</option><option value="contain" selected>Full frame on blurred background</option></select>
+  <div class="row"><button id="start">Start</button><button id="stop" disabled>Stop</button><div class="timer" id="timer">0.0 s</div></div>
+  <div class="stat"><div>words<b id="sWords">0</b></div><div>phrases<b id="sPh">0</b></div><div>cut<b id="sCut">0</b></div><div>units<b id="sUnits">0</b></div><div>clips<b id="sClips">0</b></div><div>Jev ms<b id="sJev">–</b></div></div>
+  <div class="log" id="log"></div>
+</section>
+<section class="panel"><div class="partial" id="partial">…</div><div class="phrases" id="phrases"></div></section>
+<section class="panel"><div style="margin-bottom:8px"><b>Clips</b> <span style="color:var(--muted);font-size:12px">ready to post; each has an .srt and .json beside it</span></div><div class="clips" id="clips"></div></section>
+</main>
+<script>
+const $=s=>document.querySelector(s);let es=null,tick=null,t0=0,sid=null,cutN=0,phN=0,unitSeen=0,jevMs=[];
+$('#mode').onchange=()=>{$('#replayOpts').style.display=$('#mode').value==='replay'?'block':'none'};
+function log(m){const d=$('#log');d.textContent+=m+'\n';d.scrollTop=d.scrollHeight}
+function fmt(s){return s.toFixed(1)+' s'}
+function ui(running){$('#start').disabled=running;$('#stop').disabled=!running;$('#timer').classList.toggle('on',running)}
+function listen(){if(es)es.close();es=new EventSource('/api/events');es.onmessage=m=>{const e=JSON.parse(m.data);
+  if(e.type==='partial'){$('#partial').textContent=e.msg;return}
+  if(e.type==='phrase'){phN++;$('#sPh').textContent=phN;if(!e.kept){cutN++;$('#sCut').textContent=cutN}if(e.jev_ms){jevMs.push(e.jev_ms);$('#sJev').textContent=Math.round(jevMs.reduce((a,b)=>a+b,0)/jevMs.length)}
+    if(e.unit!==unitSeen){unitSeen=e.unit;const u=document.createElement('div');u.className='unit';u.textContent='unit '+e.unit;$('#phrases').appendChild(u)}
+    const d=document.createElement('div');d.className='ph'+(e.kept?'':' cut');d.innerHTML=`${e.msg}<small>${e.start.toFixed(1)}–${e.end.toFixed(1)}</small><span class="tag">cut ${e.disposable??'–'} · end ${e.ends_thought??'–'}${e.hook!=null?' · hook '+e.hook:''}</span>`;$('#phrases').appendChild(d);$('#phrases').scrollTop=$('#phrases').scrollHeight;return}
+  if(e.type==='committed'){$('#sWords').textContent=(+$('#sWords').textContent)+(e.words||0);return}
+  if(e.type==='unit'){$('#sUnits').textContent=e.idx;log(`[${e.t}] ${e.msg}`);return}
+  if(e.type==='clip_ready'){$('#sClips').textContent=(+$('#sClips').textContent)+1;const c=document.createElement('div');c.className='clip';c.innerHTML=`<b>${e.clip}</b> · ${e.duration_s}s · rendered in ${e.render_s}s<video src="/clips/${sid}/${e.clip}.mp4" controls autoplay muted playsinline></video><div class="m">hook: ${e.hook_line}<br>score ${e.scores.score} (payoff ${e.scores.payoff}, hook ${e.scores.hook}, standalone ${e.scores.standalone}) · <a style="color:var(--clip)" href="/clips/${sid}/${e.clip}.srt" target="_blank">srt</a></div>`;$('#clips').prepend(c);log(`[${e.t}] ${e.msg}`);return}
+  if(e.type==='done'){ui(false);clearInterval(tick);log(`[${e.t}] ${e.msg}`);return}
+  log(`[${e.t}] ${e.type}: ${e.msg}`)}}
+$('#start').onclick=async()=>{const body={mode:$('#mode').value,frame:$('#frame').value,start:+$('#rstart').value,duration:+$('#rdur').value};if($('#source').value)body.source=$('#source').value;
+  const r=await fetch('/api/start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok){log(await r.text());return}
+  const j=await r.json();sid=j.id;$('#phrases').innerHTML='';$('#clips').innerHTML='';$('#log').textContent='';cutN=phN=unitSeen=0;jevMs=[];['sWords','sPh','sCut','sUnits','sClips'].forEach(i=>$('#'+i).textContent='0');
+  t0=performance.now();tick=setInterval(()=>{$('#timer').textContent=fmt((performance.now()-t0)/1000)},100);ui(true);listen()};
+$('#stop').onclick=async()=>{$('#stop').disabled=true;log('stopping…');await fetch('/api/stop',{method:'POST'})};
+fetch('/api/state').then(r=>r.json()).then(s=>{if(s.running){ui(true);listen()}});
+</script></body></html>

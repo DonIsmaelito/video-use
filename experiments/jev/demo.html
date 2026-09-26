@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jev in action</title>
+<style>
+:root{--bg:#0e1116;--panel:#161b23;--line:#242b36;--ink:#e8ecf2;--muted:#8b95a5;--jev:#5cf2c3;--build:#c6c4e5;--render:#ffb454;--gate:#7dd3fc;--bad:#ff6f59;--accent:#dfff00}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 -apple-system,"Inter",Helvetica,Arial,sans-serif}
+header{padding:28px 32px 10px;display:flex;align-items:baseline;gap:16px}
+header h1{margin:0;font-size:22px;letter-spacing:.2px}
+header span{color:var(--muted);font-size:13px}
+main{display:grid;grid-template-columns:minmax(360px,520px) 1fr;gap:20px;padding:12px 32px 32px}
+@media (max-width:900px){main{grid-template-columns:1fr}}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+.presets{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.chip{border:1px solid var(--line);background:#1c222c;color:var(--ink);border-radius:999px;padding:6px 12px;font-size:13px;cursor:pointer}
+.chip:hover{border-color:var(--jev)}
+.chip small{color:var(--muted);margin-left:6px}
+textarea{width:100%;min-height:84px;resize:vertical;background:#0b0e13;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:12px;font:15px/1.4 inherit}
+.row{display:flex;align-items:center;gap:14px;margin-top:12px}
+button#start{background:var(--accent);color:#111;border:0;border-radius:10px;padding:12px 22px;font-weight:700;font-size:15px;cursor:pointer}
+button#start:disabled{opacity:.45;cursor:default}
+.timer{font:600 34px/1 "SF Mono",Menlo,monospace;letter-spacing:1px;min-width:150px}
+.timer.running{color:var(--accent)}
+.stages{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.stage{border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:12px;color:var(--muted);display:flex;gap:8px;align-items:center}
+.stage b{color:var(--ink);font-weight:600}
+.stage.active{border-color:var(--jev);color:var(--ink)}
+.stage.done{border-color:#3a4658}
+.bar{height:6px;background:#0b0e13;border-radius:4px;margin-top:12px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--render);transition:width .15s}
+.log{font:12.5px/1.55 "SF Mono",Menlo,monospace;background:#0b0e13;border:1px solid var(--line);border-radius:10px;padding:12px;height:520px;overflow:auto;white-space:pre-wrap}
+.log .l{display:flex;gap:10px}
+.log .t{color:var(--muted);min-width:64px}
+.log .k{min-width:58px;font-weight:700}
+.k.jev{color:var(--jev)}.k.build{color:var(--build)}.k.render{color:var(--render)}.k.gate{color:var(--gate)}.k.error{color:var(--bad)}.k.done{color:var(--accent)}.k.start,.k.queue{color:var(--muted)}
+.probs{color:var(--muted)}
+.hist{margin-top:14px;font-size:13px;color:var(--muted)}
+.hist a{color:var(--ink);text-decoration:none}
+.hist li{margin:4px 0}
+.modal{position:fixed;inset:0;background:rgba(5,7,10,.78);display:none;align-items:center;justify-content:center;padding:24px;z-index:9}
+.modal.show{display:flex}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;max-width:960px;width:100%;padding:18px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.card video{width:100%;border-radius:10px;background:#000}
+.card .meta{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}
+.card .meta b{font-size:18px}
+.card .dec{color:var(--muted);font-size:13px;margin-top:10px}
+.card button{background:#1c222c;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:8px 14px;cursor:pointer}
+</style>
+</head>
+<body>
+<header><h1>Jev in action</h1><span>no language model: Jev picks the scene, palette, pace, motion and ending; the piece renders and gets gated</span></header>
+<main>
+  <section class="panel">
+    <div class="presets" id="presets"></div>
+    <textarea id="prompt" placeholder="Describe a short motion piece"></textarea>
+    <div class="row">
+      <button id="start">Start</button>
+      <div class="timer" id="timer">0.00 s</div>
+    </div>
+    <div class="stages">
+      <div class="stage" data-s="jev"><b>Jev</b><span>decide</span></div>
+      <div class="stage" data-s="build"><b>Build</b><span>scene</span></div>
+      <div class="stage" data-s="render"><b>Render</b><span id="frames">frames</span></div>
+      <div class="stage" data-s="gate"><b>Gate</b><span>check</span></div>
+    </div>
+    <div class="bar"><i id="bar"></i></div>
+    <div class="hist"><div>Finished runs</div><ul id="hist"></ul></div>
+  </section>
+  <section class="panel">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px"><b>Trace</b><span style="color:var(--muted);font-size:12px">every Jev question, its choice and probability, then render and gate</span></div>
+    <div class="log" id="log"></div>
+  </section>
+</main>
+<div class="modal" id="modal"><div class="card">
+  <div class="meta"><b id="mTitle">Done</b><button id="close">Close</button></div>
+  <video id="video" controls autoplay loop muted playsinline></video>
+  <div class="dec" id="mDec"></div>
+</div></div>
+<script>
+const $=s=>document.querySelector(s);
+const log=$('#log'),timerEl=$('#timer'),startBtn=$('#start'),bar=$('#bar');
+let tick=null,t0=0,current=null;
+function fmt(s){return s.toFixed(2)+' s'}
+function line(t,stage,msg,extra){const d=document.createElement('div');d.className='l';d.innerHTML=`<span class="t">${t==null?'':fmt(t)}</span><span class="k ${stage}">${stage.toUpperCase()}</span><span>${msg}${extra?` <span class="probs">${extra}</span>`:''}</span>`;log.appendChild(d);log.scrollTop=log.scrollHeight}
+function setStage(s,state){document.querySelectorAll('.stage').forEach(el=>{if(el.dataset.s===s)el.className='stage '+state});}
+async function loadPresets(){const ps=await (await fetch('/api/presets')).json();const box=$('#presets');ps.forEach(p=>{const c=document.createElement('button');c.className='chip';c.innerHTML=`${p.prompt.length>46?p.prompt.slice(0,46)+'…':p.prompt}<small>${p.note}</small>`;c.title=p.prompt;c.onclick=()=>{$('#prompt').value=p.prompt};box.appendChild(c)});$('#prompt').value=ps[0].prompt}
+async function loadHist(){const js=await (await fetch('/api/jobs')).json();const ul=$('#hist');ul.innerHTML='';js.filter(j=>j.status==='done').forEach(j=>{const li=document.createElement('li');li.innerHTML=`<a href="#" data-id="${j.id}">${j.prompt.slice(0,60)}</a> · ${j.decisions.scene} · ${j.total_s} s`;li.querySelector('a').onclick=e=>{e.preventDefault();showVideo(j.id,j.prompt,j.decisions,j.total_s)};ul.appendChild(li)})}
+function showVideo(id,prompt,d,total){$('#mTitle').textContent=`${total} s  ·  ${prompt.slice(0,70)}`;$('#video').src=`/videos/${id}?t=${Date.now()}`;$('#mDec').textContent=d?`scene ${d.scene} (p ${d.scene_p}) · palette ${d.palette} · pace ${d.pace} · motion ${d.motion} · ending ${d.ending} · ${d.duration_s} s · words ${JSON.stringify(d.words)} · Jev ${d.jev_latency_ms} ms`:'';$('#modal').classList.add('show')}
+$('#close').onclick=()=>{$('#modal').classList.remove('show');$('#video').pause()};
+startBtn.onclick=async()=>{
+  const prompt=$('#prompt').value.trim();if(!prompt)return;
+  startBtn.disabled=true;log.innerHTML='';bar.style.width='0';document.querySelectorAll('.stage').forEach(el=>el.className='stage');$('#frames').textContent='frames';
+  t0=performance.now();timerEl.classList.add('running');tick=setInterval(()=>{timerEl.textContent=fmt((performance.now()-t0)/1000)},33);
+  line(0,'start',prompt);
+  const r=await fetch('/api/run',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt})});const {id}=await r.json();current=id;
+  const es=new EventSource(`/api/jobs/${id}/events`);
+  es.onmessage=ev=>{const e=JSON.parse(ev.data);
+    if(e.stage==='end'){es.close();clearInterval(tick);timerEl.classList.remove('running');const total=(performance.now()-t0)/1000;timerEl.textContent=fmt(total);startBtn.disabled=false;
+      if(e.status==='done'){setStage('gate','done');line(total,'done',`finished in ${fmt(total)} on the page clock (${e.report.stages.total_s} s in the pipeline)`);showVideo(id,prompt,e.report.decisions,e.report.stages.total_s);loadHist()}else{line(total,'error','run failed; see the trace above')}
+      return}
+    if(e.stage==='jev'){setStage('jev','active');let extra='';if(e.top)extra=e.top.map(([k,v])=>`${k} ${v}`).join(' · ');line(e.t,'jev',e.msg,extra)}
+    else if(e.stage==='build'){setStage('jev','done');setStage('build','done');line(e.t,'build',e.msg)}
+    else if(e.stage==='render'){setStage('render','active');if(e.frame){bar.style.width=(100*e.frame/e.frames)+'%';$('#frames').textContent=`${e.frame}/${e.frames}`;if(e.frame%30===0||e.frame===e.frames)line(e.t,'render',e.msg)}else{line(e.t,'render',e.msg);if(e.path){setStage('render','done')}}}
+    else if(e.stage==='gate'){setStage('gate','active');line(e.t,'gate',e.msg)}
+    else line(e.t,e.stage,e.msg);
+  };
+  es.onerror=()=>{};
+};
+loadPresets();loadHist();
+</script>
+</body>
+</html>

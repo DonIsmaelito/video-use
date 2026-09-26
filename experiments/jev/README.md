@@ -104,3 +104,35 @@ pace, motion, ending are all closed sets and it picks well and instantly. It can
 scene, the words or the choreography, so the ceiling of this path is the catalog. Two omissions
 that the traces made obvious: the 3D recipes (Three.js plus font assets) are not installed locally,
 and the render step, not the decision step, is what stands between 10 s and 35 s.
+
+## Live editing: clips while you record
+
+`helpers/live_session.py` + `experiments/jev/live_server.py` + `experiments/jev/live.html`
+(http://127.0.0.1:8791). Start with:
+
+```bash
+cd ~/Developer/video-use
+uv run --with fastapi --with 'uvicorn[standard]' --with websocket-client python experiments/jev/live_server.py
+```
+
+Pipeline, all in one process: ffmpeg captures the Mac camera and microphone (or replays a file at real
+time) into a fragmented MP4 that can be cut while it grows, and pipes 16 kHz PCM to ElevenLabs Scribe v2
+realtime over a WebSocket. Partial text arrives every second; we commit only inside silences every 5 to
+18 s so no word is cut in half, and committed words come back with stream-clock timestamps. Words become
+phrases on 0.5 s silences; every phrase gets one Jev request (false start or filler, ends a complete
+thought, is an interviewer's question, plus hook strength when it opens). Every finished thought becomes
+the end of up to three candidate clips (starts are the opening, long pauses, questions and previous
+finished thoughts); Jev scores each candidate (standalone, hook, payoff) in one batch and the best one
+above 0.35 is cut immediately: dropped phrases removed, pauses over 0.9 s tightened, 50/80 ms padding
+clamped to neighbouring words, 9:16 framing (center crop or blurred background), a PIL caption band
+overlaid last (this Mac's ffmpeg has no libass), loudness normalised, hardware H.264. Each clip ships
+with an .srt and a .json (hook line, text, source ranges, scores) for the posting system.
+
+Replay of 125 s of the Jensen interview (2026-09-25): Jev per phrase 112 ms mean; four clips of 17 to
+41 s, three rendered during the recording in 5.5 to 10.4 s each, the last 13 s after stop; everything
+on disk 19.6 s after stop. Realtime sessions that the server closes are reopened with the clock carried
+forward. The Mac microphone mode uses the same code path with `-f avfoundation "0:0"`; the terminal app
+needs camera and microphone permission the first time.
+
+Not built yet: the phone page and the Modal backend (same WebSocket protocol, HTTPS endpoint), and a
+keyframe-copy renderer that would take the per-clip render under 3 s.
