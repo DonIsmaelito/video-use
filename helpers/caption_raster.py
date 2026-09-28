@@ -143,7 +143,7 @@ def _transform_text(text: str, config: dict[str, Any]) -> str:
 
 # translate selected source word times onto the concatenated output timeline
 def build_master_srt(
-    edl: dict[str, Any], edit_dir: Path, out_path: Path
+    edl: dict[str, Any], edit_dir: Path, out_path: Path, *, word_grouper=None
 ) -> list[CaptionCue]:
     """Build output-timeline captions using the optional EDL ``captions`` block."""
     config = _caption_config(edl)
@@ -168,11 +168,15 @@ def build_master_srt(
 
         transcript = json.loads(transcript_path.read_text(encoding="utf-8"))
         words = _words_in_range(transcript, segment_start, segment_end)
-        chunks = chunk_words(
-            words,
-            max_words=max_words,
-            break_on_punctuation=break_on_punctuation,
-        )
+        # Keep explicit grouping settings while using phrase timing for defaults
+        if word_grouper is not None and not {"max_words", "break_on_punctuation"}.intersection(config):
+            chunks = word_grouper(words)
+        else:
+            chunks = chunk_words(
+                words,
+                max_words=max_words,
+                break_on_punctuation=break_on_punctuation,
+            )
         for chunk in chunks:
             local_start = max(
                 segment_start, float(chunk[0].get("start", segment_start))
