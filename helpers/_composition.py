@@ -176,8 +176,24 @@ def input_paths(manifest, root):
     return paths
 
 
+# reuse picture intervals independently of later audio captions and final assembly
+def stage_cached_shot(manifest, root, shot, path, cache=None):
+    if cache is None:
+        stage_shot(manifest, root, shot, path)
+        return
+    inputs = []
+    if shot.get("source") is not None:
+        inputs.append(source_path(manifest, root, shot["source"]))
+    if shot.get("isolation_mask"):
+        inputs.extend(mask_paths(shot["isolation_mask"], shot["start_frame"], shot["end_frame"], root))
+    settings = {"kind": "composition-shot", "picture_size": manifest["picture"][2:],
+                "fps": manifest["fps"], "shot": shot}
+    hit = cache.get_or_render(settings, inputs, path, lambda target: stage_shot(manifest, root, shot, target))
+    print(f"  {shot['id']}: {'reused checked clip' if hit else 'rendered and cached clip'}")
+
+
 # stage picture and audio then encode and verify the final composition
-def build(manifest_path, out):
+def build(manifest_path, out, *, reuse=False):
     manifest_path = Path(manifest_path).resolve()
     root = manifest_path.parent
     m = load_json(manifest_path)
@@ -202,6 +218,10 @@ def build(manifest_path, out):
         raise FileExistsError(
             f"{work}; choose a new versioned output and build directory"
         )
+    cache = None
+    if reuse:
+        from render_cache import RenderCache
+        cache = RenderCache(root / "render-cache", protected_inputs=paths | {out})
     work.mkdir(parents=True)
     provenance = {
         k: {
@@ -216,7 +236,7 @@ def build(manifest_path, out):
     paths = []
     for i, shot in enumerate(m["shots"]):
         path = work / f"shot_{i+1:03}.mp4"
-        stage_shot(m, root, shot, path)
+        stage_cached_shot(m, root, shot, path, cache)
         paths.append(path)
     # Relative controlled filenames avoid concat quoting hazards.
     concat = work / "concat.txt"
@@ -255,7 +275,7 @@ def build(manifest_path, out):
             if "source" not in layer:
                 continue
             path = work / f"layer_{i+1:03}.mp4"
-            stage_shot(m, root, layer, path)
+            stage_cached_shot(m, root, layer, path, cache)
             staged[layer["id"]] = path
         treated = work / "treated.mkv"
         render_layers(m, root, picture, staged, treated)
@@ -352,6 +372,9 @@ def build(manifest_path, out):
     from verify_edit import verify, review_sheets
 
     report = verify(m, root, out, work)
+    if cache is not None:
+        report["render_reuse"] = cache.summary()
+        print(f"  render reuse: {cache.hits} reused, {cache.rendered} newly cached")
     report["review_sheets"] = review_sheets(m, out, work / "review")
     save_json(work / "verification.json", report)
     if not report["technical_pass"]:

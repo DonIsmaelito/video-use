@@ -74,6 +74,7 @@ Helpers (`helpers/transcribe.py`, `helpers/render.py`, etc.) live alongside this
 ## Helpers
 
 - **`render.py`, `cut_list.py`, `verify_edit.py`** — render and verify explicit picture audio and caption timelines. See [composition rendering](references/rendering.md).
+- **`render.py --reuse`** — reuse checked clips when their sources and settings match; see [render reuse](references/render-reuse.md).
 
 - **`mix_audio.py`, `map_transcript.py`** — mix independent audio tracks and map intact words onto the sample clock. See [audio mixing](references/audio-mixing.md).
 

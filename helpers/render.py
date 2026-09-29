@@ -406,6 +406,7 @@ def extract_all_segments(
     preview: bool,
     draft: bool = False,
     fps: str | None = None,
+    reuse: bool = False,
 ) -> list[Path]:
     """Extract every EDL range into edit_dir/clips_graded/seg_NN.mp4.
     Returns the ordered list of segment paths.
@@ -423,6 +424,10 @@ def extract_all_segments(
 
     ranges = edl["ranges"]
     sources = edl["sources"]
+    cache = None
+    if reuse:
+        from render_cache import RenderCache
+        cache = RenderCache(edit_dir / "render-cache", protected_inputs=[resolve_path(value, edit_dir) for value in sources.values()])
 
     # Resolve ONE output frame rate for the entire render and apply it to every
     # segment. The lossless concat (Rule 2, `-c copy`) requires all segments to
@@ -460,9 +465,23 @@ def extract_all_segments(
         if is_auto:
             print(f"        grade: {seg_filter or '(none)'}")
         options = {"reframe": r["reframe"]} if r.get("reframe") else {}
-        extract_segment(src_path, start, duration, seg_filter, out_path, preview=preview, draft=draft, rate=out_rate, **options)
+        # Raw FFmpeg filters can read undeclared LUTs or other files, so do not cache them.
+        cacheable = edl.get("grade") in (None, "", "none", "warm_cinematic", "neutral_punch", "auto")
+        if cache is not None and cacheable:
+            settings = {"kind": "edl-segment", "start": start, "duration": duration,
+                        "grade_filter": seg_filter, "preview": preview, "draft": draft,
+                        "fps": out_rate, "reframe": options.get("reframe")}
+            hit = cache.get_or_render(settings, [src_path], out_path,
+                                      lambda path: extract_segment(src_path, start, duration, seg_filter, path, preview=preview, draft=draft, rate=out_rate, **options))
+            print("        reused checked clip" if hit else "        rendered and cached clip")
+        else:
+            if cache is not None:
+                print("        rendering without reuse because the raw filter may read other files")
+            extract_segment(src_path, start, duration, seg_filter, out_path, preview=preview, draft=draft, rate=out_rate, **options)
         seg_paths.append(out_path)
 
+    if cache is not None:
+        print(f"  render reuse: {cache.hits} reused, {cache.rendered} newly cached")
     return seg_paths
 
 
@@ -1591,6 +1610,7 @@ def main() -> None:
     ap = argparse.ArgumentParser(description="Render a video from an EDL")
     ap.add_argument("edl", type=Path, help="Path to edl.json")
     ap.add_argument("-o", "--output", type=Path, help="Output video path")
+    ap.add_argument("--reuse", action="store_true", help="Reuse checked clips under the EDL directory's render-cache; final assembly and verification still run")
     selection = ap.add_mutually_exclusive_group()
     selection.add_argument(
         "--deliverable",
@@ -1670,7 +1690,7 @@ def main() -> None:
         if args.output is None:
             ap.error("Composition EDL requires -o/--output")
         from _composition import build
-        build(edl_path, args.output)
+        build(edl_path, args.output, reuse=args.reuse)
         print(f"Rendered composition: {args.output}")
         return
     output_dir = args.output_dir.resolve() if args.output_dir else None
@@ -1726,7 +1746,7 @@ def main() -> None:
 
     # 1. Extract per-segment (auto-grade per range if EDL grade is "auto")
     segment_paths = extract_all_segments(
-        edl, edit_dir, preview=args.preview, draft=args.draft, fps=args.fps
+        edl, edit_dir, preview=args.preview, draft=args.draft, fps=args.fps, reuse=args.reuse
     )
 
     # 2. Concat → base
