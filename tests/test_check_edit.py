@@ -118,15 +118,59 @@ def test_caption_font_failure(edit, monkeypatch):
     assert any(r["name"] == "caption font" and not r["ok"] for r in report["checks"])
 
 
-# All transcript inputs must exist when generated captions were requested
+# Missing transcripts warn as the renderer skips those segments; malformed ones fail
 def test_build_subtitles_validates_transcripts(edit, monkeypatch):
     edl, out, _ = edit
     monkeypatch.setattr(checks, "caption_font", lambda: "test font")
-    assert not checks.check_edit(edl, out, build_subtitles=True)["ok"]
+    report = checks.check_edit(edl, out, build_subtitles=True)
+    assert report["ok"] and any("Missing transcript" in w for w in report["warnings"])
     folder = edl.parent / "transcripts"
     folder.mkdir()
     (folder / "s.json").write_text(json.dumps({"words": [{"type": "word", "start": 0, "end": 0.4, "text": "Hi"}]}))
     assert checks.check_edit(edl, out, build_subtitles=True)["ok"]
+    (folder / "s.json").write_text('{"words": "invalid"}')
+    assert not checks.check_edit(edl, out, build_subtitles=True)["ok"]
+
+
+@pytest.mark.parametrize("duration", [None, "N/A", "nan", "inf", "0", "-1"])
+def test_format_duration_checks_bounds_when_stream_duration_is_unusable(edit, monkeypatch, duration):
+    edl, out, _ = edit
+    monkeypatch.setattr(checks, "probe", lambda path: {
+        "streams": [{"codec_type": "video", "duration": duration}, {"codec_type": "audio"}],
+        "format": {"duration": "2"},
+    })
+    change(edl, ranges=[{"source": "s", "start": 0, "end": 3}])
+    report = checks.check_edit(edl, out)
+    assert not report["ok"]
+    assert any(r["name"] == "range 0" and not r["ok"] for r in report["checks"])
+
+
+def test_unreadable_existing_subtitles_fail(edit, monkeypatch):
+    edl, out, _ = edit
+    captions = edl.parent / "words.srt"
+    captions.write_text("captions")
+    change(edl, subtitles="words.srt")
+    real_open = Path.open
+
+    def unreadable(path, *args, **kwargs):
+        if path == captions:
+            raise PermissionError("captions are unreadable")
+        return real_open(path, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "open", unreadable)
+    monkeypatch.setattr(checks, "caption_font", lambda: "test font")
+    report = checks.check_edit(edl, out)
+    assert not report["ok"]
+    assert any(r["name"] == "subtitles" and "unreadable" in r["detail"] for r in report["checks"])
+
+
+def test_real_caption_font_probe():
+    if not shutil.which("ffmpeg"):
+        pytest.skip("FFmpeg required")
+    filters = checks.command(["ffmpeg", "-hide_banner", "-filters"]).stdout
+    if not any(len(row.split()) > 1 and row.split()[1] == "subtitles" for row in filters.splitlines()):
+        pytest.skip("FFmpeg with libass required")
+    assert checks.caption_font()
 
 
 # Missing encoders or filters produce actionable environment failures

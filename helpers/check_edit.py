@@ -183,12 +183,16 @@ def check_edit(edl_path, output, *, build_subtitles=False, no_subtitles=False, n
             continue
         data = details[path]
         stream = next(s for s in data["streams"] if s.get("codec_type") == "video")
-        duration = stream.get("duration", data.get("format", {}).get("duration"))
-        try:
-            duration = float(duration)
-            if not math.isfinite(duration) or duration <= 0:
-                raise ValueError
-        except (TypeError, ValueError, OverflowError):
+        duration = None
+        for value in (stream.get("duration"), data.get("format", {}).get("duration")):
+            try:
+                candidate = float(value)
+                if math.isfinite(candidate) and candidate > 0:
+                    duration = candidate
+                    break
+            except (TypeError, ValueError, OverflowError):
+                pass
+        if duration is None:
             warnings.append(f"{name}: duration is unknown; range bounds need a decode check")
         else:
             add(name, end <= duration + 0.001, f"Requested end {end:g}s; available duration {duration:g}s")
@@ -208,10 +212,19 @@ def check_edit(edl_path, output, *, build_subtitles=False, no_subtitles=False, n
                     raise ValueError("word text and ordered start/end times are required")
                 previous = start
             add(str(path), True, "Transcript word timing is readable")
+        except FileNotFoundError:
+            warnings.append(f"Missing transcript: {path}; this source will have no generated captions")
         except (OSError, ValueError, KeyError, TypeError) as exc:
             add(str(path), False, f"Cannot build subtitles: {exc}")
     if subtitles is not None:
-        add("subtitles", subtitles.is_file(), subtitles if subtitles.is_file() else f"Missing subtitles: {subtitles}; fix the path or use --no-subtitles")
+        try:
+            if not subtitles.is_file():
+                raise ValueError(f"Missing subtitles: {subtitles}; fix the path or use --no-subtitles")
+            with subtitles.open("rb") as stream:
+                stream.read(1)
+            add("subtitles", True, subtitles)
+        except (OSError, ValueError) as exc:
+            add("subtitles", False, f"Cannot read subtitles: {exc}")
     if available["ffmpeg"]:
         try:
             filters_text = command(["ffmpeg", "-hide_banner", "-filters"]).stdout

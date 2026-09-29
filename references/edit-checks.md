@@ -16,6 +16,11 @@ font. Caption checks render one disposable synthetic frame; they do not inspect
 source imagery or call a service. Existing outputs are refused so a rerun needs
 a new output name. A failed check creates no edit artifacts.
 
+When using `--build-subtitles`, missing transcripts produce a warning and those
+segments remain without captions, matching the renderer. Existing transcripts
+must be readable and contain valid word timing. Explicit subtitle files must be
+readable even when they already exist.
+
 This builds on `check_env.py` from the environment checks PR: that command still
 handles initial setup and optional animation programs. These checks select the
 requirements for a specific legacy edit. EDL v2/v3 integration is a follow-up

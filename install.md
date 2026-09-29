@@ -143,8 +143,13 @@ requested, for example:
 python helpers/check_env.py \
   --videos-dir /path/to/your/videos \
   --require manim \
-  --require remotion
+  --require remotion \
+  --backend-dir /path/to/your/remotion-project
 ```
+
+For npm backends, `--backend-dir` selects the project containing the installed
+backend, independently of the shell's working directory. It defaults to
+`--videos-dir`; check backends in separate projects with separate commands.
 
 It exits non-zero when a required check fails. It doesn't install anything or
 contact external services.
