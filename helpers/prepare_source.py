@@ -1,8 +1,12 @@
 """Create an explicit lossless source derivative with optional HDR to SDR conversion."""
 
 import argparse
+import math
+import os
 from pathlib import Path
-from edit_io import probe, run, save_json, sha256
+import tempfile
+from edit_io import display_dimensions, file_state, probe, run, save_json, sha256
+from source_scan import timestamps
 
 
 # create a new FFV1 working copy and record its explicit transformations
@@ -15,8 +19,13 @@ def prepare(source, out, crop=None, tonemap=False):
         raise FileExistsError("choose a new source derivative path")
     if out.suffix.lower() != ".mkv":
         raise ValueError("lossless prepared sources use a Matroska mkv file")
+    state = file_state(source)
+    digest = sha256(source)
     before = probe(source)
-    video = next(s for s in before["streams"] if s["codec_type"] == "video")
+    video = next((s for s in before["streams"] if s["codec_type"] == "video"), None)
+    if video is None:
+        raise ValueError("prepared sources require a video stream")
+    width, height = display_dimensions(video)
     hdr = video.get("color_transfer") in ("smpte2084", "arib-std-b67")
     if hdr and not tonemap:
         raise ValueError("HDR source requires an explicit tonemap decision")
@@ -29,8 +38,8 @@ def prepare(source, out, crop=None, tonemap=False):
             or any(type(v) is not int or v % 2 for v in crop)
             or min(crop[:2]) < 0
             or min(crop[2:]) <= 0
-            or crop[0] + crop[2] > video["width"]
-            or crop[1] + crop[3] > video["height"]
+            or crop[0] + crop[2] > width
+            or crop[1] + crop[3] > height
         ):
             raise ValueError("crop must be an even pixel rectangle inside source")
         x, y, w, h = crop
@@ -43,7 +52,9 @@ def prepare(source, out, crop=None, tonemap=False):
             "tonemap=tonemap=mobius:desat=0",
             "zscale=transfer=bt709:matrix=bt709:range=limited",
         ]
-    out.parent.mkdir(parents=True, exist_ok=True)
+    original_pts = timestamps(source)
+    if file_state(source) != state:
+        raise ValueError("source changed before preparation")
     args = [
         "ffmpeg",
         "-v",
@@ -51,6 +62,9 @@ def prepare(source, out, crop=None, tonemap=False):
         "-n",
         "-threads",
         "2",
+        "-nostdin",
+        "-xerror",
+        "-copyts",
         "-i",
         source,
         "-map",
@@ -81,18 +95,41 @@ def prepare(source, out, crop=None, tonemap=False):
             "-colorspace",
             "bt709",
         ]
-    run(args + [out], log=Path(str(out) + ".log"))
-    result = {
-        "source": str(source),
-        "source_sha256": sha256(source),
-        "output": str(out),
-        "output_sha256": sha256(out),
-        "filters": filters,
-        "input_probe": before,
-        "output_probe": probe(out, True),
-        "review": "Compare native frames for color and crop; reacquire if source quality is inadequate",
-    }
-    save_json(str(out) + ".json", result, exclusive=True)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix=".prepare-", dir=out.parent) as folder:
+        staged = Path(folder) / out.name
+        log, record = Path(folder) / "command.log", Path(folder) / "record.json"
+        run(args + [staged], log=log)
+        prepared_pts = timestamps(staged)
+        if len(prepared_pts) != len(original_pts) or any(
+            not math.isclose(a, b, rel_tol=0, abs_tol=0.001) for a, b in zip(original_pts, prepared_pts)
+        ):
+            raise ValueError("prepared copy changed native video timestamps")
+        after = probe(staged, True)
+        if file_state(source) != state or sha256(source) != digest or file_state(source) != state:
+            raise ValueError("source changed during preparation")
+        result = {
+            "source": str(source),
+            "source_sha256": digest,
+            "output": str(out),
+            "output_sha256": sha256(staged),
+            "filters": filters,
+            "input_probe": before,
+            "output_probe": after,
+            "review": "Compare native frames for color and crop; reacquire if source quality is inadequate",
+        }
+        save_json(record, result, exclusive=True)
+        published = []
+        try:
+            # Exclusive links publish complete files; expose the movie last.
+            for source_file, destination in ((log, outputs[1]), (record, outputs[2]), (staged, out)):
+                os.link(source_file, destination)
+                published.append((source_file, destination))
+        except BaseException:
+            for source_file, destination in reversed(published):
+                if destination.exists() and destination.samefile(source_file):
+                    destination.unlink()
+            raise
     return result
 
 

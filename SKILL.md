@@ -71,7 +71,7 @@ Helpers (`helpers/transcribe.py`, `helpers/render.py`, etc.) live alongside this
 
 ## Helpers
 
-- **`source_scan.py`, `prepare_source.py`, `find_shot.py`, `project_state.py`** — inspect selected sources and retain provenance. See [source inspection](references/sources.md).
+- **`source_scan.py`, `prepare_source.py`, `find_shot.py`, `project_state.py`** — inspect selected sources and retain provenance. `find_shot.py` requires the optional OpenCV install: `uv sync --extra editing` or `pip install -e '.[editing]'`. See [source inspection](references/sources.md).
 
 - **`transcribe.py <video>`** — single-file Scribe call. `--num-speakers N` optional. Cached.
 - **`transcribe_batch.py <videos_dir>`** — 4-worker parallel transcription. Use for multi-take.
