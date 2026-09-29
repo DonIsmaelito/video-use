@@ -4,6 +4,7 @@ import json
 import os
 from pathlib import Path
 import sys
+import subprocess
 
 import pytest
 
@@ -131,3 +132,32 @@ def test_no_audio_and_invalid_settings(tmp_path, monkeypatch):
     with pytest.raises(ValueError):
         analyze.analyze(source, tmp_path / "unused", ["motion"], motion_window=float("nan"), runtime={})
     assert not (tmp_path / "unused").exists()
+
+
+@pytest.mark.parametrize("kind", ["directory", "fifo"])
+def test_nonregular_cache_record_fails_without_hanging(tmp_path, kind):
+    source = tmp_path / "source"
+    source.write_bytes(b"original")
+    cache = AnalysisCache(source, tmp_path / "cache", {})
+    _, receipt = cache.get("metadata", {}, lambda: {})
+    path = Path(receipt["record"])
+    path.unlink()
+    if kind == "directory":
+        path.mkdir()
+    elif hasattr(os, "mkfifo"):
+        os.mkfifo(path)
+    else:
+        pytest.skip("named pipes unavailable")
+    script = """import sys
+from analysis_cache import AnalysisCache
+try:
+    AnalysisCache(sys.argv[1], sys.argv[2], {}).get('metadata', {}, lambda: {})
+except ValueError as exc:
+    assert 'regular files' in str(exc)
+else:
+    raise AssertionError('nonregular record was accepted')
+"""
+    result = subprocess.run([sys.executable, "-c", script, str(source), str(cache.directory)],
+                            cwd=Path(__file__).resolve().parents[1] / "helpers",
+                            capture_output=True, text=True, timeout=5)
+    assert result.returncode == 0, result.stderr

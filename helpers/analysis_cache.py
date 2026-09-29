@@ -60,9 +60,22 @@ class AnalysisCache:
         if target.is_symlink():
             raise ValueError("Analysis cache records cannot be symbolic links")
         self.check_source()
+        payload = None
         try:
-            if target.stat().st_size <= MAX_RECORD_BYTES:
-                record = json.loads(target.read_bytes())
+            descriptor = os.open(target, os.O_RDONLY | getattr(os, "O_NONBLOCK", 0) | getattr(os, "O_NOFOLLOW", 0))
+        except FileNotFoundError:
+            pass
+        else:
+            info = os.fstat(descriptor)
+            if not stat.S_ISREG(info.st_mode):
+                os.close(descriptor)
+                raise ValueError("Analysis cache records must be regular files; choose a clean cache directory")
+            with os.fdopen(descriptor, "rb") as stream:
+                if info.st_size <= MAX_RECORD_BYTES:
+                    payload = stream.read(MAX_RECORD_BYTES + 1)
+        try:
+            if payload is not None and len(payload) <= MAX_RECORD_BYTES:
+                record = json.loads(payload)
                 if (isinstance(record, dict) and record.get("identity") == identity
                         and record.get("result_sha256") == hashlib.sha256(encoded(record["result"])).hexdigest()):
                     self.check_source()
@@ -83,6 +96,8 @@ class AnalysisCache:
             self.check_source()
             if target.is_symlink():
                 raise ValueError("Analysis cache records cannot be symbolic links")
+            if target.exists() and not stat.S_ISREG(target.stat().st_mode):
+                raise ValueError("Analysis cache records must be regular files; choose a clean cache directory")
             os.replace(temporary, target)
         finally:
             temporary.unlink(missing_ok=True)

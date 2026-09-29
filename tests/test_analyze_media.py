@@ -61,3 +61,31 @@ def test_source_presentation_offset(source, tmp_path):
     result = analyze.analyze(shifted, tmp_path / "cache", ["scenes", "silence"], scene_threshold=0.1)
     assert abs(result["results"]["picture"]["scenes"][0]["time"] - 6) < 0.05
     assert abs(result["results"]["silence"]["intervals"][0]["start"] - 5.5) < 0.02
+
+
+def test_picture_accepts_duplicate_times_but_rejects_backward_times(monkeypatch):
+    timestamps = [5.0, 5.0, 5.1]
+
+    def measure(args, folder, timeout):
+        Path(folder, "events.txt").write_text("".join(
+            f"frame:{i} pts:0 pts_time:{t}\nlavfi.scene_score=0.5\n" for i, t in enumerate(timestamps)
+        ), encoding="utf-8")
+
+    monkeypatch.setattr(analyze, "ffmpeg", measure)
+    result = analyze.picture("unused", 0.3, 1, 10)
+    assert result["frames_measured"] == 3
+    assert result["motion"][0]["samples"] == 3
+    assert [row["time"] for row in result["scenes"]] == timestamps
+    timestamps[:] = [5.0, 4.9]
+    with pytest.raises(ValueError, match="backwards"):
+        analyze.picture("unused", 0.3, 1, 10)
+
+
+def test_metadata_retains_rotation_tags_and_side_data(monkeypatch):
+    streams = [{"codec_type": "video", "tags": {"rotate": "90", "unused": "drop"}},
+               {"codec_type": "video", "side_data_list": [{"rotation": -90}]}]
+    monkeypatch.setattr(analyze.subprocess, "run", lambda args, **kw: subprocess.CompletedProcess(
+        args, 0, json.dumps({"streams": streams}).encode()))
+    result = analyze.metadata("unused", 10)["streams"]
+    assert result[0]["tags"] == {"rotate": "90"}
+    assert result[1]["side_data_list"] == [{"rotation": -90}]

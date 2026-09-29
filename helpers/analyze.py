@@ -55,6 +55,9 @@ def metadata(source, timeout):
             "avg_frame_rate", "r_frame_rate", "time_base", "start_time", "duration", "pix_fmt",
             "color_range", "color_space", "color_transfer", "color_primaries", "side_data_list")
     streams = [{key: row[key] for key in keys if key in row} for row in data["streams"]]
+    for original, selected in zip(data["streams"], streams):
+        if "rotate" in original.get("tags", {}):
+            selected["tags"] = {"rotate": original["tags"]["rotate"]}
     fmt = data.get("format", {})
     return {"streams": streams, "format": {key: fmt[key] for key in ("format_name", "start_time", "duration", "size") if key in fmt}}
 
@@ -95,8 +98,8 @@ def picture(source, scene_threshold, motion_window, timeout):
                     score = float(line.split("=", 1)[1])
                     if timestamp is None or not math.isfinite(timestamp) or not math.isfinite(score):
                         raise ValueError("Picture analysis needs finite presentation timestamps and scores")
-                    if previous is not None and timestamp <= previous:
-                        raise ValueError("Picture timestamps must increase strictly")
+                    if previous is not None and timestamp < previous:
+                        raise ValueError("Picture timestamps must not go backwards")
                     previous = timestamp
                     if score >= scene_threshold:
                         scenes.append({"time": timestamp, "score": score, "frame": count})
