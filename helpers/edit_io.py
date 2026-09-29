@@ -2,22 +2,57 @@
 
 import hashlib
 import json
+import math
+import os
+import stat
 import subprocess
+import tempfile
 from pathlib import Path
 
 
 # run a media command and surface its error output when it fails
-def run(args, log=None):
-    """Run a media command and surface its error output when it fails."""
-    result = subprocess.run([str(x) for x in args], capture_output=True)
-    if log is not None:
-        Path(log).write_bytes(result.stderr)
+def run(args, log=None, timeout=600):
+    """Run a bounded command, keeping full errors on disk and only a tail in memory."""
+    with (Path(log).open("w+b") if log is not None else tempfile.TemporaryFile()) as errors:
+        try:
+            result = subprocess.run([str(x) for x in args], stdout=subprocess.PIPE,
+                                    stderr=errors, timeout=timeout)
+        except subprocess.TimeoutExpired as exc:
+            raise RuntimeError(f"{args[0]} exceeded {timeout:g} seconds") from exc
+        errors.flush()
+        errors.seek(max(0, errors.tell() - 6000))
+        result.stderr = errors.read()
     if result.returncode:
         raise RuntimeError(
             f"{args[0]} failed ({result.returncode}):\n"
             + result.stderr.decode(errors="replace")[-6000:]
         )
     return result
+
+
+def file_state(path):
+    """Notice replacements and edits while a media command is running."""
+    info = Path(path).stat()
+    if not stat.S_ISREG(info.st_mode):
+        raise ValueError("source must be a regular file")
+    return (info.st_dev, info.st_ino, info.st_size, info.st_mtime_ns, info.st_ctime_ns)
+
+
+def display_dimensions(stream):
+    """Return pixel dimensions after FFmpeg's automatic quarter-turn rotation."""
+    rotation = stream.get("tags", {}).get("rotate", 0)
+    for row in stream.get("side_data_list", []):
+        if "rotation" in row:
+            rotation = row["rotation"]
+            break
+    try:
+        rotation = float(rotation)
+        if not math.isfinite(rotation) or not math.isclose(rotation / 90, round(rotation / 90), abs_tol=1e-6):
+            raise ValueError
+    except (TypeError, ValueError, OverflowError) as exc:
+        raise ValueError("source rotation must be a quarter turn") from exc
+    width, height = stream["width"], stream["height"]
+    return (height, width) if round(rotation / 90) % 2 else (width, height)
 
 
 # read stream metadata and optionally count decoded frames with ffprobe
@@ -53,7 +88,7 @@ def sha256(path):
 # read a project or evidence document from disk
 def load_json(path):
     """Read a project or evidence document from disk."""
-    return json.loads(Path(path).read_text())
+    return json.loads(Path(path).read_text(encoding="utf-8"))
 
 
 # write readable JSON while rejecting nonfinite measurement values
@@ -61,9 +96,22 @@ def save_json(path, data, *, exclusive=False):
     """Write readable JSON while rejecting nonfinite measurement values."""
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    payload = json.dumps(data, indent=2, allow_nan=False) + "\n"
-    with path.open("x" if exclusive else "w") as stream:
-        stream.write(payload)
+    if path.is_symlink():
+        raise FileExistsError("JSON output cannot be a symbolic link")
+    payload = json.dumps(data, indent=2, allow_nan=False, ensure_ascii=False) + "\n"
+    descriptor, name = tempfile.mkstemp(prefix=".json-", dir=path.parent)
+    temporary = Path(name)
+    try:
+        with os.fdopen(descriptor, "w", encoding="utf-8") as stream:
+            stream.write(payload)
+        if path.is_symlink():
+            raise FileExistsError("JSON output cannot be a symbolic link")
+        if exclusive:
+            os.link(temporary, path)
+        else:
+            os.replace(temporary, path)
+    finally:
+        temporary.unlink(missing_ok=True)
 
 
 # resolve an artifact path relative to its project directory

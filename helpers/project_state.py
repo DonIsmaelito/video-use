@@ -20,7 +20,11 @@ PHASES = {
 # check artifact metadata and reject missing or cyclic dependencies
 def validate(data):
     """Check artifact metadata and reject missing or cyclic dependencies."""
+    if not isinstance(data, dict):
+        raise ValueError("context must be an object")
     rows = data.setdefault("artifacts", {})
+    if not isinstance(rows, dict):
+        raise ValueError("context artifacts must be an object")
     visiting = set()
     visited = set()
 
@@ -40,14 +44,25 @@ def validate(data):
         visited.add(ident)
 
     for ident, row in rows.items():
-        if row.get("phase") not in PHASES:
+        if not isinstance(ident, str) or not ident.strip() or not isinstance(row, dict):
+            raise ValueError("context artifacts need string IDs and object entries")
+        if not isinstance(row.get("phase"), str) or row["phase"] not in PHASES:
             raise ValueError("unknown context phase")
         if row.get("status") not in ("draft", "measured", "reviewed", "blocked"):
             raise ValueError("unknown evidence status")
-        if not row.get("path") or not row.get("summary"):
+        if any(not isinstance(row.get(key), str) or not row[key].strip() for key in ("path", "summary")):
             raise ValueError("context needs an artifact path and a useful summary")
+        if Path(row["path"]).is_absolute():
+            raise ValueError("context artifact paths must be relative to the context file")
+        deps = row.get("depends_on", [])
+        if not isinstance(deps, list) or any(not isinstance(dep, str) or not dep.strip() for dep in deps):
+            raise ValueError("depends_on must be a list of string IDs")
+        hashes = row.get("dependency_hashes", {})
+        if not isinstance(hashes, dict) or any(not isinstance(key, str) or not isinstance(value, str) or len(value) != 64 for key, value in hashes.items()):
+            raise ValueError("dependency_hashes must map string IDs to sha256 values")
         if not isinstance(row.get("sha256"), str) or len(row["sha256"]) != 64:
             raise ValueError("context artifact needs a sha256 fingerprint")
+    for ident in rows:
         visit(ident)
 
 
@@ -56,7 +71,11 @@ def record(context, ident, entry):
     """Save an artifact fingerprint and the dependency versions it was built from."""
     context = Path(context)
     data = load_json(context) if context.exists() else {"version": 1, "artifacts": {}}
-    data.setdefault("artifacts", {})
+    validate(data)
+    if not isinstance(entry, dict) or not isinstance(entry.get("path"), str) or not entry["path"].strip():
+        raise ValueError("context entry needs a relative artifact path")
+    if Path(entry["path"]).is_absolute():
+        raise ValueError("context artifact paths must be relative to the context file")
     path = resolve(context.parent, entry["path"])
     if path == context.resolve() or (path.exists() and context.exists() and path.samefile(context)):
         raise ValueError("context cannot record itself as an artifact")
