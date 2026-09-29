@@ -60,6 +60,8 @@ def seconds_to_sample(seconds, rate=SAMPLE_RATE):
 # floor a frame boundary to the centisecond clock used by ASS subtitles
 def ass_stamp(frame, fps=30):
     """Floor to the ASS clock so a 30 fps end boundary cannot leak one frame."""
+    if fraction(frame) < 0:
+        raise ValueError("ASS frame boundary must be nonnegative")
     cs = math.floor(fraction(frame) * 100 / clock_rate(fps))
     return f"{cs//360000}:{cs//6000%60:02}:{cs//100%60:02}.{cs%100:02}"
 
@@ -87,6 +89,8 @@ def allocate_frames(total, weights):
 # reject shot intervals with gaps overlaps or an incorrect total
 def check_partition(shots, total):
     """Reject shot intervals with gaps overlaps or an incorrect total."""
+    if type(total) is not int or total < 0:
+        raise ValueError("total must be a nonnegative integer frame count")
     cursor = 0
     for shot in shots:
         start, end = shot["start_frame"], shot["end_frame"]

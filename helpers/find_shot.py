@@ -7,16 +7,16 @@ import cv2
 import numpy as np
 from PIL import Image
 from source_scan import catalog, selected_frames
-from edit_io import save_json
+from edit_io import file_state, load_json, save_json, sha256
 
 
 # score local image features that agree on one geometric transformation
-def correspondence(query, candidate):
+def correspondence(query, candidate, *, detector=None, query_features=None):
     """Score local image features that agree on one geometric transformation."""
-    detector = cv2.SIFT_create(nfeatures=1000)
-    qa, qd = detector.detectAndCompute(
-        cv2.cvtColor(np.asarray(query), cv2.COLOR_RGB2GRAY), None
-    )
+    if detector is None:
+        detector = cv2.SIFT_create(nfeatures=1000)
+    qa, qd = query_features if query_features is not None else detector.detectAndCompute(
+        cv2.cvtColor(np.asarray(query), cv2.COLOR_RGB2GRAY), None)
     ca, cd = detector.detectAndCompute(
         cv2.cvtColor(np.asarray(candidate), cv2.COLOR_RGB2GRAY), None
     )
@@ -48,11 +48,30 @@ def correspondence(query, candidate):
 
 
 # rank sampled source frames against a query image for later visual review
-def search(query, source, every=1, limit=12):
+def search(query, source, every=1, limit=12, index=None):
     """Rank sampled source frames against a query image for later visual review."""
-    if not math.isfinite(every) or every <= 0:
+    if type(every) not in (int, float) or not math.isfinite(every) or every <= 0:
         raise ValueError("sampling interval must be positive")
-    index = catalog(source)
+    if type(limit) is not int or limit < 1:
+        raise ValueError("candidate limit must be a positive integer")
+    before = file_state(source)
+    if index is None:
+        index = catalog(source)
+    else:
+        if not isinstance(index, dict) or index.get("sha256") != sha256(source):
+            raise ValueError("saved catalog does not match source bytes")
+        rows = index.get("frames")
+        if not isinstance(rows, list) or not rows:
+            raise ValueError("saved catalog needs frame timestamps")
+        previous = -math.inf
+        for i, row in enumerate(rows):
+            if (not isinstance(row, dict) or type(row.get("frame")) is not int or row["frame"] != i
+                    or type(row.get("pts")) not in (int, float) or not math.isfinite(row["pts"])
+                    or row["pts"] < previous):
+                raise ValueError("saved catalog has invalid frame timestamps")
+            previous = row["pts"]
+    if file_state(source) != before:
+        raise ValueError("source changed while loading catalog")
     selected = []
     next_time = index["frames"][0]["pts"]
     for row in index["frames"]:
@@ -63,14 +82,18 @@ def search(query, source, every=1, limit=12):
         reference = im.convert("RGB")
         reference.thumbnail((640, 640))
     results = []
-    for frame, image in selected_frames(source, selected, 640):
+    detector = cv2.SIFT_create(nfeatures=1000)
+    query_features = detector.detectAndCompute(cv2.cvtColor(np.asarray(reference), cv2.COLOR_RGB2GRAY), None)
+    for frame, image in selected_frames(source, selected, 640, frame_count=len(index["frames"])):
         results.append(
             {
                 "frame": frame,
                 "pts": index["frames"][frame]["pts"],
-                **correspondence(reference, image),
+                **correspondence(reference, image, detector=detector, query_features=query_features),
             }
         )
+    if file_state(source) != before or sha256(source) != index["sha256"] or file_state(source) != before:
+        raise ValueError("source changed during screenshot search")
     return {
         "source_sha256": index["sha256"],
         "candidates": sorted(
@@ -87,13 +110,14 @@ def main():
     p.add_argument("query")
     p.add_argument("source")
     p.add_argument("--every", type=float, default=1)
+    p.add_argument("--index", type=Path, help="Reuse an existing source_scan catalog after checking source bytes")
     p.add_argument("--out", required=True)
     a = p.parse_args()
     if Path(a.out).resolve() in (Path(a.query).resolve(), Path(a.source).resolve()):
         p.error("output would overwrite input")
     if Path(a.out).exists() or Path(a.out).is_symlink():
         p.error("output already exists choose a new report path")
-    save_json(a.out, search(a.query, a.source, a.every), exclusive=True)
+    save_json(a.out, search(a.query, a.source, a.every, index=load_json(a.index) if a.index else None), exclusive=True)
 
 
 if __name__ == "__main__":

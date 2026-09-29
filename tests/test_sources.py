@@ -174,7 +174,7 @@ def test_state_invalidates_downstream_and_requires_rerecording(tmp_path):
 # malformed dependency graphs are rejected without accepting circular evidence
 @pytest.mark.parametrize("dependencies", [["missing"], ["item"]])
 def test_state_rejects_missing_or_cyclic_dependencies(dependencies):
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="unknown context dependency" if dependencies == ["missing"] else "cycle"):
         validate(
             {
                 "artifacts": {
@@ -183,6 +183,7 @@ def test_state_rejects_missing_or_cyclic_dependencies(dependencies):
                         "status": "measured",
                         "path": "input",
                         "summary": "evidence",
+                        "sha256": "0" * 64,
                         "depends_on": dependencies,
                     }
                 }
@@ -263,8 +264,8 @@ def test_catalog_cli_cannot_overwrite_source(source):
 
 
 # the public search path must rank the matching scene from an actual encoded video
-def test_search_ranks_matching_video_frame(tmp_path):
-    pytest.importorskip("cv2", reason="install the editing extra")
+def test_search_ranks_matching_video_frame(tmp_path, monkeypatch):
+    cv2 = pytest.importorskip("cv2", reason="install the editing extra")
     if not shutil.which("ffmpeg") or not shutil.which("ffprobe"):
         pytest.skip("FFmpeg and ffprobe required")
     from find_shot import search
@@ -295,6 +296,27 @@ def test_search_ranks_matching_video_frame(tmp_path):
     assert result["candidates"][0]["frame"] == 1
     assert result["candidates"][0]["inliers"] > 50
     assert "review" in result["limit"]
+    import find_shot
+    index = catalog(video)
+    monkeypatch.setattr(find_shot, "catalog", lambda path: pytest.fail("saved catalog must avoid another frame scan"))
+    sift = cv2.SIFT_create
+    calls = []
+
+    class Detector:
+        def __init__(self, **kwargs):
+            self.inner = sift(**kwargs)
+
+        def detectAndCompute(self, image, mask):
+            calls.append(image.shape)
+            return self.inner.detectAndCompute(image, mask)
+
+    monkeypatch.setattr(cv2, "SIFT_create", Detector)
+    reused = search(tmp_path / "input_1.png", video, every=1, index=index)
+    assert reused["candidates"][0]["frame"] == 1
+    assert len(calls) == 4  # one query plus three candidate frames
+    video.write_bytes(b"changed source")
+    with pytest.raises(ValueError, match="does not match source"):
+        search(tmp_path / "input_1.png", video, index=index)
 
 
 # tagged HDR requires an explicit choice before output directories are created
@@ -320,3 +342,88 @@ def test_hdr_requires_explicit_conversion(source, tmp_path):
     with pytest.raises(ValueError, match="explicit tonemap"):
         prepare(tagged, destination)
     assert not destination.parent.exists()
+
+
+def test_catalog_rejects_source_changes_during_scan(source, monkeypatch):
+    import source_scan
+    original = source_scan.timestamps
+
+    def changed(path):
+        pts = original(path)
+        path.write_bytes(b"source changed during scan")
+        return pts
+
+    monkeypatch.setattr(source_scan, "timestamps", changed)
+    with pytest.raises(ValueError, match="source changed"):
+        catalog(source)
+
+
+def test_prepare_failure_can_retry_same_path(source, tmp_path, monkeypatch):
+    import prepare_source
+    output = tmp_path / "retry.mkv"
+    original = prepare_source.run
+
+    def fail(args, **kwargs):
+        Path(args[-1]).write_bytes(b"partial movie")
+        Path(kwargs["log"]).write_text("encoder failed")
+        raise RuntimeError("encode failure")
+
+    monkeypatch.setattr(prepare_source, "run", fail)
+    with pytest.raises(RuntimeError, match="encode failure"):
+        prepare(source, output)
+    assert not list(tmp_path.glob("retry.mkv*")) and not list(tmp_path.glob(".prepare-*"))
+    monkeypatch.setattr(prepare_source, "run", original)
+    assert prepare(source, output)["output_sha256"] == sha256(output)
+
+
+def test_prepare_rejects_input_changes_before_publishing(source, tmp_path, monkeypatch):
+    import prepare_source
+    original = prepare_source.run
+    output = tmp_path / "changed.mkv"
+
+    def changed(args, **kwargs):
+        result = original(args, **kwargs)
+        source.write_bytes(b"changed during conversion")
+        return result
+
+    monkeypatch.setattr(prepare_source, "run", changed)
+    with pytest.raises(ValueError, match="source changed"):
+        prepare(source, output)
+    assert not list(tmp_path.glob("changed.mkv*"))
+
+
+def test_prepare_preserves_delayed_video_and_audio(source, tmp_path):
+    from source_scan import timestamps
+    shifted, output = tmp_path / "shifted.mkv", tmp_path / "prepared.mkv"
+    subprocess.run(["ffmpeg", "-v", "error", "-i", str(source), "-map", "0", "-c", "copy",
+                    "-output_ts_offset", "5", str(shifted)], check=True, timeout=30)
+    result = prepare(shifted, output)
+    assert timestamps(output) == pytest.approx(timestamps(shifted), abs=0.001)
+    for streams in (result["input_probe"]["streams"], result["output_probe"]["streams"]):
+        assert all(float(s["start_time"]) == pytest.approx(5, abs=0.001) for s in streams)
+
+
+def test_rotated_source_frames_and_crop_use_display_dimensions(source, tmp_path):
+    from edit_io import probe
+    base, rotated, output = tmp_path / "base.mp4", tmp_path / "rotated.mp4", tmp_path / "crop.mkv"
+    subprocess.run(["ffmpeg", "-v", "error", "-i", str(source), "-an", "-c:v", "libx264", str(base)], check=True, timeout=30)
+    subprocess.run(["ffmpeg", "-v", "error", "-i", str(base), "-c", "copy", "-metadata:s:v:0", "rotate=90", str(rotated)], check=True, timeout=30)
+    if not any(abs(row.get("rotation", 0)) == 90 for row in probe(rotated)["streams"][0].get("side_data_list", [])):
+        subprocess.run(["ffmpeg", "-v", "error", "-y", "-display_rotation", "90", "-i", str(base), "-c", "copy", str(rotated)], check=True, timeout=30)
+    assert any(abs(row.get("rotation", 0)) == 90 for row in probe(rotated)["streams"][0].get("side_data_list", []))
+    assert list(selected_frames(rotated, [0], width=90))[0][1].size == (90, 160)
+    result = prepare(rotated, output, crop=[0, 0, 88, 160])
+    video = next(s for s in result["output_probe"]["streams"] if s["codec_type"] == "video")
+    assert (video["width"], video["height"]) == (88, 160)
+
+
+def test_prepare_audio_only_fails_clearly(source, tmp_path):
+    audio, output = tmp_path / "audio.wav", tmp_path / "prepared.mkv"
+    subprocess.run(["ffmpeg", "-v", "error", "-i", str(source), "-vn", str(audio)], check=True, timeout=30)
+    with pytest.raises(ValueError, match="require a video stream"):
+        prepare(audio, output)
+    assert not output.exists()
+
+
+def test_irregular_native_frame_selection(source):
+    assert [i for i, _ in selected_frames(source, [0, 2, 13, 20, 29])] == [0, 2, 13, 20, 29]
