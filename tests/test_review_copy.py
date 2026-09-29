@@ -7,7 +7,7 @@ import subprocess
 import sys
 
 import pytest
-from PIL import Image
+from PIL import Image, ImageChops, ImageStat
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "helpers"))
@@ -95,7 +95,7 @@ def test_record_and_source_changes(source, tmp_path):
 
 
 # Shifted source audio and video preserve their relationship after the copy is normalized
-def test_shifted_audio_and_video(source, tmp_path):
+def test_shifted_audio_and_video(source, tmp_path, monkeypatch):
     shifted = tmp_path / "shifted.mkv"
     subprocess.run(["ffmpeg", "-v", "error", "-i", str(source), "-map", "0", "-c", "copy",
                     "-output_ts_offset", "5", str(shifted)], check=True, timeout=30)
@@ -104,6 +104,28 @@ def test_shifted_audio_and_video(source, tmp_path):
     assert result["timing"]["audio_start_error_seconds"] <= 0.05
     assert result["timing"]["audio_end_error_seconds"] <= 0.05
     assert abs(result["timing"]["seek_offset_seconds"]) < 0.05
+    expected = timeline_view.extract_frames(shifted, 0.2, 1.6, 4, tmp_path / "original-frames")
+    extract, envelope = timeline_view.extract_frames, timeline_view.compute_envelope
+    measured, audio_inputs = [], []
+
+    def compare_pictures(video, *args, **kwargs):
+        assert video == Path(result["movie"])
+        paths = extract(video, *args, **kwargs)
+        for original, copy in zip(expected, paths):
+            with Image.open(original) as a, Image.open(copy) as b:
+                measured.append(max(ImageStat.Stat(ImageChops.difference(a, b)).mean))
+        return paths
+
+    def capture_audio(video, *args, **kwargs):
+        audio_inputs.append(video)
+        return envelope(video, *args, **kwargs)
+
+    monkeypatch.setattr(timeline_view, "extract_frames", compare_pictures)
+    monkeypatch.setattr(timeline_view, "compute_envelope", capture_audio)
+    output = tmp_path / "shifted-timeline.png"
+    timeline_view.render_timeline(shifted, 0.2, 1.6, output, 4, None, Path(result["manifest"]))
+    assert len(measured) == 4 and max(measured) < 5
+    assert audio_inputs == [shifted] and output.is_file()
 
 
 # HDR conversion requires an explicit choice and produces tagged SDR review pixels

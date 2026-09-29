@@ -186,6 +186,10 @@ def verify(source, output, before, after, folder, timeout, max_edge):
     timing = compare_timing(*paths)
     source_start = numeric(before["format"].get("start_time"), "source start time")
     copy_start = numeric(after["format"].get("start_time"), "copy start time")
+    # timeline_view uses input -ss, which is relative to each container's start.
+    # Convert between those relative clocks, accounting for first-video offsets.
+    # A uniform source PTS delay therefore cancels; subtracting raw first PTS
+    # alone would incorrectly seek before the copy starts.
     timing["seek_offset_seconds"] = source_start - timing["source_first_pts"] + timing["copy_first_pts"] - copy_start
     original_audio = next((row for row in before["streams"] if row["codec_type"] == "audio"), None)
     copied_audio = next((row for row in after["streams"] if row["codec_type"] == "audio"), None)

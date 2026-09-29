@@ -18,6 +18,12 @@ image as a review copy. The default long edge is 720 pixels, with no upscaling.
 Copies retain the first video stream and first audio stream when present; extra
 audio, subtitle and data tracks are omitted from this review artifact.
 
+Timeline start/end values are playback seconds relative to the container's start,
+as in FFmpeg's default input `-ss` seeking. They are not raw presentation
+timestamps: a source whose timestamps start at 5 seconds still uses `0 2` to
+review its first two seconds. The verified offset accounts for the source and
+copy container starts as well as their first video frames.
+
 Source contents, settings, tool builds and helper code select a cache entry.
 Existing copies are checked against both source and movie checksums before reuse.
 New movies and their records are published together only after full decoding,
@@ -41,6 +47,9 @@ or remove that generated entry while no review is using it.
 Tagged HDR requires an explicit `--tonemap` choice. The resulting SDR review copy
 is not a color-quality reference. Square pixels and quarter-turn display rotations
 are supported; other geometries fail explicitly. FFmpeg and ffprobe are required,
-with libx264/AAC and zscale/tonemap for HDR. There are no new Python dependencies,
-downloads or paid calls. EDL-wide draft rendering through these copies is a later
+with libx264/AAC and zscale/tonemap for HDR. The review-copy helper uses the base
+Python dependencies and makes no paid calls. The included source helpers from
+#164 provide optional screenshot matching via `uv sync --extra editing` (OpenCV);
+tests use `uv sync --extra test` (pytest). Neither extra is needed to make a review
+copy. EDL-wide draft rendering through these copies is a later
 integration; this change covers rough source playback and timeline inspection.
