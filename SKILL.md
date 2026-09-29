@@ -71,6 +71,8 @@ Helpers (`helpers/transcribe.py`, `helpers/render.py`, etc.) live alongside this
 
 ## Helpers
 
+- **`review_copy.py`, `timeline_view.py --review-copy`** — inspect smaller timed copies while retaining original render sources. See [review copies](references/review-copies.md).
+
 - **`source_scan.py`, `prepare_source.py`, `find_shot.py`, `project_state.py`** — inspect selected sources and retain provenance. See [source inspection](references/sources.md).
 
 - **`transcribe.py <video>`** — single-file Scribe call. `--num-speakers N` optional. Cached.
