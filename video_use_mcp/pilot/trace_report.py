@@ -7,6 +7,7 @@ are recorded after the preview-card deployment; host token usage is unavailable.
 import argparse
 import json
 import os
+import time
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
@@ -167,15 +168,29 @@ def main():
     parser.add_argument("--project", type=UUID)
     parser.add_argument("--include-logs", action="store_true")
     parser.add_argument("--output", type=Path, default=Path(".pilot-traces"))
+    parser.add_argument("--watch-seconds", type=int, default=0)
+    parser.add_argument("--interval", type=int, default=30)
     args = parser.parse_args()
     load_dotenv(args.env, interpolate=False)
     store = Store(Config.env())
     try:
-        report = collect(
-            store, str(args.project) if args.project else None, args.include_logs
-        )
-        write_report(report, args.output)
-        print("Execution trace saved to", args.output)
+        deadline = time.monotonic() + max(0, args.watch_seconds)
+        while True:
+            report = collect(
+                store, str(args.project) if args.project else None, args.include_logs
+            )
+            write_report(report, args.output)
+            if args.watch_seconds:
+                history = args.output / "history.jsonl"
+                with history.open("a") as stream:
+                    os.chmod(history, 0o600)
+                    stream.write(json.dumps(report) + "\n")
+            print("Execution trace saved to", args.output, flush=True)
+            if time.monotonic() >= deadline:
+                break
+            time.sleep(
+                min(max(5, args.interval), 60, max(0, deadline - time.monotonic()))
+            )
     except Exception as exc:
         # Provider exceptions can embed credentials; print only the class.
         print("Trace export failed:", type(exc).__name__)

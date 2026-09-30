@@ -85,6 +85,76 @@ def register_cards(
             structuredContent=data,
         )
 
+    def media_result(uid, pid):
+        store.project(uid, pid)
+        state = store.get("progress", pid) or {}
+        revisions = store.sql(
+            "SELECT id,video,created FROM public.vp_revisions WHERE project=$1 ORDER BY created DESC LIMIT 3",
+            pid,
+        )
+        data = {
+            "updates": [
+                u
+                | {
+                    "preview": u["preview"]
+                    | {"url": link(uid, u["preview"]["object_id"])}
+                }
+                for u in state.get("updates", [])
+                if u.get("preview")
+            ],
+            "revisions": [
+                r
+                | {
+                    "video_url": link(uid, r["video"]),
+                    "download_url": link(uid, r["video"]) + "&download=true",
+                }
+                for r in revisions
+            ],
+        }
+        items = [
+            dict(u["preview"], url=u["preview"]["url"], at=u["at"], caption=u["note"])
+            for u in data["updates"]
+            if u.get("preview") and u["stage"] != "review"
+        ]
+        items += [
+            dict(
+                object_id=r["video"],
+                media_type="video/mp4",
+                url=r["video_url"],
+                download_url=r["download_url"],
+                at=r["created"],
+                caption="Finished video",
+            )
+            for r in data["revisions"]
+        ]
+        if not items:
+            raise ValueError(
+                "No visual exists yet. Use propose_video for a first frame, or finish rendering a draft before showing it."
+            )
+        # InsForge timestamp strings may use Z or +00:00: normalize before sorting.
+        from datetime import datetime
+
+        media = max(
+            items, key=lambda x: datetime.fromisoformat(x["at"].replace("Z", "+00:00"))
+        )
+        if media["media_type"] == "video/mp4":
+            media.setdefault("download_url", media["url"] + "&download=true")
+        return CallToolResult(
+            content=[
+                TextContent(
+                    type="text",
+                    text=json.dumps(
+                        {
+                            "project_id": pid,
+                            "media": media,
+                            "next_action": "Discuss the visual with the user in ordinary conversation. Do not describe workspace setup or terminal commands.",
+                        }
+                    ),
+                )
+            ],
+            structuredContent={"project_id": pid, "media": media},
+        )
+
     async def step_result(uid, task_id, include_logs=False):
         out = public_task(store.task(uid, task_id))
         result = out.get("result") or {}
@@ -119,6 +189,11 @@ def register_cards(
             if result.get("review_object"):
                 store.put("reviewed", out["project"], result["sha256"], ttl=86400)
         content.insert(0, TextContent(type="text", text=json.dumps(out)))
+        if store.get("direction", out["project"]):
+            out["next_action"] = (
+                "Only poll if still running. When a new draft or export is complete, use show_video_preview once to display it in chat."
+            )
+            return CallToolResult(content=content, structuredContent=out)
         return CallToolResult(
             content=content,
             structuredContent=out | {"project_card": snapshot(uid, out["project"])},
@@ -129,13 +204,37 @@ def register_cards(
         mime_type="text/html;profile=mcp-app",
         meta={
             "ui": {
-                "prefersBorder": True,
+                "prefersBorder": False,
                 "csp": {"resourceDomains": [config.public_url], "connectDomains": []},
             },
         },
     )
     def project_card() -> str:
         return (Path(__file__).parent / "ui" / "card.html").read_text()
+
+    # Cached tool definitions in older conversations may still request these.
+    for legacy_uri in (
+        "ui://video-use/project-v2.html",
+        "ui://video-use/project-v3.html",
+    ):
+        mcp.resource(
+            legacy_uri,
+            mime_type="text/html;profile=mcp-app",
+            meta={
+                "ui": {
+                    "prefersBorder": False,
+                    "csp": {
+                        "resourceDomains": [config.public_url],
+                        "connectDomains": [],
+                    },
+                }
+            },
+        )(project_card)
+
+    @mcp.tool(annotations=read, meta=UI_META, title="Video preview")
+    def show_video_preview(project_id: str) -> CallToolResult:
+        """Show only the latest completed IMAGE or playable VIDEO directly in chat, with download for videos. No workspace/dashboard/status UI. Call once after a new draft or successful export; never while waiting for a task. Ask the user for creative feedback on drafts, not command approval."""
+        return media_result(muser(), project_id)
 
     @mcp.tool(annotations=read, meta=UI_META)
     def show_video_project(project_id: str) -> CallToolResult:
@@ -149,7 +248,7 @@ def register_cards(
         """Refresh the project card without consuming a model-driven status check."""
         return snapshot(muser(), project_id)
 
-    @mcp.tool(annotations=execute, meta=UI_META)
+    @mcp.tool(annotations=execute, title="Create video draft")
     async def run_video_step(
         project_id: str,
         request_id: str,
@@ -163,7 +262,7 @@ def register_cards(
         timeout: int = 300,
         review_path: str = "",
     ) -> CallToolResult:
-        """PRIMARY editing tool. Batch source files + command + visible preview in ONE call. The user sees an in-chat image/player. First stage=style with a representative PNG, then motion/draft with a short MP4. Always provide preview_path for those stages. For final rendering set review_path to the final MP4 to return encoded review frames in this same call, then export after inspection. Keep brief/next_action for continuation. Waits 25s; only poll if still running. No network. Reuse rendered scenes for audio-only changes."""
+        """After the user approves the first frame, batch files + render + preview in one call. Write the story and EDL before animation. Use preview_path for motion/draft. Once complete, call show_video_preview and ask for creative feedback; do not immediately finalize. For the final render set review_path to return encoded inspection frames, then export and show_video_preview. Waits 25s; only poll unfinished tasks. Reuse visual renders for audio-only changes. Keep technical implementation out of chat."""
         uid = muser(True)
         if stage in ("style", "motion", "draft") and not preview_path:
             raise ValueError(
@@ -206,7 +305,7 @@ def register_cards(
         await wait_for_task(manager, task["id"], 25)
         return await step_result(uid, task["id"])
 
-    @mcp.tool(annotations=execute, meta=UI_META)
+    @mcp.tool(annotations=execute)
     async def update_video_progress(
         project_id: str,
         stage: Stage,
@@ -249,4 +348,5 @@ def register_cards(
         "snapshot": snapshot,
         "card_result": card_result,
         "task_result": step_result,
+        "media_result": media_result,
     }

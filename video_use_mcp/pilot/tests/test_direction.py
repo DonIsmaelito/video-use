@@ -1,0 +1,108 @@
+import asyncio
+import base64
+import io
+import json
+from types import SimpleNamespace
+from unittest.mock import Mock, AsyncMock
+
+import pytest
+from PIL import Image
+from video_use_mcp.pilot.runtime import Manager
+from video_use_mcp.pilot.tests.test_cards import rpc
+
+pytest_plugins = ["video_use_mcp.pilot.tests.test_oauth_discovery"]
+
+
+def proposal(pilot, **extra):
+    return rpc(
+        pilot,
+        "tools/call",
+        {
+            "name": "propose_video",
+            "arguments": {
+                "title": "Headphones",
+                "brief": "A short headphones explainer",
+                "question": "Would you like this dark technical look or a warmer illustration?",
+                "frame": {
+                    "background": "#111827",
+                    "marks": [
+                        {
+                            "kind": "wave",
+                            "x": 100,
+                            "y": 270,
+                            "w": 400,
+                            "h": 60,
+                            "color": "#f59478",
+                        },
+                        {
+                            "kind": "text",
+                            "x": 80,
+                            "y": 50,
+                            "text": "A quieter world",
+                            "size": 45,
+                        },
+                    ],
+                },
+                **extra,
+            },
+        },
+    )
+
+
+def test_first_response_is_artwork_not_workspace_and_production_waits_for_feedback(
+    pilot,
+):
+    _, app = pilot
+    app.state.manager.save_object = AsyncMock(return_value={"id": "frame-id"})
+    result = proposal(pilot)
+    assert not result.get("isError"), result
+    image = next(c for c in result["content"] if c["type"] == "image")
+    assert Image.open(io.BytesIO(base64.b64decode(image["data"]))).size == (960, 540)
+    data = json.loads(result["content"][0]["text"])
+    pid = data["project_id"]
+    assert (
+        data["status"] == "awaiting_feedback" and "END YOUR TURN" in data["next_action"]
+    )
+    assert set(result["structuredContent"]) == {"project_id", "media"}
+    store = app.state.store
+    store.reserve = Mock()
+    manager = Manager(store, SimpleNamespace())
+    for op in ("narrate", "step", "run", "export"):
+        with pytest.raises(ValueError, match="waiting for user feedback"):
+            manager.submit("tester", pid, op, {}, "do-work")
+    store.reserve.assert_not_called()
+    approved = rpc(
+        pilot,
+        "tools/call",
+        {
+            "name": "accept_video_direction",
+            "arguments": {"project_id": pid, "user_feedback": "Yes use this look"},
+        },
+    )
+    assert not approved.get("isError")
+    assert store.get("direction", pid)["status"] == "approved"
+    app.state.manager.lock = lambda pid: asyncio.Lock()
+    revised = proposal(pilot, project_id=pid)
+    assert not revised.get("isError")
+    assert store.get("direction", pid)["status"] == "awaiting_feedback"
+
+
+def test_preview_requires_actual_media_instead_of_empty_card(pilot):
+    result = rpc(
+        pilot,
+        "tools/call",
+        {
+            "name": "show_video_preview",
+            "arguments": {"project_id": "1691c5fc-be06-4465-9ade-b8d29d9517ba"},
+        },
+    )
+    assert result["isError"]
+    assert "No visual exists yet" in result["content"][0]["text"]
+
+
+def test_readonly_account_cannot_approve_or_generate_proposals(pilot):
+    tools = rpc(pilot, "tools/list", {})["tools"]
+    for name in ("propose_video", "accept_video_direction", "run_video_step"):
+        tool = next(t for t in tools if t["name"] == name)
+        assert not tool["annotations"]["readOnlyHint"]
+        assert not tool["annotations"]["openWorldHint"]

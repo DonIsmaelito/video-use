@@ -27,8 +27,9 @@ def rpc(pilot, method, args):
 def test_ui_discovery_and_resource_security_metadata(pilot):
     tools = rpc(pilot, "tools/list", {})["tools"]
     by_name = {t["name"]: t for t in tools}
-    assert by_name["create_video_project"]["_meta"]["ui"]["resourceUri"] == UI_URI
-    assert by_name["show_video_project"]["_meta"]["ui"]["resourceUri"] == UI_URI
+    assert "create_video_project" not in by_name and "run_video_command" not in by_name
+    assert by_name["propose_video"]["_meta"]["ui"]["resourceUri"] == UI_URI
+    assert by_name["show_video_preview"]["_meta"]["ui"]["resourceUri"] == UI_URI
     for name in (
         "run_video_step",
         "get_video_task",
@@ -36,15 +37,18 @@ def test_ui_discovery_and_resource_security_metadata(pilot):
         "export_video",
         "view_video_frame",
     ):
-        assert by_name[name]["_meta"]["ui"]["resourceUri"] == UI_URI
-    assert by_name["video_project_updates"]["_meta"]["ui"]["visibility"] == ["app"]
+        assert "ui" not in by_name[name].get(
+            "_meta", {}
+        ), "background work must not create empty cards"
+    assert "video_project_updates" not in by_name
     resource = rpc(pilot, "resources/read", {"uri": UI_URI})["contents"][0]
     assert resource["mimeType"] == "text/html;profile=mcp-app"
     assert resource["_meta"]["ui"]["csp"]["resourceDomains"] == [
         "http://localhost:8787"
     ]
     assert "/* APP_BUNDLE */" not in resource["text"]
-    assert "video_project_updates" in resource["text"]
+    assert "video_project_updates" not in resource["text"]
+    assert resource["_meta"]["ui"]["prefersBorder"] is False
 
 
 def test_card_requires_project_ownership_and_returns_saved_context(pilot):

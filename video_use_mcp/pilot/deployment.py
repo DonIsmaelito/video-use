@@ -7,6 +7,7 @@ from video_use_mcp.config import ROOT
 app = modal.App("video-use-browser-pilot")
 image = (
     modal.Image.debian_slim(python_version="3.12")
+    .apt_install("fonts-dejavu-core")
     .pip_install(
         "mcp>=1.30,<2",
         "fastapi>=0.115,<1",

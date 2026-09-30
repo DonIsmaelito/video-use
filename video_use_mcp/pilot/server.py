@@ -30,8 +30,9 @@ from video_use_mcp.store import digest
 from .config import Config
 from .store import Store, ident
 from .runtime import Manager
-from .interaction import TracedMCP, UI_META, wait_for_task, record_progress
+from .interaction import TracedMCP, wait_for_task, record_progress
 from .cards import register_cards
+from .direction import register_direction
 
 
 class PilotAuth(AuthProvider):
@@ -60,30 +61,23 @@ def create_app(config=None, store=None, manager=None):
     mcp = TracedMCP(
         "video-use",
         instructions=(
-            "You are the editing agent. Use video-use tools directly: open a project, read harness guidance, "
-            "inspect media, write editing code, execute it, inspect actual images, then review_video and export_video. "
-            "Do not ask for API keys. Uploads use the workspace link. Long calls return task IDs: get_video_task "
-            "retrieves results and review images. Do not busy-poll. Preserve project IDs for revisions. "
-            "Use a new request_id for each mutation and reuse it only for an exact retry. "
-            "Tasks execute independently, but further creative work requires your next tool call. "
-            "The environment is network-isolated. Speech is supplied by transcribe_video and narrate_video. "
-            "No subagent tool is available here; complete work with these tools. "
-            "Create a project with the user brief to open its live chat card, then use run_video_step to batch files, command and preview. "
-            "Publish a representative style PNG early, then a low-resolution motion clip, then the final reviewed export. "
-            "Give one short conversational update at each milestone and keep working unless approval was requested. "
-            "Save the brief and next_action with steps. On continuation get_video_project to recover context. "
-            "get_video_task waits up to 25 seconds: use its default wait rather than immediate repeated polling. "
-            "Inspect sampled or streamed frames; never load all full-resolution video frames into RAM. "
-            "The sandbox has an 8 GiB memory ceiling. Start with 540p previews before the final render. "
-            "Do not spend minutes writing the full film before showing the first visual: render one representative frame first. "
-            "Completed review results already contain the inspection image: do not fetch them again. "
-            "For the final run_video_step set review_path to combine rendering and encoded review, then export after inspecting. "
-            "For Manim use python /opt/video-use/helpers/render_manim_cached.py SOURCE SCENE... --quality preview|final. "
-            "It prints ordered video paths and reuses unchanged scenes. Pass --dependency for non-Python visual inputs. "
-            "Keep audio mixing separate and remux cached visuals on audio-only edits. Do not disable caching or rerender all scenes for volume changes. "
-            "Avoid setup/environment-probing calls: Python, Pillow, FFmpeg, Manim, Node and Chromium are installed. "
-            "Aim for three visible milestones with about 6-10 substantive calls for a simple short video, not a hard limit. "
-            "Give a short natural-language update with each visual. Show the final player and download link; never claim they exist until export succeeds."
+            "You are the user's video editor inside this conversation. Do not introduce a separate platform, workspace, dashboard, terminal or job queue. "
+            "DEFAULT FIRST TURN: call propose_video immediately with a representative still using simple design marks that illustrate the user's subject. "
+            "Do not run setup, read long guidance, generate narration, write the full story or build animation first. "
+            "Keep the first proposal lightweight: roughly 10-25 marks at 960x540 with clear typography and a meaningful subject illustration. "
+            "After the frame appears, describe its look in one short sentence, ask one concrete creative question, and END YOUR TURN for user feedback. "
+            "This is the normal workflow even when the user only asks for a video and does not say show me. "
+            "If they ask for changes, call propose_video again with the same project_id. Once a NEW user reply agrees, call accept_video_direction with their actual reply. "
+            "THEN read the relevant video_use_guidance, develop the story and EDL, generate narration and create a short motion draft. "
+            "Batch source, story, edit/edl.json and execution using run_video_step. Use the saved edit/direction.json as the visual reference. "
+            "Use show_video_preview only when a new visual exists; it shows media without a dashboard. Ask for feedback on the short draft before the final render. "
+            "Keep technical reasoning and command details out of your conversational updates. Ask about design and story, not permission to run a terminal. "
+            "Only inspect get_video_task when an operation is still queued/running; keep its default 25s wait. No repeated completed-task checks. "
+            "Use run_video_step review_path for final render plus encoded review. Inspect the returned image, export_video, then show_video_preview for the final player and download. "
+            "No API keys, dependency installation, environment probing or subagents. Python/Pillow/FFmpeg/Manim/Node/Chromium are ready. "
+            "For Manim use helpers/render_manim_cached.py under /opt/video-use to reuse unchanged scenes. Mix audio separately from rendering visuals. "
+            "Respect explicit user instructions about interaction. For a user who explicitly delegates all creative choices, record that instruction as feedback after showing the proposal. "
+            "The service cannot see the host transcript, so never invent user feedback or claim an approval that was not given."
         ),
         auth_server_provider=auth,
         auth=AuthSettings(
@@ -109,6 +103,18 @@ def create_app(config=None, store=None, manager=None):
     )
     mcp.trace_store = store
     mcp.trace_config = config
+    mcp.legacy_tools = {
+        "create_video_project",
+        "video_use_setup",
+        "run_video_command",
+        "write_video_file",
+        "patch_video_file",
+        "read_video_file",
+        "list_video_files",
+        "show_video_project",
+        "update_video_progress",
+        "video_project_updates",
+    }
     read = ToolAnnotations(
         readOnlyHint=True, destructiveHint=False, openWorldHint=False
     )
@@ -116,7 +122,7 @@ def create_app(config=None, store=None, manager=None):
         readOnlyHint=False, destructiveHint=False, openWorldHint=False
     )
     execute = ToolAnnotations(
-        readOnlyHint=False, destructiveHint=False, openWorldHint=True
+        readOnlyHint=False, destructiveHint=False, openWorldHint=False
     )
 
     def muser(mutate=False):
@@ -216,6 +222,8 @@ def create_app(config=None, store=None, manager=None):
         mcp, store, manager, config, muser, link, workspace, public_task, read, execute
     )
 
+    register_direction(mcp, store, manager, muser, new_project, cards, write)
+
     @mcp.tool(annotations=read)
     def video_use_setup() -> dict:
         """Get your private workspace link, speech availability, and editing capabilities."""
@@ -229,7 +237,7 @@ def create_app(config=None, store=None, manager=None):
 
     @mcp.tool(annotations=read)
     def video_use_guidance(topic: str = "overview") -> str:
-        """Read current harness instructions. Topics: overview, motion, manim, or a helpers/<file> or skills/<file> documentation path."""
+        """Read AFTER the user agrees to the first frame. Start new videos with propose_video, not this tool. Topics: overview, motion, manim, or a helpers/<file> or skills/<file> documentation path."""
         muser()
         target = {
             "overview": "SKILL.md",
@@ -251,18 +259,15 @@ def create_app(config=None, store=None, manager=None):
             "Remote runtime: /opt/video-use contains the harness; /workspace contains sources/ and edit/. "
             "Use the connector speech tools instead of API keys. No external network, package installation, "
             "local machine paths or subagents. Read relevant guidance and preserve edit/project.md. "
-            "Browser workflow: open the chat card once; prefer run_video_step for batched files, execution and preview. "
-            "Publish a style frame early, then a 540p draft clip, and send brief milestone messages while continuing. "
-            "Save brief/next_action so another turn can resume. get_video_task waits by default; never busy-poll. "
-            "Sample or stream video frames; never convert a whole video to an in-memory NumPy array. "
-            "Draft previews do not count as final encoded review. "
-            "Show one representative image before building the entire animation. A visual milestone step requires preview_path. "
-            "run_video_step review_path combines final render and review; inspect the returned image, then export. "
-            "Completed results need no extra polling. Batch source files and execution instead of one write call per file. "
-            "For Manim prefer python /opt/video-use/helpers/render_manim_cached.py SOURCE SCENE... --quality preview|final. "
-            "It reuses unchanged scene videos; pass --dependency for non-Python visual inputs. "
-            "Mix narration/music separately; audio-only changes must reuse the rendered video. Do not disable Manim caching. "
-            "Python, Pillow, FFmpeg, Manim, Node and Chromium are already installed: skip environment probes.\n\n"
+            "Conversation workflow: a lightweight proposed frame comes BEFORE this production guidance. "
+            "After the user approves the frame, follow the harness to write the story, edit/project.md and edit/edl.json. "
+            "Preserve the selected design in edit/direction.json. Batch work with run_video_step. "
+            "Show a short draft using show_video_preview, ask one creative question, and wait for feedback before the final. "
+            "Never show workspace setup/status cards, technical logs or narrate shell commands to the user. "
+            "Completed review results already contain inspection images; poll only queued/running tasks. "
+            "Use run_video_step review_path to combine final rendering and review. Export only after inspecting, then show_video_preview. "
+            "For Manim use python /opt/video-use/helpers/render_manim_cached.py SOURCE SCENE... --quality preview|final; add --dependency for visual data files. "
+            "Keep audio mixing separate and reuse scene videos for audio edits. Do not disable caching.\n\n"
             + path.read_text()[:60000]
         )
 
@@ -276,7 +281,7 @@ def create_app(config=None, store=None, manager=None):
             )
         }
 
-    @mcp.tool(annotations=write, meta=UI_META)
+    @mcp.tool(annotations=write)
     def create_video_project(title: str, brief: str = "") -> CallToolResult:
         """START HERE: create a private video project and open its live in-chat preview card. Supply the user brief. Next use run_video_step to generate an early style image, then a short motion draft, then review/export. The card updates automatically; the user can play and download the final video."""
         if len(brief) > 4000:
@@ -352,7 +357,7 @@ def create_app(config=None, store=None, manager=None):
             )
         )
 
-    @mcp.tool(annotations=execute, meta=UI_META)
+    @mcp.tool(annotations=execute)
     async def run_video_command(
         project_id: str, command: str, request_id: str, timeout: int = 300
     ) -> CallToolResult:
@@ -369,7 +374,7 @@ def create_app(config=None, store=None, manager=None):
             )
         )
 
-    @mcp.tool(annotations=execute, meta=UI_META)
+    @mcp.tool(annotations=execute)
     async def view_video_frame(project_id: str, path: str) -> CallToolResult:
         """Inspect an actual PNG/JPEG and publish it into the user's chat preview card in the same call."""
         uid = muser(True)
@@ -419,7 +424,7 @@ def create_app(config=None, store=None, manager=None):
             )
         )
 
-    @mcp.tool(annotations=execute, meta=UI_META)
+    @mcp.tool(annotations=execute)
     async def review_video(
         project_id: str, video_path: str, request_id: str
     ) -> CallToolResult:
@@ -434,7 +439,7 @@ def create_app(config=None, store=None, manager=None):
             )
         )
 
-    @mcp.tool(annotations=execute, meta=UI_META)
+    @mcp.tool(annotations=execute)
     async def export_video(
         project_id: str, video_path: str, summary: str, request_id: str
     ) -> CallToolResult:
@@ -449,7 +454,7 @@ def create_app(config=None, store=None, manager=None):
             )
         )
 
-    @mcp.tool(annotations=read, meta=UI_META)
+    @mcp.tool(annotations=read)
     async def get_video_task(
         task_id: str, wait_seconds: int = 25, include_logs: bool = False
     ) -> CallToolResult:

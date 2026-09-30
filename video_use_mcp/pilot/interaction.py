@@ -15,7 +15,7 @@ from mcp.server.fastmcp import FastMCP
 
 from .store import ident
 
-UI_URI = "ui://video-use/project-v3.html"
+UI_URI = "ui://video-use/media-v4.html"
 UI_META = {"ui": {"resourceUri": UI_URI}}
 
 
@@ -38,6 +38,15 @@ def uuid_or_none(value):
 
 
 class TracedMCP(FastMCP):
+    async def list_tools(self):
+        # Old handlers remain callable by existing chats; new discovery presents
+        # the concise conversational workflow instead of a terminal toolbox.
+        return [
+            t
+            for t in await super().list_tools()
+            if t.name not in getattr(self, "legacy_tools", set())
+        ]
+
     async def call_tool(self, name, arguments):
         started = time.monotonic()
         outcome = "ok"
@@ -73,6 +82,7 @@ class TracedMCP(FastMCP):
                     payload = payload if isinstance(payload, dict) else {}
                     pid = uuid_or_none(
                         arguments.get("project_id")
+                        or payload.get("project_id")
                         or payload.get("project")
                         or payload.get("id")
                     )

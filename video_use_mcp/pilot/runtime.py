@@ -305,6 +305,14 @@ class Manager:
 
     def submit(self, uid, pid, operation, args, request_id):
         self.store.project(uid, pid)
+        direction = self.store.get("direction", pid)
+        if (
+            isinstance(direction, dict)
+            and direction.get("status") == "awaiting_feedback"
+        ):
+            raise ValueError(
+                "The proposed frame is waiting for user feedback. Ask the design question and end your turn. Do not generate narration or render until the user agrees and accept_video_direction records their reply."
+            )
         if len(json.dumps(args).encode()) > 2100000:
             raise ValueError("Tool input exceeds 2 MB")
         if not 1 <= len(request_id) <= 120:
@@ -428,6 +436,29 @@ class Manager:
         uid, pid, tid = task["owner"], task["project"], task["id"]
         a = task["payload"]
         op = task["operation"]
+        direction = self.store.get("direction", pid)
+        if isinstance(direction, dict) and direction.get("status") == "approved":
+            # Preserve the selected design for future turns and restored workspaces.
+            if (
+                self.sessions.get(pid, {}).get("direction_object")
+                != direction["preview_object"]
+            ):
+                await sb.write("edit/direction.json", json.dumps(direction).encode())
+                rows = self.store.sql(
+                    "SELECT key FROM public.vp_objects WHERE id=$1 AND owner=$2",
+                    direction["preview_object"],
+                    uid,
+                )
+                if not rows:
+                    raise ValueError(
+                        "The approved frame is no longer available; propose a new direction"
+                    )
+                with tempfile.TemporaryDirectory() as tmp:
+                    local = Path(tmp) / "direction.png"
+                    await asyncio.to_thread(self.store.download, rows[0]["key"], local)
+                    await sb.upload("edit/direction.png", local)
+                if pid in self.sessions:
+                    self.sessions[pid]["direction_object"] = direction["preview_object"]
         if op == "step":
             for item in a.get("files", []):
                 await sb.write(item["path"], item["content"].encode())
