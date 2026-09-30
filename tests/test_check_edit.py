@@ -147,7 +147,7 @@ def test_format_duration_checks_bounds_when_stream_duration_is_unusable(edit, mo
 
 def test_unreadable_existing_subtitles_fail(edit, monkeypatch):
     edl, out, _ = edit
-    captions = edl.parent / "words.srt"
+    captions = (edl.parent / "words.srt").resolve()
     captions.write_text("captions")
     change(edl, subtitles="words.srt")
     real_open = Path.open
