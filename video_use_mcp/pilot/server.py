@@ -13,7 +13,7 @@ from fastapi import FastAPI, Request, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse, RedirectResponse
 from starlette.background import BackgroundTask
-from mcp.server.fastmcp import FastMCP, Image
+from mcp.server.fastmcp import Image
 from mcp.server.auth.settings import (
     AuthSettings,
     ClientRegistrationOptions,
@@ -30,6 +30,8 @@ from video_use_mcp.store import digest
 from .config import Config
 from .store import Store, ident
 from .runtime import Manager
+from .interaction import TracedMCP, UI_META, wait_for_task
+from .cards import register_cards
 
 
 class PilotAuth(AuthProvider):
@@ -55,7 +57,7 @@ def create_app(config=None, store=None, manager=None):
     store = store or Store(config)
     manager = manager or Manager(store, config)
     auth = PilotAuth(store, config)
-    mcp = FastMCP(
+    mcp = TracedMCP(
         "video-use",
         instructions=(
             "You are the editing agent. Use video-use tools directly: open a project, read harness guidance, "
@@ -65,7 +67,14 @@ def create_app(config=None, store=None, manager=None):
             "Use a new request_id for each mutation and reuse it only for an exact retry. "
             "Tasks execute independently, but further creative work requires your next tool call. "
             "The environment is network-isolated. Speech is supplied by transcribe_video and narrate_video. "
-            "No subagent tool is available here; complete work with these tools."
+            "No subagent tool is available here; complete work with these tools. "
+            "Create a project to show its live chat card, then prefer run_video_step to batch files, command and preview. "
+            "Publish a representative style PNG early, then a low-resolution motion clip, then the final reviewed export. "
+            "Give one short conversational update at each milestone and keep working unless approval was requested. "
+            "Save the brief and next_action with steps. On continuation get_video_project to recover context. "
+            "get_video_task waits up to 25 seconds: use its default wait rather than immediate repeated polling. "
+            "Inspect sampled or streamed frames; never load all full-resolution video frames into RAM. "
+            "The sandbox has an 8 GiB memory ceiling. Start with 540p previews before the final render."
         ),
         auth_server_provider=auth,
         auth=AuthSettings(
@@ -89,6 +98,7 @@ def create_app(config=None, store=None, manager=None):
             allowed_origins=[config.public_url, config.studio_url],
         ),
     )
+    mcp.trace_store = store
     read = ToolAnnotations(
         readOnlyHint=True, destructiveHint=False, openWorldHint=False
     )
@@ -130,13 +140,17 @@ def create_app(config=None, store=None, manager=None):
                 "created",
                 "updated",
             )
-        } | {"workspace_url": workspace(t["project"])}
+        } | {
+            "workspace_url": workspace(t["project"]),
+            "next_check": "If still running, call get_video_task with its default wait. The chat card refreshes independently.",
+        }
 
     def project_detail(uid, pid):
         p = store.project(uid, pid)
         return {
             "id": pid,
             "title": p["title"],
+            "continuation": store.get("progress", pid) or {},
             "workspace_url": workspace(pid),
             "harness_version": __import__("os").getenv(
                 "PILOT_HARNESS_VERSION", "development"
@@ -212,7 +226,12 @@ def create_app(config=None, store=None, manager=None):
         return (
             "Remote runtime: /opt/video-use contains the harness; /workspace contains sources/ and edit/. "
             "Use the connector speech tools instead of API keys. No external network, package installation, "
-            "local machine paths or subagents. Read relevant guidance and preserve edit/project.md.\n\n"
+            "local machine paths or subagents. Read relevant guidance and preserve edit/project.md. "
+            "Browser workflow: open the chat card once; prefer run_video_step for batched files, execution and preview. "
+            "Publish a style frame early, then a 540p draft clip, and send brief milestone messages while continuing. "
+            "Save brief/next_action so another turn can resume. get_video_task waits by default; never busy-poll. "
+            "Sample or stream video frames; never convert a whole video to an in-memory NumPy array. "
+            "Draft previews do not count as final encoded review.\n\n"
             + path.read_text()[:60000]
         )
 
@@ -226,7 +245,7 @@ def create_app(config=None, store=None, manager=None):
             )
         }
 
-    @mcp.tool(annotations=write)
+    @mcp.tool(annotations=write, meta=UI_META)
     def create_video_project(title: str) -> dict:
         """Create a private project and return its browser upload link."""
         return new_project(muser(True), title)
@@ -256,12 +275,16 @@ def create_app(config=None, store=None, manager=None):
                 30,
             )
 
+    async def submitted(task):
+        await wait_for_task(manager, task["id"], 25)
+        return public_task(store.task(muser(), task["id"]))
+
     @mcp.tool(annotations=execute)
     async def write_video_file(
         project_id: str, path: str, content: str, request_id: str
     ) -> dict:
-        """Save UTF-8 project source and a durable checkpoint. Returns a task ID."""
-        return public_task(
+        """Save UTF-8 project source and a durable checkpoint. Waits up to 25 seconds; prefer run_video_step to batch files."""
+        return await submitted(
             manager.submit(
                 muser(True),
                 project_id,
@@ -276,7 +299,7 @@ def create_app(config=None, store=None, manager=None):
         project_id: str, path: str, old: str, new: str, request_id: str
     ) -> dict:
         """Replace one exact occurrence in a project file, then checkpoint."""
-        return public_task(
+        return await submitted(
             manager.submit(
                 muser(True),
                 project_id,
@@ -290,10 +313,10 @@ def create_app(config=None, store=None, manager=None):
     async def run_video_command(
         project_id: str, command: str, request_id: str, timeout: int = 300
     ) -> dict:
-        """Execute FFmpeg, Python, Manim, Node or shell in the isolated workspace. Return a task ID promptly; retrieve logs using get_video_task. Maximum 1800 seconds. No network or secrets."""
+        """Execute FFmpeg, Python, Manim, Node or shell in the isolated workspace. Wait up to 25 seconds; unfinished tasks continue. Retrieve logs using get_video_task with its default wait. Maximum 1800 seconds. No network or secrets."""
         if len(command) > 30000:
             raise ValueError("Command exceeds 30000 characters")
-        return public_task(
+        return await submitted(
             manager.submit(
                 muser(True),
                 project_id,
@@ -311,7 +334,7 @@ def create_app(config=None, store=None, manager=None):
     @mcp.tool(annotations=execute)
     async def transcribe_video(project_id: str, path: str, request_id: str) -> dict:
         """Transcribe uploaded speech with word timing using the owner's speech allowance."""
-        return public_task(
+        return await submitted(
             manager.submit(
                 muser(True),
                 project_id,
@@ -328,7 +351,7 @@ def create_app(config=None, store=None, manager=None):
         """Generate narration and word timing using the owner's speech allowance."""
         if not 1 <= len(text) <= 2000:
             raise ValueError("Narration must be 1–2000 characters")
-        return public_task(
+        return await submitted(
             manager.submit(
                 muser(True),
                 project_id,
@@ -341,7 +364,7 @@ def create_app(config=None, store=None, manager=None):
     @mcp.tool(annotations=execute)
     async def review_video(project_id: str, video_path: str, request_id: str) -> dict:
         """Extract four encoded frames from the final MP4. Call get_video_task to see and inspect the review image before export."""
-        return public_task(
+        return await submitted(
             manager.submit(
                 muser(True),
                 project_id,
@@ -356,7 +379,7 @@ def create_app(config=None, store=None, manager=None):
         project_id: str, video_path: str, summary: str, request_id: str
     ) -> dict:
         """Verify and publish a reviewed MP4 and editable source ZIP. Requires review of this exact encoded video. Summarize your visual assessment honestly."""
-        return public_task(
+        return await submitted(
             manager.submit(
                 muser(True),
                 project_id,
@@ -367,9 +390,15 @@ def create_app(config=None, store=None, manager=None):
         )
 
     @mcp.tool(annotations=read)
-    async def get_video_task(task_id: str) -> list:
-        """Get task status/results/logs, final links, or actual encoded review images. Avoid repeated polling; return the live workspace while rendering."""
+    async def get_video_task(
+        task_id: str, wait_seconds: int = 25, include_logs: bool = False
+    ) -> list:
+        """Wait up to 25 seconds for results, final links or encoded review images. Keep the default wait to avoid burning calls on polling. Compact output by default; include_logs retrieves diagnostic logs."""
         uid = muser()
+        t = store.task(uid, task_id)
+        if not 0 <= wait_seconds <= 25:
+            raise ValueError("wait_seconds must be 0–25")
+        await wait_for_task(manager, task_id, wait_seconds)
         t = store.task(uid, task_id)
         out = public_task(t)
         out["events"] = store.sql(
@@ -377,6 +406,15 @@ def create_app(config=None, store=None, manager=None):
             task_id,
         )
         result = t.get("result") or {}
+        if not include_logs:
+            out["events"] = [
+                {"id": e["id"], "message": e["message"][-400:]}
+                for e in out["events"][:2]
+            ]
+            out["result"] = {
+                k: (v[-2000:] if k in ("stdout", "stderr") else v)
+                for k, v in result.items()
+            }
         items = []
         for kind in ("video", "source"):
             if result.get(kind + "_id"):
@@ -422,6 +460,9 @@ def create_app(config=None, store=None, manager=None):
             await manager.stop(project_id)
         return {"closed": project_id, "message": "Saved project remains available"}
 
+    register_cards(
+        mcp, store, manager, config, muser, link, workspace, public_task, read, execute
+    )
     mcp_app = mcp.streamable_http_app()
 
     @contextlib.asynccontextmanager
@@ -736,10 +777,14 @@ def create_app(config=None, store=None, manager=None):
             local,
             media_type="video/mp4"
             if obj["kind"] == "video"
-            else "application/octet-stream",
+            else (
+                "image/png"
+                if obj["name"].endswith(".png")
+                else "application/octet-stream"
+            ),
             filename=obj["name"],
             content_disposition_type="inline"
-            if obj["kind"] == "video"
+            if obj["kind"] in ("video", "review")
             else "attachment",
             background=BackgroundTask(tmp.cleanup),
         )

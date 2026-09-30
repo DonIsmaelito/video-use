@@ -1,7 +1,7 @@
 """Export an owner-only, read-only timeline of persisted pilot tasks.
 
-This is execution telemetry, not a transcript of the host assistant. Tool polling,
-chat turns, host token usage and internal reasoning are not recorded by the pilot.
+This is execution telemetry, not a transcript of the host assistant. Tool calls
+are recorded after the preview-card deployment; host token usage is unavailable.
 """
 
 import argparse
@@ -26,7 +26,19 @@ def collect(store, project_id=None, include_logs=False):
     )
     if project_id and not projects:
         raise ValueError("Project not found")
+    traces = [
+        json.loads(store.vault.decrypt(r["value"].encode()))
+        for r in store.sql(
+            "SELECT value FROM public.vp_kv WHERE kind='trace' AND expires>extract(epoch from now()) ORDER BY expires DESC LIMIT 10000"
+        )
+    ]
     for project in projects:
+        project["continuation"] = store.get("progress", project["id"]) or {}
+        project["tool_calls"] = sorted(
+            [t for t in traces if t.get("project") == project["id"]],
+            key=lambda t: t["at"],
+        )
+        project["tool_counts"] = dict(Counter(t["tool"] for t in project["tool_calls"]))
         tasks = store.sql(
             "SELECT id,operation,status,created,updated,error,result "
             "FROM public.vp_tasks WHERE project=$1 ORDER BY created,id",
@@ -76,8 +88,11 @@ def collect(store, project_id=None, include_logs=False):
         "observed_at": datetime.now(timezone.utc).isoformat(),
         "projects": projects,
         "includes_logs": include_logs,
+        "unassigned_tool_calls": [t for t in traces if not t.get("project")]
+        if not project_id
+        else [],
         "limitations": [
-            "Task counts are not total MCP tool calls. Reads, polling and host tool discovery are absent.",
+            "Tool metadata begins with the preview-card deployment and expires after 30 days. Discovery and host chat turns are not captured. Up to 10000 recent tool calls are included; calls without a project ID are listed separately.",
             "Elapsed time includes queueing, workspace setup and checkpoints, not just rendering.",
             "A succeeded run task can contain a nonzero command exit code; inspect both fields.",
             "Claude/ChatGPT turns, token usage, remaining subscription allowance and reasoning are not available here.",
@@ -125,7 +140,14 @@ def write_report(report, output):
                 f"| {seconds if seconds is not None else 'in progress'} "
                 f"| {exit_code if exit_code is not None else ''} | {detail} |"
             )
-        lines += [""]
+        lines += [
+            "",
+            "Tool calls: " + json.dumps(project.get("tool_counts", {})),
+            "",
+            "Saved next action: "
+            + project.get("continuation", {}).get("next_action", "Not recorded"),
+            "",
+        ]
     lines += ["## Coverage", "", *("- " + x for x in report["limitations"]), ""]
     for name, content in (
         ("latest.json", json.dumps(report, indent=2, ensure_ascii=False) + "\n"),

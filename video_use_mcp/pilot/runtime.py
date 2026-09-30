@@ -16,6 +16,7 @@ from PIL import Image
 from video_use_mcp.sandbox import ModalSandbox
 from video_use_mcp.agent import ProductionAgent
 from .store import ident
+from .interaction import record_progress
 
 PACK = r"""
 import pathlib,zipfile
@@ -380,6 +381,52 @@ class Manager:
         uid, pid, tid = task["owner"], task["project"], task["id"]
         a = task["payload"]
         op = task["operation"]
+        if op == "step":
+            for item in a.get("files", []):
+                await sb.write(item["path"], item["content"].encode())
+            result = {"saved": [x["path"] for x in a.get("files", [])]}
+            if a.get("command"):
+                command = await sb.run(a["command"], a.get("timeout", 300))
+                self.event(task, command["stdout"] + "\n" + command["stderr"])
+                result.update(command)
+                if command["exit_code"]:
+                    record_progress(
+                        self.store,
+                        pid,
+                        "needs_attention",
+                        "The command needs a correction.",
+                        a.get("next_action", "Inspect the command error and retry."),
+                    )
+                    return result
+            preview = (
+                await self.publish_preview(uid, pid, sb, a["preview_path"])
+                if a.get("preview_path")
+                else None
+            )
+            record_progress(
+                self.store,
+                pid,
+                a["stage"],
+                a["note"],
+                a.get("next_action", ""),
+                a.get("brief", ""),
+                preview,
+            )
+            if preview:
+                result["preview"] = preview
+            return result
+        if op == "preview":
+            preview = await self.publish_preview(uid, pid, sb, a["path"])
+            record_progress(
+                self.store,
+                pid,
+                a["stage"],
+                a["note"],
+                a.get("next_action", ""),
+                a.get("brief", ""),
+                preview,
+            )
+            return {"preview": preview}
         if op == "run":
             r = await sb.run(a["command"], a.get("timeout", 300))
             self.event(task, r["stdout"] + "\n" + r["stderr"])
@@ -524,6 +571,13 @@ class Manager:
                 a["summary"][:4000],
                 json.dumps(meta | {"sha256": digest}),
             )
+            record_progress(
+                self.store,
+                pid,
+                "complete",
+                a["summary"][:1200],
+                "Export complete. Continue in this project for revisions.",
+            )
             return {
                 "revision_id": revision,
                 "video_id": video["id"],
@@ -531,6 +585,49 @@ class Manager:
                 **meta,
             }
         raise ValueError("Unknown operation")
+
+    async def publish_preview(self, uid, pid, sb, source):
+        """Publish bounded PNG or H.264 draft; it never marks final review complete."""
+        path = await sb.safe_path(source)
+        suffix = Path(path).suffix.lower()
+        with tempfile.TemporaryDirectory() as tmp:
+            if suffix in (".png", ".jpg", ".jpeg"):
+                raw = await sb.read(source, 8000000)
+                local = Path(tmp) / "preview.png"
+                with Image.open(io.BytesIO(raw)) as im:
+                    if im.width * im.height > 20000000:
+                        raise ValueError("Preview image exceeds 20 megapixels")
+                    im.thumbnail((1280, 1280))
+                    im.convert("RGB").save(local, "PNG")
+                kind, media_type = "review", "image/png"
+            elif suffix in (".mp4", ".mov", ".webm", ".mkv"):
+                draft = "edit/verify/preview-" + ident() + ".mp4"
+                dest = await sb.safe_path(draft, write=True)
+                r = await sb.run(
+                    "ffmpeg -v error -y -i "
+                    + shlex.quote(path)
+                    + " -t 20 -vf "
+                    + shlex.quote(
+                        "scale=960:540:force_original_aspect_ratio=decrease:force_divisible_by=2,fps=24"
+                    )
+                    + " -c:v libx264 -preset veryfast -crf 25 -pix_fmt yuv420p -c:a aac -movflags +faststart "
+                    + shlex.quote(dest),
+                    120,
+                )
+                if r["exit_code"]:
+                    raise ValueError("Could not encode preview clip")
+                local = Path(tmp) / "preview.mp4"
+                await sb.download(draft, local, 25000000)
+                kind, media_type = "video", "video/mp4"
+            else:
+                raise ValueError("Preview must be a PNG, JPEG or video file")
+            obj = await self.save_object(uid, pid, kind, local.name, local)
+        return {
+            "object_id": obj["id"],
+            "media_type": media_type,
+            "name": obj["name"],
+            "draft": True,
+        }
 
     async def image(self, uid, pid, path):
         async with self.lock(pid):

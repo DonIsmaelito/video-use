@@ -90,3 +90,5 @@ benchmarks/baselines/*.local.json
 
 .pilot-*
 !studio/package-lock.json
+
+!video_use_mcp/pilot/ui/package-lock.json

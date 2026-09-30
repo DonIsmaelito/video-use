@@ -29,7 +29,7 @@ image = (
     .add_local_dir(
         ROOT / "video_use_mcp",
         "/opt/video-use/video_use_mcp",
-        ignore=["__pycache__", "*.pyc", "tests"],
+        ignore=["__pycache__", "*.pyc", "tests", "node_modules", "**/node_modules/**"],
     )
     .add_local_dir(
         ROOT / "helpers", "/opt/video-use/helpers", ignore=["__pycache__", "*.pyc"]
