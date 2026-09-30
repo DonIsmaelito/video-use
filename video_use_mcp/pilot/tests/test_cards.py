@@ -173,3 +173,40 @@ def test_preview_does_not_set_final_review_gate():
     assert result["preview"]["object_id"] == "preview"
     assert all(c.args[0] != "reviewed" for c in store.put.call_args_list)
     assert json.dumps(store.put.call_args.args[2])
+
+
+def test_late_preview_poll_returns_image_without_unlocking_final_export(pilot):
+    from PIL import Image
+
+    _, app = pilot
+    store = app.state.store
+    tid = "790d0a5a-eb6a-4115-99a2-1e63dbe03e9c"
+    store.task = Mock(
+        return_value={
+            "id": tid,
+            "project": PID,
+            "operation": "step",
+            "status": "succeeded",
+            "result": {
+                "preview": {"object_id": "preview-id", "media_type": "image/png"}
+            },
+            "error": None,
+            "created": "",
+            "updated": "",
+        }
+    )
+    store.sql.side_effect = (
+        lambda query, *args: [{"key": "private-preview"}]
+        if "SELECT key" in query
+        else []
+    )
+    store.download = Mock(
+        side_effect=lambda key, path: Image.new("RGB", (2, 2)).save(path)
+    )
+    app.state.manager.running = {}
+    result = rpc(
+        pilot, "tools/call", {"name": "get_video_task", "arguments": {"task_id": tid}}
+    )
+    assert not result.get("isError"), result
+    assert any(c["type"] == "image" for c in result["content"])
+    assert store.get("reviewed", PID) is None

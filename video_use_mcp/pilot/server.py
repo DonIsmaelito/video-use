@@ -420,17 +420,24 @@ def create_app(config=None, store=None, manager=None):
             if result.get(kind + "_id"):
                 out[kind + "_url"] = link(uid, result[kind + "_id"])
         items.append(json.dumps(out))
-        if t["status"] == "succeeded" and result.get("review_object"):
+        preview = result.get("preview") or {}
+        image_object = result.get("review_object") or (
+            preview.get("object_id")
+            if preview.get("media_type") == "image/png"
+            else None
+        )
+        if t["status"] == "succeeded" and image_object:
             obj = store.sql(
                 "SELECT key FROM public.vp_objects WHERE id=$1 AND owner=$2",
-                result["review_object"],
+                image_object,
                 uid,
             )[0]
             with tempfile.TemporaryDirectory() as tmp:
                 p = Path(tmp) / "review.png"
                 await asyncio.to_thread(store.download, obj["key"], p)
                 items.append(Image(data=p.read_bytes(), format="png"))
-            store.put("reviewed", t["project"], result["sha256"], ttl=86400)
+            if result.get("review_object"):
+                store.put("reviewed", t["project"], result["sha256"], ttl=86400)
         return items
 
     @mcp.tool(
