@@ -83,7 +83,7 @@ class PilotSandbox(ModalSandbox):
 
 class Manager:
     def __init__(self, store, config, image=None):
-        self.store, self.config, self.image = store, config, image
+        self.store, self.config, self.runtime_image = store, config, image
         self.sessions = {}
         self.locks = {}
         self.running = {}
@@ -101,18 +101,37 @@ class Manager:
         )
 
     async def start(self):
-        # A coordinator restart must not silently replay non-idempotent commands.
+        import modal
+
+        # Keep idle workspaces (and their rendered media) across coordinator changes.
+        # Interrupted commands cannot safely be replayed or adopted mid-execution.
+        interrupted = {
+            p["project"]
+            for p in self.store.sql(
+                "SELECT DISTINCT project FROM public.vp_tasks WHERE status IN ('queued','running')"
+            )
+        }
         for p in self.store.sql(
-            "SELECT id,sandbox_id FROM public.vp_projects WHERE sandbox_id IS NOT NULL"
+            "SELECT id,owner,sandbox_id,touched FROM public.vp_projects WHERE sandbox_id IS NOT NULL"
         ):
             try:
-                import modal
-
                 sb = await modal.Sandbox.from_id.aio(p["sandbox_id"])
+                if p["id"] not in interrupted and await sb.poll.aio() is None:
+                    wrapper = PilotSandbox(self.config, self.runtime_image)
+                    wrapper.instance = sb
+                    self.sessions[p["id"]] = {
+                        "sandbox": wrapper,
+                        "owner": p["owner"],
+                        "created": p["touched"],
+                        "touched": time.time(),
+                    }
+                    continue
                 await sb.terminate.aio()
-            except Exception:
+            except modal.exception.NotFoundError:
                 pass
-        self.store.sql("UPDATE public.vp_projects SET sandbox_id=NULL")
+            self.store.sql(
+                "UPDATE public.vp_projects SET sandbox_id=NULL WHERE id=$1", p["id"]
+            )
         self.store.sql(
             "UPDATE public.vp_tasks SET status='failed',error='Service restarted; last saved source is retained. Start a new task.',updated=now() WHERE status IN ('queued','running')"
         )
@@ -125,8 +144,11 @@ class Manager:
         for task in list(self.running.values()):
             task.cancel()
         await asyncio.gather(*list(self.running.values()), return_exceptions=True)
-        for pid in list(self.sessions):
-            await self.stop(pid)
+        # Sandboxes have their own idle/absolute limits; the next coordinator adopts them.
+        for session in self.sessions.values():
+            with contextlib.suppress(Exception):
+                await session["sandbox"].instance.detach.aio()
+        self.sessions.clear()
 
     async def stop(self, pid):
         value = self.sessions.pop(pid, None)
@@ -173,7 +195,7 @@ class Manager:
                 )
             if self.store.get("control", "paused"):
                 raise ValueError("The owner has paused new execution")
-            sb = PilotSandbox(self.config, self.image)
+            sb = PilotSandbox(self.config, self.runtime_image)
             # Keep the existing isolation; one hour absolute lifetime bounds forgotten sessions.
             import modal
 
@@ -182,7 +204,7 @@ class Manager:
             )
             sb.instance = await modal.Sandbox.create.aio(
                 app=app,
-                image=self.image,
+                image=self.runtime_image,
                 timeout=3600,
                 idle_timeout=600,
                 cpu=(2.0, 4.0),
@@ -289,10 +311,17 @@ class Manager:
             raise ValueError("Provide a request ID of 1–120 characters")
         if self.store.get("control", "paused"):
             raise ValueError("Execution is paused")
-        old = self.store.sql(
+        # Keep exact retries idempotent while allowing different projects to use export-1.
+        legacy = self.store.sql(
             "SELECT * FROM public.vp_tasks WHERE owner=$1 AND request_id=$2",
             uid,
             request_id,
+        )
+        scoped_id = pid + ":" + request_id
+        old = [t for t in legacy if t["project"] == pid] or self.store.sql(
+            "SELECT * FROM public.vp_tasks WHERE owner=$1 AND request_id=$2",
+            uid,
+            scoped_id,
         )
         if old:
             if (
@@ -300,13 +329,15 @@ class Manager:
                 or old[0]["payload"] != args
                 or old[0]["project"] != pid
             ):
-                raise ValueError("Request ID already used for different work")
+                raise ValueError(
+                    "Request ID already used for different work in this project. Use a new request_id; only exact retries may reuse it."
+                )
             return old[0]
         tid = ident()
         seconds = int(args.get("timeout", 300))
         if not 1 <= seconds <= 1800:
             raise ValueError("Command timeout must be 1–1800 seconds")
-        usage = self.store.reserve(uid, "compute", seconds, request_id)
+        usage = self.store.reserve(uid, "compute", seconds, scoped_id)
         try:
             task = self.store.sql(
                 "INSERT INTO public.vp_tasks(id,owner,project,operation,request_id,payload,usage_id) VALUES ($1,$2,$3,$4,$5,$6::jsonb,$7) RETURNING *",
@@ -314,7 +345,7 @@ class Manager:
                 uid,
                 pid,
                 operation,
-                request_id,
+                scoped_id,
                 json.dumps(args),
                 usage,
             )[0]
@@ -338,12 +369,28 @@ class Manager:
                 )
                 self.event(task, "Workspace ready")
                 result = await asyncio.wait_for(self.perform(task, sb), seconds)
-                await self.checkpoint(uid, pid, sb)
-                self.store.sql(
-                    "UPDATE public.vp_tasks SET status='succeeded',result=$2::jsonb,updated=now() WHERE id=$1",
-                    tid,
-                    json.dumps(result),
-                )
+                if task.get("operation") not in ("review", "export", "preview"):
+                    await self.checkpoint(uid, pid, sb)
+                if result.get("exit_code", 0):
+                    self.store.sql(
+                        "UPDATE public.vp_tasks SET status='failed',result=$2::jsonb,error=$3,updated=now() WHERE id=$1",
+                        tid,
+                        json.dumps(result),
+                        f"Command exited with code {result['exit_code']}; inspect stderr and correct the command.",
+                    )
+                    record_progress(
+                        self.store,
+                        pid,
+                        "needs_attention",
+                        "Fixing a rendering issue.",
+                        "Inspect the failed command and retry with a new request_id.",
+                    )
+                else:
+                    self.store.sql(
+                        "UPDATE public.vp_tasks SET status='succeeded',result=$2::jsonb,updated=now() WHERE id=$1",
+                        tid,
+                        json.dumps(result),
+                    )
                 self.event(task, "Saved project source")
         except asyncio.CancelledError:
             if sb:
@@ -414,6 +461,17 @@ class Manager:
             )
             if preview:
                 result["preview"] = preview
+            if a.get("review_path"):
+                result.update(
+                    await self.perform(
+                        task
+                        | {
+                            "operation": "review",
+                            "payload": {"video_path": a["review_path"]},
+                        },
+                        sb,
+                    )
+                )
             return result
         if op == "preview":
             preview = await self.publish_preview(uid, pid, sb, a["path"])
@@ -541,25 +599,38 @@ class Manager:
                     obj = await self.save_object(
                         uid, pid, "review", "review.png", local
                     )
+                record_progress(
+                    self.store,
+                    pid,
+                    "review",
+                    "Checking the rendered frames.",
+                    "Inspect the returned image, then export this exact video if it passes.",
+                    preview={
+                        "object_id": obj["id"],
+                        "media_type": "image/png",
+                        "name": "review.png",
+                        "draft": True,
+                    },
+                )
                 return {
                     "review_object": obj["id"],
                     "sha256": digest,
                     "video_path": a["video_path"],
-                    "instruction": "Inspect these encoded frames, repair visible defects, then export with an honest review summary.",
+                    "instruction": "Inspect the image returned with this result. If it passes, export this exact video with an honest review summary. No extra status call is needed when the image is present.",
                 }
             if self.store.get("reviewed", pid) != digest:
                 raise ValueError(
-                    "Call review_video and get_video_task to inspect the current encoded output before export"
+                    "Call review_video to inspect the current encoded output before export. Poll get_video_task only if review is still running."
                 )
             meta = await sb.inspect_video(path)
-            archive = await self.checkpoint(uid, pid, sb)
-            self.store.sql(
-                "UPDATE public.vp_objects SET kind='archive' WHERE id=$1", archive["id"]
-            )
             with tempfile.TemporaryDirectory() as tmp:
                 local = Path(tmp) / "video.mp4"
                 await sb.download(path, local, 200000000)
                 video = await self.save_object(uid, pid, "video", "video.mp4", local)
+            archive = await self.checkpoint(uid, pid, sb)
+            self.store.sql(
+                "UPDATE public.vp_objects SET kind='archive' WHERE id=$1", archive["id"]
+            )
             revision = ident()
             self.store.sql(
                 "INSERT INTO public.vp_revisions(id,project,owner,video,archive,summary,metadata) VALUES($1,$2,$3,$4,$5,$6,$7::jsonb)",

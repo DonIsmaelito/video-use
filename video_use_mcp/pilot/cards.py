@@ -53,7 +53,14 @@ def register_cards(
             "stage": state.get("stage", "planning"),
             "updates": updates,
             "tasks": tasks,
-            "revisions": [dict(r, video_url=link(uid, r["video"])) for r in revisions],
+            "revisions": [
+                dict(
+                    r,
+                    video_url=link(uid, r["video"]),
+                    download_url=link(uid, r["video"]) + "&download=true",
+                )
+                for r in revisions
+            ],
         }
 
     def card_result(uid, pid):
@@ -78,18 +85,29 @@ def register_cards(
             structuredContent=data,
         )
 
-    async def step_result(uid, task_id):
+    async def step_result(uid, task_id, include_logs=False):
         out = public_task(store.task(uid, task_id))
-        content = [TextContent(type="text", text=json.dumps(out))]
-        preview = (out.get("result") or {}).get("preview")
-        if (
-            out["status"] == "succeeded"
-            and preview
-            and preview["media_type"] == "image/png"
-        ):
+        result = out.get("result") or {}
+        out["result"] = {
+            k: v[-2000:] if k in ("stdout", "stderr") and not include_logs else v
+            for k, v in result.items()
+        }
+        for kind in ("video", "source"):
+            if result.get(kind + "_id"):
+                out[kind + "_url"] = link(uid, result[kind + "_id"])
+        if out.get("video_url"):
+            out["download_url"] = out["video_url"] + "&download=true"
+        preview = result.get("preview") or {}
+        image_object = result.get("review_object") or (
+            preview.get("object_id")
+            if preview.get("media_type") == "image/png"
+            else None
+        )
+        content = []
+        if out["status"] == "succeeded" and image_object:
             obj = store.sql(
                 "SELECT key FROM public.vp_objects WHERE id=$1 AND owner=$2",
-                preview["object_id"],
+                image_object,
                 uid,
             )[0]
             with tempfile.TemporaryDirectory() as tmp:
@@ -98,7 +116,13 @@ def register_cards(
                 content.append(
                     Image(data=target.read_bytes(), format="png").to_image_content()
                 )
-        return CallToolResult(content=content, structuredContent=out)
+            if result.get("review_object"):
+                store.put("reviewed", out["project"], result["sha256"], ttl=86400)
+        content.insert(0, TextContent(type="text", text=json.dumps(out)))
+        return CallToolResult(
+            content=content,
+            structuredContent=out | {"project_card": snapshot(uid, out["project"])},
+        )
 
     @mcp.resource(
         UI_URI,
@@ -125,7 +149,7 @@ def register_cards(
         """Refresh the project card without consuming a model-driven status check."""
         return snapshot(muser(), project_id)
 
-    @mcp.tool(annotations=execute)
+    @mcp.tool(annotations=execute, meta=UI_META)
     async def run_video_step(
         project_id: str,
         request_id: str,
@@ -137,9 +161,14 @@ def register_cards(
         next_action: str = "",
         brief: str = "",
         timeout: int = 300,
+        review_path: str = "",
     ) -> CallToolResult:
-        """Preferred editing tool: save several UTF-8 files, optionally execute a command, publish a PNG/JPEG or short video preview, and checkpoint in one call. Waits up to 25 seconds; unfinished tasks continue. Use stage=style then motion/draft for gradual previews. Supply brief and next_action for continuation. Commands run without network. Nonzero exit codes skip preview publication."""
+        """PRIMARY editing tool. Batch source files + command + visible preview in ONE call. The user sees an in-chat image/player. First stage=style with a representative PNG, then motion/draft with a short MP4. Always provide preview_path for those stages. For final rendering set review_path to the final MP4 to return encoded review frames in this same call, then export after inspection. Keep brief/next_action for continuation. Waits 25s; only poll if still running. No network. Reuse rendered scenes for audio-only changes."""
         uid = muser(True)
+        if stage in ("style", "motion", "draft") and not preview_path:
+            raise ValueError(
+                "This visual milestone needs preview_path: a PNG/JPEG for style or a short MP4 for motion/draft. Generate it in the same command."
+            )
         if (
             len(files) > 20
             or len(command) > 30000
@@ -161,6 +190,7 @@ def register_cards(
                 "next_action": next_action,
                 "brief": brief,
                 "timeout": timeout,
+                "review_path": review_path,
             },
             request_id,
         )
@@ -169,14 +199,14 @@ def register_cards(
                 store,
                 project_id,
                 "working",
-                "Working on the next update.",
+                note,
                 next_action,
                 brief,
             )
         await wait_for_task(manager, task["id"], 25)
         return await step_result(uid, task["id"])
 
-    @mcp.tool(annotations=execute)
+    @mcp.tool(annotations=execute, meta=UI_META)
     async def update_video_progress(
         project_id: str,
         stage: Stage,
@@ -212,8 +242,11 @@ def register_cards(
             raise ValueError(
                 "A step is active; its saved progress will update when it finishes"
             )
-        state = record_progress(store, project_id, stage, note, next_action, brief)
-        return CallToolResult(
-            content=[TextContent(type="text", text=json.dumps(state))],
-            structuredContent=state,
-        )
+        record_progress(store, project_id, stage, note, next_action, brief)
+        return card_result(uid, project_id)
+
+    return {
+        "snapshot": snapshot,
+        "card_result": card_result,
+        "task_result": step_result,
+    }

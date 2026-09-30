@@ -29,6 +29,14 @@ def test_ui_discovery_and_resource_security_metadata(pilot):
     by_name = {t["name"]: t for t in tools}
     assert by_name["create_video_project"]["_meta"]["ui"]["resourceUri"] == UI_URI
     assert by_name["show_video_project"]["_meta"]["ui"]["resourceUri"] == UI_URI
+    for name in (
+        "run_video_step",
+        "get_video_task",
+        "review_video",
+        "export_video",
+        "view_video_frame",
+    ):
+        assert by_name[name]["_meta"]["ui"]["resourceUri"] == UI_URI
     assert by_name["video_project_updates"]["_meta"]["ui"]["visibility"] == ["app"]
     resource = rpc(pilot, "resources/read", {"uri": UI_URI})["contents"][0]
     assert resource["mimeType"] == "text/html;profile=mcp-app"
@@ -210,3 +218,63 @@ def test_late_preview_poll_returns_image_without_unlocking_final_export(pilot):
     assert not result.get("isError"), result
     assert any(c["type"] == "image" for c in result["content"])
     assert store.get("reviewed", PID) is None
+
+
+def test_completed_review_returns_image_and_unlocks_export_without_poll(pilot):
+    from PIL import Image
+
+    _, app = pilot
+    store = app.state.store
+    task = {
+        "id": "t",
+        "project": PID,
+        "operation": "review",
+        "status": "succeeded",
+        "result": {"review_object": "review", "sha256": "exact-hash"},
+        "error": None,
+        "created": "",
+        "updated": "",
+    }
+    app.state.manager.running = {}
+    app.state.manager.submit = Mock(return_value=task)
+    store.task = Mock(return_value=task)
+    store.sql.side_effect = (
+        lambda q, *a: [{"key": "review-key"}] if "SELECT key" in q else []
+    )
+    store.download = Mock(
+        side_effect=lambda key, path: Image.new("RGB", (2, 2)).save(path)
+    )
+    result = rpc(
+        pilot,
+        "tools/call",
+        {
+            "name": "review_video",
+            "arguments": {
+                "project_id": PID,
+                "video_path": "edit/final.mp4",
+                "request_id": "review-1",
+            },
+        },
+    )
+    assert not result.get("isError"), result
+    assert any(c["type"] == "image" for c in result["content"])
+    assert result["structuredContent"]["project_card"]["id"] == PID
+    assert store.get("reviewed", PID) == "exact-hash"
+
+
+def test_errors_are_retained_privately_and_redacted(pilot):
+    _, app = pilot
+    app.state.mcp.trace_config.api_key = "secret-admin-key"
+    app.state.store.project.side_effect = ValueError(
+        "secret-admin-key https://private.test/?ticket=secret failed"
+    )
+    rpc(
+        pilot,
+        "tools/call",
+        {"name": "get_video_project", "arguments": {"project_id": PID}},
+    )
+    with app.state.store.db() as db:
+        rows = db.execute("SELECT key FROM kv WHERE kind='trace'").fetchall()
+    trace = app.state.store.get("trace", rows[-1]["key"])
+    assert "failed" in trace["error"]
+    assert "secret-admin-key" not in trace["error"] and "ticket=" not in trace["error"]

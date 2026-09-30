@@ -17,7 +17,7 @@ const opened = Date.now();
 function unpack(result) {
   if (result.isError)
     throw Error("The project could not be refreshed. Check your connection.");
-  if (result.structuredContent) return result.structuredContent;
+  if (result.structuredContent) return result.structuredContent.project_card || result.structuredContent;
   for (const c of result.content || [])
     if (c.type === "text") {
       try {
@@ -43,9 +43,10 @@ function previews(data) {
       note: r.summary,
       at: r.created,
       url: r.video_url,
+      download_url: r.download_url,
       media_type: "video/mp4",
     });
-  return values;
+  return values.sort((a, b) => new Date(a.at) - new Date(b.at));
 }
 function render(data) {
   if (!data.id) return;
@@ -55,15 +56,16 @@ function render(data) {
   const tasks = data.tasks || [];
   const active = tasks.find((t) => ["queued", "running"].includes(t.status));
   const last = (data.updates || []).at(-1);
+  const labels = {planning: "Planning", style: "First look", motion: "In motion", draft: "Draft", review: "Checking the video", complete: "Ready", needs_attention: "Adjusting", working: "Creating"};
   $("status").textContent = active
-    ? "Rendering"
+    ? labels[last?.stage] || "Creating"
     : tasks[0]?.status === "failed"
       ? "Needs attention"
-      : data.revisions?.length
+      : data.stage === "complete" && data.revisions?.length
         ? "Export ready"
-        : data.stage || "Ready";
+        : labels[data.stage] || "Ready";
   $("summary").textContent = active
-    ? "Creating…"
+    ? last?.note || "Creating the next preview…"
     : tasks[0]?.status === "failed"
       ? "The last step needs attention."
       : "";
@@ -79,7 +81,7 @@ function render(data) {
     const b = document.createElement("button");
     b.className = item.id === selected ? "selected" : "";
     b.setAttribute("aria-pressed", String(item.id === selected));
-    b.textContent = item.stage;
+    b.textContent = labels[item.stage] || item.stage;
     const when = document.createElement("small");
     when.textContent = new Date(item.at).toLocaleTimeString([], {
       hour: "2-digit",
@@ -96,7 +98,8 @@ function render(data) {
   const item = list.find((p) => p.id === selected);
   $("empty").hidden = !!item;
   $("media").style.display = item ? "block" : "none";
-  $("download").hidden = true;
+  $("download").hidden = !item || item.media_type !== "video/mp4";
+  $("download").textContent = item?.download_url ? "Download MP4" : "Download draft";
   if (item) {
     $("caption").textContent = item.note || item.stage;
     if (shown !== item.id) {
@@ -119,6 +122,7 @@ function render(data) {
       shown = item.id;
     }
   }
+  $("empty").textContent = last?.note || "Creating your first visual…";
 }
 function schedule() {
   clearTimeout(timer);
@@ -164,7 +168,7 @@ $("studio").onclick = async () => {
 };
 $("download").onclick = async () => {
   const item = previews(snapshot).find((x) => x.id === selected);
-  if (item) await app.openLink({ url: item.url });
+  if (item) await app.openLink({ url: item.download_url || item.url + '&download=true' });
 };
 app.ontoolresult = (r) => {
   try {

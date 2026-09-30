@@ -21,7 +21,7 @@ from mcp.server.auth.settings import (
 )
 from mcp.server.auth.middleware.auth_context import get_access_token
 from mcp.server.transport_security import TransportSecuritySettings
-from mcp.types import ToolAnnotations
+from mcp.types import ToolAnnotations, CallToolResult
 from pydantic import BaseModel, Field
 
 from video_use_mcp.auth import AuthProvider, SCOPES
@@ -30,7 +30,7 @@ from video_use_mcp.store import digest
 from .config import Config
 from .store import Store, ident
 from .runtime import Manager
-from .interaction import TracedMCP, UI_META, wait_for_task
+from .interaction import TracedMCP, UI_META, wait_for_task, record_progress
 from .cards import register_cards
 
 
@@ -68,13 +68,22 @@ def create_app(config=None, store=None, manager=None):
             "Tasks execute independently, but further creative work requires your next tool call. "
             "The environment is network-isolated. Speech is supplied by transcribe_video and narrate_video. "
             "No subagent tool is available here; complete work with these tools. "
-            "Create a project to show its live chat card, then prefer run_video_step to batch files, command and preview. "
+            "Create a project with the user brief to open its live chat card, then use run_video_step to batch files, command and preview. "
             "Publish a representative style PNG early, then a low-resolution motion clip, then the final reviewed export. "
             "Give one short conversational update at each milestone and keep working unless approval was requested. "
             "Save the brief and next_action with steps. On continuation get_video_project to recover context. "
             "get_video_task waits up to 25 seconds: use its default wait rather than immediate repeated polling. "
             "Inspect sampled or streamed frames; never load all full-resolution video frames into RAM. "
-            "The sandbox has an 8 GiB memory ceiling. Start with 540p previews before the final render."
+            "The sandbox has an 8 GiB memory ceiling. Start with 540p previews before the final render. "
+            "Do not spend minutes writing the full film before showing the first visual: render one representative frame first. "
+            "Completed review results already contain the inspection image: do not fetch them again. "
+            "For the final run_video_step set review_path to combine rendering and encoded review, then export after inspecting. "
+            "For Manim use python /opt/video-use/helpers/render_manim_cached.py SOURCE SCENE... --quality preview|final. "
+            "It prints ordered video paths and reuses unchanged scenes. Pass --dependency for non-Python visual inputs. "
+            "Keep audio mixing separate and remux cached visuals on audio-only edits. Do not disable caching or rerender all scenes for volume changes. "
+            "Avoid setup/environment-probing calls: Python, Pillow, FFmpeg, Manim, Node and Chromium are installed. "
+            "Aim for three visible milestones with about 6-10 substantive calls for a simple short video, not a hard limit. "
+            "Give a short natural-language update with each visual. Show the final player and download link; never claim they exist until export succeeds."
         ),
         auth_server_provider=auth,
         auth=AuthSettings(
@@ -99,6 +108,7 @@ def create_app(config=None, store=None, manager=None):
         ),
     )
     mcp.trace_store = store
+    mcp.trace_config = config
     read = ToolAnnotations(
         readOnlyHint=True, destructiveHint=False, openWorldHint=False
     )
@@ -202,6 +212,10 @@ def create_app(config=None, store=None, manager=None):
         )
         return project_detail(uid, pid)
 
+    cards = register_cards(
+        mcp, store, manager, config, muser, link, workspace, public_task, read, execute
+    )
+
     @mcp.tool(annotations=read)
     def video_use_setup() -> dict:
         """Get your private workspace link, speech availability, and editing capabilities."""
@@ -241,7 +255,14 @@ def create_app(config=None, store=None, manager=None):
             "Publish a style frame early, then a 540p draft clip, and send brief milestone messages while continuing. "
             "Save brief/next_action so another turn can resume. get_video_task waits by default; never busy-poll. "
             "Sample or stream video frames; never convert a whole video to an in-memory NumPy array. "
-            "Draft previews do not count as final encoded review.\n\n"
+            "Draft previews do not count as final encoded review. "
+            "Show one representative image before building the entire animation. A visual milestone step requires preview_path. "
+            "run_video_step review_path combines final render and review; inspect the returned image, then export. "
+            "Completed results need no extra polling. Batch source files and execution instead of one write call per file. "
+            "For Manim prefer python /opt/video-use/helpers/render_manim_cached.py SOURCE SCENE... --quality preview|final. "
+            "It reuses unchanged scene videos; pass --dependency for non-Python visual inputs. "
+            "Mix narration/music separately; audio-only changes must reuse the rendered video. Do not disable Manim caching. "
+            "Python, Pillow, FFmpeg, Manim, Node and Chromium are already installed: skip environment probes.\n\n"
             + path.read_text()[:60000]
         )
 
@@ -256,9 +277,21 @@ def create_app(config=None, store=None, manager=None):
         }
 
     @mcp.tool(annotations=write, meta=UI_META)
-    def create_video_project(title: str) -> dict:
-        """Create a private project and return its browser upload link."""
-        return new_project(muser(True), title)
+    def create_video_project(title: str, brief: str = "") -> CallToolResult:
+        """START HERE: create a private video project and open its live in-chat preview card. Supply the user brief. Next use run_video_step to generate an early style image, then a short motion draft, then review/export. The card updates automatically; the user can play and download the final video."""
+        if len(brief) > 4000:
+            raise ValueError("Brief exceeds 4000 characters")
+        uid = muser(True)
+        project = new_project(uid, title)
+        record_progress(
+            store,
+            project["id"],
+            "planning",
+            "Preparing the first visual.",
+            "Use run_video_step stage=style with files, command and preview_path to show a representative frame now. Then a short motion draft; final render with review_path; inspect and export.",
+            brief,
+        )
+        return cards["card_result"](uid, project["id"])
 
     @mcp.tool(annotations=read)
     def get_video_project(project_id: str) -> dict:
@@ -287,12 +320,12 @@ def create_app(config=None, store=None, manager=None):
 
     async def submitted(task):
         await wait_for_task(manager, task["id"], 25)
-        return public_task(store.task(muser(), task["id"]))
+        return await cards["task_result"](muser(), task["id"])
 
     @mcp.tool(annotations=execute)
     async def write_video_file(
         project_id: str, path: str, content: str, request_id: str
-    ) -> dict:
+    ) -> CallToolResult:
         """Save UTF-8 project source and a durable checkpoint. Waits up to 25 seconds; prefer run_video_step to batch files."""
         return await submitted(
             manager.submit(
@@ -307,7 +340,7 @@ def create_app(config=None, store=None, manager=None):
     @mcp.tool(annotations=execute)
     async def patch_video_file(
         project_id: str, path: str, old: str, new: str, request_id: str
-    ) -> dict:
+    ) -> CallToolResult:
         """Replace one exact occurrence in a project file, then checkpoint."""
         return await submitted(
             manager.submit(
@@ -319,10 +352,10 @@ def create_app(config=None, store=None, manager=None):
             )
         )
 
-    @mcp.tool(annotations=execute)
+    @mcp.tool(annotations=execute, meta=UI_META)
     async def run_video_command(
         project_id: str, command: str, request_id: str, timeout: int = 300
-    ) -> dict:
+    ) -> CallToolResult:
         """Execute FFmpeg, Python, Manim, Node or shell in the isolated workspace. Wait up to 25 seconds; unfinished tasks continue. Retrieve logs using get_video_task with its default wait. Maximum 1800 seconds. No network or secrets."""
         if len(command) > 30000:
             raise ValueError("Command exceeds 30000 characters")
@@ -336,13 +369,28 @@ def create_app(config=None, store=None, manager=None):
             )
         )
 
-    @mcp.tool(annotations=execute)
-    async def view_video_frame(project_id: str, path: str) -> Image:
-        """See an actual PNG/JPEG frame or contact sheet, not just its path."""
-        return Image(data=await manager.image(muser(), project_id, path), format="png")
+    @mcp.tool(annotations=execute, meta=UI_META)
+    async def view_video_frame(project_id: str, path: str) -> CallToolResult:
+        """Inspect an actual PNG/JPEG and publish it into the user's chat preview card in the same call."""
+        uid = muser(True)
+        async with manager.lock(project_id):
+            sb = await manager.session(uid, project_id)
+            preview = await manager.publish_preview(uid, project_id, sb, path)
+            record_progress(
+                store, project_id, "style", "Preview frame", preview=preview
+            )
+        out = cards["card_result"](uid, project_id)
+        out.content.append(
+            Image(
+                data=await manager.image(uid, project_id, path), format="png"
+            ).to_image_content()
+        )
+        return out
 
     @mcp.tool(annotations=execute)
-    async def transcribe_video(project_id: str, path: str, request_id: str) -> dict:
+    async def transcribe_video(
+        project_id: str, path: str, request_id: str
+    ) -> CallToolResult:
         """Transcribe uploaded speech with word timing using the owner's speech allowance."""
         return await submitted(
             manager.submit(
@@ -357,7 +405,7 @@ def create_app(config=None, store=None, manager=None):
     @mcp.tool(annotations=execute)
     async def narrate_video(
         project_id: str, text: str, output: str, request_id: str
-    ) -> dict:
+    ) -> CallToolResult:
         """Generate narration and word timing using the owner's speech allowance."""
         if not 1 <= len(text) <= 2000:
             raise ValueError("Narration must be 1–2000 characters")
@@ -371,9 +419,11 @@ def create_app(config=None, store=None, manager=None):
             )
         )
 
-    @mcp.tool(annotations=execute)
-    async def review_video(project_id: str, video_path: str, request_id: str) -> dict:
-        """Extract four encoded frames from the final MP4. Call get_video_task to see and inspect the review image before export."""
+    @mcp.tool(annotations=execute, meta=UI_META)
+    async def review_video(
+        project_id: str, video_path: str, request_id: str
+    ) -> CallToolResult:
+        """Show encoded frames in the chat card AND return the image for inspection. A completed response already includes the review image: inspect it then export, with no extra get_video_task call. Only poll if still running. Prefer run_video_step review_path to combine render and review."""
         return await submitted(
             manager.submit(
                 muser(True),
@@ -384,10 +434,10 @@ def create_app(config=None, store=None, manager=None):
             )
         )
 
-    @mcp.tool(annotations=execute)
+    @mcp.tool(annotations=execute, meta=UI_META)
     async def export_video(
         project_id: str, video_path: str, summary: str, request_id: str
-    ) -> dict:
+    ) -> CallToolResult:
         """Verify and publish a reviewed MP4 and editable source ZIP. Requires review of this exact encoded video. Summarize your visual assessment honestly."""
         return await submitted(
             manager.submit(
@@ -399,56 +449,17 @@ def create_app(config=None, store=None, manager=None):
             )
         )
 
-    @mcp.tool(annotations=read)
+    @mcp.tool(annotations=read, meta=UI_META)
     async def get_video_task(
         task_id: str, wait_seconds: int = 25, include_logs: bool = False
-    ) -> list:
-        """Wait up to 25 seconds for results, final links or encoded review images. Keep the default wait to avoid burning calls on polling. Compact output by default; include_logs retrieves diagnostic logs."""
+    ) -> CallToolResult:
+        """Only call for a queued/running task or diagnostic logs. Waits 25s by default; returns images and a live chat card plus final play/download links. Completed tool responses already include their images; do not poll them again."""
         uid = muser()
-        t = store.task(uid, task_id)
+        store.task(uid, task_id)
         if not 0 <= wait_seconds <= 25:
             raise ValueError("wait_seconds must be 0–25")
         await wait_for_task(manager, task_id, wait_seconds)
-        t = store.task(uid, task_id)
-        out = public_task(t)
-        out["events"] = store.sql(
-            "SELECT id,message FROM public.vp_events WHERE task=$1 ORDER BY id DESC LIMIT 10",
-            task_id,
-        )
-        result = t.get("result") or {}
-        if not include_logs:
-            out["events"] = [
-                {"id": e["id"], "message": e["message"][-400:]}
-                for e in out["events"][:2]
-            ]
-            out["result"] = {
-                k: (v[-2000:] if k in ("stdout", "stderr") else v)
-                for k, v in result.items()
-            }
-        items = []
-        for kind in ("video", "source"):
-            if result.get(kind + "_id"):
-                out[kind + "_url"] = link(uid, result[kind + "_id"])
-        items.append(json.dumps(out))
-        preview = result.get("preview") or {}
-        image_object = result.get("review_object") or (
-            preview.get("object_id")
-            if preview.get("media_type") == "image/png"
-            else None
-        )
-        if t["status"] == "succeeded" and image_object:
-            obj = store.sql(
-                "SELECT key FROM public.vp_objects WHERE id=$1 AND owner=$2",
-                image_object,
-                uid,
-            )[0]
-            with tempfile.TemporaryDirectory() as tmp:
-                p = Path(tmp) / "review.png"
-                await asyncio.to_thread(store.download, obj["key"], p)
-                items.append(Image(data=p.read_bytes(), format="png"))
-            if result.get("review_object"):
-                store.put("reviewed", t["project"], result["sha256"], ttl=86400)
-        return items
+        return await cards["task_result"](uid, task_id, include_logs)
 
     @mcp.tool(
         annotations=ToolAnnotations(
@@ -477,9 +488,6 @@ def create_app(config=None, store=None, manager=None):
             await manager.stop(project_id)
         return {"closed": project_id, "message": "Saved project remains available"}
 
-    register_cards(
-        mcp, store, manager, config, muser, link, workspace, public_task, read, execute
-    )
     mcp_app = mcp.streamable_http_app()
 
     @contextlib.asynccontextmanager
@@ -773,7 +781,7 @@ def create_app(config=None, store=None, manager=None):
         return {"ok": True}
 
     @app.get("/files/{oid}")
-    async def download(oid: str, ticket: str):
+    async def download(oid: str, ticket: str, download: bool = False):
         try:
             data = json.loads(store.vault.decrypt(ticket.encode(), ttl=3600))
         except Exception:
@@ -807,7 +815,7 @@ def create_app(config=None, store=None, manager=None):
             ),
             filename=obj["name"],
             content_disposition_type="inline"
-            if obj["kind"] in ("video", "review")
+            if not download and obj["kind"] in ("video", "review")
             else "attachment",
             background=BackgroundTask(tmp.cleanup),
         )

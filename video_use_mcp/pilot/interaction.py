@@ -5,6 +5,7 @@ import contextlib
 import hashlib
 import json
 import logging
+import re
 import time
 from datetime import datetime, timezone
 from uuid import UUID
@@ -14,8 +15,19 @@ from mcp.server.fastmcp import FastMCP
 
 from .store import ident
 
-UI_URI = "ui://video-use/project-v2.html"
+UI_URI = "ui://video-use/project-v3.html"
 UI_META = {"ui": {"resourceUri": UI_URI}}
+
+
+def safe_error(exc, config):
+    message = str(exc)
+    for field in ("api_key", "speech_key", "encryption_key", "invite_code"):
+        secret = getattr(config, field, "")
+        if isinstance(secret, str) and secret:
+            message = message.replace(secret, "[redacted]")
+    message = re.sub(r"https?://\S+", "[url]", message)
+    message = re.sub(r"(?i)bearer\s+\S+", "Bearer [redacted]", message)
+    return message[:600]
 
 
 def uuid_or_none(value):
@@ -30,6 +42,7 @@ class TracedMCP(FastMCP):
         started = time.monotonic()
         outcome = "ok"
         result = None
+        error = None
         try:
             result = await super().call_tool(name, arguments)
             if getattr(result, "isError", False):
@@ -37,6 +50,7 @@ class TracedMCP(FastMCP):
             return result
         except BaseException as exc:
             outcome = type(exc).__name__
+            error = safe_error(exc, self.trace_config)
             raise
         finally:
             # Instrumentation must never change tool success or replay work.
@@ -50,6 +64,12 @@ class TracedMCP(FastMCP):
                     )
                     if isinstance(payload, tuple):
                         payload = payload[1]
+                    if isinstance(payload, list):
+                        for block in payload:
+                            if getattr(block, "type", "") == "text":
+                                with contextlib.suppress(ValueError):
+                                    payload = json.loads(block.text)
+                                    break
                     payload = payload if isinstance(payload, dict) else {}
                     pid = uuid_or_none(
                         arguments.get("project_id")
@@ -76,11 +96,14 @@ class TracedMCP(FastMCP):
                         if name == "video_project_updates"
                         else "assistant",
                     }
+                    if error:
+                        record["error"] = error
                     await asyncio.to_thread(
                         self.trace_store.put, "trace", ident(), record, ttl=2592000
                     )
                     logging.getLogger(__name__).info(
-                        "video_use_tool %s", json.dumps(record)
+                        "video_use_tool %s",
+                        json.dumps({k: v for k, v in record.items() if k != "error"}),
                     )
 
 
