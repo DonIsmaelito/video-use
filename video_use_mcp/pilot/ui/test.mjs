@@ -13,7 +13,7 @@ class App {
  async callServerTool(input){calls.push(input);if(fail)throw Error('offline');return {structuredContent:structuredClone(pending)}}
  async openLink(input){calls.push(input)}
 }
-const source=fs.readFileSync('app.js','utf8').replace(/^import .*;\n/,'');
+const source=fs.readFileSync('app.js','utf8').replace(/^import[\s\S]*?from ["']@modelcontextprotocol\/ext-apps["'];\n/,'');
 const context={document,App,applyDocumentTheme(){},applyHostStyleVariables(){},console,setTimeout(){return 1},clearTimeout(){},Date};
 vm.runInNewContext(source,context);
 const flush=()=>new Promise(r=>setTimeout(r,10));

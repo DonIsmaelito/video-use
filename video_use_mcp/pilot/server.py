@@ -147,10 +147,20 @@ def create_app(config=None, store=None, manager=None):
 
     def project_detail(uid, pid):
         p = store.project(uid, pid)
+        progress = store.get("progress", pid) or {}
         return {
             "id": pid,
             "title": p["title"],
-            "continuation": store.get("progress", pid) or {},
+            "continuation": progress,
+            "previews": [
+                u
+                | {
+                    "preview": u["preview"]
+                    | {"url": link(uid, u["preview"]["object_id"])}
+                }
+                for u in progress.get("updates", [])
+                if u.get("preview")
+            ],
             "workspace_url": workspace(pid),
             "harness_version": __import__("os").getenv(
                 "PILOT_HARNESS_VERSION", "development"
@@ -595,10 +605,16 @@ def create_app(config=None, store=None, manager=None):
 
     @app.get("/api/projects")
     def projects(request: Request):
-        return store.sql(
-            "SELECT id,title,created FROM public.vp_projects WHERE owner=$1 ORDER BY created DESC LIMIT 100",
-            member(request),
+        uid = member(request)
+        rows = store.sql(
+            "SELECT p.id,p.title,p.created,(SELECT r.video FROM public.vp_revisions r WHERE r.project=p.id AND r.owner=$1 ORDER BY r.created DESC LIMIT 1) AS cover "
+            "FROM public.vp_projects p WHERE p.owner=$1 ORDER BY p.created DESC LIMIT 100",
+            uid,
         )
+        return [
+            r | {"cover_url": link(uid, r["cover"]) if r.get("cover") else None}
+            for r in rows
+        ]
 
     @app.post("/api/projects")
     def add_project(body: ProjectInput, request: Request):

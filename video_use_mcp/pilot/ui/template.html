@@ -1,3 +1,177 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Video-use project</title><style>
-:root{color-scheme:light dark;font-family:var(--font-sans,system-ui,sans-serif);color:var(--color-text-primary,#202d27);background:var(--color-background-primary,#f7f5ed)}*{box-sizing:border-box}body{margin:0;padding:18px}header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.eyebrow{font-size:11px;font-weight:650;letter-spacing:.14em;text-transform:uppercase;color:var(--color-text-secondary,#63746a)}h1{font-size:20px;line-height:1.3;margin:6px 0 8px;font-weight:600}p{font-size:13px;line-height:1.55;margin:8px 0;color:var(--color-text-secondary,#63746a)}button,a{font:inherit}button{cursor:pointer;border:1px solid var(--color-border-primary,#ccd3c7);border-radius:8px;padding:7px 11px;color:inherit;background:transparent;font-size:12px}button:hover{background:var(--color-background-secondary,#e7eadd)}button:disabled{opacity:.5;cursor:wait}#status{font-size:11px;white-space:nowrap;padding:5px 9px;border-radius:20px;background:var(--color-background-secondary,#e7eadd)}#media{margin-top:12px;border-radius:10px;overflow:hidden;background:#17251d;display:none}#media img,#media video{display:block;width:100%;max-height:340px;object-fit:contain}#caption{min-height:22px}#history{display:flex;gap:7px;overflow:auto;padding:4px 0 10px}#history button{min-width:80px;text-align:left;flex-shrink:0}#history .selected{border-color:currentColor;background:var(--color-background-secondary,#e7eadd)}#history small{display:block;opacity:.65;font-size:10px;margin-top:3px}footer{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;border-top:1px solid var(--color-border-primary,#dce0d5);padding-top:12px}#notice{font-size:12px}#empty{padding:28px 15px;border:1px dashed var(--color-border-primary,#c7d0c4);border-radius:10px;margin-top:14px;text-align:center}details{font-size:12px;margin-top:12px}summary{cursor:pointer}#next{white-space:pre-wrap}.error{color:#b14c2e}@media(prefers-color-scheme:dark){:root{color:#e9eee7;background:#212620}p,.eyebrow{color:#aebaaa}button,#empty{border-color:#465241}#status,button:hover,#history .selected{background:#354031}footer{border-color:#465241}}
-</style></head><body><header><div><span class="eyebrow">video-use · work in progress</span><h1 id="title">Opening your project…</h1></div><span id="status">Connecting</span></header><p id="summary" aria-live="polite">Frames and draft clips will appear here as they are published.</p><div id="empty">Your first preview will appear here.</div><div id="media"></div><p id="caption"></p><nav id="history" aria-label="Preview versions"></nav><details><summary>Saved next step</summary><p id="next"></p></details><footer><button id="refresh">Refresh</button><button id="studio">Open project</button><button id="download" hidden>Open video</button></footer><p id="notice" role="status"></p><script>/* APP_BUNDLE */</script></body></html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Video-use project</title>
+    <style>
+      @font-face {
+        font-family: Space;
+        src: url("data:font/woff2;base64,/* FONT_DATA */") format("woff2");
+        font-weight: 300 700;
+        font-display: swap;
+      }
+      :root {
+        color-scheme: dark;
+        font-family: Space, system-ui, sans-serif;
+        color: #f4f1fb;
+        background: #0b0a10;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 20px;
+        max-width: 900px;
+        margin: auto;
+      }
+      header {
+        text-align: center;
+        position: relative;
+      }
+      .eyebrow {
+        font-size: 10px;
+        color: #b493ff;
+        letter-spacing: 0.08em;
+      }
+      h1 {
+        font-size: 22px;
+        font-weight: 500;
+        letter-spacing: -0.7px;
+        margin: 7px 0 10px;
+        overflow-wrap: anywhere;
+      }
+      p {
+        font-size: 12px;
+        line-height: 1.5;
+        color: #a89bb8;
+        margin: 8px 0;
+        text-align: center;
+      }
+      button {
+        font: inherit;
+        cursor: pointer;
+        border: 1px solid #30243f;
+        border-radius: 7px;
+        padding: 7px 12px;
+        color: #beadd3;
+        background: transparent;
+        font-size: 12px;
+      }
+      button:hover {
+        background: #22182f;
+        color: #e5d6ff;
+      }
+      button:disabled {
+        opacity: 0.5;
+        cursor: wait;
+      }
+      button:focus-visible {
+        outline: 2px solid #b493ff;
+        outline-offset: 3px;
+      }
+      #status {
+        font-size: 10px;
+        color: #b493ff;
+      }
+      #media {
+        margin-top: 18px;
+        border-radius: 10px;
+        overflow: hidden;
+        background: #050507;
+        display: none;
+        border: 1px solid #241c30;
+      }
+      #media img,
+      #media video {
+        display: block;
+        width: 100%;
+        max-height: 380px;
+        object-fit: contain;
+      }
+      #caption {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        margin: 12px auto;
+        max-width: 500px;
+      }
+      #history {
+        display: flex;
+        justify-content: center;
+        gap: 6px;
+        overflow: auto;
+        padding: 4px 0 8px;
+      }
+      #history button {
+        flex-shrink: 0;
+        text-transform: capitalize;
+      }
+      #history .selected {
+        background: #2a1c40;
+        border-color: #684397;
+        color: #dbc2ff;
+      }
+      #history small {
+        display: none;
+      }
+      footer {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 12px;
+      }
+      #studio {
+        border: 0;
+        color: #aa91ca;
+      }
+      #notice:empty,
+      #caption:empty {
+        display: none;
+      }
+      #notice {
+        font-size: 12px;
+        color: #dfa9c5;
+      }
+      #empty {
+        padding: 55px 15px;
+        margin-top: 18px;
+        text-align: center;
+        background: #100d16;
+        border: 1px solid #281e35;
+        border-radius: 10px;
+        font-size: 13px;
+        color: #aa96bd;
+      }
+      [hidden] {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <span class="eyebrow">video-use</span>
+        <h1 id="title">Opening your project…</h1>
+      </div>
+      <span id="status">Connecting</span>
+    </header>
+    <p id="summary" aria-live="polite"></p>
+    <div id="empty">Your preview is on its way.</div>
+    <div id="media"></div>
+    <p id="caption"></p>
+    <nav id="history" aria-label="Preview versions"></nav>
+    <p id="next" hidden></p>
+    <footer>
+      <button id="refresh" hidden>Refresh</button
+      ><button id="studio">Open project</button
+      ><button id="download" hidden>Open video</button>
+    </footer>
+    <p id="notice" role="status"></p>
+    <script>
+      /* APP_BUNDLE */
+    </script>
+  </body>
+</html>
