@@ -109,3 +109,11 @@ The temporary backend branch was deleted after verification to avoid leaving ano
 The original pilot advertised only `video:read` in protected-resource metadata, so Claude registered read-only OAuth clients even though editing tools were listed. The pilot now advertises and requires both `video:read` and `video:write`, with explicit scope challenges on unauthorized MCP requests. Existing read-only tokens are never silently upgraded. If connected before this fix, remove the old connector entry and add it again so the host rediscovers scopes and registers a new client; approve access in Studio.
 
 `test_oauth_discovery.py` follows resource discovery through PKCE consent, token exchange and project creation, and verifies old read-only grants receive an insufficient-scope challenge. The local MCP and pilot regression suites pass 26 tests after this fix.
+
+## Cost tracking
+
+`python -m video_use_mcp.pilot.cost_report` writes an owner-only local snapshot to `.pilot-costs/latest.md`, structured data to `latest.json`, and an append-only `history.jsonl`. Add `--watch-seconds 1800 --interval 30` to sample for 30 minutes. It uses `.env.pilot-production` and the local Modal login, performs read-only requests, and needs no service redeployment. The local tracking files are ignored by Git.
+
+The tracker retrieves the workspace's current Modal rates and closed-hour billing report. Per-project estimates use recorded sandbox wall time (including idle), with the deployed 2-core/4-GiB request and 4-core/8-GiB limits. Task reservations are reported separately and never counted as billed runtime. Startup/restart gaps may be missing from lifetime telemetry; the range covers recorded time, not a guaranteed final invoice. Closed-hour app charges overlap these estimates and must not be added to them.
+
+Narration uses the current Multilingual v2 list price ($0.08/1,000 characters checked September 30, 2026); override with `--tts-per-1000`. Scribe v1 cost is unknown when used unless its applicable rate is supplied through `--scribe-per-hour`. No speech use is reported as zero. Shared InsForge subscriptions/compute, storage, bandwidth, Modal builds, credits and taxes are excluded from per-video estimates. Claude/ChatGPT inference is supplied by the user's own chat account.
