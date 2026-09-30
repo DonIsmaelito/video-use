@@ -1,0 +1,9 @@
+[auth]
+require_email_verification = true
+allowed_redirect_urls = ["https://video-use-studio.insforge.site/"]
+
+[storage]
+max_file_size_mb = 200
+
+[deployments]
+subdomain = "video-use-studio"

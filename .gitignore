@@ -87,3 +87,6 @@ benchmarks/baselines/*.local.json
 .roo
 .trae
 .windsurf
+
+.pilot-*
+!studio/package-lock.json
