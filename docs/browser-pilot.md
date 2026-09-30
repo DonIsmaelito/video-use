@@ -103,3 +103,9 @@ The Modal secret `video-use-browser-pilot-config` holds `PILOT_PUBLIC_URL`, `PIL
 The isolated backend fixtures bypass only email verification for two synthetic accounts after validating their actual backend JWTs; production identity checks reject unverified users. No signed-in Claude/ChatGPT account test or visual browser QA has been claimed. The owner performs those checks above.
 
 The temporary backend branch was deleted after verification to avoid leaving another service running. To repeat the opt-in live tests, create a fresh isolated branch and fresh synthetic auth fixtures (`.env.pilot-test`, `.pilot-test-users.json`); never use the production URL. For the real render smoke, also build a Modal runtime image and save its ID in `.pilot-image`, then run `PILOT_LIVE_TEST=1 python -m video_use_mcp.pilot.tests.smoke_cloud`. This incurs render and speech usage.
+
+## OAuth editing permission fix
+
+The original pilot advertised only `video:read` in protected-resource metadata, so Claude registered read-only OAuth clients even though editing tools were listed. The pilot now advertises and requires both `video:read` and `video:write`, with explicit scope challenges on unauthorized MCP requests. Existing read-only tokens are never silently upgraded. If connected before this fix, remove the old connector entry and add it again so the host rediscovers scopes and registers a new client; approve access in Studio.
+
+`test_oauth_discovery.py` follows resource discovery through PKCE consent, token exchange and project creation, and verifies old read-only grants receive an insufficient-scope challenge. The local MCP and pilot regression suites pass 26 tests after this fix.

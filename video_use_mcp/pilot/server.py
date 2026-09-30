@@ -76,7 +76,10 @@ def create_app(config=None, store=None, manager=None):
                 enabled=True, valid_scopes=SCOPES, default_scopes=SCOPES
             ),
             revocation_options=RevocationOptions(enabled=True),
-            required_scopes=["video:read"],
+            # FastMCP also publishes these as protected-resource scopes_supported.
+            # Editing is core to this connector: advertise both so clients request
+            # a usable grant instead of discovering a read-only connection.
+            required_scopes=SCOPES,
         ),
         stateless_http=True,
         json_response=True,
@@ -475,6 +478,18 @@ def create_app(config=None, store=None, manager=None):
         if length and (not length.isdigit() or int(length) > 201000000):
             return JSONResponse({"detail": "Upload is too large"}, 413)
         response = await call_next(request)
+        challenge = response.headers.get("WWW-Authenticate", "")
+        if (
+            request.url.path.rstrip("/") == "/mcp"
+            and response.status_code in (401, 403)
+            and challenge.startswith("Bearer ")
+            and 'scope="' not in challenge
+        ):
+            # Give existing clients an OAuth scope challenge, rather than a
+            # tool-result error that only the language model can see.
+            response.headers["WWW-Authenticate"] = (
+                challenge + ', scope="' + " ".join(SCOPES) + '"'
+            )
         response.headers["X-Content-Type-Options"] = "nosniff"
         response.headers["Cache-Control"] = "no-store"
         response.headers["Referrer-Policy"] = "no-referrer"
