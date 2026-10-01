@@ -306,6 +306,38 @@ def register_cards(
                 "Inspect this task's error and correct only the failed work. "
                 "Do not poll a finished task or repeat successful rendering."
             )
+        elif out["operation"] == "narrate" and result.get("audio_path"):
+            # The saved speech is an input to the next visual, not a reason to
+            # wait or regenerate it. This handoff is response-only: reading an
+            # old task must not overwrite the project's newer progress.
+            out["narration_continuation"] = {
+                key: result[key]
+                for key in ("audio_path", "timing_path", "duration", "speech_end")
+                if key in result
+            }
+            if handoff:
+                out["narration_continuation"]["creative_revision"] = handoff[
+                    "current_revision"
+                ]
+            out["next_action"] = (
+                "Narration is saved. Reuse result.audio_path and any returned inline "
+                "sentence_timings/word_timings. Reuse the measured duration when "
+                "supplied instead of probing again. Use the current creative state. "
+                "If no meaningful draft exists yet, author or adapt one short excerpt "
+                "aligned to a relevant part of that audio before building the entire "
+                "video. For compact 2D motion, use render_video_scene with a scene "
+                "of at most 20 seconds; when another pipeline fits better, use "
+                "run_video_step with preview_path. If a draft or finished video "
+                "already exists, continue from it only as needed for the current "
+                "request; rereading this narration is not a reason to restart work. "
+                "After a new render succeeds, show the actual media with "
+                "show_video_preview and keep working without an approval pause. "
+                "Do not display a placeholder, poll this completed task, or rerun "
+                "completed speech merely to resume. Align the full "
+                "video to the measured narration duration. If speech exceeds the "
+                "requested duration, never silently trim it: extend an approximate "
+                "target or explicitly revise the narration to honor an exact limit."
+            )
         elif out.get("media"):
             out["next_action"] = (
                 "Actual media is ready at media.url. If no player for this project is "

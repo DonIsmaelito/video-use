@@ -1,5 +1,39 @@
 # Solar explainer trace repair
 
+## Run that stopped after narration
+
+Project `e84d7555-1a82-413d-a455-9269225440ac` started at 06:57:42 UTC
+on October 1. Its narration completed in 12.56 seconds; the response reached the
+host at 06:58:50, followed by a successful guidance call at 06:58:54. No render
+request, tool error or subsequent MCP request appears in the persisted traces
+or server logs. Normal idle workspace cleanup followed at 07:04:01. This is
+not evidence of a slow renderer or proof of why the host stopped making calls.
+The checkpoint contains the audio and all 74 word timings. Production restore
+and full audio decoding succeeded in a separate local directory without changing
+the user's project.
+
+This follow-up repairs diagnostics and continuation, without claiming to resolve
+an unobserved host failure:
+
+- Targeted trace reports retain separately labeled unassigned calls from the
+  same owner/client and time window. They show tool errors even when no task
+  exists, and distinguish active backend jobs from a gap in incoming requests.
+  Nearby calls are context, not proof that they belong to this project.
+- Tool tracing handles omitted arguments, explicit error results and failed
+  task-to-project lookups. It records start time, deployed harness version and
+  known guidance topics; prompts, source code and results remain excluded.
+  Non-content event metadata still reaches server logs if persistence fails.
+- Successful narration returns an explicit continuation with the saved audio,
+  timing path and current creative revision. It asks for one meaningful short
+  excerpt using the appropriate rendering technique before authoring the whole
+  film. It does not regenerate speech, invent a scene, create a placeholder,
+  silently trim overlong narration or add an approval checkpoint.
+
+Claude/ChatGPT still own tool discovery, permission prompts and turn scheduling.
+The server cannot start a new host turn or observe the reason a host stopped.
+Protocol/auth failures before tool dispatch remain outside tool telemetry and
+require server logs or the host's error text.
+
 ## Repair from the browser agent's handoff
 
 The third solar run reached its first real player in 1m49s and exported in

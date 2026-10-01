@@ -19,9 +19,91 @@ from .config import Config
 from .store import Store
 
 
+def _timestamp(value):
+    try:
+        parsed = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+    except (ValueError, TypeError):
+        return None
+    return parsed if parsed.tzinfo else parsed.replace(tzinfo=timezone.utc)
+
+
+def project_context_calls(project, traces):
+    """Find related unassigned activity without claiming it belongs to the project."""
+    created = _timestamp(project.get("created"))
+    owner = project.get("owner")
+    if not owner or created is None:
+        return []
+    clients = {
+        call["client"]
+        for call in project["tool_calls"]
+        if call.get("client") and call.get("owner") == owner
+    }
+    return sorted(
+        (
+            call
+            for call in traces
+            if not call.get("project")
+            and call.get("owner") == owner
+            and (not clients or call.get("client") in clients)
+            and (at := _timestamp(call.get("at"))) is not None
+            and at >= created
+        ),
+        key=lambda call: _timestamp(call["at"]),
+    )
+
+
+def backend_activity(project, context_calls):
+    """Summarize persisted backend work, never the host assistant's execution state."""
+    tasks = project["tasks"]
+    queued = sum(task["status"] == "queued" for task in tasks)
+    running = sum(task["status"] == "running" for task in tasks)
+    events = [{"at": project["created"], "kind": "project_created"}]
+    events.extend(
+        {
+            "at": call["at"],
+            "kind": "tool_call",
+            "tool": call["tool"],
+            "outcome": call["outcome"],
+        }
+        for call in project["tool_calls"]
+    )
+    events.extend(
+        {
+            "at": task.get("updated") or task["created"],
+            "kind": "task_updated",
+            "task": task["id"],
+            "operation": task["operation"],
+            "status": task["status"],
+        }
+        for task in tasks
+    )
+    valid_events = [event for event in events if _timestamp(event["at"]) is not None]
+    return {
+        "state": "running_tasks"
+        if running
+        else "queued_tasks"
+        if queued
+        else "no_active_tasks",
+        "queued_tasks": queued,
+        "running_tasks": running,
+        "last_project_activity": max(
+            valid_events, key=lambda event: _timestamp(event["at"])
+        )
+        if valid_events
+        else None,
+        "last_unassigned_context_call": context_calls[-1] if context_calls else None,
+        "limitation": (
+            "This describes persisted backend tasks and received tool calls only. "
+            "It does not establish whether the chat is thinking, waiting, stopped, "
+            "permission-blocked, or unable to send a request. Unassigned context "
+            "calls are not proven to belong to this project."
+        ),
+    }
+
+
 def collect(store, project_id=None, include_logs=False):
     projects = store.sql(
-        "SELECT id,title,created FROM public.vp_projects "
+        "SELECT id,title,created,owner FROM public.vp_projects "
         "WHERE ($1::uuid IS NULL OR id=$1::uuid) ORDER BY created",
         project_id,
     )
@@ -33,6 +115,7 @@ def collect(store, project_id=None, include_logs=False):
             "SELECT value FROM public.vp_kv WHERE kind='trace' AND expires>extract(epoch from now()) ORDER BY expires DESC LIMIT 10000"
         )
     ]
+    selected_context_calls = []
     for project in projects:
         project["creative"] = store.get("creative", project["id"]) or {}
         project["continuation"] = store.get("progress", project["id"]) or {}
@@ -93,15 +176,27 @@ def collect(store, project_id=None, include_logs=False):
         project["tasks"] = tasks
         project["task_counts"] = dict(Counter(t["status"] for t in tasks))
         project["operation_counts"] = dict(Counter(t["operation"] for t in tasks))
+        context_calls = project_context_calls(project, traces)
+        project["backend_activity"] = backend_activity(project, context_calls)
+        if project_id:
+            selected_context_calls = context_calls
     report = {
         "observed_at": datetime.now(timezone.utc).isoformat(),
         "projects": projects,
         "includes_logs": include_logs,
         "unassigned_tool_calls": [t for t in traces if not t.get("project")]
         if not project_id
-        else [],
+        else selected_context_calls,
+        "unassigned_tool_call_scope": (
+            "Context only: unassigned calls by the project owner since its creation, "
+            "restricted to observed project client IDs when available. They may "
+            "belong to another conversation and are not assigned to this project."
+            if project_id
+            else "All recent unassigned calls; no project association is inferred."
+        ),
         "limitations": [
-            "Tool metadata begins with the preview-card deployment and expires after 30 days. Discovery and host chat turns are not captured. Up to 10000 recent tool calls are included; calls without a project ID are listed separately.",
+            "Tool metadata begins with the preview-card deployment and expires after 30 days. Discovery and host chat turns are not captured. Up to 10000 recent tool calls are included; calls without a project ID are listed separately as context, including in targeted reports.",
+            "Requests rejected before the tool handler, host-side failures, and chat activity may be absent. No queued/running task means only that no backend task is active at the snapshot.",
             "Elapsed time includes queueing, workspace setup and checkpoints, not just rendering.",
             "A succeeded run task can contain a nonzero command exit code; inspect both fields.",
             "Claude/ChatGPT turns, token usage, remaining subscription allowance and reasoning are not available here.",
@@ -122,6 +217,9 @@ def collect(store, project_id=None, include_logs=False):
 
 
 def write_report(report, output):
+    def cell(value):
+        return str(value).replace("|", "/").replace("\n", " ")
+
     output.mkdir(parents=True, exist_ok=True, mode=0o700)
     lines = [
         "# Video use execution trace",
@@ -160,6 +258,80 @@ def write_report(report, output):
             + project.get("continuation", {}).get("next_action", "Not recorded"),
             "",
         ]
+        activity = project.get("backend_activity", {})
+        if activity:
+            lines += [
+                "Backend task state: "
+                + (
+                    f"{activity['running_tasks']} running, {activity['queued_tasks']} queued."
+                    if activity["running_tasks"] or activity["queued_tasks"]
+                    else "No queued or running backend tasks at this snapshot."
+                ),
+                "",
+                "Last project backend activity: "
+                + cell(json.dumps(activity.get("last_project_activity"))),
+                "",
+                activity["limitation"],
+                "",
+            ]
+        failures = [
+            call
+            for call in project.get("tool_calls", [])
+            if call.get("outcome") not in (None, "ok")
+        ]
+        if failures:
+            lines += [
+                "### Tool call failures",
+                "",
+                "These can occur before a backend task is created.",
+                "",
+                "| Recorded UTC | Tool | Task | Outcome | Error |",
+                "| --- | --- | --- | --- | --- |",
+            ]
+            for call in failures:
+                lines.append(
+                    "| "
+                    + " | ".join(
+                        cell(value)
+                        for value in (
+                            call["at"],
+                            call["tool"],
+                            call.get("task") or "No task",
+                            call["outcome"],
+                            call.get("error", "No error detail recorded"),
+                        )
+                    )
+                    + " |"
+                )
+            lines.append("")
+    context_calls = report.get("unassigned_tool_calls", [])
+    if context_calls:
+        lines += [
+            "## Unassigned tool call context",
+            "",
+            report.get(
+                "unassigned_tool_call_scope", "These calls have no project assignment."
+            ),
+            "",
+            "| Recorded UTC | Tool | Client | Outcome | Error |",
+            "| --- | --- | --- | --- | --- |",
+        ]
+        for call in sorted(context_calls, key=lambda call: call["at"]):
+            lines.append(
+                "| "
+                + " | ".join(
+                    cell(value)
+                    for value in (
+                        call["at"],
+                        call["tool"],
+                        call.get("client", "Unknown"),
+                        call["outcome"],
+                        call.get("error", ""),
+                    )
+                )
+                + " |"
+            )
+        lines.append("")
     lines += ["## Coverage", "", *("- " + x for x in report["limitations"]), ""]
     for name, content in (
         ("latest.json", json.dumps(report, indent=2, ensure_ascii=False) + "\n"),

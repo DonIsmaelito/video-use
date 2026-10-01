@@ -5,6 +5,7 @@ import contextlib
 import hashlib
 import json
 import logging
+import os
 import re
 import time
 from datetime import datetime, timezone
@@ -137,6 +138,8 @@ class TracedMCP(FastMCP):
 
     async def call_tool(self, name, arguments):
         started = time.monotonic()
+        started_at = datetime.now(timezone.utc).isoformat()
+        inputs = arguments if isinstance(arguments, dict) else {}
         outcome = "ok"
         result = None
         error = None
@@ -144,6 +147,14 @@ class TracedMCP(FastMCP):
             result = await super().call_tool(name, arguments)
             if getattr(result, "isError", False):
                 outcome = "error"
+                error = safe_error(
+                    " ".join(
+                        block.text
+                        for block in result.content
+                        if getattr(block, "type", "") == "text"
+                    ),
+                    self.trace_config,
+                )
             return result
         except BaseException as exc:
             outcome = type(exc).__name__
@@ -169,18 +180,22 @@ class TracedMCP(FastMCP):
                                     break
                     payload = payload if isinstance(payload, dict) else {}
                     pid = uuid_or_none(
-                        arguments.get("project_id")
+                        inputs.get("project_id")
                         or payload.get("project_id")
                         or payload.get("project")
                         or payload.get("id")
                     )
-                    tid = uuid_or_none(arguments.get("task_id"))
+                    tid = uuid_or_none(inputs.get("task_id"))
                     result_tid, result_pid = task_identity(payload)
                     if not tid and result_tid and (not pid or pid == result_pid):
                         tid, pid = result_tid, result_pid
                     if not pid and tid:
-                        pid = self.trace_store.task(token.subject, tid)["project"]
+                        # Failed/foreign task lookups are precisely the calls we
+                        # need to retain. Do not lose the trace while enriching it.
+                        with contextlib.suppress(Exception):
+                            pid = self.trace_store.task(token.subject, tid)["project"]
                     record = {
+                        "started_at": started_at,
                         "at": datetime.now(timezone.utc).isoformat(),
                         "tool": name,
                         "owner": token.subject,
@@ -194,16 +209,45 @@ class TracedMCP(FastMCP):
                             :12
                         ],
                         "surface": "card" if name in APP_TOOLS else "assistant",
+                        "harness_version": os.getenv(
+                            "PILOT_HARNESS_VERSION", "development"
+                        ),
                     }
+                    # Known guide names help distinguish setup/reading from
+                    # production without retaining prompts, code or source paths.
+                    topic = inputs.get("topic", "overview")
+                    if (
+                        name == "video_use_guidance"
+                        and isinstance(topic, str)
+                        and topic
+                        in {
+                            "overview",
+                            "scenes",
+                            "motion",
+                            "motion-design",
+                            "manim",
+                            "manim-video",
+                            "workflows",
+                        }
+                    ):
+                        record["topic"] = topic
                     if error:
                         record["error"] = error
-                    await asyncio.to_thread(
-                        self.trace_store.put, "trace", ident(), record, ttl=2592000
-                    )
-                    logging.getLogger(__name__).info(
+                    # Log non-content metadata even if trace persistence fails;
+                    # observability must not disappear together with a DB outage.
+                    logger = logging.getLogger(__name__)
+                    logger.info(
                         "video_use_tool %s",
                         json.dumps({k: v for k, v in record.items() if k != "error"}),
                     )
+                    try:
+                        await asyncio.to_thread(
+                            self.trace_store.put, "trace", ident(), record, ttl=2592000
+                        )
+                    except Exception as exc:
+                        logger.warning(
+                            "video_use_trace_persist_failed %s", type(exc).__name__
+                        )
 
 
 def record_progress(store, pid, stage, note, next_action="", brief="", preview=None):
