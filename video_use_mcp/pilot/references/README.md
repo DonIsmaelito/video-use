@@ -24,4 +24,5 @@ The public `video-references` InsForge bucket contains authored examples only. U
 media stays private. Asset keys include content hashes, so changing a sample cannot
 silently overwrite the appearance of an older choice. `manifest.json` pins public URLs,
 posters, hashes and dimensions. Serving choices performs no generation or sandbox work.
-The MCP resource CSP permits this exact storage origin for media, not network fetches.
+The MCP resource CSP permits the project storage origin and `https://cdn.insforge.dev`
+for media, not network fetches. InsForge public object URLs redirect to that CDN.

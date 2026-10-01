@@ -225,6 +225,7 @@ def register_cards(
                     "resourceDomains": [
                         config.public_url,
                         "https://f7e2vbn5.us-west.insforge.app",
+                        "https://cdn.insforge.dev",
                     ],
                     "connectDomains": [],
                 },
@@ -250,6 +251,7 @@ def register_cards(
                         "resourceDomains": [
                             config.public_url,
                             "https://f7e2vbn5.us-west.insforge.app",
+                            "https://cdn.insforge.dev",
                         ],
                         "connectDomains": [],
                     },
