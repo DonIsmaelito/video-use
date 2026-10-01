@@ -46,6 +46,7 @@ def test_ui_discovery_and_resource_security_metadata(pilot):
     assert resource["_meta"]["ui"]["csp"]["resourceDomains"] == [
         "http://localhost:8787",
         "https://f7e2vbn5.us-west.insforge.app",
+        "https://cdn.insforge.dev",
     ]
     assert "/* APP_BUNDLE */" not in resource["text"]
     assert "video_project_updates" not in resource["text"]
