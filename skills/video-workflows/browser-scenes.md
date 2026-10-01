@@ -8,7 +8,7 @@ is not a text-to-video model or a replacement for custom Manim, footage or 3D.
 Pass `project_id`, a new `request_id`, stable `scene_id`, `note`, the current
 `creative_revision`, and `scene`. The same scene ID with changed data and a new
 request ID updates the saved composition. It returns an editable JSON path and
-MP4 path. Execute `display_action` when the first real player is needed, then
+MP4 path. Use `preview_delivery.open_if_missing` when the first real player is needed, then
 add a sentence about what the user can judge and keep working; there is no required
 approval pause. Read current choices/feedback in task results before later renders.
 State final format and script/outline before narration; tool defaults are preview

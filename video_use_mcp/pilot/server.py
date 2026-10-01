@@ -7,6 +7,7 @@ import secrets
 import tempfile
 import time
 from pathlib import Path
+from typing import Annotated
 from urllib.parse import urlsplit
 
 from fastapi import FastAPI, Request, UploadFile, File, HTTPException
@@ -39,6 +40,23 @@ from .scenes import register_scenes
 from .feedback import register_feedback, feedback_context
 from .review_findings import ReviewFinding, normalize_review_findings
 from .voices import narration_voices, resolve_voice
+from .widgets import register_widgets, creative_public
+from .branding import (
+    BRAND_WEBSITE,
+    PNG_PATH,
+    PNG_ROUTE,
+    SVG_PATH,
+    SVG_ROUTE,
+    brand_tools,
+    browser_use_icons,
+)
+
+
+class PilotMCP(TracedMCP):
+    async def list_tools(self):
+        # Hosts choose where to display icons; their native approval UI remains
+        # outside the embedded app's control. Preserve all permission metadata.
+        return brand_tools(await super().list_tools(), self.trace_config.public_url)
 
 
 class PilotAuth(AuthProvider):
@@ -64,8 +82,10 @@ def create_app(config=None, store=None, manager=None):
     store = store or Store(config)
     manager = manager or Manager(store, config)
     auth = PilotAuth(store, config)
-    mcp = TracedMCP(
+    mcp = PilotMCP(
         "video-use",
+        icons=browser_use_icons(config.public_url),
+        website_url=BRAND_WEBSITE,
         instructions=(
             "You are the user's video editor inside this conversation. Do not introduce a separate platform, workspace, dashboard, terminal or job queue. "
             "Start new work with start_video; infer the category and preserve the user's stated preferences. "
@@ -74,16 +94,17 @@ def create_app(config=None, store=None, manager=None):
             "For an open creative brief with an unspecified look, show two relevant cached motion references when they help the user express a consequential preference. Recommend one and continue; they are style samples, not the user's draft. Skip irrelevant references. "
             "Skip choices when style is specified, the user delegates, or the request is a precise edit. Never force a first-frame approval. "
             "Keep questions compact and ask only about consequential missing choices; offer a recommendation. Continue independent work and use stated reversible defaults if no reply arrives. "
+            "Use show_video_brief for 1–3 useful unanswered audience/tone choices, show_video_choices for motion references, and show_video_story for an editable scene/script proposal before substantial narration. Choose the interaction that fits this request; do not stack a questionnaire, style picker and story editor by rote. Story cards replace a separate plan_video call. Keep working after showing them; user submissions arrive in current creative context. "
             "Only wait when truly blocked by missing media, contradictory requirements, requested approval, or host limitations. Never invent consent. "
             "Read only relevant compact video_use_guidance; detailed local production references are available on demand. Use plan_video for story beats when helpful; save the script, EDL or scene description appropriate to the piece. "
             "Use run_video_step to batch files and work. Its components field renders independent scenes concurrently, maximum two at once; command assembles them after success. "
             "For 2D motion, use render_video_scene with compact geometry/keyframes and motion_path for repeated moving marks. Use assemble_video for saved scene IDs, narration mixing and draft/final delivery, instead of writing assembly scripts. Custom code remains available for ideas these primitives cannot express. "
             "Keep sources modular and share fonts, colors and timings. For an original film, author and show a meaningful short motion excerpt before coding the entire film. Reuse it in the finished piece; this is not a mandatory approval gate. Reuse unchanged scenes. "
             "Creative state contains a revision. Pass creative_revision to run_video_step and check latest preferences in tool results. A clicked choice may arrive while work is running; adapt rather than ignoring it. "
-            "A rendered file is not visible until a player is opened. Follow display_action in task results: call show_video_preview immediately for the first meaningful draft in this conversation, before further authoring or review. The open player refreshes later drafts and the final video for up to ten minutes when supported; reuse it instead of duplicating cards. Reopen if absent, expired or unsupported. Keep working without awaiting approval. Do not show setup, placeholder, or every internal frame. "
+            "A rendered file is not visible until a player is opened. Follow preview_delivery in task results: call show_video_preview immediately for the first meaningful draft in this conversation, before further authoring or review. The open player refreshes later drafts and the final video for up to ten minutes when supported; reuse it instead of duplicating cards. Reopen if absent, expired or unsupported. Keep working without awaiting approval. Do not show setup, placeholder, or every internal frame. "
             "Accompany meaningful previews with one short chat sentence explaining the creative result and what comes next. Invite redirection at high-impact decisions while continuing independent work. Continue through final export without ritual approval stops. "
-            "The player's Suggest an edit action saves feedback at the viewed time and updates creative context. Apply latest_feedback to the referenced draft, not an assumed timestamp in a different version. "
-            "Only poll queued/running tasks with get_video_task's default wait. Use review_path for final encoded inspection, inspect the returned image, export, then show_video_preview. "
+            "The player's Edit this moment action saves feedback at the viewed time and updates creative context. Apply latest_feedback to the referenced draft, not an assumed timestamp in a different version. "
+            "Only poll queued/running tasks with get_video_task's default wait. Use review_path for final encoded inspection, inspect the returned image, then export and reuse the active player. Call show_video_preview only when no player exists in this conversation or its refresh has expired or is unsupported. "
             "Save actual scene durations in run_video_step.production_timing after aligning to narration. Review meaning as well as legibility: a misleading label or diagram is a defect to repair, not a caveat to move into the final chat. Report discovered issues in export_video.findings; stylistic preferences are separate from correctness. "
             "Preview quality and final delivery are different: state the chosen format early, use fast drafts, then assemble_video quality=final for native 1080p unless a different delivery was requested. Report actual dimensions. Do not call clipped essential content a style preference; intentional edge bleed is an artistic choice. Stills and loudness measurements do not establish motion playback, listening quality or semantic sync: report verification limits honestly. "
             "For unusual requests consult video_use_capabilities and video_use_guidance topic=workflows. Compose primitives rather than forcing a category template. "
@@ -186,7 +207,7 @@ def create_app(config=None, store=None, manager=None):
             "id": pid,
             "title": p["title"],
             "continuation": progress,
-            "creative": store.get("creative", pid),
+            "creative": creative_public(store.get("creative", pid)),
             "production_timing": store.get("production_timing", pid),
             "review_findings": store.get("review_findings", pid) or [],
             "feedback": feedback_context(store, pid, limit=10),
@@ -248,6 +269,7 @@ def create_app(config=None, store=None, manager=None):
     register_workflow(mcp, store, muser, new_project, read, write)
     register_scenes(mcp, store, manager, muser, cards, execute)
     register_feedback(mcp, store, muser, write)
+    register_widgets(mcp, store, muser, read, write)
 
     @mcp.tool(annotations=read, title="Video capabilities")
     def video_use_capabilities(
@@ -262,6 +284,14 @@ def create_app(config=None, store=None, manager=None):
                 for k, v in catalog().items()
             ],
             "narration": narration_voices(store, config, discover=include_voices),
+            "interaction": {
+                "brief": "Optional audience/tone choice buttons via show_video_brief",
+                "references": "Cached motion comparison via show_video_choices",
+                "story": "Editable scene cards and narration via show_video_story",
+                "media": "Evolving player, timestamped suggestions, download and host-supported fullscreen",
+                "sources": "Explicit in-chat source upload",
+                "boundary": "Saving choices updates project context; the host controls when messages resume its model. No automatic approval pauses.",
+            },
             "inputs": {
                 "extensions": sorted(SOURCE_EXTENSIONS),
                 "max_bytes": 200000000,
@@ -535,14 +565,20 @@ def create_app(config=None, store=None, manager=None):
 
     @mcp.tool(annotations=read)
     async def get_video_task(
-        task_id: str, wait_seconds: int = 25, include_logs: bool = False
+        task_id: str,
+        wait_seconds: Annotated[
+            int,
+            Field(
+                ge=0,
+                description="Seconds to wait, default 25. Use 0 for an immediate check. Larger values are safely capped at 25 seconds; unfinished work continues.",
+            ),
+        ] = 25,
+        include_logs: bool = False,
     ) -> CallToolResult:
-        """Only call for a queued/running task or diagnostic logs. Waits 25s by default; returns images and a live chat card plus final play/download links. Completed tool responses already include their images; do not poll them again."""
+        """Only call for a queued/running task or diagnostic logs. Waits at most 25s; longer requests are capped. Returns inspection images and actual media links without creating another player. Completed responses already include their images; do not poll them again."""
         uid = muser()
         store.task(uid, task_id)
-        if not 0 <= wait_seconds <= 25:
-            raise ValueError("wait_seconds must be 0–25")
-        await wait_for_task(manager, task_id, wait_seconds)
+        await wait_for_task(manager, task_id, min(wait_seconds, 25))
         return await cards["task_result"](uid, task_id, include_logs)
 
     @mcp.tool(
@@ -653,9 +689,23 @@ def create_app(config=None, store=None, manager=None):
                 challenge + ', scope="' + " ".join(SCOPES) + '"'
             )
         response.headers["X-Content-Type-Options"] = "nosniff"
-        response.headers["Cache-Control"] = "no-store"
+        response.headers["Cache-Control"] = (
+            "public, max-age=86400"
+            if request.url.path in {PNG_ROUTE, SVG_ROUTE}
+            and response.status_code in {200, 304}
+            else "no-store"
+        )
         response.headers["Referrer-Policy"] = "no-referrer"
         return response
+
+    @app.get(PNG_ROUTE)
+    async def brand_png():
+        # Public metadata assets contain no user or project information.
+        return FileResponse(PNG_PATH, media_type="image/png")
+
+    @app.get(SVG_ROUTE)
+    async def brand_svg():
+        return FileResponse(SVG_PATH, media_type="image/svg+xml")
 
     @app.exception_handler(PermissionError)
     async def forbidden(request, exc):

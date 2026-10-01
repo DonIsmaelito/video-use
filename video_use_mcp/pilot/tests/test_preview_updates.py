@@ -51,7 +51,7 @@ def test_refresh_is_app_only_read_only_without_its_own_visual_resource(pilot):
     )
     assert tool["annotations"]["readOnlyHint"] is True
     assert tool["_meta"]["ui"] == {"visibility": ["app"]}
-    assert UI_URI.endswith("media-v8.html")
+    assert UI_URI.endswith("media-v9.html")
     old = rpc(pilot, "resources/read", {"uri": "ui://video-use/media-v6.html"})
     assert old["contents"][0]["mimeType"] == "text/html;profile=mcp-app"
 

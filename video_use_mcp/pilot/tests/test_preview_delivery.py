@@ -37,7 +37,7 @@ def task_result(pilot, *, status="succeeded", result=None, payload=None):
     return response, text
 
 
-def test_completed_video_has_actual_link_and_display_action_in_text(pilot):
+def test_completed_video_has_actual_link_and_conditional_delivery_in_text(pilot):
     _, text = task_result(
         pilot,
         result={
@@ -53,17 +53,22 @@ def test_completed_video_has_actual_link_and_display_action_in_text(pilot):
     assert text["media"]["download_url"].endswith("&download=true")
     assert "already open in THIS conversation" in text["next_action"]
     assert "instead of opening duplicate players" in text["next_action"]
-    assert text["display_action"] == {
+    assert "display_action" not in text
+    assert text["preview_delivery"]["reuse_existing_player"] is True
+    assert "in this conversation" in text["preview_delivery"]["open_only_when"]
+    assert text["preview_delivery"]["open_if_missing"] == {
         "name": "show_video_preview",
         "arguments": {"project_id": PID},
     }
     assert "next_tool" not in text
 
 
-def test_exported_video_has_display_action_without_legacy_workspace(pilot):
+def test_exported_video_reuses_player_without_legacy_workspace(pilot):
     _, text = task_result(pilot, result={"video_id": "final-video"})
     assert text["media"]["caption"] == "Finished video"
-    assert text["display_action"]["name"] == "show_video_preview"
+    assert "display_action" not in text
+    assert text["preview_delivery"]["reuse_existing_player"] is True
+    assert text["preview_delivery"]["open_if_missing"]["name"] == "show_video_preview"
     assert "next_tool" not in text
 
 
@@ -71,6 +76,7 @@ def test_running_task_has_wait_action_and_no_fake_media(pilot):
     _, text = task_result(pilot, status="running")
     assert "media" not in text
     assert "display_action" not in text
+    assert "preview_delivery" not in text
     assert text["next_tool"] == {
         "name": "get_video_task",
         "arguments": {"task_id": TID},

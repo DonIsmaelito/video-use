@@ -4,7 +4,7 @@ import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
-import { closeBrowser, framePlan, isWithin, parseArgs, startAssetServer, writeEncoderFrame } from '../helpers/motion_render.mjs';
+import { closeBrowser, framePlan, isWithin, parseArgs, startAssetServer, validateEncodedMedia, writeEncoderFrame } from '../helpers/motion_render.mjs';
 
 test('exclusive end time produces exactly 360 frames for a 12 second 30fps export', () => {
   const plan = framePlan(12, 30);
@@ -17,6 +17,21 @@ test('non-frame-aligned durations fail instead of silently changing the runtime'
   assert.throws(() => framePlan(1.015, 30), /frame-aligned/);
   assert.equal(framePlan(1001 / 1000, 30000 / 1001).count, 30);
   for (const duration of [NaN, Infinity, 0, -1]) assert.throws(() => framePlan(duration, 30));
+});
+
+test('encoded narration must cover the complete frame plan before publication', () => {
+  const plan = framePlan(7, 15);
+  const video = {codec_type:'video', nb_read_frames:'105', width:960, height:540};
+  const audio = {codec_type:'audio', duration:'7.0', start_time:'0', sample_rate:'48000'};
+  const check = streams => validateEncodedMedia({streams}, plan, 960, 540, true);
+  check([video, audio]);
+  check([video, {...audio, duration:'7.021333'}]);
+  assert.throws(() => check([video, {...audio, duration:'5.482'}]), /audio failed duration validation/);
+  assert.throws(() => check([video, {...audio, start_time:'1.5'}]), /audio failed duration validation/);
+  assert.throws(() => check([video]), /no audio stream/);
+  assert.throws(() => check([video, {...audio, duration:'N/A'}]), /audio failed duration validation/);
+  assert.throws(() => check([{...video, nb_read_frames:'104'}, audio]), /frame count/);
+  validateEncodedMedia({streams:[video]}, plan, 960, 540, false);
 });
 
 test('CLI rejects invalid delivery and impossible sample times before launch', () => {

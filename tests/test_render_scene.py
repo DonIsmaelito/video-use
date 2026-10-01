@@ -359,6 +359,74 @@ console.log(JSON.stringify({a,b,c}));"""
     "Local browser renderer required",
 )
 class SceneRenderTests(unittest.TestCase):
+    def test_seven_second_audio_excerpt_keeps_its_tail_and_pads_short_sources(self):
+        with tempfile.TemporaryDirectory(prefix="video-use-audio-tail-") as tmp:
+            path = Path(tmp)
+            rate = 16000
+            scene = sample()
+            scene.update(duration=7, fps=15)
+            for label, source_seconds, tail_has_sound in (
+                ("full", 10.4, True),
+                ("short", 4.4, False),
+            ):
+                with self.subTest(source=label):
+                    audio = path / f"{label}.wav"
+                    with wave.open(str(audio), "wb") as out:
+                        out.setnchannels(1)
+                        out.setsampwidth(2)
+                        out.setframerate(rate)
+                        values = [
+                            0
+                            if n < round(3.4 * rate)
+                            else int(math.sin(2 * math.pi * 440 * n / rate) * 12000)
+                            for n in range(round(source_seconds * rate))
+                        ]
+                        out.writeframes(struct.pack(f"<{len(values)}h", *values))
+                    report = renderer.render_scene(
+                        scene,
+                        path / f"{label}.mp4",
+                        audio=audio,
+                        audio_start=3.4,
+                        chrome=CHROME,
+                    )
+                    probe = json.loads(Path(report["manifest"]).read_text())["probe"]
+                    video = next(
+                        s for s in probe["streams"] if s["codec_type"] == "video"
+                    )
+                    sound = next(
+                        s for s in probe["streams"] if s["codec_type"] == "audio"
+                    )
+                    self.assertEqual(int(video["nb_read_frames"]), 105)
+                    self.assertAlmostEqual(float(sound["duration"]), 7, delta=0.05)
+                    decoded = subprocess.run(
+                        [
+                            "ffmpeg",
+                            "-v",
+                            "error",
+                            "-ss",
+                            "6",
+                            "-i",
+                            report["output"],
+                            "-vn",
+                            "-ac",
+                            "1",
+                            "-ar",
+                            str(rate),
+                            "-f",
+                            "s16le",
+                            "-",
+                        ],
+                        capture_output=True,
+                        check=True,
+                    ).stdout
+                    self.assertGreater(len(decoded), round(0.95 * rate) * 2)
+                    samples = struct.unpack(f"<{len(decoded) // 2}h", decoded)
+                    mean_level = sum(abs(value) for value in samples) / len(samples)
+                    if tail_has_sound:
+                        self.assertGreater(mean_level, 5000)
+                    else:
+                        self.assertLess(mean_level, 10)
+
     def test_scaled_render_preserves_authored_coordinates_and_animates_path_wave(self):
         scene = {
             "duration": 1,

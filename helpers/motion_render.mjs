@@ -56,6 +56,23 @@ export function framePlan(duration, fps) {
   return { count, fps, duration: count / fps, lastTime: (count - 1) / fps };
 }
 
+export function validateEncodedMedia(probe, plan, width, height, expectsAudio = false) {
+  const video = probe.streams?.find(stream => stream.codec_type === 'video');
+  if (!video || Number(video.nb_read_frames) !== plan.count || video.width !== width || video.height !== height) {
+    throw new Error('Encoded video failed frame count or dimension validation');
+  }
+  if (expectsAudio) {
+    const audio = probe.streams?.find(stream => stream.codec_type === 'audio');
+    const duration = Number(audio?.duration), start = Number(audio?.start_time ?? 0);
+    // AAC has 1024-sample packets; allow container rounding, not missing speech.
+    const tolerance = Math.max(0.05, 2048 / (Number(audio?.sample_rate) || 48000));
+    if (!audio || !Number.isFinite(duration) || !Number.isFinite(start)
+        || Math.abs(duration - plan.duration) > tolerance || Math.abs(start) > tolerance) {
+      throw new Error(`Encoded audio failed duration validation: expected ${plan.duration}s from zero, received ${audio ? `${duration}s from ${start}s` : 'no audio stream'}`);
+    }
+  }
+}
+
 export function parseArgs(argv) {
   const options = { width: 1920, height: 1080, fps: 30, crf: 16, preset: 'slow', timeout: 60000, stills: [] };
   const numeric = new Set(['width', 'height', 'fps', 'duration', 'crf', 'timeout', 'poster-time']);
@@ -363,7 +380,10 @@ export async function render(options) {
       const args = ['-hide_banner', '-loglevel', 'error', '-y', '-f', 'image2pipe', '-framerate', String(plan.fps), '-vcodec', 'png', '-i', 'pipe:0'];
       if (options.audio) args.push('-i', path.resolve(options.audio), '-map', '0:v:0', '-map', '1:a:0', '-af', `apad,atrim=duration=${plan.duration}`, '-c:a', 'aac', '-b:a', '320k');
       else args.push('-an');
-      args.push('-frames:v', String(plan.count), '-c:v', 'libx264', '-crf', String(options.crf), '-preset', options.preset,
+      // The pipe supplies exactly plan.count frames. A video frame limit can stop
+      // older FFmpeg builds before their audio encoder drains, clipping narration.
+      // Bound the complete output by duration and verify both streams afterward.
+      args.push('-t', String(plan.duration), '-c:v', 'libx264', '-crf', String(options.crf), '-preset', options.preset,
         '-vf', 'scale=in_range=full:out_range=tv:out_color_matrix=bt709,format=yuv420p',
         '-color_range', 'tv', '-colorspace', 'bt709', '-color_primaries', 'bt709', '-color_trc', 'bt709', '-movflags', '+faststart', tempOutput);
       encoder = spawn('ffmpeg', args, { stdio: ['pipe', 'ignore', 'pipe'] });
@@ -384,10 +404,7 @@ export async function render(options) {
       encoder.stdin.end();
       await encoderDone;
       const probe = JSON.parse(run('ffprobe', ['-v', 'error', '-count_frames', '-show_streams', '-show_format', '-of', 'json', tempOutput]));
-      const video = probe.streams.find(stream => stream.codec_type === 'video');
-      if (!video || Number(video.nb_read_frames) !== plan.count || video.width !== options.width || video.height !== options.height) {
-        throw new Error('Encoded video failed frame count or dimension validation');
-      }
+      validateEncodedMedia(probe, plan, options.width, options.height, Boolean(options.audio));
       metadata.probe = probe;
       metadata.probe.format.filename = output;
       await fs.rename(tempOutput, output);

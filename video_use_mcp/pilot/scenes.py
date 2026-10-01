@@ -134,7 +134,7 @@ def register_scenes(mcp, store, manager, muser, cards, execute):
         narration_start: float = 0,
         validate_only: bool = False,
     ) -> CallToolResult:
-        """Create a real short motion excerpt from compact drawing data, without writing renderer or assembly code. Use for diagrams, typography and simple 2D motion; custom Manim, footage and 3D remain available through run_video_step. Author one useful visual idea, not the whole film. Saves editable JSON and MP4 together; same scene_id can be rendered again with changed data and a NEW request_id. Optional narration_path is existing project audio, with explicit start offset. validate_only returns all keyframe errors without writing files or rendering. Follow display_action to show it, then continue without an approval pause. Use assemble_video for the complete draft and final-quality rendering."""
+        """Create a real short motion excerpt from compact drawing data, without writing renderer or assembly code. Use for diagrams, typography and simple 2D motion; custom Manim, footage and 3D remain available through run_video_step. Author one useful visual idea, not the whole film. Saves editable JSON and MP4 together; same scene_id can be rendered again with changed data and a NEW request_id. Optional narration_path is existing project audio, with explicit start offset. validate_only returns all keyframe errors without writing files or rendering. Open a preview only if no working player exists in this conversation, then continue without an approval pause. Use assemble_video for the complete draft and final-quality rendering."""
         uid = muser(True)
         if validate_only:
             store.project(uid, project_id)

@@ -16,7 +16,7 @@ from mcp.server.fastmcp import FastMCP
 
 from .store import ident
 
-UI_URI = "ui://video-use/media-v8.html"
+UI_URI = "ui://video-use/media-v9.html"
 UI_META = {"ui": {"resourceUri": UI_URI}}
 
 TASK_OPERATIONS = {
@@ -37,6 +37,7 @@ APP_TOOLS = {
     "video_preview_updates",
     "choose_video_style",
     "add_video_feedback",
+    "save_video_widget",
 }
 
 
@@ -187,6 +188,13 @@ class TracedMCP(FastMCP):
                     )
                     tid = uuid_or_none(inputs.get("task_id"))
                     result_tid, result_pid = task_identity(payload)
+                    task_status = payload.get("status") if result_tid else None
+                    if task_status in ("failed", "cancelled"):
+                        outcome = "task_" + task_status
+                        error = safe_error(
+                            payload.get("error") or "Backend task " + task_status,
+                            self.trace_config,
+                        )
                     if not tid and result_tid and (not pid or pid == result_pid):
                         tid, pid = result_tid, result_pid
                     if not pid and tid:
@@ -233,6 +241,8 @@ class TracedMCP(FastMCP):
                         record["topic"] = topic
                     if error:
                         record["error"] = error
+                    if task_status:
+                        record["task_status"] = task_status
                     # Log non-content metadata even if trace persistence fails;
                     # observability must not disappear together with a DB outage.
                     logger = logging.getLogger(__name__)

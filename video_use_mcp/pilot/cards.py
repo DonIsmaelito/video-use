@@ -19,6 +19,7 @@ from .interaction import (
     wait_for_task,
 )
 from .feedback import feedback_context
+from .widgets import creative_public
 
 Stage = Literal[
     "planning", "style", "motion", "draft", "review", "complete", "needs_attention"
@@ -169,7 +170,7 @@ def register_cards(
         data = {
             "project_id": pid,
             "media": media,
-            "creative": store.get("creative", pid),
+            "creative": creative_public(store.get("creative", pid)),
             "next_action": (
                 "Present the finished video and download concisely, describing only "
                 "the review evidence you actually inspected. The requested export is complete."
@@ -180,6 +181,8 @@ def register_cards(
                 "and the next useful improvement, then continue working. Invite "
                 "redirection only where it matters; do not require a reply. "
                 "Use current creative choices before the next render. "
+                "This player refreshes later drafts and the final export; reuse it "
+                "rather than opening another player for each milestone. "
                 "Do not describe workspace setup or terminal commands."
             ),
         }
@@ -254,7 +257,7 @@ def register_cards(
                 )
             if result.get("review_object"):
                 store.put("reviewed", out["project"], result["sha256"], ttl=86400)
-        out["creative"] = store.get("creative", out["project"])
+        out["creative"] = creative_public(store.get("creative", out["project"]))
         handoff_task = task
         if "creative_revision" not in (task.get("payload") or {}):
             submitted_context = store.get("task_context", task_id)
@@ -306,6 +309,25 @@ def register_cards(
                 "Inspect this task's error and correct only the failed work. "
                 "Do not poll a finished task or repeat successful rendering."
             )
+            if "narrate allowance reached" in (out.get("error") or ""):
+                out["error"] = (
+                    "The hosted video's daily narration allowance has been reached."
+                )
+                out["blocker"] = {
+                    "kind": "service_allowance",
+                    "resource": "narration",
+                    "automatic_retry": False,
+                    "resets": "00:00 UTC daily",
+                }
+                out["next_action"] = (
+                    "Tell the user that the video service's daily narration allowance "
+                    "is exhausted; this is not their Claude/ChatGPT subscription limit "
+                    "or a rendering failure. Do not repeatedly retry or silently omit "
+                    "requested voiceover. Continue useful story/visual work while the "
+                    "host adjusts the allowance or it resets at 00:00 UTC. Once capacity "
+                    "is available, retry narration with a new request_id and finish the "
+                    "requested voiced video. Do not present a silent draft as complete."
+                )
         elif out["operation"] == "narrate" and result.get("audio_path"):
             # The saved speech is an input to the next visual, not a reason to
             # wait or regenerate it. This handoff is response-only: reading an
@@ -330,8 +352,9 @@ def register_cards(
                 "run_video_step with preview_path. If a draft or finished video "
                 "already exists, continue from it only as needed for the current "
                 "request; rereading this narration is not a reason to restart work. "
-                "After a new render succeeds, show the actual media with "
-                "show_video_preview and keep working without an approval pause. "
+                "After a new render succeeds, open show_video_preview only if no "
+                "working player exists in this conversation; otherwise let the existing "
+                "player refresh. Keep working without an approval pause. "
                 "Do not display a placeholder, poll this completed task, or rerun "
                 "completed speech merely to resume. Align the full "
                 "video to the measured narration duration. If speech exceeds the "
@@ -341,7 +364,7 @@ def register_cards(
         elif out.get("media"):
             out["next_action"] = (
                 "Actual media is ready at media.url. If no player for this project is "
-                "already open in THIS conversation, execute display_action now. An existing "
+                "already open in THIS conversation, use preview_delivery.open_if_missing. An existing "
                 "player refreshes new media for up to ten minutes when the host supports "
                 "app tools; let it update instead of opening duplicate players. Reopen for "
                 "a substantial new draft or final export if refresh is unavailable or expired. "
@@ -349,9 +372,13 @@ def register_cards(
                 "visible and what comes next. Then continue without an approval "
                 "pause. Do not poll this completed task."
             )
-            out["display_action"] = {
-                "name": "show_video_preview",
-                "arguments": {"project_id": out["project"]},
+            out["preview_delivery"] = {
+                "reuse_existing_player": True,
+                "open_only_when": "No player exists in this conversation, or it has expired or cannot refresh.",
+                "open_if_missing": {
+                    "name": "show_video_preview",
+                    "arguments": {"project_id": out["project"]},
+                },
             }
             if result.get("review_object"):
                 out["next_action"] += (
@@ -360,7 +387,9 @@ def register_cards(
         elif result.get("review_object"):
             out["next_action"] = (
                 "Inspect the returned encoded review image. If it passes, export this "
-                "exact video with an honest review summary, then show_video_preview. "
+                "exact video with an honest review summary. Reuse the player already "
+                "open in this conversation; use show_video_preview only if absent, "
+                "expired or unable to refresh. "
                 "This inspection sheet is not a user-facing video preview. Do not poll again."
             )
         elif task.get("payload", {}).get("preview_pending"):
@@ -428,6 +457,7 @@ def register_cards(
         "ui://video-use/media-v5.html",
         "ui://video-use/media-v6.html",
         "ui://video-use/media-v7.html",
+        "ui://video-use/media-v8.html",
     ):
         mcp.resource(
             legacy_uri,

@@ -146,3 +146,36 @@ def test_partial_legacy_metadata_does_not_invent_duration_or_creative_revision(p
     assert data["narration_continuation"] == {"audio_path": "edit/old.mp3"}
     assert "any returned inline" in data["next_action"]
     assert "when supplied" in data["next_action"]
+
+
+def test_narration_allowance_reports_the_actual_blocker_without_retry_loop(pilot):
+    _, app = pilot
+    task = {
+        "id": TID,
+        "project": PID,
+        "operation": "narrate",
+        "status": "failed",
+        "payload": {},
+        "result": {},
+        "created": "",
+        "updated": "",
+        "error": "Storage/database request failed (500): narrate allowance reached",
+    }
+    app.state.store.task = Mock(return_value=task)
+    app.state.manager.running = {}
+    result = rpc(
+        pilot, "tools/call", {"name": "get_video_task", "arguments": {"task_id": TID}}
+    )
+    data = result["structuredContent"]
+    assert json.loads(result["content"][0]["text"]) == data
+    assert data["blocker"]["kind"] == "service_allowance"
+    assert data["blocker"]["automatic_retry"] is False
+    assert "500" not in data["error"]
+    assert "not their Claude/ChatGPT subscription" in data["next_action"]
+    assert "new request_id" in data["next_action"]
+    assert "Do not present a silent draft as complete" in data["next_action"]
+    assert "display_action" not in data and "narration_continuation" not in data
+    with app.state.store.db() as db:
+        rows = db.execute("SELECT key FROM kv WHERE kind='trace'").fetchall()
+    trace = app.state.store.get("trace", rows[-1]["key"])
+    assert trace["task_status"] == "failed" and trace["outcome"] == "task_failed"

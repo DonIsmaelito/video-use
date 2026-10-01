@@ -97,7 +97,8 @@ function render(next) {
   }
   $("visual").hidden=false;
   $("download").hidden=next.media_type !== "video/mp4";
-  $('suggest-edit').hidden=next.media_type !== 'video/mp4' || !mediaProject || !next.object_id;
+  const canEdit=next.media_type==='video/mp4' && Boolean(mediaProject && next.object_id);
+  $('suggest-edit').hidden=!canEdit;$('feedback-shortcuts').hidden=!canEdit;
   $('excerpt').hidden=next.truncated!==true;
   if(next.truncated===true){
     const seconds=Number(next.duration),total=Number(next.source_duration);
@@ -106,6 +107,7 @@ function render(next) {
       : 'Preview excerpt · the full video is longer';
   }
   $("notice").textContent="";
+  syncDisplayMode();
 }
 function feedbackTime(seconds){
   const tenths=Math.round(seconds*10),minutes=Math.floor(tenths/600),remainder=((tenths%600)/10).toFixed(1).padStart(4,'0');
@@ -122,18 +124,29 @@ function finishFeedback(draft){
   resetFeedback();
   if(pendingMedia && !playing()){const next=pendingMedia;pendingMedia=null;render(next);}
 }
-$('suggest-edit').onclick=()=>{
+function openFeedback(prefill=''){
   if(feedbackSaving || !mediaProject || !media?.object_id)return;
   const element=$('media').firstElementChild;
   if(element?.tagName!=='VIDEO')return;
-  const seconds=Number.isFinite(element.currentTime)?Math.max(0,element.currentTime):0;
-  feedbackDraft={projectId:mediaProject,objectId:media.object_id,seconds:Math.round(seconds*1000)/1000,requestId:newFeedbackId()};
+  if(!feedbackDraft){
+    const seconds=Number.isFinite(element.currentTime)?Math.max(0,element.currentTime):0;
+    feedbackDraft={projectId:mediaProject,objectId:media.object_id,seconds:Math.round(seconds*1000)/1000,requestId:newFeedbackId()};
+    $('feedback-note').value='';
+  }
   // Capture/pin this exact version before pausing; a new draft may arrive meanwhile.
   element.pause?.();
   $('feedback-time').textContent=`At ${feedbackTime(feedbackDraft.seconds)}`;
-  $('feedback-form').hidden=false;$('feedback-note').value='';$('feedback-note').focus?.();
+  const note=$('feedback-note');
+  if(prefill && !note.value.includes(prefill))note.value=(note.value.trim()?note.value.trim()+'\n':'')+prefill;
+  $('feedback-form').hidden=false;note.focus?.();
   $('notice').textContent='';
-};
+}
+$('suggest-edit').onclick=()=>openFeedback();
+for(const [id,note] of [
+  ['edit-labels','Make the labels larger and easier to read at this moment.'],
+  ['edit-pace','Make the pacing faster around this moment, while keeping the explanation clear.'],
+  ['edit-look','Explore a different visual style for this moment.'],
+])$(id).onclick=()=>openFeedback(note);
 $('feedback-cancel').onclick=()=>{if(!feedbackSaving)finishFeedback(feedbackDraft);};
 $('feedback-form').onsubmit=async(event)=>{
   event?.preventDefault?.();
@@ -147,6 +160,7 @@ $('feedback-form').onsubmit=async(event)=>{
   if(draft.submittedNote && draft.submittedNote!==note)draft.requestId=newFeedbackId();
   draft.submittedNote=note;feedbackSaving=true;
   $('feedback-note').disabled=true;$('feedback-send').disabled=true;$('feedback-cancel').disabled=true;
+  $('suggest-edit').disabled=true;$('feedback-shortcuts').querySelectorAll('button').forEach(button=>{button.disabled=true;});
   try{
     const result=readData(await app.callServerTool({name:'add_video_feedback',arguments:{project_id:draft.projectId,object_id:draft.objectId,seconds:draft.seconds,note,request_id:draft.requestId}}));
     const content=[{type:'text',text:`For video project ${draft.projectId}, at ${label} in video ${draft.objectId}: ${note}. Use this suggestion in the next edit. Creative revision ${result.creative.revision}.`}];
@@ -158,6 +172,7 @@ $('feedback-form').onsubmit=async(event)=>{
   }catch(e){notice(e.message || 'Could not save this suggestion. Try again.');}
   finally{
     feedbackSaving=false;$('feedback-note').disabled=false;$('feedback-send').disabled=false;$('feedback-cancel').disabled=false;
+    $('suggest-edit').disabled=false;$('feedback-shortcuts').querySelectorAll('button').forEach(button=>{button.disabled=false;});
   }
 };
 $("download").onclick=async()=>{
@@ -166,7 +181,7 @@ $("download").onclick=async()=>{
 app.ontoolresult=(result)=>{
   try {receiveMediaResult(result);} catch(e){stopRefresh();$("notice").textContent=e.message;}
 };
-app.onhostcontextchanged=(context)=>{if(context.theme)applyDocumentTheme(context.theme);};
+app.onhostcontextchanged=(context)=>{if(context.theme)applyDocumentTheme(context.theme);syncDisplayMode(context);};
 app.onteardown=async()=>{
   stopRefresh();
   const element=$('media').firstElementChild;
@@ -216,6 +231,8 @@ async function choose(option){
 }
 const receiveMedia=app.ontoolresult;
 app.ontoolresult=result=>{
+  if(result.structuredContent?.widget){try{receiveWidget(readData(result));}catch(e){$('notice').textContent=e.message;}return;}
+  $('widget').hidden=true;
   if(result.structuredContent?.source_picker){renderSourcePicker(result);return;}
   $("sources").hidden=true;
   if(result.structuredContent?.choices){try{renderChoices(result.structuredContent)}catch(e){$('notice').textContent=e.message;}}
@@ -290,4 +307,157 @@ $('source-library').onclick=async()=>{
   finally{uploading=false;$('source-library').disabled=false;await finishSourceNotification(saved,state);}
 };
 $('source-fallback').onclick=async()=>{if(sourceState)await app.openLink({url:sourceState.source_picker.studio_url});};
-app.connect().catch(()=>{$('notice').textContent='Ask your assistant to show this again.';});
+
+// Optional edits stay local until the person explicitly sends them.
+let widgetState=null;
+const clone=value=>JSON.parse(JSON.stringify(value));
+function widgetHere(state){return widgetState===state && !$('widget').hidden;}
+function widgetPayload(state){return state.widget.kind==='brief'?{answers:state.draft.answers}:{beats:state.draft.beats};}
+function widgetBaseline(widget){return widget.kind==='brief'?{answers:widget.answers || {}}:{beats:widget.beats};}
+function widgetControls(state){
+  if(!widgetHere(state))return;
+  $('widget-submit').disabled=state.saving || !state.dirty || Boolean(state.pending);
+  $('widget-latest').hidden=!state.pending;
+  $('widget-latest').disabled=state.saving;
+  $('widget-fields').querySelectorAll('input,textarea,button').forEach(el=>{el.disabled=state.saving;});
+}
+function widgetEdited(state){
+  state.dirty=JSON.stringify(widgetPayload(state))!==JSON.stringify(widgetBaseline(state.widget));
+  if(widgetHere(state) && !state.pending)$('widget-status').textContent='';
+  widgetControls(state);
+}
+function receiveWidget(data,replace=false){
+  const widget=data.widget;
+  if(!data.project_id || !widget?.id || !['brief','story'].includes(widget.kind))throw Error('This editor could not be loaded.');
+  stopRefresh();resetFeedback();$('visual').hidden=true;$('choices').hidden=true;$('sources').hidden=true;$('widget').hidden=false;$('notice').textContent='';
+  const same=widgetState?.projectId===data.project_id && widgetState.widget.id===widget.id;
+  if(same && !replace){
+    if(widget.revision<=widgetState.widget.revision)return;
+    if(widgetState.dirty || widgetState.saving){
+      if(!widgetState.pending || widget.revision>widgetState.pending.widget.revision)widgetState.pending=data;
+      $('widget-status').textContent='A newer version is available. Your unsent edits are still here.';
+      widgetControls(widgetState);return;
+    }
+  }
+  const state={projectId:data.project_id,widget:clone(widget),draft:clone(widgetBaseline(widget)),dirty:false,saving:false,pending:null,submission:null};
+  widgetState=state;drawWidget(state);
+}
+function drawWidget(state){
+  const widget=state.widget,fields=$('widget-fields');fields.replaceChildren();fields.className='';fields.removeAttribute('aria-label');
+  $('widget-title').textContent=widget.title || (widget.kind==='brief'?'A few preferences':'Shape the story');
+  $('widget-submit').textContent=widget.kind==='brief'?'Save preferences':'Send changes';
+  $('widget-status').textContent='';
+  if(widget.kind==='brief'){
+    for(const question of widget.questions || []){
+      const group=document.createElement('fieldset');group.className='brief-question';
+      const legend=document.createElement('legend');legend.textContent=question.prompt;group.append(legend);
+      const options=document.createElement('div');options.className='brief-options';group.append(options);
+      for(const option of question.options || []){
+        const button=document.createElement('button');button.type='button';button.textContent=option.label;
+        button.dataset.option=option.id;button.dataset.question=question.id;
+        button.setAttribute('aria-pressed',String(state.draft.answers[question.id]===option.id));
+        if(question.recommended===option.id){const hint=document.createElement('small');hint.textContent='Suggested';button.append(hint);}
+        button.onclick=()=>{
+          if(state.saving)return;
+          if(state.draft.answers[question.id]===option.id)delete state.draft.answers[question.id];
+          else state.draft.answers[question.id]=option.id;
+          for(const el of options.children)el.setAttribute('aria-pressed',String(el.dataset.option===state.draft.answers[question.id]));
+          widgetEdited(state);
+        };
+        options.append(button);
+      }
+      fields.append(group);
+    }
+  }else{
+    fields.className='story-strip';fields.setAttribute('aria-label','Story beats');
+    state.draft.beats.forEach((beat,index)=>{
+      const card=document.createElement('article');card.className='story-beat';card.setAttribute('aria-label',`Beat ${index+1}`);
+      const heading=document.createElement('div');heading.className='beat-heading';
+      const number=document.createElement('span');number.textContent=`${index+1}`;heading.append(number);
+      const duration=document.createElement('label');duration.className='beat-duration';duration.textContent='Seconds';
+      const seconds=document.createElement('input');seconds.type='number';seconds.min='0.1';seconds.max='600';seconds.step='0.1';seconds.required=true;seconds.value=String(beat.seconds);
+      seconds.setAttribute('aria-label',`Beat ${index+1} seconds`);seconds.dataset.field='seconds';seconds.dataset.beat=beat.id;
+      seconds.oninput=()=>{beat.seconds=Number(seconds.value);widgetEdited(state);};duration.append(seconds);heading.append(duration);card.append(heading);
+      for(const [key,label,maxLength,rows] of [['title','Title',100,0],['visual','Visual',400,3],['narration','Narration',2000,4]]){
+        const wrapper=document.createElement('label');wrapper.textContent=label;
+        const input=document.createElement(rows?'textarea':'input');input.value=beat[key] || '';input.maxLength=maxLength;
+        if(rows)input.rows=rows;
+        input.required=key!=='narration';
+        input.setAttribute('aria-label',`Beat ${index+1} ${label.toLowerCase()}`);input.dataset.field=key;input.dataset.beat=beat.id;
+        input.oninput=()=>{beat[key]=input.value;widgetEdited(state);};wrapper.append(input);card.append(wrapper);
+      }
+      fields.append(card);
+    });
+  }
+  widgetControls(state);
+}
+$('widget-latest').onclick=()=>{const state=widgetState;if(state?.pending && !state.saving)receiveWidget(state.pending,true);};
+$('widget-form').onsubmit=async event=>{
+  event?.preventDefault?.();
+  const state=widgetState;if(!state || state.saving || !state.dirty || state.pending)return;
+  const payload=clone(widgetPayload(state)),caps=app.getHostCapabilities?.() || {};
+  const notice=text=>{if(widgetHere(state))$('widget-status').textContent=text;};
+  if(state.widget.kind==='story' && payload.beats.some(b=>!b.title.trim() || !b.visual.trim() || !Number.isFinite(b.seconds) || b.seconds<0.1 || b.seconds>600)){
+    notice('Give each beat a title, a visual, and a duration between 0.1 and 600 seconds.');return;
+  }
+  if(!caps.serverTools){notice('This host cannot save here. Copy your preferences or story changes into the chat.');return;}
+  const signature=JSON.stringify({revision:state.widget.revision,...payload});
+  if(state.submission?.signature!==signature)state.submission={signature,id:newFeedbackId()};
+  state.saving=true;widgetControls(state);notice('Saving…');
+  try{
+    const data=readData(await app.callServerTool({name:'save_video_widget',arguments:{project_id:state.projectId,widget_id:state.widget.id,revision:state.widget.revision,request_id:state.submission.id,...payload}}));
+    if(data.project_id!==state.projectId || data.widget?.id!==state.widget.id || data.widget.kind!==state.widget.kind || !(data.widget.revision>state.widget.revision || (data.saved===false && data.widget.revision===state.widget.revision)))throw Error('The save could not be confirmed. Your edits are still here; try again.');
+    const saved=data.widget,submittedRevision=state.widget.revision;
+    const newerChanges=data.repeated===true && (saved.revision>submittedRevision+1 || data.creative?.revision>saved.creative_revision);
+    const summary=saved.kind==='brief'
+      ? (state.widget.questions || []).filter(q=>payload.answers?.[q.id]).map(q=>`${q.prompt}: ${q.options.find(o=>o.id===payload.answers[q.id])?.label || payload.answers[q.id]}`).join('; ')
+      : JSON.stringify(payload.beats);
+    const change=saved.kind==='brief' && !Object.keys(payload.answers).length
+      ? `I cleared my saved answers for these questions: ${(state.widget.questions || []).map(q=>q.prompt).join('; ')}. Treat them as unanswered and preserve unrelated preferences`
+      : `I saved ${saved.kind==='brief'?'these preferences':'these story changes'}: ${summary}`;
+    const content=[{type:'text',text:`For video project ${state.projectId}, ${change}. Widget ${saved.id} revision ${saved.revision}; creative revision ${data.creative?.revision ?? saved.creative_revision}. Use the current saved preferences for the next appropriate edit. This is not final approval.`}];
+    const current={project_id:state.projectId,widget_id:saved.id,widget_revision:saved.revision,creative_revision:data.creative?.revision ?? saved.creative_revision};
+    for(const key of ['brief_answers','beats','direction','preferences','selected','latest_feedback','plan_provenance']){
+      if(data.creative?.[key]!==undefined)current[key]=data.creative[key];
+    }
+    if(saved.kind==='brief' && current.brief_answers===undefined)current.brief_answers=(saved.questions || []).filter(q=>saved.answers?.[q.id]).map(q=>({question:q.prompt,answer:q.options.find(o=>o.id===saved.answers[q.id])?.label || saved.answers[q.id]}));
+    if(saved.kind==='story' && current.beats===undefined)current.beats=saved.beats;
+    const context=[{type:'text',text:`Authoritative saved video context: ${JSON.stringify(current)}. ${newerChanges?'An earlier request was already applied and later changes now exist. Do not replay the earlier submitted values. ':''}Use this current state for the next appropriate edit. These preferences are not final approval.`}];
+    state.widget=clone(saved);state.draft=clone(widgetBaseline(saved));state.dirty=false;
+    if(state.pending?.widget.revision<=saved.revision)state.pending=null;
+    if(widgetHere(state))drawWidget(state);
+    if(data.saved===false){notice('No new changes to save.');return;}
+    if(caps.updateModelContext?.text){try{await app.updateModelContext({content:context});}catch{}}
+    // A retry is not a new instruction to restore its old choices. Keep the
+    // authoritative state in model context without waking it with stale edits.
+    if(newerChanges){notice('Earlier save confirmed. Newer changes are shown.');return;}
+    let delivered=false;
+    if(caps.message?.text){try{delivered=!(await app.sendMessage({role:'user',content}))?.isError;}catch{}}
+    notice(state.pending?'Saved. A newer version is available.':delivered?'Changes sent.':'Changes saved. Tell your assistant to continue if the chat is waiting.');
+  }catch(e){notice(e.message || 'Could not save your changes. Try again.');}
+  finally{state.saving=false;widgetControls(state);}
+};
+
+let displayContext={},displayRequest=false;
+function syncDisplayMode(context){
+  displayContext={...(app.getHostContext?.() || {}),...displayContext,...(context || {})};
+  const fullscreen=displayContext.displayMode==='fullscreen';
+  const target=fullscreen?'inline':'fullscreen';
+  $('expand').hidden=typeof app.requestDisplayMode!=='function' || !displayContext.availableDisplayModes?.includes(target);
+  $('expand').textContent=fullscreen?'Exit fullscreen':'Expand';
+  $('expand').setAttribute('aria-label',fullscreen?'Exit fullscreen preview':'Expand preview to fullscreen');
+  document.documentElement.classList.toggle('fullscreen',fullscreen);
+}
+$('expand').onclick=async()=>{
+  if(displayRequest)return;
+  syncDisplayMode();const mode=displayContext.displayMode==='fullscreen'?'inline':'fullscreen';
+  if(!displayContext.availableDisplayModes?.includes(mode) || typeof app.requestDisplayMode!=='function')return;
+  displayRequest=true;$('expand').disabled=true;
+  try{
+    const result=await app.requestDisplayMode({mode});
+    if(result?.isError || !['inline','fullscreen','pip'].includes(result?.mode))throw Error('The host could not expand this preview.');
+    syncDisplayMode({displayMode:result.mode});
+  }catch(e){$('notice').textContent=e.message || 'The host could not expand this preview.';}
+  finally{displayRequest=false;$('expand').disabled=false;}
+};
+app.connect().then(()=>syncDisplayMode()).catch(()=>{$('notice').textContent='Ask your assistant to show this again.';});

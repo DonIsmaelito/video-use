@@ -2,11 +2,12 @@
 
 import hashlib
 import math
-import threading
 import time
 from copy import deepcopy
 
 from .store import ident
+from .creative_state import creative_lock
+from .widgets import creative_public
 
 
 def feedback_context(store, project_id, limit=5):
@@ -16,8 +17,6 @@ def feedback_context(store, project_id, limit=5):
 
 
 def register_feedback(mcp, store, muser, write):
-    locks = {}
-
     @mcp.tool(
         annotations=write,
         meta={"ui": {"visibility": ["app"]}},
@@ -61,7 +60,7 @@ def register_feedback(mcp, store, muser, write):
         ).hexdigest()
         # These edits must remain responsive while a render holds its workspace
         # lock. Synchronous state mutations use their own short critical section.
-        with locks.setdefault(project_id, threading.RLock()):
+        with creative_lock(project_id):
             previous = store.get("feedback_request", receipt_key)
             if previous:
                 if previous["payload"] != payload:
@@ -69,8 +68,10 @@ def register_feedback(mcp, store, muser, write):
                         "This request ID already saved a different suggestion; use a new request_id"
                     )
                 return previous["result"] | {
-                    "creative": store.get("creative", project_id)
-                    or previous["result"]["creative"],
+                    "creative": creative_public(
+                        store.get("creative", project_id)
+                        or previous["result"]["creative"]
+                    ),
                     "repeated": True,
                 }
             state = deepcopy(store.get("creative", project_id) or {})
@@ -101,7 +102,7 @@ def register_feedback(mcp, store, muser, write):
                 result = {
                     "project_id": project_id,
                     "feedback": applied,
-                    "creative": state,
+                    "creative": creative_public(state),
                     "repeated": True,
                     "next_action": "Use the saved suggestion in the next edit.",
                 }
@@ -174,7 +175,7 @@ def register_feedback(mcp, store, muser, write):
             result = {
                 "project_id": project_id,
                 "feedback": item,
-                "creative": state,
+                "creative": creative_public(state),
                 "repeated": False,
                 "next_action": "Apply this suggestion to the referenced video moment. Continue other work; do not ask for command approval.",
             }

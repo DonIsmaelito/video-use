@@ -30,6 +30,51 @@ async function submit(h,note='Make the diagram larger'){
   await h.document.getElementById('feedback-form').onsubmit({preventDefault(){}});
 }
 
+for(const [shortcut,expected] of [
+  ['edit-labels','Make the labels larger'],
+  ['edit-pace','Make the pacing faster'],
+  ['edit-look','Explore a different visual style'],
+]){
+  const h=host();h.app.ontoolresult(result());
+  const video=h.document.querySelector('video');video.currentTime=7.125;video.paused=false;
+  video.pause=()=>{video.paused=true;video.onpause?.();};
+  h.document.getElementById(shortcut).onclick();
+  assert.equal(h.document.getElementById('feedback-shortcuts').hidden,false);
+  assert.equal(h.document.getElementById('suggest-edit').textContent,'Edit this moment');
+  assert.equal(h.document.getElementById('feedback-form').hidden,false);
+  assert(h.document.getElementById('feedback-note').value.startsWith(expected));
+  assert.equal(h.document.getElementById('feedback-time').textContent,'At 0:07.1');
+  assert.equal(h.calls.length,0);assert.equal(h.messages.length,0);assert.equal(h.contexts.length,0,'a shortcut only drafts a local suggestion');
+  assert.equal(video.paused,true);
+  const revised=h.document.getElementById('feedback-note').value+' Keep the colors.';
+  await submit(h,revised);
+  assert.equal(h.calls[0].arguments.seconds,7.125);assert.equal(h.calls[0].arguments.note,revised);
+  assert.equal(h.calls[0].arguments.object_id,'video-one');assert.equal(h.messages.length,1);
+}
+
+{
+  const h=host();h.app.ontoolresult(result());begin(h,9);
+  h.document.getElementById('feedback-note').value='Keep my opening line.';
+  h.document.getElementById('edit-labels').onclick();
+  const draft=h.document.getElementById('feedback-note').value;
+  assert(draft.startsWith('Keep my opening line.\nMake the labels larger'));
+  h.document.getElementById('edit-labels').onclick();
+  h.document.getElementById('suggest-edit').onclick();
+  assert.equal(h.document.getElementById('feedback-note').value,draft,'reopening or repeating a shortcut preserves unsent input');
+  h.app.ontoolresult(result('new-version'));
+  h.document.getElementById('edit-pace').onclick();
+  await submit(h,h.document.getElementById('feedback-note').value);
+  assert.equal(h.calls[0].arguments.object_id,'video-one','shortcut feedback stays pinned across a new preview');
+  assert.equal(h.calls[0].arguments.seconds,9);
+}
+
+{
+  const h=host();h.app.ontoolresult({structuredContent:{project_id:'project',media:{object_id:'still',media_type:'image/png',url:'https://private.test/frame'}}});
+  assert.equal(h.document.getElementById('feedback-shortcuts').hidden,true,'timestamp shortcuts require an actual video');
+  h.document.getElementById('edit-labels').onclick();assert.equal(h.document.getElementById('feedback-form').hidden,true);
+  assert.equal(h.calls.length,0);
+}
+
 {
   const h=host();h.app.ontoolresult(result());
   assert.equal(h.document.getElementById('suggest-edit').hidden,false);
@@ -90,6 +135,7 @@ for(const options of [{capabilities:{serverTools:{},updateModelContext:{text:{}}
   let resolve;const pending=new Promise(done=>{resolve=done});
   const h=host({tool:()=>pending});h.app.ontoolresult(result());begin(h,9);
   const sending=submit(h,'Align the heading');
+  assert.equal(h.document.getElementById('edit-labels').disabled,true);
   await submit(h,'Duplicate');assert.equal(h.calls.length,1,'duplicate submits never overlap');
   h.app.ontoolresult(result('another-video','another-project'));
   resolve({structuredContent:{creative:{revision:4}}});await sending;

@@ -8,6 +8,8 @@ from typing import Annotated, Literal
 from mcp.types import CallToolResult, TextContent
 from pydantic import BaseModel, Field
 from .interaction import UI_META, UI_URI
+from .creative_state import creative_edit
+from .widgets import creative_public
 
 Category = Literal[
     "explainer",
@@ -513,6 +515,7 @@ def register_workflow(mcp, store, muser, new_project, read, write):
         return state
 
     @mcp.tool(annotations=write, title="Develop the video")
+    @creative_edit
     def start_video(
         title: str,
         brief: Annotated[
@@ -552,10 +555,27 @@ def register_workflow(mcp, store, muser, new_project, read, write):
         pid = project_id or new_project(uid, title)["id"]
         old = store.get("creative", pid) or {}
         if old and old["category"] != category:
-            old = {
-                "revision": old["revision"],
-                "choice_revision": old.get("choice_revision", 0),
-            }
+            # Reclassifying a request must not erase explicit choices or edits.
+            # Retire category-specific picker state while keeping its user choice
+            # as prior context, never as a selection in the new category.
+            old = dict(old)
+            if old.get("selected") and old.get("selection_source") == "user_click":
+                old["visual_choice_history"] = old.get("visual_choice_history", []) + [
+                    dict(
+                        category=old["category"],
+                        selected=old["selected"],
+                        source="user_click",
+                        creative_revision=old["revision"],
+                    )
+                ]
+            for key in (
+                "offered",
+                "default",
+                "selected",
+                "selection_source",
+                "supporting_categories",
+            ):
+                old.pop(key, None)
         supporting = list(
             dict.fromkeys(
                 supporting_categories
@@ -582,10 +602,10 @@ def register_workflow(mcp, store, muser, new_project, read, write):
         recipe = workflow_summary(category)
         return dict(
             project_id=pid,
-            creative=state,
+            creative=creative_public(state),
             workflow=recipe,
             complementary_workflows=[workflow_summary(c) for c in supporting],
-            next_action="Before narration or substantial original rendering, say the proposed script or outline, audience, look and delivery format in at most three short sentences, distinguishing assumptions from the user's requirements. This is a conversational update, not an approval question. Offer relevant cached choices once when a different answer would materially change the piece; recommend a default and keep working. Precise edits need only the relevant change. Read only the compact guidance needed. Develop and show one meaningful excerpt before all remaining scene code; accompany it with a sentence about what is visible and what comes next. Apply the latest creative choices from task results before subsequent renders. Ask for a reply only when genuinely blocked or the user requests a checkpoint.",
+            next_action="Before narration or substantial original rendering, briefly state the proposed audience, look and format as assumptions. For a substantial new narrated story, use show_video_story to display an editable scene/script proposal before narration; it also saves the plan, so skip a separate plan_video call. If an unanswered audience or tone question materially changes the piece, use show_video_brief; use show_video_choices when motion references explain the decision better. Pick useful interactions, not every card. Keep working after showing them without an approval pause. Precise edits and delegated scripts need no questionnaire. Read only relevant guidance. Show one meaningful excerpt before all remaining scene code, with a short chat sentence about what is visible and what comes next. Apply the latest creative choices from task results before subsequent renders. Ask for a reply only when genuinely blocked or the user requests a checkpoint.",
             capabilities={
                 "render": "Python, Manim, FFmpeg, browser motion and bounded procedural Three.js",
                 "generative_video": False,
@@ -596,6 +616,7 @@ def register_workflow(mcp, store, muser, new_project, read, write):
         )
 
     @mcp.tool(annotations=write, meta=UI_META, title="Choose a visual approach")
+    @creative_edit
     def show_video_choices(
         project_id: str,
         question: str = "",
@@ -653,6 +674,7 @@ def register_workflow(mcp, store, muser, new_project, read, write):
         meta={"ui": {"resourceUri": UI_URI, "visibility": ["app"]}},
         title="Choose this style",
     )
+    @creative_edit
     def choose_video_style(project_id: str, choice: str, revision: int) -> dict:
         """Save an explicit click in the reference picker. Reject outdated pickers and choices that were not offered."""
         state = context(muser(True), project_id)
@@ -667,9 +689,10 @@ def register_workflow(mcp, store, muser, new_project, read, write):
             choice_revision=revision + 1,
         )
         store.put("creative", project_id, state)
-        return dict(project_id=project_id, creative=state)
+        return dict(project_id=project_id, creative=creative_public(state))
 
     @mcp.tool(annotations=write, title="Shape the story")
+    @creative_edit
     def plan_video(
         project_id: str, revision: int, beats: list[Beat], direction: str = ""
     ) -> dict:
@@ -681,6 +704,9 @@ def register_workflow(mcp, store, muser, new_project, read, write):
             )
         if not 1 <= len(beats) <= 12 or len(direction) > 2000:
             raise ValueError("Use 1-12 concise beats and a short direction")
+        # This outline has no narration fields. Keep the older editable story
+        # in its widget, but do not present its script as aligned to this plan.
+        state.pop("script", None)
         state.update(
             beats=[b.model_dump() for b in beats],
             direction=direction,
@@ -690,6 +716,6 @@ def register_workflow(mcp, store, muser, new_project, read, write):
         store.put("creative", project_id, state)
         return dict(
             project_id=project_id,
-            creative=state,
+            creative=creative_public(state),
             next_action="Make one meaningful excerpt with render_video_scene for compact 2D motion, or run_video_step for custom source. Defer unrelated scene code until it is visible; use show_video_preview when ready and keep working. Batch later independent renders. After narration alignment, pass actual ordered scene durations in production_timing with the assembled video so reviews and resumed edits use its real timeline. Continue through export unless real input is missing.",
         )
