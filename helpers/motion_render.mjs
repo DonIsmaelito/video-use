@@ -393,6 +393,11 @@ export async function render(options) {
       await fs.rename(tempOutput, output);
     }
     metadata.localAssets = Object.fromEntries([...serving.assets].sort(([a], [b]) => a.localeCompare(b)));
+    // Optional composition diagnostics stay available to the reviewer without
+    // turning stylistic judgments into renderer failures.
+    metadata.warnings = await page.evaluate(() => Array.isArray(window.motionWarnings)
+      ? window.motionWarnings.filter(item => typeof item === 'string').slice(0, 100).map(item => item.slice(0, 500))
+      : []);
     metadata.elapsedSeconds = (Date.now() - started) / 1000;
     const manifest = path.join(artifactDir, options['stills-only'] ? 'stills.json' : 'render.json');
     await fs.writeFile(manifest, JSON.stringify(metadata, null, 2) + '\n');

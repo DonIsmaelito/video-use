@@ -36,6 +36,12 @@ player is absent, expired or cannot refresh, show a substantial improvement and
 the final export explicitly. Continue unless essential
 input, an explicit requested checkpoint or the host's own limits block the work.
 
+The player's **Suggest an edit** action records a timestamp and the exact draft
+being watched. Read `creative.latest_feedback` and saved feedback in task/project
+context; do not apply a timestamp from an older version to a changed cut blindly.
+The host may forward the user's explicit submission into the conversation. It
+cannot guarantee a running model will react instantly or bypass host turn limits.
+
 ## Runtime you can use immediately
 
 - Working directory: `/workspace`; originals: `sources/`; editable work: `edit/`.
@@ -57,6 +63,13 @@ machine setup instructions. Read specific detailed references only when needed.
 
 ## Batch useful work
 
+For simple 2D diagrams, type and graphic motion, `render_video_scene` creates a
+short editable clip from drawing data in one call, including optional narration.
+It handles rendering and encoding; you choose composition and motion. Use
+`video_use_guidance(topic="scenes")` for its compact format when needed. Reuse the
+scene JSON/MP4 in the later assembly. Custom Manim, footage, Canvas and 3D remain
+available when their expressive power fits the idea better.
+
 `run_video_step` writes source files and executes work in one call. Include a
 real `preview_path` for style/motion/draft stages; generate that file in the same
 step. For parallel components use distinct output paths; the final `command`
@@ -68,6 +81,12 @@ filesystem for the first or newest MP4: earlier quality levels and revisions can
 coexist. Keep shell failures visible; use Python `subprocess.run(check=True)` or
 equivalent, rather than hiding a render failure behind `tail`, `find` or `echo`.
 Keep rendering and audio mixing separate so audio changes reuse picture.
+
+When speech changes rough beat durations, supply `production_timing` on the
+assembled video's step: `{scenes:[{title,seconds}], narration_offset?}`. These are
+the actual ordered scene lengths, not the initial estimates. They are saved
+separately from creative preferences, matched to the encoded file, and used for
+review sampling and continuation. No replanning approval is required.
 
 Poll only a queued/running task, with the default wait. A succeeded result needs
 no further polling. Check failure status and exit code before building on an
@@ -89,6 +108,20 @@ audio synchronization, clipping, transitions and source/factual fidelity. A
 contact sheet does not prove sound quality or every motion frame. Review the
 relevant audio/motion evidence when those are in doubt. Export only the exact
 reviewed file, then display the exported player for immediate playback/download.
+
+Review also returns `audio_evidence` from the actual encoded mix: measured
+loudness/peak, silence and stream timing where available, with coverage and
+limitations. This is not listening or a transcript-to-picture check. If you have
+only measured timing, say so; do not claim you listened to the mix. A silent video
+can be intentional, so assess missing audio against the user's request.
+
+Labels, arrows and narration must agree about what a diagram means. Correct a
+known misleading explanation inside the video; a disclaimer in the final chat
+does not repair it. Report concrete review `findings` when exporting, with kind
+`correctness`, `meaning`, `layout`, `audio` or `style`, a description and `resolved`.
+Optional aesthetic preferences do not block export. A reported unresolved defect
+persists until explicitly resolved after correction or reinspection. These are
+your observations; the service does not automatically verify facts or artistry.
 
 Save the brief, visual direction, source references, timings and exact render
 instructions in `edit/project.md` or the appropriate script/EDL. Apply updated

@@ -1,5 +1,54 @@
 # Solar explainer trace repair
 
+## Follow-up after the second solar run
+
+The next trial reached its first player at 8m47s and final export at 10m04s.
+The excerpt itself rendered in 13.3 seconds: Claude still spent 7m26s after
+narration authoring all six scenes before submitting it. The user's transcript
+confirmed that rendering less did not mean authoring less. There were no tool
+errors, and the open player refreshed subsequent media successfully.
+
+The next implementation adds:
+
+- `render_video_scene`: compact editable 2D drawing/keyframe data renders,
+  encodes and publishes through the existing private task runner. The host still
+  supplies all creative decisions; no backend model or fixed scene template.
+  Custom Manim, browser code, footage and 3D remain available. Scene JSON and
+  runtime source persist in the ordinary editable archive.
+- Shorter guidance discovery: a compact overview first, with technique references
+  offered on demand rather than loading the complete workflow catalog each time.
+- `production_timing`: actual ordered scene lengths and optional narration
+  offset persist separately from rough creative beats. Encoded duration and hash
+  are checked; review uses matching timing. Internal boundaries are reported by
+  the editor, not independently inferred from speech. Failed work cannot overwrite
+  successful saved timing.
+- Player feedback: **Suggest an edit** captures the viewed time and exact media
+  object. Explicit submission saves the note, updates creative revision and, when
+  supported, informs the host. A replacement draft waits while a note is being
+  written. No background messages or forced approval stops.
+- Review findings: explicitly acknowledged unresolved meaning, correctness,
+  layout or audio defects prevent publication. Optional style preferences do not.
+  Findings survive retries/rerenders until explicitly resolved. This records the
+  editor's assessment; it is not automated fact checking.
+- Encoded audio evidence: bounded loudness, peak, silence, duration and stream
+  timing measurements. Missing audio, partial coverage and analysis failure are
+  explicit. Measurements do not prove listening quality or semantic alignment.
+
+Local proofs cover a five-second diagram (3,249 input bytes; 7.08-second render)
+and a four-second portrait typography composition (1,442 input bytes). These
+measure renderer execution, not end-to-end Claude latency. Encoded output and
+readable hold frames were inspected; a pale proof label was corrected. Text that
+autofits below 12 pixels reports a warning. Exact scene retries are stable across
+Python process hash seeds.
+
+The larger wishlist—editable script/storyboard cards, voice auditions, a complete
+timeline editor, automatic cut review, professional timeline interchange and
+one-click format variants—is not implied by these changes. Existing versioned
+exports and general editing primitives remain available. New browser conversations
+still need account-level acceptance by the owner.
+
+## First trial
+
 The September 30 browser trial requested a 30-second narrated explanation of
 solar panels. The final export succeeded, but success hid an unsatisfactory
 process: the first draft existed after 8 minutes 27 seconds and the first player

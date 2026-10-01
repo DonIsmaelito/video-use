@@ -13,5 +13,10 @@ REVIEW_INSTRUCTION = (
     "size, diagrams explain the spoken idea, and important elements are not clipped or "
     "overlapping. This contact sheet is not proof of every frame or of motion/audio "
     "quality; inspect a specific full-size frame or short segment if anything is unclear. "
-    "Repair substantive defects before delivery. A modified video requires a fresh review."
+    "Check that arrows, labels, signs and transformations mean what the narration claims; "
+    "a plausible-looking diagram does not establish correctness. Repair known meaning, "
+    "readability or audio defects in the piece rather than listing them as chat caveats. "
+    "Report concrete findings on export, distinguishing unresolved defects from optional "
+    "style preferences. These are your inspection findings, not automated factual verification. "
+    "A modified video requires a fresh review."
 )

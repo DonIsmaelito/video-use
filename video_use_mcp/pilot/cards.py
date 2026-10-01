@@ -1,6 +1,7 @@
 """Portable MCP Apps preview card and efficient editing tools."""
 
 import asyncio
+import contextlib
 import json
 import tempfile
 from pathlib import Path
@@ -11,6 +12,7 @@ from mcp.server.fastmcp import Image
 from pydantic import BaseModel, Field
 
 from .interaction import UI_URI, UI_META, record_progress, wait_for_task
+from .feedback import feedback_context
 
 Stage = Literal[
     "planning", "style", "motion", "draft", "review", "complete", "needs_attention"
@@ -25,6 +27,16 @@ class Component(BaseModel):
 class SourceFile(BaseModel):
     path: str = Field(min_length=1, max_length=500)
     content: str = Field(max_length=2000000)
+
+
+class ProductionScene(BaseModel):
+    title: str = Field(min_length=1, max_length=120)
+    seconds: float = Field(gt=0, le=86400)
+
+
+class ProductionTiming(BaseModel):
+    scenes: list[ProductionScene] = Field(min_length=1, max_length=64)
+    narration_offset: float | None = Field(default=None, ge=0)
 
 
 def register_cards(
@@ -226,6 +238,27 @@ def register_cards(
             if result.get("review_object"):
                 store.put("reviewed", out["project"], result["sha256"], ttl=86400)
         out["creative"] = store.get("creative", out["project"])
+        out["production_timing"] = store.get("production_timing", out["project"])
+        out["review_findings"] = store.get("review_findings", out["project"]) or []
+        out["feedback"] = feedback_context(store, out["project"])
+        if task.get("payload", {}).get("scene_source"):
+            out["scene_source"] = task["payload"]["scene_source"]
+            with contextlib.suppress(ValueError, TypeError):
+                rendered = json.loads(result.get("stdout", ""))
+                if isinstance(rendered, dict):
+                    out["scene_render"] = {
+                        key: rendered[key]
+                        for key in (
+                            "duration",
+                            "frame_count",
+                            "width",
+                            "height",
+                            "fps",
+                            "warnings",
+                            "audio_start",
+                        )
+                        if key in rendered
+                    }
         if out["status"] in ("queued", "running"):
             out["next_action"] = (
                 "This task is still running. Call get_video_task with its default wait; "
@@ -317,6 +350,7 @@ def register_cards(
         "ui://video-use/media-v4.html",
         "ui://video-use/media-v5.html",
         "ui://video-use/media-v6.html",
+        "ui://video-use/media-v7.html",
     ):
         mcp.resource(
             legacy_uri,
@@ -392,6 +426,12 @@ def register_cards(
         review_path: str = "",
         components: list[Component] = [],
         creative_revision: int = 0,
+        production_timing: Annotated[
+            ProductionTiming | None,
+            Field(
+                description="Actual ordered scene durations after narration alignment, separate from rough story beats. Supply with review_path or preview_path for that assembled video: {scenes:[{title,seconds}],narration_offset?}. Stored only after successful work; review checks total against the encoded duration."
+            ),
+        ] = None,
     ) -> CallToolResult:
         """Batch sources, render and preview without mandatory approval pauses. Optional components (max 6, concurrency 2) are independent render commands with separate output/cache paths; command runs after ALL succeed to assemble them. Keep renderer threads low. Shared timeout bounds the whole step. Pass creative_revision from start_video/plan_video/latest context. Use preview_path for drafts and review_path for final encoded inspection. Show meaningful new motion with show_video_preview, then keep working. Only poll unfinished tasks."""
         uid = muser(True)
@@ -430,6 +470,15 @@ def register_cards(
                 "review_path": review_path,
                 "components": [c.model_dump() for c in components],
                 "creative_revision": creative_revision,
+                **(
+                    {
+                        "production_timing": production_timing.model_dump(
+                            exclude_none=True
+                        )
+                    }
+                    if production_timing is not None
+                    else {}
+                ),
             },
             request_id,
         )

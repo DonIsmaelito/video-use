@@ -2,6 +2,7 @@ import { App, applyDocumentTheme } from "@modelcontextprotocol/ext-apps";
 const app = new App({ name: "Video preview", version: "3.0.0" });
 const $ = (id) => document.getElementById(id);
 let media, shown, mediaProject, pendingMedia, refreshState, refreshInFlight=false;
+let feedbackDraft=null,feedbackSaving=false;
 const REFRESH_INTERVAL_MS=5000,REFRESH_LIMIT_MS=10*60*1000;
 function unpack(result) {
   if (result.isError) throw Error("This preview could not be loaded.");
@@ -27,13 +28,13 @@ function stopRefresh(keepPending=false){
   if(!keepPending)pendingMedia=null;
 }
 function settlePlayback(element){
-  if(element!==$('media').firstElementChild || playing() || !pendingMedia)return;
+  if(element!==$('media').firstElementChild || playing() || feedbackDraft || !pendingMedia)return;
   const next=pendingMedia;pendingMedia=null;render(next);
 }
 function present(next){
   if(!next)return;
   const key=next.object_id || next.url;
-  if(shown!==key && playing())pendingMedia=next;
+  if(shown!==key && (playing() || feedbackDraft))pendingMedia=next;
   else{pendingMedia=null;render(next);}
 }
 function scheduleRefresh(state){
@@ -66,7 +67,7 @@ function receiveMediaResult(result){
   if(!next){stopRefresh();return;}
   const data=result.structuredContent;
   const projectId=data?.project_id || data?.project_card?.id || data?.id;
-  if(projectId!==mediaProject){stopRefresh();mediaProject=projectId;render(next);}
+  if(projectId!==mediaProject){stopRefresh();resetFeedback();mediaProject=projectId;render(next);}
   else present(next);
   if(next.final===true){stopRefresh(true);return;}
   if(!projectId || !app.getHostCapabilities?.()?.serverTools)return;
@@ -96,6 +97,7 @@ function render(next) {
   }
   $("visual").hidden=false;
   $("download").hidden=next.media_type !== "video/mp4";
+  $('suggest-edit').hidden=next.media_type !== 'video/mp4' || !mediaProject || !next.object_id;
   $('excerpt').hidden=next.truncated!==true;
   if(next.truncated===true){
     const seconds=Number(next.duration),total=Number(next.source_duration);
@@ -105,6 +107,59 @@ function render(next) {
   }
   $("notice").textContent="";
 }
+function feedbackTime(seconds){
+  const tenths=Math.round(seconds*10),minutes=Math.floor(tenths/600),remainder=((tenths%600)/10).toFixed(1).padStart(4,'0');
+  return `${minutes}:${remainder}`;
+}
+function newFeedbackId(){
+  return globalThis.crypto?.randomUUID?.() || `edit-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+}
+function resetFeedback(){
+  feedbackDraft=null;$('feedback-form').hidden=true;$('feedback-note').value='';
+}
+function finishFeedback(draft){
+  if(feedbackDraft!==draft)return;
+  resetFeedback();
+  if(pendingMedia && !playing()){const next=pendingMedia;pendingMedia=null;render(next);}
+}
+$('suggest-edit').onclick=()=>{
+  if(feedbackSaving || !mediaProject || !media?.object_id)return;
+  const element=$('media').firstElementChild;
+  if(element?.tagName!=='VIDEO')return;
+  const seconds=Number.isFinite(element.currentTime)?Math.max(0,element.currentTime):0;
+  feedbackDraft={projectId:mediaProject,objectId:media.object_id,seconds:Math.round(seconds*1000)/1000,requestId:newFeedbackId()};
+  // Capture/pin this exact version before pausing; a new draft may arrive meanwhile.
+  element.pause?.();
+  $('feedback-time').textContent=`At ${feedbackTime(feedbackDraft.seconds)}`;
+  $('feedback-form').hidden=false;$('feedback-note').value='';$('feedback-note').focus?.();
+  $('notice').textContent='';
+};
+$('feedback-cancel').onclick=()=>{if(!feedbackSaving)finishFeedback(feedbackDraft);};
+$('feedback-form').onsubmit=async(event)=>{
+  event?.preventDefault?.();
+  if(feedbackSaving || !feedbackDraft)return;
+  const draft=feedbackDraft,note=$('feedback-note').value.trim();
+  if(!note || note.length>1200){$('notice').textContent='Write a short suggestion first.';return;}
+  const label=feedbackTime(draft.seconds);
+  const notice=text=>{if(feedbackDraft===draft)$('notice').textContent=text;};
+  const caps=app.getHostCapabilities?.() || {};
+  if(!caps.serverTools){notice(`Copy into chat: At ${label}, ${note}`);return;}
+  if(draft.submittedNote && draft.submittedNote!==note)draft.requestId=newFeedbackId();
+  draft.submittedNote=note;feedbackSaving=true;
+  $('feedback-note').disabled=true;$('feedback-send').disabled=true;$('feedback-cancel').disabled=true;
+  try{
+    const result=readData(await app.callServerTool({name:'add_video_feedback',arguments:{project_id:draft.projectId,object_id:draft.objectId,seconds:draft.seconds,note,request_id:draft.requestId}}));
+    const content=[{type:'text',text:`For video project ${draft.projectId}, at ${label} in video ${draft.objectId}: ${note}. Use this suggestion in the next edit. Creative revision ${result.creative.revision}.`}];
+    if(caps.updateModelContext?.text){try{await app.updateModelContext({content});}catch{}}
+    let delivered=false;
+    if(caps.message?.text){try{delivered=!(await app.sendMessage({role:'user',content}))?.isError;}catch{}}
+    const stillHere=feedbackDraft===draft;finishFeedback(draft);
+    if(stillHere)$('notice').textContent=delivered?'Suggestion sent.':'Suggestion saved. Tell your assistant to continue if the chat is waiting.';
+  }catch(e){notice(e.message || 'Could not save this suggestion. Try again.');}
+  finally{
+    feedbackSaving=false;$('feedback-note').disabled=false;$('feedback-send').disabled=false;$('feedback-cancel').disabled=false;
+  }
+};
 $("download").onclick=async()=>{
   if (media) await app.openLink({url:media.download_url || media.url + "&download=true"});
 };
@@ -127,7 +182,7 @@ function readData(result){
   return result.structuredContent || JSON.parse(result.content.find(c=>c.type==='text').text);
 }
 function renderChoices(data){
-  stopRefresh();
+  stopRefresh();resetFeedback();
   choiceData=data.choices;choiceProject=data.project_id;
   $('visual').hidden=true;$('choices').hidden=false;
   $('question').textContent=choiceData.question;
@@ -171,7 +226,7 @@ app.ontoolresult=result=>{
 
 let sourceState,sourceMeta,uploading=false;
 function renderSourcePicker(result){
-  stopRefresh();
+  stopRefresh();resetFeedback();
   sourceState=result.structuredContent;sourceMeta=result._meta || {};
   $('choices').hidden=true;$('visual').hidden=true;$('sources').hidden=false;
   $('source-files').accept=sourceState.source_picker.accept;

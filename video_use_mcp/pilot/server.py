@@ -35,6 +35,9 @@ from .cards import register_cards
 from .direction import register_direction
 from .workflow import register_workflow, workflow_catalog, workflow_summary, catalog
 from .sources import register_sources, source_name, save_source, SOURCE_EXTENSIONS
+from .scenes import register_scenes
+from .feedback import register_feedback, feedback_context
+from .review_findings import ReviewFinding, normalize_review_findings
 
 
 class PilotAuth(AuthProvider):
@@ -72,11 +75,14 @@ def create_app(config=None, store=None, manager=None):
             "Only wait when truly blocked by missing media, contradictory requirements, requested approval, or host limitations. Never invent consent. "
             "Read only relevant compact video_use_guidance; detailed local production references are available on demand. Use plan_video for story beats when helpful; save the script, EDL or scene description appropriate to the piece. "
             "Use run_video_step to batch files and work. Its components field renders independent scenes concurrently, maximum two at once; command assembles them after success. "
+            "For a simple 2D visual idea, render_video_scene produces editable animated geometry/type from compact data, including optional narration; it handles the renderer and encoding. Use custom code when the idea needs it. "
             "Keep sources modular and share fonts, colors and timings. For an original film, author and show a meaningful short motion excerpt before coding the entire film. Reuse it in the finished piece; this is not a mandatory approval gate. Reuse unchanged scenes. "
             "Creative state contains a revision. Pass creative_revision to run_video_step and check latest preferences in tool results. A clicked choice may arrive while work is running; adapt rather than ignoring it. "
             "A rendered file is not visible until a player is opened. Follow display_action in task results: call show_video_preview immediately for the first meaningful draft in this conversation, before further authoring or review. The open player refreshes later drafts and the final video for up to ten minutes when supported; reuse it instead of duplicating cards. Reopen if absent, expired or unsupported. Keep working without awaiting approval. Do not show setup, placeholder, or every internal frame. "
             "Give short conversational updates about the creative result, not terminal commands. Continue through final export without ritual approval stops. "
+            "The player's Suggest an edit action saves feedback at the viewed time and updates creative context. Apply latest_feedback to the referenced draft, not an assumed timestamp in a different version. "
             "Only poll queued/running tasks with get_video_task's default wait. Use review_path for final encoded inspection, inspect the returned image, export, then show_video_preview. "
+            "Save actual scene durations in run_video_step.production_timing after aligning to narration. Review meaning as well as legibility: a misleading label or diagram is a defect to repair, not a caveat to move into the final chat. Report discovered issues in export_video.findings; stylistic preferences are separate from correctness. "
             "For unusual requests consult video_use_capabilities and video_use_guidance topic=workflows. Compose primitives rather than forcing a category template. "
             "Use inspect_source.py for bounded document/data extraction and media_sequence.py for photo/audio compositions. Three.js is bundled in /opt/video-use/skills/motion-design/runtime/node_modules/three; copy needed modules locally for browser renders. "
             "No dependency probing, installation, API keys or hidden agent loops. Python/Pillow/FFmpeg/Manim/Node/Chromium are ready. Narration results include measured timing; use it instead of a separate probe task. "
@@ -178,6 +184,9 @@ def create_app(config=None, store=None, manager=None):
             "title": p["title"],
             "continuation": progress,
             "creative": store.get("creative", pid),
+            "production_timing": store.get("production_timing", pid),
+            "review_findings": store.get("review_findings", pid) or [],
+            "feedback": feedback_context(store, pid, limit=10),
             "previews": [
                 u
                 | {
@@ -234,6 +243,8 @@ def create_app(config=None, store=None, manager=None):
 
     register_direction(mcp, store, manager, muser, new_project, cards, write)
     register_workflow(mcp, store, muser, new_project, read, write)
+    register_scenes(mcp, store, manager, muser, cards, execute)
+    register_feedback(mcp, store, muser, write)
 
     @mcp.tool(annotations=read, title="Video capabilities")
     def video_use_capabilities(category: str = "") -> dict:
@@ -252,7 +263,7 @@ def create_app(config=None, store=None, manager=None):
             },
             "primitives": {
                 "editing": "FFmpeg cuts, crops, grading, overlays, word-timed captions",
-                "animation": "Manim and deterministic HTML/Canvas/Three.js through motion_render.mjs",
+                "animation": "Compact editable 2D motion via render_video_scene; custom Manim and deterministic HTML/Canvas/Three.js through run_video_step",
                 "documents_and_data": "inspect_source.py extracts bounded PDF/DOCX/PPTX/XLSX/CSV/TSV/JSON/text with provenance; pdftoppm rasterizes PDF pages; no OCR or office layout renderer",
                 "photos_and_audio": "media_sequence.py composes image sequences, camera motion, cover/waveform videos and mixed audio",
                 "speech": bool(getattr(config, "speech_key", "")),
@@ -290,10 +301,11 @@ def create_app(config=None, store=None, manager=None):
 
     @mcp.tool(annotations=read)
     def video_use_guidance(topic: str = "overview") -> str:
-        """Read compact browser production guidance for the relevant technique, once. Topics: overview, motion (motion-design), manim (manim-video), workflows. Detailed references/helper source remain available by helpers/<file> or skills/<file> path. No environment setup or approval gate."""
+        """Read compact browser production guidance for the relevant technique, once. Topics: overview, scenes (compact 2D animation), motion (motion-design), manim (manim-video), workflows (extended category reference, only when needed). Detailed references/helper source remain available by helpers/<file> or skills/<file> path. No environment setup or approval gate."""
         muser()
         target = {
             "overview": "skills/video-workflows/browser-editing.md",
+            "scenes": "skills/video-workflows/browser-scenes.md",
             "motion": "skills/video-workflows/browser-motion.md",
             "motion-design": "skills/video-workflows/browser-motion.md",
             "manim": "skills/video-workflows/browser-manim.md",
@@ -313,18 +325,7 @@ def create_app(config=None, store=None, manager=None):
             raise ValueError("Choose a harness path under helpers/ or skills/")
         return (
             "Remote runtime: /opt/video-use contains the harness; /workspace contains sources/ and edit/. "
-            "Use the connector speech tools instead of API keys. No external network, package installation, "
-            "local machine paths or subagents. Read relevant guidance and preserve edit/project.md. "
-            "For browser editing, these interaction rules supersede generic confirmation checkpoints in the harness; retain all production correctness rules. "
-            "Conversation workflow: adapt to the category and preferences returned by start_video. "
-            "Use cached examples only for unresolved creative choices, then develop the story and EDL. "
-            "Batch work with run_video_step; use components for independent scene renders. "
-            "Show meaningful short motion drafts immediately with show_video_preview, before more authoring or review, and continue; do not impose first-frame or draft approval gates. "
-            "Never show workspace setup/status cards, technical logs or narrate shell commands to the user. "
-            "Completed review results already contain inspection images; poll only queued/running tasks. "
-            "Use run_video_step review_path to combine final rendering and review. Export only after inspecting, then show_video_preview. "
-            "For Manim use python /opt/video-use/helpers/render_manim_cached.py SOURCE SCENE... --quality preview|final; add --dependency for visual data files. "
-            "Keep audio mixing separate and reuse scene videos for audio edits. Do not disable caching.\n\n"
+            "No network or package installation. Use connector speech tools. Browser interaction rules supersede local setup and generic approval checkpoints; production correctness still applies.\n\n"
             + path.read_text()[:60000]
         )
 
@@ -495,15 +496,29 @@ def create_app(config=None, store=None, manager=None):
 
     @mcp.tool(annotations=execute)
     async def export_video(
-        project_id: str, video_path: str, summary: str, request_id: str
+        project_id: str,
+        video_path: str,
+        summary: str,
+        request_id: str,
+        findings: list[ReviewFinding] | None = None,
     ) -> CallToolResult:
-        """Verify and publish a reviewed MP4 and editable source ZIP. Requires review of this exact encoded video. Summarize your visual assessment honestly."""
+        """Verify and publish a reviewed MP4 and editable source ZIP. Requires inspection of this exact encoded video. Report observed issues in findings: kind correctness/meaning/layout/audio/style, description, resolved. Known unresolved non-style defects must be corrected before export, even if minor; describing them in the chat is not a repair. Style preferences do not block. Previously reported issues persist until repeated with the same kind/description and resolved=true after correction and inspection. Findings are your assessment, not automated fact checking. Summarize honestly."""
+        normalized_findings = normalize_review_findings(findings)
         return await submitted(
             manager.submit(
                 muser(True),
                 project_id,
                 "export",
-                {"video_path": video_path, "summary": summary, "timeout": 300},
+                {
+                    "video_path": video_path,
+                    "summary": summary,
+                    "timeout": 300,
+                    **(
+                        {"findings": normalized_findings}
+                        if findings is not None
+                        else {}
+                    ),
+                },
                 request_id,
             )
         )

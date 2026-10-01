@@ -35,6 +35,11 @@ def test_review_passes_saved_beats_and_returns_compact_sampling_times(has_plan):
                             "video": "/workspace/edit/solar's final.mp4",
                             "sample_times": [0.2, 3, 5.2, 7.4, 8.86666666667],
                             "contact_sheet": "/workspace/edit/verify/output-review.png",
+                            "audio_evidence": {
+                                "status": "measured",
+                                "integrated_loudness_lufs": -18.4,
+                                "limitations": ["Does not verify semantic alignment"],
+                            },
                         }
                     ),
                 },
@@ -60,6 +65,8 @@ def test_review_passes_saved_beats_and_returns_compact_sampling_times(has_plan):
     assert result["sample_times"] == [0.2, 3, 5.2, 7.4, 8.867]
     assert result["sha256"] == "exact-video-hash"
     assert result["review_object"] == "review-object"
+    assert result["audio_evidence"]["integrated_loudness_lufs"] == -18.4
+    assert "semantic alignment" in result["audio_evidence"]["limitations"][0]
     assert (
         "contact_sheet" not in result
     )  # private filesystem paths are not useful to the host

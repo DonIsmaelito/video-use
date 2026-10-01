@@ -20,6 +20,7 @@ from video_use_mcp.agent import ProductionAgent
 from video_use_mcp.review import REVIEW_CODE as REVIEW, REVIEW_INSTRUCTION
 from .store import ident
 from .interaction import record_progress
+from .review_findings import merge_review_findings, require_resolved_review_findings
 
 PACK = r"""
 import pathlib,zipfile
@@ -42,6 +43,48 @@ with zipfile.ZipFile('/workspace/restore.zip') as z:
   if not (root/i.filename).resolve().is_relative_to(root/'edit') or (i.external_attr>>16)&0o170000==0o120000: raise ValueError('Invalid archive path')
  z.extractall(root)
 """
+
+
+def validate_production_timing(value):
+    """Validate supplied render timings without changing creative preferences."""
+    if value is None:
+        return None
+    if not isinstance(value, dict) or set(value) - {"scenes", "narration_offset"}:
+        raise ValueError(
+            "production_timing accepts scenes and optional narration_offset"
+        )
+    scenes = value.get("scenes")
+    if not isinstance(scenes, list) or not 1 <= len(scenes) <= 64:
+        raise ValueError("production_timing needs 1–64 ordered scenes")
+    normalized = []
+    for scene in scenes:
+        if not isinstance(scene, dict) or set(scene) != {"title", "seconds"}:
+            raise ValueError("Each production scene needs title and seconds")
+        title, seconds = scene["title"], scene["seconds"]
+        if not isinstance(title, str) or not title.strip() or len(title) > 120:
+            raise ValueError("Production scene titles must contain 1–120 characters")
+        if (
+            isinstance(seconds, bool)
+            or not isinstance(seconds, (int, float))
+            or not math.isfinite(seconds)
+            or seconds <= 0
+        ):
+            raise ValueError("Production scene seconds must be finite and positive")
+        normalized.append({"title": title.strip(), "seconds": float(seconds)})
+    if sum(scene["seconds"] for scene in normalized) > 86400:
+        raise ValueError("Production timeline exceeds 24 hours")
+    out = {"scenes": normalized}
+    offset = value.get("narration_offset")
+    if offset is not None:
+        if (
+            isinstance(offset, bool)
+            or not isinstance(offset, (int, float))
+            or not math.isfinite(offset)
+            or offset < 0
+        ):
+            raise ValueError("narration_offset must be finite and nonnegative")
+        out["narration_offset"] = float(offset)
+    return out
 
 
 class PilotSandbox(ModalSandbox):
@@ -340,6 +383,18 @@ class Manager:
                     "Use a new request_id; only exact retries may reuse it."
                 )
             return old[0]
+        if operation == "step" and args.get("production_timing") is not None:
+            validate_production_timing(args["production_timing"])
+            timing_path = args.get("review_path") or args.get("preview_path") or ""
+            if Path(timing_path).suffix.lower() not in {
+                ".mp4",
+                ".mov",
+                ".mkv",
+                ".webm",
+            }:
+                raise ValueError(
+                    "production_timing needs an encoded video in review_path or preview_path"
+                )
         creative = self.store.get("creative", pid)
         if (
             isinstance(creative, dict)
@@ -387,6 +442,7 @@ class Manager:
                 result = await asyncio.wait_for(self.perform(task, sb), seconds)
                 if task.get("operation") not in ("review", "export", "preview"):
                     await self.checkpoint(uid, pid, sb)
+                pending_timing = result.pop("_production_timing", None)
                 if result.get("exit_code", 0):
                     self.store.sql(
                         "UPDATE public.vp_tasks SET status='failed',result=$2::jsonb,error=$3,updated=now() WHERE id=$1",
@@ -402,6 +458,14 @@ class Manager:
                         "Inspect the failed command and retry with a new request_id.",
                     )
                 else:
+                    if pending_timing:
+                        latest = self.store.get("creative", pid) or {}
+                        if (
+                            latest.get("revision", 0)
+                            == pending_timing["creative_revision"]
+                        ):
+                            self.store.put("production_timing", pid, pending_timing)
+                            result["production_timing"] = pending_timing
                     self.store.sql(
                         "UPDATE public.vp_tasks SET status='succeeded',result=$2::jsonb,updated=now() WHERE id=$1",
                         tid,
@@ -523,6 +587,12 @@ class Manager:
                         a.get("next_action", "Inspect the command error and retry."),
                     )
                     return result
+            pending_timing = None
+            if a.get("production_timing") is not None:
+                pending_timing = await self.production_timing_metadata(
+                    task, sb, creative
+                )
+                result["_production_timing"] = pending_timing
             preview = (
                 await self.publish_preview(uid, pid, sb, a["preview_path"])
                 if a.get("preview_path")
@@ -545,7 +615,10 @@ class Manager:
                         task
                         | {
                             "operation": "review",
-                            "payload": {"video_path": a["review_path"]},
+                            "payload": {
+                                "video_path": a["review_path"],
+                                "_production_timing": pending_timing,
+                            },
                         },
                         sb,
                     )
@@ -676,13 +749,28 @@ class Manager:
                 raise ValueError("Video not found")
             digest = hashed["stdout"].split()[0]
             if op == "review":
+                timing = a.get("_production_timing") or self.store.get(
+                    "production_timing", pid
+                )
+                verified_timing = (
+                    isinstance(timing, dict)
+                    and timing.get("sha256") == digest
+                    and timing.get("creative_revision", 0)
+                    == (creative or {}).get("revision", 0)
+                    and isinstance(timing.get("scenes"), list)
+                )
+                beats = (
+                    timing["scenes"]
+                    if verified_timing
+                    else (creative or {}).get("beats", [])
+                )
                 r = await sb.run(
                     "python -c "
                     + shlex.quote(REVIEW)
                     + " "
                     + shlex.quote(path)
                     + " --beats-json "
-                    + shlex.quote(json.dumps((creative or {}).get("beats", []))),
+                    + shlex.quote(json.dumps(beats)),
                     120,
                 )
                 if r["exit_code"]:
@@ -690,6 +778,10 @@ class Manager:
                 sampling = {}
                 with contextlib.suppress(ValueError, TypeError):
                     report = json.loads(r["stdout"])
+                    if isinstance(report, dict) and isinstance(
+                        report.get("audio_evidence"), dict
+                    ):
+                        sampling["audio_evidence"] = report["audio_evidence"]
                     times = (
                         report.get("sample_times") if isinstance(report, dict) else None
                     )
@@ -725,6 +817,9 @@ class Manager:
                     "review_object": obj["id"],
                     "sha256": digest,
                     "video_path": a["video_path"],
+                    "timing_source": "production_timing"
+                    if verified_timing
+                    else "creative_plan",
                     **sampling,
                     "instruction": REVIEW_INSTRUCTION
                     + " If it passes, export this exact video with an honest review summary. No extra status call is needed when the image is present.",
@@ -733,6 +828,13 @@ class Manager:
                 raise ValueError(
                     "Call review_video to inspect the current encoded output before export. Poll get_video_task only if review is still running."
                 )
+            findings = merge_review_findings(
+                self.store.get("review_findings", pid) or [], a.get("findings")
+            )
+            # Persist even when publication is denied: a new encode or an
+            # omitted list must not silently erase an acknowledged defect.
+            self.store.put("review_findings", pid, findings)
+            require_resolved_review_findings(findings)
             meta = await sb.inspect_video(path)
             with tempfile.TemporaryDirectory() as tmp:
                 local = Path(tmp) / "video.mp4"
@@ -758,7 +860,7 @@ class Manager:
                 video["id"],
                 archive["id"],
                 a["summary"][:4000],
-                json.dumps(meta | {"sha256": digest}),
+                json.dumps(meta | {"sha256": digest, "review_findings": findings}),
             )
             record_progress(
                 self.store,
@@ -774,6 +876,72 @@ class Manager:
                 **meta,
             }
         raise ValueError("Unknown operation")
+
+    async def production_timing_metadata(self, task, sb, creative):
+        """Bind reported scene boundaries to a measured, exact encoded video."""
+        args = task["payload"]
+        timing = validate_production_timing(args["production_timing"])
+        video_path = args.get("review_path") or args.get("preview_path")
+        if not video_path or Path(video_path).suffix.lower() not in {
+            ".mp4",
+            ".mov",
+            ".mkv",
+            ".webm",
+        }:
+            raise ValueError(
+                "production_timing needs an encoded video in review_path or preview_path"
+            )
+        path = await sb.safe_path(video_path)
+        probe = await sb.run(
+            "ffprobe -v error -show_entries format=duration:stream=codec_type,duration,avg_frame_rate -of json "
+            + shlex.quote(path),
+            30,
+        )
+        if probe["exit_code"]:
+            raise ValueError("Could not verify production timing against the video")
+        media = json.loads(probe["stdout"])
+        video = next(
+            (
+                stream
+                for stream in media.get("streams", [])
+                if stream.get("codec_type") == "video"
+            ),
+            None,
+        )
+        if video is None:
+            raise ValueError("Production timing requires a video stream")
+        duration = float(video.get("duration") or media["format"]["duration"])
+        if not math.isfinite(duration) or duration <= 0:
+            raise ValueError("Production video duration must be finite and positive")
+        try:
+            fps = float(Fraction(video.get("avg_frame_rate", "0/1")))
+        except (ValueError, ZeroDivisionError):
+            fps = 0
+        tolerance = max(0.12, 2 / fps) if fps > 0 else 0.12
+        total = sum(scene["seconds"] for scene in timing["scenes"])
+        if abs(total - duration) > tolerance:
+            raise ValueError(
+                f"Production scenes total {total:.3f}s but the encoded video is {duration:.3f}s. "
+                "Use the actual ordered scene durations, including opening/closing holds."
+            )
+        if timing.get("narration_offset", 0) > duration:
+            raise ValueError("narration_offset is beyond the encoded video")
+        hashed = await sb.run("sha256sum " + shlex.quote(path), 30)
+        if hashed["exit_code"]:
+            raise ValueError("Could not identify the production video")
+        digest = hashed["stdout"].split()[0]
+        if not re.fullmatch(r"[0-9a-f]{64}", digest):
+            raise ValueError("Could not identify the production video")
+        return timing | {
+            "duration": duration,
+            "scene_duration_total": total,
+            "sha256": digest,
+            "video_path": video_path,
+            "creative_revision": (creative or {}).get("revision", 0),
+            "task_id": task["id"],
+            "recorded_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+            "source": "reported_render_timeline",
+        }
 
     async def narration_metadata(self, sb, output, timings):
         """Return usable timing evidence with the audio, avoiding another tool turn."""

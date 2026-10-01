@@ -13,12 +13,13 @@ figure{margin:0}img,video{display:block;width:100%;height:auto;max-height:540px;
 .source-select{display:flex;gap:12px;align-items:center;padding:16px 0}.source-select input{max-width:70%;font:inherit;font-size:13px}#source-library,#source-fallback{font:inherit;font-size:12px;background:transparent;color:inherit;border:1px solid #8d70b7;border-radius:6px;padding:6px 10px;cursor:pointer;margin:4px 8px 0 0}#source-status{font-size:13px}
 #notice{font-size:12px;margin:6px 0}#notice:empty,[hidden]{display:none!important}
 #excerpt{font-size:11px;opacity:.65;margin:6px 0 0}
+.media-actions{display:flex;justify-content:flex-end;gap:8px;align-items:center}.media-actions button,#feedback-form button{font:inherit;font-size:12px;background:transparent;color:inherit;border:0;padding:6px 10px;cursor:pointer}#download{margin:0}.media-actions button:hover,#feedback-form button:hover{text-decoration:underline}#feedback-form{margin-top:8px}#feedback-time{display:block;font-size:12px;opacity:.75;margin-bottom:6px}#feedback-note{display:block;width:100%;font:inherit;font-size:13px;background:transparent;color:inherit;border:1px solid #8d70b7;border-radius:6px;padding:8px;resize:vertical}#feedback-form .feedback-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:4px}#feedback-form button[type=submit]{background:#673dac;color:white;border-radius:6px}#feedback-note:focus-visible,#feedback-form button:focus-visible,#suggest-edit:focus-visible{outline:2px solid #a879ef;outline-offset:2px}
 </style>
 </head>
 <body>
 <section id="choices" hidden><p id="question"></p><div id="options"></div><p id="sample-label">Style references · You can also describe your own direction.</p></section>
 <section id="sources" hidden><label class="source-select">Add your files<input id="source-files" type="file" multiple></label><button id="source-library" hidden>Choose from ChatGPT files</button><button id="source-fallback">Open upload page</button><p id="source-status" role="status"></p></section>
-<figure id="visual" hidden><div id="media"></div><p id="excerpt" hidden></p><button id="download" hidden>Download MP4</button></figure>
+<figure id="visual" hidden><div id="media"></div><p id="excerpt" hidden></p><div class="media-actions"><button id="suggest-edit" hidden>Suggest an edit</button><button id="download" hidden>Download MP4</button></div><form id="feedback-form" hidden><label id="feedback-time" for="feedback-note"></label><textarea id="feedback-note" rows="2" maxlength="1200" placeholder="What would you change here?" required></textarea><div class="feedback-actions"><button id="feedback-cancel" type="button">Cancel</button><button id="feedback-send" type="submit">Send</button></div></form></figure>
 <p id="notice" role="status"></p>
 <script>/* APP_BUNDLE */</script>
 </body>

@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "node build.mjs",
-    "test": "node test.mjs && node test-refresh.mjs"
+    "test": "node test.mjs && node test-refresh.mjs && node test-feedback.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/ext-apps": "^1.1.2"

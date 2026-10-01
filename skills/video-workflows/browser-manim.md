@@ -12,6 +12,10 @@ the opening. Show it in chat while further scenes remain easy to change. Continu
 without mandatory approval. Avoid writing a full multi-hundred-line film before
 the user sees any motion. For simple edits, go straight to the requested result.
 
+For a short idea made of simple 2D geometry and type, `render_video_scene` can
+remove the renderer/assembly boilerplate; see the compact `scenes` guide. Use
+Manim when semantic transformations, equations or geometry need its richer API.
+
 Manim CE **0.19.2**, FFmpeg and the default LaTeX/MathTex dependencies are ready.
 Do not run setup scripts or inventory fonts. `DejaVu Sans`, `DejaVu Serif` and
 `Noto Sans` are known choices; use supplied brand fonts when available.
@@ -26,6 +30,10 @@ At 960x540 preview size, ordinary labels generally need about 18–22 visible pi
 point, not a rigid type scale. Inspect actual text widths and density. If labels
 compete, simplify or reveal them in sequence; do not make them tiny. Center a
 dominant subject with adequate room for annotations. Avoid long empty openings.
+
+Give each arrow and mark a consistent meaning across its label and narration.
+Check the signs, relationships and movement rather than inferring correctness
+from a plausible diagram. Fix acknowledged meaning errors before exporting.
 
 ## Render and assemble using returned paths
 
@@ -49,6 +57,9 @@ write an FFmpeg concat list and call FFmpeg with `check=True`. Concatenate only
 matching resolution/fps/codec clips, then mix the recorded audio once. Preserve
 the requested duration and ensure the final words fit. Audio offsets are explicit;
 do not accumulate scene timing drift by guessing every chapter's frame count.
+
+Save actual ordered scene durations in the assembled step's `production_timing`;
+rough story estimates are not evidence of narration alignment.
 
 Use `--quality final` only after the draft communicates clearly. Inspect the
 encoded MP4 through `review_path`, fix observed issues, export, and call

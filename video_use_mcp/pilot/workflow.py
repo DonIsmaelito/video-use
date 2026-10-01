@@ -461,9 +461,18 @@ def workflow_summary(category: str) -> dict:
         )
     recipe = deepcopy(RECIPES[category])
     recipe["building_blocks"] = recipe.pop("steps")
+    details = deepcopy(WORKFLOW_DETAILS[category])
+    # Keep the extended category reference discoverable without making it a
+    # compulsory first read before the agent can make anything.
+    details["optional_technique_guidance"] = [
+        topic for topic in details["guidance"] if topic not in ("workflows", "overview")
+    ]
+    if category in ("explainer", "brand", "data_story", "document_video"):
+        details["optional_technique_guidance"].insert(0, "scenes")
+    details["guidance"] = ["overview"]
     return dict(
         category=category,
-        **deepcopy(WORKFLOW_DETAILS[category]),
+        **details,
         **recipe,
         structure="Suggestions, not a required sequence or a fixed visual template. Combine workflows as needed.",
     )
@@ -560,7 +569,7 @@ def register_workflow(mcp, store, muser, new_project, read, write):
             creative=state,
             workflow=recipe,
             complementary_workflows=[workflow_summary(c) for c in supporting],
-            next_action="Read only the relevant compact guidance not already in context. For original work, make one meaningful short motion excerpt visible before authoring the entire film; reuse it later. Show actual drafts immediately with show_video_preview, then continue. Offer a compact set of meaningful choices when helpful, state reversible defaults, and keep working on independent parts. Ask for a reply only when genuinely blocked or the user requests a checkpoint.",
+            next_action="Use only the compact guidance needed for this piece; optional_technique_guidance is a menu, not a reading checklist. For a simple 2D visual, render_video_scene handles drawing, animation and encoding from a small editable scene description. For custom work, author only the dependencies of one meaningful excerpt first, not all scenes. Show it immediately with show_video_preview, then continue. Offer relevant choices where a different answer would change the piece, state reversible defaults and keep working. Ask for a reply only when genuinely blocked or the user requests a checkpoint.",
             capabilities={
                 "render": "Python, Manim, FFmpeg, browser motion and bounded procedural Three.js",
                 "generative_video": False,
@@ -669,5 +678,5 @@ def register_workflow(mcp, store, muser, new_project, read, write):
         return dict(
             project_id=project_id,
             creative=state,
-            next_action="Batch sources and independent renders in run_video_step. For original work, prove one meaningful motion excerpt before coding all remaining scenes. Include preview_path and show it with show_video_preview as soon as ready, before more authoring or review. Continue through export unless real input is missing.",
+            next_action="Make one meaningful excerpt with render_video_scene for compact 2D motion, or run_video_step for custom source. Defer unrelated scene code until it is visible; use show_video_preview when ready and keep working. Batch later independent renders. After narration alignment, pass actual ordered scene durations in production_timing with the assembled video so reviews and resumed edits use its real timeline. Continue through export unless real input is missing.",
         )

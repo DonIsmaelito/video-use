@@ -15,7 +15,7 @@ from mcp.server.fastmcp import FastMCP
 
 from .store import ident
 
-UI_URI = "ui://video-use/media-v7.html"
+UI_URI = "ui://video-use/media-v8.html"
 UI_META = {"ui": {"resourceUri": UI_URI}}
 
 TASK_OPERATIONS = {
@@ -31,7 +31,12 @@ TASK_OPERATIONS = {
     "export",
 }
 TASK_STATUSES = {"queued", "running", "succeeded", "failed", "cancelled"}
-APP_TOOLS = {"video_project_updates", "video_preview_updates", "choose_video_style"}
+APP_TOOLS = {
+    "video_project_updates",
+    "video_preview_updates",
+    "choose_video_style",
+    "add_video_feedback",
+}
 
 
 def task_identity(payload):

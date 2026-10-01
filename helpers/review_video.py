@@ -10,7 +10,9 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import re
 import subprocess
+import tempfile
 from fractions import Fraction
 from pathlib import Path
 
@@ -18,6 +20,189 @@ from PIL import Image, ImageDraw, ImageFont
 
 
 MAX_SAMPLES = 12
+MAX_AUDIO_SECONDS = 180.0
+AUDIO_TIMEOUT_SECONDS = 20
+AUDIO_LIMITATION = (
+    "Measurements of the first encoded audio track are not listening, speech "
+    "transcription, or verification that narration matches the visuals. Other "
+    "audio tracks are not analyzed. Stream timestamps alone do not prove sync."
+)
+
+
+def _finite_number(value) -> float | None:
+    try:
+        number = float(value)
+    except (TypeError, ValueError):
+        return None
+    return number if math.isfinite(number) else None
+
+
+def measure_audio_evidence(
+    path: Path, metadata: dict, *, max_seconds: float = MAX_AUDIO_SECONDS
+) -> dict:
+    """Measure bounded encoded audio without claiming an editorial listening pass."""
+    if not math.isfinite(max_seconds) or not 0 < max_seconds <= MAX_AUDIO_SECONDS:
+        raise ValueError(f"Audio measurement limit must be in (0, {MAX_AUDIO_SECONDS}]")
+    streams = metadata.get("streams", [])
+    audio = [stream for stream in streams if stream.get("codec_type") == "audio"]
+    evidence = {
+        "status": "no_audio" if not audio else "unavailable",
+        "audio_stream_count": len(audio),
+        "limitations": AUDIO_LIMITATION,
+        "warnings": [],
+    }
+    if not audio:
+        return evidence  # Silent films need no invented missing-audio defect.
+    stream = audio[0]
+    duration = _finite_number(stream.get("duration"))
+    start = _finite_number(stream.get("start_time"))
+    sample_rate = _finite_number(stream.get("sample_rate"))
+    channels = _finite_number(stream.get("channels"))
+    evidence.update(
+        {
+            "stream_index": stream.get("index"),
+            "codec": stream.get("codec_name"),
+            "sample_rate_hz": sample_rate,
+            "channels": channels,
+            "stream_start_seconds": start,
+            "stream_duration_seconds": duration,
+            "measurement_limit_seconds": max_seconds,
+        }
+    )
+    video_stream = next(
+        (item for item in streams if item.get("codec_type") == "video"), {}
+    )
+    video_start = _finite_number(video_stream.get("start_time"))
+    evidence["video_stream_start_seconds"] = video_start
+    evidence["audio_video_start_offset_seconds"] = (
+        round(start - video_start, 6)
+        if start is not None and video_start is not None
+        else None
+    )
+    # Keep decoder diagnostics out of memory; inspect only a bounded tail. A
+    # prefix limit and wall timeout protect the surrounding 120-second review.
+    command = [
+        "ffmpeg",
+        "-nostdin",
+        "-hide_banner",
+        "-nostats",
+        "-xerror",
+        "-loglevel",
+        "info",
+        "-i",
+        str(path),
+        "-map",
+        "0:a:0",
+        "-vn",
+        "-sn",
+        "-dn",
+        "-t",
+        str(max_seconds),
+        "-af",
+        f"atrim=duration={max_seconds},ebur128=peak=true:framelog=verbose,volumedetect",
+        "-f",
+        "null",
+        "-",
+    ]
+    with tempfile.TemporaryFile() as diagnostics:
+        try:
+            result = subprocess.run(
+                command,
+                stdout=subprocess.DEVNULL,
+                stderr=diagnostics,
+                timeout=AUDIO_TIMEOUT_SECONDS,
+                check=False,
+            )
+        except subprocess.TimeoutExpired:
+            evidence["error"] = (
+                "Audio measurement timed out; no loudness result is claimed."
+            )
+            return evidence
+        except OSError:
+            evidence["error"] = "Audio measurement could not start."
+            return evidence
+        diagnostics.seek(0, 2)
+        diagnostics.seek(max(0, diagnostics.tell() - 32768))
+        log = diagnostics.read().decode("utf-8", errors="replace")
+    if result.returncode:
+        evidence["error"] = "The selected encoded audio track could not be measured."
+        return evidence
+
+    def value(pattern):
+        matches = re.findall(pattern, log)
+        return matches[-1] if matches else None
+
+    number = r"(-?(?:\d+(?:\.\d+)?|inf))"
+    sample_count = _finite_number(value(r"n_samples:\s*(\d+)"))
+    loudness = _finite_number(value(r"\bI:\s*" + number + r"\s*LUFS"))
+    raw_peak = value(r"\bPeak:\s*" + number + r"\s*dBFS")
+    true_peak = _finite_number(raw_peak)
+    mean = _finite_number(value(r"mean_volume:\s*" + number + r"\s*dB"))
+    sample_peak = _finite_number(value(r"max_volume:\s*" + number + r"\s*dB"))
+    if not sample_count or raw_peak is None or mean is None or sample_peak is None:
+        evidence["error"] = "The audio analyzer returned no complete measurement."
+        return evidence
+    measured_seconds = (
+        sample_count / (sample_rate * channels)
+        if sample_rate and channels and sample_rate > 0 and channels > 0
+        else None
+    )
+    # If stream duration is unknown, reaching the prefix limit cannot establish
+    # complete coverage. Do not infer audio duration from the video container.
+    tolerance = (
+        max(0.05, 2048 / sample_rate) if sample_rate and sample_rate > 0 else 0.05
+    )
+    complete = bool(
+        measured_seconds is not None
+        and (
+            (
+                duration is not None
+                and duration <= max_seconds
+                and measured_seconds + tolerance >= duration
+            )
+            or (duration is None and measured_seconds < max_seconds - tolerance)
+        )
+    )
+    silence = raw_peak == "-inf"
+    evidence.update(
+        {
+            "status": "measured" if complete else "partial",
+            "coverage": "complete_first_audio_track"
+            if complete
+            else "audio_prefix_only",
+            "measured_seconds": round(measured_seconds, 4)
+            if measured_seconds is not None
+            else None,
+            "decoded_sample_count": int(sample_count),
+            "integrated_loudness_lufs": loudness
+            if loudness is not None and loudness > -70
+            else None,
+            "true_peak_dbtp": true_peak,
+            "mean_volume_dbfs": mean,
+            "sample_peak_dbfs": sample_peak,
+            "digital_silence": silence,
+            "method": "FFmpeg ebur128 true peak and volumedetect on decoded audio",
+        }
+    )
+    if silence:
+        evidence["warnings"].append("Decoded samples in the measured range are silent.")
+    elif true_peak is not None and true_peak > 0:
+        evidence["warnings"].append(
+            "Measured true peak exceeds 0 dBTP; playback clipping is possible, not established."
+        )
+    elif sample_peak >= 0:
+        evidence["warnings"].append(
+            "Measured sample peak reaches 0 dBFS; this alone does not establish clipping."
+        )
+    elif sample_peak < -60:
+        evidence["warnings"].append(
+            "Measured audio peak is below -60 dBFS (very low level)."
+        )
+    if not complete:
+        evidence["warnings"].append(
+            "Loudness and peak evidence does not cover the complete audio track."
+        )
+    return evidence
 
 
 def sample_times(duration: float, fps: float, beats: list | None = None) -> list[float]:
@@ -89,19 +274,23 @@ def review_video(path: Path, output: Path, beats: list | None = None) -> dict:
                 "ffprobe",
                 "-v",
                 "error",
-                "-select_streams",
-                "v:0",
                 "-show_streams",
                 "-show_format",
                 "-of",
                 "json",
                 str(path),
-            ]
+            ],
+            timeout=10,
         )
     )
-    if not metadata.get("streams"):
+    videos = [
+        stream
+        for stream in metadata.get("streams", [])
+        if stream.get("codec_type") == "video"
+    ]
+    if not videos:
         raise ValueError("Review requires a video stream")
-    video = metadata["streams"][0]
+    video = videos[0]
     duration = float(video.get("duration") or metadata["format"]["duration"])
     try:
         fps = float(Fraction(video.get("avg_frame_rate", "30")))
@@ -147,6 +336,7 @@ def review_video(path: Path, output: Path, beats: list | None = None) -> dict:
             ],
             check=True,
             capture_output=True,
+            timeout=6,
         )
         x, y = (i % columns) * cell_width, (i // columns) * (cell_height + label_height)
         with Image.open(frame_path) as frame:
@@ -168,6 +358,7 @@ def review_video(path: Path, output: Path, beats: list | None = None) -> dict:
         "contact_sheet": str(output),
         "width": sheet.width,
         "height": sheet.height,
+        "audio_evidence": measure_audio_evidence(path, metadata),
         "limitation": "Sampled still frames do not verify every frame, motion continuity, or audible quality.",
     }
     output.with_suffix(".json").write_text(json.dumps(report, indent=2))

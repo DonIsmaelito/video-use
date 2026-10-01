@@ -36,6 +36,9 @@ def collect(store, project_id=None, include_logs=False):
     for project in projects:
         project["creative"] = store.get("creative", project["id"]) or {}
         project["continuation"] = store.get("progress", project["id"]) or {}
+        project["production_timing"] = store.get("production_timing", project["id"])
+        project["review_findings"] = store.get("review_findings", project["id"]) or []
+        project["feedback"] = store.get("feedback", project["id"]) or {"items": []}
         project["tool_calls"] = sorted(
             [t for t in traces if t.get("project") == project["id"]],
             key=lambda t: t["at"],
@@ -74,6 +77,8 @@ def collect(store, project_id=None, include_logs=False):
                     "review_object",
                     "creative_revision",
                     "preferences_changed",
+                    "production_timing",
+                    "audio_evidence",
                 )
                 if k in result
             }
