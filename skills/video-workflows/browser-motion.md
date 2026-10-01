@@ -3,6 +3,9 @@
 Choose a subject-specific visual idea, hierarchy and signature transformation.
 Reuse rendering mechanics, not the same layout or aesthetic for every request.
 Diagrams, type, images, footage and 3D can mix when the idea needs them.
+State consequential audience, script, look and final-format assumptions briefly
+before narration or substantial rendering. An optional relevant reference choice
+can remain open while you work; current choices returned by tasks steer later work.
 
 Build one meaningful short motion excerpt before authoring the entire film. Show
 the real excerpt with `show_video_preview`, explain the creative choice briefly,
@@ -48,8 +51,10 @@ use clear contrast. Let motion direct attention to one meaningful event. Choose
 holds for comprehension, transitions for continuity, and rhythm for the actual
 voiceover/music. Do not substitute generic entrances for a visual explanation.
 
-Use narration's returned duration and sentence timing to align the film. Batch
-file writes/render/publication with `run_video_step`, supplying the actual
+Use narration's returned duration and sentence timing to align the film. Use
+word timings for a label tied to a spoken word; do not infer that alignment from
+a whole sentence's duration. Batch file writes/render/publication with
+`run_video_step`, supplying the actual
 `preview_path`. Render independent components with separate outputs and assemble
 only after all succeed. Reuse picture for audio-only changes. Poll only active
 tasks. Display each substantial draft immediately, before further authoring/QA.
@@ -58,6 +63,9 @@ Use `review_path` for final encoded inspection, repair concrete visible defects,
 export the exact reviewed MP4, then display its player. Keep editable source,
 assets, timings and render instructions. Successful encoding alone is not a
 visual-quality judgment.
+Only claim motion playback or listening when you actually had that evidence.
+Still-frame checks, decoding, loudness and timestamp measurements have narrower
+coverage. Fix accidental clipping or unreadable text as defects, not style notes.
 
 For deeper needs request specific references under
 `skills/motion-design/references/`: `art-direction.md`, `browser-rendering.md`,

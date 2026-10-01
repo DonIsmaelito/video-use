@@ -3,6 +3,9 @@
 Use Manim when geometry, a mechanism, equations or data relationships carry the
 explanation. It does not prescribe a dark palette, a scene count or a title-card
 format. Choose the visual premise for the subject and the user's direction.
+Briefly share the proposed takeaway, audience, look and delivery format before
+narrating or coding the film. If meaningful style choices remain open, one relevant
+comparison can stay available while you work; a click is not a prerequisite.
 
 ## Author less before the first useful preview
 
@@ -24,6 +27,9 @@ Keep related scenes modular with shared palette, text roles, geometry and timing
 Preserve important objects across beats; cut or transform them when it helps the
 explanation. Save a concise visual plan alongside source. Use narration's returned
 sentence timings; do not estimate a fresh timeline after speech is generated.
+Use returned word timings when labels or emphasis must meet particular spoken
+words. Read the current choice and feedback in each task result before rendering
+the next scene; after a long authoring gap, refresh project context once.
 
 At 960x540 preview size, ordinary labels generally need about 18–22 visible pixels
 (roughly Manim font_size 36–44 in its default frame). This is a readability starting
@@ -65,6 +71,9 @@ Use `--quality final` only after the draft communicates clearly. Inspect the
 encoded MP4 through `review_path`, fix observed issues, export, and call
 `show_video_preview`. Intermediate review sheets are for inspection; the user
 should see a playable draft rather than a grid of tiny QA frames.
+Accompany a substantial draft with a brief sentence about what the user can judge
+and what comes next. Sampled frames and measured audio do not establish motion
+playback, listening or word-level sync; describe the evidence you actually used.
 
 ## Detailed components when needed
 

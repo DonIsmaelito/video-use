@@ -1,15 +1,17 @@
 """Render a small editable motion composition through the existing task runner."""
 
+import hashlib
 import json
 import math
 import re
 import shlex
-from typing import Annotated
+from typing import Annotated, Literal
 
-from mcp.types import CallToolResult
+from mcp.types import CallToolResult, TextContent
 from pydantic import Field
 
-from helpers.render_scene import validate_scene
+from helpers.render_scene import scene_validation_report, validate_scene
+from helpers.assemble_scenes import validate_spec
 
 from .interaction import record_progress, wait_for_task
 
@@ -58,6 +60,54 @@ def scene_payload(
     }
 
 
+def assembly_payload(request_id, scene_ids, scenes, note, creative_revision, **options):
+    """Construct a trusted assembly command; supplied compositions remain data."""
+    if not 1 <= len(request_id) <= 111:
+        raise ValueError("Provide a request ID of 1–111 characters")
+    if not note.strip() or len(note) > 1200:
+        raise ValueError("Describe the draft in 1–1200 characters")
+    spec = validate_spec({"scene_ids": scene_ids, **options})
+    if not isinstance(scenes, dict) or set(scenes) - set(scene_ids):
+        raise ValueError("scenes keys must appear in the ordered scene_ids")
+    if len(json.dumps(scenes, ensure_ascii=False).encode()) > 1_000_000:
+        raise ValueError("Provided scene data exceeds 1 MB")
+    files, errors = [], []
+    for scene_id, scene in scenes.items():
+        report = scene_validation_report(scene)
+        if not report["valid"]:
+            errors.extend(f"{scene_id}: {error}" for error in report["errors"])
+        else:
+            files.append(
+                {
+                    "path": f"edit/scenes/{scene_id}.json",
+                    "content": json.dumps(validate_scene(scene), ensure_ascii=False),
+                }
+            )
+    if errors:
+        raise ValueError("Assembly scene validation failed:\n" + "\n".join(errors))
+    stem = "edit/assemblies/" + hashlib.sha256(request_id.encode()).hexdigest()[:20]
+    source, video = stem + ".json", stem + ".mp4"
+    files.append({"path": source, "content": json.dumps(spec, ensure_ascii=False)})
+    return {
+        "files": files,
+        "command": shlex.join(
+            ["python", "/opt/video-use/helpers/assemble_scenes.py", source, "-o", video]
+        ),
+        "preview_path": video,
+        "review_path": video,
+        "assembly_report": stem + ".assembly.json",
+        "stage": "draft",
+        "note": note,
+        "next_action": (
+            "Show this complete playable draft now. Inspect the internal review images and correct issues. For delivery, call assemble_video with quality=final unless the user requested draft quality. Read current preferences before further work."
+            if spec["quality"] == "draft"
+            else "Show this complete playable video now. Inspect the internal review images, address any issues, then export. Read current preferences before further work."
+        ),
+        "creative_revision": creative_revision,
+        "timeout": 600,
+    }
+
+
 def register_scenes(mcp, store, manager, muser, cards, execute):
     @mcp.tool(annotations=execute, title="Animate a scene")
     async def render_video_scene(
@@ -70,9 +120,10 @@ def register_scenes(mcp, store, manager, muser, cards, execute):
                 description=(
                     "Editable 2D composition: {duration,width?,height?,fps?,background?,marks:["
                     "{id,kind,x,y,w?,h?,color?,fill?,text?,size?,font?,opacity?,"
-                    "keyframes?:[{time,x?,y?,opacity?,rotation?,scale?,ease?}]}]}. "
+                    "keyframes?:[{time,x?,y?,opacity?,rotation?,scale?,phase?,cycles?,size?,stroke_width?,ease?}],"
+                    "motion_path?:{points:[[x,y],...],seconds,start?,loop?,closed?,count?,stagger?,orient?}}]}. "
                     "Kinds: text,rect,ellipse,line,polygon,arc,wave. Duration <=20 seconds; "
-                    "default 960x540 at15fps. Hex colors. Keyframes hold omitted properties. "
+                    "default 960x540 at15fps. Hex colors. Keyframes can animate every numeric mark field; wave phase is in degrees. Omitted properties hold. "
                     "Use video_use_guidance topic=scenes for geometry and typography details."
                 )
             ),
@@ -81,9 +132,17 @@ def register_scenes(mcp, store, manager, muser, cards, execute):
         creative_revision: int,
         narration_path: str = "",
         narration_start: float = 0,
+        validate_only: bool = False,
     ) -> CallToolResult:
-        """Create a real short motion excerpt from compact drawing data, without writing renderer or assembly code. Use for diagrams, typography and simple 2D motion; custom Manim, footage and 3D remain available through run_video_step. Author one useful visual idea, not the whole film. Saves editable JSON and MP4 together; same scene_id can be rendered again with changed data and a NEW request_id. Optional narration_path is existing project audio, with explicit start offset. Follow display_action to show it, then continue without an approval pause."""
+        """Create a real short motion excerpt from compact drawing data, without writing renderer or assembly code. Use for diagrams, typography and simple 2D motion; custom Manim, footage and 3D remain available through run_video_step. Author one useful visual idea, not the whole film. Saves editable JSON and MP4 together; same scene_id can be rendered again with changed data and a NEW request_id. Optional narration_path is existing project audio, with explicit start offset. validate_only returns all keyframe errors without writing files or rendering. Follow display_action to show it, then continue without an approval pause. Use assemble_video for the complete draft and final-quality rendering."""
         uid = muser(True)
+        if validate_only:
+            store.project(uid, project_id)
+            report = scene_validation_report(scene)
+            return CallToolResult(
+                content=[TextContent(type="text", text=json.dumps(report))],
+                structuredContent=report,
+            )
         if not 1 <= len(request_id) <= 114:
             raise ValueError("Provide a request ID of 1–114 characters")
         payload = scene_payload(
@@ -92,5 +151,51 @@ def register_scenes(mcp, store, manager, muser, cards, execute):
         task = manager.submit(uid, project_id, "step", payload, "scene:" + request_id)
         if task["status"] in ("queued", "running"):
             record_progress(store, project_id, "working", note, payload["next_action"])
+        await wait_for_task(manager, task["id"], 25)
+        return await cards["task_result"](uid, task["id"])
+
+    @mcp.tool(annotations=execute, title="Assemble the video")
+    async def assemble_video(
+        project_id: str,
+        request_id: str,
+        scene_ids: list[str],
+        creative_revision: int,
+        scenes: dict[str, dict] | None = None,
+        narration_path: str = "",
+        narration_offset: float = 0,
+        quality: Literal["draft", "final"] = "draft",
+        width: int = 0,
+        height: int = 0,
+        fps: int = 0,
+        audio_normalization: Literal["web", "none"] = "web",
+        note: str = "The complete video draft is ready to watch.",
+    ) -> CallToolResult:
+        """Join 1–12 ordered editable scene IDs into one complete playable video without writing Python or FFmpeg. IDs refer to edit/scenes/<id>.json. Supply any new or revised compositions in scenes={id: scene data}; all sources validate before any rendering. After showing one useful excerpt, provide remaining scenes here in one call. Unchanged compositions reuse their renders. draft defaults to 540p/15fps; final rerenders vector/text at 1080p/30fps, preserving the authored aspect ratio. Optional width/height/fps override output quality. narration_path uses existing audio; narration_offset delays it on the full timeline, and overlong narration is rejected, never silently cut. web normalizes narration toward -16 LUFS with -1.5 dBTP limit; none preserves its level. Returns a playable draft, private review images and measured scene timings. Show the draft promptly, inspect the review, correct problems, then export its output path. Maximum 180 seconds."""
+        uid = muser(True)
+        payload = assembly_payload(
+            request_id,
+            scene_ids,
+            scenes or {},
+            note,
+            creative_revision,
+            narration_path=narration_path,
+            narration_offset=narration_offset,
+            quality=quality,
+            width=width,
+            height=height,
+            fps=fps,
+            audio_normalization=audio_normalization,
+        )
+        task = manager.submit(
+            uid, project_id, "step", payload, "assemble:" + request_id
+        )
+        if task["status"] in ("queued", "running"):
+            record_progress(
+                store,
+                project_id,
+                "working",
+                "Putting the scenes together.",
+                payload["next_action"],
+            )
         await wait_for_task(manager, task["id"], 25)
         return await cards["task_result"](uid, task["id"])

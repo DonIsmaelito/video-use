@@ -6,7 +6,7 @@ from unittest.mock import Mock
 
 import pytest
 
-from video_use_mcp.pilot.scenes import scene_payload
+from video_use_mcp.pilot.scenes import assembly_payload, scene_payload
 from video_use_mcp.pilot.tests.test_cards import PID, rpc
 
 pytest_plugins = ["video_use_mcp.pilot.tests.test_oauth_discovery"]
@@ -122,3 +122,80 @@ def test_invalid_scene_is_rejected_before_task_submission(pilot):
     )
     assert result.get("isError")
     app.state.manager.submit.assert_not_called()
+
+
+def test_validation_only_returns_all_errors_without_submitting(pilot):
+    _, app = pilot
+    app.state.manager.submit = Mock()
+    result = rpc(
+        pilot,
+        "tools/call",
+        {
+            "name": "render_video_scene",
+            "arguments": {
+                "project_id": PID,
+                "request_id": "check",
+                "scene_id": "idea",
+                "scene": {
+                    "duration": 3.8,
+                    "marks": [
+                        {"id": name, "kind": "ellipse", "keyframes": [{"time": -0.1}]}
+                        for name in ("halo", "wire")
+                    ],
+                },
+                "note": "Check timing",
+                "creative_revision": 2,
+                "validate_only": True,
+            },
+        },
+    )
+    report = result["structuredContent"]
+    assert not report["valid"]
+    assert len(report["errors"]) == 2
+    assert "halo" in report["errors"][0] and "wire" in report["errors"][1]
+    app.state.manager.submit.assert_not_called()
+
+
+def test_assembly_keeps_drawing_and_audio_data_out_of_shell():
+    text = "$(touch unsafe); '</script>"
+    source = SCENE | {"marks": [{"id": "title", "kind": "text", "text": text}]}
+    payload = assembly_payload(
+        "assembly",
+        ["saved", "new"],
+        {"new": source},
+        "Full idea",
+        3,
+        narration_path="audio/voice '; $(touch unsafe).mp3",
+    )
+    assert len(payload["files"]) == 2
+    assert payload["files"][0]["path"] == "edit/scenes/new.json"
+    assert text not in payload["command"]
+    spec = json.loads(payload["files"][-1]["content"])
+    assert spec["scene_ids"] == ["saved", "new"]
+    assert spec["narration_path"] == "audio/voice '; $(touch unsafe).mp3"
+    assert payload["preview_path"] == payload["review_path"]
+    assert "quality=final" in payload["next_action"]
+    assert payload["assembly_report"].endswith(".assembly.json")
+    final = assembly_payload("final", ["saved"], {}, "Final", 3, quality="final")
+    assert "then export" in final["next_action"]
+
+
+def test_assembly_rejects_unlisted_or_invalid_scene_data_before_submission():
+    with pytest.raises(ValueError, match="keys"):
+        assembly_payload("r", ["saved"], {"other": SCENE}, "Draft", 2)
+    with pytest.raises(ValueError, match="new:"):
+        assembly_payload(
+            "r", ["saved", "new"], {"new": SCENE | {"duration": 30}}, "Draft", 2
+        )
+
+
+def test_assembly_tool_is_discovered_with_quality_and_inline_scene_contract(pilot):
+    tool = next(
+        t
+        for t in rpc(pilot, "tools/list", {})["tools"]
+        if t["name"] == "assemble_video"
+    )
+    assert "ui" not in tool.get("_meta", {})
+    args = tool["inputSchema"]["properties"]
+    assert args["quality"]["enum"] == ["draft", "final"]
+    assert "scenes" in args and "scene_ids" in args

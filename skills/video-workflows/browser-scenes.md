@@ -9,7 +9,10 @@ Pass `project_id`, a new `request_id`, stable `scene_id`, `note`, the current
 `creative_revision`, and `scene`. The same scene ID with changed data and a new
 request ID updates the saved composition. It returns an editable JSON path and
 MP4 path. Execute `display_action` when the first real player is needed, then
-keep working; there is no required approval pause.
+add a sentence about what the user can judge and keep working; there is no required
+approval pause. Read current choices/feedback in task results before later renders.
+State final format and script/outline before narration; tool defaults are preview
+settings, not user requirements.
 
 ## Drawing data
 
@@ -41,7 +44,9 @@ absolute; omitted properties retain their previous value. Times strictly
 increase within the scene. A key's easing controls its outgoing interval:
 `linear`, `smooth`, `inCubic`, `outCubic`, `inOutCubic`, `outBack`. The base pose
 is time0 unless explicitly replaced. Colors/text/points are fixed per mark;
-crossfade separate marks to change them. All motion is deterministic from time.
+crossfade separate marks to change them. Numeric `phase` is supported for wave
+animation, in degrees; a changing phase moves the wave while fixed phase is static.
+All motion is deterministic from time.
 
 For example, a marker can arrive, hold, then move as another element responds:
 
@@ -54,10 +59,59 @@ For example, a marker can arrive, hold, then move as another element responds:
 
 Optional `narration_path` selects existing project audio; `narration_start` is
 the explicit source-audio offset for this excerpt. No audio or words are invented.
+Use `word_timings` for labels meant to meet particular spoken words.
 
-## Reuse
+For a moving marker or repeated flow, add `motion_path` rather than calculating
+corner keyframes for every copy:
 
-The helper is also available in `run_video_step` for batching/assembling scenes:
+```json
+{"id":"flow","kind":"ellipse","x":220,"y":160,"w":12,"h":12,
+ "fill":"#356CE8","stroke_width":0,
+ "motion_path":{"points":[[0,0],[340,0],[340,170],[0,170]],
+                "seconds":3,"closed":true,"loop":true,"count":8}}
+```
+
+Path points are offsets from the mark's animated x/y. `seconds` is a constant-speed
+traversal of the entire polyline. `closed` connects the endpoint to the start;
+an open looping path deliberately jumps back. Optional `start` defaults to zero.
+For loops, copies appear together at start, spaced backward by `stagger` seconds
+(default `seconds/count`). Without looping, each copy appears at its staggered
+start, traverses once and holds the endpoint. `orient` adds segment direction to
+rotation. At most 32 copies per mark and 400 total; children cannot attach to a
+repeated parent. Use this only where the repeated motion has a clear meaning.
+
+`render_video_scene(validate_only=true)` reports all validation errors without
+rendering. The helper's `--validate` does the same for local scene JSON, with scene,
+mark, keyframe and invalid value where applicable. Useful before a complex custom
+batch; ordinary rendering/assembly also validates before expensive work. Do not
+add a validation tool call to every trivial edit. Successful validation establishes
+schema correctness, not design or animation quality.
+
+## Assemble without a generator script
+
+After the first excerpt, use `assemble_video` with `project_id`, a new `request_id`,
+current `creative_revision`, and ordered `scene_ids`. To author remaining scenes
+in that call, pass `scenes={scene_id:scene_data,...}`; omitted IDs reuse saved JSON
+under `edit/scenes/`. No separate scene registry or handwritten concat is required.
+The whole batch is validated before rendering. Compatible renders are reused,
+actual `production_timing` is recorded, and the assembled draft reaches the player.
+
+Add `narration_path` and `narration_offset` for the continuous mix. Quality `draft`
+defaults to 960×540 at 15 fps for a landscape 16:9 composition; `final` defaults to
+1920×1080 at 30 fps, preserving the authored aspect ratio. Optional `width`, `height`
+and `fps` override delivery; dimensions must preserve the composition's aspect.
+Coordinate geometry is scaled consistently, so do not rewrite every mark to
+increase resolution. Choose final quality after the draft communicates clearly.
+
+Assembly accepts up to 12 scenes and 180 seconds total. It handles narration mixing
+and optional `audio_normalization="web"` (default) or `"none"`. Use the latter when
+preserving an intentional mix is important. Check measured audio after assembly;
+normalization is not listening, source verification or proof of narrative sync.
+Do not wait for approval unless the user requested a checkpoint.
+
+## Custom reuse
+
+The helper remains available in `run_video_step` for custom pipelines:
 
 ```sh
 python /opt/video-use/helpers/render_scene.py edit/scenes/idea.json \

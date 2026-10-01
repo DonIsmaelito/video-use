@@ -39,6 +39,61 @@ APP_TOOLS = {
 }
 
 
+def creative_handoff(task, creative):
+    """Describe current preferences without inventing approval or change evidence.
+
+    Task results must use the latest stored creative state, including after speech
+    and inspection tasks. Some older operations have no submitted revision; an
+    unknown baseline is not evidence that preferences remained unchanged.
+    """
+    if not isinstance(creative, dict):
+        return None
+    current = creative.get("revision")
+    if type(current) is not int or current < 1:
+        return None
+    payload = task.get("payload") or {}
+    result = task.get("result") or {}
+    submitted = next(
+        (
+            value
+            for value in (
+                task.get("submitted_creative_revision"),
+                payload.get("creative_revision"),
+                result.get("creative_revision"),
+            )
+            if type(value) is int and value > 0
+        ),
+        None,
+    )
+    changed = current != submitted if submitted is not None else None
+    selected = creative.get("selected")
+    # A default or a saved agent direction is a proposal, never evidence of a
+    # user selecting it. Use the selection provenance recorded by the picker.
+    selected_by_user = bool(
+        selected and creative.get("selection_source") == "user_click"
+    )
+    next_action = (
+        "Before the next render, use the current creative state returned here, "
+        "including selected choices and latest_feedback. Distinguish the user's "
+        "stated preferences from your proposed direction. A default is not approval. "
+        "Continue without an approval pause; read get_video_project only if this "
+        "state may be stale after a substantial authoring interval."
+    )
+    if changed:
+        next_action = (
+            "Creative preferences changed during or since this task. Adapt the "
+            "affected work before the next render; retain compatible completed work. "
+            + next_action
+        )
+    return {
+        "current_revision": current,
+        "submitted_revision": submitted,
+        "preferences_changed": changed,
+        "selected_by_user": selected_by_user,
+        "next_action": next_action,
+    }
+
+
 def task_identity(payload):
     """Recognize a task result without confusing project IDs with task IDs."""
     if (

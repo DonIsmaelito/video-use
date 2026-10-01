@@ -58,7 +58,14 @@ def test_legacy_proposal_is_optional_artwork_not_a_gate(
     data = json.loads(result["content"][0]["text"])
     pid = data["project_id"]
     assert data["status"] == "proposed" and "END YOUR TURN" not in data["next_action"]
-    assert set(result["structuredContent"]) == {"project_id", "media"}
+    displayed = result["structuredContent"]
+    assert displayed["project_id"] == pid
+    assert displayed["media"]["object_id"] == "frame-id"
+    assert displayed["media"]["media_type"] == "image/png"
+    assert "creative" in displayed
+    assert "chat sentence" in displayed["next_action"]
+    assert "do not require a reply" in displayed["next_action"]
+    assert not {"workspace_url", "project_card", "tasks", "updates"} & displayed.keys()
     store = app.state.store
     approved = rpc(
         pilot,

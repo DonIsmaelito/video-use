@@ -37,7 +37,7 @@ NUMBERS = {
     "start": (-3600, 3600, 0),
     "end": (-3600, 3600, 180),
     "cycles": (0.1, 30, 3),
-    "phase": (-3600, 3600, 0),
+    "phase": (-360000, 360000, 0),
 }
 MARK_KEYS = set(NUMBERS) | {
     "id",
@@ -50,7 +50,16 @@ MARK_KEYS = set(NUMBERS) | {
     "points",
     "keyframes",
     "parent",
+    "motion_path",
 }
+
+
+class SceneValidationError(ValueError):
+    """A bounded collection of actionable scene errors, without partial writes."""
+
+    def __init__(self, errors):
+        self.errors = errors
+        super().__init__("\n".join(errors))
 
 
 def _number(value, label, low, high):
@@ -81,6 +90,89 @@ def _color(value, label):
     return value
 
 
+def _keyframes(raw, index, duration):
+    label = f"marks[{index}] (id={repr(raw.get('id'))[:80]})"
+    keys = raw.get("keyframes", [])
+    if not isinstance(keys, list) or len(keys) > 24:
+        return [], [f"{label}.keyframes must be a list of at most 24 keyframes"]
+    normalized, errors, previous = [], [], -1
+    for key_index, key in enumerate(keys):
+        key_label = f"{label}.keyframes[{key_index}]"
+        try:
+            _keys(key, set(NUMBERS) | {"time", "ease"}, key_label)
+            time_label = (
+                f"{key_label}.time={repr(key.get('time'))[:80]} "
+                f"(scene duration {duration:g}s)"
+            )
+            when = _number(key.get("time"), time_label, 0, duration)
+            if when <= previous:
+                raise ValueError(
+                    f"{time_label} must be greater than the previous keyframe time "
+                    f"{previous:g}s; keyframe times must be strictly increasing"
+                )
+            previous = when
+            curve = key.get("ease", "inOutCubic")
+            if not isinstance(curve, str) or curve not in EASINGS:
+                raise ValueError(f"{key_label}.ease is an unknown easing")
+            k = {"time": when, "ease": curve}
+            # Stable field ordering preserves exact retries after restarts.
+            for prop in NUMBERS:
+                if prop in key:
+                    low, high, _ = NUMBERS[prop]
+                    k[prop] = _number(key[prop], f"{key_label}.{prop}", low, high)
+            if raw.get("kind") == "text" and any(
+                k.get(prop, 1) < 1 for prop in ("w", "h")
+            ):
+                raise ValueError(
+                    f"{key_label}: animated text bounds must remain positive"
+                )
+            normalized.append(k)
+        except ValueError as error:
+            errors.append(str(error))
+    return normalized, errors
+
+
+def _motion_path(value, label, duration):
+    allowed = {
+        "points",
+        "seconds",
+        "start",
+        "loop",
+        "closed",
+        "count",
+        "stagger",
+        "orient",
+    }
+    _keys(value, allowed, label)
+    points = value.get("points")
+    if not isinstance(points, list) or not 2 <= len(points) <= 200:
+        raise ValueError(f"{label}.points needs 2–200 points")
+    out = {"points": []}
+    for index, point in enumerate(points):
+        if not isinstance(point, (list, tuple)) or len(point) != 2:
+            raise ValueError(f"{label}.points[{index}] must contain x and y")
+        out["points"].append(
+            [_number(v, f"{label}.points[{index}]", -7680, 7680) for v in point]
+        )
+    if sum(math.dist(a, b) for a, b in zip(out["points"], out["points"][1:])) <= 0:
+        raise ValueError(f"{label} needs a path with positive length")
+    out["seconds"] = _number(value.get("seconds"), f"{label}.seconds", 1 / 120, 120)
+    out["start"] = _number(value.get("start", 0), f"{label}.start", 0, duration)
+    count = _number(value.get("count", 1), f"{label}.count", 1, 32)
+    if int(count) != count:
+        raise ValueError(f"{label}.count must be an integer")
+    out["count"] = int(count)
+    for key in ("loop", "closed", "orient"):
+        out[key] = value.get(key, False)
+        if not isinstance(out[key], bool):
+            raise ValueError(f"{label}.{key} must be a boolean")
+    default_stagger = out["seconds"] / count if out["loop"] else 0
+    out["stagger"] = _number(
+        value.get("stagger", default_stagger), f"{label}.stagger", 0, 120
+    )
+    return out
+
+
 def validate_scene(value: dict) -> dict:
     """Validate untrusted data and return a detached scene with stable defaults."""
     _keys(value, {"duration", "width", "height", "fps", "background", "marks"}, "scene")
@@ -100,6 +192,14 @@ def validate_scene(value: dict) -> dict:
     marks = value.get("marks")
     if not isinstance(marks, list) or not 1 <= len(marks) <= 100:
         raise ValueError("Provide 1 to 100 marks")
+    keyframe_data = {
+        index: _keyframes(raw, index, out["duration"])
+        for index, raw in enumerate(marks)
+        if isinstance(raw, dict)
+    }
+    errors = [error for _, errors in keyframe_data.values() for error in errors]
+    if errors:
+        raise SceneValidationError(errors)
     ids, clean = set(), []
     for index, raw in enumerate(marks):
         label = f"marks[{index}]"
@@ -156,31 +256,13 @@ def validate_scene(value: dict) -> dict:
         if parent is not None and (not isinstance(parent, str) or parent == ident):
             raise ValueError("parent must name a different mark")
         m["parent"] = parent
-        keys = raw.get("keyframes", [])
-        if not isinstance(keys, list) or len(keys) > 24:
-            raise ValueError("A mark may have at most 24 keyframes")
-        previous = -1
-        m["keyframes"] = []
-        for key in keys:
-            _keys(key, set(NUMBERS) | {"time", "ease"}, "keyframe")
-            when = _number(key.get("time"), "keyframe time", 0, out["duration"])
-            if when <= previous:
-                raise ValueError("Keyframe times must be strictly increasing")
-            previous = when
-            curve = key.get("ease", "inOutCubic")
-            if not isinstance(curve, str) or curve not in EASINGS:
-                raise ValueError("Unknown keyframe easing")
-            k = {"time": when, "ease": curve}
-            # Stable field ordering matters: coordinator task retries compare
-            # the serialized source file, including after a process restart.
-            for prop in NUMBERS:
-                if prop not in key:
-                    continue
-                low, high, _ = NUMBERS[prop]
-                k[prop] = _number(key[prop], f"keyframe.{prop}", low, high)
-            if kind == "text" and any(k.get(prop, 1) < 1 for prop in ("w", "h")):
-                raise ValueError("Animated text bounds must remain positive")
-            m["keyframes"].append(k)
+        m["keyframes"] = keyframe_data[index][0]
+        if raw.get("motion_path") is not None:
+            m["motion_path"] = _motion_path(
+                raw["motion_path"],
+                f"{label} (id={ident!r}).motion_path",
+                out["duration"],
+            )
         clean.append(m)
     lookup = {m["id"]: m for m in clean}
     for m in clean:
@@ -188,16 +270,40 @@ def validate_scene(value: dict) -> dict:
         while parent is not None:
             if parent not in lookup or parent in seen:
                 raise ValueError("Parents must exist and may not form cycles")
+            if lookup[parent].get("motion_path", {}).get("count", 1) > 1:
+                raise ValueError(
+                    f"Parent {parent!r} has repeated path instances; attach children to a single-instance mark"
+                )
             seen.add(parent)
             if len(seen) > 8:
                 raise ValueError("Parent transforms may be at most eight levels deep")
             parent = lookup[parent]["parent"]
     out["marks"] = clean
+    if sum(m.get("motion_path", {}).get("count", 1) for m in clean) > 400:
+        raise ValueError("A scene may contain at most 400 expanded path instances")
     if len(json.dumps(out, ensure_ascii=False).encode("utf-8")) > MAX_BYTES:
         raise ValueError(
             "Normalized scene exceeds 120 KB; author one smaller motion excerpt"
         )
     return out
+
+
+def scene_validation_report(value):
+    """Cheap, read-only preflight. No files, subprocesses or renderer are used."""
+    try:
+        scene = validate_scene(value)
+    except (ValueError, TypeError, OverflowError) as error:
+        return {"valid": False, "errors": getattr(error, "errors", [str(error)])}
+    return {
+        "valid": True,
+        "errors": [],
+        "duration": scene["duration"],
+        "frame_count": round(scene["duration"] * scene["fps"]),
+        "marks": len(scene["marks"]),
+        "instances": sum(
+            m.get("motion_path", {}).get("count", 1) for m in scene["marks"]
+        ),
+    }
 
 
 def prepare_scene(value: dict, directory: Path) -> dict:
@@ -227,6 +333,9 @@ def render_scene(
     overwrite=False,
     chrome=None,
     deps=None,
+    output_width=None,
+    output_height=None,
+    output_fps=None,
 ) -> dict:
     output = output.resolve()
     if output.suffix.lower() != ".mp4":
@@ -236,8 +345,26 @@ def render_scene(
     _number(audio_start, "audio start", 0, 86400)
     if audio_start and audio is None:
         raise ValueError("Audio start requires an audio source")
+    scene = validate_scene(value)
+    width = scene["width"] if output_width is None else output_width
+    height = scene["height"] if output_height is None else output_height
+    fps = scene["fps"] if output_fps is None else output_fps
+    for name, value in (("output_width", width), ("output_height", height)):
+        _number(value, name, 180, 3840)
+        if int(value) != value or value % 2:
+            raise ValueError(f"{name} must be an even integer")
+    _number(fps, "output_fps", 1, 30)
+    if int(fps) != fps:
+        raise ValueError("output_fps must be an integer")
+    if width * scene["height"] != height * scene["width"]:
+        raise ValueError(
+            "Output dimensions must preserve the authored scene aspect ratio"
+        )
+    if width * height > 8_294_400:
+        raise ValueError("Output exceeds 8,294,400 pixels")
+    duration = math.ceil(scene["duration"] * fps - 1e-9) / fps
     directory = output.with_suffix(".scene")
-    scene = prepare_scene(value, directory)
+    prepare_scene(scene, directory)
     audio_source = None
     if audio is not None:
         audio = audio.resolve(strict=True)
@@ -254,7 +381,7 @@ def render_scene(
                 "-i",
                 str(audio),
                 "-t",
-                str(scene["duration"]),
+                str(duration),
                 "-vn",
                 "-ac",
                 "2",
@@ -272,13 +399,13 @@ def render_scene(
         "-o",
         str(output),
         "--duration",
-        str(scene["duration"]),
+        str(duration),
         "--width",
-        str(scene["width"]),
+        str(width),
         "--height",
-        str(scene["height"]),
+        str(height),
         "--fps",
-        str(scene["fps"]),
+        str(fps),
         "--deps",
         str(deps or RUNTIME),
         "--crf",
@@ -297,11 +424,11 @@ def render_scene(
     manifest = json.loads(manifest_path.read_text())
     return {
         "output": str(output),
-        "duration": scene["duration"],
-        "frame_count": round(scene["duration"] * scene["fps"]),
-        "width": scene["width"],
-        "height": scene["height"],
-        "fps": scene["fps"],
+        "duration": duration,
+        "frame_count": round(duration * fps),
+        "width": width,
+        "height": height,
+        "fps": fps,
         "source": str(directory / "scene.json"),
         "manifest": str(manifest_path),
         "warnings": manifest.get("warnings", []),
@@ -313,17 +440,37 @@ def render_scene(
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("scene", type=Path)
-    parser.add_argument("-o", "--output", required=True, type=Path)
+    parser.add_argument("-o", "--output", type=Path)
+    parser.add_argument(
+        "--validate",
+        action="store_true",
+        help="Report all invalid keyframes without rendering or writing files",
+    )
+    parser.add_argument("--output-width", type=int)
+    parser.add_argument("--output-height", type=int)
+    parser.add_argument("--output-fps", type=int)
     parser.add_argument("--audio", type=Path)
     parser.add_argument("--audio-start", type=float, default=0)
     parser.add_argument("--overwrite", action="store_true")
     parser.add_argument("--chrome")
     parser.add_argument("--deps", type=Path)
     args = parser.parse_args()
-    # Pretty-printed editable JSON can be larger than its validated data.
-    if args.scene.stat().st_size > 1_000_000:
-        parser.error("Scene JSON file exceeds 1 MB")
-    value = json.loads(args.scene.read_text())
+    try:
+        # Pretty-printed editable JSON can be larger than its validated data.
+        if args.scene.stat().st_size > 1_000_000:
+            raise ValueError("Scene JSON file exceeds 1 MB")
+        value = json.loads(args.scene.read_text())
+    except (OSError, UnicodeError, ValueError) as error:
+        if args.validate:
+            print(json.dumps({"valid": False, "errors": [str(error)]}))
+            return 2
+        parser.error(str(error))
+    if args.validate:
+        report = scene_validation_report(value)
+        print(json.dumps(report))
+        return 0 if report["valid"] else 2
+    if args.output is None:
+        parser.error("-o/--output is required unless --validate is used")
     result = render_scene(
         value,
         args.output,
@@ -332,9 +479,12 @@ def main():
         overwrite=args.overwrite,
         chrome=args.chrome,
         deps=args.deps,
+        output_width=args.output_width,
+        output_height=args.output_height,
+        output_fps=args.output_fps,
     )
     print(json.dumps(result))
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

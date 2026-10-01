@@ -38,6 +38,7 @@ from .sources import register_sources, source_name, save_source, SOURCE_EXTENSIO
 from .scenes import register_scenes
 from .feedback import register_feedback, feedback_context
 from .review_findings import ReviewFinding, normalize_review_findings
+from .voices import narration_voices, resolve_voice
 
 
 class PilotAuth(AuthProvider):
@@ -68,6 +69,7 @@ def create_app(config=None, store=None, manager=None):
         instructions=(
             "You are the user's video editor inside this conversation. Do not introduce a separate platform, workspace, dashboard, terminal or job queue. "
             "Start new work with start_video; infer the category and preserve the user's stated preferences. "
+            "Before narration or substantial authoring, write a brief ordinary chat update naming your proposed audience, look, format and script idea as assumptions. Show a short script before voicing it; continue without requesting routine approval. Tool status notes are not a substitute for speaking to the user. "
             "Be a thoughtful creative collaborator: ask where a different answer would change the piece, not at every milestone. "
             "For an open creative brief with an unspecified look, show two relevant cached motion references when they help the user express a consequential preference. Recommend one and continue; they are style samples, not the user's draft. Skip irrelevant references. "
             "Skip choices when style is specified, the user delegates, or the request is a precise edit. Never force a first-frame approval. "
@@ -75,14 +77,15 @@ def create_app(config=None, store=None, manager=None):
             "Only wait when truly blocked by missing media, contradictory requirements, requested approval, or host limitations. Never invent consent. "
             "Read only relevant compact video_use_guidance; detailed local production references are available on demand. Use plan_video for story beats when helpful; save the script, EDL or scene description appropriate to the piece. "
             "Use run_video_step to batch files and work. Its components field renders independent scenes concurrently, maximum two at once; command assembles them after success. "
-            "For a simple 2D visual idea, render_video_scene produces editable animated geometry/type from compact data, including optional narration; it handles the renderer and encoding. Use custom code when the idea needs it. "
+            "For 2D motion, use render_video_scene with compact geometry/keyframes and motion_path for repeated moving marks. Use assemble_video for saved scene IDs, narration mixing and draft/final delivery, instead of writing assembly scripts. Custom code remains available for ideas these primitives cannot express. "
             "Keep sources modular and share fonts, colors and timings. For an original film, author and show a meaningful short motion excerpt before coding the entire film. Reuse it in the finished piece; this is not a mandatory approval gate. Reuse unchanged scenes. "
             "Creative state contains a revision. Pass creative_revision to run_video_step and check latest preferences in tool results. A clicked choice may arrive while work is running; adapt rather than ignoring it. "
             "A rendered file is not visible until a player is opened. Follow display_action in task results: call show_video_preview immediately for the first meaningful draft in this conversation, before further authoring or review. The open player refreshes later drafts and the final video for up to ten minutes when supported; reuse it instead of duplicating cards. Reopen if absent, expired or unsupported. Keep working without awaiting approval. Do not show setup, placeholder, or every internal frame. "
-            "Give short conversational updates about the creative result, not terminal commands. Continue through final export without ritual approval stops. "
+            "Accompany meaningful previews with one short chat sentence explaining the creative result and what comes next. Invite redirection at high-impact decisions while continuing independent work. Continue through final export without ritual approval stops. "
             "The player's Suggest an edit action saves feedback at the viewed time and updates creative context. Apply latest_feedback to the referenced draft, not an assumed timestamp in a different version. "
             "Only poll queued/running tasks with get_video_task's default wait. Use review_path for final encoded inspection, inspect the returned image, export, then show_video_preview. "
             "Save actual scene durations in run_video_step.production_timing after aligning to narration. Review meaning as well as legibility: a misleading label or diagram is a defect to repair, not a caveat to move into the final chat. Report discovered issues in export_video.findings; stylistic preferences are separate from correctness. "
+            "Preview quality and final delivery are different: state the chosen format early, use fast drafts, then assemble_video quality=final for native 1080p unless a different delivery was requested. Report actual dimensions. Do not call clipped essential content a style preference; intentional edge bleed is an artistic choice. Stills and loudness measurements do not establish motion playback, listening quality or semantic sync: report verification limits honestly. "
             "For unusual requests consult video_use_capabilities and video_use_guidance topic=workflows. Compose primitives rather than forcing a category template. "
             "Use inspect_source.py for bounded document/data extraction and media_sequence.py for photo/audio compositions. Three.js is bundled in /opt/video-use/skills/motion-design/runtime/node_modules/three; copy needed modules locally for browser renders. "
             "No dependency probing, installation, API keys or hidden agent loops. Python/Pillow/FFmpeg/Manim/Node/Chromium are ready. Narration results include measured timing; use it instead of a separate probe task. "
@@ -247,8 +250,10 @@ def create_app(config=None, store=None, manager=None):
     register_feedback(mcp, store, muser, write)
 
     @mcp.tool(annotations=read, title="Video capabilities")
-    def video_use_capabilities(category: str = "") -> dict:
-        """Check supported production primitives, inputs, limits and missing integrations. Categories are composable guidance, not fixed templates. Use for unusual/complex requests, not as a ritual before every edit. No render sandbox starts."""
+    def video_use_capabilities(
+        category: str = "", include_voices: bool = False
+    ) -> dict:
+        """Check supported production primitives, inputs, limits and missing integrations. Set include_voices=true only when voice choice matters, to list available public narration voices. Categories are composable guidance, not fixed templates. No render sandbox starts."""
         muser()
         return {
             "workflows": workflow_summary(category) if category else workflow_catalog(),
@@ -256,6 +261,7 @@ def create_app(config=None, store=None, manager=None):
                 {"id": k, "label": v["label"], "description": v["description"]}
                 for k, v in catalog().items()
             ],
+            "narration": narration_voices(store, config, discover=include_voices),
             "inputs": {
                 "extensions": sorted(SOURCE_EXTENSIONS),
                 "max_bytes": 200000000,
@@ -263,7 +269,7 @@ def create_app(config=None, store=None, manager=None):
             },
             "primitives": {
                 "editing": "FFmpeg cuts, crops, grading, overlays, word-timed captions",
-                "animation": "Compact editable 2D motion via render_video_scene; custom Manim and deterministic HTML/Canvas/Three.js through run_video_step",
+                "animation": "Compact editable 2D motion and repeated path motion via render_video_scene; assemble_video joins saved scenes, mixes narration, publishes drafts and rerenders final quality. Custom Manim and HTML/Canvas/Three.js through run_video_step",
                 "documents_and_data": "inspect_source.py extracts bounded PDF/DOCX/PPTX/XLSX/CSV/TSV/JSON/text with provenance; pdftoppm rasterizes PDF pages; no OCR or office layout renderer",
                 "photos_and_audio": "media_sequence.py composes image sequences, camera motion, cover/waveform videos and mixed audio",
                 "speech": bool(getattr(config, "speech_key", "")),
@@ -464,17 +470,21 @@ def create_app(config=None, store=None, manager=None):
 
     @mcp.tool(annotations=execute)
     async def narrate_video(
-        project_id: str, text: str, output: str, request_id: str
+        project_id: str, text: str, output: str, request_id: str, voice_id: str = ""
     ) -> CallToolResult:
-        """Generate narration with measured duration and sentence/word timing using the owner's speech allowance. Use returned timing directly to align visuals; no separate duration probe or environment check is needed."""
+        """Generate narration after briefly sharing the proposed script in chat, without a routine approval pause. Returns measured duration and inline word/sentence timings. Optional voice_id must come from video_use_capabilities(include_voices=true); omit to retain the host default. Changing voice creates new audio/timing. Uses the owner's speech allowance; no duration probe is needed."""
         if not 1 <= len(text) <= 2000:
             raise ValueError("Narration must be 1–2000 characters")
+        uid = muser(True)
+        store.project(uid, project_id)
+        voice = await asyncio.to_thread(resolve_voice, store, config, voice_id)
         return await submitted(
             manager.submit(
-                muser(True),
+                uid,
                 project_id,
                 "narrate",
-                {"text": text, "output": output, "timeout": 300},
+                {"text": text, "output": output, "timeout": 300}
+                | ({"voice_id": voice} if voice_id else {}),
                 request_id,
             )
         )

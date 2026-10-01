@@ -3,7 +3,7 @@
 import json
 from copy import deepcopy
 from pathlib import Path
-from typing import Literal
+from typing import Annotated, Literal
 
 from mcp.types import CallToolResult, TextContent
 from pydantic import BaseModel, Field
@@ -515,13 +515,24 @@ def register_workflow(mcp, store, muser, new_project, read, write):
     @mcp.tool(annotations=write, title="Develop the video")
     def start_video(
         title: str,
-        brief: str,
+        brief: Annotated[
+            str,
+            Field(
+                description="Faithful summary of what the user requested. Do not add inferred audience, content scope, style or format as if specified; save those in assumptions or the proposed plan."
+            ),
+        ],
         category: Category,
         preferences: str | None = None,
         project_id: str = "",
         supporting_categories: list[Category] | None = None,
+        assumptions: Annotated[
+            str | None,
+            Field(
+                description="Your proposed audience, scope, style and delivery format where the user left them open. These are reversible assumptions, not user instructions or approval. Omit to preserve earlier assumptions."
+            ),
+        ] = None,
     ) -> dict:
-        """Start here for a new request. Infer category from intent, not a questionnaire. Save what the user ALREADY specified in preferences; do not invent answers. Omit preferences to preserve an existing direction, or send an empty string to clear it. No workspace card, render or first-frame approval. Returns flexible suggestions, not a fixed sequence or layout. Combine up to three supporting_categories when a request crosses media; use custom rather than forcing an unfamiliar request into a preset. Use show_video_choices only if an unresolved creative choice would materially change the result. Precise edits execute directly. Missing source is a genuine blocker; style is usually a reversible default. Reuse project_id to revise the brief."""
+        """Start here for a new request. Infer category from intent, not a questionnaire. Keep brief faithful to the request and preferences limited to what the user ALREADY specified; put your proposed scope, audience, look and format in assumptions. State consequential assumptions and the script or outline briefly in chat before paid narration or substantial rendering, then continue without waiting for approval. Omit preferences/assumptions to preserve them; an empty string clears them. No workspace card or first-frame approval. Combine up to three supporting_categories for mixed media; use custom rather than forcing an unfamiliar request into a preset. Offer show_video_choices once if a relevant unresolved choice would materially change the piece, with a recommended default. Precise edits execute directly. Reuse project_id for revisions."""
         uid = muser(True)
         if (
             not title.strip()
@@ -529,8 +540,9 @@ def register_workflow(mcp, store, muser, new_project, read, write):
             or not brief.strip()
             or len(brief) > 4000
             or (preferences is not None and len(preferences) > 2000)
+            or (assumptions is not None and len(assumptions) > 2000)
         ):
-            raise ValueError("Keep title, brief and preferences concise")
+            raise ValueError("Keep title, brief, preferences and assumptions concise")
         if supporting_categories is not None and len(supporting_categories) > 3:
             raise ValueError(
                 "Use at most three supporting categories; the categories are hints, not a checklist"
@@ -556,9 +568,13 @@ def register_workflow(mcp, store, muser, new_project, read, write):
             category=category,
             supporting_categories=supporting,
             brief=brief,
+            brief_provenance="assistant_summary",
             preferences=preferences
             if preferences is not None
             else old.get("preferences", ""),
+            assumptions=assumptions
+            if assumptions is not None
+            else old.get("assumptions", ""),
             revision=old.get("revision", 0) + 1,
             choice_revision=old.get("choice_revision", 0) + 1,
         )
@@ -569,7 +585,7 @@ def register_workflow(mcp, store, muser, new_project, read, write):
             creative=state,
             workflow=recipe,
             complementary_workflows=[workflow_summary(c) for c in supporting],
-            next_action="Use only the compact guidance needed for this piece; optional_technique_guidance is a menu, not a reading checklist. For a simple 2D visual, render_video_scene handles drawing, animation and encoding from a small editable scene description. For custom work, author only the dependencies of one meaningful excerpt first, not all scenes. Show it immediately with show_video_preview, then continue. Offer relevant choices where a different answer would change the piece, state reversible defaults and keep working. Ask for a reply only when genuinely blocked or the user requests a checkpoint.",
+            next_action="Before narration or substantial original rendering, say the proposed script or outline, audience, look and delivery format in at most three short sentences, distinguishing assumptions from the user's requirements. This is a conversational update, not an approval question. Offer relevant cached choices once when a different answer would materially change the piece; recommend a default and keep working. Precise edits need only the relevant change. Read only the compact guidance needed. Develop and show one meaningful excerpt before all remaining scene code; accompany it with a sentence about what is visible and what comes next. Apply the latest creative choices from task results before subsequent renders. Ask for a reply only when genuinely blocked or the user requests a checkpoint.",
             capabilities={
                 "render": "Python, Manim, FFmpeg, browser motion and bounded procedural Three.js",
                 "generative_video": False,
@@ -619,18 +635,14 @@ def register_workflow(mcp, store, muser, new_project, read, write):
                 selected=state.get("selected"),
                 revision=state["choice_revision"],
             ),
+            next_action=recipe["independent"]
+            + " Briefly name the recommended default and continue if no answer arrives; a click is optional. Never claim the default was approved. Read the current creative state from subsequent task results before committing to more renders.",
         )
         return CallToolResult(
             content=[
                 TextContent(
                     type="text",
-                    text=json.dumps(
-                        data
-                        | {
-                            "next_action": recipe["independent"]
-                            + " Continue with the stated default if no answer arrives. Never claim it was approved."
-                        }
-                    ),
+                    text=json.dumps(data),
                 )
             ],
             structuredContent=data,
@@ -661,7 +673,7 @@ def register_workflow(mcp, store, muser, new_project, read, write):
     def plan_video(
         project_id: str, revision: int, beats: list[Beat], direction: str = ""
     ) -> dict:
-        """Save a concise beat plan and actual conversational feedback (direction) for this run. This is context, not an approval gate. Summarize the story naturally in chat only when useful; continue working. Keep individual scenes independently renderable with shared visual rules. If preferences changed, reread get_video_project and adapt. Use 1-12 beats, not always four. For precise edits this tool is unnecessary."""
+        """Save your proposed beat plan and visual direction, preserving explicit user choices. The plan is authored by you; it is not evidence the user requested each detail or approved it. Share consequential direction briefly in chat and continue without an approval pause. Keep scenes independently editable. Use current creative state returned by task results; refresh get_video_project only if it may be stale. Use 1-12 beats, not always four. Precise edits need no new plan."""
         state = context(muser(True), project_id)
         if revision != state["revision"]:
             raise ValueError(
@@ -672,6 +684,7 @@ def register_workflow(mcp, store, muser, new_project, read, write):
         state.update(
             beats=[b.model_dump() for b in beats],
             direction=direction,
+            plan_provenance="assistant_plan",
             revision=revision + 1,
         )
         store.put("creative", project_id, state)

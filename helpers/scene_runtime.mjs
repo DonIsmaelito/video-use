@@ -17,25 +17,57 @@ export function sampleMark(mark) {
   return keyframes(keys);
 }
 
+/** Constant-speed local path offsets. A looped open path intentionally wraps. */
+export function compilePath(path) {
+  const points=path.points.map(point=>[...point]);
+  if (path.closed && (points[0][0] !== points.at(-1)[0] || points[0][1] !== points.at(-1)[1])) points.push([...points[0]]);
+  const segments=[];
+  let length=0;
+  for (let i=1;i<points.length;i++) {
+    const from=points[i-1],to=points[i],distance=Math.hypot(to[0]-from[0],to[1]-from[1]);
+    if (distance>0) {segments.push({from,to,start:length,distance});length+=distance;}
+  }
+  if (!length) throw new Error('Motion path must have positive length');
+  return (time,index=0)=>{
+    const age=time-path.start-index*path.stagger;
+    const active=time>=path.start && (path.loop || age>=0);
+    const progress=path.loop ? ((age/path.seconds)%1+1)%1 : Math.max(0,Math.min(1,age/path.seconds));
+    const distance=progress*length;
+    const segment=segments.find(item=>distance<item.start+item.distance)??segments.at(-1);
+    const amount=Math.max(0,Math.min(1,(distance-segment.start)/segment.distance));
+    return {x:segment.from[0]+(segment.to[0]-segment.from[0])*amount,
+      y:segment.from[1]+(segment.to[1]-segment.from[1])*amount,
+      rotation:path.orient ? Math.atan2(segment.to[1]-segment.from[1],segment.to[0]-segment.from[0])*180/Math.PI : 0,
+      active};
+  };
+}
+
 export function compileScene(scene) {
-  const marks = new Map(scene.marks.map(mark => [mark.id, {...mark, sample:sampleMark(mark)}]));
+  const marks = new Map(scene.marks.map(mark => [mark.id, {...mark, sample:sampleMark(mark), path:mark.motion_path?compilePath(mark.motion_path):null}]));
   return time => {
+    time=Math.max(0,Math.min(scene.duration,time));
     const resolved = new Map();
-    const resolve = id => {
-      if (resolved.has(id)) return resolved.get(id);
-      const mark = marks.get(id), pose = mark.sample(Math.max(0, Math.min(scene.duration,time)));
+    const resolve = (id,instance=0) => {
+      const key=`${id}:${instance}`;
+      if (resolved.has(key)) return resolved.get(key);
+      const mark = marks.get(id), pose = mark.sample(time);
+      let opacity=pose.opacity;
+      if (mark.path) {
+        const path=mark.path(time,instance);
+        pose.x+=path.x;pose.y+=path.y;pose.rotation+=path.rotation;
+        if (!path.active) opacity=0;
+      }
       let matrix = matrix2D({x:pose.x,y:pose.y,rotation:radians(pose.rotation),scaleX:pose.scale,scaleY:pose.scale});
-      let opacity = pose.opacity;
       if (mark.parent) {
         const parent = resolve(mark.parent);
         matrix = compose2D(parent.matrix,matrix);
         opacity *= parent.opacity;
       }
-      const result = {mark,pose,matrix,opacity:Math.max(0,Math.min(1,opacity))};
-      resolved.set(id,result);
+      const result = {mark,pose,matrix,opacity:Math.max(0,Math.min(1,opacity)),instance};
+      resolved.set(key,result);
       return result;
     };
-    return scene.marks.map(mark => resolve(mark.id));
+    return scene.marks.flatMap(mark => Array.from({length:mark.motion_path?.count??1},(_,index)=>resolve(mark.id,index)));
   };
 }
 
@@ -73,13 +105,14 @@ function drawMark(ctx, mark, p, warn) {
   if (p.stroke_width > 0) ctx.stroke();
 }
 
-export function createPainter(canvas,scene,reportWarning=()=>{}) {
-  canvas.width=scene.width; canvas.height=scene.height;
+export function createPainter(canvas,scene,reportWarning=()=>{},outputSize=scene) {
+  canvas.width=outputSize.width; canvas.height=outputSize.height;
+  const sx=outputSize.width/scene.width,sy=outputSize.height/scene.height;
   const ctx=canvas.getContext('2d',{alpha:false}), sample=compileScene(scene);
   const warnings=new Set();
   const warn=(id,message)=>{if (!warnings.has(id)) {warnings.add(id);reportWarning(message);}};
   return time => {
-    ctx.setTransform(1,0,0,1,0,0); ctx.globalAlpha=1;
+    ctx.setTransform(sx,0,0,sy,0,0); ctx.globalAlpha=1;
     ctx.clearRect(0,0,scene.width,scene.height);
     ctx.fillStyle=scene.background; ctx.fillRect(0,0,scene.width,scene.height);
     for (const {mark,pose,matrix,opacity} of sample(time)) {
@@ -100,7 +133,7 @@ export function boot() {
     await Promise.all(Object.values(families).map(family=>document.fonts.load(`42px ${family}`)));
     await document.fonts.ready;
     window.motionWarnings=[];
-    const paint=createPainter(document.getElementById('scene'),scene,message=>window.motionWarnings.push(message));
+    const paint=createPainter(document.getElementById('scene'),scene,message=>window.motionWarnings.push(message),{width:window.innerWidth,height:window.innerHeight});
     window.seek=async time=>paint(time);
     paint(0);
   })();

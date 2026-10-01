@@ -1,5 +1,57 @@
 # Solar explainer trace repair
 
+## Repair from the browser agent's handoff
+
+The third solar run reached its first real player in 1m49s and exported in
+about 7m19s, but its account-level handoff reported no conversational prose until
+the end. It then left the opening excerpt in the player for roughly five minutes.
+Server traces confirm the assembled video had `review_path` but no `preview_path`.
+The final file was 960×540, not native 1080p. A negative closing-scene keyframe
+caused one failed batch; only the failed scene was rerendered. The transcript's
+"agent time" combines authoring, untimed calls and gaps; it is not measured model
+reasoning time. Wave `phase` was already supported, despite incomplete tool docs.
+
+This release addresses the evidence with reusable primitives and response fixes:
+
+| Problem | Change | Boundary |
+| --- | --- | --- |
+| Silent assumptions and a script voiced before being shown | Hosted guidance and tool responses ask for a short proposed direction/script in chat before narration, plus a brief sentence alongside meaningful drafts | No routine approval stops; the host still controls its prose and turn scheduling |
+| Agent-expanded brief looked user-specified | `start_video.assumptions`, `brief_provenance`, and `plan_provenance` distinguish proposals from stated preferences | These are provenance labels, not proof that the user approved a proposal |
+| Saved choices could be missed after narration | Every task returns current creative context; admitted tasks save a revision baseline outside their retry payload | Legacy tasks without a baseline report unknown, not unchanged |
+| Reviewed full film never reached the player | A step with a movie in `review_path` automatically publishes that movie when no explicit preview is supplied | Private contact sheets still cannot replace playable media |
+| Hand-written scene assembly and repeated-motion math | `assemble_video` accepts ordered saved scene IDs plus optional new scene data, validates all sources first, renders at most two concurrently, mixes existing narration and publishes the full draft | Custom Manim, footage and procedural work remain available; this does not force a genre template |
+| Preview resolution became final delivery | Assembly has explicit draft/final quality; final rerenders original vector/text sources on a native 1080p canvas, preserving aspect and coordinates | Explicit dimensions remain available; no blind upscaling of a draft movie |
+| Eight particles required duplicated keyframes | `motion_path` expresses constant-speed paths, loops, repetition, stagger and orientation | Bounded geometry, no arbitrary expressions; open loops deliberately wrap |
+| Validation error hid the three bad marks | `validate_only` and the helper's `--validate` report every invalid keyframe with scene/mark/index/value before frames render | Normal rendering validates too, so validation need not become another mandatory tool call |
+| Quiet unnormalized narration | Assembly's optional `web` preset measures and normalizes narration toward −16 LUFS with a −1.5 dBTP ceiling | This is a chosen delivery preset, not a universal platform standard or a listening check |
+| Label cues ignored word timings | Narration returns bounded inline word timings as well as sentences, duration and timing-file path | Timing data does not establish semantic A/V agreement |
+| Alternative voice offered without support | Optional public voice discovery and an explicit `voice_id`; narration reports the selected voice and caches by voice plus text | Host-private voice libraries are not listed; no cloning or audition UI |
+| Root-level narration missing from source archive | Checkpoint/restore preserve generated workspace-relative audio, timings, fonts and source while excluding uploaded-source duplicates and render caches | Existing archives cannot recover files they never included |
+
+Assembly caches compare source, output format and renderer fingerprints; identical
+assemblies reuse scene renders, while changed scenes render again. A standalone
+opening excerpt is not yet seeded into this cache. Narration that exceeds the
+assembled timeline is rejected instead of silently trimmed. Successful timings
+are measured on the output frame grid and bound to its encoded hash; rough story
+beats remain a separate proposal.
+
+Local verification includes a four-second 1080p/30fps loop-and-wave proof from
+1,475 input bytes, repeated seek checks, all-mark validation, native-resolution
+assembly, complete decoding, narration-level measurement, cache invalidation,
+archive round trips, current-choice propagation and response-surface parity.
+The loop proof rendered in 13.85s locally; this is not a Claude end-to-end latency
+claim. Isolated live acceptance results are recorded in the ignored
+`.pilot-handoff-fixes/live/` directory.
+
+Still unresolved by automation: factual research, artistic judgment, full motion
+and listening review, and whether the host assistant actually follows the chat
+guidance. Do not label sampled frames as a complete playback review. Essential
+content clipping is a layout defect; intentional edge bleed is not automatically
+a defect. The user's existing solar export is retained unchanged for comparison.
+
+Provider references: [public voice discovery](https://elevenlabs.io/docs/api-reference/voices/search)
+and [FFmpeg loudness normalization](https://ffmpeg.org/ffmpeg-filters.html#loudnorm).
+
 ## Follow-up after the second solar run
 
 The next trial reached its first player at 8m47s and final export at 10m04s.

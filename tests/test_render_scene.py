@@ -64,6 +64,185 @@ def sample():
 
 
 class SceneValidationTests(unittest.TestCase):
+    def test_validate_cli_reports_every_bad_keyframe_without_render_or_writes(self):
+        scene = sample()
+        scene["duration"] = 3.8
+        scene["marks"] = [
+            {
+                "id": name,
+                "kind": "ellipse",
+                "keyframes": [{"time": -0.1}, {"time": 0.5, "opacity": 1}],
+            }
+            for name in ("hhalo", "hwl0", "hwl1")
+        ]
+        with tempfile.TemporaryDirectory() as tmp:
+            source = Path(tmp) / "scene.json"
+            original = json.dumps(scene)
+            source.write_text(original)
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(ROOT / "helpers/render_scene.py"),
+                    str(source),
+                    "--validate",
+                ],
+                env={**os.environ, "PATH": ""},
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(result.returncode, 2)
+            report = json.loads(result.stdout)
+            self.assertFalse(report["valid"])
+            self.assertEqual(len(report["errors"]), 3)
+            for name, error in zip(("hhalo", "hwl0", "hwl1"), report["errors"]):
+                self.assertIn(f"id='{name}'", error)
+                self.assertIn("time=-0.1", error)
+                self.assertIn("scene duration 3.8s", error)
+            self.assertEqual(source.read_text(), original)
+            self.assertEqual(list(Path(tmp).iterdir()), [source])
+            source.write_text('{"marks": [')
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(ROOT / "helpers/render_scene.py"),
+                    str(source),
+                    "--validate",
+                ],
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(result.returncode, 2)
+            self.assertFalse(json.loads(result.stdout)["valid"])
+            self.assertIn("line 1", json.loads(result.stdout)["errors"][0])
+
+    def test_motion_path_validates_geometry_work_bounds_and_parent_instances(self):
+        scene = sample()
+        scene["marks"][0]["motion_path"] = {
+            "points": [[0, 0], [100, 0], [100, 50]],
+            "seconds": 3,
+            "count": 3,
+            "loop": True,
+            "closed": True,
+        }
+        original = copy.deepcopy(scene)
+        normalized = renderer.validate_scene(scene)
+        self.assertEqual(normalized["marks"][0]["motion_path"]["stagger"], 1)
+        self.assertEqual(renderer.validate_scene(normalized), normalized)
+        self.assertEqual(scene, original)
+        invalids = [
+            {"points": [[0, 0], [0, 0]]},
+            {"seconds": 0},
+            {"count": 33},
+            {"count": 1.5},
+            {"stagger": -1},
+            {"loop": "true"},
+            {"start": 2},
+            {"url": "https://example.com"},
+        ]
+        for invalid in invalids:
+            candidate = copy.deepcopy(scene)
+            candidate["marks"][0]["motion_path"].update(invalid)
+            with self.subTest(invalid=invalid), self.assertRaises(ValueError):
+                renderer.validate_scene(candidate)
+        scene["marks"][1]["parent"] = "moving"
+        with self.assertRaisesRegex(ValueError, "repeated path instances"):
+            renderer.validate_scene(scene)
+        scene["marks"] = [
+            dict(
+                original["marks"][0],
+                id=f"particle{i}",
+                motion_path={
+                    "points": [[0, 0], [10, 10]],
+                    "seconds": 1,
+                    "count": 32,
+                },
+            )
+            for i in range(13)
+        ]
+        with self.assertRaisesRegex(ValueError, "400 expanded"):
+            renderer.validate_scene(scene)
+
+    @unittest.skipUnless(shutil.which("node"), "Node required")
+    def test_path_speed_loop_spacing_wave_phase_and_backward_sampling(self):
+        scene = sample()
+        scene["duration"] = 6
+        scene["marks"] = [
+            {
+                "id": "flow",
+                "kind": "ellipse",
+                "x": 10,
+                "y": 20,
+                "motion_path": {"points": [[0, 0], [80, 0], [80, 20]], "seconds": 5},
+            },
+            {
+                "id": "loop",
+                "kind": "ellipse",
+                "motion_path": {
+                    "points": [[0, 0], [100, 0], [100, 50], [0, 50]],
+                    "seconds": 3,
+                    "loop": True,
+                    "closed": True,
+                    "count": 3,
+                },
+            },
+            {
+                "id": "wave",
+                "kind": "wave",
+                "phase": 0,
+                "keyframes": [
+                    {"time": 0, "ease": "linear"},
+                    {"time": 1, "phase": -360},
+                ],
+            },
+        ]
+        with tempfile.TemporaryDirectory() as tmp:
+            renderer.prepare_scene(scene, Path(tmp))
+            script = """import fs from 'node:fs';
+import {compileScene} from './scene_runtime.mjs';
+const scene=JSON.parse(fs.readFileSync('./scene.json','utf8')), before=JSON.stringify(scene);
+const sample=compileScene(scene);
+const at0=sample(0), at1=sample(1), at45=sample(4.5), atQuarter=sample(.25), reversed=sample(0);
+console.log(JSON.stringify({at0,at1,at45,atQuarter,reversed,unchanged:JSON.stringify(scene)===before}));"""
+            proc = subprocess.run(
+                ["node", "--input-type=module", "-e", script],
+                cwd=tmp,
+                capture_output=True,
+                text=True,
+                check=True,
+            )
+            result = json.loads(proc.stdout)
+            self.assertTrue(result["unchanged"])
+            self.assertEqual(result["at0"], result["reversed"])
+            self.assertEqual(result["at1"][0]["matrix"][4:], [30, 20])
+            self.assertEqual(result["at45"][0]["matrix"][4:], [90, 30])
+            positions = [row["matrix"][4:] for row in result["at0"][1:4]]
+            self.assertEqual(positions[0], [0, 0])
+            self.assertAlmostEqual(positions[1][0], 50)
+            self.assertAlmostEqual(positions[1][1], 50)
+            self.assertAlmostEqual(positions[2][0], 100)
+            self.assertAlmostEqual(positions[2][1], 0)
+            self.assertEqual(result["atQuarter"][-1]["pose"]["phase"], -90)
+
+    def test_keyframe_bounds_error_identifies_mark_index_time_and_duration(self):
+        scene = sample()
+        scene["duration"] = 3.8
+        scene["marks"][0]["id"] = "hhalo"
+        for invalid in (-0.1, 4.2, float("inf")):
+            scene["marks"][0]["keyframes"] = [{"time": invalid, "opacity": 1}]
+            with self.subTest(time=invalid), self.assertRaises(ValueError) as error:
+                renderer.validate_scene(scene)
+            message = str(error.exception)
+            self.assertIn(
+                "marks[0] (id='hhalo').keyframes[0].time=" + repr(invalid), message
+            )
+            self.assertIn("scene duration 3.8s", message)
+        scene["marks"][0]["keyframes"] = [{"time": 0.5}, {"time": 0.2}]
+        with self.assertRaises(ValueError) as error:
+            renderer.validate_scene(scene)
+        self.assertIn("(id='hhalo').keyframes[1].time=0.2", str(error.exception))
+        self.assertIn("previous keyframe time 0.5s", str(error.exception))
+        self.assertIn("scene duration 3.8s", str(error.exception))
+
     def test_normalized_source_is_stable_across_python_hash_seeds(self):
         scene = sample()
         scene["marks"][0]["keyframes"] = [
@@ -180,6 +359,92 @@ console.log(JSON.stringify({a,b,c}));"""
     "Local browser renderer required",
 )
 class SceneRenderTests(unittest.TestCase):
+    def test_scaled_render_preserves_authored_coordinates_and_animates_path_wave(self):
+        scene = {
+            "duration": 1,
+            "width": 320,
+            "height": 180,
+            "fps": 10,
+            "background": "#000000",
+            "marks": [
+                {
+                    "id": "electron",
+                    "kind": "ellipse",
+                    "x": -5,
+                    "y": -5,
+                    "w": 10,
+                    "h": 10,
+                    "fill": "#ff0000",
+                    "stroke_width": 0,
+                    "motion_path": {"points": [[40, 60], [120, 60]], "seconds": 1},
+                },
+                {
+                    "id": "wave",
+                    "kind": "wave",
+                    "x": 10,
+                    "y": 130,
+                    "w": 100,
+                    "h": 20,
+                    "color": "#00ff00",
+                    "stroke_width": 3,
+                    "cycles": 1,
+                    "keyframes": [
+                        {"time": 0, "ease": "linear"},
+                        {"time": 1, "phase": 360},
+                    ],
+                },
+            ],
+        }
+        with tempfile.TemporaryDirectory(prefix="video-use-path-") as tmp:
+            path = Path(tmp)
+            original = copy.deepcopy(scene)
+            report = renderer.render_scene(
+                scene,
+                path / "motion.mp4",
+                output_width=640,
+                output_height=360,
+                output_fps=12,
+            )
+            self.assertEqual(scene, original)
+            self.assertEqual(
+                (report["width"], report["height"], report["frame_count"]),
+                (640, 360, 12),
+            )
+            source = json.loads(Path(report["source"]).read_text())
+            self.assertEqual(
+                (source["width"], source["height"], source["fps"]), (320, 180, 10)
+            )
+            manifest = json.loads(Path(report["manifest"]).read_text())
+            self.assertTrue(
+                all(
+                    item["backwardSeekMatches"]
+                    for item in manifest["deterministicChecks"]
+                )
+            )
+            for time, electron_x, wave_y in ((0, 80, 260), (0.25, 120, 280)):
+                image_path = path / f"frame{time}.png"
+                subprocess.run(
+                    [
+                        "ffmpeg",
+                        "-v",
+                        "error",
+                        "-ss",
+                        str(time),
+                        "-i",
+                        report["output"],
+                        "-frames:v",
+                        "1",
+                        str(image_path),
+                    ],
+                    check=True,
+                )
+                with Image.open(image_path).convert("RGB") as image:
+                    self.assertGreater(image.getpixel((electron_x, 120))[0], 220)
+                    self.assertGreater(image.getpixel((22, wave_y))[1], 180)
+                    self.assertLess(
+                        image.getpixel((40, 60))[0], 20
+                    )  # author coords were scaled
+
     def test_encoded_motion_opacity_audio_and_backward_seeks(self):
         with tempfile.TemporaryDirectory(prefix="video-use-scene-") as tmp:
             path = Path(tmp)

@@ -24,23 +24,32 @@ from .review_findings import merge_review_findings, require_resolved_review_find
 
 PACK = r"""
 import pathlib,zipfile
-root=pathlib.Path('/workspace/edit');total=0;count=0
+root=pathlib.Path('/workspace');total=0;count=0
+skip={'node_modules','.git','__pycache__','.cache','.npm','.venv','.assembly-cache','clips_preview','clips_graded','verify'}
 with zipfile.ZipFile('/workspace/checkpoint.zip','w',zipfile.ZIP_DEFLATED) as z:
  for p in root.rglob('*'):
   if p.is_symlink() or not p.is_file() or not p.resolve().is_relative_to(root): continue
-  if any(x in {'node_modules','.git','__pycache__','clips_preview','clips_graded','verify'} for x in p.relative_to(root).parts): continue
+  rel=p.relative_to(root)
+  if rel.parts[0] in {'sources','checkpoint.zip','restore.zip'} or any(x in skip for x in rel.parts): continue
   if p.suffix.lower() in {'.mp4','.mov','.mkv','.webm'}: continue
   total+=p.stat().st_size;count+=1
   if total>200000000 or count>10000: raise ValueError('Project source exceeds 200 MB or 10000 files')
-  z.write(p,'edit/'+str(p.relative_to(root)))
+  z.write(p,str(rel))
 """
 RESTORE = r"""
 import pathlib,zipfile
 root=pathlib.Path('/workspace')
 with zipfile.ZipFile('/workspace/restore.zip') as z:
- if sum(i.file_size for i in z.infolist())>200000000: raise ValueError('Checkpoint too large')
+ if len(z.infolist())>10000 or sum(i.file_size for i in z.infolist())>200000000: raise ValueError('Checkpoint too large')
+ seen=set()
  for i in z.infolist():
-  if not (root/i.filename).resolve().is_relative_to(root/'edit') or (i.external_attr>>16)&0o170000==0o120000: raise ValueError('Invalid archive path')
+  p=pathlib.PurePosixPath(i.filename)
+  if (not p.parts or p.is_absolute() or '..' in p.parts or chr(92) in i.filename
+      or p.parts[0] in {'sources','checkpoint.zip','restore.zip'}
+      or not (root/i.filename).resolve().is_relative_to(root)
+      or (i.external_attr>>16)&0o170000==0o120000
+      or str(p) in seen): raise ValueError('Invalid archive path')
+  seen.add(str(p))
  z.extractall(root)
 """
 
@@ -423,6 +432,18 @@ class Manager:
         except Exception:
             self.store.settle(usage, 0)
             raise
+        # Record a comparison baseline for speech/inspection too, without
+        # changing the user-supplied payload used to identify exact retries.
+        # Missing metadata must not strand an admitted task; the response then
+        # reports an unknown baseline instead of claiming nothing changed.
+        if isinstance(creative, dict) and type(creative.get("revision")) is int:
+            with contextlib.suppress(Exception):
+                self.store.put(
+                    "task_context",
+                    tid,
+                    {"submitted_creative_revision": creative["revision"]},
+                    ttl=2592000,
+                )
         self.running[tid] = asyncio.create_task(self.execute(task, seconds))
         self.running[tid].add_done_callback(lambda _: self.running.pop(tid, None))
         return task
@@ -588,20 +609,53 @@ class Manager:
                     )
                     return result
             pending_timing = None
-            if a.get("production_timing") is not None:
+            timing_args = a
+            if a.get("assembly_report"):
+                report_bytes = await sb.read(a["assembly_report"])
+                if len(report_bytes) > 100_000:
+                    raise ValueError("Assembly timing report exceeds 100 KB")
+                report = json.loads(report_bytes)
+                timing = validate_production_timing(report.get("production_timing"))
+                if timing is None:
+                    raise ValueError("Assembly did not provide measured scene timings")
+                timing_args = a | {"production_timing": timing}
+                result["assembly"] = {
+                    key: report.get(key)
+                    for key in (
+                        "quality",
+                        "width",
+                        "height",
+                        "fps",
+                        "duration",
+                        "frame_count",
+                        "scenes",
+                        "audio_normalization",
+                    )
+                } | {"output": a["preview_path"]}
+            if timing_args.get("production_timing") is not None:
                 pending_timing = await self.production_timing_metadata(
-                    task, sb, creative
+                    task | {"payload": timing_args}, sb, creative
                 )
                 result["_production_timing"] = pending_timing
+            # A movie supplied for review is already a useful playable draft.
+            # Publish that movie, never the internal inspection contact sheet.
+            preview_path = a.get("preview_path")
+            if not preview_path and Path(a.get("review_path", "")).suffix.lower() in {
+                ".mp4",
+                ".mov",
+                ".mkv",
+                ".webm",
+            }:
+                preview_path = a["review_path"]
             preview = (
-                await self.publish_preview(uid, pid, sb, a["preview_path"])
-                if a.get("preview_path")
+                await self.publish_preview(uid, pid, sb, preview_path)
+                if preview_path
                 else None
             )
             record_progress(
                 self.store,
                 pid,
-                a["stage"],
+                "draft" if preview and a["stage"] == "review" else a["stage"],
                 a["note"],
                 a.get("next_action", ""),
                 a.get("brief", ""),
@@ -665,10 +719,11 @@ class Manager:
             # Reuse the speech adapters without initializing or running a model agent.
             speech = object.__new__(ProductionAgent)
             speech.sandbox = sb
+            voice = a.get("voice_id") or self.config.voice
             speech.credentials = {
                 "provider": "elevenlabs",
                 "elevenlabs_key": self.config.speech_key,
-                "elevenlabs_voice": self.config.voice,
+                "elevenlabs_voice": voice,
             }
             if op == "transcribe":
                 path = await sb.safe_path(a["path"])
@@ -711,11 +766,7 @@ class Manager:
                 self.store.put("transcript", uid + ":" + digest, payload)
                 return result
             text = a["text"]
-            cachekey = (
-                uid
-                + ":"
-                + hashlib.sha256((self.config.voice + text).encode()).hexdigest()
-            )
+            cachekey = uid + ":" + hashlib.sha256((voice + text).encode()).hexdigest()
             cached = self.store.get("narration", cachekey)
             if cached:
                 with tempfile.TemporaryDirectory() as tmp:
@@ -726,6 +777,7 @@ class Manager:
                 return {
                     "saved": a["output"],
                     "cached": True,
+                    "voice_id": voice,
                     **await self.narration_metadata(sb, a["output"], cached["timings"]),
                 }
             rid = self.store.reserve(uid, "narrate", len(text), tid)
@@ -741,7 +793,11 @@ class Manager:
                 {"key": obj["key"], "timings": timings},
             )
             self.store.settle(rid, len(text))
-            return result | await self.narration_metadata(sb, a["output"], timings)
+            return (
+                result
+                | {"voice_id": voice}
+                | await self.narration_metadata(sb, a["output"], timings)
+            )
         if op in ("review", "export"):
             path = await sb.safe_path(a["video_path"])
             hashed = await sb.run("sha256sum " + shlex.quote(path), 30)
@@ -957,12 +1013,14 @@ class Manager:
         if not math.isfinite(duration) or duration <= 0:
             raise ValueError("Narration has an invalid duration")
         words = json.loads(timings).get("words", [])
-        sentences, current = [], []
+        sentences, current, clean_words = [], [], []
         for word in words:
             start, end = float(word["start"]), float(word["end"])
             if not all(math.isfinite(t) for t in (start, end)) or not 0 <= start <= end:
                 raise ValueError("Narration contains invalid word timings")
-            current.append({"text": str(word["text"]), "start": start, "end": end})
+            cleaned = {"text": str(word["text"]), "start": start, "end": end}
+            current.append(cleaned)
+            clean_words.append(cleaned)
             if re.search(r"[.!?。！？][\"'’”)]*$", str(word["text"])):
                 sentences.append(
                     {
@@ -987,7 +1045,9 @@ class Manager:
             "speech_end": max((float(w["end"]) for w in words), default=None),
             "word_count": len(words),
             "sentence_timings": sentences,
-            "text": "Narration is ready. Align visuals to duration and sentence_timings; full word timings are saved in timing_path. No timing probe is needed.",
+            "word_timings": clean_words[:500],
+            "word_timings_truncated": len(clean_words) > 500,
+            "text": "Narration is ready. Use inline word_timings for label/reveal cues and sentence_timings for scene boundaries; full timings remain in timing_path. No timing probe is needed. Timing data alone is not a playback or listening check.",
         }
 
     async def publish_preview(self, uid, pid, sb, source):

@@ -11,7 +11,13 @@ from mcp.types import CallToolResult, TextContent
 from mcp.server.fastmcp import Image
 from pydantic import BaseModel, Field
 
-from .interaction import UI_URI, UI_META, record_progress, wait_for_task
+from .interaction import (
+    UI_URI,
+    UI_META,
+    creative_handoff,
+    record_progress,
+    wait_for_task,
+)
 from .feedback import feedback_context
 
 Stage = Literal[
@@ -160,20 +166,31 @@ def register_cards(
 
     def media_result(uid, pid):
         media = current_media(uid, pid)
+        data = {
+            "project_id": pid,
+            "media": media,
+            "creative": store.get("creative", pid),
+            "next_action": (
+                "Present the finished video and download concisely, describing only "
+                "the review evidence you actually inspected. The requested export is complete."
+            )
+            if media.get("final")
+            else (
+                "Add one brief chat sentence about what this actual draft shows "
+                "and the next useful improvement, then continue working. Invite "
+                "redirection only where it matters; do not require a reply. "
+                "Use current creative choices before the next render. "
+                "Do not describe workspace setup or terminal commands."
+            ),
+        }
         return CallToolResult(
             content=[
                 TextContent(
                     type="text",
-                    text=json.dumps(
-                        {
-                            "project_id": pid,
-                            "media": media,
-                            "next_action": "Discuss the visual with the user in ordinary conversation. Do not describe workspace setup or terminal commands.",
-                        }
-                    ),
+                    text=json.dumps(data),
                 )
             ],
-            structuredContent={"project_id": pid, "media": media},
+            structuredContent=data,
         )
 
     async def step_result(uid, task_id, include_logs=False):
@@ -238,9 +255,25 @@ def register_cards(
             if result.get("review_object"):
                 store.put("reviewed", out["project"], result["sha256"], ttl=86400)
         out["creative"] = store.get("creative", out["project"])
+        handoff_task = task
+        if "creative_revision" not in (task.get("payload") or {}):
+            submitted_context = store.get("task_context", task_id)
+            if isinstance(submitted_context, dict):
+                handoff_task = task | {
+                    "submitted_creative_revision": submitted_context.get(
+                        "submitted_creative_revision"
+                    )
+                }
+        handoff = creative_handoff(handoff_task, out["creative"])
+        if handoff:
+            out["creative_handoff"] = handoff
         out["production_timing"] = store.get("production_timing", out["project"])
         out["review_findings"] = store.get("review_findings", out["project"]) or []
         out["feedback"] = feedback_context(store, out["project"])
+        if isinstance(result.get("assembly"), dict):
+            # Keep the output path and exact scene timing usable even when noisy
+            # renderer stdout is truncated in the compact task response.
+            out["assembly"] = result["assembly"]
         if task.get("payload", {}).get("scene_source"):
             out["scene_source"] = task["payload"]["scene_source"]
             with contextlib.suppress(ValueError, TypeError):
@@ -280,7 +313,9 @@ def register_cards(
                 "player refreshes new media for up to ten minutes when the host supports "
                 "app tools; let it update instead of opening duplicate players. Reopen for "
                 "a substantial new draft or final export if refresh is unavailable or expired. "
-                "Then continue without an approval pause. Do not poll this completed task."
+                "Accompany a new draft with one short chat sentence about what is "
+                "visible and what comes next. Then continue without an approval "
+                "pause. Do not poll this completed task."
             )
             out["display_action"] = {
                 "name": "show_video_preview",
@@ -310,9 +345,19 @@ def register_cards(
                 "This task is complete. Continue the next production step using its result; "
                 "do not poll again. Publish meaningful media when it exists."
             )
-        if result.get("preferences_changed"):
+        if out["status"] == "succeeded" and isinstance(result.get("assembly"), dict):
+            if result["assembly"].get("quality") == "draft":
+                out["next_action"] += (
+                    " This assembly uses draft quality. After checking the draft, use "
+                    "assemble_video quality=final for delivery unless the user explicitly "
+                    "requested draft resolution. Do not silently export preview resolution "
+                    "as the finished format."
+                )
+        if result.get("preferences_changed") or (
+            handoff and handoff["preferences_changed"]
+        ):
             out["next_action"] += (
-                " The user's creative preferences changed during this work: read the "
+                " Creative preferences changed during this work: read the "
                 "current creative state and adapt before final rendering or export."
             )
         # A few hosts consume only text. Serialize after attaching the same media
@@ -372,7 +417,7 @@ def register_cards(
 
     @mcp.tool(annotations=read, meta=UI_META, title="Video preview")
     def show_video_preview(project_id: str) -> CallToolResult:
-        """Show only an actual IMAGE or playable VIDEO directly in chat, with download for videos. The open player refreshes newer media for up to ten minutes when the host supports app tools, without model calls or interrupting playback. Open once when meaningful media first exists; show the final export explicitly if the player is unavailable or expired. No workspace/dashboard/status UI. Never call while no visual exists."""
+        """Show an actual image or playable video directly in chat, with video download. Accompany a meaningful new draft with one brief chat sentence about what is visible and what comes next, then continue without requiring a reply. The open player refreshes newer media for up to ten minutes on supported hosts without interrupting playback. Reopen for final export if absent/expired. No workspace/status UI or placeholders."""
         return media_result(muser(), project_id)
 
     @mcp.tool(annotations=read, meta={"ui": {"visibility": ["app"]}})

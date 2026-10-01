@@ -5,6 +5,11 @@ capabilities and useful decisions, not a prompt classifier or a required recipe.
 A request can mix footage, documents, data, typography, sound and 3D. Use the
 smallest useful combination. Existing user preferences and the actual source
 material outrank examples, sample styles and suggested structures.
+Before narration or substantial original rendering, briefly state the proposed
+script/outline, audience, look and delivery format. Keep user requirements separate
+from agent assumptions. This is a conversational update, not an approval gate.
+Offer a relevant nonblocking reference comparison once when a consequential choice
+is open, and consume current choices/feedback from task responses before more work.
 
 ## Start from the material and the outcome
 
@@ -218,6 +223,10 @@ with capped concurrency, not unlimited compute. Give each component distinct
 output paths and treat shared assets as read-only. Do not assemble if any
 component fails. The host still authors the plan and code; these workers are
 render processes, not hidden model agents.
+For compact drawing scenes, use `render_video_scene` for the first excerpt and
+`assemble_video` with ordered IDs and remaining scene data for the full draft.
+It validates the batch, reuses compatible renders and publishes actual media;
+ordinary scene assembly needs no agent-written generator or concat script.
 
 A scene plan or EDL helps when there are timed content decisions. A precise crop
 may need neither. Preserve enough project context for another turn to continue:
@@ -241,6 +250,9 @@ continuity. For a data story verify values and scales; for a tutorial verify the
 shown action; for a document verify claims against its source; for personalization
 verify the record mapping. Machine checks for dimensions, duration, decoding and
 asset existence complement visual judgment and do not replace it.
+Describe evidence accurately: still samples do not verify motion, loudness does
+not establish audible quality, and matching stream timestamps do not prove spoken
+labels line up. Do not claim playback or listening without that capability.
 
 Review the final encoded file before export. Changing that file invalidates an
 earlier review. Keep editable scripts, assets and render commands reproducible.

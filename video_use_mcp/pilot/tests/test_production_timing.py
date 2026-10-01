@@ -28,6 +28,9 @@ def fixture():
     )
     manager = Manager(store, SimpleNamespace(api_key="", speech_key=""))
     manager.save_object = AsyncMock(return_value={"id": "review-object"})
+    manager.publish_preview = AsyncMock(
+        return_value={"object_id": "preview-object", "media_type": "video/mp4"}
+    )
     manager.checkpoint = AsyncMock()
     return manager, store, values
 
