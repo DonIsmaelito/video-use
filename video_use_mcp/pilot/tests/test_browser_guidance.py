@@ -50,3 +50,33 @@ def test_detailed_references_remain_available_without_path_escape(pilot):
     assert not detailed.get("isError")
     escaped = guidance(pilot, "../video-use/SKILL.md")
     assert escaped.get("isError")
+
+
+@pytest.mark.parametrize("topic", ["overview", "scenes", "motion", "manim"])
+def test_served_compact_guides_preserve_explicit_intake_and_sample_review(pilot, topic):
+    """Technique guidance must not override the product's requested interaction."""
+    result = guidance(pilot, topic)
+    assert not result.get("isError"), result
+    text = result["content"][0]["text"]
+    for concept in (
+        "start_video",
+        "Hands off",
+        "Key moments",
+        "Hands on",
+        "duration",
+        "destination",
+        "Legacy",
+        "show_video_checkpoint",
+        'production_stage="excerpt"',
+        "full_video",
+    ):
+        assert concept in text, (topic, concept)
+    for obsolete_rule in (
+        "one optional brief question can ask how involved",
+        "The unanswered default is `key_moments`",
+        "there is no required\napproval pause",
+        "Continue\nwithout mandatory approval",
+        "It is not a required approval checkpoint",
+        "Display each substantial draft immediately",
+    ):
+        assert obsolete_rule not in text, (topic, obsolete_rule)
