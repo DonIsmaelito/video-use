@@ -236,3 +236,13 @@ instructions and tools. A reconnect may be necessary if the host caches tool dis
 Trace exports now include creative context and render preference revisions alongside task
 logs. They still cannot see host reasoning, user chat messages or remaining subscription
 allowance. Signed-in Claude and ChatGPT acceptance testing remains with the account owner.
+
+Validation: deployed application revision `5d7cd16` on branch
+`feature/conversational-video`; following commits only update tests/documentation.
+52 Python tests pass; four opt-in isolated-backend tests remain skipped. Embedded UI tests
+cover media-only rendering, no automatic messages, click persistence and capability fallback.
+Five cached samples passed full decoding and deterministic seek checks. Live authenticated
+MCP fixture `e0b1d0dd-76c2-44e1-93e6-5353b296924e` verified reference retrieval without a sandbox,
+choice persistence across planning, two concurrent scene commands, review, ranged playback
+and attachment download. The 22.08-second fixture is a two-second technical video, not an
+explainer latency benchmark. The fixture sandbox was closed and its test grant revoked.
