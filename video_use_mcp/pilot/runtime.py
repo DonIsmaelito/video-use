@@ -6,6 +6,8 @@ import hashlib
 import io
 import json
 import math
+import re
+from fractions import Fraction
 import shlex
 import tempfile
 import time
@@ -15,6 +17,7 @@ from PIL import Image
 
 from video_use_mcp.sandbox import ModalSandbox
 from video_use_mcp.agent import ProductionAgent
+from video_use_mcp.review import REVIEW_CODE as REVIEW, REVIEW_INSTRUCTION
 from .store import ident
 from .interaction import record_progress
 
@@ -38,20 +41,6 @@ with zipfile.ZipFile('/workspace/restore.zip') as z:
  for i in z.infolist():
   if not (root/i.filename).resolve().is_relative_to(root/'edit') or (i.external_attr>>16)&0o170000==0o120000: raise ValueError('Invalid archive path')
  z.extractall(root)
-"""
-REVIEW = r"""
-import subprocess,json,pathlib
-from PIL import Image,ImageDraw
-p=__import__('sys').argv[1]
-d=float(json.loads(subprocess.check_output(['ffprobe','-v','error','-show_format','-of','json',p]))['format']['duration'])
-r=pathlib.Path('/workspace/edit/verify');r.mkdir(parents=True,exist_ok=True)
-sheet=Image.new('RGB',(1280,780),'#171717');draw=ImageDraw.Draw(sheet)
-for i,t in enumerate([min(.2,d/10),d*.33,d*.66,max(0,d-.2)]):
- f=r/f'frame-{i}.png'
- subprocess.run(['ffmpeg','-v','error','-y','-ss',str(t),'-i',p,'-frames:v','1','-vf','scale=640:360:force_original_aspect_ratio=decrease',str(f)],check=True)
- with Image.open(f) as im: sheet.paste(im,((i%2)*640+(640-im.width)//2,(i//2)*390))
- draw.text(((i%2)*640+12,(i//2)*390+365),f'{t:.2f}s',fill='white')
-sheet.save(r/'output-review.png')
 """
 
 
@@ -327,26 +316,28 @@ class Manager:
             raise ValueError("Provide a request ID of 1–120 characters")
         if self.store.get("control", "paused"):
             raise ValueError("Execution is paused")
-        # Keep exact retries idempotent while allowing different projects to use export-1.
-        legacy = self.store.sql(
-            "SELECT * FROM public.vp_tasks WHERE owner=$1 AND request_id=$2",
-            uid,
-            request_id,
-        )
-        scoped_id = pid + ":" + request_id
-        old = [t for t in legacy if t["project"] == pid] or self.store.sql(
-            "SELECT * FROM public.vp_tasks WHERE owner=$1 AND request_id=$2",
+        # An operation gets its own retry namespace: "first" may legitimately
+        # identify both narration and a render. Retain exact retry protection
+        # for earlier unscoped and project-scoped task records.
+        scoped_id = pid + ":" + operation + ":" + request_id
+        previous = self.store.sql(
+            "SELECT * FROM public.vp_tasks WHERE owner=$1 AND request_id IN ($2,$3,$4) "
+            "ORDER BY CASE WHEN request_id=$2 THEN 0 WHEN request_id=$3 THEN 1 ELSE 2 END",
             uid,
             scoped_id,
+            pid + ":" + request_id,
+            request_id,
         )
+        old = [
+            task
+            for task in previous
+            if task["project"] == pid and task["operation"] == operation
+        ]
         if old:
-            if (
-                old[0]["operation"] != operation
-                or old[0]["payload"] != args
-                or old[0]["project"] != pid
-            ):
+            if old[0]["payload"] != args:
                 raise ValueError(
-                    "Request ID already used for different work in this project. Use a new request_id; only exact retries may reuse it."
+                    "Request ID already used for different work in this project and operation. "
+                    "Use a new request_id; only exact retries may reuse it."
                 )
             return old[0]
         creative = self.store.get("creative", pid)
@@ -659,23 +650,25 @@ class Manager:
                     await asyncio.to_thread(self.store.download, cached["key"], local)
                     await sb.upload(a["output"], local)
                 await sb.write(a["output"] + ".json", cached["timings"].encode())
-                return {"saved": a["output"], "cached": True}
+                return {
+                    "saved": a["output"],
+                    "cached": True,
+                    **await self.narration_metadata(sb, a["output"], cached["timings"]),
+                }
             rid = self.store.reserve(uid, "narrate", len(text), tid)
             result = await speech.narrate(text, a["output"])
             with tempfile.TemporaryDirectory() as tmp:
                 local = Path(tmp) / "voice.mp3"
                 await sb.download(a["output"], local)
                 obj = await self.save_object(uid, pid, "speech", "voice.mp3", local)
+            timings = (await sb.read(a["output"] + ".json")).decode()
             self.store.put(
                 "narration",
                 cachekey,
-                {
-                    "key": obj["key"],
-                    "timings": (await sb.read(a["output"] + ".json")).decode(),
-                },
+                {"key": obj["key"], "timings": timings},
             )
             self.store.settle(rid, len(text))
-            return result
+            return result | await self.narration_metadata(sb, a["output"], timings)
         if op in ("review", "export"):
             path = await sb.safe_path(a["video_path"])
             hashed = await sb.run("sha256sum " + shlex.quote(path), 30)
@@ -684,10 +677,31 @@ class Manager:
             digest = hashed["stdout"].split()[0]
             if op == "review":
                 r = await sb.run(
-                    "python -c " + shlex.quote(REVIEW) + " " + shlex.quote(path), 120
+                    "python -c "
+                    + shlex.quote(REVIEW)
+                    + " "
+                    + shlex.quote(path)
+                    + " --beats-json "
+                    + shlex.quote(json.dumps((creative or {}).get("beats", []))),
+                    120,
                 )
                 if r["exit_code"]:
                     raise ValueError("Could not extract encoded frames")
+                sampling = {}
+                with contextlib.suppress(ValueError, TypeError):
+                    report = json.loads(r["stdout"])
+                    times = (
+                        report.get("sample_times") if isinstance(report, dict) else None
+                    )
+                    if (
+                        isinstance(times, list)
+                        and times
+                        and all(
+                            isinstance(t, (int, float)) and math.isfinite(t) and t >= 0
+                            for t in times
+                        )
+                    ):
+                        sampling["sample_times"] = [round(t, 3) for t in times[:12]]
                 with tempfile.TemporaryDirectory() as tmp:
                     local = Path(tmp) / "review.png"
                     await sb.download("edit/verify/output-review.png", local, 8000000)
@@ -711,7 +725,9 @@ class Manager:
                     "review_object": obj["id"],
                     "sha256": digest,
                     "video_path": a["video_path"],
-                    "instruction": "Inspect the image returned with this result. If it passes, export this exact video with an honest review summary. No extra status call is needed when the image is present.",
+                    **sampling,
+                    "instruction": REVIEW_INSTRUCTION
+                    + " If it passes, export this exact video with an honest review summary. No extra status call is needed when the image is present.",
                 }
             if self.store.get("reviewed", pid) != digest:
                 raise ValueError(
@@ -759,8 +775,56 @@ class Manager:
             }
         raise ValueError("Unknown operation")
 
+    async def narration_metadata(self, sb, output, timings):
+        """Return usable timing evidence with the audio, avoiding another tool turn."""
+        path = await sb.safe_path(output)
+        probe = await sb.run(
+            "ffprobe -v error -show_entries format=duration -of json "
+            + shlex.quote(path),
+            30,
+        )
+        if probe["exit_code"]:
+            raise ValueError("Could not measure the saved narration")
+        duration = float(json.loads(probe["stdout"])["format"]["duration"])
+        if not math.isfinite(duration) or duration <= 0:
+            raise ValueError("Narration has an invalid duration")
+        words = json.loads(timings).get("words", [])
+        sentences, current = [], []
+        for word in words:
+            start, end = float(word["start"]), float(word["end"])
+            if not all(math.isfinite(t) for t in (start, end)) or not 0 <= start <= end:
+                raise ValueError("Narration contains invalid word timings")
+            current.append({"text": str(word["text"]), "start": start, "end": end})
+            if re.search(r"[.!?。！？][\"'’”)]*$", str(word["text"])):
+                sentences.append(
+                    {
+                        "text": " ".join(w["text"] for w in current),
+                        "start": current[0]["start"],
+                        "end": current[-1]["end"],
+                    }
+                )
+                current = []
+        if current:
+            sentences.append(
+                {
+                    "text": " ".join(w["text"] for w in current),
+                    "start": current[0]["start"],
+                    "end": current[-1]["end"],
+                }
+            )
+        return {
+            "audio_path": output,
+            "timing_path": output + ".json",
+            "duration": duration,
+            "speech_end": max((float(w["end"]) for w in words), default=None),
+            "word_count": len(words),
+            "sentence_timings": sentences,
+            "text": "Narration is ready. Align visuals to duration and sentence_timings; full word timings are saved in timing_path. No timing probe is needed.",
+        }
+
     async def publish_preview(self, uid, pid, sb, source):
-        """Publish bounded PNG or H.264 draft; it never marks final review complete."""
+        """Publish a complete short draft, or an explicitly labeled long excerpt."""
+        metadata = {}
         path = await sb.safe_path(source)
         suffix = Path(path).suffix.lower()
         with tempfile.TemporaryDirectory() as tmp:
@@ -776,17 +840,50 @@ class Manager:
             elif suffix in (".mp4", ".mov", ".webm", ".mkv"):
                 draft = "edit/verify/preview-" + ident() + ".mp4"
                 dest = await sb.safe_path(draft, write=True)
+                probe = await sb.run(
+                    "ffprobe -v error -show_entries format=duration:stream=codec_type,avg_frame_rate "
+                    "-of json " + shlex.quote(path),
+                    30,
+                )
+                if probe["exit_code"]:
+                    raise ValueError("Could not inspect preview clip")
+                info = json.loads(probe["stdout"])
+                duration = float(info["format"]["duration"])
+                video = next(
+                    (s for s in info["streams"] if s["codec_type"] == "video"), None
+                )
+                if not video or not math.isfinite(duration) or duration <= 0:
+                    raise ValueError("Preview must contain a nonempty video stream")
+                try:
+                    fps = Fraction(video.get("avg_frame_rate", "0/1"))
+                except (ValueError, ZeroDivisionError):
+                    fps = Fraction(0)
+                # Keep lower frame rates; never duplicate 15 fps draft frames at 24 fps.
+                fps_filter = ",fps=24" if fps > 24 else ""
+                clip = min(duration, 120.0)
                 r = await sb.run(
                     "ffmpeg -v error -y -i "
                     + shlex.quote(path)
-                    + " -t 20 -vf "
+                    + (" -t 120" if duration > 120 else "")
+                    + " -vf "
                     + shlex.quote(
-                        "scale=960:540:force_original_aspect_ratio=decrease:force_divisible_by=2,fps=24"
+                        "scale=w='min(960,iw)':h='min(540,ih)':force_original_aspect_ratio=decrease:force_divisible_by=2"
+                        + fps_filter
                     )
                     + " -c:v libx264 -preset veryfast -crf 25 -pix_fmt yuv420p -c:a aac -movflags +faststart "
                     + shlex.quote(dest),
                     120,
                 )
+                metadata = {
+                    "source_duration": duration,
+                    "duration": clip,
+                    "truncated": duration > 120,
+                }
+                if duration > 120:
+                    metadata["preview_range"] = {"start": 0, "end": clip}
+                    metadata["notice"] = (
+                        "Preview excerpt: first 120 seconds. The source video is longer."
+                    )
                 if r["exit_code"]:
                     raise ValueError("Could not encode preview clip")
                 local = Path(tmp) / "preview.mp4"
@@ -800,6 +897,7 @@ class Manager:
             "media_type": media_type,
             "name": obj["name"],
             "draft": True,
+            **metadata,
         }
 
     async def image(self, uid, pid, path):

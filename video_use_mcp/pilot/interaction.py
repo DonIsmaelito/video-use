@@ -15,8 +15,36 @@ from mcp.server.fastmcp import FastMCP
 
 from .store import ident
 
-UI_URI = "ui://video-use/media-v6.html"
+UI_URI = "ui://video-use/media-v7.html"
 UI_META = {"ui": {"resourceUri": UI_URI}}
+
+TASK_OPERATIONS = {
+    "step",
+    "run",
+    "command",
+    "write",
+    "patch",
+    "preview",
+    "narrate",
+    "transcribe",
+    "review",
+    "export",
+}
+TASK_STATUSES = {"queued", "running", "succeeded", "failed", "cancelled"}
+APP_TOOLS = {"video_project_updates", "video_preview_updates", "choose_video_style"}
+
+
+def task_identity(payload):
+    """Recognize a task result without confusing project IDs with task IDs."""
+    if (
+        not isinstance(payload, dict)
+        or payload.get("operation") not in TASK_OPERATIONS
+        or payload.get("status") not in TASK_STATUSES
+    ):
+        return None, None
+    task = uuid_or_none(payload.get("id"))
+    project = uuid_or_none(payload.get("project"))
+    return (task, project) if task and project else (None, None)
 
 
 def safe_error(exc, config):
@@ -87,6 +115,9 @@ class TracedMCP(FastMCP):
                         or payload.get("id")
                     )
                     tid = uuid_or_none(arguments.get("task_id"))
+                    result_tid, result_pid = task_identity(payload)
+                    if not tid and result_tid and (not pid or pid == result_pid):
+                        tid, pid = result_tid, result_pid
                     if not pid and tid:
                         pid = self.trace_store.task(token.subject, tid)["project"]
                     record = {
@@ -102,9 +133,7 @@ class TracedMCP(FastMCP):
                         "client": hashlib.sha256(token.client_id.encode()).hexdigest()[
                             :12
                         ],
-                        "surface": "card"
-                        if name == "video_project_updates"
-                        else "assistant",
+                        "surface": "card" if name in APP_TOOLS else "assistant",
                     }
                     if error:
                         record["error"] = error

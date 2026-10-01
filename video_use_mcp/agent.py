@@ -14,6 +14,7 @@ from PIL import Image
 
 from .config import ROOT
 from .providers import AgentModel, ProviderError
+from .review import REVIEW_CODE, REVIEW_INSTRUCTION
 
 
 def tool(name, description, properties):
@@ -227,27 +228,8 @@ class ProductionAgent:
             hashed = await self.sandbox.run("sha256sum " + shlex.quote(path), 30)
             current_hash = hashed["stdout"].split()[0]
             if self.reviewed_hash != current_hash:
-                review_code = r"""
-import pathlib,subprocess,sys
-from PIL import Image,ImageDraw
-path,duration=sys.argv[1],float(sys.argv[2])
-root=pathlib.Path('/workspace/edit/verify');root.mkdir(exist_ok=True,parents=True)
-sheet=Image.new('RGB',(1280,780),'#1b1d1a');draw=ImageDraw.Draw(sheet)
-for i,t in enumerate([min(.2,duration/10),duration*.33,duration*.66,max(0,duration-.2)]):
- dest=root/f'output-review-{i}.png'
- subprocess.run(['ffmpeg','-v','error','-y','-ss',str(t),'-i',path,'-frames:v','1','-vf','scale=640:360:force_original_aspect_ratio=decrease',str(dest)],check=True)
- with Image.open(dest) as frame:
-  x=(i%2)*640+(640-frame.width)//2;y=(i//2)*390
-  sheet.paste(frame,(x,y));draw.text(((i%2)*640+12,y+365),f'{t:.2f}s',fill='white')
-sheet.save(root/'output-review.png')
-"""
                 proof = await self.sandbox.run(
-                    "python -c "
-                    + shlex.quote(review_code)
-                    + " "
-                    + shlex.quote(path)
-                    + " "
-                    + str(metadata["duration"]),
+                    "python -c " + shlex.quote(REVIEW_CODE) + " " + shlex.quote(path),
                     90,
                 )
                 if proof["exit_code"]:
@@ -258,7 +240,9 @@ sheet.save(root/'output-review.png')
                 self.images_seen += 1
                 proof_bytes = await self.sandbox.read("edit/verify/output-review.png")
                 return {
-                    "text": "Final review required: inspect these four actual encoded output frames. Check readable typography, composition, beginning and ending, and fidelity to the brief. Repair problems and render again if needed. If this is ready, call finish again with an honest review in summary. A modified video requires a fresh review.",
+                    "text": "Final review required. "
+                    + REVIEW_INSTRUCTION
+                    + " If ready, call finish again with an honest review in summary.",
                     "image": base64.b64encode(proof_bytes).decode(),
                 }
             self.result = {"path": path, "summary": args["summary"][:4000], **metadata}

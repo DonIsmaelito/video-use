@@ -4,6 +4,12 @@ Live workspace: https://video-use-studio.insforge.site
 
 MCP connector: https://iaredur--video-use-browser-pilot-web.modal.run/mcp
 
+Current behavior and the latest real-run fixes are documented in
+[Solar trace repair](solar-trace-repair.md). The iteration notes below are
+historical: required first-frame approval and workspace-status cards are
+superseded. Only real media opens a player; that player can refresh subsequent
+drafts and the final export without assistant polling.
+
 This private pilot lets the assistant in a tester's Claude or ChatGPT account drive the existing video-use harness. The host assistant reads guidance, writes editing code, runs commands, inspects returned images, and exports MP4s. It does not start a second LLM agent. InsForge provides email-code sign-in, private files, project state, and the hosted Studio. Modal provides one coordinator and isolated render workspaces. ElevenLabs supplies transcription and narration using the owner's server-side key.
 
 ## Invite a coworker

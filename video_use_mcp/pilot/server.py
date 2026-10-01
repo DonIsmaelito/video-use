@@ -21,7 +21,7 @@ from mcp.server.auth.settings import (
 )
 from mcp.server.auth.middleware.auth_context import get_access_token
 from mcp.server.transport_security import TransportSecuritySettings
-from mcp.types import ToolAnnotations, CallToolResult
+from mcp.types import ToolAnnotations, CallToolResult, TextContent
 from pydantic import BaseModel, Field
 
 from video_use_mcp.auth import AuthProvider, SCOPES
@@ -66,20 +66,20 @@ def create_app(config=None, store=None, manager=None):
             "You are the user's video editor inside this conversation. Do not introduce a separate platform, workspace, dashboard, terminal or job queue. "
             "Start new work with start_video; infer the category and preserve the user's stated preferences. "
             "Be a thoughtful creative collaborator: ask where a different answer would change the piece, not at every milestone. "
-            "For an open creative brief, optionally use show_video_choices for two cached motion references. They are style samples, not the user's draft. "
+            "For an open creative brief with an unspecified look, show two relevant cached motion references when they help the user express a consequential preference. Recommend one and continue; they are style samples, not the user's draft. Skip irrelevant references. "
             "Skip choices when style is specified, the user delegates, or the request is a precise edit. Never force a first-frame approval. "
             "Keep questions compact and ask only about consequential missing choices; offer a recommendation. Continue independent work and use stated reversible defaults if no reply arrives. "
             "Only wait when truly blocked by missing media, contradictory requirements, requested approval, or host limitations. Never invent consent. "
-            "Read relevant video_use_guidance; use plan_video for story beats when helpful; save the script, EDL or scene description appropriate to the piece. "
+            "Read only relevant compact video_use_guidance; detailed local production references are available on demand. Use plan_video for story beats when helpful; save the script, EDL or scene description appropriate to the piece. "
             "Use run_video_step to batch files and work. Its components field renders independent scenes concurrently, maximum two at once; command assembles them after success. "
-            "Keep sources modular and share fonts, colors and timings. Render a short low-resolution motion proof before expensive final rendering. Reuse unchanged scenes. "
+            "Keep sources modular and share fonts, colors and timings. For an original film, author and show a meaningful short motion excerpt before coding the entire film. Reuse it in the finished piece; this is not a mandatory approval gate. Reuse unchanged scenes. "
             "Creative state contains a revision. Pass creative_revision to run_video_step and check latest preferences in tool results. A clicked choice may arrive while work is running; adapt rather than ignoring it. "
-            "Use show_video_preview for meaningful new motion or final media. Do not show setup, placeholder, or every internal frame. "
+            "A rendered file is not visible until a player is opened. Follow display_action in task results: call show_video_preview immediately for the first meaningful draft in this conversation, before further authoring or review. The open player refreshes later drafts and the final video for up to ten minutes when supported; reuse it instead of duplicating cards. Reopen if absent, expired or unsupported. Keep working without awaiting approval. Do not show setup, placeholder, or every internal frame. "
             "Give short conversational updates about the creative result, not terminal commands. Continue through final export without ritual approval stops. "
             "Only poll queued/running tasks with get_video_task's default wait. Use review_path for final encoded inspection, inspect the returned image, export, then show_video_preview. "
             "For unusual requests consult video_use_capabilities and video_use_guidance topic=workflows. Compose primitives rather than forcing a category template. "
             "Use inspect_source.py for bounded document/data extraction and media_sequence.py for photo/audio compositions. Three.js is bundled in /opt/video-use/skills/motion-design/runtime/node_modules/three; copy needed modules locally for browser renders. "
-            "No dependency probing, installation, API keys or hidden agent loops. Python/Pillow/FFmpeg/Manim/Node/Chromium are ready. "
+            "No dependency probing, installation, API keys or hidden agent loops. Python/Pillow/FFmpeg/Manim/Node/Chromium are ready. Narration results include measured timing; use it instead of a separate probe task. "
             "For Manim use /opt/video-use/helpers/render_manim_cached.py and mix audio separately. "
             "A browser host owns turn scheduling and permissions. Do not promise uninterrupted model execution or access to its other connectors. "
             "For source-driven work, request_video_sources lets the user upload directly in chat; import_video_source accepts an explicitly supplied direct HTTPS file URL. Do not assume chat attachments or other connectors are readable by this service. "
@@ -290,12 +290,14 @@ def create_app(config=None, store=None, manager=None):
 
     @mcp.tool(annotations=read)
     def video_use_guidance(topic: str = "overview") -> str:
-        """Read relevant production guidance after start_video. No design approval is required. Topics: workflows (browser production capabilities), overview, motion, manim, or a helpers/<file> or skills/<file> documentation path."""
+        """Read compact browser production guidance for the relevant technique, once. Topics: overview, motion (motion-design), manim (manim-video), workflows. Detailed references/helper source remain available by helpers/<file> or skills/<file> path. No environment setup or approval gate."""
         muser()
         target = {
-            "overview": "SKILL.md",
-            "motion": "skills/motion-design/SKILL.md",
-            "manim": "skills/manim-video/SKILL.md",
+            "overview": "skills/video-workflows/browser-editing.md",
+            "motion": "skills/video-workflows/browser-motion.md",
+            "motion-design": "skills/video-workflows/browser-motion.md",
+            "manim": "skills/video-workflows/browser-manim.md",
+            "manim-video": "skills/video-workflows/browser-manim.md",
             "workflows": "skills/video-workflows/browser-production.md",
         }.get(topic, topic)
         path = (ROOT / target).resolve()
@@ -317,7 +319,7 @@ def create_app(config=None, store=None, manager=None):
             "Conversation workflow: adapt to the category and preferences returned by start_video. "
             "Use cached examples only for unresolved creative choices, then develop the story and EDL. "
             "Batch work with run_video_step; use components for independent scene renders. "
-            "Show meaningful short motion drafts and continue; do not impose first-frame or draft approval gates. "
+            "Show meaningful short motion drafts immediately with show_video_preview, before more authoring or review, and continue; do not impose first-frame or draft approval gates. "
             "Never show workspace setup/status cards, technical logs or narrate shell commands to the user. "
             "Completed review results already contain inspection images; poll only queued/running tasks. "
             "Use run_video_step review_path to combine final rendering and review. Export only after inspecting, then show_video_preview. "
@@ -431,21 +433,18 @@ def create_app(config=None, store=None, manager=None):
 
     @mcp.tool(annotations=execute)
     async def view_video_frame(project_id: str, path: str) -> CallToolResult:
-        """Inspect an actual PNG/JPEG and publish it into the user's chat preview card in the same call."""
+        """Inspect an actual PNG/JPEG for editing decisions. Inspection does not replace the user's playable draft. Use show_video_preview to display authored media."""
         uid = muser(True)
-        async with manager.lock(project_id):
-            sb = await manager.session(uid, project_id)
-            preview = await manager.publish_preview(uid, project_id, sb, path)
-            record_progress(
-                store, project_id, "style", "Preview frame", preview=preview
-            )
-        out = cards["card_result"](uid, project_id)
-        out.content.append(
-            Image(
-                data=await manager.image(uid, project_id, path), format="png"
-            ).to_image_content()
+        out = {"project_id": project_id, "path": path, "purpose": "inspection"}
+        return CallToolResult(
+            content=[
+                TextContent(type="text", text=json.dumps(out)),
+                Image(
+                    data=await manager.image(uid, project_id, path), format="png"
+                ).to_image_content(),
+            ],
+            structuredContent=out,
         )
-        return out
 
     @mcp.tool(annotations=execute)
     async def transcribe_video(
@@ -466,7 +465,7 @@ def create_app(config=None, store=None, manager=None):
     async def narrate_video(
         project_id: str, text: str, output: str, request_id: str
     ) -> CallToolResult:
-        """Generate narration and word timing using the owner's speech allowance."""
+        """Generate narration with measured duration and sentence/word timing using the owner's speech allowance. Use returned timing directly to align visuals; no separate duration probe or environment check is needed."""
         if not 1 <= len(text) <= 2000:
             raise ValueError("Narration must be 1–2000 characters")
         return await submitted(

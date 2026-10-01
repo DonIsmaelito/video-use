@@ -4,7 +4,7 @@ import asyncio
 import json
 import tempfile
 from pathlib import Path
-from typing import Literal
+from typing import Annotated, Literal
 
 from mcp.types import CallToolResult, TextContent
 from mcp.server.fastmcp import Image
@@ -90,48 +90,42 @@ def register_cards(
             structuredContent=data,
         )
 
-    def media_result(uid, pid):
+    def current_media(uid, pid):
+        """Only return authored media, never task state or internal QA sheets."""
         store.project(uid, pid)
         state = store.get("progress", pid) or {}
         revisions = store.sql(
             "SELECT id,video,created FROM public.vp_revisions WHERE project=$1 ORDER BY created DESC LIMIT 3",
             pid,
         )
-        data = {
-            "updates": [
-                u
-                | {
-                    "preview": u["preview"]
-                    | {"url": link(uid, u["preview"]["object_id"])}
-                }
-                for u in state.get("updates", [])
-                if u.get("preview")
-            ],
-            "revisions": [
-                r
-                | {
-                    "video_url": link(uid, r["video"]),
-                    "download_url": link(uid, r["video"]) + "&download=true",
-                }
-                for r in revisions
-            ],
-        }
         items = [
-            dict(u["preview"], url=u["preview"]["url"], at=u["at"], caption=u["note"])
-            for u in data["updates"]
+            dict(u["preview"], at=u["at"], caption=u["note"], final=False)
+            for u in state.get("updates", [])
             if u.get("preview") and u["stage"] != "review"
         ]
         items += [
             dict(
                 object_id=r["video"],
                 media_type="video/mp4",
-                url=r["video_url"],
-                download_url=r["download_url"],
                 at=r["created"],
                 caption="Finished video",
+                draft=False,
+                final=state.get("stage") == "complete",
             )
-            for r in data["revisions"]
+            for r in revisions
         ]
+        # Older view_video_frame calls published internal inspection sheets as
+        # generic "Preview frame" updates. Keep an actual playable draft visible
+        # instead of allowing those legacy QA images to replace it.
+        if any(item["media_type"] == "video/mp4" for item in items):
+            items = [
+                item
+                for item in items
+                if not (
+                    item["media_type"].startswith("image/")
+                    and item.get("caption") == "Preview frame"
+                )
+            ]
         if not items:
             raise ValueError(
                 "No visual exists yet. Finish a meaningful motion draft before showing it; style references are available separately with show_video_choices."
@@ -142,8 +136,15 @@ def register_cards(
         media = max(
             items, key=lambda x: datetime.fromisoformat(x["at"].replace("Z", "+00:00"))
         )
+        # Sign only the selected object. A refresh cannot expose unrelated
+        # project objects, and has no reason to regenerate twenty old URLs.
+        media["url"] = link(uid, media["object_id"])
         if media["media_type"] == "video/mp4":
-            media.setdefault("download_url", media["url"] + "&download=true")
+            media["download_url"] = media["url"] + "&download=true"
+        return media
+
+    def media_result(uid, pid):
+        media = current_media(uid, pid)
         return CallToolResult(
             content=[
                 TextContent(
@@ -161,7 +162,8 @@ def register_cards(
         )
 
     async def step_result(uid, task_id, include_logs=False):
-        out = public_task(store.task(uid, task_id))
+        task = store.task(uid, task_id)
+        out = public_task(task)
         result = out.get("result") or {}
         out["result"] = {
             k: v[-2000:] if k in ("stdout", "stderr") and not include_logs else v
@@ -183,6 +185,23 @@ def register_cards(
         if out.get("video_url"):
             out["download_url"] = out["video_url"] + "&download=true"
         preview = result.get("preview") or {}
+        if out["status"] == "succeeded" and not result.get("exit_code"):
+            if result.get("video_id"):
+                out["media"] = {
+                    "object_id": result["video_id"],
+                    "media_type": "video/mp4",
+                    "url": out["video_url"],
+                    "download_url": out["download_url"],
+                    "caption": "Finished video",
+                }
+            elif preview.get("object_id"):
+                out["media"] = preview | {
+                    "url": link(uid, preview["object_id"]),
+                }
+                if preview.get("media_type") == "video/mp4":
+                    out["media"]["download_url"] = (
+                        out["media"]["url"] + "&download=true"
+                    )
         image_object = result.get("review_object") or (
             preview.get("object_id")
             if preview.get("media_type") == "image/png"
@@ -204,16 +223,69 @@ def register_cards(
             if result.get("review_object"):
                 store.put("reviewed", out["project"], result["sha256"], ttl=86400)
         out["creative"] = store.get("creative", out["project"])
-        content.insert(0, TextContent(type="text", text=json.dumps(out)))
-        if store.get("direction", out["project"]) or out["creative"]:
+        if out["status"] in ("queued", "running"):
             out["next_action"] = (
-                "Only poll if still running. When a new draft or export is complete, use show_video_preview once to display it in chat."
+                "This task is still running. Call get_video_task with its default wait; "
+                "do not resubmit it or display a placeholder."
             )
-            return CallToolResult(content=content, structuredContent=out)
-        return CallToolResult(
-            content=content,
-            structuredContent=out | {"project_card": snapshot(uid, out["project"])},
-        )
+            out["next_tool"] = {
+                "name": "get_video_task",
+                "arguments": {"task_id": task_id},
+            }
+        elif out["status"] != "succeeded" or result.get("exit_code"):
+            out["next_action"] = (
+                "Inspect this task's error and correct only the failed work. "
+                "Do not poll a finished task or repeat successful rendering."
+            )
+        elif out.get("media"):
+            out["next_action"] = (
+                "Actual media is ready at media.url. If no player for this project is "
+                "already open in THIS conversation, execute display_action now. An existing "
+                "player refreshes new media for up to ten minutes when the host supports "
+                "app tools; let it update instead of opening duplicate players. Reopen for "
+                "a substantial new draft or final export if refresh is unavailable or expired. "
+                "Then continue without an approval pause. Do not poll this completed task."
+            )
+            out["display_action"] = {
+                "name": "show_video_preview",
+                "arguments": {"project_id": out["project"]},
+            }
+            if result.get("review_object"):
+                out["next_action"] += (
+                    " Also inspect the returned encoded review image before exporting."
+                )
+        elif result.get("review_object"):
+            out["next_action"] = (
+                "Inspect the returned encoded review image. If it passes, export this "
+                "exact video with an honest review summary, then show_video_preview. "
+                "This inspection sheet is not a user-facing video preview. Do not poll again."
+            )
+        elif task.get("payload", {}).get("preview_pending"):
+            out["preview_pending"] = True
+            out["next_action"] = (
+                "The work completed and its files are saved, but no preview_path was supplied. "
+                "Publish the actual generated image or video with a small run_video_step call: "
+                "set preview_path to that existing file, use a new request_id and the current "
+                "creative_revision, and omit files, components and command. "
+                "Do not resend the source files or rerender just to publish the preview."
+            )
+        else:
+            out["next_action"] = (
+                "This task is complete. Continue the next production step using its result; "
+                "do not poll again. Publish meaningful media when it exists."
+            )
+        if result.get("preferences_changed"):
+            out["next_action"] += (
+                " The user's creative preferences changed during this work: read the "
+                "current creative state and adapt before final rendering or export."
+            )
+        # A few hosts consume only text. Serialize after attaching the same media
+        # and state-specific next action that structured clients receive.
+        out.pop("next_check", None)
+        content.insert(0, TextContent(type="text", text=json.dumps(out)))
+        # Background tools must not create an empty workspace card. Only the
+        # explicit media/choices/upload tools advertise a UI resource.
+        return CallToolResult(content=content, structuredContent=out)
 
     @mcp.resource(
         UI_URI,
@@ -241,6 +313,7 @@ def register_cards(
         "ui://video-use/project-v3.html",
         "ui://video-use/media-v4.html",
         "ui://video-use/media-v5.html",
+        "ui://video-use/media-v6.html",
     ):
         mcp.resource(
             legacy_uri,
@@ -262,8 +335,17 @@ def register_cards(
 
     @mcp.tool(annotations=read, meta=UI_META, title="Video preview")
     def show_video_preview(project_id: str) -> CallToolResult:
-        """Show only the latest completed IMAGE or playable VIDEO directly in chat, with download for videos. No workspace/dashboard/status UI. Call once after a new draft or successful export; never while waiting for a task. Ask the user for creative feedback on drafts, not command approval."""
+        """Show only an actual IMAGE or playable VIDEO directly in chat, with download for videos. The open player refreshes newer media for up to ten minutes when the host supports app tools, without model calls or interrupting playback. Open once when meaningful media first exists; show the final export explicitly if the player is unavailable or expired. No workspace/dashboard/status UI. Never call while no visual exists."""
         return media_result(muser(), project_id)
+
+    @mcp.tool(annotations=read, meta={"ui": {"visibility": ["app"]}})
+    def video_preview_updates(project_id: str) -> CallToolResult:
+        """Refresh only the current media in an already-open player. App-only, read-only; never starts a task or sends a user message."""
+        data = {"project_id": project_id, "media": current_media(muser(), project_id)}
+        return CallToolResult(
+            content=[TextContent(type="text", text=json.dumps(data))],
+            structuredContent=data,
+        )
 
     @mcp.tool(annotations=read, meta=UI_META)
     def show_video_project(project_id: str) -> CallToolResult:
@@ -280,12 +362,27 @@ def register_cards(
     @mcp.tool(annotations=execute, title="Create video draft")
     async def run_video_step(
         project_id: str,
-        request_id: str,
+        request_id: Annotated[
+            str,
+            Field(
+                description="A new identifier for this work; reuse only for an exact retry."
+            ),
+        ],
         note: str,
-        stage: Stage,
+        stage: Annotated[
+            Stage,
+            Field(
+                description="Use planning for source/probe work. For style, motion or draft, provide preview_path to the actual output file."
+            ),
+        ],
         files: list[SourceFile] = [],
         command: str = "",
-        preview_path: str = "",
+        preview_path: Annotated[
+            str,
+            Field(
+                description="Actual PNG/JPEG/MP4 output path to publish after the command succeeds. Required to deliver a visual milestone; may also publish an existing file with files and command omitted."
+            ),
+        ] = "",
         next_action: str = "",
         brief: str = "",
         timeout: int = 300,
@@ -295,9 +392,10 @@ def register_cards(
     ) -> CallToolResult:
         """Batch sources, render and preview without mandatory approval pauses. Optional components (max 6, concurrency 2) are independent render commands with separate output/cache paths; command runs after ALL succeed to assemble them. Keep renderer threads low. Shared timeout bounds the whole step. Pass creative_revision from start_video/plan_video/latest context. Use preview_path for drafts and review_path for final encoded inspection. Show meaningful new motion with show_video_preview, then keep working. Only poll unfinished tasks."""
         uid = muser(True)
-        if stage in ("style", "motion", "draft") and not preview_path:
+        preview_pending = stage in ("style", "motion", "draft") and not preview_path
+        if preview_pending and not (files or command or components):
             raise ValueError(
-                "This visual milestone needs preview_path: a PNG/JPEG for style or a short MP4 for motion/draft. Generate it in the same command."
+                "Supply preview_path for an existing visual, or files/command/components to create one."
             )
         if (
             len(components) > 6
@@ -317,7 +415,11 @@ def register_cards(
                 "files": [f.model_dump() for f in files],
                 "command": command,
                 "preview_path": preview_path,
-                "stage": stage,
+                # Do not reject and discard a large authored payload merely
+                # because publication was omitted. Preserve the work, but never
+                # claim a visual milestone or guess an output filename.
+                "stage": "planning" if preview_pending else stage,
+                **({"preview_pending": True} if preview_pending else {}),
                 "note": note,
                 "next_action": next_action,
                 "brief": brief,

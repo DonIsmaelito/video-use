@@ -264,7 +264,7 @@ def test_completed_review_returns_image_and_unlocks_export_without_poll(pilot):
     )
     assert not result.get("isError"), result
     assert any(c["type"] == "image" for c in result["content"])
-    assert result["structuredContent"]["project_card"]["id"] == PID
+    assert "project_card" not in result["structuredContent"]
     assert store.get("reviewed", PID) == "exact-hash"
 
 

@@ -165,7 +165,7 @@ def test_request_ids_are_project_scoped_and_exact_retries_reuse_tasks():
         first = manager.submit("u", "new-project", "export", args, "export-1")
         again = manager.submit("u", "new-project", "export", args, "export-1")
         assert first["id"] == again["id"]
-        assert first["request_id"] == "new-project:export-1"
+        assert first["request_id"] == "new-project:export:export-1"
         store.reserve.assert_called_once()
         with pytest.raises(ValueError, match="new request_id"):
             manager.submit(

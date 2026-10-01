@@ -1,7 +1,8 @@
 import { App, applyDocumentTheme } from "@modelcontextprotocol/ext-apps";
-const app = new App({ name: "Video preview", version: "2.0.0" });
+const app = new App({ name: "Video preview", version: "3.0.0" });
 const $ = (id) => document.getElementById(id);
-let media, shown;
+let media, shown, mediaProject, pendingMedia, refreshState, refreshInFlight=false;
+const REFRESH_INTERVAL_MS=5000,REFRESH_LIMIT_MS=10*60*1000;
 function unpack(result) {
   if (result.isError) throw Error("This preview could not be loaded.");
   const data = result.structuredContent;
@@ -16,6 +17,66 @@ function unpack(result) {
   }
   return null;
 }
+function playing(){
+  const element=$('media').firstElementChild;
+  return element?.tagName==='VIDEO' && element.paused===false && !element.ended;
+}
+function stopRefresh(keepPending=false){
+  const state=refreshState;refreshState=null;
+  if(state){clearTimeout(state.timer);clearTimeout(state.expiry);}
+  if(!keepPending)pendingMedia=null;
+}
+function settlePlayback(element){
+  if(element!==$('media').firstElementChild || playing() || !pendingMedia)return;
+  const next=pendingMedia;pendingMedia=null;render(next);
+}
+function present(next){
+  if(!next)return;
+  const key=next.object_id || next.url;
+  if(shown!==key && playing())pendingMedia=next;
+  else{pendingMedia=null;render(next);}
+}
+function scheduleRefresh(state){
+  if(refreshState!==state || state.timer)return;
+  if(Date.now()+REFRESH_INTERVAL_MS>state.deadline){stopRefresh(true);return;}
+  state.timer=setTimeout(()=>pollPreview(state),REFRESH_INTERVAL_MS);
+}
+async function pollPreview(state){
+  state.timer=null;
+  if(refreshState!==state)return;
+  if(Date.now()>=state.deadline || !app.getHostCapabilities?.()?.serverTools){stopRefresh(true);return;}
+  // A previous project can still have an unabortable host request in flight.
+  // Never overlap it, and never apply its result to a new project or view.
+  if(refreshInFlight){scheduleRefresh(state);return;}
+  refreshInFlight=true;
+  try{
+    const result=await app.callServerTool({name:'video_preview_updates',arguments:{project_id:state.projectId}});
+    if(refreshState!==state)return;
+    const data=readData(result);
+    if(data.project_id!==state.projectId || !data.media)throw Error('No matching preview');
+    state.failures=0;present(data.media);
+    if(data.media.final===true){stopRefresh(true);return;}
+  }catch{
+    if(refreshState===state && ++state.failures>=3){stopRefresh(true);return;}
+  }finally{refreshInFlight=false;}
+  scheduleRefresh(state);
+}
+function receiveMediaResult(result){
+  const next=unpack(result);
+  if(!next){stopRefresh();return;}
+  const data=result.structuredContent;
+  const projectId=data?.project_id || data?.project_card?.id || data?.id;
+  if(projectId!==mediaProject){stopRefresh();mediaProject=projectId;render(next);}
+  else present(next);
+  if(next.final===true){stopRefresh(true);return;}
+  if(!projectId || !app.getHostCapabilities?.()?.serverTools)return;
+  if(refreshState?.projectId===projectId)return;
+  stopRefresh(true);
+  const state={projectId,deadline:Date.now()+REFRESH_LIMIT_MS,failures:0,timer:null,expiry:null};
+  refreshState=state;
+  state.expiry=setTimeout(()=>{if(refreshState===state)stopRefresh(true);},REFRESH_LIMIT_MS);
+  scheduleRefresh(state);
+}
 function render(next) {
   if (!next) return;
   media = next;
@@ -24,7 +85,10 @@ function render(next) {
     const video = next.media_type === "video/mp4";
     const element = document.createElement(video ? "video" : "img");
     element.src = next.url;
-    if (video) {element.controls=true; element.playsInline=true; element.preload="metadata";}
+    if (video) {
+      element.controls=true; element.playsInline=true; element.preload="metadata";
+      element.onpause=()=>settlePlayback(element);element.onended=()=>settlePlayback(element);
+    }
     else element.alt = next.caption || "Proposed video frame";
     element.onerror = () => {$("notice").textContent="The preview link expired. Ask Claude to show it again.";};
     $("media").replaceChildren(element);
@@ -32,16 +96,28 @@ function render(next) {
   }
   $("visual").hidden=false;
   $("download").hidden=next.media_type !== "video/mp4";
+  $('excerpt').hidden=next.truncated!==true;
+  if(next.truncated===true){
+    const seconds=Number(next.duration),total=Number(next.source_duration);
+    $('excerpt').textContent=Number.isFinite(seconds) && Number.isFinite(total)
+      ? `Preview excerpt · ${Math.round(seconds)}s of ${Math.round(total)}s`
+      : 'Preview excerpt · the full video is longer';
+  }
   $("notice").textContent="";
 }
 $("download").onclick=async()=>{
   if (media) await app.openLink({url:media.download_url || media.url + "&download=true"});
 };
 app.ontoolresult=(result)=>{
-  try {render(unpack(result));} catch(e){$("notice").textContent=e.message;}
+  try {receiveMediaResult(result);} catch(e){stopRefresh();$("notice").textContent=e.message;}
 };
 app.onhostcontextchanged=(context)=>{if(context.theme)applyDocumentTheme(context.theme);};
-app.onteardown=async()=>({});
+app.onteardown=async()=>{
+  stopRefresh();
+  const element=$('media').firstElementChild;
+  if(element){element.onpause=null;element.onended=null;}
+  return {};
+};
 
 
 // Choices are explicit user actions. No polling or automatic chat messages.
@@ -51,6 +127,7 @@ function readData(result){
   return result.structuredContent || JSON.parse(result.content.find(c=>c.type==='text').text);
 }
 function renderChoices(data){
+  stopRefresh();
   choiceData=data.choices;choiceProject=data.project_id;
   $('visual').hidden=true;$('choices').hidden=false;
   $('question').textContent=choiceData.question;
@@ -94,6 +171,7 @@ app.ontoolresult=result=>{
 
 let sourceState,sourceMeta,uploading=false;
 function renderSourcePicker(result){
+  stopRefresh();
   sourceState=result.structuredContent;sourceMeta=result._meta || {};
   $('choices').hidden=true;$('visual').hidden=true;$('sources').hidden=false;
   $('source-files').accept=sourceState.source_picker.accept;

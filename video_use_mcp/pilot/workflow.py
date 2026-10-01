@@ -560,7 +560,7 @@ def register_workflow(mcp, store, muser, new_project, read, write):
             creative=state,
             workflow=recipe,
             complementary_workflows=[workflow_summary(c) for c in supporting],
-            next_action="Read only relevant guidance not already available in context, then make progress. Offer at most one compact set of meaningful choices when helpful; keep working on independent parts. State reversible defaults instead of waiting for approval. Ask for a reply only when genuinely blocked or the user requests a checkpoint.",
+            next_action="Read only the relevant compact guidance not already in context. For original work, make one meaningful short motion excerpt visible before authoring the entire film; reuse it later. Show actual drafts immediately with show_video_preview, then continue. Offer a compact set of meaningful choices when helpful, state reversible defaults, and keep working on independent parts. Ask for a reply only when genuinely blocked or the user requests a checkpoint.",
             capabilities={
                 "render": "Python, Manim, FFmpeg, browser motion and bounded procedural Three.js",
                 "generative_video": False,
@@ -669,5 +669,5 @@ def register_workflow(mcp, store, muser, new_project, read, write):
         return dict(
             project_id=project_id,
             creative=state,
-            next_action="Use a script, EDL or scene description only where it helps this kind of piece; batch sources and independent renders in run_video_step. Show a meaningful motion draft, not an arbitrary first frame. Continue through review and export unless real input is missing.",
+            next_action="Batch sources and independent renders in run_video_step. For original work, prove one meaningful motion excerpt before coding all remaining scenes. Include preview_path and show it with show_video_preview as soon as ready, before more authoring or review. Continue through export unless real input is missing.",
         )
