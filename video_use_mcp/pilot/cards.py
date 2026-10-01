@@ -227,7 +227,7 @@ def register_cards(
                         "https://f7e2vbn5.us-west.insforge.app",
                         "https://cdn.insforge.dev",
                     ],
-                    "connectDomains": [],
+                    "connectDomains": [config.public_url],
                 },
             },
         },
@@ -240,6 +240,7 @@ def register_cards(
         "ui://video-use/project-v2.html",
         "ui://video-use/project-v3.html",
         "ui://video-use/media-v4.html",
+        "ui://video-use/media-v5.html",
     ):
         mcp.resource(
             legacy_uri,
@@ -253,7 +254,7 @@ def register_cards(
                             "https://f7e2vbn5.us-west.insforge.app",
                             "https://cdn.insforge.dev",
                         ],
-                        "connectDomains": [],
+                        "connectDomains": [config.public_url],
                     },
                 }
             },

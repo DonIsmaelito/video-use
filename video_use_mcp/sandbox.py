@@ -17,9 +17,12 @@ def worker_image():
         modal.Image.from_registry("node:22-bookworm-slim", add_python="3.12")
         .apt_install(
             "ffmpeg",
+            "poppler-utils",
             "chromium",
             "fonts-dejavu-core",
             "fonts-liberation",
+            "fonts-noto-core",
+            "fonts-noto-cjk",
             "libcairo2-dev",
             "libpango1.0-dev",
             "pkg-config",
@@ -37,8 +40,17 @@ def worker_image():
             "matplotlib",
             "pillow",
             "numpy",
+            "pypdf>=5,<7",
             "manim>=0.19,<0.20",
             "opencv-python-headless>=4.8,<5",
+        )
+        # Manim's default MathTex template needs standalone, AMS fonts and SVG
+        # conversion. Keep this separate from the Python build cache.
+        .apt_install(
+            "texlive-latex-base",
+            "texlive-latex-extra",
+            "texlive-fonts-recommended",
+            "dvisvgm",
         )
         .add_local_dir(
             ROOT / "helpers",
@@ -62,6 +74,7 @@ def worker_image():
                 "CHROME_PATH": "/usr/bin/chromium",
                 "PYTHONPATH": "/opt/video-use",
                 "PYTHONUNBUFFERED": "1",
+                "VIDEO_USE_ISOLATED_WORKER": "1",
             }
         )
     )

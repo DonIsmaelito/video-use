@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Original speaker assembly proof</title>
+<style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#e8e6e0}canvas{display:block;width:100%;height:100%}</style>
+<script type="importmap">{"imports":{"three":"./vendor/three/three.module.js","three/addons/":"./vendor/three/addons/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
+
+// A wordless product study, not a physically accurate speaker engineering model.
+// All dimensions, materials and timing are authored here; no external assets.
+const width = 640, height = 360;
+const renderer = new THREE.WebGLRenderer({antialias:true,alpha:false,preserveDrawingBuffer:true});
+renderer.setSize(width,height);
+renderer.setPixelRatio(1);
+renderer.outputColorSpace=THREE.SRGBColorSpace;
+renderer.toneMapping=THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure=1.1;
+renderer.shadowMap.enabled=true;
+renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+document.body.append(renderer.domElement);
+
+const scene=new THREE.Scene();
+scene.background=new THREE.Color('#e8e6e0');
+const environment=new RoomEnvironment();
+const pmrem=new THREE.PMREMGenerator(renderer);
+scene.environment=pmrem.fromScene(environment,0.04).texture;
+scene.environmentIntensity=0.65;
+environment.dispose();
+pmrem.dispose();
+
+const camera=new THREE.OrthographicCamera(-4.3,4.3,2.41875,-2.41875,0.1,100);
+const key=new THREE.DirectionalLight('#fff2dc',4.4);
+key.position.set(0,6,6);
+key.castShadow=true;
+key.shadow.mapSize.set(1024,1024);
+key.shadow.camera.left=-6;key.shadow.camera.right=6;
+key.shadow.camera.top=5;key.shadow.camera.bottom=-5;
+key.shadow.normalBias=0.025;
+key.shadow.bias=-0.0002;
+scene.add(key);
+const rim=new THREE.DirectionalLight('#d9edff',2.4);
+rim.position.set(-4,3,-5);scene.add(rim);
+scene.add(new THREE.HemisphereLight('#fffaf0','#858074',1.5));
+
+const ground=new THREE.Mesh(new THREE.PlaneGeometry(200,200),new THREE.MeshStandardMaterial({color:'#e8e6e0',roughness:1}));
+ground.rotation.x=-Math.PI/2;ground.position.y=-1.25;ground.receiveShadow=true;scene.add(ground);
+
+const graphite=new THREE.MeshStandardMaterial({color:'#242b2d',roughness:0.42,metalness:0.18});
+const shellMaterial=new THREE.MeshStandardMaterial({color:'#3c605d',roughness:0.3,metalness:0.42});
+const copper=new THREE.MeshStandardMaterial({color:'#b76c3b',roughness:0.25,metalness:0.85});
+const rubber=new THREE.MeshStandardMaterial({color:'#151a1b',roughness:0.68,metalness:0});
+const grilleMaterial=new THREE.MeshStandardMaterial({color:'#89948f',roughness:0.38,metalness:0.74});
+const holesMaterial=new THREE.MeshStandardMaterial({color:'#182222',roughness:0.9,metalness:0.05});
+
+function addMesh(group,geometry,material,x=0){
+  const mesh=new THREE.Mesh(geometry,material);mesh.position.x=x;
+  mesh.castShadow=true;mesh.receiveShadow=true;group.add(mesh);return mesh;
+}
+function cylinder(radius,length,material,group,x=0){
+  const mesh=addMesh(group,new THREE.CylinderGeometry(radius,radius,length,96),material,x);
+  mesh.rotation.z=-Math.PI/2;return mesh;
+}
+function torus(radius,tube,material,group,x=0){
+  const mesh=addMesh(group,new THREE.TorusGeometry(radius,tube,12,96),material,x);
+  mesh.rotation.y=Math.PI/2;return mesh;
+}
+function ring(outer,inner,length,material,group,x=0){
+  const shape=new THREE.Shape();shape.absarc(0,0,outer,0,2*Math.PI,false);
+  const hole=new THREE.Path();hole.absarc(0,0,inner,0,2*Math.PI,true);shape.holes.push(hole);
+  const geometry=new THREE.ExtrudeGeometry(shape,{depth:length,bevelEnabled:true,bevelThickness:0.025,bevelSize:0.022,bevelSegments:3,curveSegments:80,steps:1});
+  geometry.translate(0,0,-length/2);geometry.rotateY(Math.PI/2);
+  return addMesh(group,geometry,material,x);
+}
+
+const shell=new THREE.Group();scene.add(shell);
+ring(1.12,0.99,0.9,shellMaterial,shell);
+cylinder(1.08,0.07,shellMaterial,shell,-0.46);
+torus(1.086,0.025,grilleMaterial,shell,0.44);
+// Three restrained body seams make rotation and shell depth legible.
+for(const x of [-0.3,-0.05,0.2])torus(1.122,0.011,graphite,shell,x);
+const button=addMesh(shell,new THREE.BoxGeometry(0.26,0.045,0.075),graphite,-0.05);
+button.position.y=1.12;
+
+const coil=new THREE.Group();scene.add(coil);
+ring(0.68,0.43,0.23,copper,coil);
+for(let i=0;i<12;i++)torus(0.674,0.012,copper,coil,-0.095+i*0.017);
+cylinder(0.44,0.36,graphite,coil,-0.025);
+
+const driver=new THREE.Group();scene.add(driver);
+const coneProfile=[[0.18,-0.22],[0.29,-0.18],[0.47,-0.13],[0.79,0.035],[0.94,0.065],[1.005,0.02]].map(([r,y])=>new THREE.Vector2(r,y));
+const cone=addMesh(driver,new THREE.LatheGeometry(coneProfile,128),graphite);
+cone.rotation.z=-Math.PI/2;cone.material=new THREE.MeshStandardMaterial({color:'#31383a',roughness:0.58,metalness:0.1,side:THREE.DoubleSide});
+torus(0.945,0.075,rubber,driver,0.06);
+const dome=addMesh(driver,new THREE.SphereGeometry(0.295,48,32),graphite,-0.09);
+dome.scale.set(0.6,1,1);
+ring(1.06,1.00,0.11,graphite,driver,0.025);
+
+const grille=new THREE.Group();scene.add(grille);
+cylinder(1.03,0.04,grilleMaterial,grille);
+torus(1.033,0.044,shellMaterial,grille,0.015);
+// The perforation pattern is deterministic instanced geometry, not a texture.
+const dots=[];
+for(let row=-14;row<=14;row++)for(let column=-14;column<=14;column++){
+  const y=row*0.0615,z=column*0.071+(row%2?0.0355:0);
+  if(y*y+z*z<0.94*0.94)dots.push([y,z]);
+}
+const holes=new THREE.InstancedMesh(new THREE.CircleGeometry(0.018,8),holesMaterial,dots.length);
+const dummy=new THREE.Object3D();
+dots.forEach(([y,z],index)=>{dummy.position.set(0.022,y,z);dummy.rotation.y=Math.PI/2;dummy.updateMatrix();holes.setMatrixAt(index,dummy.matrix);});
+grille.add(holes);
+
+const smooth=value=>{const x=Math.min(1,Math.max(0,value));return x*x*x*(x*(x*6-15)+10);};
+const mix=(a,b,t)=>a+(b-a)*t;
+window.seek=(seconds)=>{
+  const t=Math.max(0,Math.min(3,Number(seconds)));
+  const spread=smooth((t-0.28)/1.55);
+  shell.position.x=mix(-0.3,-2.04,spread);
+  coil.position.x=mix(-0.09,-0.66,smooth((t-0.35)/1.5));
+  driver.position.x=mix(0.28,0.55,smooth((t-0.45)/1.5));
+  grille.position.x=mix(0.46,1.82,smooth((t-0.3)/1.5));
+  // A small absolute camera move reveals thickness without obscuring the parts.
+  camera.position.set(mix(6.2,5.3,spread),3.25,8.4);
+  camera.lookAt(-0.2,0,0);
+  camera.updateMatrixWorld();
+  renderer.render(scene,camera);
+};
+window.motionReady=renderer.compileAsync(scene,camera).then(()=>window.seek(0));
+</script>
+</html>

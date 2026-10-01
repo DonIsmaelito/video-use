@@ -181,6 +181,22 @@ class Manager:
             if pid in self.sessions:
                 v = self.sessions[pid]
                 if await v["sandbox"].instance.poll.aio() is None:
+                    if v.get("sources_dirty"):
+                        # Preserve expensive rendered caches in a healthy worker.
+                        # Only session loss below recreates from checkpoint.
+                        with tempfile.TemporaryDirectory() as tmp:
+                            for obj in self.store.sql(
+                                "SELECT * FROM public.vp_objects WHERE project=$1 AND kind='source'",
+                                pid,
+                            ):
+                                local = Path(tmp) / obj["id"]
+                                await asyncio.to_thread(
+                                    self.store.download, obj["key"], local
+                                )
+                                await v["sandbox"].upload(
+                                    "sources/" + obj["name"], local
+                                )
+                        v["sources_dirty"] = False
                     v["touched"] = time.time()
                     return v["sandbox"]
                 await self.stop(pid)

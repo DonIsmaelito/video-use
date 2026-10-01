@@ -24,7 +24,22 @@ This is educational cinema. Every frame teaches. Every animation reveals structu
 
 ## Prerequisites
 
-Run `scripts/setup.sh` to verify all dependencies. Requires: Python 3.10+, Manim Community Edition v0.20+ (`pip install manim`), LaTeX (`texlive-full` on Linux, `mactex` on macOS), and ffmpeg. Reference docs tested against Manim CE v0.20.1.
+Run `scripts/setup.sh` to check local dependencies, then render one representative
+scene in the actual target environment. The browser worker uses Python 3.12 and
+Manim Community Edition `>=0.19,<0.20`; author against that installed version.
+The core scene, geometry, `MathTex`, and `TransformMatchingTex` APIs used here do
+not require v0.20. Some reference documents were written against v0.20.1, so
+check an unfamiliar API before relying on it or installing a different version.
+
+`Text` and geometric scenes do not need LaTeX. `Tex` and `MathTex` do: the default
+Manim v0.19 template requires `latex`, `dvisvgm`, the `standalone` document class,
+and the `babel`, `amsmath`, and `amssymb` packages. On Debian Bookworm, provision
+`texlive-latex-base`, `texlive-latex-extra`, `texlive-fonts-recommended`, and
+`dvisvgm`; on macOS, use a suitable MacTeX installation. A full TeX Live install
+is not required for the default template. Custom TeX templates can require
+additional packages. Verify an actual `MathTex` render rather than treating a
+successful `import manim` or a `pdflatex` check as proof that equations work.
+FFmpeg remains required for assembly and verification.
 
 ## Modes
 

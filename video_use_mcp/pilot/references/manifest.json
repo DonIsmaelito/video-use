@@ -60,6 +60,18 @@
       "authored": true,
       "url": "https://f7e2vbn5.us-west.insforge.app/api/storage/buckets/video-references/objects/starter-v1%2Fdemo_focus-a36f84f45480.mp4?v=aec00c228b8ca88de457dce126997e68",
       "poster_url": "https://f7e2vbn5.us-west.insforge.app/api/storage/buckets/video-references/objects/starter-v1%2Fdemo_focus-a36f84f45480.png?v=2882960a9bbaa6d0d886314d80be6b99"
+    },
+    "product_3d": {
+      "label": "Dimensional assembly",
+      "description": "A stylized 3D product opens to reveal its parts. Original procedural geometry.",
+      "sha256": "a87f73a5f8fd126ab1a115938a07080e842ad345c220e0401c6572257f94cab3",
+      "file": "product_3d.mp4",
+      "duration": 3,
+      "width": 640,
+      "height": 360,
+      "authored": true,
+      "url": "https://f7e2vbn5.us-west.insforge.app/api/storage/buckets/video-references/objects/starter-v2%2Fproduct-3d-a87f73a5f8fd.mp4?v=ad59ee49485e2bcf15df97c6f4535056",
+      "poster_url": "https://f7e2vbn5.us-west.insforge.app/api/storage/buckets/video-references/objects/starter-v2%2Fproduct-3d-a87f73a5f8fd.png?v=3a05c716a1ff6e6db340d93cb2eb396f"
     }
   }
 }

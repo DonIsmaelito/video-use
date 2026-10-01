@@ -37,6 +37,9 @@ for key, sample in manifest["samples"].items():
         )
         sample[field] = json.loads(result)["url"]
     print("Uploaded", key, flush=True)
-(root / "video_use_mcp/pilot/references/manifest.json").write_text(
-    json.dumps(manifest, indent=2) + "\n"
+manifest_path = root / "video_use_mcp/pilot/references/manifest.json"
+existing = (
+    json.loads(manifest_path.read_text()) if manifest_path.exists() else {"samples": {}}
 )
+manifest["samples"] = existing["samples"] | manifest["samples"]
+manifest_path.write_text(json.dumps(manifest, indent=2) + "\n")

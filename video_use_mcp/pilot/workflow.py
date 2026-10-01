@@ -1,6 +1,7 @@
 """Adaptive creative context. Preferences steer work; they are not approval gates."""
 
 import json
+from copy import deepcopy
 from pathlib import Path
 from typing import Literal
 
@@ -17,13 +18,18 @@ Category = Literal[
     "footage_story",
     "data_story",
     "generative",
+    "document_video",
+    "audio_first",
+    "personalized",
+    "procedural_3d",
+    "custom",
 ]
 RECIPES = {
     "explainer": dict(
         choices=["diagram", "editorial"],
         steps=[
             "Define the audience and one takeaway",
-            "Outline hook, mechanism, example, takeaway; vary this structure to fit the subject",
+            "Choose a structure that makes the mechanism, evidence or worked example understandable",
             "Write timed script and EDL; establish shared visual language",
             "Render independent scenes, assemble, inspect, export",
         ],
@@ -115,6 +121,367 @@ RECIPES = {
         checks="Character and scene continuity, available provider, explicit costs. This service currently has no generative-video provider.",
     ),
 }
+# These are composition hints, not a dispatch system. Existing category names
+# remain stable because project state and cached client schemas contain them.
+RECIPES.update(
+    {
+        "document_video": dict(
+            choices=[],
+            steps=[
+                "Extract and inspect the source, retaining page or slide references",
+                "Choose what to preserve, explain or omit for the intended audience",
+                "Compose narration and visuals around supported claims",
+                "Check source fidelity, pacing and document-specific caveats",
+            ],
+            question="Preserve the document's visual structure, or make a fresh visual explanation?",
+            independent="Extract the source and identify its central claims while visual direction is undecided.",
+            checks="Page and slide provenance, complete qualifiers, accurate numbers and readable visuals; extracted text is not a faithful slide rendering.",
+        ),
+        "audio_first": dict(
+            choices=["captions_quiet", "captions_bold"],
+            steps=[
+                "Inspect the audio and identify the relevant timing or spoken passage",
+                "Choose whether visuals support speech, lyrics, rhythm or mood",
+                "Build synchronized captions, imagery or audio-reactive motion",
+                "Review timing, audio quality and the complete viewing experience",
+            ],
+            question="Keep the voice in focus with subtle captions, or use a more expressive caption treatment?",
+            independent="Measure duration and waveform or transcribe speech before committing to the visual treatment.",
+            checks="No clipped audio or misleading speech edits; supplied lyrics and music timing need verification rather than assumed speech-ASR accuracy.",
+        ),
+        "personalized": dict(
+            choices=[],
+            steps=[
+                "Validate the recipient data and separate shared content from variable facts",
+                "Build one editable composition with explicit placeholders",
+                "Check a representative small sample before bounded parallel variants",
+                "Verify each output against its input record and requested language",
+            ],
+            question="Which details should feel personal, and which should stay identical across versions?",
+            independent="Validate records and establish shared structure without inventing recipient facts.",
+            checks="Correct recipient mapping, no cross-recipient data, locale-sensitive text and number formats, pronunciation and translation review.",
+        ),
+        "procedural_3d": dict(
+            choices=[],
+            steps=[
+                "Inspect the supplied model or define the geometry needed to communicate the idea",
+                "Prove geometry, lighting and the essential camera move cheaply",
+                "Animate from absolute time with local assets and reproducible controls",
+                "Inspect occlusion, surface quality, motion and render cost",
+            ],
+            question="Is fidelity to a real object essential, or can the visual be stylized?",
+            independent="Inspect available models and prototype geometry before committing to polish.",
+            checks="Real object fidelity when promised, local model dependencies, predictable camera and lighting; CPU/software WebGL is bounded and is not a photoreal render farm.",
+        ),
+        "custom": dict(
+            choices=[],
+            steps=[
+                "Identify the actual inputs, desired outcome and missing capabilities",
+                "Combine the relevant editing, motion, audio, data and scene primitives",
+                "Prove the uncertain part first, then build and inspect the piece",
+            ],
+            question="What should this help the viewer see, feel or do?",
+            independent="Inspect available material and test the uncertain operation without forcing the request into a template.",
+            checks="Honor the requested medium and source truth; expose missing providers instead of substituting a different task silently.",
+        ),
+    }
+)
+
+WORKFLOW_DETAILS = {
+    "explainer": dict(
+        label="Educational and explanatory",
+        inputs=[
+            "Topic, audience and desired takeaway",
+            "Source material for specialized or current claims",
+        ],
+        techniques=[
+            "Manim geometry and diagrams",
+            "Browser motion, typography and local images",
+            "Narration with word timing",
+        ],
+        decision_points=[
+            "Audience knowledge changes the level of explanation",
+            "An established visual direction already answers the style question",
+        ],
+        limitations=[
+            "No automatic factual research or source licensing; the host must supply verified facts and assets",
+            "No fixed hook-mechanism-example structure is required",
+        ],
+        guidance=["workflows", "manim-video", "motion-design"],
+    ),
+    "social_clips": dict(
+        label="Clips and social repurposing",
+        inputs=[
+            "Accessible source audio or video",
+            "Platform, audience or requested moments when specified",
+        ],
+        techniques=[
+            "Timed transcription and EDL selects",
+            "Reframing and speaker tracking",
+            "Caption and layout variants",
+        ],
+        decision_points=[
+            "Source selection matters more than a style picker",
+            "A caption example helps only when caption presentation is unresolved",
+        ],
+        limitations=[
+            "A watch-page URL is not a downloadable media file",
+            "Network-blocked rendering cannot scrape YouTube or read private cloud accounts",
+        ],
+        guidance=["workflows", "overview"],
+    ),
+    "precise_edit": dict(
+        label="Specific edits and repairs",
+        inputs=[
+            "Accessible source",
+            "The requested change and enough timing context to locate it",
+        ],
+        techniques=[
+            "EDL cuts",
+            "Audio and color treatment",
+            "Captions, crop, overlays and re-encoding",
+        ],
+        decision_points=[
+            "Ask only when a requested edit is ambiguous or would alter intended content"
+        ],
+        limitations=[
+            "Removing a segment, cropping or masking is supported; generative object removal or reconstruction is not configured"
+        ],
+        guidance=["workflows", "overview"],
+    ),
+    "software_demo": dict(
+        label="Software demonstrations and tutorials",
+        inputs=[
+            "Real recordings or screenshots and relevant product version",
+            "The action or user outcome being demonstrated",
+        ],
+        techniques=[
+            "Screen crops and callouts",
+            "Tracked overlays",
+            "Timed narration, captions and interface-focused motion",
+        ],
+        decision_points=[
+            "Demonstrating a real workflow requires real UI evidence",
+            "A fictional or conceptual mockup must be identified as such",
+        ],
+        limitations=[
+            "No logged-in browser capture or remote product session is provided",
+            "The host may supply capture from another tool; video-use cannot inherit it implicitly",
+        ],
+        guidance=["workflows", "overview", "motion-design"],
+    ),
+    "brand": dict(
+        label="Marketing and commercial",
+        inputs=[
+            "Product facts, brand assets and audience",
+            "A real offer or call to action if requested",
+        ],
+        techniques=[
+            "Product and photo sequences",
+            "Motion graphics, typography and local 3D",
+            "Editable variant compositions",
+        ],
+        decision_points=[
+            "A brand constraint, product truth or offer matters more than selecting a default template",
+            "Show a visual reference only when materially different directions remain plausible",
+        ],
+        limitations=[
+            "No automatic product photography, stock library, ad placement or conversion-testing service",
+            "Do not invent testimonials, ratings, features, prices or offers",
+        ],
+        guidance=["workflows", "motion-design"],
+    ),
+    "footage_story": dict(
+        label="Personal footage and montages",
+        inputs=[
+            "User-selected footage, photos and optional music",
+            "Any important people, moments, order or exclusions",
+        ],
+        techniques=[
+            "Photo and video sequencing",
+            "Transcript-led or visual selects",
+            "Sound transitions, titles and reframing",
+        ],
+        decision_points=[
+            "Meaningful relationships, chronology and sensitive omissions may need a short question",
+            "Default pacing is reversible; a mandatory template choice is unnecessary",
+        ],
+        limitations=[
+            "No implicit access to Photos, Drive or local user folders",
+            "Source provenance and real chronology must be preserved",
+        ],
+        guidance=["workflows", "overview"],
+    ),
+    "data_story": dict(
+        label="Data and quantitative stories",
+        inputs=[
+            "A readable dataset with units, dates and definitions",
+            "The comparison or question the viewer should understand",
+        ],
+        techniques=[
+            "CSV/TSV/JSON/XLSX inspection",
+            "Manim or browser charts and maps from local geometry",
+            "Parameterized chart scenes",
+        ],
+        decision_points=[
+            "Ask about conflicting units or incomparable measures",
+            "Choose the chart to explain the data rather than enforce a visual preset",
+        ],
+        limitations=[
+            "No live stock, weather, election or sports feed is configured",
+            "Parsing data does not verify provenance or make missing values zero",
+        ],
+        guidance=["workflows", "manim-video", "motion-design"],
+    ),
+    "generative": dict(
+        label="Generative and hybrid footage",
+        inputs=[
+            "Supplied generated media or an explicitly available external provider",
+            "Continuity references and an intended shot list",
+        ],
+        techniques=[
+            "Editing supplied generated clips",
+            "Compositing, sound and caption finishing",
+            "Procedural alternatives only when they fit the user's request",
+        ],
+        decision_points=[
+            "Provider availability, asset continuity and generation budget change feasibility"
+        ],
+        limitations=[
+            "No generative-video or image provider is configured in this MCP",
+            "Do not relabel procedural animation as model-generated footage",
+        ],
+        guidance=["workflows", "overview", "motion-design"],
+    ),
+    "document_video": dict(
+        label="Documents and presentations to video",
+        inputs=[
+            "Readable PDF, DOCX, PPTX, plain text or Markdown",
+            "Desired audience and relationship to the original document",
+        ],
+        techniques=[
+            "Document extraction with page or slide references",
+            "Re-authored narration and visual explanation",
+            "PDF page rasterization and supplied slide images with timing",
+        ],
+        decision_points=[
+            "Faithful presentation versus editorial adaptation can change the whole result",
+            "Dense claims may need shorter coverage rather than faster reading",
+        ],
+        limitations=[
+            "Text extraction does not preserve slide layout, animation, scanned text or all document graphics; PDF page rasterization preserves appearance separately",
+            "For exact presentation appearance, request slide images or a rendered PDF; no Office renderer or OCR is bundled",
+        ],
+        guidance=["workflows", "manim-video", "motion-design"],
+    ),
+    "audio_first": dict(
+        label="Podcasts, lyrics and audio-led visuals",
+        inputs=[
+            "Supplied speech or music",
+            "Cover art, timed lyrics or the desired visual intent where relevant",
+        ],
+        techniques=[
+            "Audio-first picture sequences",
+            "Waveform and spectral analysis",
+            "Audio-reactive browser motion",
+            "Word-timed speech captions",
+        ],
+        decision_points=[
+            "Music, speech and lyrics require different timing evidence",
+            "An established cover or visualizer request rarely needs a caption style picker",
+        ],
+        limitations=[
+            "No music generation, stem separation or reliable singing alignment service is configured",
+            "Long episodes may exceed per-task or daily compute limits",
+        ],
+        guidance=["workflows", "overview", "motion-design"],
+    ),
+    "personalized": dict(
+        label="Personalized versions and localization",
+        inputs=[
+            "Explicit recipient or locale records",
+            "Shared content and clearly defined variable fields",
+        ],
+        techniques=[
+            "Data-bound text and scenes",
+            "A small set of independent render components",
+            "Host-authored translations and supplied or configured narration",
+        ],
+        decision_points=[
+            "Validate representative long names, scripts and missing fields before scaling",
+            "Consent to a sample video does not imply external distribution",
+        ],
+        limitations=[
+            "Bounded small batches, not a campaign scheduler or mailer",
+            "The speech tool uses one configured voice; voice cloning, lip sync and guaranteed multilingual dubbing are not implemented",
+        ],
+        guidance=["workflows", "motion-design", "overview"],
+    ),
+    "procedural_3d": dict(
+        label="3D and procedural animation",
+        inputs=[
+            "An achievable geometric concept or an explicitly supplied local model",
+            "Reference views if exact physical appearance matters",
+        ],
+        techniques=[
+            "Three.js procedural meshes and local GLB/glTF",
+            "Manim mathematical 3D",
+            "Deterministic browser capture and compositing",
+        ],
+        decision_points=[
+            "Exact product geometry requires appropriate assets",
+            "Prove a complex model loads and renders before designing a long shot",
+        ],
+        limitations=[
+            "Software WebGL with CPU and memory bounds; no dedicated GPU render service",
+            "No Blender, CAD/BIM conversion, architectural model reconstruction or guaranteed photorealism",
+        ],
+        guidance=["workflows", "motion-design", "manim-video"],
+    ),
+    "custom": dict(
+        label="Other or mixed requests",
+        inputs=["Whatever material and constraints the intended result needs"],
+        techniques=["Compose existing media, scene, data and audio primitives"],
+        decision_points=[
+            "Ask about the uncertain dependency rather than forcing a category questionnaire"
+        ],
+        limitations=[
+            "Check the live capability report before promising an unfamiliar provider or renderer"
+        ],
+        guidance=["workflows"],
+    ),
+}
+
+
+def workflow_summary(category: str) -> dict:
+    """Return independent suggestions; callers may compose or ignore them."""
+    if category not in RECIPES:
+        raise ValueError(
+            "Unknown video category; use custom for a mixed or unfamiliar request"
+        )
+    recipe = deepcopy(RECIPES[category])
+    recipe["building_blocks"] = recipe.pop("steps")
+    return dict(
+        category=category,
+        **deepcopy(WORKFLOW_DETAILS[category]),
+        **recipe,
+        structure="Suggestions, not a required sequence or a fixed visual template. Combine workflows as needed.",
+    )
+
+
+def workflow_catalog() -> list[dict]:
+    """Compact discovery; detailed hints are retrieved only for relevant work."""
+    return [
+        dict(
+            category=key,
+            label=value["label"],
+            inputs=deepcopy(value["inputs"]),
+            techniques=deepcopy(value["techniques"]),
+        )
+        for key, value in WORKFLOW_DETAILS.items()
+    ]
+
+
 MANIFEST = Path(__file__).parent / "references" / "manifest.json"
 
 
@@ -141,19 +508,24 @@ def register_workflow(mcp, store, muser, new_project, read, write):
         title: str,
         brief: str,
         category: Category,
-        preferences: str = "",
+        preferences: str | None = None,
         project_id: str = "",
+        supporting_categories: list[Category] | None = None,
     ) -> dict:
-        """Start here for a new request. Infer category from intent, not a questionnaire. Save what the user ALREADY specified in preferences; do not invent answers. No workspace card, render or first-frame approval. Returns a tailored workflow. Use show_video_choices only if an unresolved creative choice would materially change the result. Precise edits execute directly. Missing source is a genuine blocker; style is usually a reversible default. Reuse project_id to revise the brief."""
+        """Start here for a new request. Infer category from intent, not a questionnaire. Save what the user ALREADY specified in preferences; do not invent answers. Omit preferences to preserve an existing direction, or send an empty string to clear it. No workspace card, render or first-frame approval. Returns flexible suggestions, not a fixed sequence or layout. Combine up to three supporting_categories when a request crosses media; use custom rather than forcing an unfamiliar request into a preset. Use show_video_choices only if an unresolved creative choice would materially change the result. Precise edits execute directly. Missing source is a genuine blocker; style is usually a reversible default. Reuse project_id to revise the brief."""
         uid = muser(True)
         if (
             not title.strip()
             or len(title) > 120
             or not brief.strip()
             or len(brief) > 4000
-            or len(preferences) > 2000
+            or (preferences is not None and len(preferences) > 2000)
         ):
             raise ValueError("Keep title, brief and preferences concise")
+        if supporting_categories is not None and len(supporting_categories) > 3:
+            raise ValueError(
+                "Use at most three supporting categories; the categories are hints, not a checklist"
+            )
         if project_id:
             store.project(uid, project_id)
         pid = project_id or new_project(uid, title)["id"]
@@ -163,47 +535,71 @@ def register_workflow(mcp, store, muser, new_project, read, write):
                 "revision": old["revision"],
                 "choice_revision": old.get("choice_revision", 0),
             }
+        supporting = list(
+            dict.fromkeys(
+                supporting_categories
+                if supporting_categories is not None
+                else old.get("supporting_categories", [])
+            )
+        )
+        supporting = [c for c in supporting if c != category]
         state = old | dict(
             category=category,
+            supporting_categories=supporting,
             brief=brief,
-            preferences=preferences,
+            preferences=preferences
+            if preferences is not None
+            else old.get("preferences", ""),
             revision=old.get("revision", 0) + 1,
             choice_revision=old.get("choice_revision", 0) + 1,
         )
         store.put("creative", pid, state)
-        recipe = RECIPES[category]
+        recipe = workflow_summary(category)
         return dict(
             project_id=pid,
             creative=state,
             workflow=recipe,
-            next_action="Read the relevant harness guidance, then make progress. Offer at most one compact set of meaningful choices when helpful; keep working on independent parts. State reversible defaults instead of waiting for approval. Ask for a reply only when genuinely blocked or the user requests a checkpoint.",
+            complementary_workflows=[workflow_summary(c) for c in supporting],
+            next_action="Read only relevant guidance not already available in context, then make progress. Offer at most one compact set of meaningful choices when helpful; keep working on independent parts. State reversible defaults instead of waiting for approval. Ask for a reply only when genuinely blocked or the user requests a checkpoint.",
             capabilities={
-                "render": "Python, Manim, FFmpeg, browser motion",
+                "render": "Python, Manim, FFmpeg, browser motion and bounded procedural Three.js",
                 "generative_video": False,
+                "automatic_research_or_screen_capture": False,
+                "campaign_delivery": False,
                 "user_cloud_accounts": "Not automatically shared by the chat host; use explicitly supplied accessible assets.",
             },
         )
 
     @mcp.tool(annotations=write, meta=UI_META, title="Choose a visual approach")
     def show_video_choices(
-        project_id: str, question: str = "", recommended: str = ""
+        project_id: str,
+        question: str = "",
+        recommended: str = "",
+        reference_ids: list[str] = [],
     ) -> CallToolResult:
-        """Optional: show TWO cached motion references for an unresolved high-impact choice. Skip if the user specified a style, delegated choices, or requested a precise edit. Samples are references, NOT user drafts. Explain your default briefly and continue independent work. A click saves preference; do not require a click to proceed. Free-form chat can override these examples."""
+        """Optional: show 2–3 cached motion references for an unresolved high-impact choice. These examples illustrate a technique, not coverage of every category; skip them when they do not fit (for example a music visualizer, faithful slide conversion or supplied style reference). Skip if the user specified a style, delegated choices, or requested a precise edit. Samples are references, NOT user drafts. Explain your default briefly and continue independent work. A click saves preference; do not require a click to proceed. Free-form chat can override these examples."""
         uid = muser(True)
         state = context(uid, project_id)
         recipe = RECIPES[state["category"]]
-        if not recipe["choices"]:
+        offered = reference_ids or recipe["choices"]
+        if not offered:
             raise ValueError(
                 "This workflow does not need a style picker; ask a brief question only if necessary"
             )
-        if len(question) > 300 or (
-            recommended and recommended not in recipe["choices"]
-        ):
-            raise ValueError("Choose a recommended reference from this workflow")
         samples = catalog()
-        options = [samples[k] | {"id": k} for k in recipe["choices"]]
-        state["offered"] = recipe["choices"]
-        state["default"] = recommended or recipe["choices"][0]
+        if (
+            not 2 <= len(offered) <= 3
+            or len(set(offered)) != len(offered)
+            or any(k not in samples for k in offered)
+        ):
+            raise ValueError(
+                "Choose two or three distinct references from video_use_capabilities"
+            )
+        if len(question) > 300 or (recommended and recommended not in offered):
+            raise ValueError("Choose a recommended reference from this workflow")
+        options = [samples[k] | {"id": k} for k in offered]
+        state["offered"] = offered
+        state["default"] = recommended or offered[0]
         store.put("creative", project_id, state)
         data = dict(
             project_id=project_id,
@@ -273,5 +669,5 @@ def register_workflow(mcp, store, muser, new_project, read, write):
         return dict(
             project_id=project_id,
             creative=state,
-            next_action="Write the script and EDL; batch sources and independent renders in run_video_step. Show a meaningful motion draft, not an arbitrary first frame. Continue through review and export unless real input is missing.",
+            next_action="Use a script, EDL or scene description only where it helps this kind of piece; batch sources and independent renders in run_video_step. Show a meaningful motion draft, not an arbitrary first frame. Continue through review and export unless real input is missing.",
         )

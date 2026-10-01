@@ -10,11 +10,13 @@ figure{margin:0}img,video{display:block;width:100%;height:auto;max-height:540px;
 #download{display:block;margin:8px 0 0 auto;padding:6px 10px;border:0;border-radius:5px;background:transparent;color:inherit;font:inherit;font-size:12px;cursor:pointer}
 #download:hover{text-decoration:underline}#download:focus-visible{outline:2px solid #a879ef;outline-offset:2px}
 #options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.option video{border-radius:8px}.option button{font:inherit;font-size:14px;margin-top:8px;padding:7px 12px;border:1px solid #8d70b7;border-radius:7px;background:transparent;color:inherit;cursor:pointer}.option button[aria-pressed=true]{background:#673dac;color:white}.option p,#sample-label{font-size:12px;opacity:.7;margin:5px 0}#question{font-size:16px;margin:0 0 10px}@media(max-width:440px){#options{grid-template-columns:1fr}}
+.source-select{display:flex;gap:12px;align-items:center;padding:16px 0}.source-select input{max-width:70%;font:inherit;font-size:13px}#source-library,#source-fallback{font:inherit;font-size:12px;background:transparent;color:inherit;border:1px solid #8d70b7;border-radius:6px;padding:6px 10px;cursor:pointer;margin:4px 8px 0 0}#source-status{font-size:13px}
 #notice{font-size:12px;margin:6px 0}#notice:empty,[hidden]{display:none!important}
 </style>
 </head>
 <body>
 <section id="choices" hidden><p id="question"></p><div id="options"></div><p id="sample-label">Style references · You can also describe your own direction.</p></section>
+<section id="sources" hidden><label class="source-select">Add your files<input id="source-files" type="file" multiple></label><button id="source-library" hidden>Choose from ChatGPT files</button><button id="source-fallback">Open upload page</button><p id="source-status" role="status"></p></section>
 <figure id="visual" hidden><div id="media"></div><button id="download" hidden>Download MP4</button></figure>
 <p id="notice" role="status"></p>
 <script>/* APP_BUNDLE */</script>

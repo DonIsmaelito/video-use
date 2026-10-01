@@ -271,7 +271,12 @@ export async function render(options) {
   const started = Date.now();
   const failOnErrors = () => { if (errors.length) throw new Error(`Browser render failed:\n${[...new Set(errors)].join('\n')}`); };
   try {
-    browser = await puppeteer.launch({ executablePath, headless: true, args: ['--force-color-profile=srgb', '--hide-scrollbars', '--disable-accelerated-2d-canvas', '--disable-background-timer-throttling', '--disable-renderer-backgrounding', '--autoplay-policy=no-user-gesture-required'], defaultViewport: { width: options.width, height: options.height, deviceScaleFactor: 1 } });
+    const browserArgs = ['--force-color-profile=srgb', '--hide-scrollbars', '--disable-accelerated-2d-canvas', '--disable-background-timer-throttling', '--disable-renderer-backgrounding', '--autoplay-policy=no-user-gesture-required'];
+    // The secret-free, network-blocked Modal worker is the isolation boundary.
+    // Its root Chromium cannot start the nested OS sandbox. Local browsers keep
+    // their normal sandbox unless this explicit deployment setting is present.
+    if (process.env.VIDEO_USE_ISOLATED_WORKER === '1') browserArgs.push('--no-sandbox');
+    browser = await puppeteer.launch({ executablePath, headless: true, args: browserArgs, defaultViewport: { width: options.width, height: options.height, deviceScaleFactor: 1 } });
     const page = await browser.newPage();
     page.setDefaultTimeout(options.timeout);
     page.setDefaultNavigationTimeout(options.timeout);
