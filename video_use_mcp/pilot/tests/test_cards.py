@@ -28,7 +28,7 @@ def test_ui_discovery_and_resource_security_metadata(pilot):
     tools = rpc(pilot, "tools/list", {})["tools"]
     by_name = {t["name"]: t for t in tools}
     assert "create_video_project" not in by_name and "run_video_command" not in by_name
-    assert by_name["propose_video"]["_meta"]["ui"]["resourceUri"] == UI_URI
+    assert by_name["show_video_choices"]["_meta"]["ui"]["resourceUri"] == UI_URI
     assert by_name["show_video_preview"]["_meta"]["ui"]["resourceUri"] == UI_URI
     for name in (
         "run_video_step",
@@ -44,7 +44,8 @@ def test_ui_discovery_and_resource_security_metadata(pilot):
     resource = rpc(pilot, "resources/read", {"uri": UI_URI})["contents"][0]
     assert resource["mimeType"] == "text/html;profile=mcp-app"
     assert resource["_meta"]["ui"]["csp"]["resourceDomains"] == [
-        "http://localhost:8787"
+        "http://localhost:8787",
+        "https://f7e2vbn5.us-west.insforge.app"
     ]
     assert "/* APP_BUNDLE */" not in resource["text"]
     assert "video_project_updates" not in resource["text"]

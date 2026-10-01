@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "samples": {
+    "diagram": {
+      "label": "Diagram-led",
+      "description": "Show the mechanism through geometry and relationships.",
+      "sha256": "b33fd8833d171906bd5bf1e5dee7f192f733a9ab1974ef1bb3c83e3315e8f719",
+      "file": "diagram.mp4",
+      "duration": 4,
+      "width": 960,
+      "height": 540,
+      "authored": true,
+      "url": "https://f7e2vbn5.us-west.insforge.app/api/storage/buckets/video-references/objects/starter-v1%2Fdiagram-b33fd8833d17.mp4?v=5b2db4cd070f8a4655456d571eb0ea51",
+      "poster_url": "https://f7e2vbn5.us-west.insforge.app/api/storage/buckets/video-references/objects/starter-v1%2Fdiagram-b33fd8833d17.png?v=c1dbecdb25a2c8b15a0683d1a31a2481"
+    },
+    "editorial": {
+      "label": "Editorial motion",
+      "description": "Illustration, bold type and a more tactile visual story.",
+      "sha256": "72ebd38c8028d78a0dbd1708727c697e37aba032d121b4d1018724d90c17be0a",
+      "file": "editorial.mp4",
+      "duration": 4,
+      "width": 960,
+      "height": 540,
+      "authored": true,
+      "url": "https://f7e2vbn5.us-west.insforge.app/api/storage/buckets/video-references/objects/starter-v1%2Feditorial-72ebd38c8028.mp4?v=c63444d0f62a8fbd71b11923d3ee3311",
+      "poster_url": "https://f7e2vbn5.us-west.insforge.app/api/storage/buckets/video-references/objects/starter-v1%2Feditorial-72ebd38c8028.png?v=3afbbb9ff97fb2eaa57a690fb8aa2838"
+    },
+    "captions_quiet": {
+      "label": "Quiet captions",
+      "description": "Restrained subtitles that keep attention on the speaker.",
+      "sha256": "5bf8e5b67c91dece3afe26b65fdd9b2f9a2d95e000c099182f58fceb8d6641ea",
+      "file": "captions_quiet.mp4",
+      "duration": 4,
+      "width": 960,
+      "height": 540,
+      "authored": true,
+      "url": "https://f7e2vbn5.us-west.insforge.app/api/storage/buckets/video-references/objects/starter-v1%2Fcaptions_quiet-5bf8e5b67c91.mp4?v=f986e12a848df414674b6ab8ad974ec9",
+      "poster_url": "https://f7e2vbn5.us-west.insforge.app/api/storage/buckets/video-references/objects/starter-v1%2Fcaptions_quiet-5bf8e5b67c91.png?v=5935db04604e6065b060fccaf10d2011"
+    },
+    "captions_bold": {
+      "label": "Emphasized captions",
+      "description": "Higher contrast and stronger emphasis for short clips.",
+      "sha256": "5700ba79aa5e0d4c409338d45b1841b248bbcff5486814fa54a7fb92df09badb",
+      "file": "captions_bold.mp4",
+      "duration": 4,
+      "width": 960,
+      "height": 540,
+      "authored": true,
+      "url": "https://f7e2vbn5.us-west.insforge.app/api/storage/buckets/video-references/objects/starter-v1%2Fcaptions_bold-5700ba79aa5e.mp4?v=81bf7604e1fc075885e37e4f36171b17",
+      "poster_url": "https://f7e2vbn5.us-west.insforge.app/api/storage/buckets/video-references/objects/starter-v1%2Fcaptions_bold-5700ba79aa5e.png?v=6310abad0f7b738ccd95b364a57d64bb"
+    },
+    "demo_focus": {
+      "label": "Interface focus",
+      "description": "Readable actions, focused zooms and restrained callouts.",
+      "sha256": "a36f84f454803b9218195f364812d7bf2699f335fb1fe34d24094d724e7dcc5b",
+      "file": "demo_focus.mp4",
+      "duration": 4,
+      "width": 960,
+      "height": 540,
+      "authored": true,
+      "url": "https://f7e2vbn5.us-west.insforge.app/api/storage/buckets/video-references/objects/starter-v1%2Fdemo_focus-a36f84f45480.mp4?v=aec00c228b8ca88de457dce126997e68",
+      "poster_url": "https://f7e2vbn5.us-west.insforge.app/api/storage/buckets/video-references/objects/starter-v1%2Fdemo_focus-a36f84f45480.png?v=2882960a9bbaa6d0d886314d80be6b99"
+    }
+  }
+}

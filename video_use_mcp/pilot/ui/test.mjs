@@ -6,7 +6,7 @@ const html=fs.readFileSync('card.html','utf8');
 new vm.Script(html.match(/<script>([\s\S]*)<\/script>/)[1]);
 const {document}=parseHTML(fs.readFileSync('template.html','utf8'));
 let app,calls=[];
-class App {constructor(){app=this} async connect(){} async openLink(input){calls.push(input)} async callServerTool(){throw Error('No polling allowed')}}
+class App {constructor(){app=this} async connect(){} async openLink(input){calls.push(input)} getHostCapabilities(){return {serverTools:{},updateModelContext:{text:{}},message:{text:{}}}} async callServerTool(input){calls.push(input);return {structuredContent:{creative:{revision:3,choice_revision:2}}}} async updateModelContext(input){calls.push({context:input})} async sendMessage(input){calls.push({message:input});return {}}}
 const source=fs.readFileSync('app.js','utf8').replace(/^import[^\n]*\n/,'');
 vm.runInNewContext(source,{document,App,applyDocumentTheme(){},console});
 assert.equal(document.getElementById('visual').hidden,true,'no setup or placeholder UI');
@@ -25,3 +25,19 @@ assert.equal(document.getElementById('download').hidden,false);
 await document.getElementById('download').onclick();assert.equal(calls[0].url,media.download_url);
 assert.equal(calls.length,1,'no background tool calls');
 await app.onteardown();console.log('PASS media-only view no placeholders no polling image video download and stable playback');
+
+const options=[{id:'diagram',label:'Diagrams',description:'A visual explanation',url:'https://media.test/a.mp4'},{id:'editorial',label:'Editorial',description:'Motion story',url:'https://media.test/b.mp4'}];
+app.ontoolresult({structuredContent:{project_id:'p',choices:{question:'Which style?',revision:1,options}}});
+assert.equal(document.getElementById('choices').hidden,false);
+assert.equal(calls.length,1,'displaying choices never sends messages');
+await document.querySelector('#options button').onclick();
+assert.equal(calls[1].name,'choose_video_style');
+assert.deepEqual(JSON.parse(JSON.stringify(calls[1].arguments)),{project_id:'p',choice:'diagram',revision:1});
+assert.equal(document.querySelector('#options button').getAttribute('aria-pressed'),'true');
+assert(calls[2].context && calls[3].message);
+assert.equal(document.querySelector('#options button').disabled,false);
+app.getHostCapabilities=()=>({});
+await document.querySelector('#options button').onclick();
+assert.equal(calls.length,4,'unsupported host uses conversational fallback');
+assert(document.getElementById('notice').textContent.includes('Tell Claude'));
+console.log('PASS optional choices persist only on click and respect host capabilities');

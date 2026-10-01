@@ -2,12 +2,9 @@ import asyncio
 import base64
 import io
 import json
-from types import SimpleNamespace
-from unittest.mock import Mock, AsyncMock
+from unittest.mock import AsyncMock
 
-import pytest
 from PIL import Image
-from video_use_mcp.pilot.runtime import Manager
 from video_use_mcp.pilot.tests.test_cards import rpc
 
 pytest_plugins = ["video_use_mcp.pilot.tests.test_oauth_discovery"]
@@ -49,7 +46,7 @@ def proposal(pilot, **extra):
     )
 
 
-def test_first_response_is_artwork_not_workspace_and_production_waits_for_feedback(
+def test_legacy_proposal_is_optional_artwork_not_a_gate(
     pilot,
 ):
     _, app = pilot
@@ -60,17 +57,9 @@ def test_first_response_is_artwork_not_workspace_and_production_waits_for_feedba
     assert Image.open(io.BytesIO(base64.b64decode(image["data"]))).size == (960, 540)
     data = json.loads(result["content"][0]["text"])
     pid = data["project_id"]
-    assert (
-        data["status"] == "awaiting_feedback" and "END YOUR TURN" in data["next_action"]
-    )
+    assert data["status"] == "proposed" and "END YOUR TURN" not in data["next_action"]
     assert set(result["structuredContent"]) == {"project_id", "media"}
     store = app.state.store
-    store.reserve = Mock()
-    manager = Manager(store, SimpleNamespace())
-    for op in ("narrate", "step", "run", "export"):
-        with pytest.raises(ValueError, match="waiting for user feedback"):
-            manager.submit("tester", pid, op, {}, "do-work")
-    store.reserve.assert_not_called()
     approved = rpc(
         pilot,
         "tools/call",
@@ -84,7 +73,7 @@ def test_first_response_is_artwork_not_workspace_and_production_waits_for_feedba
     app.state.manager.lock = lambda pid: asyncio.Lock()
     revised = proposal(pilot, project_id=pid)
     assert not revised.get("isError")
-    assert store.get("direction", pid)["status"] == "awaiting_feedback"
+    assert store.get("direction", pid)["status"] == "proposed"
 
 
 def test_preview_requires_actual_media_instead_of_empty_card(pilot):
@@ -102,7 +91,7 @@ def test_preview_requires_actual_media_instead_of_empty_card(pilot):
 
 def test_readonly_account_cannot_approve_or_generate_proposals(pilot):
     tools = rpc(pilot, "tools/list", {})["tools"]
-    for name in ("propose_video", "accept_video_direction", "run_video_step"):
+    for name in ("start_video", "plan_video", "run_video_step"):
         tool = next(t for t in tools if t["name"] == name)
         assert not tool["annotations"]["readOnlyHint"]
         assert not tool["annotations"]["openWorldHint"]

@@ -34,6 +34,7 @@ def collect(store, project_id=None, include_logs=False):
         )
     ]
     for project in projects:
+        project["creative"] = store.get("creative", project["id"]) or {}
         project["continuation"] = store.get("progress", project["id"]) or {}
         project["tool_calls"] = sorted(
             [t for t in traces if t.get("project") == project["id"]],
@@ -71,6 +72,8 @@ def collect(store, project_id=None, include_logs=False):
                     "video_id",
                     "source_id",
                     "review_object",
+                    "creative_revision",
+                    "preferences_changed",
                 )
                 if k in result
             }
@@ -144,6 +147,9 @@ def write_report(report, output):
         lines += [
             "",
             "Tool calls: " + json.dumps(project.get("tool_counts", {})),
+            "",
+            "Creative context: "
+            + json.dumps(project.get("creative", {}), ensure_ascii=False),
             "",
             "Saved next action: "
             + project.get("continuation", {}).get("next_action", "Not recorded"),

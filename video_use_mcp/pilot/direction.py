@@ -114,7 +114,7 @@ def register_direction(mcp, store, manager, muser, new_project, cards, write):
     async def propose_video(
         title: str, brief: str, frame: Frame, question: str, project_id: str = ""
     ) -> CallToolResult:
-        """START HERE for a new video. Draw a representative FIRST FRAME immediately from simple design marks (pixel coordinates, default 960x540); no setup, narration, shell or render workspace. Illustrate the actual subject, not a generic title placeholder. This returns the image directly in chat. Ask the supplied short design question in your own next message and END YOUR TURN to let the user answer. Do not write the story or generate speech yet. Use project_id to revise a proposal after feedback. The image is a proposed visual direction, not a finished video frame."""
+        """Legacy optional still proposal. Prefer start_video and cached motion references for new projects. This does not block rendering or require a reply."""
         uid = muser(True)
         if (
             not 1 <= len(title.strip()) <= 120
@@ -135,7 +135,7 @@ def register_direction(mcp, store, manager, muser, new_project, cards, write):
             local.write_bytes(raw)
             obj = await manager.save_object(uid, pid, "review", "direction.png", local)
         state = {
-            "status": "awaiting_feedback",
+            "status": "proposed",
             "frame": frame.model_dump(),
             "preview_object": obj["id"],
             "question": question,
@@ -153,7 +153,7 @@ def register_direction(mcp, store, manager, muser, new_project, cards, write):
             pid,
             "style",
             "Proposed visual direction",
-            "Ask the design question and wait for the user. Do not narrate or render until feedback approves this direction.",
+            "Use this optional still as a reference; continue independent work without mandatory approval.",
             brief,
             preview,
         )
@@ -164,9 +164,9 @@ def register_direction(mcp, store, manager, muser, new_project, cards, write):
                 text=json.dumps(
                     {
                         "project_id": pid,
-                        "status": "awaiting_feedback",
+                        "status": "proposed",
                         "question": question,
-                        "next_action": "Describe the proposed frame in one sentence, ask this question naturally, and END YOUR TURN. After the user approves, call accept_video_direction with their feedback, then plan the story and EDL.",
+                        "next_action": "Describe the optional visual direction briefly and continue. Ask for input only if it materially affects the piece.",
                     }
                 ),
             ),
@@ -176,7 +176,7 @@ def register_direction(mcp, store, manager, muser, new_project, cards, write):
 
     @mcp.tool(annotations=write, title="Use this visual direction")
     def accept_video_direction(project_id: str, user_feedback: str) -> dict:
-        """Only after a NEW user message approves the displayed visual direction. Record their actual feedback. Do not call in the same turn as propose_video or invent consent. If they ask for design changes, revise using propose_video instead. Then create the story and edit/edl.json, render a short draft, show it with show_video_preview, and ask for feedback before the final export."""
+        """Legacy: record actual feedback about a proposed still. New projects use start_video and plan_video; this is not a required gate."""
         uid = muser(True)
         store.project(uid, project_id)
         state = store.get("direction", project_id)
@@ -189,11 +189,11 @@ def register_direction(mcp, store, manager, muser, new_project, cards, write):
             project_id,
             "planning",
             "Developing the story from your direction.",
-            "Write the story and EDL, then create a short motion draft. Show it and ask for feedback before the final.",
+            "Write the story and EDL, then create a short motion draft. Show it when useful and continue unless genuinely blocked.",
             state["brief"],
         )
         return {
             "project_id": project_id,
             "status": "approved",
-            "next_action": "Read relevant video_use_guidance now. Use run_video_step to save edit/project.md, edit/direction.json, edit/story.md and edit/edl.json along with the first animation source. Generate narration only after writing the script. Use the approved frame design as the visual reference. Show a short draft before the final; ask for feedback in chat.",
+            "next_action": "Read relevant video_use_guidance now. Use run_video_step to save edit/project.md, edit/direction.json, edit/story.md and edit/edl.json along with the first animation source. Generate narration only after writing the script. Use the approved frame design as the visual reference. Show meaningful new motion and continue through final export.",
         }

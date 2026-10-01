@@ -33,6 +33,7 @@ from .runtime import Manager
 from .interaction import TracedMCP, wait_for_task, record_progress
 from .cards import register_cards
 from .direction import register_direction
+from .workflow import register_workflow
 
 
 class PilotAuth(AuthProvider):
@@ -62,22 +63,23 @@ def create_app(config=None, store=None, manager=None):
         "video-use",
         instructions=(
             "You are the user's video editor inside this conversation. Do not introduce a separate platform, workspace, dashboard, terminal or job queue. "
-            "DEFAULT FIRST TURN: call propose_video immediately with a representative still using simple design marks that illustrate the user's subject. "
-            "Do not run setup, read long guidance, generate narration, write the full story or build animation first. "
-            "Keep the first proposal lightweight: roughly 10-25 marks at 960x540 with clear typography and a meaningful subject illustration. "
-            "After the frame appears, describe its look in one short sentence, ask one concrete creative question, and END YOUR TURN for user feedback. "
-            "This is the normal workflow even when the user only asks for a video and does not say show me. "
-            "If they ask for changes, call propose_video again with the same project_id. Once a NEW user reply agrees, call accept_video_direction with their actual reply. "
-            "THEN read the relevant video_use_guidance, develop the story and EDL, generate narration and create a short motion draft. "
-            "Batch source, story, edit/edl.json and execution using run_video_step. Use the saved edit/direction.json as the visual reference. "
-            "Use show_video_preview only when a new visual exists; it shows media without a dashboard. Ask for feedback on the short draft before the final render. "
-            "Keep technical reasoning and command details out of your conversational updates. Ask about design and story, not permission to run a terminal. "
-            "Only inspect get_video_task when an operation is still queued/running; keep its default 25s wait. No repeated completed-task checks. "
-            "Use run_video_step review_path for final render plus encoded review. Inspect the returned image, export_video, then show_video_preview for the final player and download. "
-            "No API keys, dependency installation, environment probing or subagents. Python/Pillow/FFmpeg/Manim/Node/Chromium are ready. "
-            "For Manim use helpers/render_manim_cached.py under /opt/video-use to reuse unchanged scenes. Mix audio separately from rendering visuals. "
-            "Respect explicit user instructions about interaction. For a user who explicitly delegates all creative choices, record that instruction as feedback after showing the proposal. "
-            "The service cannot see the host transcript, so never invent user feedback or claim an approval that was not given."
+            "Start new work with start_video; infer the category and preserve the user's stated preferences. "
+            "Be a thoughtful creative collaborator: ask where a different answer would change the piece, not at every milestone. "
+            "For an open creative brief, optionally use show_video_choices for two cached motion references. They are style samples, not the user's draft. "
+            "Skip choices when style is specified, the user delegates, or the request is a precise edit. Never force a first-frame approval. "
+            "Ask at most one compact group of high-value questions; offer a recommendation. Continue independent work and use stated reversible defaults if no reply arrives. "
+            "Only wait when truly blocked by missing media, contradictory requirements, requested approval, or host limitations. Never invent consent. "
+            "Read relevant video_use_guidance; use plan_video for story beats when helpful, then save script and edit/edl.json with sources. "
+            "Use run_video_step to batch files and work. Its components field renders independent scenes concurrently, maximum two at once; command assembles them after success. "
+            "Keep sources modular and share fonts, colors and timings. Render a short low-resolution motion proof before expensive final rendering. Reuse unchanged scenes. "
+            "Creative state contains a revision. Pass creative_revision to run_video_step and check latest preferences in tool results. A clicked choice may arrive while work is running; adapt rather than ignoring it. "
+            "Use show_video_preview for meaningful new motion or final media. Do not show setup, placeholder, or every internal frame. "
+            "Give short conversational updates about the creative result, not terminal commands. Continue through final export without ritual approval stops. "
+            "Only poll queued/running tasks with get_video_task's default wait. Use review_path for final encoded inspection, inspect the returned image, export, then show_video_preview. "
+            "No dependency probing, installation, API keys or hidden agent loops. Python/Pillow/FFmpeg/Manim/Node/Chromium are ready. "
+            "For Manim use /opt/video-use/helpers/render_manim_cached.py and mix audio separately. "
+            "A browser host owns turn scheduling and permissions. Do not promise uninterrupted model execution or access to its other connectors. "
+            "No generative-video provider is configured. Be explicit about missing source assets or unsupported generation, without pretending to create them."
         ),
         auth_server_provider=auth,
         auth=AuthSettings(
@@ -104,6 +106,8 @@ def create_app(config=None, store=None, manager=None):
     mcp.trace_store = store
     mcp.trace_config = config
     mcp.legacy_tools = {
+        "propose_video",
+        "accept_video_direction",
         "create_video_project",
         "video_use_setup",
         "run_video_command",
@@ -158,7 +162,7 @@ def create_app(config=None, store=None, manager=None):
             )
         } | {
             "workspace_url": workspace(t["project"]),
-            "next_check": "If still running, call get_video_task with its default wait. The chat card refreshes independently.",
+            "next_check": "If still running, call get_video_task with its default wait. Show new media with show_video_preview when useful.",
         }
 
     def project_detail(uid, pid):
@@ -168,6 +172,7 @@ def create_app(config=None, store=None, manager=None):
             "id": pid,
             "title": p["title"],
             "continuation": progress,
+            "creative": store.get("creative", pid),
             "previews": [
                 u
                 | {
@@ -223,6 +228,7 @@ def create_app(config=None, store=None, manager=None):
     )
 
     register_direction(mcp, store, manager, muser, new_project, cards, write)
+    register_workflow(mcp, store, muser, new_project, read, write)
 
     @mcp.tool(annotations=read)
     def video_use_setup() -> dict:
@@ -237,7 +243,7 @@ def create_app(config=None, store=None, manager=None):
 
     @mcp.tool(annotations=read)
     def video_use_guidance(topic: str = "overview") -> str:
-        """Read AFTER the user agrees to the first frame. Start new videos with propose_video, not this tool. Topics: overview, motion, manim, or a helpers/<file> or skills/<file> documentation path."""
+        """Read relevant production guidance after start_video. No design approval is required. Topics: overview, motion, manim, or a helpers/<file> or skills/<file> documentation path."""
         muser()
         target = {
             "overview": "SKILL.md",
@@ -259,10 +265,11 @@ def create_app(config=None, store=None, manager=None):
             "Remote runtime: /opt/video-use contains the harness; /workspace contains sources/ and edit/. "
             "Use the connector speech tools instead of API keys. No external network, package installation, "
             "local machine paths or subagents. Read relevant guidance and preserve edit/project.md. "
-            "Conversation workflow: a lightweight proposed frame comes BEFORE this production guidance. "
-            "After the user approves the frame, follow the harness to write the story, edit/project.md and edit/edl.json. "
-            "Preserve the selected design in edit/direction.json. Batch work with run_video_step. "
-            "Show a short draft using show_video_preview, ask one creative question, and wait for feedback before the final. "
+            "For browser editing, these interaction rules supersede generic confirmation checkpoints in the harness; retain all production correctness rules. "
+            "Conversation workflow: adapt to the category and preferences returned by start_video. "
+            "Use cached examples only for unresolved creative choices, then develop the story and EDL. "
+            "Batch work with run_video_step; use components for independent scene renders. "
+            "Show meaningful short motion drafts and continue; do not impose first-frame or draft approval gates. "
             "Never show workspace setup/status cards, technical logs or narrate shell commands to the user. "
             "Completed review results already contain inspection images; poll only queued/running tasks. "
             "Use run_video_step review_path to combine final rendering and review. Export only after inspecting, then show_video_preview. "

@@ -15,7 +15,7 @@ from mcp.server.fastmcp import FastMCP
 
 from .store import ident
 
-UI_URI = "ui://video-use/media-v4.html"
+UI_URI = "ui://video-use/media-v5.html"
 UI_META = {"ui": {"resourceUri": UI_URI}}
 
 

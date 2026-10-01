@@ -305,14 +305,6 @@ class Manager:
 
     def submit(self, uid, pid, operation, args, request_id):
         self.store.project(uid, pid)
-        direction = self.store.get("direction", pid)
-        if (
-            isinstance(direction, dict)
-            and direction.get("status") == "awaiting_feedback"
-        ):
-            raise ValueError(
-                "The proposed frame is waiting for user feedback. Ask the design question and end your turn. Do not generate narration or render until the user agrees and accept_video_direction records their reply."
-            )
         if len(json.dumps(args).encode()) > 2100000:
             raise ValueError("Tool input exceeds 2 MB")
         if not 1 <= len(request_id) <= 120:
@@ -341,6 +333,15 @@ class Manager:
                     "Request ID already used for different work in this project. Use a new request_id; only exact retries may reuse it."
                 )
             return old[0]
+        creative = self.store.get("creative", pid)
+        if (
+            isinstance(creative, dict)
+            and operation == "step"
+            and args.get("creative_revision") != creative["revision"]
+        ):
+            raise ValueError(
+                "Creative preferences changed. Read get_video_project before rendering."
+            )
         tid = ident()
         seconds = int(args.get("timeout", 300))
         if not 1 <= seconds <= 1800:
@@ -459,10 +460,49 @@ class Manager:
                     await sb.upload("edit/direction.png", local)
                 if pid in self.sessions:
                     self.sessions[pid]["direction_object"] = direction["preview_object"]
+        creative = self.store.get("creative", pid)
+        if creative and op == "step":
+            if a.get("creative_revision") != creative["revision"]:
+                raise ValueError(
+                    "Creative preferences changed. Read get_video_project and adapt before rendering."
+                )
+            await sb.write("edit/creative.json", json.dumps(creative).encode())
+        if creative and op == "export":
+            if self.store.get("render_revision", pid) != creative["revision"]:
+                raise ValueError(
+                    "Creative preferences changed since rendering. Adapt and review before exporting."
+                )
         if op == "step":
             for item in a.get("files", []):
                 await sb.write(item["path"], item["content"].encode())
             result = {"saved": [x["path"] for x in a.get("files", [])]}
+            if a.get("components"):
+                sem = asyncio.Semaphore(2)
+
+                async def render_component(component):
+                    async with sem:
+                        output = await sb.run(
+                            component["command"], a.get("timeout", 300)
+                        )
+                        self.event(
+                            task,
+                            component["name"]
+                            + "\n"
+                            + output["stdout"]
+                            + "\n"
+                            + output["stderr"],
+                        )
+                        return {"name": component["name"], **output}
+
+                results = await asyncio.gather(
+                    *(render_component(c) for c in a["components"])
+                )
+                result["components"] = results
+                if any(c["exit_code"] for c in results):
+                    return result | {
+                        "exit_code": 1,
+                        "stderr": "A component failed; assembly was skipped. Inspect component results.",
+                    }
             if a.get("command"):
                 command = await sb.run(a["command"], a.get("timeout", 300))
                 self.event(task, command["stdout"] + "\n" + command["stderr"])
@@ -502,6 +542,14 @@ class Manager:
                         },
                         sb,
                     )
+                )
+            if creative:
+                result["creative_revision"] = creative["revision"]
+                if a.get("command") or a.get("components"):
+                    self.store.put("render_revision", pid, creative["revision"])
+                latest = self.store.get("creative", pid)
+                result["preferences_changed"] = (
+                    latest["revision"] != creative["revision"]
                 )
             return result
         if op == "preview":
@@ -663,6 +711,13 @@ class Manager:
                 "UPDATE public.vp_objects SET kind='archive' WHERE id=$1", archive["id"]
             )
             revision = ident()
+            if (
+                creative
+                and self.store.get("creative", pid)["revision"] != creative["revision"]
+            ):
+                raise ValueError(
+                    "Creative preferences changed during export. Adapt and review before publishing."
+                )
             self.store.sql(
                 "INSERT INTO public.vp_revisions(id,project,owner,video,archive,summary,metadata) VALUES($1,$2,$3,$4,$5,$6,$7::jsonb)",
                 revision,

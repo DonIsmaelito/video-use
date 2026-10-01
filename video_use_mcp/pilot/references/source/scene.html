@@ -1,0 +1,40 @@
+<!doctype html><meta charset="utf-8"><style>@font-face{font-family:Inter;src:url(font.ttf)}*{margin:0}canvas{display:block;width:100vw;height:100vh}</style><canvas width="960" height="540"></canvas><script>
+const c=document.querySelector('canvas'),x=c.getContext('2d',{alpha:false});
+const kind='__KIND__';
+const ease=n=>1-Math.pow(1-Math.max(0,Math.min(1,n)),3);
+function text(t,a,b,size=28,color='#f6f1e7'){x.fillStyle=color;x.font=`${size}px Inter`;x.fillText(t,a,b)}
+function line(points,color,w=3){x.strokeStyle=color;x.lineWidth=w;x.beginPath();points.forEach(([a,b],i)=>i?x.lineTo(a,b):x.moveTo(a,b));x.stroke()}
+function box(a,b,w,h,r,fill){x.fillStyle=fill;x.beginPath();x.roundRect(a,b,w,h,r);x.fill()}
+function wave(t,y,color,phase=0,amp=35,start=70,end=890){line(Array.from({length:241},(_,i)=>{let a=start+(end-start)*i/240;return[a,y+amp*Math.sin(i/240*Math.PI*8-t*2+phase)]}),color,4)}
+window.motionReady=document.fonts.load('30px Inter');
+window.seek=t=>{x.resetTransform();x.globalAlpha=1;x.fillStyle='#11131a';x.fillRect(0,0,960,540);
+if(kind==='diagram'){
+ text('Sound meets its opposite.',64,90,42);text('A visual explanation',65,125,17,'#a5a9b5');
+ const m=ease((t-1)/1.5),y1=242+70*m,y2=382-70*m;
+ wave(t,y1,'#bcadff');wave(t,y2,'#f5b983',Math.PI);
+ x.globalAlpha=1-m;text('sound',65,209,19,'#bcadff');text('anti-sound',65,436,19,'#f5b983');x.globalAlpha=m;
+ line([[70,312],[890,312]],'#eaf3dd',3);box(347,390,266,60,30,'#222b27');text('Less sound remains',370,428,22,'#c1e8c6');x.globalAlpha=1;
+}else if(kind==='editorial'){
+ x.fillStyle='#f2ecdf';x.fillRect(0,0,960,540);text('Make room',58,130,72,'#193e35');text('for quiet.',58,211,72,'#193e35');
+ const m=ease(t/2.4); x.save();x.translate(709,269);x.rotate(-.24+.24*m);
+ for(let i=6;i>=0;i--){x.strokeStyle=i%2?'#a7bca2':'#244d40';x.lineWidth=2;x.beginPath();x.ellipse(0,0,96+i*15,130+i*12,0,0,Math.PI*2);x.stroke()}
+ x.fillStyle='#244d40';x.beginPath();x.ellipse(0,0,76,112,0,0,Math.PI*2);x.fill();x.fillStyle='#cfdbb7';x.beginPath();x.ellipse(-18,-8,42,73,0,0,Math.PI*2);x.fill();x.restore();
+ x.globalAlpha=ease((t-1)/1);text('Noise cancellation,',62,405,26,'#193e35');text('one wave at a time.',62,442,26,'#193e35');x.globalAlpha=1;
+}else if(kind.startsWith('captions')){
+ x.fillStyle='#eee5da';x.fillRect(0,0,960,540);box(319,20,322,500,22,'#444338');
+ // An original illustrated stand-in makes clear these are layout samples, not source footage.
+ x.fillStyle='#c7b7a2';x.beginPath();x.ellipse(480,239,65,82,0,0,Math.PI*2);x.fill();
+ box(376,322,208,198,75,'#939c89');x.fillStyle='#30372d';x.beginPath();x.ellipse(480,191,69,39,0,Math.PI,Math.PI*2);x.fill();
+ const bold=kind==='captions_bold';
+ if(bold){box(345,370,270,96,10,'#13151c');text(t<2?'ONE SMALL':'A BIG',369,407,29);text(t<2?'IDEA.':'DIFFERENCE.',369,446,29,'#d3fa70')}
+ else {box(341,423,278,40,7,'#202520');text(t<2?'Start with one small idea.':'Then make it your own.',356,450,19)}
+ text(bold?'Captions with emphasis':'Quiet, readable subtitles',44,94,22,'#293b32');text('Illustrated layout sample',44,124,14,'#6b7268');
+}else if(kind==='demo_focus'){
+ x.fillStyle='#f0edf8';x.fillRect(0,0,960,540);text('From idea to action.',62,84,39,'#29213c');
+ box(63,132,834,341,18,'#ffffff');box(63,132,177,341,18,'#e5deef');text('Projects',88,187,21,'#433b54');text('Today',88,230,17,'#7b718d');
+ for(let i=0;i<3;i++){box(276,175+i*85,576,63,10,'#f5f3f9');text(['Outline the story','Build the scenes','Share the result'][i],300,214+i*85,23,'#433b54')}
+ let m=ease(t/2),cy=206+85*m;line([[800,cy],[813,cy+32],[821,cy+18],[837,cy+13],[800,cy]],'#744ad2',4);
+ if(t>1.2){x.globalAlpha=ease((t-1.2)/.6);x.strokeStyle='#9264de';x.lineWidth=3;x.beginPath();x.roundRect(268,252,592,79,14);x.stroke();x.globalAlpha=1}
+}
+};window.seek(0);
+</script>

@@ -183,3 +183,56 @@ Write tools remain honestly marked as mutations. Isolated execution is annotated
 Trace export now supports `--watch-seconds 3600 --interval 30` and appends snapshots to private `history.jsonl`. This is a bounded local sampler, not an autonomous monitoring service; durable server traces still capture subsequent calls even when the sampler is not running.
 
 Live conversational-flow verification passed on September 30: propose_video returned the authored PNG in 1.87 seconds measured from the API call (excluding host reasoning), with no sandbox and no tasks. A premature narration attempt was rejected without buying speech. Test feedback unlocked the draft; the approved PNG was restored into the sandbox, the media-only draft supported byte-range playback, and reviewed final export downloaded with attachment disposition. The test workspace was closed. Local verification passes 48 Python tests plus the no-placeholder/no-polling media-view tests; four optional isolated-backend tests remain skipped. Actual natural-language behavior in the owner's Claude account still requires the next chat.
+
+## Adaptive creative workflow October 1
+
+The mandatory first-frame proposal and approval workflow is superseded. New conversations
+start with `start_video`, infer one of eight categories, and preserve the user's stated
+preferences. They do not allocate a render sandbox or emit an empty card.
+
+| Intent | Useful decision | Production route |
+| --- | --- | --- |
+| Educational explainer | Diagram-led versus editorial when unspecified | Claim, script, scene beats, independent scene renders, assembly |
+| Social repurposing | Caption treatment if unspecified | Source, transcript, selects, reframing, independent clip renders |
+| Precise edit | Only ambiguity in the requested change | Direct edit and boundary checks |
+| Software demo | UI-focused versus product story | Real recording, action/result sequence, zooms and callouts |
+| Brand motion | Visual premise and brand constraints | Asset proof, choreography, sound and delivery |
+| Footage story | Emotional arc or a meaningful reference | Source selects, EDL, picture and sound edit |
+| Data story | Claim and evidence presentation | Validate data, chart scenes, scale and number checks |
+| Generative hybrid | Mood, continuity and actual provider availability | Shot list and asset inventory; generation unavailable until a provider is configured |
+
+`show_video_choices` offers two cached playable references only where useful. Five original
+samples and posters are hosted in the public InsForge `video-references` bucket with
+content-hashed keys. User footage remains in the private bucket. These are visual references,
+not promises that arbitrary 3D, real software recordings or generated footage already exist.
+Source, provenance, rebuild and publish instructions live in `video_use_mcp/pilot/references`.
+
+The app-only `choose_video_style` writes an owner-scoped explicit choice. It sends model
+context and a user-initiated message only if the host advertises those SDK capabilities.
+Unsupported hosts fall back to natural-language replies. There are no polling loops or
+automatic assistant-continuation messages. The portable SDK names are `updateModelContext`
+and `message` in the installed version; check local types before copying newer documentation.
+
+`plan_video` stores flexible story beats. Plans and brief changes advance the creative
+revision; planning does not expire an open style picker. The assistant can inspect media,
+outline a story and develop shared assets while the user chooses. Reversible assumptions
+are stated as defaults, never as user approval. A necessary source upload or a requested
+checkpoint can still require a reply. Host turn scheduling, reasoning time, subscription
+limits, native attribution and tool permission dialogs remain outside MCP server control.
+
+`run_video_step` accepts up to six independent component commands, runs at most two
+concurrently in the same bounded sandbox, and executes assembly only after all succeed.
+Components must use distinct output/cache paths and low thread counts. This parallelizes
+render execution, not hidden model agents. One total timeout and compute reservation cover
+the step. Latest creative context returns with task results and is saved as
+`edit/creative.json`; version mismatches prevent stale renders/exports. A failed component
+retains its logs and prevents final assembly. Use preview resolution first, reuse visual
+renders when mixing audio, and show only meaningful new motion and the final media player.
+
+Legacy proposal handlers remain callable for cached conversations, but are hidden from new
+discovery and no longer block production. Start a fresh host conversation to get the new
+instructions and tools. A reconnect may be necessary if the host caches tool discovery.
+
+Trace exports now include creative context and render preference revisions alongside task
+logs. They still cannot see host reasoning, user chat messages or remaining subscription
+allowance. Signed-in Claude and ChatGPT acceptance testing remains with the account owner.

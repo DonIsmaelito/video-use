@@ -17,6 +17,11 @@ Stage = Literal[
 ]
 
 
+class Component(BaseModel):
+    name: str = Field(min_length=1, max_length=80)
+    command: str = Field(min_length=1, max_length=10000)
+
+
 class SourceFile(BaseModel):
     path: str = Field(min_length=1, max_length=500)
     content: str = Field(max_length=2000000)
@@ -188,8 +193,9 @@ def register_cards(
                 )
             if result.get("review_object"):
                 store.put("reviewed", out["project"], result["sha256"], ttl=86400)
+        out["creative"] = store.get("creative", out["project"])
         content.insert(0, TextContent(type="text", text=json.dumps(out)))
-        if store.get("direction", out["project"]):
+        if store.get("direction", out["project"]) or out["creative"]:
             out["next_action"] = (
                 "Only poll if still running. When a new draft or export is complete, use show_video_preview once to display it in chat."
             )
@@ -205,7 +211,13 @@ def register_cards(
         meta={
             "ui": {
                 "prefersBorder": False,
-                "csp": {"resourceDomains": [config.public_url], "connectDomains": []},
+                "csp": {
+                    "resourceDomains": [
+                        config.public_url,
+                        "https://f7e2vbn5.us-west.insforge.app",
+                    ],
+                    "connectDomains": [],
+                },
             },
         },
     )
@@ -216,6 +228,7 @@ def register_cards(
     for legacy_uri in (
         "ui://video-use/project-v2.html",
         "ui://video-use/project-v3.html",
+        "ui://video-use/media-v4.html",
     ):
         mcp.resource(
             legacy_uri,
@@ -224,7 +237,10 @@ def register_cards(
                 "ui": {
                     "prefersBorder": False,
                     "csp": {
-                        "resourceDomains": [config.public_url],
+                        "resourceDomains": [
+                            config.public_url,
+                            "https://f7e2vbn5.us-west.insforge.app",
+                        ],
                         "connectDomains": [],
                     },
                 }
@@ -261,15 +277,19 @@ def register_cards(
         brief: str = "",
         timeout: int = 300,
         review_path: str = "",
+        components: list[Component] = [],
+        creative_revision: int = 0,
     ) -> CallToolResult:
-        """After the user approves the first frame, batch files + render + preview in one call. Write the story and EDL before animation. Use preview_path for motion/draft. Once complete, call show_video_preview and ask for creative feedback; do not immediately finalize. For the final render set review_path to return encoded inspection frames, then export and show_video_preview. Waits 25s; only poll unfinished tasks. Reuse visual renders for audio-only changes. Keep technical implementation out of chat."""
+        """Batch sources, render and preview without mandatory approval pauses. Optional components (max 6, concurrency 2) are independent render commands with separate output/cache paths; command runs after ALL succeed to assemble them. Keep renderer threads low. Shared timeout bounds the whole step. Pass creative_revision from start_video/plan_video/latest context. Use preview_path for drafts and review_path for final encoded inspection. Show meaningful new motion with show_video_preview, then keep working. Only poll unfinished tasks."""
         uid = muser(True)
         if stage in ("style", "motion", "draft") and not preview_path:
             raise ValueError(
                 "This visual milestone needs preview_path: a PNG/JPEG for style or a short MP4 for motion/draft. Generate it in the same command."
             )
         if (
-            len(files) > 20
+            len(components) > 6
+            or len({c.name for c in components}) != len(components)
+            or len(files) > 20
             or len(command) > 30000
             or len(note) > 1200
             or len(brief) > 4000
@@ -290,6 +310,8 @@ def register_cards(
                 "brief": brief,
                 "timeout": timeout,
                 "review_path": review_path,
+                "components": [c.model_dump() for c in components],
+                "creative_revision": creative_revision,
             },
             request_id,
         )
