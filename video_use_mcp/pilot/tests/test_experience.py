@@ -1,4 +1,4 @@
-"""Conversation guidance follows evidence without becoming an approval gate."""
+"""Conversation guidance follows intake, explicit decisions and real outcomes."""
 
 from copy import deepcopy
 
@@ -21,14 +21,18 @@ def task(**changes):
 
 
 @pytest.mark.parametrize("mode", ["hands_on", "key_moments", "delegate"])
-def test_explicit_involvement_is_preserved_without_creating_an_approval_gate(mode):
+def test_legacy_explicit_mode_is_preserved_without_repeating_intake(mode):
     response = experience_context(creative(mode), event="start")
     assert (response["mode"], response["source"]) == (mode, "user_submit")
     check = response["check_in"]
     assert check["blocking_scope"] == "none"
     assert check["continuation"] == "continue_authorized_work"
-    assert "defaults are not user approval" in check["hint"]
-    assert "Choose at most one" in check["hint"]
+    if mode == "delegate":
+        assert check["update"] == "none" and check["question"] == "none"
+        assert check["widgets"] == []
+    else:
+        assert "defaults are not user approval" in check["hint"]
+        assert "Choose at most one" in check["hint"]
 
 
 @pytest.mark.parametrize(
@@ -194,3 +198,28 @@ def test_involvement_changes_cadence_not_routine_authorization():
     assert (
         experience_context(creative(), event="project")["check_in"]["update"] == "none"
     )
+
+
+def test_hands_off_does_not_show_intermediate_media_but_delivers_final_video():
+    state = creative("delegate")
+    draft = experience_context(state, task=task(), media={"object_id": "draft"})
+    assert draft["check_in"]["update"] == "none"
+    assert draft["check_in"]["question"] == "none"
+    assert draft["check_in"]["widgets"] == []
+    final = experience_context(
+        state, task=task(operation="export", result={"video_id": "final"})
+    )
+    assert final["check_in"]["continuation"] == "deliver_requested_result"
+    assert final["check_in"]["widgets"] == ["show_video_preview"]
+
+
+def test_hands_off_repairs_routine_failures_without_optional_updates():
+    state = creative("delegate")
+    failed = experience_context(state, task=task(status="failed"))["check_in"]
+    assert failed["update"] == "none"
+    assert failed["continuation"] == "repair_failed_work"
+    findings = experience_context(
+        state, task=task(), findings=[{"kind": "layout", "resolved": False}]
+    )["check_in"]
+    assert findings["update"] == "none"
+    assert findings["continuation"] == "correct_reported_defects"

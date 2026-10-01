@@ -21,6 +21,7 @@ from video_use_mcp.review import REVIEW_CODE as REVIEW, REVIEW_INSTRUCTION
 from .store import ident
 from .interaction import record_progress
 from .review_findings import merge_review_findings, require_resolved_review_findings
+from .intake import intake_context
 
 PACK = r"""
 import pathlib,zipfile
@@ -52,6 +53,43 @@ with zipfile.ZipFile('/workspace/restore.zip') as z:
   seen.add(str(p))
  z.extractall(root)
 """
+
+
+def require_production_intake(creative, operation, payload):
+    """Honor explicit v1 intake before paid work; older projects keep their flow.
+
+    Custom commands declare excerpt/full-video intent. We cannot infer their
+    meaning from shell text. Ordinary reads/imports never enter this runner.
+    """
+    context = intake_context(creative)
+    if context is None:
+        return
+    if context["phase"] in {"mode", "basics", "personalization"}:
+        raise ValueError(
+            "Production is waiting for the user's intake choices. "
+            + context["next_action"]
+        )
+    if context["mode"] != "hands_on":
+        return
+    intake = creative["intake"]
+    if intake.get("excerpt_review", {}).get("status") == "approved":
+        return
+    if operation == "step":
+        stage = payload.get("production_stage", "full_video")
+        if stage not in {"excerpt", "full_video"}:
+            raise ValueError("production_stage must be excerpt or full_video")
+        needs_review = stage == "full_video"
+    else:
+        # Legacy arbitrary execution has no declared excerpt scope. Inspection,
+        # speech and source edits can support the initial reviewed excerpt.
+        needs_review = operation in {"run", "export"}
+    if needs_review:
+        raise ValueError(
+            "The user chose hands-on involvement. Create and show a short excerpt, "
+            "then obtain their explicit excerpt acceptance before producing or "
+            "exporting the full video. Use production_stage='excerpt' only for "
+            "that limited sample; do not label the complete film as an excerpt."
+        )
 
 
 def validate_production_timing(value):
@@ -405,6 +443,7 @@ class Manager:
                     "production_timing needs an encoded video in review_path or preview_path"
                 )
         creative = self.store.get("creative", pid)
+        require_production_intake(creative, operation, args)
         if (
             isinstance(creative, dict)
             and operation == "step"
@@ -452,8 +491,15 @@ class Manager:
         uid, pid, tid = task["owner"], task["project"], task["id"]
         started = time.monotonic()
         sb = None
+        work_started = False
         try:
             async with self.lock(pid):
+                require_production_intake(
+                    self.store.get("creative", pid),
+                    task.get("operation", "run"),
+                    task.get("payload") or {},
+                )
+                work_started = True
                 sb = await self.session(uid, pid)
                 self.store.sql(
                     "UPDATE public.vp_tasks SET status='running',updated=now() WHERE id=$1",
@@ -520,7 +566,10 @@ class Manager:
             )
         finally:
             self.store.settle(
-                task["usage_id"], min(seconds, math.ceil(time.monotonic() - started))
+                task["usage_id"],
+                min(seconds, math.ceil(time.monotonic() - started))
+                if work_started
+                else 0,
             )
             if pid in self.sessions:
                 self.sessions[pid]["touched"] = time.time()
@@ -529,6 +578,8 @@ class Manager:
         uid, pid, tid = task["owner"], task["project"], task["id"]
         a = task["payload"]
         op = task["operation"]
+        creative = self.store.get("creative", pid)
+        require_production_intake(creative, op, a)
         direction = self.store.get("direction", pid)
         if isinstance(direction, dict) and direction.get("status") == "approved":
             # Preserve the selected design for future turns and restored workspaces.
@@ -552,7 +603,6 @@ class Manager:
                     await sb.upload("edit/direction.png", local)
                 if pid in self.sessions:
                     self.sessions[pid]["direction_object"] = direction["preview_object"]
-        creative = self.store.get("creative", pid)
         if creative and op == "step":
             if a.get("creative_revision") != creative["revision"]:
                 raise ValueError(

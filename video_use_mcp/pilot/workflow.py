@@ -1,4 +1,4 @@
-"""Adaptive creative context. Preferences steer work; they are not approval gates."""
+"""Creative context and mode-first intake for browser video requests."""
 
 import json
 from copy import deepcopy
@@ -6,12 +6,13 @@ from pathlib import Path
 from typing import Annotated, Literal
 
 from mcp.types import CallToolResult, TextContent
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 from .interaction import UI_META, UI_URI
 from .creative_state import creative_edit
 from .allowance import narration_allowance
-from .experience import experience_context
+from .experience import experience_context, involvement_preference
 from .widgets import creative_public
+from .intake import initialize_intake, intake_context, pending_widget
 
 Category = Literal[
     "explainer",
@@ -508,6 +509,16 @@ class Beat(BaseModel):
     seconds: float = Field(gt=0, le=600)
 
 
+class OutputProfile(BaseModel):
+    """Only output requirements already stated by the user, never guesses."""
+
+    model_config = ConfigDict(extra="forbid")
+    duration_seconds: float | None = Field(
+        default=None, gt=0, le=7200, allow_inf_nan=False
+    )
+    viewing_destination: str | None = Field(default=None, min_length=1, max_length=120)
+
+
 def register_workflow(mcp, store, muser, new_project, read, write):
     def context(uid, pid):
         store.project(uid, pid)
@@ -516,7 +527,7 @@ def register_workflow(mcp, store, muser, new_project, read, write):
             raise ValueError("Start a creative brief with start_video first")
         return state
 
-    @mcp.tool(annotations=write, title="Develop the video")
+    @mcp.tool(annotations=write, meta=UI_META, title="Start your video")
     @creative_edit
     def start_video(
         title: str,
@@ -536,8 +547,14 @@ def register_workflow(mcp, store, muser, new_project, read, write):
                 description="Your proposed audience, scope, style and delivery format where the user left them open. These are reversible assumptions, not user instructions or approval. Omit to preserve earlier assumptions."
             ),
         ] = None,
-    ) -> dict:
-        """Start here for a new request. Infer category from intent, not a questionnaire. Keep brief faithful to the request and preferences limited to what the user ALREADY specified; put your proposed scope, audience, look and format in assumptions. State consequential assumptions and the script or outline briefly in chat before paid narration or substantial rendering, then continue without waiting for approval. Omit preferences/assumptions to preserve them; an empty string clears them. No workspace card or first-frame approval. Combine up to three supporting_categories for mixed media; use custom rather than forcing an unfamiliar request into a preset. Offer show_video_choices once if a relevant unresolved choice would materially change the piece, with a recommended default. Precise edits execute directly. Reuse project_id for revisions."""
+        output_profile: Annotated[
+            OutputProfile | None,
+            Field(
+                description="Only known output basics from the user's message: duration_seconds and viewing_destination (for example YouTube, Instagram Reel, or landscape). Omit unknowns; never fill them with assumptions. These prevent repeated questions after the involvement choice."
+            ),
+        ] = None,
+    ) -> CallToolResult:
+        """Start every new video request here. Returns the first question widget: Hands off, Key moments, or Hands on. Wait for this explicit choice, then ask only missing output basics returned in intake.next_tool. Record length/destination already given in output_profile, so the user is not asked again. Keep brief faithful and inferred content/style in assumptions. After intake, follow the chosen mode: hands off makes the finished video without optional questions or draft displays; key moments uses selective check-ins; hands on gathers consequential content preferences, offers relevant styles, and reviews a short real excerpt before completing the film. Reuse project_id for revisions without restarting intake. New requests get new projects. Categories are hints; custom and supporting_categories allow mixed workflows."""
         uid = muser(True)
         if (
             not title.strip()
@@ -600,16 +617,34 @@ def register_workflow(mcp, store, muser, new_project, read, write):
             revision=old.get("revision", 0) + 1,
             choice_revision=old.get("choice_revision", 0) + 1,
         )
+        if not old:
+            state = initialize_intake(
+                state,
+                output_profile.model_dump(exclude_none=True)
+                if output_profile
+                else None,
+            )
+        elif output_profile is not None and state.get("intake", {}).get("version") == 1:
+            # Updates are attributed to the host's reading of the user's request.
+            # Do not reset previously submitted involvement or delegated basics.
+            state = initialize_intake(
+                state, output_profile.model_dump(exclude_none=True)
+            )
+        widget = pending_widget(state)
+        if widget:
+            state.setdefault("widgets", {})["brief"] = widget
         store.put("creative", pid, state)
         recipe = workflow_summary(category)
-        return dict(
+        data = dict(
             project_id=pid,
             creative=creative_public(state),
             workflow=recipe,
             narration_allowance=narration_allowance(store, uid),
             experience=experience_context(state, event="start"),
             complementary_workflows=[workflow_summary(c) for c in supporting],
-            next_action="Before narration or substantial original rendering, briefly state the proposed audience, look and format as assumptions. For a substantial new narrated story, use show_video_story to display an editable scene/script proposal before narration; it also saves the plan, so skip a separate plan_video call. If an unanswered audience or tone question materially changes the piece, use show_video_brief; use show_video_choices when motion references explain the decision better. Pick useful interactions, not every card. Keep working after showing them without an approval pause. Precise edits and delegated scripts need no questionnaire. Read only relevant guidance. Show one meaningful excerpt before all remaining scene code, with a short chat sentence about what is visible and what comes next. Apply the latest creative choices from task results before subsequent renders. Ask for a reply only when genuinely blocked or the user requests a checkpoint.",
+            intake=intake_context(state, pid),
+            next_action=(intake_context(state, pid) or {}).get("next_action")
+            or "Continue this existing project using its saved creative choices and involvement level.",
             capabilities={
                 "render": "Python, Manim, FFmpeg, browser motion and bounded procedural Three.js",
                 "generative_video": False,
@@ -617,6 +652,12 @@ def register_workflow(mcp, store, muser, new_project, read, write):
                 "campaign_delivery": False,
                 "user_cloud_accounts": "Not automatically shared by the chat host; use explicitly supplied accessible assets.",
             },
+        )
+        if widget:
+            data["widget"] = widget
+        return CallToolResult(
+            content=[TextContent(type="text", text=json.dumps(data))],
+            structuredContent=data,
         )
 
     @mcp.tool(annotations=write, meta=UI_META, title="Choose a visual approach")
@@ -627,9 +668,17 @@ def register_workflow(mcp, store, muser, new_project, read, write):
         recommended: str = "",
         reference_ids: list[str] = [],
     ) -> CallToolResult:
-        """Optional: show 2–3 cached motion references for an unresolved high-impact choice. These examples illustrate a technique, not coverage of every category; skip them when they do not fit (for example a music visualizer, faithful slide conversion or supplied style reference). Skip if the user specified a style, delegated choices, or requested a precise edit. Samples are references, NOT user drafts. Explain your default briefly and continue independent work. A click saves preference; do not require a click to proceed. Free-form chat can override these examples."""
+        """Show 2–3 relevant cached motion references for an unresolved visual decision, after intake. Samples are references, not user drafts. Skip when the style is already specified, examples do not fit, or mode is Hands off. Hands on waits for the choice; Key moments can continue independent work. A chat reply can be saved with reply_video_style. Do not make the user choose among irrelevant templates."""
         uid = muser(True)
         state = context(uid, project_id)
+        intake = intake_context(state) or {}
+        mode, _ = involvement_preference(state)
+        if intake.get("phase") in ("mode", "basics"):
+            raise ValueError(intake["next_action"])
+        if state.get("intake", {}).get("version") == 1 and mode == "delegate":
+            raise ValueError(
+                "Hands off is selected. Use the brief and proceed to the finished video without optional style questions."
+            )
         recipe = RECIPES[state["category"]]
         offered = reference_ids or recipe["choices"]
         if not offered:
@@ -650,6 +699,9 @@ def register_workflow(mcp, store, muser, new_project, read, write):
         options = [samples[k] | {"id": k} for k in offered]
         state["offered"] = offered
         state["default"] = recommended or offered[0]
+        if state.get("intake", {}).get("version") == 1 and mode == "hands_on":
+            state["intake"]["pending_style"] = True
+            state["intake"]["excerpt_review"] = {"status": "not_requested"}
         store.put("creative", project_id, state)
         data = dict(
             project_id=project_id,
@@ -660,8 +712,13 @@ def register_workflow(mcp, store, muser, new_project, read, write):
                 selected=state.get("selected"),
                 revision=state["choice_revision"],
             ),
-            next_action=recipe["independent"]
-            + " Briefly name the recommended default and continue if no answer arrives; a click is optional. Never claim the default was approved. Read the current creative state from subsequent task results before committing to more renders.",
+            next_action=(
+                "Ask the user to pick a visual direction, or describe their own. Wait for that answer before rendering; a recommended sample is not approval. "
+                + recipe["independent"]
+                if state.get("intake", {}).get("pending_style")
+                else recipe["independent"]
+                + " The recommendation is reversible, not user approval. Read current creative context before the next render."
+            ),
         )
         return CallToolResult(
             content=[
@@ -692,8 +749,41 @@ def register_workflow(mcp, store, muser, new_project, read, write):
             revision=state["revision"] + 1,
             choice_revision=revision + 1,
         )
+        if state.get("intake", {}).get("version") == 1:
+            state["intake"].pop("pending_style", None)
         store.put("creative", project_id, state)
         return dict(project_id=project_id, creative=creative_public(state))
+
+    @mcp.tool(annotations=write, title="Save your style reply")
+    @creative_edit
+    def reply_video_style(
+        project_id: str, revision: int, user_message: str, choice: str = ""
+    ) -> dict:
+        """Record the user's actual chat reply to the current style picker. Pass an offered choice ID when they picked one, otherwise keep their custom direction or explicit delegation verbatim. Never call this to choose on the user's behalf or infer consent from silence."""
+        state = context(muser(True), project_id)
+        if not user_message.strip() or len(user_message) > 2000:
+            raise ValueError("Include the actual user reply in at most 2000 characters")
+        if not state.get("offered") or revision != state["choice_revision"]:
+            raise ValueError("This style picker is outdated; read the current project")
+        if choice and choice not in state["offered"]:
+            raise ValueError(
+                "Choose an offered reference or retain the user's custom reply"
+            )
+        state.update(
+            selected=choice or None,
+            style_reply=user_message,
+            selection_source="assistant_reported_user",
+            revision=state["revision"] + 1,
+            choice_revision=revision + 1,
+        )
+        if state.get("intake", {}).get("version") == 1:
+            state["intake"].pop("pending_style", None)
+        store.put("creative", project_id, state)
+        return dict(
+            project_id=project_id,
+            creative=creative_public(state),
+            next_action="Use this explicit direction and make the sample excerpt for review.",
+        )
 
     @mcp.tool(annotations=write, title="Shape the story")
     @creative_edit
@@ -721,5 +811,7 @@ def register_workflow(mcp, store, muser, new_project, read, write):
         return dict(
             project_id=project_id,
             creative=creative_public(state),
-            next_action="Make one meaningful excerpt with render_video_scene for compact 2D motion, or run_video_step for custom source. Defer unrelated scene code until it is visible; use show_video_preview when ready and keep working. Batch later independent renders. After narration alignment, pass actual ordered scene durations in production_timing with the assembled video so reviews and resumed edits use its real timeline. Continue through export unless real input is missing.",
+            intake=intake_context(state, project_id),
+            next_action=(intake_context(state, project_id) or {}).get("next_action")
+            or "Use the saved involvement mode. Make an excerpt for hands-on review before completing the rest; hands-off delivers only the final video. Batch independent renders and save actual scene timing after audio alignment.",
         )

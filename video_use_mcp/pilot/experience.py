@@ -1,15 +1,21 @@
 """Compact conversation opportunities derived from saved choices and real outcomes.
 
-This is guidance for the host assistant, not an execution or approval gate. Reads
-do not mark a conversation update as delivered: only the host knows what it said.
+This describes the conversation around persisted intake and actual production.
+Reads do not invent answers or mark an update delivered: only the host knows what
+it said. Required intake decisions are distinct from routine tool approvals.
 """
+
+from .intake import intake_context
 
 MODES = {"hands_on", "key_moments", "delegate"}
 DEFECT_KINDS = {"correctness", "meaning", "layout", "audio"}
 
 
 def involvement_preference(creative):
-    """Only a persisted explicit submission establishes the user's chosen mode."""
+    """Version-1 requests await a choice; only legacy requests get a default."""
+    intake = intake_context(creative)
+    if intake is not None:
+        return intake["mode"], intake["source"]
     for answer in reversed((creative or {}).get("brief_answers", [])):
         if (
             answer.get("question_id") == "involvement"
@@ -30,11 +36,12 @@ def experience_context(
     blocker=None,
     findings=None,
 ):
-    """Suggest a useful check-in without inventing uncertainty or user approval.
+    """Describe the next interaction without inventing uncertainty or approval.
 
     Pass the public task result after its real media/blocker fields are assembled.
-    ``event='start'`` offers optional direction; ``event='project'`` is a quiet
-    context read. Repeat keys are scoped to the containing project/conversation,
+    Version-1 mode/output setup and requested hands-on decisions precede dependent
+    production. Legacy requests retain their defaults. Repeat keys are scoped to
+    the containing project/conversation,
     not delivery receipts. The assistant authors all actual questions and copy.
     """
     creative, task = creative or {}, task or {}
@@ -43,8 +50,16 @@ def experience_context(
     handoff = handoff if handoff is not None else task.get("creative_handoff")
     blocker = blocker if blocker is not None else task.get("blocker")
     findings = findings if findings is not None else task.get("review_findings", [])
-    mode, source = involvement_preference(creative)
+    intake = intake_context(creative)
+    mode, source = (
+        (intake["mode"], intake["source"])
+        if intake is not None
+        else involvement_preference(creative)
+    )
     revision = creative.get("revision", 0)
+    awaiting_excerpt = bool(
+        intake and mode == "hands_on" and intake["phase"] == "excerpt_review"
+    )
     key = f"{event}:{task.get('id', '')}:{task.get('status', '')}:creative:{revision}"
     check = dict(
         trigger="context_available",
@@ -84,12 +99,45 @@ def experience_context(
     elif task.get("status") == "failed" or result.get("exit_code"):
         check.update(
             trigger="task_failed",
-            update="brief",
+            update="none" if mode == "delegate" else "brief",
             question="only_if_needed_to_unblock",
             continuation="repair_failed_work",
             hint="Describe the actual outcome plainly. Repair ordinary execution failures within the request; do not turn routine recovery into an approval stage or poll a finished task.",
         )
-    elif handoff and handoff.get("preferences_changed") is True:
+        if mode == "delegate":
+            check["hint"] = (
+                "Repair ordinary execution failures internally and continue the requested work. Surface an error only when it becomes a genuine blocker needing user input; do not poll a finished task."
+            )
+    elif intake and intake["phase"] in {"mode", "basics", "personalization"}:
+        phase = intake["phase"]
+        key = f"intake:{phase}:creative:{revision}"
+        check.update(
+            trigger={
+                "mode": "involvement_required",
+                "basics": "output_basics_required",
+                "personalization": "early_decision_pending",
+            }[phase],
+            update="brief",
+            question={
+                "mode": "required_mode_choice",
+                "basics": "missing_output_basics_only",
+                "personalization": "await_offered_content_or_style_answer",
+            }[phase],
+            continuation="continue_cheap_independent_work",
+            blocking_scope="dependent_production",
+            hint=intake["next_action"],
+        )
+        if intake.get("next_tool"):
+            check["next_tool"] = intake["next_tool"]
+        if phase == "mode":
+            check["widgets"] = ["show_video_brief"]
+            check["continuation"] = "wait_for_mode_choice"
+        elif phase == "basics":
+            check["widgets"] = ["show_video_brief"]
+            check["missing_basics"] = intake.get("missing_basics", [])
+    elif (
+        handoff and handoff.get("preferences_changed") is True and not awaiting_excerpt
+    ):
         check.update(
             trigger="saved_preferences_changed",
             update="brief",
@@ -105,17 +153,24 @@ def experience_context(
     elif defects:
         check.update(
             trigger="reported_review_findings",
-            update="brief",
+            update="none" if mode == "delegate" else "brief",
             continuation="correct_reported_defects",
             blocking_scope="affected_delivery",
             reported_defect_kinds=defects,
             hint="Use the recorded findings and actual review evidence. Correct ordinary defects within the authorized edit; ask about genuine creative tradeoffs only. These are reported findings, not automatic factual verification.",
         )
+        if mode == "delegate":
+            check["hint"] = (
+                "Correct the reported defects internally using actual review evidence. These findings are not automatic factual verification. Ask only if a genuine blocker prevents the requested result; do not introduce an optional style decision."
+            )
     elif (
-        task.get("status") == "succeeded"
-        and task.get("operation") == "export"
-        and result.get("video_id")
-    ) or (media and media.get("final") and media.get("object_id")):
+        (
+            task.get("status") == "succeeded"
+            and task.get("operation") == "export"
+            and result.get("video_id")
+        )
+        or (media and media.get("final") and media.get("object_id"))
+    ) and not awaiting_excerpt:
         check.update(
             trigger="finished_video_available",
             update="brief",
@@ -123,27 +178,61 @@ def experience_context(
             continuation="deliver_requested_result",
             hint="Deliver the playable video and download. Reuse the existing player or open it if needed. Do not request another routine approval or claim review you did not perform.",
         )
+    elif awaiting_excerpt:
+        review = intake.get("excerpt_review") or {}
+        status = review.get("status", "not_requested")
+        key = f"intake:excerpt_review:{status}:{review.get('object_id', '')}:creative:{revision}"
+        check.update(
+            trigger="representative_excerpt_needed",
+            update="brief" if event == "start" else "none",
+            question="tailored_content_if_unresolved",
+            continuation="develop_representative_excerpt",
+            blocking_scope="remaining_production",
+            hint="Use the supplied context first. If the topic is unfamiliar, inspect sources or use research tools actually available to the host before asking tailored content questions. Offer relevant style references only when helpful. Resolve offered early decisions, then make one short representative snippet for review before building the rest; a known answer needs no new question.",
+        )
+        if status == "changes_requested":
+            check.update(
+                trigger="excerpt_changes_requested",
+                question="none",
+                continuation="revise_representative_excerpt",
+                hint="Apply the user's requested changes to the representative snippet. Preserve compatible work and show the revised snippet for review before remaining production. Do not treat requested changes as approval or repeat already answered content questions.",
+            )
+        elif status == "pending" or (media and media.get("object_id")):
+            check.update(
+                trigger="excerpt_review_pending",
+                update="brief",
+                question="review_representative_excerpt",
+                widgets=["show_video_preview"],
+                continuation="wait_for_excerpt_feedback",
+                hint="Use the existing snippet player, opening it only if missing. Ask for the requested early review and wait before making the rest of the video. Cheap independent work can continue, but an unanswered review is not approval. Show actual media only; do not substitute an inspection sheet or a status card.",
+            )
     elif media and media.get("object_id"):
         key = f"media:{media['object_id']}:creative:{revision}"
         check.update(
             trigger="media_available",
-            update="brief",
+            update="none" if mode == "delegate" else "brief",
             question="optional_if_consequential" if mode != "delegate" else "none",
-            widgets=["show_video_preview"],
+            widgets=[] if mode == "delegate" else ["show_video_preview"],
             hint="Show or refresh this real media once in the conversation with a short update. Invite useful redirection where a consequential choice remains; keep working without requiring a reply.",
         )
+        if mode == "delegate":
+            check["hint"] = (
+                "Keep this intermediate media and its inspection internal. Continue the authorized edit without optional questions or preview updates; show the finished video and download when ready."
+            )
     elif event == "start":
         check.update(
             trigger="request_started",
-            update="brief",
-            question="optional_if_consequential"
-            if mode != "delegate"
-            else "only_if_required",
+            update="none" if mode == "delegate" else "brief",
+            question="optional_if_consequential" if mode != "delegate" else "none",
             widgets=["show_video_brief", "show_video_choices", "show_video_story"]
             if mode != "delegate"
             else [],
             hint="State consequential assumptions briefly. Choose at most one useful steering surface for an unresolved decision; author it for this request, not a questionnaire ritual. Continue authorized work with reversible defaults; defaults are not user approval.",
         )
+        if mode == "delegate":
+            check["hint"] = (
+                "Make creative decisions within the saved request and complete production. Do not show optional questions, story cards, draft previews or routine updates. Surface a genuine blocker when user input is needed, and deliver the final playable video and download."
+            )
     elif task.get("status") == "succeeded":
         check.update(
             trigger="task_completed",
@@ -151,4 +240,7 @@ def experience_context(
             question="optional_if_consequential" if mode == "hands_on" else "none",
             hint="Continue from the real result. A meaningful new design decision can merit a short update or optional question; a tool completing alone does not require either.",
         )
-    return dict(mode=mode, source=source, repeat_key=key, check_in=check)
+    response = dict(mode=mode, source=source, repeat_key=key, check_in=check)
+    if intake is not None:
+        response["intake"] = intake
+    return response

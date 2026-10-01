@@ -4,6 +4,7 @@ from unittest.mock import Mock
 
 from video_use_mcp.pilot.tests.test_workflow import call
 from video_use_mcp.pilot.tests.test_widgets import BEATS
+from video_use_mcp.pilot.tests.test_workflow_catalog import complete_intake
 
 pytest_plugins = ["video_use_mcp.pilot.tests.test_oauth_discovery"]
 
@@ -18,8 +19,10 @@ def test_start_includes_current_allowance_without_starting_a_task(pilot, monkeyp
     )
     allowance.assert_called_once_with(pilot[1].state.store, "tester")
     assert result["narration_allowance"]["remaining"] == 91
-    assert result["experience"]["check_in"]["trigger"] == "request_started"
-    assert result["experience"]["source"] == "default"
+    assert result["experience"]["check_in"]["trigger"] == "involvement_required"
+    assert result["experience"]["check_in"]["continuation"] == "wait_for_mode_choice"
+    assert result["experience"]["source"] == "awaiting_user"
+    assert [q["id"] for q in result["widget"]["questions"]] == ["involvement"]
     assert not any(
         "INSERT INTO public.vp_tasks" in c.args[0]
         for c in pilot[1].state.store.sql.call_args_list
@@ -36,10 +39,15 @@ def test_story_surfaces_capacity_shortfall_before_narration(pilot, monkeypatch):
         "start_video",
         dict(title="Wi-Fi", brief="Explain Wi-Fi with voiceover", category="explainer"),
     )
+    ready = complete_intake(pilot, started)
     result = call(
         pilot,
         "show_video_story",
-        dict(project_id=started["project_id"], creative_revision=1, beats=BEATS),
+        dict(
+            project_id=started["project_id"],
+            creative_revision=ready["creative"]["revision"],
+            beats=BEATS,
+        ),
     )
     script = "\n\n".join(beat["narration"] for beat in BEATS)
     allowance.assert_called_once_with(
@@ -64,10 +72,15 @@ def test_unknown_capacity_is_not_reported_as_exhausted(pilot, monkeypatch):
         "start_video",
         dict(title="Story", brief="A short narrated story", category="explainer"),
     )
+    ready = complete_intake(pilot, started)
     result = call(
         pilot,
         "show_video_story",
-        dict(project_id=started["project_id"], creative_revision=1, beats=BEATS),
+        dict(
+            project_id=started["project_id"],
+            creative_revision=ready["creative"]["revision"],
+            beats=BEATS,
+        ),
     )
     assert "experience" not in result
     assert result["narration_allowance"]["status"] == "unknown"

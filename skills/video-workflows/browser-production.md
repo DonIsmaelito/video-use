@@ -5,17 +5,52 @@ capabilities and useful decisions, not a prompt classifier or a required recipe.
 A request can mix footage, documents, data, typography, sound and 3D. Use the
 smallest useful combination. Existing user preferences and the actual source
 material outrank examples, sample styles and suggested structures.
-Before narration or substantial original rendering, briefly state the proposed
-script/outline, audience, look and delivery format. Keep user requirements separate
-from agent assumptions. This is a conversational update, not an approval gate.
-Offer a relevant nonblocking reference comparison once when a consequential choice
-is open, and consume current choices/feedback from task responses before more work.
+Keep user requirements separate from agent assumptions, and consume current
+choices and feedback from task responses before work that depends on them.
+
+## Begin with the user's preferred level of involvement
+
+For a new version-1 request, ask the involvement question first: **Hands off**,
+**Key moments**, or **Hands on**. Use the returned intake state and the explicit
+mode choice; a suggested option is not an answer. Wait for this choice before
+content questions, a story proposal, narration or rendering. Do not turn every
+subsequent task or edit in the same request into another mode question. Older
+projects without version-1 intake keep their existing explicit mode or their
+honestly labeled key-moments default.
+
+Second, ask only for missing high-level output basics, such as duration and
+destination. Reuse basics already supplied in the request. This step is not an
+opportunity to ask about teaching depth, topics, examples, audience or aesthetics.
+If the basics are already present, proceed directly to the selected mode.
+
+- **Hands off:** make the creative decisions within the request and carry out
+  production without optional questions, story cards, draft previews or routine
+  progress updates. Show the finished playable video and download. Genuine missing
+  inputs or service blockers still need an honest explanation and a focused question
+  when required; this mode does not authorize a new service or extra spending.
+- **Key moments:** keep existing selective collaboration. Share a small number of
+  useful choices or meaningful drafts when an answer could change the result.
+  Avoid routine approval stops; preserve what the user has already specified.
+- **Hands on:** first understand an unfamiliar subject from supplied material or
+  research tools actually available to the host. Then ask tailored content questions
+  that help uncover this user's intended piece. Offer suitable style references when
+  they help, and make a short representative snippet for review before the rest of
+  the film. Wait at these early user decisions before producing work that depends
+  on the answer. Cheap independent source inspection can continue; do not treat
+  an unanswered choice as permission to make all the scenes anyway.
+
+Hands-on collaboration is not a fixed list of topic questions. A supplied script,
+known reference or exact edit can already settle a decision. Ask only what is
+still open, acknowledge the answer and move on. Questions can use the implemented
+brief widget or ordinary conversation. Do not claim access to a native Claude or
+ChatGPT question dialog unless that host actually exposes a callable capability.
 
 ## Start from the material and the outcome
 
-Establish what exists, what the viewer should understand or feel, and what must
-remain true. A precise request with accessible footage can go straight to an
-edit. An open creative brief usually benefits from a reversible visual premise.
+After intake, establish what exists, what the viewer should understand or feel,
+and what must remain true. A precise request with accessible footage can go straight
+to the edit once its required setup is complete. An open creative brief usually
+benefits from a reversible visual premise.
 An inaccessible source, contradictory facts or an essential missing provider is
 a real dependency; the absence of a style choice usually is not.
 
@@ -32,8 +67,9 @@ its required account, source asset, font or renderer is available in this run.
 
 ## Ask where a different answer changes the piece
 
-Ask a small, natural group of questions only when the answers are consequential
-and missing. Useful uncertainties include a novice versus specialist audience,
+After the mode and missing output basics are settled, ask a small, natural group
+of content questions only when the selected mode calls for them and their answers
+are consequential and missing. Useful uncertainties include a novice versus specialist audience,
 a faithful document adaptation versus a new interpretation, a brand reference,
 a sentimental montage's essential people, or exact product fidelity in 3D.
 Do not repeat information already in the prompt or ask the user to choose a
@@ -43,8 +79,10 @@ Cached examples are optional references to a visual technique, not a menu of all
 possible videos. The catalog includes diagram, editorial, two caption, interface
 and dimensional-product examples. `show_video_choices(reference_ids=[...])` can
 offer two or three relevant catalog IDs even for a custom or mixed request.
-Identify them as examples and continue source analysis or outlining with a stated
-default. If the available examples do not fit the request, do not show the picker. A photo montage, a music
+Identify them as examples. In key-moments mode, source analysis or outlining can
+continue with a stated reversible default. In hands-on mode, wait for an offered
+early style decision before committing to dependent visuals. Hands-off mode skips
+this optional picker. If the available examples do not fit the request, do not show the picker. A photo montage, a music
 visualizer and a specific trim do not need the same caption-style question.
 
 An answer can arrive through chat or an embedded click. Persist that preference
@@ -54,9 +92,12 @@ A UI click cannot force the chat host to interrupt its current reasoning turn;
 context is applied when the host makes it available to the assistant. Submitted
 render jobs can run while the host is waiting, within task and workspace limits.
 
-Do not end every stage to ask permission. Continue toward a complete, reviewed
-piece unless an essential input is missing, the user explicitly requested a
-checkpoint, or the host limits the turn. A request for a narrated video normally
+Do not end every stage to ask permission. The initial mode/output choices and
+hands-on early content, style and snippet decisions are meaningful checkpoints;
+they do not make every implementation step an approval stage. Continue compatible
+independent work while awaiting an answer, and resume dependent work after it
+arrives. A genuine missing input and a host turn limit are separate constraints.
+A request for a narrated video normally
 authorizes routine narration and rendering within the existing service limits;
 it does not authorize publishing it elsewhere or starting a paid external
 provider that is not configured.
@@ -223,7 +264,13 @@ with capped concurrency, not unlimited compute. Give each component distinct
 output paths and treat shared assets as read-only. Do not assemble if any
 component fails. The host still authors the plan and code; these workers are
 render processes, not hidden model agents.
-For compact drawing scenes, use `render_video_scene` for the first excerpt and
+For compact drawing scenes, use `render_video_scene` with
+`production_stage="excerpt"` for the first sample. A custom sample made through
+`run_video_step`, or a sample joined through `assemble_video`, also explicitly
+uses `production_stage="excerpt"`. That label means a bounded representative
+sample, not all the scenes of the eventual film. These tools default to
+`production_stage="full_video"`; hands-on requests cannot start that remaining
+production until the user accepts the sample. After acceptance, use
 `assemble_video` with ordered IDs and remaining scene data for the full draft.
 It validates the batch, reuses compatible renders and publishes actual media;
 ordinary scene assembly needs no agent-written generator or concat script.
@@ -235,8 +282,13 @@ render commands, actual outputs, and unresolved dependencies. Save this context
 in project files as well as creative state; do not rely on the chat remembering
 every tool response.
 
-Show the user a coherent motion excerpt or useful comparison when it communicates
-a meaningful decision. Avoid empty status cards, arbitrary primitive frames,
+In hands-on mode, show a coherent short excerpt with `show_video_preview`, then
+use `show_video_checkpoint` for the user's explicit continue or refine decision
+before building the rest. Bind the review to that preview's actual object ID and
+the current creative revision. An internal quality review does not answer the
+user's direction question. In key-moments mode, show an excerpt or comparison when it
+communicates a meaningful decision. In hands-off mode, keep intermediate rendering
+and inspection internal and show the final result. Avoid empty status cards, arbitrary primitive frames,
 repeated polls and an identical preview after every command. Combine related
 work, return compact results and poll only unfinished tasks. The final output
 should play and download inside the supported host UI; attribution, permissions,

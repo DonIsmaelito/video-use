@@ -314,9 +314,10 @@ const clone=value=>JSON.parse(JSON.stringify(value));
 function widgetHere(state){return widgetState===state && !$('widget').hidden;}
 function widgetPayload(state){return state.widget.kind==='brief'?{answers:state.draft.answers}:{beats:state.draft.beats};}
 function widgetBaseline(widget){return widget.kind==='brief'?{answers:widget.answers || {}}:{beats:widget.beats};}
+function widgetIncomplete(state){return (state.widget.required || []).some(id=>!state.draft.answers?.[id]);}
 function widgetControls(state){
   if(!widgetHere(state))return;
-  $('widget-submit').disabled=state.saving || !state.dirty || Boolean(state.pending);
+  $('widget-submit').disabled=state.saving || !state.dirty || Boolean(state.pending) || widgetIncomplete(state);
   $('widget-latest').hidden=!state.pending;
   $('widget-latest').disabled=state.saving;
   $('widget-fields').querySelectorAll('input,textarea,button').forEach(el=>{el.disabled=state.saving;});
@@ -345,7 +346,7 @@ function receiveWidget(data,replace=false){
 function drawWidget(state){
   const widget=state.widget,fields=$('widget-fields');fields.replaceChildren();fields.className='';fields.removeAttribute('aria-label');
   $('widget-title').textContent=widget.title || (widget.kind==='brief'?'A few preferences':'Shape the story');
-  $('widget-submit').textContent=widget.kind==='brief'?'Save preferences':'Send changes';
+  $('widget-submit').textContent=widget.purpose==='excerpt_review'?'Send decision':widget.required?.length?'Continue':widget.kind==='brief'?'Save preferences':'Send changes';
   $('widget-status').textContent='';
   if(widget.kind==='brief'){
     for(const question of widget.questions || []){
@@ -394,7 +395,7 @@ function drawWidget(state){
 $('widget-latest').onclick=()=>{const state=widgetState;if(state?.pending && !state.saving)receiveWidget(state.pending,true);};
 $('widget-form').onsubmit=async event=>{
   event?.preventDefault?.();
-  const state=widgetState;if(!state || state.saving || !state.dirty || state.pending)return;
+  const state=widgetState;if(!state || state.saving || !state.dirty || state.pending || widgetIncomplete(state))return;
   const payload=clone(widgetPayload(state)),caps=app.getHostCapabilities?.() || {};
   const notice=text=>{if(widgetHere(state))$('widget-status').textContent=text;};
   if(state.widget.kind==='story' && payload.beats.some(b=>!b.title.trim() || !b.visual.trim() || !Number.isFinite(b.seconds) || b.seconds<0.1 || b.seconds>600)){
@@ -415,9 +416,10 @@ $('widget-form').onsubmit=async event=>{
     const change=saved.kind==='brief' && !Object.keys(payload.answers).length
       ? `I cleared my saved answers for these questions: ${(state.widget.questions || []).map(q=>q.prompt).join('; ')}. Treat them as unanswered and preserve unrelated preferences`
       : `I saved ${saved.kind==='brief'?'these preferences':'these story changes'}: ${summary}`;
-    const content=[{type:'text',text:`For video project ${state.projectId}, ${change}. Widget ${saved.id} revision ${saved.revision}; creative revision ${data.creative?.revision ?? saved.creative_revision}. Use the current saved preferences for the next appropriate edit. This is not final approval.`}];
+    const continuation=data.intake?`Saved intake: ${JSON.stringify(data.intake)}. Follow its next action. This is an explicit answer to the displayed question, not approval to publish externally.`:'Use the current saved preferences for the next appropriate edit. This is not final approval.';
+    const content=[{type:'text',text:`For video project ${state.projectId}, ${change}. Widget ${saved.id} revision ${saved.revision}; creative revision ${data.creative?.revision ?? saved.creative_revision}. ${continuation}`}];
     const current={project_id:state.projectId,widget_id:saved.id,widget_revision:saved.revision,creative_revision:data.creative?.revision ?? saved.creative_revision};
-    for(const key of ['brief_answers','beats','direction','preferences','selected','latest_feedback','plan_provenance']){
+    for(const key of ['brief_answers','beats','direction','preferences','selected','latest_feedback','plan_provenance','intake']){
       if(data.creative?.[key]!==undefined)current[key]=data.creative[key];
     }
     if(saved.kind==='brief' && current.brief_answers===undefined)current.brief_answers=(saved.questions || []).filter(q=>saved.answers?.[q.id]).map(q=>({question:q.prompt,answer:q.options.find(o=>o.id===saved.answers[q.id])?.label || saved.answers[q.id]}));

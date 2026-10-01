@@ -15,13 +15,22 @@ def call(pilot, name, args):
     return r.get("structuredContent") or json.loads(r["content"][0]["text"])
 
 
-def test_choices_are_optional_persisted_and_scoped(pilot):
+def legacy_project(pilot, pid):
+    """Existing projects retain their pre-intake interaction behavior."""
+    state = pilot[1].state.store.get("creative", pid)
+    state.pop("intake", None)
+    state.pop("widgets", None)
+    pilot[1].state.store.put("creative", pid, state)
+
+
+def test_legacy_choices_are_optional_persisted_and_scoped(pilot):
     state = call(
         pilot,
         "start_video",
         dict(title="Sound", brief="Explain sound", category="explainer"),
     )
     pid = state["project_id"]
+    legacy_project(pilot, pid)
     assert state["creative"]["revision"] == 1
     r = call(pilot, "show_video_choices", dict(project_id=pid))
     assert len(r["choices"]["options"]) == 2
@@ -105,6 +114,7 @@ def test_category_change_preserves_user_edits_and_retires_old_style_picker(pilot
         ),
     )
     pid = started["project_id"]
+    legacy_project(pilot, pid)
     brief = show(pilot, pid)
     save(pilot, brief, answers={"audience": "kids"})
     story = show(pilot, pid, "story")

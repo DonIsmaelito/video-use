@@ -56,11 +56,18 @@ BEATS = [
 
 @pytest.fixture
 def project(pilot):
-    return call(
+    project_id = call(
         pilot,
         "start_video",
         dict(title="Wi-Fi", brief="Explain Wi-Fi", category="explainer"),
     )["project_id"]
+    # This file covers the legacy optional-editor contract. The explicit v1
+    # mode/basics flow is exercised separately in test_intake.py.
+    store = pilot[1].state.store
+    state = store.get("creative", project_id)
+    state.pop("intake", None)
+    store.put("creative", project_id, state)
+    return project_id
 
 
 def show(pilot, project, kind="brief", **updates):

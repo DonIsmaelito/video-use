@@ -16,6 +16,42 @@ def call(pilot, name, arguments):
     return result.get("structuredContent") or json.loads(result["content"][0]["text"])
 
 
+def complete_intake(pilot, started):
+    """Use real button submissions before testing post-intake creative behavior."""
+    pid = started["project_id"]
+    widget = started["widget"]
+    selected = call(
+        pilot,
+        "save_video_widget",
+        dict(
+            project_id=pid,
+            widget_id=widget["id"],
+            revision=widget["revision"],
+            request_id="fixture-involvement",
+            answers={"involvement": "key_moments"},
+        ),
+    )
+    if selected["intake"]["phase"] == "basics":
+        next_tool = selected["intake"]["next_tool"]
+        shown = call(pilot, next_tool["name"], next_tool["arguments"])
+        widget = shown["widget"]
+        choices = {"duration": "30", "viewing_destination": "landscape"}
+        selected = call(
+            pilot,
+            "save_video_widget",
+            dict(
+                project_id=pid,
+                widget_id=widget["id"],
+                revision=widget["revision"],
+                request_id="fixture-basics",
+                answers={q["id"]: choices[q["id"]] for q in widget["questions"]},
+            ),
+        )
+    assert selected["intake"]["phase"] == "production"
+    assert selected["intake"]["source"] == "user_submit"
+    return selected
+
+
 def test_mixed_request_retains_user_direction_and_avoids_approval_gate(pilot):
     result = call(
         pilot,
@@ -74,9 +110,12 @@ def test_category_change_removes_stale_choices_and_custom_stays_open(pilot):
         ),
     )
     pid = original["project_id"]
-    call(pilot, "show_video_choices", dict(project_id=pid))
+    complete_intake(pilot, original)
+    shown = call(pilot, "show_video_choices", dict(project_id=pid))
     call(
-        pilot, "choose_video_style", dict(project_id=pid, choice="diagram", revision=1)
+        pilot,
+        "choose_video_style",
+        dict(project_id=pid, choice="diagram", revision=shown["choices"]["revision"]),
     )
     changed = call(
         pilot,
@@ -157,6 +196,7 @@ def test_custom_workflows_can_offer_relevant_catalog_references(
         ),
     )
     pid = started["project_id"]
+    complete_intake(pilot, started)
     assert not started["workflow"]["choices"]
     shown = call(
         pilot,
@@ -197,6 +237,7 @@ def test_bad_reference_overrides_leave_existing_offer_unchanged(
         dict(title="A mixed piece", brief="Use relevant references", category="custom"),
     )
     pid = started["project_id"]
+    complete_intake(pilot, started)
     call(
         pilot,
         "show_video_choices",

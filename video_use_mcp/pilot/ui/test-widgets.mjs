@@ -181,3 +181,24 @@ const media={project_id:'project',media:{object_id:'video',media_type:'video/mp4
   assert.equal(el(h,'expand').disabled,false);assert(el(h,'notice').textContent.includes('could not expand'));
 }
 console.log('PASS optional brief and story editors preserve unsaved changes save explicitly handle retries and stale results and expand existing playback only on supported hosts');
+
+// V1 intake asks for explicit answers, then sends the saved branch back to the host.
+{
+  const data=brief();data.widget.purpose='basics';data.widget.required=['audience','mood'];
+  const h=host();h.show(data);
+  assert.equal(el(h,'widget-submit').textContent,'Continue');
+  choose(h);assert.equal(el(h,'widget-submit').disabled,true);
+  await submit(h);assert.equal(h.calls.length,0,'required unanswered questions stay local');
+  choose(h,'mood','calm');assert.equal(el(h,'widget-submit').disabled,false);
+  await submit(h);assert.equal(h.calls.length,1);
+}
+{
+  const data=brief();data.widget.purpose='excerpt_review';data.widget.required=['audience'];
+  const intake={version:1,mode:'hands_on',phase:'production',excerpt_review:{status:'approved',object_id:'sample-one'},next_action:'Complete the rest'};
+  const h=host({tool:async input=>({structuredContent:{...data,saved:true,intake,widget:{...data.widget,answers:input.arguments.answers,revision:2},creative:{revision:4,intake}}})});
+  h.show(data);assert.equal(el(h,'widget-submit').textContent,'Send decision');choose(h);await submit(h);
+  assert.equal(h.messages.length,1);
+  assert(JSON.stringify(h.messages).includes('sample-one'));
+  assert(JSON.stringify(h.messages).includes('Complete the rest'));
+  assert(JSON.stringify(h.contexts).includes('approved'),'host receives the saved sample decision');
+}

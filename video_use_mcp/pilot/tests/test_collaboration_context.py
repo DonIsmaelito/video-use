@@ -8,11 +8,12 @@ from unittest.mock import AsyncMock, Mock
 import pytest
 
 from video_use_mcp.pilot.interaction import creative_handoff
-from video_use_mcp.pilot.runtime import Manager
+from video_use_mcp.pilot.runtime import Manager, require_production_intake
 from video_use_mcp.pilot.tests.test_cards import PID, rpc
 from video_use_mcp.pilot.tests.test_preview_delivery import TID, task_result
 from video_use_mcp.pilot.tests.test_preview_updates import progress
 from video_use_mcp.pilot.tests.test_workflow import call
+from video_use_mcp.pilot.tests.test_workflow_catalog import complete_intake
 
 pytest_plugins = ["video_use_mcp.pilot.tests.test_oauth_discovery"]
 
@@ -193,6 +194,7 @@ def test_choices_have_nonblocking_instruction_in_structured_result(pilot):
         "start_video",
         {"title": "Sound", "brief": "Explain sound", "category": "explainer"},
     )
+    complete_intake(pilot, project)
     response = rpc(
         pilot,
         "tools/call",
@@ -203,10 +205,12 @@ def test_choices_have_nonblocking_instruction_in_structured_result(pilot):
     )
     data = response["structuredContent"]
     assert json.loads(response["content"][0]["text"]) == data
-    assert "a click is optional" in data["next_action"]
-    assert "approved" in data["next_action"]
+    assert "while style is undecided" in data["next_action"]
+    assert "not user approval" in data["next_action"]
     saved = pilot[1].state.store.get("creative", project["project_id"])
     assert "selected" not in saved and "selection_source" not in saved
+    assert "pending_style" not in saved["intake"]
+    require_production_intake(saved, "step", {"production_stage": "full_video"})
 
 
 def test_assembly_paths_and_exact_timing_survive_compact_log_response(pilot):

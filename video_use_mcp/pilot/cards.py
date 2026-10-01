@@ -5,6 +5,7 @@ import contextlib
 import json
 import re
 import tempfile
+from copy import deepcopy
 from pathlib import Path
 from typing import Annotated, Literal
 
@@ -22,6 +23,9 @@ from .interaction import (
 from .feedback import feedback_context
 from .widgets import creative_public
 from .experience import experience_context
+from .intake import intake_context
+from .creative_state import creative_edit
+from .store import ident
 
 Stage = Literal[
     "planning", "style", "motion", "draft", "review", "complete", "needs_attention"
@@ -169,10 +173,17 @@ def register_cards(
 
     def media_result(uid, pid):
         media = current_media(uid, pid)
+        creative = store.get("creative", pid)
+        intake = intake_context(creative, pid)
+        if intake and intake["mode"] == "delegate" and not media.get("final"):
+            raise ValueError(
+                "Hands off is selected. Finish and review the video, then show its final export; skip intermediate previews."
+            )
         data = {
             "project_id": pid,
             "media": media,
-            "creative": creative_public(store.get("creative", pid)),
+            "creative": creative_public(creative),
+            "intake": intake,
             "next_action": (
                 "Present the finished video and download concisely, describing only "
                 "the review evidence you actually inspected. The requested export is complete."
@@ -188,6 +199,23 @@ def register_cards(
                 "Do not describe workspace setup or terminal commands."
             ),
         }
+        if (
+            intake
+            and intake["mode"] == "hands_on"
+            and not media.get("final")
+            and intake["excerpt_review"].get("status") != "approved"
+        ):
+            data["next_action"] = (
+                "This is the short sample for the user's review. Explain the proposed direction in one sentence, call show_video_checkpoint, and wait for continue or refine before making the rest. Reuse this player for later media."
+            )
+            data["next_tool"] = {
+                "name": "show_video_checkpoint",
+                "arguments": {
+                    "project_id": pid,
+                    "creative_revision": creative["revision"],
+                    "object_id": media["object_id"],
+                },
+            }
         return CallToolResult(
             content=[
                 TextContent(
@@ -431,6 +459,42 @@ def register_cards(
             handoff=handoff,
             blocker=out.get("blocker"),
         )
+        intake = intake_context(out.get("creative"), out["project"])
+        if intake:
+            out["intake"] = intake
+            final = (
+                out["status"] == "succeeded"
+                and out["operation"] == "export"
+                and result.get("video_id")
+            )
+            if (
+                intake["mode"] == "delegate"
+                and not final
+                and out["status"] == "succeeded"
+            ):
+                out.pop("preview_delivery", None)
+                # Private QA still reaches the model. Only human-facing draft
+                # displays and optional check-ins are suppressed by delegation.
+                out["next_action"] = (
+                    "Hands off: continue production and internal review using these results. Do not open a draft player or ask optional questions. Deliver the final playable export. Report real blockers honestly."
+                )
+            elif (
+                intake["mode"] == "hands_on"
+                and out.get("media")
+                and not final
+                and intake["excerpt_review"].get("status") != "approved"
+            ):
+                out["next_action"] = (
+                    "The sample is ready. Show or refresh its actual player, then call show_video_checkpoint for continue/refine and wait before producing the complete film. Do not poll this completed task or silently complete the rest."
+                )
+                out["next_tool"] = {
+                    "name": "show_video_checkpoint",
+                    "arguments": {
+                        "project_id": out["project"],
+                        "creative_revision": out["creative"]["revision"],
+                        "object_id": out["media"]["object_id"],
+                    },
+                }
         # A few hosts consume only text. Serialize after attaching the same media
         # and state-specific next action that structured clients receive.
         out.pop("next_check", None)
@@ -514,13 +578,106 @@ def register_cards(
 
     @mcp.tool(annotations=read, meta=UI_META, title="Video preview")
     def show_video_preview(project_id: str) -> CallToolResult:
-        """Show an actual image or playable video directly in chat, with video download. Accompany a meaningful new draft with one brief chat sentence about what is visible and what comes next, then continue without requiring a reply. The open player refreshes newer media for up to ten minutes on supported hosts without interrupting playback. Reopen for final export if absent/expired. No workspace/status UI or placeholders."""
+        """Show real media with playback/download. Hands off shows only the finished export. Hands on shows its short excerpt, then show_video_checkpoint waits for the user's direction before completing the rest. Key moments uses selective previews. Reuse the open player, which refreshes for up to ten minutes on supported hosts; reopen only when needed. No placeholders."""
         return media_result(muser(), project_id)
+
+    @mcp.tool(annotations=execute, meta=UI_META, title="Review the sample")
+    @creative_edit
+    def show_video_checkpoint(
+        project_id: str, creative_revision: int, object_id: str
+    ) -> CallToolResult:
+        """After showing a short hands-on excerpt, offer Continue with this or Refine the sample. Binds the decision to this exact rendered video. Never substitute an internal review or your own judgment for the user's answer. Use record_video_answers for an actual chat reply. Wait before rendering the rest."""
+        uid = muser(True)
+        store.project(uid, project_id)
+        state = deepcopy(store.get("creative", project_id) or {})
+        intake = intake_context(state, project_id)
+        if (
+            not intake
+            or intake["mode"] != "hands_on"
+            or intake["phase"] in ("mode", "basics", "personalization")
+        ):
+            raise ValueError(
+                "Complete hands-on intake and the offered content/style choices before sample review"
+            )
+        if state.get("revision") != creative_revision:
+            raise ValueError(
+                "Creative preferences changed; read get_video_project before offering this review"
+            )
+        media = current_media(uid, project_id)
+        if (
+            media.get("object_id") != object_id
+            or media.get("media_type") != "video/mp4"
+            or media.get("final")
+        ):
+            raise ValueError(
+                "Review the current sample video, not an old version, still image or finished export"
+            )
+        if media.get("duration") and media["duration"] > 20.1:
+            raise ValueError(
+                "Render a short sample of at most 20 seconds before offering hands-on review"
+            )
+        current = state.get("widgets", {}).get("brief") or {}
+        if (
+            current.get("purpose") == "excerpt_review"
+            and current.get("media_object_id") == object_id
+            and current.get("creative_revision") == creative_revision
+        ):
+            widget = current
+        else:
+            widget = dict(
+                id=ident(),
+                kind="brief",
+                purpose="excerpt_review",
+                title="How does this direction feel?",
+                revision=1,
+                creative_revision=creative_revision,
+                state="open",
+                media_object_id=object_id,
+                required=["excerpt_review"],
+                answers={},
+                questions=[
+                    dict(
+                        id="excerpt_review",
+                        prompt="Use this direction for the rest?",
+                        options=[
+                            dict(id="continue", label="Continue with this"),
+                            dict(id="refine", label="Refine the sample"),
+                        ],
+                        recommended="",
+                    )
+                ],
+            )
+            state.setdefault("widgets", {})["brief"] = widget
+            state["intake"]["excerpt_review"] = dict(
+                status="pending",
+                object_id=object_id,
+                creative_revision=creative_revision,
+            )
+            store.put("creative", project_id, state)
+        data = dict(
+            project_id=project_id,
+            widget={k: v for k, v in widget.items() if k != "receipts"},
+            creative=creative_public(state),
+            intake=intake_context(state, project_id),
+            next_action=(
+                "This sample direction is already accepted. Continue completing the film; do not ask for the same decision again."
+                if state["intake"]["excerpt_review"].get("status") == "approved"
+                else "Wait for the user's sample decision. Continue with this unlocks completing the film; Refine the sample means use their feedback or ask what should change, then present a revised excerpt. A recommendation or silence is not acceptance."
+            ),
+        )
+        return CallToolResult(
+            content=[TextContent(type="text", text=json.dumps(data))],
+            structuredContent=data,
+        )
 
     @mcp.tool(annotations=read, meta={"ui": {"visibility": ["app"]}})
     def video_preview_updates(project_id: str) -> CallToolResult:
         """Refresh only the current media in an already-open player. App-only, read-only; never starts a task or sends a user message."""
-        data = {"project_id": project_id, "media": current_media(muser(), project_id)}
+        media = current_media(muser(), project_id)
+        intake = intake_context(store.get("creative", project_id))
+        data = {"project_id": project_id, "media": media}
+        if intake and intake["mode"] == "delegate" and not media.get("final"):
+            data.update(media=None, refresh="paused_by_involvement")
         return CallToolResult(
             content=[TextContent(type="text", text=json.dumps(data))],
             structuredContent=data,
@@ -574,8 +731,14 @@ def register_cards(
                 description="Actual ordered scene durations after narration alignment, separate from rough story beats. Supply with review_path or preview_path for that assembled video: {scenes:[{title,seconds}],narration_offset?}. Stored only after successful work; review checks total against the encoded duration."
             ),
         ] = None,
+        production_stage: Annotated[
+            Literal["excerpt", "full_video"],
+            Field(
+                description="excerpt means one short sample for creative review, not a complete film. full_video is default and waits for hands-on sample acceptance."
+            ),
+        ] = "full_video",
     ) -> CallToolResult:
-        """Batch sources, render and preview without mandatory approval pauses. Optional components (max 6, concurrency 2) are independent render commands with separate output/cache paths; command runs after ALL succeed to assemble them. Keep renderer threads low. Shared timeout bounds the whole step. Pass creative_revision from start_video/plan_video/latest context. Use preview_path for drafts and review_path for final encoded inspection. Show meaningful new motion with show_video_preview, then keep working. Only poll unfinished tasks."""
+        """Batch sources and render after intake. Declare excerpt for a short hands-on sample, full_video for completing the film; hands-on requires explicit sample acceptance first. Optional components (max6, concurrency2) render independently; command assembles after success. Pass current creative_revision, preview_path for the actual draft and review_path for final encoded inspection. Follow the saved mode for human-facing previews. Only poll unfinished tasks."""
         uid = muser(True)
         preview_pending = stage in ("style", "motion", "draft") and not preview_path
         if preview_pending and not (files or command or components):
@@ -612,6 +775,15 @@ def register_cards(
                 "review_path": review_path,
                 "components": [c.model_dump() for c in components],
                 "creative_revision": creative_revision,
+                **(
+                    {"production_stage": production_stage}
+                    if production_stage != "full_video"
+                    or (store.get("creative", project_id) or {})
+                    .get("intake", {})
+                    .get("version")
+                    == 1
+                    else {}
+                ),
                 **(
                     {
                         "production_timing": production_timing.model_dump(
