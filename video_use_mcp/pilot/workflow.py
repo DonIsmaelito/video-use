@@ -9,6 +9,8 @@ from mcp.types import CallToolResult, TextContent
 from pydantic import BaseModel, Field
 from .interaction import UI_META, UI_URI
 from .creative_state import creative_edit
+from .allowance import narration_allowance
+from .experience import experience_context
 from .widgets import creative_public
 
 Category = Literal[
@@ -604,6 +606,8 @@ def register_workflow(mcp, store, muser, new_project, read, write):
             project_id=pid,
             creative=creative_public(state),
             workflow=recipe,
+            narration_allowance=narration_allowance(store, uid),
+            experience=experience_context(state, event="start"),
             complementary_workflows=[workflow_summary(c) for c in supporting],
             next_action="Before narration or substantial original rendering, briefly state the proposed audience, look and format as assumptions. For a substantial new narrated story, use show_video_story to display an editable scene/script proposal before narration; it also saves the plan, so skip a separate plan_video call. If an unanswered audience or tone question materially changes the piece, use show_video_brief; use show_video_choices when motion references explain the decision better. Pick useful interactions, not every card. Keep working after showing them without an approval pause. Precise edits and delegated scripts need no questionnaire. Read only relevant guidance. Show one meaningful excerpt before all remaining scene code, with a short chat sentence about what is visible and what comes next. Apply the latest creative choices from task results before subsequent renders. Ask for a reply only when genuinely blocked or the user requests a checkpoint.",
             capabilities={

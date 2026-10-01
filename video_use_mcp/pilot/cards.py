@@ -20,6 +20,7 @@ from .interaction import (
 )
 from .feedback import feedback_context
 from .widgets import creative_public
+from .experience import experience_context
 
 Stage = Literal[
     "planning", "style", "motion", "draft", "review", "complete", "needs_attention"
@@ -421,6 +422,14 @@ def register_cards(
                 " Creative preferences changed during this work: read the "
                 "current creative state and adapt before final rendering or export."
             )
+        out["experience"] = experience_context(
+            out.get("creative"),
+            event="task",
+            task=out,
+            media=out.get("media"),
+            handoff=handoff,
+            blocker=out.get("blocker"),
+        )
         # A few hosts consume only text. Serialize after attaching the same media
         # and state-specific next action that structured clients receive.
         out.pop("next_check", None)

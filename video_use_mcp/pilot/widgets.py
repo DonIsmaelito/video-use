@@ -8,6 +8,8 @@ from mcp.types import CallToolResult, TextContent
 from pydantic import BaseModel, ConfigDict, Field
 
 from .creative_state import creative_edit
+from .allowance import narration_allowance
+from .experience import experience_context
 from .interaction import UI_META
 from .store import ident
 
@@ -146,6 +148,30 @@ def register_widgets(mcp, store, muser, read, write):
         state.setdefault("widgets", {})[widget["kind"]] = widget
         store.put("creative", project_id, state)
         data = output(project_id, state, widget)
+        if widget["kind"] == "story" and state.get("script"):
+            data["narration_allowance"] = narration_allowance(
+                store, muser(True), requested_characters=len(state["script"])
+            )
+            if data["narration_allowance"].get("fits_available") is False:
+                data["experience"] = experience_context(
+                    state,
+                    event="story",
+                    blocker={
+                        "kind": "narration_capacity_shortfall",
+                        "resource": "narration",
+                        "automatic_retry": False,
+                    },
+                )
+                data["next_action"] = (
+                    "This proposed script exceeds the current remaining allowance for "
+                    "new narration. Explain the shortfall now and offer a compact choice "
+                    "with show_video_brief if input is needed: wait for capacity, supply "
+                    "audio with request_video_sources, or explicitly choose a silent draft. "
+                    "Existing matching cached audio may still be reusable. Continue cheap "
+                    "independent sketches; resolve the requested audio before committing "
+                    "to full scene timing. Do not silently remove voiceover or assume "
+                    "permission to increase the allowance."
+                )
         return CallToolResult(
             content=[TextContent(type="text", text=json.dumps(data))],
             structuredContent=data,

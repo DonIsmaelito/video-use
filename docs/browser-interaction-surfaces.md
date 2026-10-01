@@ -12,6 +12,12 @@ The shared contract is persisted creative context with explicit provenance and a
 
 For a broad explainer, a useful sequence might be a short proposed direction, relevant optional choices, an editable story, then one meaningful motion excerpt while the remaining scenes develop. This is not a required sequence: a precise cut may need only the source and the resulting clip; a supplied script needs no invented questionnaire. Author and show a useful excerpt before spending minutes generating every scene. Do not replace conversation with tool status text or show empty workspace containers as progress.
 
+`experience.py` derives check-in guidance from actual task results and saved input: a meaningful visual, changed preferences, failure, cancellation, completion or a real blocker. It does not invent user uncertainty, mark a chat message as delivered, or impose a rendering gate. Its repeat key lets the assistant avoid repeating the same update within a conversation. An optional explicit `involvement` answer selects hands-on, key-moments or delegated collaboration for this project; otherwise key-moments is labeled as a default. This is not an account-wide learned preference or spending authorization.
+
+`allowance.py` returns an early narration capacity snapshot in setup and capability results. The editable story also compares its proposed script against remaining characters. The report and atomic admission share the same database limit definition. Committed and unsettled reserved allowance both count; available capacity is the smaller of personal and shared remaining capacity. A read does not reserve capacity, call the speech provider or measure provider charges. Unknown capacity must remain unknown. A known shortfall merits an early focused choice while useful independent sketches can continue; it must not silently remove requested voiceover.
+
+Native Claude question dialogs, research buttons, Docs and third-party app libraries are host or separate-connector features. Their appearance in another assistant's inventory does not make them callable APIs of this MCP. Project-specific direction galleries, voice auditions, visual storyboard thumbnails/reordering, A/B versions and delivery packs remain distinct implementation work; the current controls do not imply these features are complete.
+
 ## Host surfaces and boundaries
 
 The same MCP tools and saved state serve both hosts. Host-specific evidence below does not establish identical display or continuation behavior in ChatGPT; negotiate capabilities and verify the account flow separately.

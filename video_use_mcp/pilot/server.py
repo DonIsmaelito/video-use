@@ -41,6 +41,7 @@ from .feedback import register_feedback, feedback_context
 from .review_findings import ReviewFinding, normalize_review_findings
 from .voices import narration_voices, resolve_voice
 from .widgets import register_widgets, creative_public
+from .allowance import narration_allowance
 from .branding import (
     BRAND_WEBSITE,
     PNG_PATH,
@@ -91,6 +92,9 @@ def create_app(config=None, store=None, manager=None):
             "Start new work with start_video; infer the category and preserve the user's stated preferences. "
             "Before narration or substantial authoring, write a brief ordinary chat update naming your proposed audience, look, format and script idea as assumptions. Show a short script before voicing it; continue without requesting routine approval. Tool status notes are not a substitute for speaking to the user. "
             "Be a thoughtful creative collaborator: ask where a different answer would change the piece, not at every milestone. "
+            "Tool results include experience check-in signals for meaningful progress, changed preferences and actual blockers. Use them to choose a concise chat update or an appropriate widget, not to narrate every tool call. Combine related concerns. Regular rendering requested by the user needs no additional payment approval; budget expansion, external publication or a user-requested checkpoint require explicit consent. "
+            "Surface narration_allowance early when voiceover is requested; show_video_story estimates characters before full narration. These are capacity snapshots, not reservations or invoices. If the script will not fit, explain it and offer useful alternatives before rendering the full film. Do not promise that another connector or provider can pay for or finish it without checking its capabilities and authorization. "
+            "When involvement is unclear and consequential, show_video_brief may ask how involved the user wants to be with question id involvement and option ids hands_on, key_moments or delegate. This is optional, never a compulsory first-run question. Mode changes conversation frequency, not spending permissions. A recommended unanswered default is not user approval. "
             "For an open creative brief with an unspecified look, show two relevant cached motion references when they help the user express a consequential preference. Recommend one and continue; they are style samples, not the user's draft. Skip irrelevant references. "
             "Skip choices when style is specified, the user delegates, or the request is a precise edit. Never force a first-frame approval. "
             "Keep questions compact and ask only about consequential missing choices; offer a recommendation. Continue independent work and use stated reversible defaults if no reply arrives. "
@@ -276,7 +280,7 @@ def create_app(config=None, store=None, manager=None):
         category: str = "", include_voices: bool = False
     ) -> dict:
         """Check supported production primitives, inputs, limits and missing integrations. Set include_voices=true only when voice choice matters, to list available public narration voices. Categories are composable guidance, not fixed templates. No render sandbox starts."""
-        muser()
+        uid = muser()
         return {
             "workflows": workflow_summary(category) if category else workflow_catalog(),
             "references": [
@@ -284,6 +288,7 @@ def create_app(config=None, store=None, manager=None):
                 for k, v in catalog().items()
             ],
             "narration": narration_voices(store, config, discover=include_voices),
+            "narration_allowance": narration_allowance(store, uid),
             "interaction": {
                 "brief": "Optional audience/tone choice buttons via show_video_brief",
                 "references": "Cached motion comparison via show_video_choices",
