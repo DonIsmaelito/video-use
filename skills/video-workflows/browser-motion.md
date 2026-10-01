@@ -1,16 +1,24 @@
 # Motion design in the browser worker
 
+Version-1 interaction takes priority: `start_video` asks involvement first, then
+only missing duration/destination; wait for explicit answers. Hands off shows only
+the final result, Key moments uses selective updates, and Hands on settles useful
+content/style decisions and reviews a short sample before the rest. Legacy
+projects retain their saved mode or labeled default. Resolve real blockers in all modes.
+
 Choose a subject-specific visual idea, hierarchy and signature transformation.
 Reuse rendering mechanics, not the same layout or aesthetic for every request.
 Diagrams, type, images, footage and 3D can mix when the idea needs them.
-State consequential audience, script, look and final-format assumptions briefly
-before narration or substantial rendering. An optional relevant reference choice
-can remain open while you work; current choices returned by tasks steer later work.
+In interactive modes, state consequential assumptions briefly before substantial
+work. A hands-on reference choice waits for an answer before dependent rendering;
+compatible inexpensive preparation may continue. Current choices steer later work.
 
-Build one meaningful short motion excerpt before authoring the entire film. Show
-the real excerpt with `show_video_preview`, explain the creative choice briefly,
-and continue. It is not a required approval checkpoint or an arbitrary first
-frame. Precise edits can proceed directly to the requested result.
+Build one meaningful short motion excerpt before authoring the entire film;
+declare `production_stage="excerpt"` in its `run_video_step`. Hands off keeps it
+internal. Key moments shows useful previews selectively. Hands on shows it with
+`show_video_preview`, then uses `show_video_checkpoint` and waits for continue/refine
+before remaining `production_stage="full_video"` work. Do not substitute an
+arbitrary first frame for the sample. Precise edits need no creative questionnaire.
 
 ## Installed runtime and deterministic composition
 
@@ -57,7 +65,8 @@ a whole sentence's duration. Batch file writes/render/publication with
 `run_video_step`, supplying the actual
 `preview_path`. Render independent components with separate outputs and assemble
 only after all succeed. Reuse picture for audio-only changes. Poll only active
-tasks. Display each substantial draft immediately, before further authoring/QA.
+tasks. Display useful drafts according to the mode; keep hands-off checks internal
+and honor the hands-on sample decision before rendering the rest.
 
 Use `review_path` for final encoded inspection, repair concrete visible defects,
 export the exact reviewed MP4, then display its player. Keep editable source,

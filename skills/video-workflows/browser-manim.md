@@ -1,19 +1,27 @@
 # Manim in the browser worker
 
+Version-1 interaction takes priority: `start_video` asks involvement first, then
+only missing duration/destination; wait for explicit answers. Hands off shows only
+the finished video, Key moments uses selective updates, and Hands on settles
+tailored content/style decisions and reviews a short sample before the rest.
+Legacy projects retain their saved mode or labeled default. Real blockers still
+need resolution; ordinary rendering needs no extra approval.
+
 Use Manim when geometry, a mechanism, equations or data relationships carry the
 explanation. It does not prescribe a dark palette, a scene count or a title-card
 format. Choose the visual premise for the subject and the user's direction.
-Briefly share the proposed takeaway, audience, look and delivery format before
-narrating or coding the film. If meaningful style choices remain open, one relevant
-comparison can stay available while you work; a click is not a prerequisite.
+In interactive modes, briefly share the proposed takeaway, audience, look and
+delivery format. Hands on waits for offered meaningful style choices before
+dependent rendering; only compatible inexpensive work continues while unanswered.
 
 ## Author less before the first useful preview
 
 Outline the takeaway and narrative arc, then implement one meaningful excerpt
 that reveals the central relationship. It can be an interior scene, not necessarily
-the opening. Show it in chat while further scenes remain easy to change. Continue
-without mandatory approval. Avoid writing a full multi-hundred-line film before
-the user sees any motion. For simple edits, go straight to the requested result.
+the opening. Hands off keeps this check internal. Key moments shows useful samples
+selectively. Hands on uses `show_video_preview` then `show_video_checkpoint`, and
+waits for explicit continue/refine before making the rest. Avoid writing the full
+film before that review. Simple edits need no creative questionnaire after setup.
 
 For a short idea made of simple 2D geometry and type, `render_video_scene` can
 remove the renderer/assembly boilerplate; see the compact `scenes` guide. Use
@@ -51,7 +59,9 @@ python /opt/video-use/helpers/render_manim_cached.py \
   edit/animations/mechanism.py Mechanism --quality preview > edit/mechanism.json
 ```
 
-For an early excerpt render only that scene. For independent scenes use
+For an early excerpt render only that scene and set
+`run_video_step(production_stage="excerpt")`. Remaining scenes use the default
+`production_stage="full_video"` after required hands-on acceptance. For independent scenes use
 `run_video_step.components` (maximum two concurrent renders), distinct manifest
 paths, and a final assembly command. Name explicit `--dependency` files when local
 images/data affect the render. Do not disable caching. A visual correction should
@@ -70,8 +80,8 @@ rough story estimates are not evidence of narration alignment.
 Use `--quality final` only after the draft communicates clearly. Inspect the
 encoded MP4 through `review_path`, fix observed issues, export, and call
 `show_video_preview`. Intermediate review sheets are for inspection; the user
-should see a playable draft rather than a grid of tiny QA frames.
-Accompany a substantial draft with a brief sentence about what the user can judge
+should see actual media according to their mode, never a grid of tiny QA frames.
+In interactive modes accompany a substantial draft with a brief sentence about what the user can judge
 and what comes next. Sampled frames and measured audio do not establish motion
 playback, listening or word-level sync; describe the evidence you actually used.
 

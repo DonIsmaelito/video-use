@@ -790,7 +790,7 @@ def register_workflow(mcp, store, muser, new_project, read, write):
     def plan_video(
         project_id: str, revision: int, beats: list[Beat], direction: str = ""
     ) -> dict:
-        """Save your proposed beat plan and visual direction, preserving explicit user choices. The plan is authored by you; it is not evidence the user requested each detail or approved it. Share consequential direction briefly in chat and continue without an approval pause. Keep scenes independently editable. Use current creative state returned by task results; refresh get_video_project only if it may be stale. Use 1-12 beats, not always four. Precise edits need no new plan."""
+        """Save your proposed beat plan and visual direction, preserving explicit user choices. The plan is authored by you; it is not evidence the user requested each detail or approved it. Follow the saved involvement mode: keep planning internal for Hands off, selective for Key moments, and respect unanswered Hands on decisions before dependent work. Keep scenes independently editable. Use current creative state returned by task results; refresh get_video_project only if it may be stale. Use 1-12 beats, not always four. Precise edits need no new plan."""
         state = context(muser(True), project_id)
         if revision != state["revision"]:
             raise ValueError(

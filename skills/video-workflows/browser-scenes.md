@@ -5,14 +5,22 @@ publication from compact data. Use it for a useful 2D visual idea: a relationshi
 transformation, diagram, chart or typographic moment. You supply the design. This
 is not a text-to-video model or a replacement for custom Manim, footage or 3D.
 
+Version-1 interaction takes priority: `start_video` asks the involvement mode first,
+then only missing duration/destination; wait for explicit answers. Hands off shows
+only the final video, Key moments uses selective updates, and Hands on settles
+tailored content/style choices before a short sample review. Legacy projects keep
+their saved mode or labeled default. Real blockers still need resolution.
+
 Pass `project_id`, a new `request_id`, stable `scene_id`, `note`, the current
-`creative_revision`, and `scene`. The same scene ID with changed data and a new
+`creative_revision`, and `scene`. For the first sample, explicitly pass
+`production_stage="excerpt"`; the default `full_video` is remaining production,
+which hands-on mode waits to start until sample acceptance. The same scene ID with changed data and a new
 request ID updates the saved composition. It returns an editable JSON path and
-MP4 path. Use `preview_delivery.open_if_missing` when the first real player is needed, then
-add a sentence about what the user can judge and keep working; there is no required
-approval pause. Read current choices/feedback in task results before later renders.
-State final format and script/outline before narration; tool defaults are preview
-settings, not user requirements.
+MP4 path. In interactive modes use `preview_delivery.open_if_missing` when a real
+player is needed. Hands on then uses `show_video_checkpoint` and waits for explicit
+continue/refine before the rest; Key moments continues with selective updates.
+Hands off keeps samples internal. Read current choices/feedback before later
+renders. Tool defaults are preview settings, not user requirements.
 
 ## Drawing data
 
@@ -89,7 +97,7 @@ schema correctness, not design or animation quality.
 
 ## Assemble without a generator script
 
-After the first excerpt, use `assemble_video` with `project_id`, a new `request_id`,
+After the first excerpt and any required hands-on acceptance, use `assemble_video` with `project_id`, a new `request_id`,
 current `creative_revision`, and ordered `scene_ids`. To author remaining scenes
 in that call, pass `scenes={scene_id:scene_data,...}`; omitted IDs reuse saved JSON
 under `edit/scenes/`. No separate scene registry or handwritten concat is required.
@@ -107,7 +115,9 @@ Assembly accepts up to 12 scenes and 180 seconds total. It handles narration mix
 and optional `audio_normalization="web"` (default) or `"none"`. Use the latter when
 preserving an intentional mix is important. Check measured audio after assembly;
 normalization is not listening, source verification or proof of narrative sync.
-Do not wait for approval unless the user requested a checkpoint.
+A sample assembled from multiple clips explicitly uses `production_stage="excerpt"`;
+the default `full_video` remains gated by hands-on sample acceptance. Routine
+technical fixes need no additional approval.
 
 ## Custom reuse
 
