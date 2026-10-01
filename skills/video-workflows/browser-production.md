@@ -10,8 +10,11 @@ choices and feedback from task responses before work that depends on them.
 
 ## Begin with the user's preferred level of involvement
 
-For a new version-1 request, ask the involvement question first: **Hands off**,
-**Key moments**, or **Hands on**. Use the returned intake state and the explicit
+For a new version-1 request, `start_video` returns the involvement question first:
+**Hands off**, **Key moments**, or **Hands on**. Ask it with the host's native
+question tool if available, otherwise in short normal chat. Do not call
+`show_video_brief` to repeat a question already returned by `start_video`.
+Use the returned intake state and the explicit
 mode choice; a suggested option is not an answer. Wait for this choice before
 content questions, a story proposal, narration or rendering. Do not turn every
 subsequent task or edit in the same request into another mode question. Older
@@ -41,9 +44,13 @@ If the basics are already present, proceed directly to the selected mode.
 
 Hands-on collaboration is not a fixed list of topic questions. A supplied script,
 known reference or exact edit can already settle a decision. Ask only what is
-still open, acknowledge the answer and move on. Questions can use the implemented
-brief widget or ordinary conversation. Do not claim access to a native Claude or
-ChatGPT question dialog unless that host actually exposes a callable capability.
+still open, acknowledge the answer and move on. `show_video_brief` saves and returns
+one stable pending question; ask it through native questions or normal chat, not
+a custom form. Record the actual answer with `record_video_answers`. Do not invent
+a native Claude or ChatGPT capability. `show_video_story` saves the plan internally
+without opening an editor; share only a useful short outline, not the technical
+EDL, internal IDs, revisions or JSON. Actual motion reference clips may use a
+gallery when visual comparison helps; do not turn controls into a checklist.
 
 ## Start from the material and the outcome
 
@@ -97,7 +104,11 @@ hands-on early content, style and snippet decisions are meaningful checkpoints;
 they do not make every implementation step an approval stage. Continue compatible
 independent work while awaiting an answer, and resume dependent work after it
 arrives. A genuine missing input and a host turn limit are separate constraints.
-A request for a narrated video normally
+A narration allowance is relevant only when voiceover is requested or needed and
+capacity could materially affect delivery. Do not lead the mode question with
+quota warnings or silently change audio/style while awaiting its answer. A real
+shortfall must be resolved before dependent production, without silently dropping
+requested speech. A request for a narrated video normally
 authorizes routine narration and rendering within the existing service limits;
 it does not authorize publishing it elsewhere or starting a paid external
 provider that is not configured.
@@ -283,8 +294,9 @@ in project files as well as creative state; do not rely on the chat remembering
 every tool response.
 
 In hands-on mode, show a coherent short excerpt with `show_video_preview`, then
-use `show_video_checkpoint` for the user's explicit continue or refine decision
-before building the rest. Bind the review to that preview's actual object ID and
+use `show_video_checkpoint` to obtain the continue/refine question. Ask it through
+native questions or normal chat about the already visible player; no second card
+is needed. Wait for the decision before building the rest. Bind the review to that preview's actual object ID and
 the current creative revision. An internal quality review does not answer the
 user's direction question. In key-moments mode, show an excerpt or comparison when it
 communicates a meaningful decision. In hands-off mode, keep intermediate rendering

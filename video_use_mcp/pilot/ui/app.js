@@ -116,6 +116,14 @@ function feedbackTime(seconds){
 function newFeedbackId(){
   return globalThis.crypto?.randomUUID?.() || `edit-${Date.now()}-${Math.random().toString(36).slice(2)}`;
 }
+async function prepareUserReply(text){
+  if(!app.getHostCapabilities?.()?.message?.text)return false;
+  try{return !(await app.sendMessage({role:'user',content:[{type:'text',text}]}))?.isError;}catch{return false;}
+}
+function replyHint(prepared){
+  // A host may place this reply in its composer rather than actually send it.
+  return prepared?'Send the prepared reply to continue.':'Tell your assistant to continue if the chat is waiting.';
+}
 function resetFeedback(){
   feedbackDraft=null;$('feedback-form').hidden=true;$('feedback-note').value='';
 }
@@ -163,12 +171,11 @@ $('feedback-form').onsubmit=async(event)=>{
   $('suggest-edit').disabled=true;$('feedback-shortcuts').querySelectorAll('button').forEach(button=>{button.disabled=true;});
   try{
     const result=readData(await app.callServerTool({name:'add_video_feedback',arguments:{project_id:draft.projectId,object_id:draft.objectId,seconds:draft.seconds,note,request_id:draft.requestId}}));
-    const content=[{type:'text',text:`For video project ${draft.projectId}, at ${label} in video ${draft.objectId}: ${note}. Use this suggestion in the next edit. Creative revision ${result.creative.revision}.`}];
-    if(caps.updateModelContext?.text){try{await app.updateModelContext({content});}catch{}}
-    let delivered=false;
-    if(caps.message?.text){try{delivered=!(await app.sendMessage({role:'user',content}))?.isError;}catch{}}
+    const context=[{type:'text',text:`Saved feedback for video project ${draft.projectId}: ${JSON.stringify({object_id:draft.objectId,seconds:draft.seconds,note,creative_revision:result.creative.revision})}. Apply this to the referenced version, not an assumed moment in a newer video.`}];
+    if(caps.updateModelContext?.text){try{await app.updateModelContext({content:context});}catch{}}
+    const prepared=await prepareUserReply(`At ${label}, ${note}`);
     const stillHere=feedbackDraft===draft;finishFeedback(draft);
-    if(stillHere)$('notice').textContent=delivered?'Suggestion sent.':'Suggestion saved. Tell your assistant to continue if the chat is waiting.';
+    if(stillHere)$('notice').textContent=`Suggestion saved. ${replyHint(prepared)}`;
   }catch(e){notice(e.message || 'Could not save this suggestion. Try again.');}
   finally{
     feedbackSaving=false;$('feedback-note').disabled=false;$('feedback-send').disabled=false;$('feedback-cancel').disabled=false;
@@ -221,11 +228,10 @@ async function choose(option){
     const result=readData(await app.callServerTool({name:'choose_video_style',arguments:{project_id:projectId,choice:option.id,revision:activeChoice.revision}}));
     activeChoice.revision=result.creative.choice_revision;activeChoice.selected=option.id;
     buttons.forEach(b=>b.setAttribute('aria-pressed',String(b.textContent===option.label)));
-    notice('Saved. The next editing step will use your choice.');
-    const content=[{type:'text',text:`For video project ${projectId}, I chose ${option.label}. Continue with that direction. Creative revision ${result.creative.revision}.`}];
-    // Context delivery is host controlled; a click may also queue a user message.
-    if(caps.updateModelContext?.text){try{await app.updateModelContext({content});}catch{/* Server state remains authoritative. */}}
-    if(caps.message?.text){try{const sent=await app.sendMessage({role:'user',content});if(sent.isError)throw Error();}catch{notice('Choice saved. Tell Claude to continue if the conversation is paused.');}}
+    const context=[{type:'text',text:`Saved style for video project ${projectId}: ${JSON.stringify({choice:option.id,label:option.label,creative_revision:result.creative.revision})}. Use this direction in the next affected edit.`}];
+    if(caps.updateModelContext?.text){try{await app.updateModelContext({content:context});}catch{/* Server state remains authoritative. */}}
+    const prepared=await prepareUserReply(`I'd like the ${option.label} style.`);
+    notice(`Choice saved. ${replyHint(prepared)}`);
   }catch(e){notice(e.message);}
   finally{choosing=false;buttons.forEach(b=>b.disabled=false);}
 }
@@ -252,19 +258,19 @@ function renderSourcePicker(result){
   $('source-status').textContent='Select media, documents or data · up to 200 MB total';
 }
 async function notifySources(names,projectId){
-  const content=[{type:'text',text:`I added ${names.join(', ')} to video project ${projectId}. Inspect the sources and continue.`}];
+  const context=[{type:'text',text:`Sources added to video project ${projectId}: ${names.join(', ')}. Inspect the saved sources and continue with the current request.`}];
   const caps=app.getHostCapabilities?.() || {};
-  if(caps.updateModelContext?.text){try{await app.updateModelContext({content})}catch{}}
-  if(caps.message?.text){try{return !(await app.sendMessage({role:'user',content}))?.isError}catch{}}
-  return false;
+  if(caps.updateModelContext?.text){try{await app.updateModelContext({content:context})}catch{}}
+  const summary=names.length<=3?names.join(', '):`${names.length} files`;
+  return prepareUserReply(`I've added ${summary}. Please use ${names.length===1?'it':'them'} for this video.`);
 }
 async function finishSourceNotification(names,state){
   if(!names.length)return;
   const previousStatus=$('source-status').textContent;
-  const sent=await notifySources(names,state.project_id);
+  const prepared=await notifySources(names,state.project_id);
   // A late host response must not replace a newer picker or transfer's status.
-  if(!sent && sourceState===state && $('source-status').textContent===previousStatus){
-    $('source-status').textContent=previousStatus+' If the chat is waiting, tell your assistant to continue.';
+  if(sourceState===state && $('source-status').textContent===previousStatus){
+    $('source-status').textContent=previousStatus+' '+replyHint(prepared);
   }
 }
 $('source-files').onchange=async()=>{
@@ -314,6 +320,17 @@ const clone=value=>JSON.parse(JSON.stringify(value));
 function widgetHere(state){return widgetState===state && !$('widget').hidden;}
 function widgetPayload(state){return state.widget.kind==='brief'?{answers:state.draft.answers}:{beats:state.draft.beats};}
 function widgetBaseline(widget){return widget.kind==='brief'?{answers:widget.answers || {}}:{beats:widget.beats};}
+function widgetReply(widget,payload){
+  if(widget.kind==='story')return "I've updated the story. Please use my saved changes.";
+  const answers=(widget.questions || []).filter(q=>payload.answers?.[q.id]).map(q=>({
+    id:q.id,prompt:q.prompt,label:q.options.find(o=>o.id===payload.answers[q.id])?.label,
+  })).filter(answer=>answer.label);
+  if(!answers.length)return 'I cleared those saved preferences. Please leave them undecided for now.';
+  if(widget.purpose==='mode')return `${answers[0].label}, please.`;
+  if(widget.purpose==='excerpt_review')return payload.answers.excerpt_review==='continue'
+    ? 'Continue with this direction.' : "I'd like to refine this sample.";
+  return (answers.length===1?answers[0].label:answers.map(a=>`${a.prompt} ${a.label}`).join(' ')).replace(/[.!?]$/,'')+'.';
+}
 function widgetIncomplete(state){return (state.widget.required || []).some(id=>!state.draft.answers?.[id]);}
 function widgetControls(state){
   if(!widgetHere(state))return;
@@ -410,18 +427,12 @@ $('widget-form').onsubmit=async event=>{
     if(data.project_id!==state.projectId || data.widget?.id!==state.widget.id || data.widget.kind!==state.widget.kind || !(data.widget.revision>state.widget.revision || (data.saved===false && data.widget.revision===state.widget.revision)))throw Error('The save could not be confirmed. Your edits are still here; try again.');
     const saved=data.widget,submittedRevision=state.widget.revision;
     const newerChanges=data.repeated===true && (saved.revision>submittedRevision+1 || data.creative?.revision>saved.creative_revision);
-    const summary=saved.kind==='brief'
-      ? (state.widget.questions || []).filter(q=>payload.answers?.[q.id]).map(q=>`${q.prompt}: ${q.options.find(o=>o.id===payload.answers[q.id])?.label || payload.answers[q.id]}`).join('; ')
-      : JSON.stringify(payload.beats);
-    const change=saved.kind==='brief' && !Object.keys(payload.answers).length
-      ? `I cleared my saved answers for these questions: ${(state.widget.questions || []).map(q=>q.prompt).join('; ')}. Treat them as unanswered and preserve unrelated preferences`
-      : `I saved ${saved.kind==='brief'?'these preferences':'these story changes'}: ${summary}`;
-    const continuation=data.intake?`Saved intake: ${JSON.stringify(data.intake)}. Follow its next action. This is an explicit answer to the displayed question, not approval to publish externally.`:'Use the current saved preferences for the next appropriate edit. This is not final approval.';
-    const content=[{type:'text',text:`For video project ${state.projectId}, ${change}. Widget ${saved.id} revision ${saved.revision}; creative revision ${data.creative?.revision ?? saved.creative_revision}. ${continuation}`}];
+    const reply=widgetReply(state.widget,payload);
     const current={project_id:state.projectId,widget_id:saved.id,widget_revision:saved.revision,creative_revision:data.creative?.revision ?? saved.creative_revision};
     for(const key of ['brief_answers','beats','direction','preferences','selected','latest_feedback','plan_provenance','intake']){
       if(data.creative?.[key]!==undefined)current[key]=data.creative[key];
     }
+    if(data.intake!==undefined)current.intake=data.intake;
     if(saved.kind==='brief' && current.brief_answers===undefined)current.brief_answers=(saved.questions || []).filter(q=>saved.answers?.[q.id]).map(q=>({question:q.prompt,answer:q.options.find(o=>o.id===saved.answers[q.id])?.label || saved.answers[q.id]}));
     if(saved.kind==='story' && current.beats===undefined)current.beats=saved.beats;
     const context=[{type:'text',text:`Authoritative saved video context: ${JSON.stringify(current)}. ${newerChanges?'An earlier request was already applied and later changes now exist. Do not replay the earlier submitted values. ':''}Use this current state for the next appropriate edit. These preferences are not final approval.`}];
@@ -433,9 +444,8 @@ $('widget-form').onsubmit=async event=>{
     // A retry is not a new instruction to restore its old choices. Keep the
     // authoritative state in model context without waking it with stale edits.
     if(newerChanges){notice('Earlier save confirmed. Newer changes are shown.');return;}
-    let delivered=false;
-    if(caps.message?.text){try{delivered=!(await app.sendMessage({role:'user',content}))?.isError;}catch{}}
-    notice(state.pending?'Saved. A newer version is available.':delivered?'Changes sent.':'Changes saved. Tell your assistant to continue if the chat is waiting.');
+    const prepared=await prepareUserReply(reply);
+    notice(state.pending?'Saved. A newer version is available.':`Changes saved. ${replyHint(prepared)}`);
   }catch(e){notice(e.message || 'Could not save your changes. Try again.');}
   finally{state.saving=false;widgetControls(state);}
 };

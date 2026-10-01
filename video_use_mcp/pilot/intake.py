@@ -161,16 +161,85 @@ def intake_context(state, project_id=None):
     if questions:
         context["questions"] = questions
         if project_id:
-            context["next_tool"] = dict(
-                name="show_video_brief",
-                arguments=dict(
-                    project_id=project_id,
-                    creative_revision=state["revision"],
-                    questions=questions,
-                    title="Make it yours" if phase == "mode" else "The basics",
-                ),
+            existing = state.get("widgets", {}).get("brief") or {}
+            if (
+                existing.get("purpose") == phase
+                and existing.get("questions") == questions
+                and (
+                    phase != "basics"
+                    or existing.get("intake_snapshot") == basics_snapshot(intake)
+                )
+            ):
+                context["question"] = question_context(project_id, existing)
+                context["next_action"] += (
+                    " Present the supplied question once through the host; do not call show_video_brief to display it again."
+                )
+            else:
+                context["next_tool"] = dict(
+                    name="show_video_brief",
+                    arguments=dict(
+                        project_id=project_id,
+                        creative_revision=state["revision"],
+                        questions=questions,
+                        title="Make it yours" if phase == "mode" else "The basics",
+                    ),
+                )
+    elif project_id and pending_questions:
+        existing = state.get("widgets", {}).get("brief") or {}
+        if existing.get("id") == pending_questions.get("widget_id"):
+            context["question"] = question_context(project_id, existing)
+            context["next_action"] += (
+                " Reuse this existing question; do not replace it just to display it again."
             )
     return context
+
+
+def question_context(project_id, record, *, answered=False):
+    """Host-authored conversation, with a stable identity for deduplication.
+
+    This is model context, not an embedded app or a claim that the host exposes
+    native question controls. The host remains the only presenter.
+    """
+    data = dict(
+        id=record["id"],
+        revision=record["revision"],
+        presentation_key=f"{record['id']}:{record['revision']}",
+        presenter="host",
+        presentation="native_question_tool_if_available_else_short_chat",
+        status="answered" if answered or record_answered(record) else "awaiting_user",
+        questions=deepcopy(record["questions"]),
+        required=list(record.get("required", [])),
+        recorded_answers=deepcopy(record.get("answers", {})),
+        record_with=dict(
+            name="record_video_answers",
+            arguments=dict(
+                project_id=project_id,
+                widget_id=record["id"],
+                revision=record["revision"],
+            ),
+        ),
+        instructions=(
+            "Present only the question and short option labels using your native question tool if available; otherwise ask briefly in chat. "
+            "You are the only presenter. Do not build an app, display a form, paste JSON or call show_video_brief to repeat this question. "
+            "If this presentation_key was already asked, wait for its answer instead of asking again. "
+            "Record only the user's actual reply with record_video_answers; user_message is their ordinary words, never a JSON payload. "
+            "An answered question is an acknowledgement, not a request to ask it again."
+        ),
+    )
+    if record.get("text_answers"):
+        data["recorded_text_answers"] = deepcopy(record["text_answers"])
+    return data
+
+
+def record_answered(record):
+    """Only actual saved/preselected answers count; recommendations never do."""
+    asked = {q["id"] for q in record["questions"]}
+    actual = set(record.get("answers", {})) | set(record.get("text_answers", {}))
+    actual |= {
+        "duration" if key == "duration_seconds" else key
+        for key in record.get("output_profile", {})
+    }
+    return bool(asked) and asked <= actual
 
 
 def pending_widget(state):

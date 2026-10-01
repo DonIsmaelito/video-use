@@ -37,7 +37,11 @@ def test_mode_is_first_even_with_all_basics_or_a_legacy_default_available():
     assert result["intake"]["phase"] == "mode"
     assert result["check_in"]["question"] == "required_mode_choice"
     assert result["check_in"]["continuation"] == "wait_for_mode_choice"
-    assert result["check_in"]["widgets"] == ["show_video_brief"]
+    assert result["check_in"]["widgets"] == []
+    assert (
+        result["check_in"]["presentation"]
+        == "host_native_question_if_available_else_short_chat"
+    )
     assert state == before
     assert (
         experience_context(state, event="project")["repeat_key"] == result["repeat_key"]

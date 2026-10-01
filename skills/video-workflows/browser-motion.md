@@ -1,7 +1,9 @@
 # Motion design in the browser worker
 
-Version-1 interaction takes priority: `start_video` asks involvement first, then
-only missing duration/destination; wait for explicit answers. Hands off shows only
+Version-1 interaction takes priority: `start_video` returns the involvement question.
+Use the native question tool if available, otherwise normal chat; do not repeat it
+through `show_video_brief` or open a form. Then ask only missing duration/destination
+and wait for explicit answers. Hands off shows only
 the final result, Key moments uses selective updates, and Hands on settles useful
 content/style decisions and reviews a short sample before the rest. Legacy
 projects retain their saved mode or labeled default. Resolve real blockers in all modes.
@@ -16,7 +18,8 @@ compatible inexpensive preparation may continue. Current choices steer later wor
 Build one meaningful short motion excerpt before authoring the entire film;
 declare `production_stage="excerpt"` in its `run_video_step`. Hands off keeps it
 internal. Key moments shows useful previews selectively. Hands on shows it with
-`show_video_preview`, then uses `show_video_checkpoint` and waits for continue/refine
+`show_video_preview`, then asks the `show_video_checkpoint` question in native
+questions or normal chat about that player, without a second card. Wait for continue/refine
 before remaining `production_stage="full_video"` work. Do not substitute an
 arbitrary first frame for the sample. Precise edits need no creative questionnaire.
 

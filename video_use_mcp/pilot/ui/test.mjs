@@ -2,6 +2,7 @@ import {parseHTML} from 'linkedom';
 import vm from 'node:vm';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+const preparedHint=' Send the prepared reply to continue.';
 const html=fs.readFileSync('card.html','utf8');
 new vm.Script(html.match(/<script>([\s\S]*)<\/script>/)[1]);
 const {document}=parseHTML(fs.readFileSync('template.html','utf8'));
@@ -36,6 +37,10 @@ assert.equal(calls[1].name,'choose_video_style');
 assert.deepEqual(JSON.parse(JSON.stringify(calls[1].arguments)),{project_id:'p',choice:'diagram',revision:1});
 assert.equal(document.querySelector('#options button').getAttribute('aria-pressed'),'true');
 assert(calls[2].context && calls[3].message);
+assert.equal(calls[3].message.content[0].text,"I'd like the Diagrams style.");
+assert(calls[2].context.content[0].text.includes('video project p'));
+assert(!calls[3].message.content[0].text.includes('revision'));
+assert.equal(document.getElementById('notice').textContent,'Choice saved. Send the prepared reply to continue.');
 assert.equal(document.querySelector('#options button').disabled,false);
 app.getHostCapabilities=()=>({});
 await document.querySelector('#options button').onclick();
@@ -53,7 +58,8 @@ await fileInput.onchange();
 assert.equal(requests.length,1);
 assert.equal(requests[0].options.credentials,'omit');
 assert.equal(requests[0].options.headers['X-Upload-Token'],'scoped-test-token');
-assert.equal(document.getElementById('source-status').textContent,'Added brief.pdf.');
+assert.equal(document.getElementById('source-status').textContent,'Added brief.pdf.'+preparedHint);
+assert.equal(calls.at(-1).message.content[0].text,"I've added brief.pdf. Please use it for this video.");
 assert(!JSON.stringify(calls).includes('scoped-test-token'),'upload capability never enters chat context');
 fileInput.files=[{name:'large.mp4',size:200000001}];await fileInput.onchange();
 assert.equal(requests.length,1,'oversized uploads rejected before transfer');
@@ -129,11 +135,14 @@ console.log('PASS unsupported library hosts keep local upload and explicit websi
   assert.deepEqual(plain(bridgeCalls),[{select:true},{download:{fileId:selected[0].fileId}},{download:{fileId:selected[1].fileId}}]);
   const imports=host.calls.filter(call=>call.tool);
   assert.deepEqual(plain(imports),selected.map((file,index)=>({tool:{name:'import_video_source',arguments:{project_id:'library-project',url:downloadUrls[index],name:file.fileName}}})));
-  assert.equal(host.document.getElementById('source-status').textContent,'Added shot.mp4, résumé 東京.pdf.');
+  assert.equal(host.document.getElementById('source-status').textContent,'Added shot.mp4, résumé 東京.pdf.'+preparedHint);
   assert.equal(button.disabled,false);
   assert.equal(host.requests.length,0,'library import passes the granted URL directly to the source tool');
   assert.equal(host.calls.filter(call=>call.context).length,1,'one completion context for the batch');
   assert.equal(host.calls.filter(call=>call.message).length,1,'one user message after explicit selection');
+  const reply=host.calls.find(call=>call.message).message.content[0].text;
+  assert.equal(reply,"I've added shot.mp4, résumé 東京.pdf. Please use them for this video.");
+  assert(!reply.includes('library-project'));
   assertPrivateSourceDetails(host,...downloadUrls,...selected.map(file=>file.fileId),'secret-upload-library-project');
 }
 console.log('PASS explicit ChatGPT library selection imports files and keeps grants out of chat');
@@ -171,7 +180,7 @@ console.log('PASS cancelled and failed library transfers do not report false com
   assert.equal(headers['X-Filename'],encodeURIComponent(filename));
   assert(/^[\x20-\x7e]+$/.test(headers['X-Filename']),'HTTP upload headers remain ASCII');
   assert.equal(decodeURIComponent(headers['X-Filename']),filename,'one decode preserves Unicode and spaces');
-  assert.equal(host.document.getElementById('source-status').textContent,`Added ${filename}.`);
+  assert.equal(host.document.getElementById('source-status').textContent,`Added ${filename}.`+preparedHint);
   assert(conversationalCalls(host).includes(filename),'model sees the human filename');
   assert(!conversationalCalls(host).includes(encodeURIComponent(filename)),'model does not see header transport encoding');
   assertPrivateSourceDetails(host,'secret-upload-library-project');
@@ -185,7 +194,7 @@ console.log('PASS Unicode filenames use ASCII percent-encoded headers and readab
   const input=host.document.getElementById('source-files');input.files=[{name:filename,size:30}];
   await input.onchange();
   assert.equal(decodeURIComponent(host.requests[0].options.headers['X-Filename']),filename,'transport preserves decomposed filenames');
-  assert.equal(host.document.getElementById('source-status').textContent,`Added ${filename.normalize('NFC')}.`,'display uses the server-normalized filename');
+  assert.equal(host.document.getElementById('source-status').textContent,`Added ${filename.normalize('NFC')}.`+preparedHint,'display uses the server-normalized filename');
   assert(conversationalCalls(host).includes(filename.normalize('NFC')));
 }
 
@@ -258,7 +267,7 @@ console.log('PASS uploads and library batches stay on their original project acr
   });
   host.app.ontoolresult(sourceResult());
   await host.document.getElementById('source-library').onclick();
-  assert.equal(host.document.getElementById('source-status').textContent,'Added saved.mp4. Transfer timed out.');
+  assert.equal(host.document.getElementById('source-status').textContent,'Added saved.mp4. Transfer timed out.'+preparedHint);
   assert(conversationalCalls(host).includes('saved.mp4'));
   assert(!conversationalCalls(host).includes('failed.mp4'),'partial failure only announces the successful transfer');
   assertPrivateSourceDetails(host,'private-grant');
@@ -300,7 +309,7 @@ console.log('PASS partial imports and missing upload grants provide truthful rec
 }
 console.log('PASS style selection snapshots its project and revision across new choices');
 
-const continueHint=' If the chat is waiting, tell your assistant to continue.';
+const continueHint=' Tell your assistant to continue if the chat is waiting.';
 for(const [label,capabilities,message] of [
   ['missing message capability',{serverTools:{},updateModelContext:{text:{}}},undefined],
   ['message rejection',chatCapabilities,async()=>{throw Error('host rejected message')}],
@@ -327,7 +336,7 @@ console.log('PASS unavailable or failed host messages explain how to continue af
   const input=host.document.getElementById('source-files');input.files=[{name:'brief.pdf',size:30}];
   await input.onchange();
   assert.equal(host.calls.filter(call=>call.message).length,1,'context rejection does not suppress a supported host message');
-  assert.equal(host.document.getElementById('source-status').textContent,'Added brief.pdf.','successful host messages retain the normal completion text');
+  assert.equal(host.document.getElementById('source-status').textContent,'Added brief.pdf.'+preparedHint,'a resolved host request does not prove the reply was sent');
 }
 
 {
@@ -365,3 +374,14 @@ console.log('PASS unavailable or failed host messages explain how to continue af
   assert(!conversationalCalls(host).includes('new-project'));
 }
 console.log('PASS message fallback preserves upload failures and original project state');
+
+{
+  const host=sourceHost();host.app.ontoolresult(sourceResult());
+  const input=host.document.getElementById('source-files');
+  input.files=Array.from({length:5},(_,i)=>({name:`part-${i}.mp4`,size:30}));await input.onchange();
+  const reply=host.calls.find(call=>call.message).message.content[0].text;
+  assert.equal(reply,"I've added 5 files. Please use them for this video.");
+  const context=host.calls.find(call=>call.context).context.content[0].text;
+  assert(context.includes('library-project'));
+  for(const file of input.files)assert(context.includes(file.name),'full inventory remains available outside the composer');
+}

@@ -32,7 +32,8 @@ def test_legacy_explicit_mode_is_preserved_without_repeating_intake(mode):
         assert check["widgets"] == []
     else:
         assert "defaults are not user approval" in check["hint"]
-        assert "Choose at most one" in check["hint"]
+        assert "Discuss at most one" in check["hint"]
+        assert check["widgets"] == []
 
 
 @pytest.mark.parametrize(

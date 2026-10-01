@@ -40,8 +40,10 @@ function edit(h,field,value,beat='opening'){
   assert.deepEqual(h.calls[0].arguments.answers,{audience:'new'});
   assert.equal(h.calls[0].arguments.revision,1);assert(h.calls[0].arguments.request_id);
   assert.equal(h.messages.length,1);assert.equal(h.contexts.length,1);
-  assert(JSON.stringify(h.messages).includes('New to the topic'));assert(JSON.stringify(h.messages).includes('not final approval'));
-  assert.equal(el(h,'widget-status').textContent,'Changes sent.');
+  assert.equal(h.messages[0].content[0].text,'New to the topic.');
+  assert(JSON.stringify(h.contexts).includes('not final approval'));
+  assert(!JSON.stringify(h.messages).includes('brief-one'));assert(!JSON.stringify(h.messages).includes('revision'));
+  assert.equal(el(h,'widget-status').textContent,'Changes saved. Send the prepared reply to continue.');
   await submit(h);assert.equal(h.calls.length,1,'a second save of unchanged inputs is not a second user message');
 }
 {
@@ -58,8 +60,7 @@ function edit(h,field,value,beat='opening'){
   await submit(h);
   assert.deepEqual(h.calls[0].arguments.answers,{});
   assert.equal(h.messages.length,1);
-  assert(JSON.stringify(h.messages).includes('I cleared my saved answers'));
-  assert(JSON.stringify(h.messages).includes('preserve unrelated preferences'));
+  assert.equal(h.messages[0].content[0].text,'I cleared those saved preferences. Please leave them undecided for now.');
   assert(!JSON.stringify(h.contexts).includes('New to the topic'),'cleared answers do not remain in model context');
   assert.equal(el(h,'widget-submit').disabled,true);
 }
@@ -76,6 +77,9 @@ function edit(h,field,value,beat='opening'){
   assert.equal(h.calls[0].arguments.beats[0].id,'opening');
   assert.equal(h.calls[0].arguments.beats[1].id,'answer');
   assert.equal(h.document.querySelector('img'),null,'user content stays text');
+  assert.equal(h.messages[0].content[0].text,"I've updated the story. Please use my saved changes.");
+  assert(h.contexts[0].content[0].text.includes('A clearer opening.'));
+  assert(!h.messages[0].content[0].text.includes('opening'),'story JSON and beat IDs never enter the composer');
 }
 {
   const h=host();h.show(story());const input=edit(h,'visual','My unsent diagram');
@@ -106,7 +110,8 @@ function edit(h,field,value,beat='opening'){
   resolve({structuredContent:{...brief(),widget:{...brief().widget,revision:2,answers:{audience:'new'}},creative:{revision:4}}});await save;
   assert.equal(h.document.querySelectorAll('[aria-pressed="true"]').length,0,'late save cannot edit a new widget');
   assert.equal(el(h,'widget-status').textContent,'');
-  assert(JSON.stringify(h.messages).includes('video project project'));
+  assert(h.contexts[0].content[0].text.includes('\"project_id\":\"project\"'));
+  assert(!JSON.stringify(h.messages).includes('project'));
   assert(!JSON.stringify(h.messages).includes('another-project'));
 }
 {
@@ -182,7 +187,26 @@ const media={project_id:'project',media:{object_id:'video',media_type:'video/mp4
 }
 console.log('PASS optional brief and story editors preserve unsaved changes save explicitly handle retries and stale results and expand existing playback only on supported hosts');
 
-// V1 intake asks for explicit answers, then sends the saved branch back to the host.
+// Cached intake widgets keep their behavior, but only human answers reach the composer.
+for(const [purpose,id,option,label,expected] of [
+  ['mode','involvement','hands_on','Hands on','Hands on, please.'],
+  ['basics','viewing_destination','landscape','Landscape for YouTube','Landscape for YouTube.'],
+  ['excerpt_review','excerpt_review','continue','Continue with this','Continue with this direction.'],
+  ['excerpt_review','excerpt_review','refine','Refine the sample',"I'd like to refine this sample."],
+]){
+  const data=brief();data.project_id='private-project-uuid';
+  data.widget={...data.widget,id:'private-widget-uuid',purpose,required:[id],questions:[{id,prompt:'Your preference?',options:[{id:option,label}]}]};
+  const intake={version:1,mode:'hands_on',phase:'production',next_action:'INTERNAL_NEXT_ACTION '.repeat(200),excerpt_review:{status:'approved',object_id:'private-object-uuid'}};
+  const h=host({tool:async input=>({structuredContent:{...data,saved:true,intake,widget:{...data.widget,answers:input.arguments.answers,revision:2},creative:{revision:4}}})});
+  h.show(data);choose(h,id,option);await submit(h);
+  assert.equal(h.messages[0].content[0].text,expected);
+  assert(h.messages[0].content[0].text.length<80,'a large saved state does not expand the human reply');
+  for(const internal of ['private-project-uuid','private-widget-uuid','private-object-uuid','INTERNAL_NEXT_ACTION']){
+    assert(!JSON.stringify(h.messages).includes(internal));
+    assert(JSON.stringify(h.contexts).includes(internal),'background context retains precise saved state');
+  }
+  assert.equal(el(h,'widget-status').textContent,'Changes saved. Send the prepared reply to continue.','resolved sendMessage is not evidence the user sent the draft');
+}
 {
   const data=brief();data.widget.purpose='basics';data.widget.required=['audience','mood'];
   const h=host();h.show(data);
@@ -198,7 +222,9 @@ console.log('PASS optional brief and story editors preserve unsaved changes save
   const h=host({tool:async input=>({structuredContent:{...data,saved:true,intake,widget:{...data.widget,answers:input.arguments.answers,revision:2},creative:{revision:4,intake}}})});
   h.show(data);assert.equal(el(h,'widget-submit').textContent,'Send decision');choose(h);await submit(h);
   assert.equal(h.messages.length,1);
-  assert(JSON.stringify(h.messages).includes('sample-one'));
-  assert(JSON.stringify(h.messages).includes('Complete the rest'));
+  assert(!JSON.stringify(h.messages).includes('sample-one'));
+  assert(!JSON.stringify(h.messages).includes('Complete the rest'));
+  assert(JSON.stringify(h.contexts).includes('sample-one'));
+  assert(JSON.stringify(h.contexts).includes('Complete the rest'));
   assert(JSON.stringify(h.contexts).includes('approved'),'host receives the saved sample decision');
 }

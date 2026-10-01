@@ -1,7 +1,9 @@
 # Manim in the browser worker
 
-Version-1 interaction takes priority: `start_video` asks involvement first, then
-only missing duration/destination; wait for explicit answers. Hands off shows only
+Version-1 interaction takes priority: `start_video` returns the involvement question.
+Use the native question tool if available, otherwise normal chat; do not repeat it
+through `show_video_brief` or open a form. Then ask only missing duration/destination
+and wait for explicit answers. Hands off shows only
 the finished video, Key moments uses selective updates, and Hands on settles
 tailored content/style decisions and reviews a short sample before the rest.
 Legacy projects retain their saved mode or labeled default. Real blockers still
@@ -19,8 +21,9 @@ dependent rendering; only compatible inexpensive work continues while unanswered
 Outline the takeaway and narrative arc, then implement one meaningful excerpt
 that reveals the central relationship. It can be an interior scene, not necessarily
 the opening. Hands off keeps this check internal. Key moments shows useful samples
-selectively. Hands on uses `show_video_preview` then `show_video_checkpoint`, and
-waits for explicit continue/refine before making the rest. Avoid writing the full
+selectively. Hands on uses `show_video_preview`, then asks the `show_video_checkpoint`
+question in native questions or normal chat about that player, without a second
+card. Wait for explicit continue/refine before making the rest. Avoid writing the full
 film before that review. Simple edits need no creative questionnaire after setup.
 
 For a short idea made of simple 2D geometry and type, `render_video_scene` can

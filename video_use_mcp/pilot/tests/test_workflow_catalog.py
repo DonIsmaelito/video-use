@@ -17,39 +17,38 @@ def call(pilot, name, arguments):
 
 
 def complete_intake(pilot, started):
-    """Use real button submissions before testing post-intake creative behavior."""
+    """Record explicit native/chat answers before testing creative behavior."""
     pid = started["project_id"]
-    widget = started["widget"]
+    question = started["question"]
     selected = call(
         pilot,
-        "save_video_widget",
-        dict(
-            project_id=pid,
-            widget_id=widget["id"],
-            revision=widget["revision"],
+        "record_video_answers",
+        question["record_with"]["arguments"]
+        | dict(
             request_id="fixture-involvement",
             answers={"involvement": "key_moments"},
+            user_message="Key moments",
         ),
     )
     if selected["intake"]["phase"] == "basics":
         next_tool = selected["intake"]["next_tool"]
         shown = call(pilot, next_tool["name"], next_tool["arguments"])
-        widget = shown["widget"]
+        question = shown["question"]
         choices = {"duration": "30", "viewing_destination": "landscape"}
         selected = call(
             pilot,
-            "save_video_widget",
-            dict(
-                project_id=pid,
-                widget_id=widget["id"],
-                revision=widget["revision"],
+            "record_video_answers",
+            question["record_with"]["arguments"]
+            | dict(
                 request_id="fixture-basics",
-                answers={q["id"]: choices[q["id"]] for q in widget["questions"]},
+                answers={q["id"]: choices[q["id"]] for q in question["questions"]},
+                user_message="30 seconds, landscape for the web",
             ),
         )
     assert selected["intake"]["phase"] == "production"
-    assert selected["intake"]["source"] == "user_submit"
-    return selected
+    assert selected["intake"]["source"] == "assistant_reported_user"
+    state = pilot[1].state.store.get("creative", pid)
+    return selected | dict(creative={k: v for k, v in state.items() if k != "widgets"})
 
 
 def test_mixed_request_retains_user_direction_and_avoids_approval_gate(pilot):

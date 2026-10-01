@@ -88,8 +88,12 @@ for(const [shortcut,expected] of [
   assert(h.calls[0].arguments.request_id.length>5);
   assert.equal(h.contexts.length,1);assert.equal(h.messages.length,1);
   assert(JSON.stringify(h.messages).includes(note));assert(!JSON.stringify(h.messages).includes('private-token'));
+  assert.equal(h.messages[0].content[0].text,`At 0:06.4, ${note}`);
+  assert(!JSON.stringify(h.messages).includes('video-one'));
+  assert(!JSON.stringify(h.messages).includes('revision'));
+  assert(JSON.stringify(h.contexts).includes('video-one'),'exact media identity remains in background context');
   assert.equal(h.document.getElementById('feedback-form').hidden,true);
-  assert.equal(h.document.getElementById('notice').textContent,'Suggestion sent.');
+  assert.equal(h.document.getElementById('notice').textContent,'Suggestion saved. Send the prepared reply to continue.');
   assert.equal(h.document.querySelector('this'),null,'feedback text never becomes HTML');
 }
 
@@ -141,7 +145,9 @@ for(const options of [{capabilities:{serverTools:{},updateModelContext:{text:{}}
   resolve({structuredContent:{creative:{revision:4}}});await sending;
   assert(h.document.querySelector('video').src.includes('another-video'));
   assert.equal(h.document.getElementById('notice').textContent,'','previous completion cannot claim the new project was edited');
-  assert(JSON.stringify(h.messages).includes('project project'));
+  assert(JSON.stringify(h.contexts).includes('video project project'));
+  assert(!JSON.stringify(h.messages).includes('video-one'));
+  assert(!JSON.stringify(h.messages).includes('project project'));
   assert(!JSON.stringify(h.messages).includes('another-project'));
 }
 console.log('PASS timestamped feedback captures the exact version saves once and sends messages only on explicit submission with honest host fallbacks');

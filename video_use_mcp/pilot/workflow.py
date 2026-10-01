@@ -12,7 +12,7 @@ from .creative_state import creative_edit
 from .allowance import narration_allowance
 from .experience import experience_context, involvement_preference
 from .widgets import creative_public
-from .intake import initialize_intake, intake_context, pending_widget
+from .intake import initialize_intake, intake_context, pending_widget, question_context
 
 Category = Literal[
     "explainer",
@@ -527,7 +527,7 @@ def register_workflow(mcp, store, muser, new_project, read, write):
             raise ValueError("Start a creative brief with start_video first")
         return state
 
-    @mcp.tool(annotations=write, meta=UI_META, title="Start your video")
+    @mcp.tool(annotations=write, title="Start your video")
     @creative_edit
     def start_video(
         title: str,
@@ -554,7 +554,7 @@ def register_workflow(mcp, store, muser, new_project, read, write):
             ),
         ] = None,
     ) -> CallToolResult:
-        """Start every new video request here. Returns the first question widget: Hands off, Key moments, or Hands on. Wait for this explicit choice, then ask only missing output basics returned in intake.next_tool. Record length/destination already given in output_profile, so the user is not asked again. Keep brief faithful and inferred content/style in assumptions. After intake, follow the chosen mode: hands off makes the finished video without optional questions or draft displays; key moments uses selective check-ins; hands on gathers consequential content preferences, offers relevant styles, and reviews a short real excerpt before completing the film. Reuse project_id for revisions without restarting intake. New requests get new projects. Categories are hints; custom and supporting_categories allow mixed workflows."""
+        """Start a new video and return its opening question for YOU to ask once: Hands off, Key moments, or Hands on. No app card is displayed. Use your native question tool if available, otherwise one short chat question; do not call show_video_brief to repeat this returned question. Record the actual reply with question.record_with. Then ask only missing output basics. Save stated length/destination in output_profile to avoid repeating them. Keep brief faithful; inferred content/style belong in assumptions. Hands off produces the finished video; key moments uses selective check-ins; hands on explores consequential choices conversationally and reviews a short real excerpt before the rest. Reuse project_id for revisions without restarting intake. Categories are hints, not templates."""
         uid = muser(True)
         if (
             not title.strip()
@@ -639,7 +639,6 @@ def register_workflow(mcp, store, muser, new_project, read, write):
             project_id=pid,
             creative=creative_public(state),
             workflow=recipe,
-            narration_allowance=narration_allowance(store, uid),
             experience=experience_context(state, event="start"),
             complementary_workflows=[workflow_summary(c) for c in supporting],
             intake=intake_context(state, pid),
@@ -654,7 +653,10 @@ def register_workflow(mcp, store, muser, new_project, read, write):
             },
         )
         if widget:
-            data["widget"] = widget
+            data["question"] = question_context(pid, widget)
+            data["next_action"] = data["question"]["instructions"]
+        else:
+            data["narration_allowance"] = narration_allowance(store, uid)
         return CallToolResult(
             content=[TextContent(type="text", text=json.dumps(data))],
             structuredContent=data,

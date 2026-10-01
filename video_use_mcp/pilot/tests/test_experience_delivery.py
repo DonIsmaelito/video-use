@@ -9,7 +9,9 @@ from video_use_mcp.pilot.tests.test_workflow_catalog import complete_intake
 pytest_plugins = ["video_use_mcp.pilot.tests.test_oauth_discovery"]
 
 
-def test_start_includes_current_allowance_without_starting_a_task(pilot, monkeypatch):
+def test_opening_question_does_not_distract_with_quota_or_start_a_task(
+    pilot, monkeypatch
+):
     allowance = Mock(return_value={"status": "known", "remaining": 91})
     monkeypatch.setattr("video_use_mcp.pilot.workflow.narration_allowance", allowance)
     result = call(
@@ -17,12 +19,12 @@ def test_start_includes_current_allowance_without_starting_a_task(pilot, monkeyp
         "start_video",
         dict(title="Wi-Fi", brief="Explain Wi-Fi with voiceover", category="explainer"),
     )
-    allowance.assert_called_once_with(pilot[1].state.store, "tester")
-    assert result["narration_allowance"]["remaining"] == 91
+    allowance.assert_not_called()
+    assert "narration_allowance" not in result
     assert result["experience"]["check_in"]["trigger"] == "involvement_required"
     assert result["experience"]["check_in"]["continuation"] == "wait_for_mode_choice"
     assert result["experience"]["source"] == "awaiting_user"
-    assert [q["id"] for q in result["widget"]["questions"]] == ["involvement"]
+    assert [q["id"] for q in result["question"]["questions"]] == ["involvement"]
     assert not any(
         "INSERT INTO public.vp_tasks" in c.args[0]
         for c in pilot[1].state.store.sql.call_args_list
@@ -59,7 +61,11 @@ def test_story_surfaces_capacity_shortfall_before_narration(pilot, monkeypatch):
     assert not check["automatic_retry"]
     assert "show_video_brief" in result["next_action"]
     assert "Do not silently remove voiceover" in result["next_action"]
-    assert result["creative"]["script"] == script
+    assert (
+        pilot[1].state.store.get("creative", started["project_id"])["script"] == script
+    )
+    assert "widget" not in result
+    assert result["story"]["presentation"] == "short_chat_summary"
 
 
 def test_unknown_capacity_is_not_reported_as_exhausted(pilot, monkeypatch):

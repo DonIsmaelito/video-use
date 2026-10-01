@@ -6,7 +6,6 @@ from unittest.mock import Mock
 
 import pytest
 
-from video_use_mcp.pilot.interaction import UI_URI
 from video_use_mcp.pilot.tests.test_cards import rpc
 from video_use_mcp.pilot.tests.test_workflow import call
 from video_use_mcp.pilot.tests.test_narration_continuation import (
@@ -76,7 +75,22 @@ def show(pilot, project, kind="brief", **updates):
     args.update(questions=deepcopy(QUESTIONS)) if kind == "brief" else args.update(
         beats=deepcopy(BEATS)
     )
-    return call(pilot, "show_video_" + kind, args | updates)
+    data = call(pilot, "show_video_" + kind, args | updates)
+    assert "widget" not in data
+    return legacy_record(pilot, data, kind)
+
+
+def legacy_record(pilot, data, kind="brief"):
+    """Exercise old save clients with a record held from before the UI migration.
+
+    New presentation responses are tested directly in test_native_questions;
+    this fixture reads internal state solely to retain the legacy save tests.
+    """
+    state = deepcopy(pilot[1].state.store.get("creative", data["project_id"]))
+    return data | dict(
+        widget=state["widgets"][kind],
+        creative={k: v for k, v in state.items() if k != "widgets"},
+    )
 
 
 def save(pilot, shown, **changes):
@@ -100,7 +114,7 @@ def error(pilot, name, args):
 def test_widget_discovery_and_matching_response_surfaces(pilot, project):
     tools = {t["name"]: t for t in rpc(pilot, "tools/list", {})["tools"]}
     for name in ("show_video_brief", "show_video_story"):
-        assert tools[name]["_meta"]["ui"]["resourceUri"] == UI_URI
+        assert "ui" not in tools[name].get("_meta", {})
     assert tools["save_video_widget"]["_meta"]["ui"]["visibility"] == ["app"]
     result = rpc(
         pilot,
@@ -113,7 +127,9 @@ def test_widget_discovery_and_matching_response_surfaces(pilot, project):
         ),
     )
     assert json.loads(result["content"][0]["text"]) == result["structuredContent"]
-    assert "widgets" not in result["structuredContent"]["creative"]
+    assert "widget" not in result["structuredContent"]
+    assert "creative" not in result["structuredContent"]
+    assert result["structuredContent"]["question"]["presenter"] == "host"
 
 
 def test_recommendations_are_not_selections_or_approval(pilot, project):
@@ -122,7 +138,7 @@ def test_recommendations_are_not_selections_or_approval(pilot, project):
     assert shown["creative"]["revision"] == 1
     assert "brief_answers" not in shown["creative"]
     assert "not an approval gate" in shown["next_action"]
-    assert "Do not end the turn" in shown["next_action"]
+    assert "continue independent work" in shown["next_action"]
 
 
 def test_partial_brief_answers_preserve_unrelated_changes_and_are_idempotent(
@@ -215,7 +231,7 @@ def test_conflicting_retry_and_stale_revision_do_not_overwrite(pilot, project):
 
 def test_replaced_picker_rejects_old_card(pilot, project):
     shown = show(pilot, project)
-    show(pilot, project)
+    show(pilot, project, questions=[QUESTIONS[0]])
     error(
         pilot,
         "save_video_widget",

@@ -130,11 +130,10 @@ def experience_context(
         if intake.get("next_tool"):
             check["next_tool"] = intake["next_tool"]
         if phase == "mode":
-            check["widgets"] = ["show_video_brief"]
             check["continuation"] = "wait_for_mode_choice"
         elif phase == "basics":
-            check["widgets"] = ["show_video_brief"]
             check["missing_basics"] = intake.get("missing_basics", [])
+        check["presentation"] = "host_native_question_if_available_else_short_chat"
     elif (
         handoff and handoff.get("preferences_changed") is True and not awaiting_excerpt
     ):
@@ -224,10 +223,8 @@ def experience_context(
             trigger="request_started",
             update="none" if mode == "delegate" else "brief",
             question="optional_if_consequential" if mode != "delegate" else "none",
-            widgets=["show_video_brief", "show_video_choices", "show_video_story"]
-            if mode != "delegate"
-            else [],
-            hint="State consequential assumptions briefly. Choose at most one useful steering surface for an unresolved decision; author it for this request, not a questionnaire ritual. Continue authorized work with reversible defaults; defaults are not user approval.",
+            widgets=[],
+            hint="Discuss at most one consequential unresolved choice in normal conversation, using a native question tool only if the host exposes one. Do not show a custom questionnaire, script editor or checklist of cards. Continue authorized work with reversible defaults; defaults are not user approval.",
         )
         if mode == "delegate":
             check["hint"] = (

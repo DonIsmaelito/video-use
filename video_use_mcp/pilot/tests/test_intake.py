@@ -12,10 +12,19 @@ from video_use_mcp.pilot.intake import (
     apply_intake_answers,
 )
 from video_use_mcp.pilot.tests.test_cards import rpc
-from video_use_mcp.pilot.tests.test_workflow import call
-from video_use_mcp.pilot.tests.test_widgets import QUESTIONS, BEATS
+from video_use_mcp.pilot.tests.test_workflow import call as call_tool
+from video_use_mcp.pilot.tests.test_widgets import QUESTIONS, BEATS, legacy_record
 
 pytest_plugins = ["video_use_mcp.pilot.tests.test_oauth_discovery"]
+
+
+def call(pilot, name, args):
+    data = call_tool(pilot, name, args)
+    # These tests also exercise backward-compatible app saves. Public native
+    # question responses are asserted without this fixture in test_native_questions.
+    if "widget" not in data and ("question" in data or "story" in data):
+        return legacy_record(pilot, data, "story" if "story" in data else "brief")
+    return data
 
 
 def start(pilot, **kwargs):

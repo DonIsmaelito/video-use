@@ -23,14 +23,18 @@ def start(pilot, profile=None):
 
 
 def answer(pilot, data, answers, request_id="click"):
+    question = data["question"]
+    labels = {
+        q["id"]: {o["id"]: o["label"] for o in q["options"]}
+        for q in question["questions"]
+    }
     return call(
         pilot,
-        "save_video_widget",
+        "record_video_answers",
         dict(
-            project_id=data["project_id"],
-            widget_id=data["widget"]["id"],
-            revision=data["widget"]["revision"],
+            **question["record_with"]["arguments"],
             request_id=request_id,
+            user_message=". ".join(labels[q][value] for q, value in answers.items()),
             answers=answers,
         ),
     )
@@ -74,8 +78,10 @@ def error(pilot, name, **args):
 
 def test_new_request_asks_mode_then_only_missing_basics(pilot):
     result = start(pilot, {"duration_seconds": 30})
-    assert [q["id"] for q in result["widget"]["questions"]] == ["involvement"]
-    assert not result["widget"]["answers"]
+    assert [q["id"] for q in result["question"]["questions"]] == ["involvement"]
+    assert not result["question"]["recorded_answers"]
+    assert "widget" not in result
+    assert "next_tool" not in result["intake"]
     pid = result["project_id"]
     with pytest.raises(ValueError, match="intake"):
         require_production_intake(state(pilot, pid), "narrate", {})
@@ -133,6 +139,18 @@ def test_hands_on_style_excerpt_refine_and_acceptance(pilot):
     assert refined["intake"]["excerpt_review"]["status"] == "changes_requested"
     with pytest.raises(ValueError):
         require_production_intake(state(pilot, pid), "export", {})
+    reshown = call(
+        pilot,
+        "show_video_checkpoint",
+        dict(
+            project_id=pid,
+            creative_revision=refined["creative_revision"],
+            object_id="sample",
+        ),
+    )
+    assert reshown["question"]["status"] == "answered"
+    assert "already requested refinement" in reshown["next_action"]
+    assert "widget" not in reshown
     publish(pilot, pid, "revised-sample")
     checkpoint = call(
         pilot,
@@ -152,19 +170,21 @@ def test_hands_on_style_excerpt_refine_and_acceptance(pilot):
     retry = answer(pilot, checkpoint, {"excerpt_review": "continue"})
     assert (
         retry["repeated"]
-        and retry["creative"]["revision"] == accepted["creative"]["revision"]
+        and retry["creative_revision"] == accepted["creative_revision"]
     )
     reopened = call(
         pilot,
         "show_video_checkpoint",
         dict(
             project_id=pid,
-            creative_revision=accepted["creative"]["revision"],
+            creative_revision=accepted["creative_revision"],
             object_id="revised-sample",
         ),
     )
     assert "already accepted" in reopened["next_action"]
     assert reopened["intake"]["phase"] == "production"
+    assert reopened["question"]["status"] == "answered"
+    assert "widget" not in reopened
 
 
 def test_sample_cannot_be_accepted_after_new_media_or_changed_preferences(pilot):
@@ -185,7 +205,7 @@ def test_sample_cannot_be_accepted_after_new_media_or_changed_preferences(pilot)
         pilot,
         "save_video_widget",
         project_id=pid,
-        widget_id=checkpoint["widget"]["id"],
+        widget_id=checkpoint["question"]["id"],
         revision=1,
         request_id="stale",
         answers={"excerpt_review": "continue"},

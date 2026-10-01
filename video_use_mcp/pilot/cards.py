@@ -23,7 +23,7 @@ from .interaction import (
 from .feedback import feedback_context
 from .widgets import creative_public
 from .experience import experience_context
-from .intake import intake_context
+from .intake import intake_context, question_context
 from .creative_state import creative_edit
 from .store import ident
 
@@ -581,12 +581,12 @@ def register_cards(
         """Show real media with playback/download. Hands off shows only the finished export. Hands on shows its short excerpt, then show_video_checkpoint waits for the user's direction before completing the rest. Key moments uses selective previews. Reuse the open player, which refreshes for up to ten minutes on supported hosts; reopen only when needed. No placeholders."""
         return media_result(muser(), project_id)
 
-    @mcp.tool(annotations=execute, meta=UI_META, title="Review the sample")
+    @mcp.tool(annotations=execute, title="Review the sample")
     @creative_edit
     def show_video_checkpoint(
         project_id: str, creative_revision: int, object_id: str
     ) -> CallToolResult:
-        """After showing a short hands-on excerpt, offer Continue with this or Refine the sample. Binds the decision to this exact rendered video. Never substitute an internal review or your own judgment for the user's answer. Use record_video_answers for an actual chat reply. Wait before rendering the rest."""
+        """Prepare one conversational question about the already visible excerpt: Continue with this or Refine the sample. No second app card or player is shown. Use your native question tool if available, otherwise short chat. Binds the reply to this exact video; record only the user's actual reply with record_video_answers. Wait before rendering the rest."""
         uid = muser(True)
         store.project(uid, project_id)
         state = deepcopy(store.get("creative", project_id) or {})
@@ -656,12 +656,20 @@ def register_cards(
             store.put("creative", project_id, state)
         data = dict(
             project_id=project_id,
-            widget={k: v for k, v in widget.items() if k != "receipts"},
-            creative=creative_public(state),
+            question=question_context(
+                project_id,
+                widget,
+                answered=state["intake"]["excerpt_review"].get("status")
+                in ("approved", "changes_requested"),
+            ),
+            creative_revision=state["revision"],
             intake=intake_context(state, project_id),
             next_action=(
                 "This sample direction is already accepted. Continue completing the film; do not ask for the same decision again."
                 if state["intake"]["excerpt_review"].get("status") == "approved"
+                else "The user already requested refinement. Apply their feedback or ask briefly what should change, then show a revised excerpt; do not repeat the answered continue/refine question."
+                if state["intake"]["excerpt_review"].get("status")
+                == "changes_requested"
                 else "Wait for the user's sample decision. Continue with this unlocks completing the film; Refine the sample means use their feedback or ask what should change, then present a revised excerpt. A recommendation or silence is not acceptance."
             ),
         )

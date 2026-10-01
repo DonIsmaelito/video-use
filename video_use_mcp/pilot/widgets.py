@@ -1,4 +1,4 @@
-"""Optional in-chat direction and story editors with durable user provenance."""
+"""Host-native questions and story context, with legacy editor save support."""
 
 import hashlib
 import json
@@ -10,7 +10,6 @@ from pydantic import BaseModel, ConfigDict, Field
 from .creative_state import creative_edit
 from .allowance import narration_allowance
 from .experience import experience_context
-from .interaction import UI_META
 from .store import ident
 from .intake import (
     intake_context,
@@ -18,6 +17,8 @@ from .intake import (
     initialize_intake,
     basics_snapshot,
     INVOLVEMENT_QUESTION,
+    question_context,
+    record_answered,
 )
 
 
@@ -154,12 +155,59 @@ def register_widgets(mcp, store, muser, read, write):
             result["next_action"] = intake["next_action"]
         return result
 
+    def native_output(project_id, state, record, *, saved=False, repeated=False):
+        data = dict(
+            project_id=project_id,
+            creative_revision=state["revision"],
+            saved=saved,
+            repeated=repeated,
+        )
+        intake = intake_context(state, project_id)
+        if intake:
+            data["intake"] = {
+                k: v
+                for k, v in intake.items()
+                if k
+                not in (
+                    "questions",
+                    "missing_basic_questions",
+                    "question",
+                    "next_action",
+                )
+            }
+            data["next_action"] = intake["next_action"]
+        else:
+            data["next_action"] = (
+                "Use the explicit user answer in the next edit; preserve compatible work."
+                if saved
+                else "Ask only if this unresolved choice matters. It is optional, not an approval gate; continue independent work. A recommendation is not a user answer."
+            )
+        if record["kind"] == "brief":
+            data["question"] = question_context(
+                project_id, record, answered=saved or bool(record.get("receipts"))
+            )
+        else:
+            data["story"] = dict(
+                id=record["id"],
+                revision=record["revision"],
+                title=record["title"],
+                beats=[
+                    {k: beat[k] for k in ("id", "title", "seconds")}
+                    for beat in record["beats"]
+                ],
+                proposed_duration=sum(b["seconds"] for b in record["beats"]),
+                source=state.get("plan_provenance", "assistant_plan"),
+                presentation="short_chat_summary",
+                instructions="Summarize the proposed story in a few natural sentences. Do not show an editable form, field-by-field script, JSON or an app. These durations are proposed, not measured. Invite ordinary conversational corrections without a routine approval stop.",
+            )
+        return data
+
     def present(project_id, state, widget):
         # Keep at most the current brief and current story. One atomic KV write
         # contains the proposal, creative context and later idempotency receipts.
         state.setdefault("widgets", {})[widget["kind"]] = widget
         store.put("creative", project_id, state)
-        data = output(project_id, state, widget)
+        data = native_output(project_id, state, widget)
         if widget["kind"] == "story" and state.get("script"):
             data["narration_allowance"] = narration_allowance(
                 store, muser(True), requested_characters=len(state["script"])
@@ -189,7 +237,7 @@ def register_widgets(mcp, store, muser, read, write):
             structuredContent=data,
         )
 
-    @mcp.tool(annotations=write, meta=UI_META, title="Shape the direction")
+    @mcp.tool(annotations=write, title="Prepare a creative question")
     @creative_edit
     def show_video_brief(
         project_id: str,
@@ -197,7 +245,7 @@ def register_widgets(mcp, store, muser, read, write):
         questions: list[Question],
         title: str = "Make it yours",
     ) -> CallToolResult:
-        """Show compact choice buttons. For new requests first show the single involvement question, then only missing basics, using intake.next_tool. Those pages require explicit answers. After intake, Hands on waits for offered content questions; Key moments uses optional selective questions; Hands off skips optional questions. Skip known context. Recommendations are never selections. Use show_video_choices for relevant motion references."""
+        """Prepare a question for you to ask using the host's native question tool if available, otherwise short ordinary chat. This tool displays no custom UI. Do not call it for a question already returned by start_video; present that question once instead. Identical questions reuse their existing ID. Required involvement/basics and offered Hands on content need explicit answers; Key moments questions remain optional. Record the user's actual words with record_video_answers. Never paste tool JSON into chat or ask known context again."""
         state = context(project_id)
         if state["revision"] != creative_revision:
             raise ValueError(
@@ -241,6 +289,17 @@ def register_widgets(mcp, store, muser, read, write):
                 raise ValueError(
                     "Hands off is selected. Continue to the finished video without optional questions."
                 )
+        existing = state.get("widgets", {}).get("brief") or {}
+        values = [q.model_dump() for q in questions]
+        if (
+            existing.get("questions") == values
+            and existing.get("purpose") == purpose
+            and (
+                purpose != "basics"
+                or existing.get("intake_snapshot") == basics_snapshot(state["intake"])
+            )
+        ):
+            return present(project_id, state, existing)
         widget = dict(
             id=ident(),
             kind="brief",
@@ -248,22 +307,49 @@ def register_widgets(mcp, store, muser, read, write):
             revision=1,
             creative_revision=creative_revision,
             state="open",
-            questions=[q.model_dump() for q in questions],
+            questions=values,
             answers={}
             if purpose in ("mode", "basics")
             else saved_brief_answers(state, questions),
         )
         if purpose:
             widget.update(purpose=purpose, required=required)
+        if purpose not in ("mode", "basics"):
+            prior_text = {}
+            for question in questions:
+                if question.id in widget["answers"]:
+                    continue
+                previous = next(
+                    (
+                        a
+                        for a in state.get("brief_answers", [])
+                        if a.get("question_id") == question.id
+                        and a.get("question") == question.prompt
+                        and a.get("source") == "assistant_reported_user"
+                        and "option_id" not in a
+                    ),
+                    None,
+                )
+                if (
+                    previous
+                    and isinstance(previous.get("answer"), str)
+                    and previous["answer"].strip()
+                ):
+                    prior_text[question.id] = previous["answer"]
+            if prior_text:
+                widget["text_answers"] = prior_text
         if purpose == "basics":
             widget["intake_snapshot"] = basics_snapshot(state["intake"])
         if purpose == "personalization":
-            state["intake"]["pending_questions"] = dict(
-                widget_id=widget["id"], answered=False
-            )
+            if record_answered(widget):
+                state["intake"].pop("pending_questions", None)
+            else:
+                state["intake"]["pending_questions"] = dict(
+                    widget_id=widget["id"], answered=False
+                )
         return present(project_id, state, widget)
 
-    @mcp.tool(annotations=write, meta=UI_META, title="Shape the story and script")
+    @mcp.tool(annotations=write, title="Prepare the story")
     @creative_edit
     def show_video_story(
         project_id: str,
@@ -271,7 +357,7 @@ def register_widgets(mcp, store, muser, read, write):
         beats: list[StoryBeat],
         title: str = "The story",
     ) -> CallToolResult:
-        """After intake, show and save a concise editable story with narration and proposed durations when meaningful to the user's chosen involvement. These are story cards, not rendered frames or measured timing. Edits are optional; Hands on separately reviews a real short excerpt before completion. Hands off skips this display and plans internally. Skip precise edits or already specified scripts. Stable beat IDs support targeted revisions. Do not overwrite newer direction."""
+        """Save the proposed story/script and return a compact outline for a short conversational summary. No custom form or app is displayed. Do not expose editable fields or paste JSON; the user can request changes in ordinary chat. Proposed durations are not measured. Hands on separately reviews a real short excerpt. Hands off plans internally instead. Skip precise edits or already specified scripts and never overwrite newer direction."""
         state = context(project_id)
         intake = intake_context(state, project_id)
         if intake and intake["phase"] in ("mode", "basics", "personalization"):
@@ -313,6 +399,7 @@ def register_widgets(mcp, store, muser, read, write):
         source="user_submit",
         user_message="",
         output_profile=None,
+        text_answers=None,
     ) -> dict:
         """Save only an explicit user submission from the brief or story editor. Reject replaced/outdated widgets and conflicting retries; preserve unrelated creative choices."""
         state = context(project_id)
@@ -325,6 +412,36 @@ def register_widgets(mcp, store, muser, read, write):
             raise ValueError("Provide a request ID of 1–120 characters")
         purpose = widget.get("purpose")
         exact = {}
+        freeform = {} if text_answers is None else text_answers
+        if freeform:
+            if (
+                source != "assistant_reported_user"
+                or widget["kind"] != "brief"
+                or purpose in ("mode", "basics", "excerpt_review")
+            ):
+                raise ValueError(
+                    "Freeform answers are only for content questions, not involvement, output basics, or excerpt acceptance"
+                )
+            if (
+                any(
+                    key
+                    in (
+                        "involvement",
+                        "duration",
+                        "viewing_destination",
+                        "excerpt_review",
+                    )
+                    or not isinstance(value, str)
+                    or not value.strip()
+                    or len(value) > 2000
+                    for key, value in freeform.items()
+                )
+                or sum(len(value) for value in freeform.values()) > 4000
+            ):
+                raise ValueError(
+                    "Use 1–2000 characters per content answer, up to 4000 total; use explicit choices for involvement and review"
+                )
+            freeform = {key: value.strip() for key, value in freeform.items()}
         if output_profile is not None:
             if purpose != "basics" or source != "assistant_reported_user":
                 raise ValueError(
@@ -355,6 +472,10 @@ def register_widgets(mcp, store, muser, read, write):
                 for key, value in answers.items()
             ):
                 raise ValueError("Choose only offered answers")
+            if any(key not in offered or key in answers for key in freeform):
+                raise ValueError(
+                    "Give either an offered choice or a freeform answer for each current content question"
+                )
             value = dict(answers)
         else:
             if answers is not None or beats is None:
@@ -365,6 +486,8 @@ def register_widgets(mcp, store, muser, read, write):
                     "Keep the current beat IDs; ask your assistant to add or remove scenes"
                 )
         submitted = {"answers": value, "output_profile": exact} if exact else value
+        if freeform:
+            submitted = dict(answers=value, text_answers=freeform)
         digest = hashlib.sha256(
             json.dumps(submitted, sort_keys=True).encode()
         ).hexdigest()
@@ -381,9 +504,19 @@ def register_widgets(mcp, store, muser, read, write):
             raise ValueError(
                 "This editor is outdated; reopen the latest version before saving"
             )
-        answered = (set(value) if isinstance(value, dict) else set()) | {
-            "duration" if f == "duration_seconds" else f for f in exact
-        }
+        answered = (
+            (set(value) if isinstance(value, dict) else set())
+            | {"duration" if f == "duration_seconds" else f for f in exact}
+            | set(freeform)
+        )
+        if source == "assistant_reported_user":
+            answered |= set(widget.get("answers", {})) | set(
+                widget.get("text_answers", {})
+            )
+            answered |= {
+                "duration" if key == "duration_seconds" else key
+                for key in widget.get("output_profile", {})
+            }
         if widget.get("required") and any(
             q not in answered for q in widget["required"]
         ):
@@ -429,16 +562,53 @@ def register_widgets(mcp, store, muser, read, write):
         previous = (
             widget.get("answers") if widget["kind"] == "brief" else widget["beats"]
         )
-        if value == previous and not widget.get("required"):
+        previously_answered = widget["kind"] == "brief" and record_answered(widget)
+        if (
+            value == previous
+            and freeform == widget.get("text_answers", {})
+            and not widget.get("required")
+        ):
             return output(project_id, state, widget, saved=False)
         state["revision"] += 1
         widget["revision"] += 1
         widget["creative_revision"] = state["revision"]
         if widget["kind"] == "brief":
-            widget["answers"] = value
+            previous_text = widget.get("text_answers", {})
+            previous_exact = widget.get("output_profile", {})
+            supplied = (
+                set(value)
+                | set(freeform)
+                | {"duration" if k == "duration_seconds" else k for k in exact}
+            )
+            native = source == "assistant_reported_user"
+            widget["answers"] = (widget.get("answers", {}) | value) if native else value
+            for key in set(freeform) | {
+                "duration" if k == "duration_seconds" else k for k in exact
+            }:
+                widget["answers"].pop(key, None)
+            retained_text = (
+                {k: v for k, v in previous_text.items() if k not in supplied}
+                if native
+                else {}
+            )
+            retained_exact = (
+                {
+                    k: v
+                    for k, v in previous_exact.items()
+                    if ("duration" if k == "duration_seconds" else k) not in supplied
+                }
+                if native
+                else {}
+            )
             widget.pop("output_profile", None)
+            widget.pop("text_answers", None)
             state["brief_answers"] = merge_brief_answers(
-                state.get("brief_answers", []), widget["questions"], value, source
+                state.get("brief_answers", []),
+                [q for q in widget["questions"] if q["id"] in supplied]
+                if native
+                else widget["questions"],
+                value,
+                source,
             )
             if exact:
                 for field, exact_value in exact.items():
@@ -456,7 +626,21 @@ def register_widgets(mcp, store, muser, read, write):
                             source=source,
                         )
                     )
-                widget["output_profile"] = exact
+            if retained_exact or exact:
+                widget["output_profile"] = retained_exact | exact
+            if freeform:
+                state["brief_answers"].extend(
+                    dict(
+                        question_id=question["id"],
+                        question=question["prompt"],
+                        answer=freeform[question["id"]],
+                        source=source,
+                    )
+                    for question in widget["questions"]
+                    if question["id"] in freeform
+                )
+            if retained_text or freeform:
+                widget["text_answers"] = retained_text | freeform
             if purpose in ("mode", "basics"):
                 state["intake"] = apply_intake_answers(
                     state["intake"], purpose, value, source
@@ -467,9 +651,11 @@ def register_widgets(mcp, store, muser, read, write):
                 if purpose == "basics":
                     widget["intake_snapshot"] = basics_snapshot(state["intake"])
             elif purpose == "personalization":
-                if (
-                    state["intake"].get("pending_questions", {}).get("widget_id")
-                    != widget_id
+                pending = state["intake"].get("pending_questions")
+                if (pending and pending.get("widget_id") != widget_id) or (
+                    not pending
+                    and not widget.get("receipts")
+                    and not previously_answered
                 ):
                     raise ValueError("This content question is outdated")
                 state["intake"].pop("pending_questions", None)
@@ -529,11 +715,12 @@ def register_widgets(mcp, store, muser, read, write):
         user_message: str,
         answers: dict[str, str] | None = None,
         output_profile: dict | None = None,
+        text_answers: dict[str, str] | None = None,
     ) -> dict:
-        """Record the user's explicit chat answer for the current question page. Quote their actual message; never infer consent from silence or a video request. Map offered choices in answers. For basics outside presets use exact output_profile={duration_seconds:45,viewing_destination:'internal training'} instead, only for asked fields. Every required question needs an answer. Provenance remains assistant-reported user input, not a click."""
+        """Record the user's explicit native-question or chat reply. Quote their actual words in user_message, never JSON or inferred consent. Map offered choices in answers. For output basics outside presets use exact output_profile={duration_seconds:45,viewing_destination:'internal training'}. For content questions outside offered options, use text_answers={question_id:'their answer'} without inventing an option ID. Freeform cannot approve involvement or an excerpt. Every required question needs an explicit answer. Provenance remains assistant-reported user input, not a button click."""
         if not user_message.strip() or len(user_message) > 4000:
             raise ValueError("Include the user's explicit answer in 1–4000 characters")
-        return save_widget(
+        saved = save_widget(
             project_id,
             widget_id,
             revision,
@@ -542,4 +729,10 @@ def register_widgets(mcp, store, muser, read, write):
             source="assistant_reported_user",
             user_message=user_message,
             output_profile=output_profile,
+            text_answers=text_answers,
+        )
+        state = context(project_id)
+        record = next(w for w in state["widgets"].values() if w["id"] == widget_id)
+        return native_output(
+            project_id, state, record, saved=saved["saved"], repeated=saved["repeated"]
         )

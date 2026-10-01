@@ -5,8 +5,10 @@ publication from compact data. Use it for a useful 2D visual idea: a relationshi
 transformation, diagram, chart or typographic moment. You supply the design. This
 is not a text-to-video model or a replacement for custom Manim, footage or 3D.
 
-Version-1 interaction takes priority: `start_video` asks the involvement mode first,
-then only missing duration/destination; wait for explicit answers. Hands off shows
+Version-1 interaction takes priority: `start_video` returns the involvement question.
+Use the native question tool if available, otherwise normal chat; do not repeat it
+through `show_video_brief` or open a form. Then ask only missing duration/destination
+and wait for explicit answers. Hands off shows
 only the final video, Key moments uses selective updates, and Hands on settles
 tailored content/style choices before a short sample review. Legacy projects keep
 their saved mode or labeled default. Real blockers still need resolution.
@@ -17,7 +19,8 @@ Pass `project_id`, a new `request_id`, stable `scene_id`, `note`, the current
 which hands-on mode waits to start until sample acceptance. The same scene ID with changed data and a new
 request ID updates the saved composition. It returns an editable JSON path and
 MP4 path. In interactive modes use `preview_delivery.open_if_missing` when a real
-player is needed. Hands on then uses `show_video_checkpoint` and waits for explicit
+player is needed. Hands on asks the `show_video_checkpoint` question through native
+questions or normal chat about that player; no second card. Wait for explicit
 continue/refine before the rest; Key moments continues with selective updates.
 Hands off keeps samples internal. Read current choices/feedback before later
 renders. Tool defaults are preview settings, not user requirements.
