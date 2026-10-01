@@ -175,6 +175,32 @@ source for production-specific commands and constraints.
 
 ## Verification scope
 
+Deployment verification on 2026-09-30 used the real Modal worker and the live
+authenticated MCP endpoint, in addition to local tests:
+
+| Proof | What was checked |
+| --- | --- |
+| Procedural product assembly | Three.js local modules, deterministic and reversed seeks, 3-second 640×360 render, encoded frame inspection and full decode in the network-blocked worker. |
+| Mathematical explanation | Actual `MathTex` and `TransformMatchingTex` render under worker Manim 0.19.2 with LaTeX and dvisvgm; 2 seconds, 640×360, 30 decoded frames. |
+| Document adaptation | Scoped in-chat upload API with decomposed Unicode filename, PDF page provenance, PDF rasterization, real speech generation and a two-page narrated MP4. |
+| Audio-first excerpt | Uploaded artwork plus the same generated narration, measured waveform, parallel rendering with the document version and encoded-frame inspection. |
+| Data animation | Matching CSV and XLSX fixtures; exact 12/18/27 values, source cells and explicitly unverified formula caches. A 2-second browser chart rendered directly from the CSV, with chronological labels and a true zero baseline. |
+| External source import | Actual public HTTPS file and CDN redirect, stored bytes checked against the authored reference's SHA-256. |
+| Delivery | Document, audio and data-chart revisions exported after encoded-frame inspection. Each final file passed full decode, HTTP byte-range playback and attachment-download checks; the test workspace was closed afterwards. |
+
+The document and audio render commands each took about one second for these
+small 640×360 fixtures; that excludes speech generation, workspace startup,
+storage, MCP transport and host reasoning. It is not a latency guarantee for
+whole user projects. Technical proof scenes are not creative templates.
+
+The Python regression suite passed 138 tests with four opt-in backend-branch
+tests skipped. The renderer/runtime/media JavaScript suite passed 29 tests.
+The chat-card VM suite covers file-library feature detection, explicit uploads,
+cancel/error handling, signed grant isolation, Unicode headers and project
+changes while an upload or choice is pending. These are transport and component
+tests, not signed-in Claude/ChatGPT account acceptance tests. No connected host
+browser was available for that final account-level check.
+
 The new workflow tests exercise mixed document/data/brand requests, preserved
 user preferences, stale-choice reset when intent changes, open-ended custom
 requests, two- or three-reference overrides, invalid references and rejected

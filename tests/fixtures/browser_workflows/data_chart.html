@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Completed projects — synthetic data proof</title>
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#f5f1e8}
+svg{display:block;width:100%;height:100%;font-family:Arial,"Liberation Sans",sans-serif}
+</style>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Completed projects by quarter. Synthetic demonstration data.">
+  <rect width="640" height="360" fill="#f5f1e8"/>
+  <text x="40" y="35" font-size="10" font-weight="700" letter-spacing="1.6" fill="#777087">QUARTERLY SNAPSHOT</text>
+  <text x="40" y="69" font-size="29" font-weight="700" letter-spacing="-.8" fill="#292139">Completed projects</text>
+  <circle cx="522" cy="56" r="4" fill="#7b4acb"/>
+  <text x="534" y="60" font-size="10" letter-spacing="1" fill="#65596f">PROJECTS</text>
+  <g id="axis"/>
+  <g id="series"/>
+  <line x1="40" y1="329" x2="600" y2="329" stroke="#ddd6df"/>
+  <text x="40" y="347" font-size="9" font-weight="700" letter-spacing="1.1" fill="#7e7489">SYNTHETIC DATA · RENDER CHECK</text>
+  <text id="source" x="600" y="347" text-anchor="end" font-size="9" fill="#857c8c">metrics.json</text>
+</svg>
+<script>
+// This fixture measures the input/render path, not a real organization's metrics.
+// All animated state derives from the absolute seek time; there are no timers.
+const NS='http://www.w3.org/2000/svg';
+const axis=document.getElementById('axis'),series=document.getElementById('series');
+const barColor=['#c2ade3','#a583d2','#7543b8'];
+const baseline=276,plotTop=110,plotHeight=baseline-plotTop;
+let bars=[];
+function node(tag,attributes,text){
+  const element=document.createElementNS(NS,tag);
+  for(const [key,value] of Object.entries(attributes))element.setAttribute(key,String(value));
+  if(text!==undefined)element.textContent=String(text);
+  return element;
+}
+const clamp=x=>Math.max(0,Math.min(1,x));
+const ease=x=>{const t=clamp(x);return t*t*t*(t*(6*t-15)+10)};
+window.seek=seconds=>{
+  const time=Math.max(0,Math.min(2,Number(seconds)));
+  if(!Number.isFinite(time))throw Error('Seek time must be finite');
+  bars.forEach((bar,index)=>{
+    const progress=ease((time-.10-index*.10)/.90);
+    const height=bar.height*progress;
+    bar.shape.setAttribute('y',baseline-height);
+    bar.shape.setAttribute('height',height);
+    // Labels always show actual source values, appearing only as each bar settles.
+    bar.label.setAttribute('opacity',clamp((progress-.94)/.06));
+  });
+};
+window.motionReady=(async()=>{
+  const response=await fetch('./metrics.json');
+  if(!response.ok)throw Error('The local metrics.json source is missing');
+  const rows=await response.json();
+  const expected=['Q1','Q2','Q3'];
+  if(!Array.isArray(rows)||rows.length!==3||rows.some((row,index)=>row.quarter!==expected[index]||typeof row.completed_projects!=='number'||!Number.isFinite(row.completed_projects)||row.completed_projects<0)){
+    throw Error('Expected three chronological Q1/Q2/Q3 records with nonnegative numeric completed_projects');
+  }
+  const maximum=Math.max(1,...rows.map(row=>row.completed_projects));
+  const unit=10**Math.floor(Math.log10(maximum));
+  const ceiling=Math.ceil(maximum/unit)*unit;
+  for(const value of [0,ceiling/2,ceiling]){
+    const y=baseline-value/ceiling*plotHeight;
+    axis.append(node('line',{x1:93,y1:y,x2:595,y2:y,stroke:value===0?'#b3a4bd':'#e5dfe6','stroke-width':value===0?1.2:1}));
+    axis.append(node('text',{x:77,y:y+4,'text-anchor':'end','font-size':11,fill:'#817589'},Number(value.toPrecision(8)).toString()));
+  }
+  bars=rows.map((row,index)=>{
+    const center=172+index*174,height=row.completed_projects/ceiling*plotHeight;
+    const shape=node('rect',{x:center-43,y:baseline,width:86,height:0,rx:3,fill:barColor[index]});
+    const label=node('text',{x:center,y:baseline-height-13,'text-anchor':'middle','font-size':23,'font-weight':700,fill:'#463153',opacity:0},row.completed_projects);
+    const quarter=node('text',{x:center,y:302,'text-anchor':'middle','font-size':13,'font-weight':700,fill:'#63536f'},row.quarter);
+    series.append(shape,label,quarter);
+    return {shape,label,height};
+  });
+  await document.fonts.ready;
+  window.seek(0);
+})();
+</script>
+</html>

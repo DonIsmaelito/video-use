@@ -61,7 +61,7 @@ console.log('PASS explicit source upload stays outside model context and checks 
 
 // Isolated hosts exercise the optional ChatGPT bridge without a live account.
 const chatCapabilities={serverTools:{},updateModelContext:{text:{}},message:{text:{}}};
-function sourceHost({extension,capabilities=chatCapabilities,serverTool,upload}={}){
+function sourceHost({extension,capabilities=chatCapabilities,serverTool,upload,message,context}={}){
   const {document}=parseHTML(fs.readFileSync('template.html','utf8'));
   const calls=[],requests=[];
   let app;
@@ -71,8 +71,8 @@ function sourceHost({extension,capabilities=chatCapabilities,serverTool,upload}=
     getHostCapabilities(){return capabilities}
     async openLink(input){calls.push({open:input})}
     async callServerTool(input){calls.push({tool:input});return serverTool?serverTool(input):{structuredContent:{source:{name:input.arguments.name}}}}
-    async updateModelContext(input){calls.push({context:input})}
-    async sendMessage(input){calls.push({message:input});return {}}
+    async updateModelContext(input){calls.push({context:input});if(context)return context(input)}
+    async sendMessage(input){calls.push({message:input});return message?message(input):{}}
   }
   const fetch=async(url,options)=>{
     requests.push({url,options});
@@ -299,3 +299,69 @@ console.log('PASS partial imports and missing upload grants provide truthful rec
   ]);
 }
 console.log('PASS style selection snapshots its project and revision across new choices');
+
+const continueHint=' If the chat is waiting, tell your assistant to continue.';
+for(const [label,capabilities,message] of [
+  ['missing message capability',{serverTools:{},updateModelContext:{text:{}}},undefined],
+  ['message rejection',chatCapabilities,async()=>{throw Error('host rejected message')}],
+  ['message error result',chatCapabilities,async()=>({isError:true})],
+]){
+  for(const transfer of ['upload','library']){
+    const extension={async selectFiles(){return [{fileId:'file',fileName:'brief.pdf'}]},async getFileDownloadUrl(){return {downloadUrl:'https://files.test/brief?sig=private-grant'}}};
+    const host=sourceHost({extension,capabilities,message});
+    host.app.ontoolresult(sourceResult());
+    if(transfer==='upload'){
+      const input=host.document.getElementById('source-files');input.files=[{name:'brief.pdf',size:30}];await input.onchange();
+    }else await host.document.getElementById('source-library').onclick();
+    assert.equal(host.document.getElementById('source-status').textContent,'Added brief.pdf.'+continueHint,`${transfer}: ${label} provides a truthful next step`);
+    assert.equal(host.calls.filter(call=>call.context).length,1,'context remains best effort even without a message capability');
+    assert.equal(host.calls.filter(call=>call.message).length,capabilities.message?1:0,'no repeated host messages');
+    assertPrivateSourceDetails(host,'private-grant','secret-upload-library-project');
+  }
+}
+console.log('PASS unavailable or failed host messages explain how to continue after successful source transfer');
+
+{
+  const host=sourceHost({context:async()=>{throw Error('context rejected')}});
+  host.app.ontoolresult(sourceResult());
+  const input=host.document.getElementById('source-files');input.files=[{name:'brief.pdf',size:30}];
+  await input.onchange();
+  assert.equal(host.calls.filter(call=>call.message).length,1,'context rejection does not suppress a supported host message');
+  assert.equal(host.document.getElementById('source-status').textContent,'Added brief.pdf.','successful host messages retain the normal completion text');
+}
+
+{
+  const host=sourceHost({capabilities:{},upload:async()=>({ok:false,json:async()=>({detail:'Upload failed. Please try again.'})})});
+  host.app.ontoolresult(sourceResult());
+  const input=host.document.getElementById('source-files');input.files=[{name:'brief.pdf',size:30}];
+  await input.onchange();
+  assert.equal(host.document.getElementById('source-status').textContent,'Upload failed. Please try again.');
+  assert.equal(host.calls.length,0,'failed uploads never send completion messages or context');
+  assert(!host.document.getElementById('source-status').textContent.includes('continue'),'a failed upload does not invite work with an absent source');
+}
+
+{
+  let uploads=0;
+  const host=sourceHost({capabilities:{},upload:async(_url,options)=>++uploads===1
+    ?{ok:true,json:async()=>({source:{name:decodeURIComponent(options.headers['X-Filename'])}})}
+    :{ok:false,json:async()=>({detail:'Second upload failed.'})}});
+  host.app.ontoolresult(sourceResult());
+  const input=host.document.getElementById('source-files');input.files=[{name:'saved.pdf',size:30},{name:'failed.pdf',size:30}];
+  await input.onchange();
+  assert.equal(host.document.getElementById('source-status').textContent,'Added saved.pdf. Second upload failed.'+continueHint,'continuation advice preserves the partial failure');
+}
+
+{
+  const enteredMessage=deferred(),completeMessage=deferred();
+  const host=sourceHost({message:async()=>{enteredMessage.resolve();await completeMessage.promise;return {isError:true}}});
+  host.app.ontoolresult(sourceResult('original-project'));
+  const input=host.document.getElementById('source-files');input.files=[{name:'brief.pdf',size:30}];
+  const pending=input.onchange();await enteredMessage.promise;
+  host.app.ontoolresult(sourceResult('new-project'));
+  const nextStatus=host.document.getElementById('source-status').textContent;
+  completeMessage.resolve();await pending;
+  assert.equal(host.document.getElementById('source-status').textContent,nextStatus,'late host failure cannot add advice to a newer picker');
+  assert(conversationalCalls(host).includes('video project original-project'));
+  assert(!conversationalCalls(host).includes('new-project'));
+}
+console.log('PASS message fallback preserves upload failures and original project state');

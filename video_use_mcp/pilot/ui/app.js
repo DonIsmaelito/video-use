@@ -105,7 +105,17 @@ async function notifySources(names,projectId){
   const content=[{type:'text',text:`I added ${names.join(', ')} to video project ${projectId}. Inspect the sources and continue.`}];
   const caps=app.getHostCapabilities?.() || {};
   if(caps.updateModelContext?.text){try{await app.updateModelContext({content})}catch{}}
-  if(caps.message?.text){try{await app.sendMessage({role:'user',content})}catch{}}
+  if(caps.message?.text){try{return !(await app.sendMessage({role:'user',content}))?.isError}catch{}}
+  return false;
+}
+async function finishSourceNotification(names,state){
+  if(!names.length)return;
+  const previousStatus=$('source-status').textContent;
+  const sent=await notifySources(names,state.project_id);
+  // A late host response must not replace a newer picker or transfer's status.
+  if(!sent && sourceState===state && $('source-status').textContent===previousStatus){
+    $('source-status').textContent=previousStatus+' If the chat is waiting, tell your assistant to continue.';
+  }
 }
 $('source-files').onchange=async()=>{
   if(uploading || !sourceState)return;
@@ -125,7 +135,7 @@ $('source-files').onchange=async()=>{
     }
     status(`Added ${saved.join(', ')}.`);
   }catch(e){status((saved.length?`Added ${saved.join(', ')}. `:'')+e.message);}
-  finally{uploading=false;$('source-files').disabled=false;$('source-files').value='';if(saved.length)await notifySources(saved,state.project_id);}
+  finally{uploading=false;$('source-files').disabled=false;$('source-files').value='';await finishSourceNotification(saved,state);}
 };
 $('source-library').onclick=async()=>{
   if(uploading || !sourceState)return;
@@ -144,7 +154,7 @@ $('source-library').onclick=async()=>{
     }
     status(saved.length?`Added ${saved.join(', ')}.`:'No files selected.');
   }catch(e){status((saved.length?`Added ${saved.join(', ')}. `:'')+e.message);}
-  finally{uploading=false;$('source-library').disabled=false;if(saved.length)await notifySources(saved,state.project_id);}
+  finally{uploading=false;$('source-library').disabled=false;await finishSourceNotification(saved,state);}
 };
 $('source-fallback').onclick=async()=>{if(sourceState)await app.openLink({url:sourceState.source_picker.studio_url});};
 app.connect().catch(()=>{$('notice').textContent='Ask your assistant to show this again.';});
