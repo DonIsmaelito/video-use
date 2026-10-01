@@ -98,9 +98,12 @@ def register_cards(
             "SELECT id,video,created FROM public.vp_revisions WHERE project=$1 ORDER BY created DESC LIMIT 3",
             pid,
         )
+        updates = state.get("updates", [])
+        if state.get("latest_preview"):
+            updates = [state["latest_preview"], *updates]
         items = [
             dict(u["preview"], at=u["at"], caption=u["note"], final=False)
-            for u in state.get("updates", [])
+            for u in updates
             if u.get("preview") and u["stage"] != "review"
         ]
         items += [

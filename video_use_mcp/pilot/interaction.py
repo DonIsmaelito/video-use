@@ -156,6 +156,17 @@ def record_progress(store, pid, stage, note, next_action="", brief="", preview=N
     }
     if preview:
         update["preview"] = preview
+    # Keep the most recent actual draft independently of the bounded event log.
+    # A long render can emit many nonvisual updates before another draft exists.
+    authored = [
+        entry
+        for entry in state.get("updates", []) + [update]
+        if entry.get("preview")
+        and entry.get("stage") != "review"
+        and entry.get("note") != "Preview frame"
+    ]
+    if authored:
+        state["latest_preview"] = authored[-1]
     state["updates"] = (state.get("updates", []) + [update])[-20:]
     state["stage"] = stage
     state["next_action"] = next_action[:2000]

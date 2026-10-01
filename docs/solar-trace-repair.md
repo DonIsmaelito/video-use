@@ -18,6 +18,7 @@ was displayed only after export, about 12 minutes after project creation.
 | Entire film authored before useful visual feedback | Compact hosted guidance favors a reusable motion excerpt before implementing the complete film, without a mandatory approval pause. Detailed references remain available on demand. |
 | A circuit-only correction rerendered every chapter | Conservative source fingerprints reuse immutable unchanged chapters; changed scenes render fresh so stateful updaters cannot skip accumulated time. Dynamic source falls back to broader invalidation. |
 | QA contact sheets could replace a playable draft | Frame inspection no longer publishes user-facing progress; old generic inspection entries cannot displace video. |
+| A long sequence of internal updates could evict the only draft | Keep the latest authored preview independently of the bounded event history. |
 | Four final-review frames skipped important teaching sections | Shared encoded review samples up to twelve frames, using saved beat timings when compatible with the output. |
 | Tool traces omitted newly created task IDs | Infer IDs only from verified task-shaped results; distinguish player refreshes from assistant calls. |
 | Workflow catalog advertised unavailable guidance aliases | `manim-video` and `motion-design` resolve to the compact corresponding browser guides. |
@@ -31,6 +32,17 @@ Replaying the captured solar source locally rendered the initial three chapters
 in 10.30 seconds and the exact circuit correction in 6.22 seconds, reusing the
 other two chapters byte-for-byte. An exact repeat took 0.15 seconds. These are
 local renderer measurements, not end-to-end Claude latency or cloud guarantees.
+
+An additional encoded regression confirmed that changing shared Manim class
+defaults can affect later scenes. Such source uses whole-file invalidation;
+reusing an apparently unchanged later scene would otherwise preserve stale colors.
+
+Live MCP verification replayed the actual 30.07-second export in a separate
+diagnostic project. Complete preview playback and attachment download, generated
+and cached narration timing, cross-operation request IDs, exact retries,
+publication-only recovery, twelve-frame review, and player refresh to the final
+export all passed. The diagnostic workspace was closed. This verifies service
+behavior; it does not substitute for a fresh Claude/ChatGPT creative conversation.
 
 ## Boundaries
 

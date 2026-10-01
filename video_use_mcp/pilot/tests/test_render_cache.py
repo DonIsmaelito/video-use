@@ -205,3 +205,21 @@ def test_opaque_bases_import_side_effects_and_mutable_globals_use_whole_source(
     ]:
         source.write_text(content)
         assert _scene_source(source, "SceneA") == content
+
+
+def test_imported_config_writes_and_manim_class_defaults_use_whole_source(tmp_path):
+    from helpers.render_manim_cached import _scene_source
+
+    source = tmp_path / "film.py"
+    for mutation in [
+        "config.background_color = RED",
+        "Dot.set_default(color=RED)",
+        "cfg = config\n  cfg.background_color = RED",
+    ]:
+        content = (
+            "from manim import *\nclass SceneA(Scene):\n def construct(self):\n  "
+            + mutation
+            + "\nclass SceneB(Scene):\n def construct(self):\n  self.add(Dot())\n"
+        )
+        source.write_text(content)
+        assert _scene_source(source, "SceneB") == content

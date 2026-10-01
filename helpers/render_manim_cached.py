@@ -26,6 +26,83 @@ def _inputs_digest(inputs, settings):
     return digest.hexdigest()[:20]
 
 
+def _has_unknown_shared_writes(tree):
+    """Only self and lexically local values may receive direct writes."""
+
+    class Writes(ast.NodeVisitor):
+        def __init__(self):
+            self.local = []
+            self.unsafe = False
+
+        def visit_FunctionDef(self, node):
+            # Do not collect bindings from nested functions as bindings here.
+            names, imported, aliases = set(), set(), []
+            pending = list(node.body)
+            while pending:
+                item = pending.pop()
+                if isinstance(
+                    item, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)
+                ):
+                    names.add(item.name)
+                    continue
+                if isinstance(item, ast.Name) and isinstance(item.ctx, ast.Store):
+                    names.add(item.id)
+                if isinstance(item, (ast.Import, ast.ImportFrom)):
+                    imported.update(
+                        alias.asname or alias.name.split(".")[0] for alias in item.names
+                    )
+                if isinstance(item, ast.Assign) and isinstance(item.value, ast.Name):
+                    aliases.extend(
+                        (target.id, item.value.id)
+                        for target in item.targets
+                        if isinstance(target, ast.Name)
+                    )
+                pending.extend(ast.iter_child_nodes(item))
+            allowed = set().union(*self.local) if self.local else set()
+            allowed.update(names - imported)
+            # Aliasing an imported/global object does not make its state local.
+            for target, origin in aliases:
+                if origin not in allowed:
+                    allowed.discard(target)
+            if node.args.args and node.args.args[0].arg == "self":
+                allowed.add("self")
+            self.local.append(allowed)
+            for item in node.body:
+                self.visit(item)
+            self.local.pop()
+
+        visit_AsyncFunctionDef = visit_FunctionDef
+
+        def check_write(self, node):
+            if isinstance(node.ctx, (ast.Store, ast.Del)):
+                root = node
+                while isinstance(root, (ast.Attribute, ast.Subscript)):
+                    root = root.value
+                if (
+                    not isinstance(root, ast.Name)
+                    or not self.local
+                    or root.id not in self.local[-1]
+                ):
+                    self.unsafe = True
+            self.generic_visit(node)
+
+        visit_Attribute = check_write
+        visit_Subscript = check_write
+
+        def visit_Call(self, node):
+            # Manim class defaults are process-wide and survive tempconfig.
+            if isinstance(node.func, ast.Attribute) and node.func.attr in {
+                "set_default",
+                "set_defaults",
+            }:
+                self.unsafe = True
+            self.generic_visit(node)
+
+    visitor = Writes()
+    visitor.visit(tree)
+    return visitor.unsafe
+
+
 def _scene_source(source, scene):
     """Ignore unrelated, static scene classes; fall back for dynamic Python.
 
@@ -38,6 +115,8 @@ def _scene_source(source, scene):
     except SyntaxError:
         return text
     if any(isinstance(node, (ast.Global, ast.Nonlocal)) for node in ast.walk(tree)):
+        return text
+    if _has_unknown_shared_writes(tree):
         return text
     dynamic = {
         "globals",
