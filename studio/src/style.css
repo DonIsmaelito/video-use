@@ -93,15 +93,19 @@ header {
   gap: 20px;
 }
 .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
   font-size: 20px;
   letter-spacing: -0.7px;
   font-weight: 600;
 }
 .brand-mark {
-  color: var(--purple);
-  font-size: 27px;
-  vertical-align: -2px;
-  margin-right: 5px;
+  display: block;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
 }
 nav {
   display: flex;
@@ -401,6 +405,11 @@ form > button {
   color: var(--purple);
   font-size: 45px;
   margin-bottom: 20px;
+}
+.empty-brand {
+  display: block;
+  margin: 0 auto 20px;
+  opacity: 0.7;
 }
 .empty h2 {
   color: var(--text);

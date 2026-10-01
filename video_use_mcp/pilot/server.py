@@ -694,21 +694,27 @@ def create_app(config=None, store=None, manager=None):
         response.headers["X-Content-Type-Options"] = "nosniff"
         response.headers["Cache-Control"] = (
             "public, max-age=86400"
-            if request.url.path in {PNG_ROUTE, SVG_ROUTE}
+            if request.url.path in {PNG_ROUTE, SVG_ROUTE, "/favicon.png", "/favicon.svg"}
             and response.status_code in {200, 304}
             else "no-store"
         )
         response.headers["Referrer-Policy"] = "no-referrer"
         return response
 
+    @app.get("/favicon.png")
     @app.get(PNG_ROUTE)
     async def brand_png():
         # Public metadata assets contain no user or project information.
         return FileResponse(PNG_PATH, media_type="image/png")
 
+    @app.get("/favicon.svg")
     @app.get(SVG_ROUTE)
     async def brand_svg():
         return FileResponse(SVG_PATH, media_type="image/svg+xml")
+
+    @app.get("/favicon.ico")
+    async def favicon():
+        return RedirectResponse(PNG_ROUTE)
 
     @app.exception_handler(PermissionError)
     async def forbidden(request, exc):
