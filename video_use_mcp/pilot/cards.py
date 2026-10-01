@@ -134,7 +134,7 @@ def register_cards(
         ]
         if not items:
             raise ValueError(
-                "No visual exists yet. Use propose_video for a first frame, or finish rendering a draft before showing it."
+                "No visual exists yet. Finish a meaningful motion draft before showing it; style references are available separately with show_video_choices."
             )
         # InsForge timestamp strings may use Z or +00:00: normalize before sorting.
         from datetime import datetime
@@ -167,6 +167,16 @@ def register_cards(
             k: v[-2000:] if k in ("stdout", "stderr") and not include_logs else v
             for k, v in result.items()
         }
+        if result.get("components") and not include_logs:
+            out["result"]["components"] = [
+                {
+                    k: (v[-2000:] if c.get("exit_code") else v[-400:])
+                    if k in ("stdout", "stderr")
+                    else v
+                    for k, v in c.items()
+                }
+                for c in result["components"]
+            ]
         for kind in ("video", "source"):
             if result.get(kind + "_id"):
                 out[kind + "_url"] = link(uid, result[kind + "_id"])
