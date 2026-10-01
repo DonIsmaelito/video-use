@@ -3,6 +3,7 @@
 import asyncio
 import contextlib
 import json
+import re
 import tempfile
 from pathlib import Path
 from typing import Annotated, Literal
@@ -467,6 +468,7 @@ def register_cards(
         "ui://video-use/media-v6.html",
         "ui://video-use/media-v7.html",
         "ui://video-use/media-v8.html",
+        "ui://video-use/media-v9.html",
     ):
         mcp.resource(
             legacy_uri,
@@ -485,6 +487,30 @@ def register_cards(
                 }
             },
         )(project_card)
+
+    @mcp.resource(
+        "ui://video-use/media-{version}.html",
+        mime_type="text/html;profile=mcp-app",
+        meta={
+            "ui": {
+                "prefersBorder": False,
+                "csp": {
+                    "resourceDomains": [
+                        config.public_url,
+                        "https://f7e2vbn5.us-west.insforge.app",
+                        "https://cdn.insforge.dev",
+                    ],
+                    "connectDomains": [config.public_url],
+                },
+            },
+        },
+    )
+    def previous_card_version(version: str) -> str:
+        # Existing chats can retain tools from an earlier content-hash release.
+        # A version is an identifier, never a filesystem path.
+        if not re.fullmatch(r"[0-9a-f]{16}", version):
+            raise ValueError("Unknown video card version")
+        return project_card()
 
     @mcp.tool(annotations=read, meta=UI_META, title="Video preview")
     def show_video_preview(project_id: str) -> CallToolResult:

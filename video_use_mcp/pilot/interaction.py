@@ -9,6 +9,7 @@ import os
 import re
 import time
 from datetime import datetime, timezone
+from pathlib import Path
 from uuid import UUID
 
 from mcp.server.auth.middleware.auth_context import get_access_token
@@ -16,7 +17,12 @@ from mcp.server.fastmcp import FastMCP
 
 from .store import ident
 
-UI_URI = "ui://video-use/media-v9.html"
+# Hosts may cache app documents by URI across conversations. Tie discovery to
+# the actual built document so a CSS-only release cannot retain an old card.
+_UI_DIGEST = hashlib.sha256(
+    (Path(__file__).parent / "ui" / "card.html").read_bytes()
+).hexdigest()[:16]
+UI_URI = f"ui://video-use/media-{_UI_DIGEST}.html"
 UI_META = {"ui": {"resourceUri": UI_URI}}
 
 TASK_OPERATIONS = {

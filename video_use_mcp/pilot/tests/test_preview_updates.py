@@ -1,6 +1,8 @@
 """An open player may refresh real media without exposing task or workspace UI."""
 
 from unittest.mock import Mock
+import hashlib
+from pathlib import Path
 
 from video_use_mcp.pilot.interaction import UI_URI
 from video_use_mcp.pilot.tests.test_cards import PID, rpc
@@ -51,9 +53,23 @@ def test_refresh_is_app_only_read_only_without_its_own_visual_resource(pilot):
     )
     assert tool["annotations"]["readOnlyHint"] is True
     assert tool["_meta"]["ui"] == {"visibility": ["app"]}
-    assert UI_URI.endswith("media-v9.html")
+    document = Path(__file__).parents[1] / "ui" / "card.html"
+    digest = hashlib.sha256(document.read_bytes()).hexdigest()[:16]
+    assert UI_URI == f"ui://video-use/media-{digest}.html"
     old = rpc(pilot, "resources/read", {"uri": "ui://video-use/media-v6.html"})
     assert old["contents"][0]["mimeType"] == "text/html;profile=mcp-app"
+
+
+def test_cached_versions_resolve_to_current_document_with_the_same_policy(pilot):
+    current = rpc(pilot, "resources/read", {"uri": UI_URI})["contents"][0]
+    for uri in (
+        "ui://video-use/media-v9.html",
+        "ui://video-use/media-0000000000000000.html",
+    ):
+        previous = rpc(pilot, "resources/read", {"uri": uri})["contents"][0]
+        assert previous["text"] == current["text"]
+        assert previous["mimeType"] == current["mimeType"]
+        assert previous["_meta"] == current["_meta"]
 
 
 def test_refresh_returns_only_actual_media_and_preserves_excerpt_metadata(pilot):
