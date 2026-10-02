@@ -76,7 +76,9 @@ def basics(pilot, shown, mode="key_moments"):
 
 def ready(pilot, mode="hands_on"):
     shown = start(
-        pilot, output_profile={"duration_seconds": 30, "viewing_destination": "YouTube"}
+        pilot,
+        output_profile={"duration_seconds": 30, "viewing_destination": "YouTube"},
+        creation_approach="Manim diagrams",
     )
     return save(pilot, shown, {"involvement": mode})
 

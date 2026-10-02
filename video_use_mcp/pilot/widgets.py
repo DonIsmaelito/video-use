@@ -252,7 +252,7 @@ def register_widgets(mcp, store, muser, read, write):
         questions: list[Question],
         title: str = "Make it yours",
     ) -> CallToolResult:
-        """Prepare a question for you to ask using the host's native question tool if available, otherwise short ordinary chat. This tool displays no custom UI. Do not call it for a question already returned by start_video; present that question once instead. Identical questions reuse their existing ID. Required involvement/basics and offered Hands on content need explicit answers; Key moments questions remain optional. Record the user's actual words with record_video_answers. Never paste tool JSON into chat or ask known context again."""
+        """Prepare a question for you to ask using the host's native question tool if available, otherwise short ordinary chat. This tool displays no custom UI. Do not call it for a question already returned by start_video; present that question once instead. Identical questions reuse their existing ID. Required involvement/basics/creation approach and offered Hands on content need explicit answers; during the approach phase tailor only one creation_approach question with 2–4 relevant options including you_decide, without selecting for the user; Key moments questions remain optional. Record the user's actual words with record_video_answers. Never paste tool JSON into chat or ask known context again."""
         state = context(project_id)
         if state["revision"] != creative_revision:
             raise ValueError(
@@ -282,6 +282,16 @@ def register_widgets(mcp, store, muser, read, write):
                     )
                 purpose = intake["phase"]
                 required = [q.id for q in questions]
+            elif intake["phase"] == "approach":
+                if (
+                    len(questions) != 1
+                    or questions[0].id != "creation_approach"
+                    or "you_decide" not in {o.id for o in questions[0].options}
+                ):
+                    raise ValueError(
+                        "Ask one creation_approach question with relevant video types and a you_decide option"
+                    )
+                purpose, required = "approach", ["creation_approach"]
             elif any(q.id == "involvement" for q in questions):
                 if [q.model_dump() for q in questions] != [
                     Question(**INVOLVEMENT_QUESTION).model_dump()
@@ -316,12 +326,12 @@ def register_widgets(mcp, store, muser, read, write):
             state="open",
             questions=values,
             answers={}
-            if purpose in ("mode", "basics")
+            if purpose in ("mode", "basics", "approach")
             else saved_brief_answers(state, questions),
         )
         if purpose:
             widget.update(purpose=purpose, required=required)
-        if purpose not in ("mode", "basics"):
+        if purpose not in ("mode", "basics", "approach"):
             prior_text = {}
             for question in questions:
                 if question.id in widget["answers"]:
@@ -370,6 +380,7 @@ def register_widgets(mcp, store, muser, read, write):
         if intake and intake["phase"] in (
             "mode",
             "basics",
+            "approach",
             "personalization",
             "references",
         ):
@@ -667,6 +678,25 @@ def register_widgets(mcp, store, muser, read, write):
                     widget = state["widgets"][widget["kind"]]
                 if purpose == "basics":
                     widget["intake_snapshot"] = basics_snapshot(state["intake"])
+            elif purpose == "approach":
+                choice = widget["answers"].get("creation_approach")
+                custom = widget.get("text_answers", {}).get("creation_approach")
+                selected = next(
+                    (o for o in widget["questions"][0]["options"] if o["id"] == choice),
+                    None,
+                )
+                if not selected and not custom:
+                    raise ValueError(
+                        "Choose a creation approach or describe the type of video you want"
+                    )
+                state["intake"]["creation_approach"] = dict(
+                    version=1,
+                    status="delegated" if choice == "you_decide" else "selected",
+                    id=choice or "user_described",
+                    label=selected["label"] if selected else custom,
+                    source=source,
+                    user_message=user_message,
+                )
             elif purpose == "personalization":
                 pending = state["intake"].get("pending_questions")
                 if (pending and pending.get("widget_id") != widget_id) or (

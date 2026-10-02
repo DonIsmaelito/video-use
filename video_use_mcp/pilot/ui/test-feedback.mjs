@@ -1,153 +1,69 @@
+// Creative feedback belongs in the host chat; the media surface stays minimal.
 import {parseHTML} from 'linkedom';
 import vm from 'node:vm';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-
 const source=fs.readFileSync('app.js','utf8').replace(/^import[^\n]*\n/,'');
 const template=fs.readFileSync('template.html','utf8');
-const caps={serverTools:{},updateModelContext:{text:{}},message:{text:{}}};
-const result=(object='video-one',project='project')=>({structuredContent:{project_id:project,media:{object_id:object,media_type:'video/mp4',url:`https://private.test/${object}?ticket=private-token`,duration:30,final:true}}});
-function host({capabilities=caps,tool,message}={}){
-  const {document}=parseHTML(template),calls=[],contexts=[],messages=[];let app;
+const result=(object='video-one',project='project',extra={})=>({structuredContent:{project_id:project,media:{object_id:object,media_type:'video/mp4',url:`https://private.test/${object}?ticket=expired-token`,download_url:`https://private.test/${object}?ticket=expired-token&download=true`,final:true,...extra}}});
+function host({tool,capabilities={serverTools:{}}}={}){
+  const {document}=parseHTML(template),calls=[],messages=[],links=[];let app;
   class App{
     constructor(){app=this}async connect(){}
     getHostCapabilities(){return capabilities}
-    async callServerTool(input){calls.push(input);return tool?tool(input):{structuredContent:{creative:{revision:4},feedback:{id:'saved'}}}}
-    async updateModelContext(input){contexts.push(input)}
-    async sendMessage(input){messages.push(input);return message?message(input):{}}
-    async openLink(){}
+    async callServerTool(input){calls.push(input);return tool?tool(input):result(input.arguments.object_id,input.arguments.project_id,{url:'https://private.test/fresh?ticket=new',download_url:'https://private.test/fresh?ticket=new&download=true'})}
+    async updateModelContext(input){messages.push(input)}async sendMessage(input){messages.push(input)}
+    async openLink(input){links.push(input)}
   }
   vm.runInNewContext(source,{document,App,applyDocumentTheme(){},console,setTimeout(){return 1},clearTimeout(){}});
-  return {document,app,calls,contexts,messages};
+  return {document,app,calls,messages,links};
 }
-function begin(h,seconds=6.375){
-  const video=h.document.querySelector('video');video.currentTime=seconds;video.paused=false;
-  video.pause=()=>{video.paused=true;video.onpause?.()};
-  h.document.getElementById('suggest-edit').onclick();return video;
+{
+  const h=host();h.app.ontoolresult(result());
+  for(const id of ['suggest-edit','expand','feedback-form','feedback-shortcuts','edit-labels','edit-pace','edit-look'])assert.equal(h.document.getElementById(id),null,`${id} must not exist`);
+  assert.equal(h.document.querySelector('.media-brand'),null);
+  const player=h.document.querySelector('video');assert(player.controls);assert.equal(player.preload,'metadata');
+  assert.equal(h.document.querySelectorAll('#visual button').length,0);assert.equal(h.calls.length,0);
+  await h.document.getElementById('download').onclick();
+  assert.equal(h.calls[0].name,'video_preview_updates');assert.equal(h.calls[0].arguments.object_id,'video-one');
+  assert.equal(h.calls[0].arguments.project_id,'project');assert(h.links[0].url.includes('ticket=new'));
+  assert.equal(h.document.querySelector('video'),player,'renewing download does not reset watched video');
+  assert.equal(h.messages.length,0,'the player never prepares machine instructions in chat');
 }
-async function submit(h,note='Make the diagram larger'){
-  h.document.getElementById('feedback-note').value=note;
-  await h.document.getElementById('feedback-form').onsubmit({preventDefault(){}});
+{
+  const h=host();h.app.ontoolresult(result());const video=h.document.querySelector('video');video.currentTime=4.2;video.duration=30;
+  await video.onerror();assert.equal(h.calls.length,1);assert.equal(h.calls[0].arguments.object_id,'video-one');
+  assert(video.src.includes('ticket=new'));video.onloadedmetadata();assert.equal(video.currentTime,4.2,'URL repair preserves position');
+  await video.onerror();assert.equal(h.calls.length,1,'an unplayable renewed URL cannot cause a retry loop');
+  assert(h.document.getElementById('notice').textContent.includes('could not be loaded'));
 }
-
-for(const [shortcut,expected] of [
-  ['edit-labels','Make the labels larger'],
-  ['edit-pace','Make the pacing faster'],
-  ['edit-look','Explore a different visual style'],
+{
+  let finish;const pending=new Promise(done=>{finish=done});const h=host({tool:()=>pending});
+  h.app.ontoolresult(result());const old=h.document.querySelector('video');const downloading=h.document.getElementById('download').onclick();
+  h.app.ontoolresult(result('new-version','new-project'));
+  finish(result('video-one','project'));await downloading;
+  assert.equal(h.links.length,0,'late renewals never open a different project');assert.notEqual(h.document.querySelector('video'),old);
+}
+{
+  const h=host({tool:async()=>({isError:true,content:[{type:'text',text:'Video not found'}]})});h.app.ontoolresult(result());
+  await h.document.getElementById('download').onclick();assert.equal(h.links.length,0);
+  assert(h.document.getElementById('notice').textContent.includes('could not be refreshed'));
+}
+for(const media of [
+  {media_type:'video/mp4',url:'https://source.test/clip.mp4'},
+  {media_type:'video/webm',url:'https://source.test/clip.webm'},
+  {media_type:'text/html',embed_url:'https://player.vimeo.com/video/123'},
+  {media_type:'source_link'},
 ]){
-  const h=host();h.app.ontoolresult(result());
-  const video=h.document.querySelector('video');video.currentTime=7.125;video.paused=false;
-  video.pause=()=>{video.paused=true;video.onpause?.();};
-  h.document.getElementById(shortcut).onclick();
-  assert.equal(h.document.getElementById('feedback-shortcuts').hidden,false);
-  assert.equal(h.document.getElementById('suggest-edit').textContent,'Edit this moment');
-  assert.equal(h.document.getElementById('feedback-form').hidden,false);
-  assert(h.document.getElementById('feedback-note').value.startsWith(expected));
-  assert.equal(h.document.getElementById('feedback-time').textContent,'At 0:07.1');
-  assert.equal(h.calls.length,0);assert.equal(h.messages.length,0);assert.equal(h.contexts.length,0,'a shortcut only drafts a local suggestion');
-  assert.equal(video.paused,true);
-  const revised=h.document.getElementById('feedback-note').value+' Keep the colors.';
-  await submit(h,revised);
-  assert.equal(h.calls[0].arguments.seconds,7.125);assert.equal(h.calls[0].arguments.note,revised);
-  assert.equal(h.calls[0].arguments.object_id,'video-one');assert.equal(h.messages.length,1);
-}
-
-{
-  const h=host();h.app.ontoolresult(result());begin(h,9);
-  h.document.getElementById('feedback-note').value='Keep my opening line.';
-  h.document.getElementById('edit-labels').onclick();
-  const draft=h.document.getElementById('feedback-note').value;
-  assert(draft.startsWith('Keep my opening line.\nMake the labels larger'));
-  h.document.getElementById('edit-labels').onclick();
-  h.document.getElementById('suggest-edit').onclick();
-  assert.equal(h.document.getElementById('feedback-note').value,draft,'reopening or repeating a shortcut preserves unsent input');
-  h.app.ontoolresult(result('new-version'));
-  h.document.getElementById('edit-pace').onclick();
-  await submit(h,h.document.getElementById('feedback-note').value);
-  assert.equal(h.calls[0].arguments.object_id,'video-one','shortcut feedback stays pinned across a new preview');
-  assert.equal(h.calls[0].arguments.seconds,9);
-}
-
-{
-  const h=host();h.app.ontoolresult({structuredContent:{project_id:'project',media:{object_id:'still',media_type:'image/png',url:'https://private.test/frame'}}});
-  assert.equal(h.document.getElementById('feedback-shortcuts').hidden,true,'timestamp shortcuts require an actual video');
-  h.document.getElementById('edit-labels').onclick();assert.equal(h.document.getElementById('feedback-form').hidden,true);
-  assert.equal(h.calls.length,0);
-}
-
-{
-  const h=host();h.app.ontoolresult(result());
-  assert.equal(h.document.getElementById('suggest-edit').hidden,false);
-  const video=begin(h);
-  assert(video.paused);assert.equal(h.document.getElementById('feedback-time').textContent,'At 0:06.4');
-  assert.equal(h.calls.length,0,'opening feedback never sends tools or chat messages');
-  const note='Make <this> bigger';await submit(h,note);
-  assert.equal(h.calls.length,1);assert.equal(h.calls[0].name,'add_video_feedback');
-  assert.equal(h.calls[0].arguments.project_id,'project');assert.equal(h.calls[0].arguments.object_id,'video-one');
-  assert.equal(h.calls[0].arguments.seconds,6.375);assert.equal(h.calls[0].arguments.note,note);
-  assert(h.calls[0].arguments.request_id.length>5);
-  assert.equal(h.contexts.length,1);assert.equal(h.messages.length,1);
-  assert(JSON.stringify(h.messages).includes(note));assert(!JSON.stringify(h.messages).includes('private-token'));
-  assert.equal(h.messages[0].content[0].text,`At 0:06.4, ${note}`);
-  assert(!JSON.stringify(h.messages).includes('video-one'));
-  assert(!JSON.stringify(h.messages).includes('revision'));
-  assert(JSON.stringify(h.contexts).includes('video-one'),'exact media identity remains in background context');
-  assert.equal(h.document.getElementById('feedback-form').hidden,true);
-  assert.equal(h.document.getElementById('notice').textContent,'Suggestion saved. Send the prepared reply to continue.');
-  assert.equal(h.document.querySelector('this'),null,'feedback text never becomes HTML');
-}
-
-{
-  const h=host();h.app.ontoolresult(result());const original=begin(h,12);
-  h.app.ontoolresult(result('new-version'));
-  assert.equal(h.document.querySelector('video'),original,'new versions wait while a suggestion is being written');
-  await submit(h,'Slow this section down');
-  assert.equal(h.calls[0].arguments.object_id,'video-one','feedback is pinned to the watched version');
-  assert(h.document.querySelector('video').src.includes('new-version'));
-}
-
-{
-  const h=host();h.app.ontoolresult(result());begin(h,8);
-  h.app.ontoolresult(result('new-version'));h.document.getElementById('feedback-cancel').onclick();
+  const h=host();h.app.ontoolresult({structuredContent:{project_id:'project',follow_project:false,reference_id:'ref',media:{...media,source_url:'https://source.test/work',title:'The actual source',caption:'Source clip'}}});
+  assert.equal(h.document.getElementById('download').hidden,true,'reference sources are never copied/downloaded');
+  assert.equal(h.document.getElementById('media-status').textContent,'Source clip');
+  assert.equal(h.document.getElementById('source-reference').hidden,false);assert.equal(h.document.getElementById('source-reference').textContent,'The actual source');
+  if(media.media_type==='text/html'){
+    const frame=h.document.querySelector('iframe');assert(frame);assert.equal(frame.getAttribute('sandbox'),'allow-scripts allow-same-origin allow-presentation');assert(frame.src.includes('/video/123'));
+  }else if(media.media_type==='source_link'){assert.equal(h.document.querySelector('video,img,iframe'),null);assert(h.document.getElementById('media').hidden);}
+  else{assert(h.document.querySelector('video').controls);await h.document.querySelector('video').onerror();assert(h.document.getElementById('notice').textContent.includes('Open the reference'));}
+  await h.document.getElementById('source-reference').onclick();assert.equal(h.links[0].url,'https://source.test/work');
   assert.equal(h.calls.length,0);assert.equal(h.messages.length,0);
-  assert(h.document.querySelector('video').src.includes('new-version'));
 }
-
-{
-  const h=host({capabilities:{}});h.app.ontoolresult(result());begin(h,14);await submit(h,'Use less text');
-  assert.equal(h.calls.length,0);assert.equal(h.messages.length,0);
-  assert.equal(h.document.getElementById('notice').textContent,'Copy into chat: At 0:14.0, Use less text');
-}
-for(const options of [{capabilities:{serverTools:{},updateModelContext:{text:{}}}},{message:async()=>({isError:true})}]){
-  const h=host(options);h.app.ontoolresult(result());begin(h);await submit(h);
-  assert.equal(h.calls.length,1);
-  assert.equal(h.document.getElementById('notice').textContent,'Suggestion saved. Tell your assistant to continue if the chat is waiting.');
-}
-
-{
-  let attempts=0;
-  const h=host({tool:async()=>++attempts===1?{isError:true,content:[{type:'text',text:'Transfer interrupted; try again.'}]}:{structuredContent:{creative:{revision:4}}}});
-  h.app.ontoolresult(result());begin(h);await submit(h);
-  assert.equal(h.messages.length,0,'failed saves never send a success message');
-  assert.equal(h.document.getElementById('feedback-form').hidden,false);
-  assert.equal(h.document.getElementById('feedback-note').disabled,false);
-  await submit(h);assert.equal(h.calls[0].arguments.request_id,h.calls[1].arguments.request_id,'exact retry keeps idempotency key');
-  assert.equal(h.messages.length,1);
-}
-
-{
-  let resolve;const pending=new Promise(done=>{resolve=done});
-  const h=host({tool:()=>pending});h.app.ontoolresult(result());begin(h,9);
-  const sending=submit(h,'Align the heading');
-  assert.equal(h.document.getElementById('edit-labels').disabled,true);
-  await submit(h,'Duplicate');assert.equal(h.calls.length,1,'duplicate submits never overlap');
-  h.app.ontoolresult(result('another-video','another-project'));
-  resolve({structuredContent:{creative:{revision:4}}});await sending;
-  assert(h.document.querySelector('video').src.includes('another-video'));
-  assert.equal(h.document.getElementById('notice').textContent,'','previous completion cannot claim the new project was edited');
-  assert(JSON.stringify(h.contexts).includes('video project project'));
-  assert(!JSON.stringify(h.messages).includes('video-one'));
-  assert(!JSON.stringify(h.messages).includes('project project'));
-  assert(!JSON.stringify(h.messages).includes('another-project'));
-}
-console.log('PASS timestamped feedback captures the exact version saves once and sends messages only on explicit submission with honest host fallbacks');
+console.log('PASS native media supports external references and exact-version expiry repair with no custom editing controls');

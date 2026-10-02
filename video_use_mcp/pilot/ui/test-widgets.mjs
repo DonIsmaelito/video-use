@@ -166,26 +166,18 @@ for(const options of [{capabilities:{serverTools:{},updateModelContext:{text:{}}
   const h=host();h.show(story());edit(h,'seconds','0');await submit(h);
   assert.equal(h.calls.length,0);assert(el(h,'widget-status').textContent.includes('duration'));
 }
-const media={project_id:'project',media:{object_id:'video',media_type:'video/mp4',url:'https://private.test/clip',final:true}};
+// Native video controls replace the former custom fullscreen button.
 {
-  const h=host({context:{availableDisplayModes:['inline','fullscreen'],displayMode:'inline'}});h.show(media);
-  const video=h.document.querySelector('video');video.currentTime=4.2;video.paused=false;
-  assert.equal(el(h,'expand').hidden,false);await el(h,'expand').onclick();
-  assert.equal(h.displayCalls[0].mode,'fullscreen');assert.equal(el(h,'expand').textContent,'Exit fullscreen');
-  assert.equal(h.document.querySelector('video'),video);assert.equal(video.currentTime,4.2);assert.equal(video.paused,false);
-  await el(h,'expand').onclick();assert.equal(h.displayCalls[1].mode,'inline');
-  assert.equal(h.messages.length,0);assert.equal(h.calls.length,0,'display mode never sends model or server requests');
-  h.app.onhostcontextchanged({availableDisplayModes:['inline'],displayMode:'inline'});assert.equal(el(h,'expand').hidden,true);
+  const h=host({context:{availableDisplayModes:['inline','fullscreen'],displayMode:'inline'}});
+  h.show({project_id:'project',media:{object_id:'video',media_type:'video/mp4',url:'https://private.test/clip',final:true}});
+  const video=h.document.querySelector('video');
+  assert(video.controls);assert.equal(el(h,'expand'),null);
+  h.app.onhostcontextchanged({displayMode:'fullscreen'});
+  assert(h.document.documentElement.classList.contains('fullscreen'));
+  assert.equal(h.document.querySelector('video'),video);
+  assert.equal(h.displayCalls.length,0);assert.equal(h.calls.length,0);
 }
-{
-  const h=host();h.show(media);assert.equal(el(h,'expand').hidden,true);await el(h,'expand').onclick();assert.equal(h.displayCalls.length,0);
-}
-{
-  const h=host({context:{availableDisplayModes:['inline','fullscreen'],displayMode:'inline'},display:async()=>({isError:true})});h.show(media);const video=h.document.querySelector('video');
-  await el(h,'expand').onclick();assert.equal(h.document.querySelector('video'),video);
-  assert.equal(el(h,'expand').disabled,false);assert(el(h,'notice').textContent.includes('could not expand'));
-}
-console.log('PASS optional brief and story editors preserve unsaved changes save explicitly handle retries and stale results and expand existing playback only on supported hosts');
+console.log('PASS legacy brief and story editors retain saved compatibility while media uses native controls');
 
 // Cached intake widgets keep their behavior, but only human answers reach the composer.
 for(const [purpose,id,option,label,expected] of [

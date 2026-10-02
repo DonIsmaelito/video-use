@@ -33,12 +33,15 @@ with saved user words. Missing search or suitable curated coverage needs a refer
 or delegation, not arbitrary web discovery or cached substitutes. Choosing a
 reference does not import media. The overview details this loop. Browser batches
 use one tab serially.
-Show simple native link previews or linked titles with one fit sentence, never a
-custom gallery. Ask ONE native question listing each reference and a final “Give my input”
-free-text option; use short normal chat if unavailable. Record the reply,
-then use the chosen references plus the brief for the snippet. No extra style picker
-or script-editor detour. After its one player, ask ONE continue/refine question;
-refinement needs actual feedback and another sample review before full production.
+For new Hands on requests, settle the creation approach after basics using its
+native question; explicit techniques skip it. Use `show_video_reference` for plain
+source playback with a source link (or link fallback); save observed `playback.url`
+and `playback.browser_request_id`. Hero clips are not full films. No custom buttons.
+Ask ONE native reference question plus “Give my input”; short normal chat is the
+fallback. Plan the full arc from the brief and chosen reference, render a representative
+snippet, then ask ONE continue/refine question about its plain player. Reuse that
+player through final export. Actual refinement needs another snippet review.
+No script-editor detour.
 
 Pass `project_id`, a new `request_id`, stable `scene_id`, `note`, the current
 `creative_revision`, and `scene`. For the first sample, explicitly pass

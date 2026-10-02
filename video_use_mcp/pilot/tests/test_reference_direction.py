@@ -47,6 +47,7 @@ def project(pilot, registry):
             title="Moon",
             brief="Explain the Moon",
             category="explainer",
+            creation_approach="Manim diagrams",
             output_profile={"duration_seconds": 30, "viewing_destination": "YouTube"},
         ),
     )
@@ -440,6 +441,46 @@ def test_sampled_media_evidence_can_cite_its_server_recorded_source_page(
     assert result["reference_direction"]["references"][0]["evidence_ids"] == ["capture"]
 
 
+def test_offered_source_playback_uses_owned_observation_and_stays_separate_from_choice(pilot, project):
+    store = pilot[1].state.store
+    reference = refs()[0] | {"playback": {
+        "url": "https://media.ordinary.co/video/home/observed.webm",
+        "browser_request_id": "source-inspection",
+    }}
+    key = hashlib.sha256(("tester:" + project + ":source-inspection").encode()).hexdigest()
+    store.put("reference_browser_run", key, {
+        "owner": "tester", "project": project, "status": "complete", "result": {
+            "engine": "browser-harness", "project_id": project, "results": [{
+                "action": "read", "ok": True, "page_url": reference["url"],
+                "videos": [{"src": reference["playback"]["url"], "duration_seconds": 5}],
+            }],
+        },
+    })
+    result = invoke(pilot, project, references=[reference])
+    descriptor = result["reference_direction"]["link_cards"][0]["show_video_reference"]
+    assert descriptor == {"name": "show_video_reference", "arguments": {
+        "project_id": project, "reference_id": reference["id"], "round_id": result["reference_direction"]["round_id"],
+    }}
+    before = saved(pilot, project)
+    playback = call(pilot, descriptor["name"], descriptor["arguments"])
+    assert playback["media"]["url"] == reference["playback"]["url"]
+    assert playback["coverage"] == "source_preview"
+    assert saved(pilot, project) == before
+    assert playback["follow_project"] is False
+    assert result["reference_direction"]["status"] == "offered"
+
+
+def test_offer_cannot_attach_an_unobserved_playback_url(pilot, project):
+    reference = refs()[0] | {"playback": {
+        "url": "https://media.ordinary.co/video/home/invented.webm",
+        "browser_request_id": "unrecorded-inspection",
+    }}
+    before = saved(pilot, project)
+    error = failure(pilot, args(pilot, project, references=[reference]))
+    assert "completed browser request" in error
+    assert saved(pilot, project) == before
+
+
 def test_explicit_selection_preserves_traits_but_requires_excerpt_review(
     pilot, project
 ):
@@ -649,6 +690,15 @@ def test_pending_intake_and_other_modes_cannot_be_overwritten(pilot, project, ch
     state["intake"].update(change)
     pilot[1].state.store.put("creative", project, state)
     failure(pilot, args(pilot, project, references=refs()))
+    assert saved(pilot, project) == state
+
+
+def test_reference_offer_waits_for_the_creation_approach(pilot, project):
+    state = saved(pilot, project)
+    state["intake"]["creation_approach"] = {"version": 1, "status": "needed"}
+    pilot[1].state.store.put("creative", project, state)
+    assert intake_context(state)["phase"] == "approach"
+    assert "video type" in failure(pilot, args(pilot, project, references=refs()))
     assert saved(pilot, project) == state
 
 

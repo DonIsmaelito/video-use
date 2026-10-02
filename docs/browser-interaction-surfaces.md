@@ -18,7 +18,7 @@ Every new version-1 request starts with an explicit involvement choice: **Hands 
 | --- | --- |
 | Hands off | Make the creative decisions and complete the requested production without optional questions, story/preview cards or routine progress updates. Deliver the final playable video and download. Explain a real missing input, unavailable service or allowance shortfall when it requires user involvement. |
 | Key moments | Preserve selective collaboration: a few consequential choices or useful drafts, with reversible independent work continuing where appropriate. Do not invent a questionnaire for a precise edit or supplied script. |
-| Hands on | After output basics, consult the maintained source registry and research 1–5 useful real visual/video references (at most five, not a quota) with host search/fetch and the isolated reference browser when needed. Let the user choose or combine traits, refine the search from dislikes, then create a short representative snippet for explicit review before the rest. Wait for dependent decisions; cheap independent inspection can continue. |
+| Hands on | After output basics, ask a native creation-approach choice if unspecified (e.g. Motion design or Manim diagrams), then consult the maintained source registry and research 1–5 useful real visual/video references (at most five, not a quota) with host search/fetch and the isolated reference browser when needed. Let the user choose or combine traits, refine the search from dislikes, then create a short representative snippet for explicit review before the rest. Wait for dependent decisions; cheap independent inspection can continue. |
 
 The maintained source registry, `video_use_mcp/pilot/reference_sources.json`, supplies approved discovery collections, categories, search/inspection notes, research verification and access limits. Read `reference_sources` in `start_video` or capabilities before searching. Its initial eleven primary sources are a starting collection, not exhaustive coverage: podcasts and document-to-video lack dedicated collections; social clips and personal montages have weaker coverage. Reserve mentions in the research are not automatically approved sources. If no collection fits, explain the gap and ask for a user reference or explicit delegation to a described direction. General open-web discovery is not enabled by a coverage gap. The curator handoff is [the reference-source research prompt](prompts/reference-source-research.txt).
 
@@ -84,7 +84,7 @@ The server remains authoritative: save preferences first, return the current cre
 | Online references establish hands-on direction | Host search/fetch, `browse_video_references`, `read_video_reference_evidence` and project reference context | Consult curated sources, inspect query-specific examples, preserve evidence IDs/source URLs and save chosen traits/dislikes. The isolated browser supports interactive pages and sampled media; native chat previews/images are optional host features. Cached clips are not an automatic substitute. |
 | Cached examples help a Key moments decision | `show_video_choices` | Optional known technique samples, explicitly labeled as cached references. Hands off skips this gallery; it does not replace hands-on online research. |
 | The story needs a saved plan | `show_video_story` or `plan_video` | Persists the proposed beats and script internally. Discuss a short outline only when useful; no custom editor or technical EDL dump. Proposed durations are not measured timings. |
-| A useful image, excerpt, complete draft or final export exists | `show_video_preview` | Displays actual media with download and **Edit this moment**. **Larger labels**, **Faster pace** and **Change the look** prefill an editable suggestion; only an explicit submission saves or sends it. The existing player can refresh newer media without another assistant display call; active playback and unsent feedback defer replacement. Fullscreen is offered only when the host advertises it. |
+| A useful image, excerpt, complete draft or final export exists | `show_video_preview` | Displays actual media with standard playback controls and a plain download link. Questions and editing feedback stay in native chat. The mounted player follows later drafts through final export, deferring replacement during playback; visibility resumes refresh. No branded toolbar or editing chips. |
 | A hands-on user has seen the short sample | `show_video_checkpoint` | Returns a conversational **Continue with this** or **Refine the sample** question bound to that video and creative revision, without a second app card. Remaining production waits for the explicit answer; internal QA is not user acceptance. |
 | Material is missing | In-chat source upload | Transfers explicitly selected files into the project. A connector elsewhere in the host does not automatically grant this MCP access to its private files. |
 
@@ -105,7 +105,7 @@ Media task results use conditional `preview_delivery.open_if_missing` guidance r
 ## Recent execution evidence
 
 The local `test_experience_intake.py` cases follow the new request forward through
-mode, missing basics, up to five linked references and one native choice, snippet feedback and final delivery.
+mode, missing basics, creation approach if unspecified, up to five playable references and one native choice, snippet feedback and final delivery.
 They also check that hands-off drafts remain internal, key moments stays selective,
 real blockers surface in every mode, and reads do not manufacture approval. These
 are state/behavior checks using the intake helper, with no narration or rendering;
@@ -121,3 +121,8 @@ These findings separate production defects from interaction problems. Times are 
 | Player refresh calls succeeded after both previews. | This proves that app-to-server refresh calls worked. It does not prove playback, user comprehension, an assistant response to feedback, or use of the new brief/story controls. |
 
 Verification of the audio fix includes nine renderer unit tests, twelve scene tests with twenty-five subtests, and isolated cloud encodes. Widget behavior still needs account-level validation after deployment, including a user submission during ongoing production, a rejected host message, stale editors and a playable final download.
+
+Source reference playback uses `show_video_reference` with owner-checked saved references.
+Observed media URLs are streamed directly from supported sources/providers; no copying,
+downloading or reference generation is required. Unsupported playback retains the source
+link. Questions remain native. The reference player never follows project drafts.

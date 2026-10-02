@@ -548,6 +548,12 @@ def register_workflow(mcp, store, muser, new_project, read, write):
                 description="Your proposed audience, scope, style and delivery format where the user left them open. These are reversible assumptions, not user instructions or approval. Omit to preserve earlier assumptions."
             ),
         ] = None,
+        creation_approach: Annotated[
+            str | None,
+            Field(
+                description="Only a video technique or medium explicitly named by the user, such as Manim diagrams, motion design, cinematic footage, or an edit of their clips. Never infer it from the topic or content category. Omit when unknown so Hands on asks one native approach question before searching references. Omit on revisions to preserve the saved choice."
+            ),
+        ] = None,
         output_profile: Annotated[
             OutputProfile | None,
             Field(
@@ -555,7 +561,7 @@ def register_workflow(mcp, store, muser, new_project, read, write):
             ),
         ] = None,
     ) -> CallToolResult:
-        """Start a new video and return its opening question for YOU to ask once: Hands off, Key moments, or Hands on. No app card is displayed. Use your native question tool if available, otherwise one short chat question; do not call show_video_brief to repeat this returned question. Record the actual reply with question.record_with. Then ask only missing output basics. Save stated length/destination in output_profile to avoid repeating them. Keep brief faithful; inferred content/style belong in assumptions. Hands off produces the finished video; key moments uses selective check-ins. Hands on searches curated sources with available host research tools, parallelizing independent searches when supported. Inspect and show 1–5 useful references as simple native link previews or linked titles, then ask one native question listing each reference and a final Give my input option; short normal chat is the fallback. Use record_video_references to save research and the actual reply. Combine the chosen reference with the original brief to create one snippet, show its player once, then ask one continue/refine question using show_video_checkpoint. Only explicit snippet acceptance unlocks the full video. Refine from actual feedback; no custom gallery, cached style picker or script-editor detour. Reuse project_id for revisions without restarting intake. Categories are hints, not templates."""
+        """Start a new video and return its opening question for YOU to ask once: Hands off, Key moments, or Hands on. No app card is displayed. Use your native question tool if available, otherwise one short chat question; do not call show_video_brief to repeat this returned question. Record the actual reply with question.record_with. Then ask only missing output basics. Save stated length/destination in output_profile to avoid repeating them. Keep brief faithful; inferred content/style belong in assumptions. Hands off produces the finished video; key moments uses selective check-ins. Hands on first asks one native creation-approach question when the user has not specified a technique, with relevant options such as Motion design, Manim diagrams or Cinematic footage and You decide. This is separate from the content category. Then it searches curated sources within the selected approach with available host research tools, parallelizing independent searches when supported. Inspect and show 1–5 useful references as simple native link previews or linked titles, then ask one native question listing each reference and a final Give my input option; short normal chat is the fallback. Use record_video_references to save research and the actual reply. Combine the chosen reference with the original brief to create one snippet, show its player once, then ask one continue/refine question using show_video_checkpoint. Only explicit snippet acceptance unlocks the full video. Refine from actual feedback; no custom gallery, cached style picker or script-editor detour. Reuse project_id for revisions without restarting intake. Categories are hints, not templates."""
         uid = muser(True)
         if (
             not title.strip()
@@ -624,12 +630,19 @@ def register_workflow(mcp, store, muser, new_project, read, write):
                 output_profile.model_dump(exclude_none=True)
                 if output_profile
                 else None,
+                creation_approach=creation_approach,
             )
-        elif output_profile is not None and state.get("intake", {}).get("version") == 1:
+        elif (
+            output_profile is not None or creation_approach is not None
+        ) and state.get("intake", {}).get("version") == 1:
             # Updates are attributed to the host's reading of the user's request.
             # Do not reset previously submitted involvement or delegated basics.
             state = initialize_intake(
-                state, output_profile.model_dump(exclude_none=True)
+                state,
+                output_profile.model_dump(exclude_none=True)
+                if output_profile
+                else None,
+                creation_approach=creation_approach,
             )
         widget = pending_widget(state)
         if widget:
@@ -677,7 +690,7 @@ def register_workflow(mcp, store, muser, new_project, read, write):
         state = context(uid, project_id)
         intake = intake_context(state) or {}
         mode, _ = involvement_preference(state)
-        if intake.get("phase") in ("mode", "basics"):
+        if intake.get("phase") in ("mode", "basics", "approach"):
             raise ValueError(intake["next_action"])
         if (
             mode == "hands_on"

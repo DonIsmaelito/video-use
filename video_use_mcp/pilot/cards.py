@@ -181,6 +181,7 @@ def register_cards(
             )
         data = {
             "project_id": pid,
+            "follow_project": True,
             "media": media,
             "creative": creative_public(creative),
             "intake": intake,
@@ -395,16 +396,16 @@ def register_cards(
             out["next_action"] = (
                 "Actual media is ready at media.url. If no player for this project is "
                 "already open in THIS conversation, use preview_delivery.open_if_missing. An existing "
-                "player refreshes new media for up to ten minutes when the host supports "
+                "player follows new media while mounted and visible when the host supports "
                 "app tools; let it update instead of opening duplicate players. Reopen for "
-                "a substantial new draft or final export if refresh is unavailable or expired. "
+                "a substantial new draft or final export if the host has unmounted the player or cannot refresh it. "
                 "Accompany a new draft with one short chat sentence about what is "
                 "visible and what comes next. Then continue without an approval "
                 "pause. Do not poll this completed task."
             )
             out["preview_delivery"] = {
                 "reuse_existing_player": True,
-                "open_only_when": "No player exists in this conversation, or it has expired or cannot refresh.",
+                "open_only_when": "No player exists in this conversation, or the host has unmounted it or cannot refresh.",
                 "open_if_missing": {
                     "name": "show_video_preview",
                     "arguments": {"project_id": out["project"]},
@@ -578,7 +579,7 @@ def register_cards(
 
     @mcp.tool(annotations=read, meta=UI_META, title="Video preview")
     def show_video_preview(project_id: str) -> CallToolResult:
-        """Show real media with playback/download. Hands off shows only the finished export. Hands on shows its short excerpt, then show_video_checkpoint waits for the user's direction before completing the rest. Key moments uses selective previews. Reuse the open player, which refreshes for up to ten minutes on supported hosts; reopen only when needed. No placeholders."""
+        """Show real media with playback/download. Hands off shows only the finished export. Hands on shows its short excerpt, then show_video_checkpoint waits for the user's direction before completing the rest. Key moments uses selective previews. Reuse the open player, which follows the project while mounted on supported hosts; reopen only when needed. No placeholders."""
         return media_result(muser(), project_id)
 
     @mcp.tool(annotations=execute, title="Review the sample")
@@ -594,7 +595,7 @@ def register_cards(
         if (
             not intake
             or intake["mode"] != "hands_on"
-            or intake["phase"] in ("mode", "basics", "personalization", "references")
+            or intake["phase"] in ("mode", "basics", "personalization", "approach", "references")
         ):
             raise ValueError(
                 "Complete hands-on intake and choose a reference direction before sample review"
@@ -679,12 +680,40 @@ def register_cards(
         )
 
     @mcp.tool(annotations=read, meta={"ui": {"visibility": ["app"]}})
-    def video_preview_updates(project_id: str) -> CallToolResult:
-        """Refresh only the current media in an already-open player. App-only, read-only; never starts a task or sends a user message."""
-        media = current_media(muser(), project_id)
+    def video_preview_updates(
+        project_id: str, object_id: str | None = None
+    ) -> CallToolResult:
+        """Refresh current media in an open player, or renew a specific watched video's expiring URL. App-only and read-only; never starts work or sends chat messages."""
+        uid = muser()
+        if object_id is not None:
+            # A final player stops polling. A later play/download still needs a
+            # fresh ticket for its exact version, without selecting another edit.
+            store.project(uid, project_id)
+            rows = store.sql(
+                "SELECT id FROM public.vp_objects WHERE id=$1 AND owner=$2 AND project=$3 AND kind='video'",
+                object_id,
+                uid,
+                project_id,
+            )
+            if not rows:
+                raise PermissionError("Video not found in this project")
+            url = link(uid, object_id)
+            media = {
+                "object_id": object_id,
+                "media_type": "video/mp4",
+                "url": url,
+                "download_url": url + "&download=true",
+            }
+        else:
+            media = current_media(uid, project_id)
         intake = intake_context(store.get("creative", project_id))
         data = {"project_id": project_id, "media": media}
-        if intake and intake["mode"] == "delegate" and not media.get("final"):
+        if (
+            object_id is None
+            and intake
+            and intake["mode"] == "delegate"
+            and not media.get("final")
+        ):
             data.update(media=None, refresh="paused_by_involvement")
         return CallToolResult(
             content=[TextContent(type="text", text=json.dumps(data))],

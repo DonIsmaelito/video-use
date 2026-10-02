@@ -187,6 +187,17 @@ def test_reference_browsing_waits_for_involvement_and_missing_basics(manager, mo
     assert closed["results"][0]["ok"]
 
 
+def test_reference_browsing_waits_for_creation_approach(manager):
+    creative = initialize_intake({"revision": 1}, {"duration_seconds": 30, "viewing_destination": "web"})
+    creative["intake"]["mode"] = "hands_on"
+    manager.store.put("creative", PID, creative)
+    with pytest.raises(ValueError, match="creation approach"):
+        run(manager)
+    manager.execute.assert_not_awaited()
+    with pytest.raises(ValueError, match="intake choices"):
+        require_production_intake(creative, "step", {"production_stage": "excerpt"})
+
+
 def test_discovered_media_frames_preserve_source_page(manager):
     media = "https://cdn.example/film.mp4"
     manager.execute.return_value["results"] = [
@@ -479,6 +490,7 @@ def test_mcp_reference_intake_returns_real_images_without_rendering_or_approval(
             "title": "Moon",
             "brief": "Explain lunar phases",
             "category": "explainer",
+            "creation_approach": "Manim diagrams",
             "output_profile": {
                 "duration_seconds": 30,
                 "viewing_destination": "YouTube",

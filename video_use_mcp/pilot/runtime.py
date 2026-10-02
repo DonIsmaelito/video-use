@@ -64,7 +64,7 @@ def require_production_intake(creative, operation, payload):
     context = intake_context(creative)
     if context is None:
         return
-    if context["phase"] in {"mode", "basics", "personalization", "references"}:
+    if context["phase"] in {"mode", "basics", "approach", "personalization", "references"}:
         raise ValueError(
             "Production is waiting for the user's intake choices. "
             + context["next_action"]

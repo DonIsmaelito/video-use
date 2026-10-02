@@ -284,3 +284,50 @@ def test_errors_are_retained_privately_and_redacted(pilot):
     trace = app.state.store.get("trace", rows[-1]["key"])
     assert "failed" in trace["error"]
     assert "secret-admin-key" not in trace["error"] and "ticket=" not in trace["error"]
+
+
+@pytest.mark.parametrize("allowed", [True, False])
+def test_exact_video_refresh_is_bound_to_owner_project_and_video_kind(pilot, allowed):
+    _, app = pilot
+    store = app.state.store
+    store.sql.return_value = [{"id": "watched-video"}] if allowed else []
+    result = rpc(
+        pilot,
+        "tools/call",
+        {
+            "name": "video_preview_updates",
+            "arguments": {"project_id": PID, "object_id": "watched-video"},
+        },
+    )
+    store.project.assert_called_with("tester", PID)
+    object_read = next(
+        call for call in store.sql.call_args_list if "vp_objects" in call.args[0]
+    )
+    assert "owner=$2 AND project=$3 AND kind='video'" in object_read.args[0]
+    assert object_read.args[1:] == ("watched-video", "tester", PID)
+    if allowed:
+        assert not result.get("isError"), result
+        media = result["structuredContent"]["media"]
+        assert media["object_id"] == "watched-video"
+        assert "/files/watched-video?ticket=" in media["url"]
+        assert media["download_url"] == media["url"] + "&download=true"
+        assert "final" not in media, "renewing an older sample must not relabel it final"
+    else:
+        assert result["isError"]
+        assert "structuredContent" not in result
+    assert not any("vp_revisions" in call.args[0] for call in store.sql.call_args_list)
+
+
+def test_exact_video_refresh_cannot_read_another_owners_project(pilot):
+    _, app = pilot
+    app.state.store.project.side_effect = PermissionError("Project not found")
+    result = rpc(
+        pilot,
+        "tools/call",
+        {
+            "name": "video_preview_updates",
+            "arguments": {"project_id": PID, "object_id": "another-video"},
+        },
+    )
+    assert result["isError"]
+    app.state.store.sql.assert_not_called()

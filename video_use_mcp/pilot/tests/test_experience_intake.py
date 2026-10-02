@@ -22,8 +22,21 @@ def answer(state, purpose, answers):
 
 
 def ready_request(mode):
-    state = new_request({"duration_seconds": 30, "viewing_destination": "web"})
+    state = initialize_intake(
+        {"revision": 1},
+        {"duration_seconds": 30, "viewing_destination": "web"},
+        creation_approach="Manim diagrams",
+    )
     return answer(state, "mode", {"involvement": mode})
+
+
+def test_broad_hands_on_waits_for_creation_approach_before_reference_research():
+    state = answer(new_request({"duration_seconds": 30, "viewing_destination": "web"}), "mode", {"involvement": "hands_on"})
+    result = experience_context(state, event="start")
+    assert result["intake"]["phase"] == "approach"
+    assert result["check_in"]["trigger"] == "creation_approach_required"
+    assert result["check_in"]["question"] == "choose_video_creation_approach"
+    assert result["check_in"]["widgets"] == []
 
 
 def test_mode_is_first_even_with_all_basics_or_a_legacy_default_available():

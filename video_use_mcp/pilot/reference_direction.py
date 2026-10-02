@@ -13,7 +13,7 @@ from textwrap import shorten
 from typing import Literal
 from urllib.parse import urlsplit
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_serializer, model_validator
 
 from .creative_state import creative_edit
 from .store import ident
@@ -69,6 +69,23 @@ def public_reference_url(value: str) -> str:
     return value
 
 
+class ReferencePlayback(BaseModel):
+    """A source URL observed in one actual Browser Harness page receipt."""
+
+    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+    url: str = Field(min_length=1, max_length=2048)
+    browser_request_id: str = Field(min_length=1, max_length=120)
+
+    @field_validator("url")
+    @classmethod
+    def public_media(cls, value):
+        public_reference_url(value)
+        parsed = urlsplit(value)
+        if parsed.scheme != "https" or parsed.port not in {None, 443}:
+            raise ValueError("Reference playback needs a public HTTPS URL")
+        return value
+
+
 class Reference(BaseModel):
     model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
     id: str = Field(pattern=r"^[a-zA-Z0-9][a-zA-Z0-9_-]{0,59}$")
@@ -80,6 +97,14 @@ class Reference(BaseModel):
     source_id: str = Field(default="", max_length=100)
     discovery_url: str = Field(default="", max_length=2048)
     evidence_ids: list[str] = Field(default_factory=list, max_length=6)
+    playback: ReferencePlayback | None = None
+
+    @model_serializer(mode="wrap")
+    def serialized(self, handler):
+        value = handler(self)
+        if self.playback is None:
+            value.pop("playback", None)  # Preserve earlier idempotent offer hashes.
+        return value
 
     @field_validator("url")
     @classmethod
@@ -227,7 +252,7 @@ def reference_question(state, current, project_id=None):
         ],
         "required": ["reference_direction"],
         "instructions": (
-            "Show the source link cards first, then ask this question once using native host questions when available. "
+            "Call each reference's show_video_reference descriptor to show playable source media where available, keeping the source links visible, then ask this question once using native host questions when available. "
             "If native controls are unavailable or cannot fit every choice, use a short numbered chat question with all choices and the final free-input option. "
             "Do not build a custom form or gallery, paste tool arguments, or add an automatic delegation choice. "
             "If this presentation_key was already asked, wait for its answer. Use each choice's record_with arguments, "
@@ -301,13 +326,18 @@ def reference_context(state, project_id=None):
                     item["observed_traits"], width=240, placeholder="…"
                 ),
                 "inspection": item["inspection"],
+                **({"show_video_reference": {
+                    "name": "show_video_reference",
+                    "arguments": {"project_id": project_id, "reference_id": item["id"], "round_id": current["id"]},
+                }} if project_id else {}),
             }
             for item in current.get("references", [])
         ]
         if current.get("id"):
             context["question"] = reference_question(state, current, project_id)
         context["next_action"] = (
-            "Show these 1–5 real reference link_cards once, each as a simple native link preview if available or a titled link with one short observed trait. "
+            "Show these 1–5 real references once using each link_card's show_video_reference tool descriptor: play source media where available and retain a titled source link as fallback. "
+            "These are source players, not generated project snippets. A short source clip must not be described as the complete film. "
             "Then present the supplied question using native host questions if available; no custom form or gallery. "
             "List each current reference and keep Give my input as the final free-text option. Record the actual choice with select or actual feedback with refine. "
             "A page or image inspection is not video playback. Wait for the user's choice before creating a snippet; do not begin production yet."
@@ -333,7 +363,8 @@ def reference_context(state, project_id=None):
             "One good reference is sufficient; five is a maximum, not a quota. Record the search evidence and reasons for the choices. "
             "Collection order and prior research examples are not recommendations. "
             "Never invent candidates to meet a quota or claim video playback from page metadata. "
-            "Use browse_video_references for live browser search and visual inspection where host tools fall short; save returned evidence_ids. If both research paths or suitable approved sources are unavailable, ask for a user reference or explicit delegation. "
+            "Use browse_video_references for live browser search and visual inspection where host tools fall short; save returned evidence_ids. Save playback.url and playback.browser_request_id from the cited page's actual videos, embedded_players, or YouTube/Vimeo links so the user can play the source before choosing. "
+            "If both research paths or suitable approved sources are unavailable, ask for a user reference or explicit delegation. "
             "Record that actual reply with action delegate; silence is not delegation."
         )
     return context
@@ -353,7 +384,7 @@ def register_references(mcp, store, muser, read, write):
         user_message: str = "",
         search: ReferenceSearch | None = None,
     ) -> dict:
-        """Save live, brief-specific reference research or the user's response without displaying an app. This tool does NOT search or inspect: use host tools or browse_video_references first. Each offer requires search: search_intent, actual search_queries (empty for direct browsing), candidates with reference/evidence_note/fit/limitations/disposition, selection_reason, coverage_limitations. Compare relevance, design differences and production feasibility; no fixed candidate quota or fabricated rejections. Offer 1–5 inspected references, never more than five; their records must match the recommended candidates exactly. Show the returned simple source links, then the native question descriptor with reference choices and a final free-input option; no custom widget. Record page/image/video evidence honestly: only actual motion inspection supports pacing claims. web_search entries need curated source_id and discovery_url. The registry supplies search locations, never preapproved example videos. Select current IDs, refine with actual user feedback and new research, or delegate only on explicit user request to skip. Selection unlocks a snippet, not the full video. Decisions quote user_message. All inspection and user quotes are assistant-reported, not independently verified."""
+        """Save live, brief-specific reference research or the user's response without displaying an app. This tool does NOT search or inspect: use host tools or browse_video_references first. Each offer requires search: search_intent, actual search_queries (empty for direct browsing), candidates with reference/evidence_note/fit/limitations/disposition, selection_reason, coverage_limitations. Compare relevance, design differences and production feasibility; no fixed candidate quota or fabricated rejections. Offer 1–5 inspected references, never more than five; their records must match the recommended candidates exactly. Save optional playback:{url,browser_request_id} from a cited page's actual Browser Harness videos, embedded_players or YouTube/Vimeo links. Invoke returned show_video_reference descriptors to let the user play available sources, then ask the native reference-choice question with a final free-input option. No custom choice widget; source playback is separate from project creation. Record page/image/video evidence honestly: only actual motion inspection supports pacing claims. web_search entries need curated source_id and discovery_url. The registry supplies search locations, never preapproved example videos. Select current IDs, refine with actual user feedback and new research, or delegate only on explicit user request to skip. Selection unlocks a snippet, not the full video. Decisions quote user_message. All inspection and user quotes are assistant-reported, not independently verified."""
         uid = muser(True)
         store.project(uid, project_id)
         if (
@@ -431,9 +462,9 @@ def register_references(mcp, store, muser, read, write):
             raise ValueError(
                 "Reference direction is for a project with explicit Hands on involvement"
             )
-        if intake["phase"] in {"mode", "basics", "personalization"}:
+        if intake["phase"] in {"mode", "basics", "approach", "personalization"}:
             raise ValueError(
-                "Answer the pending involvement, basics, content, or style question before recording references"
+                "Answer the pending involvement, basics, video type, content, or style question before recording references"
             )
         if reference.get("version") not in {None, 1}:
             raise ValueError("This reference workflow version is not supported")
@@ -478,6 +509,10 @@ def register_references(mcp, store, muser, read, write):
                 )
             for candidate in search.candidates:
                 validate_reference_source(candidate.reference.model_dump())
+                if candidate.reference.playback:
+                    from .reference_playback import observed_playback
+
+                    observed_playback(store, uid, project_id, candidate.reference.model_dump())
                 for evidence_id in candidate.reference.evidence_ids:
                     evidence = store.get("reference_browser_evidence", evidence_id)
                     if (

@@ -10,25 +10,23 @@ ordinary rendering needs no extra approval.
 
 Use Manim for geometry, mechanisms, equations and data relationships. Palette,
 scene count and visual premise follow the subject and user's direction.
-Hands on follows the overview's real-time reference loop. The registry lists search
-locations/access notes, not recommended media. Prefer cheap host search/fetch; use
-`browse_video_references` for JavaScript galleries/media before rendering. You direct
-Browser Harness actions, not another model. Inspect returned captures; timestamped
-samples show sampled states, not continuous motion/audio. Close when done.
-Search fresh candidates adaptively;
-parallelize independent host queries when supported, inspect useful finalists,
-and offer 1–5 references, at most five, without a quota.
-Save intent, queries and evaluation reasons. Keep factual research separate.
-Attribute page claims; stills cannot establish motion/audio. Claim only actual
-playback. Retain likes/dislikes and apply approved traits. Explicit user words can
-delegate search; missing access/coverage needs a reference or delegation, not cached
-substitutes. Selection does not import media. Browser batches use one tab serially.
-Show simple native link previews or linked titles with one fit sentence, never a
-custom gallery. Ask ONE native question listing each reference and a final “Give my input”
-free-text option; use short normal chat if unavailable. Record the reply,
-then use the chosen references plus the brief for the snippet. No extra style picker
-or script-editor detour. After its one player, ask ONE continue/refine question;
-refinement needs actual feedback and another sample review before full production.
+Use the overview's live reference loop: the registry contains search locations,
+not fixed picks. Search fresh candidates with host tools; Browser Harness supports
+interactive inspection in serialized batches. Close it when done. Parallelize
+independent host queries, inspect useful finalists, offer 1–5 without a quota,
+and save intent, queries, evidence and selection reasons. Keep factual research
+separate. Inspected stills support layout, not motion or audio. Preserve likes/dislikes;
+missing coverage needs a supplied reference or explicit delegation, never fabricated
+research or cached substitutes. Selection does not import media.
+For new Hands on requests, settle the creation approach after basics using its
+native question; explicit techniques skip it. Use `show_video_reference` for plain
+source playback with a source link (or link fallback); save observed `playback.url`
+and `playback.browser_request_id`. Hero clips are not full films. No custom buttons.
+Ask ONE native reference question plus “Give my input”; short normal chat is the
+fallback. Plan the full arc from the brief and chosen reference, render a representative
+snippet, then ask ONE continue/refine question about its plain player. Reuse that
+player through final export. Actual refinement needs another snippet review.
+No script-editor detour.
 
 ## Author less before the first useful preview
 

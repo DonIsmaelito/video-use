@@ -34,7 +34,9 @@ If the basics are already present, proceed directly to the selected mode.
 - **Key moments:** keep existing selective collaboration. Share a small number of
   useful choices or meaningful drafts when an answer could change the result.
   Avoid routine approval stops; preserve what the user has already specified.
-- **Hands on:** after output basics, research actual online visual/video references
+- **Hands on:** after output basics, choose a creation approach when unspecified
+  through the native question (e.g. Motion design or Manim diagrams). Then research
+  actual online visual/video references
   using host web/image tools before creating. Let the user choose or combine
   examples, save the approved traits, then make a representative snippet for review
   before the rest. Research unfamiliar subject matter; ask only about a real missing
@@ -49,7 +51,12 @@ a custom form. Record the actual answer with `record_video_answers`. Do not inve
 a native Claude or ChatGPT capability. `show_video_story` saves the plan internally
 without opening an editor; share only a useful short outline, not the technical
 EDL, internal IDs, revisions or JSON. Present online references through normal
-chat, source links, native link previews or images when supported, not custom forms.
+chat and `show_video_reference`: plain source playback with a clickable source.
+Save observed `playback.url` and `playback.browser_request_id`. Unsupported sources
+fall back to links; hero loops are labeled clips, not full videos. Do not download
+or generate a copy just to preview. Questions/edits stay native; no purple controls.
+Plan the complete arc internally, then sample the chosen treatment and original
+content. Reuse the sample player through final delivery while it remains mounted.
 
 ## Start from the material and the outcome
 

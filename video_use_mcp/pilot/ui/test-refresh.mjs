@@ -8,10 +8,10 @@ const template=fs.readFileSync('template.html','utf8');
 const flush=async()=>{for(let i=0;i<8;i++)await Promise.resolve();};
 function deferred(){let resolve;const promise=new Promise(done=>{resolve=done});return {promise,resolve};}
 function result(id='draft',project='project',extra={}){
-  return {structuredContent:{project_id:project,media:{object_id:id,media_type:'video/mp4',url:`https://media.test/${id}.mp4`,final:false,...extra}}};
+  return {structuredContent:{project_id:project,media:{object_id:id,media_type:'video/mp4',url:`https://media.test/${id}.mp4`,download_url:`https://media.test/${id}.mp4?download=true`,final:false,...extra}}};
 }
 function host({serverTool,capabilities={serverTools:{}}}={}){
-  const {document}=parseHTML(template);
+  const {document,window}=parseHTML(template);
   const timers=new Map(),calls=[],messages=[];
   let app,now=0,serial=0;
   class Clock extends Date{static now(){return now;}}
@@ -38,7 +38,8 @@ function host({serverTool,capabilities={serverTools:{}}}={}){
     }
     now=end;await flush();
   }
-  return {document,app,calls,messages,timers,advance};
+  async function visible(value){document.hidden=!value;document.dispatchEvent(new window.Event('visibilitychange'));await flush();}
+  return {document,app,calls,messages,timers,advance,visible};
 }
 
 {
@@ -76,12 +77,13 @@ for(const event of ['onpause','onended']){
   assert.equal(h.messages.length,0);
 }
 
-for(const mode of ['final','unsupported','choices','sources','empty']){
+for(const mode of ['final','unsupported','choices','sources','empty','reference']){
   const h=host({capabilities:mode==='unsupported'?{}:{serverTools:{}}});
   if(mode==='final')h.app.ontoolresult(result('final','project',{final:true}));
   else if(mode==='choices')h.app.ontoolresult({structuredContent:{project_id:'project',choices:{question:'Style?',revision:1,options:[]}}});
   else if(mode==='sources')h.app.ontoolresult({structuredContent:{project_id:'project',source_picker:{accept:'.mp4'}}});
   else if(mode==='empty')h.app.ontoolresult({structuredContent:{project_id:'project'}});
+  else if(mode==='reference'){const r=result();r.structuredContent.follow_project=false;h.app.ontoolresult(r);}
   else h.app.ontoolresult(result());
   assert.equal(h.timers.size,0,`${mode} must not poll`);
   await h.advance(600000);assert.equal(h.calls.length,0);
@@ -99,23 +101,22 @@ for(const mode of ['final','unsupported','choices','sources','empty']){
 }
 
 {
-  const h=host();h.app.ontoolresult(result());
-  await h.advance(9*60000);
-  h.app.ontoolresult(result()); // repeated tool results must not extend the lease
-  await h.advance(60000);
-  assert.equal(h.timers.size,0,'polling stops ten minutes from first actual media');
-  const calls=h.calls.length;await h.advance(60000);assert.equal(h.calls.length,calls);
-  assert(calls<=120,'bounded number of refresh calls');
+  let final=false;
+  const h=host({serverTool:async()=>final?result('final','project',{final:true}):result()});
+  h.app.ontoolresult(result());await h.advance(41*60000);
+  assert(h.timers.size>0,'long decisions do not permanently expire the player');
+  assert(h.calls.length<=93,'older players poll only twice per minute');
+  final=true;await h.advance(30000);
+  assert(h.document.querySelector('video').src.includes('final.mp4'));
+  assert.equal(h.timers.size,0,'the initial sample becomes final and stops polling');
   assert.equal(h.messages.length,0);
 }
-
 {
-  const pending=deferred(),h=host({serverTool:()=>pending.promise});
-  h.app.ontoolresult(result());
-  await h.advance(600000);
-  assert.equal(h.calls.length,1);assert.equal(h.timers.size,0,'deadline also stops an in-flight request');
-  pending.resolve(result('too-late'));await flush();
-  assert(h.document.querySelector('video').src.includes('draft.mp4'));
+  const h=host();h.app.ontoolresult(result());await h.advance(5000);
+  await h.visible(false);assert.equal(h.timers.size,0);
+  await h.advance(60*60000);assert.equal(h.calls.length,1,'hidden hosts do no background work');
+  await h.visible(true);assert.equal(h.calls.length,2,'returning immediately checks for final');assert(h.timers.size>0);
+  await h.app.onteardown();await h.visible(false);await h.visible(true);assert.equal(h.calls.length,2,'teardown is permanent until a new result');
 }
 
 {
@@ -147,4 +148,4 @@ for(const mode of ['final','unsupported','choices','sources','empty']){
   assert.equal(h.timers.size,0);
 }
 
-console.log('PASS media refresh is bounded app-only and playback-safe with final teardown and excerpt handling');
+console.log('PASS adaptive visible-player refresh survives long decisions and updates the original sample to final without interrupting playback');

@@ -472,9 +472,9 @@ class ReferenceBrowserManager:
                 from .intake import intake_context
 
                 intake = intake_context(self.store.get("creative", pid))
-                if intake and intake["phase"] in {"mode", "basics", "personalization"}:
+                if intake and intake["phase"] in {"mode", "basics", "approach", "personalization"}:
                     raise ValueError(
-                        "Answer the involvement and missing essential questions before reference browsing"
+                        "Answer the involvement, missing essentials and creation approach before reference browsing"
                     )
             session = self.sessions.get(pid)
             prepared = prepare_operations(

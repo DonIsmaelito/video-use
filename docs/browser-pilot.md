@@ -19,20 +19,27 @@ This private pilot lets the assistant in a tester's Claude or ChatGPT account dr
    or short normal chat if that tool is unavailable.
 2. Ask only essential missing output information. Reuse length, destination and
    other requirements already supplied; do not reopen settled decisions.
-3. For Hands on, search relevant curated sources for this brief. Run independent
+3. For Hands on, ask the native creation-approach question if the request leaves it
+   open: Motion design, Manim diagrams, footage or another relevant treatment.
+   Explicit techniques are reused. Then search relevant curated sources for this brief. Run independent
    host searches in parallel when supported, then inspect promising references.
    Offer 1–5 useful works, never more than five and never a required five-item quota.
-4. Show a simple native link preview/container per reference when supported, or a
-   linked title and one sentence explaining the fit. Include a direct source link.
+4. Show each reference through `show_video_reference`: plain source streaming or
+   a provider embed, with a linked title and one fit sentence. No media is copied
+   or generated. Unsupported playback falls back to the original source link.
+   Short hero clips are labeled as source clips, never as the full reference film.
    Ask **one native question** with each reference plus **Give my input** as the
    last free-text option. Use one short chat question if the host cannot represent
    those options. No custom gallery, technical form or style picker.
 5. Save the user's choice or feedback. Re-search if needed; a supplied direction
-   can explicitly delegate references. Make one snippet from the chosen references
+   can explicitly delegate references. Plan the full story internally, then make one
+   representative snippet from the chosen references
    **and the original request**, without another script/storyboard approval detour.
 6. Show one playable snippet, then one native **Continue / Refine** question.
    Save actual feedback, revise and review the snippet if needed. Only explicit
-   acceptance unlocks creation of the complete reviewed video and its final player.
+   acceptance unlocks the complete reviewed video. The same plain player follows
+   the project through final export while mounted; native chat owns edits/questions.
+   No branded action bar, purple buttons or preset editing chips.
 
 Hands off skips optional reference questions and previews. Key moments retains
 selective collaboration. Native question availability and link preview layout are

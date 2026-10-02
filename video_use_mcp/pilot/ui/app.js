@@ -2,8 +2,8 @@ import { App, applyDocumentTheme } from "@modelcontextprotocol/ext-apps";
 const app = new App({ name: "Video preview", version: "3.0.0" });
 const $ = (id) => document.getElementById(id);
 let media, shown, mediaProject, pendingMedia, refreshState, refreshInFlight=false;
-let feedbackDraft=null,feedbackSaving=false;
-const REFRESH_INTERVAL_MS=5000,REFRESH_LIMIT_MS=10*60*1000;
+let followProject=true, mediaRenewal=null, tornDown=false;
+const REFRESH_INTERVAL_MS=5000,IDLE_REFRESH_INTERVAL_MS=30000;
 function unpack(result) {
   if (result.isError) throw Error("This preview could not be loaded.");
   const data = result.structuredContent;
@@ -24,30 +24,32 @@ function playing(){
 }
 function stopRefresh(keepPending=false){
   const state=refreshState;refreshState=null;
-  if(state){clearTimeout(state.timer);clearTimeout(state.expiry);}
+  if(state)clearTimeout(state.timer);
   if(!keepPending)pendingMedia=null;
 }
 function settlePlayback(element){
-  if(element!==$('media').firstElementChild || playing() || feedbackDraft || !pendingMedia)return;
+  if(element!==$('media').firstElementChild || playing() || !pendingMedia)return;
   const next=pendingMedia;pendingMedia=null;render(next);
 }
 function present(next){
   if(!next)return;
-  const key=next.object_id || next.url;
-  if(shown!==key && (playing() || feedbackDraft))pendingMedia=next;
-  else{pendingMedia=null;render(next);}
+  const key=next.object_id || next.embed_url || next.url;
+  if(shown!==key && playing()){
+    pendingMedia=next;
+    $('media-status').textContent=next.final===true?'Final video ready · updates after playback.':'New sample ready · updates after playback.';
+  }else{pendingMedia=null;render(next);}
 }
 function scheduleRefresh(state){
-  if(refreshState!==state || state.timer)return;
-  if(Date.now()+REFRESH_INTERVAL_MS>state.deadline){stopRefresh(true);return;}
-  state.timer=setTimeout(()=>pollPreview(state),REFRESH_INTERVAL_MS);
+  if(refreshState!==state || state.timer || document.hidden===true)return;
+  const delay=Date.now()-state.started<60000?REFRESH_INTERVAL_MS:IDLE_REFRESH_INTERVAL_MS;
+  state.timer=setTimeout(()=>pollPreview(state),delay);
 }
 async function pollPreview(state){
   state.timer=null;
-  if(refreshState!==state)return;
-  if(Date.now()>=state.deadline || !app.getHostCapabilities?.()?.serverTools){stopRefresh(true);return;}
-  // A previous project can still have an unabortable host request in flight.
-  // Never overlap it, and never apply its result to a new project or view.
+  if(refreshState!==state || document.hidden===true)return;
+  if(!app.getHostCapabilities?.()?.serverTools){stopRefresh(true);return;}
+  // Calls are read-only and app-initiated. Keep following while the host mounts
+  // this player, including after a user spends more than ten minutes choosing.
   if(refreshInFlight){scheduleRefresh(state);return;}
   refreshInFlight=true;
   try{
@@ -58,47 +60,98 @@ async function pollPreview(state){
     state.failures=0;present(data.media);
     if(data.media.final===true){stopRefresh(true);return;}
   }catch{
-    if(refreshState===state && ++state.failures>=3){stopRefresh(true);return;}
+    if(refreshState===state && ++state.failures>=3){
+      stopRefresh(true);
+      $('notice').textContent='Live updates paused. Return to this chat to retry, or ask to show the video again.';
+      return;
+    }
   }finally{refreshInFlight=false;}
   scheduleRefresh(state);
+}
+function startRefresh(){
+  if(tornDown || !followProject || !mediaProject || media?.final===true || !app.getHostCapabilities?.()?.serverTools || refreshState)return;
+  const state={projectId:mediaProject,started:Date.now(),failures:0,timer:null};
+  refreshState=state;scheduleRefresh(state);
 }
 function receiveMediaResult(result){
   const next=unpack(result);
   if(!next){stopRefresh();return;}
+  tornDown=false;
   const data=result.structuredContent;
   const projectId=data?.project_id || data?.project_card?.id || data?.id;
-  if(projectId!==mediaProject){stopRefresh();resetFeedback();mediaProject=projectId;render(next);}
+  followProject=data?.follow_project!==false && !next.source_url;
+  if(projectId!==mediaProject){stopRefresh();mediaProject=projectId;render(next);}
   else present(next);
-  if(next.final===true){stopRefresh(true);return;}
-  if(!projectId || !app.getHostCapabilities?.()?.serverTools)return;
-  if(refreshState?.projectId===projectId)return;
-  stopRefresh(true);
-  const state={projectId,deadline:Date.now()+REFRESH_LIMIT_MS,failures:0,timer:null,expiry:null};
-  refreshState=state;
-  state.expiry=setTimeout(()=>{if(refreshState===state)stopRefresh(true);},REFRESH_LIMIT_MS);
-  scheduleRefresh(state);
+  if(!followProject || next.final===true){stopRefresh(true);return;}
+  startRefresh();
+}
+function loadSource(element,next,keepPosition=false){
+  const seconds=keepPosition && Number.isFinite(element.currentTime)?element.currentTime:0;
+  element.onloadedmetadata=()=>{
+    if(element!==$('media').firstElementChild)return;
+    if(seconds>0)element.currentTime=Number.isFinite(element.duration)?Math.min(seconds,element.duration):seconds;
+  };
+  element.src=next.url;
+}
+async function renewMedia(element,{reload=false}={}){
+  const projectId=mediaProject,objectId=media?.object_id;
+  if(tornDown || !followProject || !projectId || !objectId || !app.getHostCapabilities?.()?.serverTools)return false;
+  if(mediaRenewal)return mediaRenewal;
+  const promise=(async()=>{
+    try{
+      const data=readData(await app.callServerTool({name:'video_preview_updates',arguments:{project_id:projectId,object_id:objectId}}));
+      if(tornDown || projectId!==mediaProject || objectId!==media?.object_id || element!==$('media').firstElementChild)return false;
+      if(data.project_id!==projectId || data.media?.object_id!==objectId)throw Error('The saved preview is unavailable.');
+      media={...media,...data.media};
+      if(reload)loadSource(element,media,true);
+      $('download').href=media.download_url || media.url;
+      $('notice').textContent='';return true;
+    }catch{
+      if(!tornDown && projectId===mediaProject && objectId===media?.object_id)$('notice').textContent='This video could not be refreshed. Ask to show it again.';
+      return false;
+    }
+  })();
+  mediaRenewal=promise;
+  try{return await promise;}finally{if(mediaRenewal===promise)mediaRenewal=null;}
 }
 function render(next) {
   if (!next) return;
   media = next;
-  const key = next.object_id || next.url;
+  const key = next.object_id || next.embed_url || next.url || next.source_url;
   if (shown !== key) {
-    const video = next.media_type === "video/mp4";
-    const element = document.createElement(video ? "video" : "img");
-    element.src = next.url;
-    if (video) {
-      element.controls=true; element.playsInline=true; element.preload="metadata";
+    const video = ['video/mp4','video/webm'].includes(next.media_type);
+    const embed=next.media_type === 'text/html' && next.embed_url;
+    const sourceOnly=next.media_type==='source_link';
+    const element = document.createElement(sourceOnly?'span':embed?'iframe':video?'video':'img');
+    $('media').hidden=sourceOnly;
+    if(embed){
+      element.src=next.embed_url;element.title=next.title || next.caption || 'Video reference';
+      element.setAttribute('allow','fullscreen; picture-in-picture');
+      element.setAttribute('allowfullscreen','');element.setAttribute('referrerpolicy','strict-origin-when-cross-origin');
+      element.setAttribute('sandbox','allow-scripts allow-same-origin allow-presentation');
+    }else if(video){
+      element.controls=true;element.playsInline=true;element.preload='metadata';
       element.onpause=()=>settlePlayback(element);element.onended=()=>settlePlayback(element);
-    }
-    else element.alt = next.caption || "Proposed video frame";
-    element.onerror = () => {$("notice").textContent="The preview link expired. Ask Claude to show it again.";};
-    $("media").replaceChildren(element);
-    shown=key;
+      let attemptedRepair=false;
+      element.onerror=async()=>{
+        if(element!==$('media').firstElementChild)return;
+        if(!attemptedRepair && followProject){attemptedRepair=true;if(await renewMedia(element,{reload:true}))return;}
+        $('notice').textContent=next.source_url?'This source does not allow playback here. Open the reference below.':'This video could not be loaded. Ask to show it again.';
+      };
+      element.onplay=()=>{attemptedRepair=false;startRefresh();};
+      loadSource(element,next);
+    }else if(!sourceOnly){element.src=next.url;element.alt=next.caption || 'Proposed video frame';}
+    $('media').replaceChildren(element);shown=key;
   }
-  $("visual").hidden=false;
-  $("download").hidden=next.media_type !== "video/mp4";
-  const canEdit=next.media_type==='video/mp4' && Boolean(mediaProject && next.object_id);
-  $('suggest-edit').hidden=!canEdit;$('feedback-shortcuts').hidden=!canEdit;
+  $('visual').hidden=false;
+  const source=next.source_url;
+  $('source-reference').hidden=!source;
+  $('source-reference').href=source || '';
+  $('source-reference').textContent=next.title || next.caption || 'Open reference';
+  const downloadable=next.media_type==='video/mp4' && !source && Boolean(next.download_url || next.object_id);
+  $('download').hidden=!downloadable;
+  $('download').href=next.download_url || next.url || '';
+  $('media-status').textContent=source?(next.caption || 'Source video'):next.final===true?'Final video':next.media_type==='video/mp4'?'Sample':'';
   $('excerpt').hidden=next.truncated!==true;
   if(next.truncated===true){
     const seconds=Number(next.duration),total=Number(next.source_duration);
@@ -106,12 +159,7 @@ function render(next) {
       ? `Preview excerpt · ${Math.round(seconds)}s of ${Math.round(total)}s`
       : 'Preview excerpt · the full video is longer';
   }
-  $("notice").textContent="";
-  syncDisplayMode();
-}
-function feedbackTime(seconds){
-  const tenths=Math.round(seconds*10),minutes=Math.floor(tenths/600),remainder=((tenths%600)/10).toFixed(1).padStart(4,'0');
-  return `${minutes}:${remainder}`;
+  $('notice').textContent='';syncDisplayMode();
 }
 function newFeedbackId(){
   return globalThis.crypto?.randomUUID?.() || `edit-${Date.now()}-${Math.random().toString(36).slice(2)}`;
@@ -124,73 +172,27 @@ function replyHint(prepared){
   // A host may place this reply in its composer rather than actually send it.
   return prepared?'Send the prepared reply to continue.':'Tell your assistant to continue if the chat is waiting.';
 }
-function resetFeedback(){
-  feedbackDraft=null;$('feedback-form').hidden=true;$('feedback-note').value='';
-}
-function finishFeedback(draft){
-  if(feedbackDraft!==draft)return;
-  resetFeedback();
-  if(pendingMedia && !playing()){const next=pendingMedia;pendingMedia=null;render(next);}
-}
-function openFeedback(prefill=''){
-  if(feedbackSaving || !mediaProject || !media?.object_id)return;
-  const element=$('media').firstElementChild;
-  if(element?.tagName!=='VIDEO')return;
-  if(!feedbackDraft){
-    const seconds=Number.isFinite(element.currentTime)?Math.max(0,element.currentTime):0;
-    feedbackDraft={projectId:mediaProject,objectId:media.object_id,seconds:Math.round(seconds*1000)/1000,requestId:newFeedbackId()};
-    $('feedback-note').value='';
-  }
-  // Capture/pin this exact version before pausing; a new draft may arrive meanwhile.
-  element.pause?.();
-  $('feedback-time').textContent=`At ${feedbackTime(feedbackDraft.seconds)}`;
-  const note=$('feedback-note');
-  if(prefill && !note.value.includes(prefill))note.value=(note.value.trim()?note.value.trim()+'\n':'')+prefill;
-  $('feedback-form').hidden=false;note.focus?.();
-  $('notice').textContent='';
-}
-$('suggest-edit').onclick=()=>openFeedback();
-for(const [id,note] of [
-  ['edit-labels','Make the labels larger and easier to read at this moment.'],
-  ['edit-pace','Make the pacing faster around this moment, while keeping the explanation clear.'],
-  ['edit-look','Explore a different visual style for this moment.'],
-])$(id).onclick=()=>openFeedback(note);
-$('feedback-cancel').onclick=()=>{if(!feedbackSaving)finishFeedback(feedbackDraft);};
-$('feedback-form').onsubmit=async(event)=>{
+$('download').onclick=async(event)=>{
   event?.preventDefault?.();
-  if(feedbackSaving || !feedbackDraft)return;
-  const draft=feedbackDraft,note=$('feedback-note').value.trim();
-  if(!note || note.length>1200){$('notice').textContent='Write a short suggestion first.';return;}
-  const label=feedbackTime(draft.seconds);
-  const notice=text=>{if(feedbackDraft===draft)$('notice').textContent=text;};
-  const caps=app.getHostCapabilities?.() || {};
-  if(!caps.serverTools){notice(`Copy into chat: At ${label}, ${note}`);return;}
-  if(draft.submittedNote && draft.submittedNote!==note)draft.requestId=newFeedbackId();
-  draft.submittedNote=note;feedbackSaving=true;
-  $('feedback-note').disabled=true;$('feedback-send').disabled=true;$('feedback-cancel').disabled=true;
-  $('suggest-edit').disabled=true;$('feedback-shortcuts').querySelectorAll('button').forEach(button=>{button.disabled=true;});
-  try{
-    const result=readData(await app.callServerTool({name:'add_video_feedback',arguments:{project_id:draft.projectId,object_id:draft.objectId,seconds:draft.seconds,note,request_id:draft.requestId}}));
-    const context=[{type:'text',text:`Saved feedback for video project ${draft.projectId}: ${JSON.stringify({object_id:draft.objectId,seconds:draft.seconds,note,creative_revision:result.creative.revision})}. Apply this to the referenced version, not an assumed moment in a newer video.`}];
-    if(caps.updateModelContext?.text){try{await app.updateModelContext({content:context});}catch{}}
-    const prepared=await prepareUserReply(`At ${label}, ${note}`);
-    const stillHere=feedbackDraft===draft;finishFeedback(draft);
-    if(stillHere)$('notice').textContent=`Suggestion saved. ${replyHint(prepared)}`;
-  }catch(e){notice(e.message || 'Could not save this suggestion. Try again.');}
-  finally{
-    feedbackSaving=false;$('feedback-note').disabled=false;$('feedback-send').disabled=false;$('feedback-cancel').disabled=false;
-    $('suggest-edit').disabled=false;$('feedback-shortcuts').querySelectorAll('button').forEach(button=>{button.disabled=false;});
-  }
+  const active=media,element=$('media').firstElementChild;
+  if(!active)return;
+  // Signed downloads expire. Refresh this exact watched version, not whichever
+  // draft happens to be newest while a sample review is waiting in chat.
+  if(mediaProject && active.object_id && followProject && app.getHostCapabilities?.()?.serverTools && !await renewMedia(element))return;
+  if(active.object_id!==media?.object_id || element!==$('media').firstElementChild)return;
+  await app.openLink({url:media.download_url || media.url});
 };
-$("download").onclick=async()=>{
-  if (media) await app.openLink({url:media.download_url || media.url + "&download=true"});
-};
+$('source-reference').onclick=async(event)=>{event?.preventDefault?.();if(media?.source_url)await app.openLink({url:media.source_url});};
+document.addEventListener('visibilitychange',()=>{
+  if(document.hidden===true){if(refreshState){clearTimeout(refreshState.timer);refreshState.timer=null;}return;}
+  startRefresh();if(refreshState && !refreshState.timer)pollPreview(refreshState);
+});
 app.ontoolresult=(result)=>{
   try {receiveMediaResult(result);} catch(e){stopRefresh();$("notice").textContent=e.message;}
 };
 app.onhostcontextchanged=(context)=>{if(context.theme)applyDocumentTheme(context.theme);syncDisplayMode(context);};
 app.onteardown=async()=>{
-  stopRefresh();
+  tornDown=true;stopRefresh();
   const element=$('media').firstElementChild;
   if(element){element.onpause=null;element.onended=null;}
   return {};
@@ -204,7 +206,7 @@ function readData(result){
   return result.structuredContent || JSON.parse(result.content.find(c=>c.type==='text').text);
 }
 function renderChoices(data){
-  stopRefresh();resetFeedback();
+  stopRefresh();
   choiceData=data.choices;choiceProject=data.project_id;
   $('visual').hidden=true;$('choices').hidden=false;
   $('question').textContent=choiceData.question;
@@ -249,7 +251,7 @@ app.ontoolresult=result=>{
 
 let sourceState,sourceMeta,uploading=false;
 function renderSourcePicker(result){
-  stopRefresh();resetFeedback();
+  stopRefresh();
   sourceState=result.structuredContent;sourceMeta=result._meta || {};
   $('choices').hidden=true;$('visual').hidden=true;$('sources').hidden=false;
   $('source-files').accept=sourceState.source_picker.accept;
@@ -347,7 +349,7 @@ function widgetEdited(state){
 function receiveWidget(data,replace=false){
   const widget=data.widget;
   if(!data.project_id || !widget?.id || !['brief','story'].includes(widget.kind))throw Error('This editor could not be loaded.');
-  stopRefresh();resetFeedback();$('visual').hidden=true;$('choices').hidden=true;$('sources').hidden=true;$('widget').hidden=false;$('notice').textContent='';
+  stopRefresh();$('visual').hidden=true;$('choices').hidden=true;$('sources').hidden=true;$('widget').hidden=false;$('notice').textContent='';
   const same=widgetState?.projectId===data.project_id && widgetState.widget.id===widget.id;
   if(same && !replace){
     if(widget.revision<=widgetState.widget.revision)return;
@@ -450,26 +452,8 @@ $('widget-form').onsubmit=async event=>{
   finally{state.saving=false;widgetControls(state);}
 };
 
-let displayContext={},displayRequest=false;
 function syncDisplayMode(context){
-  displayContext={...(app.getHostContext?.() || {}),...displayContext,...(context || {})};
-  const fullscreen=displayContext.displayMode==='fullscreen';
-  const target=fullscreen?'inline':'fullscreen';
-  $('expand').hidden=typeof app.requestDisplayMode!=='function' || !displayContext.availableDisplayModes?.includes(target);
-  $('expand').textContent=fullscreen?'Exit fullscreen':'Expand';
-  $('expand').setAttribute('aria-label',fullscreen?'Exit fullscreen preview':'Expand preview to fullscreen');
-  document.documentElement.classList.toggle('fullscreen',fullscreen);
+  const host=context || app.getHostContext?.() || {};
+  document.documentElement.classList.toggle('fullscreen',host.displayMode==='fullscreen');
 }
-$('expand').onclick=async()=>{
-  if(displayRequest)return;
-  syncDisplayMode();const mode=displayContext.displayMode==='fullscreen'?'inline':'fullscreen';
-  if(!displayContext.availableDisplayModes?.includes(mode) || typeof app.requestDisplayMode!=='function')return;
-  displayRequest=true;$('expand').disabled=true;
-  try{
-    const result=await app.requestDisplayMode({mode});
-    if(result?.isError || !['inline','fullscreen','pip'].includes(result?.mode))throw Error('The host could not expand this preview.');
-    syncDisplayMode({displayMode:result.mode});
-  }catch(e){$('notice').textContent=e.message || 'The host could not expand this preview.';}
-  finally{displayRequest=false;$('expand').disabled=false;}
-};
 app.connect().then(()=>syncDisplayMode()).catch(()=>{$('notice').textContent='Ask your assistant to show this again.';});

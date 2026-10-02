@@ -105,7 +105,11 @@ class Harness:
             return {"text": "Rendered reference content", "links": [
                 {"url": "https://artist.example/film", "text": "Film"},
                 {"url": "javascript:alert(1)", "text": "Unsafe"},
-            ], "videos": [], "embedded_frames": 1}
+            ], "videos": [], "embedded_frames": 1, "embedded_players": [
+                {"src": "https://player.vimeo.com/video/123456", "title": "Reference film"},
+                {"src": "http://127.0.0.1/player", "title": "Private"},
+                {"src": "javascript:alert(1)", "title": "Unsafe"},
+            ]}
         assert "querySelectorAll('video')" in expression
         return self.video or {"ok": False, "reason": "No top-document HTML5 video is available"}
 
@@ -163,6 +167,7 @@ def test_one_owned_tab_supports_ax_interaction_and_actual_screenshot(isolated, m
     assert first["page_url"] == "https://example.com/collection"
     assert first["accessibility"] == [{"role": "button", "name": "Play", "node_id": 123}]
     assert first["links"] == [{"url": "https://artist.example/film", "text": "Film"}]
+    assert first["embedded_players"] == [{"src": "https://player.vimeo.com/video/123456", "title": "Reference film"}]
     evidence = report["evidence"][0]
     assert evidence["mime_type"] == "image/png" and evidence["kind"] == "screenshot"
     assert Path(evidence["path"]).parent == isolated[1]

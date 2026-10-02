@@ -111,6 +111,7 @@ def experience_context(
     elif intake and intake["phase"] in {
         "mode",
         "basics",
+        "approach",
         "personalization",
         "references",
     }:
@@ -120,6 +121,7 @@ def experience_context(
             trigger={
                 "mode": "involvement_required",
                 "basics": "output_basics_required",
+                "approach": "creation_approach_required",
                 "personalization": "early_decision_pending",
                 "references": "reference_direction_needed",
             }[phase],
@@ -127,6 +129,7 @@ def experience_context(
             question={
                 "mode": "required_mode_choice",
                 "basics": "missing_output_basics_only",
+                "approach": "choose_video_creation_approach",
                 "personalization": "await_offered_content_or_style_answer",
                 "references": "choose_or_refine_visual_references",
             }[phase],

@@ -179,7 +179,9 @@ def test_native_story_is_a_small_summary_while_complete_plan_is_preserved(pilot)
 
 def content_question(pilot):
     first = start(
-        pilot, output_profile={"duration_seconds": 30, "viewing_destination": "web"}
+        pilot,
+        output_profile={"duration_seconds": 30, "viewing_destination": "web"},
+        creation_approach="Motion design",
     )
     chosen = answer(pilot, first, {"involvement": "hands_on"})
     return call(

@@ -43,8 +43,55 @@ BASIC_QUESTIONS = {
 }
 
 
-def initialize_intake(state, output_profile=None):
-    """Return copied state; supplied basics are assistant-reported user values."""
+# These are starting points for the host, not fixed templates or content categories.
+APPROACH_OPTIONS = {
+    "motion_design": "Motion design · type and designed animation",
+    "diagram_animation": "Manim · diagrams and visual explanations",
+    "cinematic": "Cinematic · footage and atmosphere",
+    "screen_demo": "Screen demo · real interface and callouts",
+    "footage_edit": "Footage edit · clips, pacing and captions",
+    "data_animation": "Data animation · charts and comparisons",
+    "procedural_3d": "3D animation · forms, lighting and camera",
+}
+
+
+def approach_question(state):
+    """Relevant initial choices; the host may tailor labels/types to this brief."""
+    ids = {
+        "software_demo": ["screen_demo", "motion_design", "cinematic"],
+        "social_clips": ["footage_edit", "motion_design", "cinematic"],
+        "precise_edit": ["footage_edit", "motion_design"],
+        "footage_story": ["footage_edit", "cinematic", "motion_design"],
+        "audio_first": ["footage_edit", "motion_design", "cinematic"],
+        "data_story": ["data_animation", "diagram_animation", "motion_design"],
+        "procedural_3d": ["procedural_3d", "motion_design", "cinematic"],
+        "generative": ["cinematic", "motion_design", "procedural_3d"],
+    }.get(state.get("category"), ["motion_design", "diagram_animation", "cinematic"])
+    return dict(
+        id="creation_approach",
+        prompt="What kind of video should we make?",
+        recommended="",
+        options=[dict(id=key, label=APPROACH_OPTIONS[key]) for key in ids]
+        + [dict(id="you_decide", label="You decide")],
+    )
+
+
+def needs_creation_approach(intake):
+    approach = intake.get("creation_approach", {})
+    direction = intake.get("reference_direction", {})
+    # Existing projects and references must not acquire a new retroactive gate.
+    return (
+        approach.get("version") == 1
+        and approach.get("status") not in {"selected", "delegated"}
+        and not direction.get("rounds")
+        and direction.get("status") not in {"accepted", "delegated"}
+        and intake.get("excerpt_review", {}).get("status", "not_requested")
+        == "not_requested"
+    )
+
+
+def initialize_intake(state, output_profile=None, creation_approach=None):
+    """Copy state with only supplied user basics/technique, never inferred defaults."""
     state = deepcopy(state)
     intake = state.get("intake")
     if not isinstance(intake, dict) or intake.get("version") != 1:
@@ -56,8 +103,24 @@ def initialize_intake(state, output_profile=None):
             provenance={},
             excerpt_review={"status": "not_requested"},
             reference_direction={"version": 1, "status": "needed", "rounds": []},
+            creation_approach={"version": 1, "status": "needed"},
         )
         state["intake"] = intake
+    if creation_approach is not None:
+        if (
+            not isinstance(creation_approach, str)
+            or not 1 <= len(creation_approach.strip()) <= 160
+        ):
+            raise ValueError(
+                "Creation approach must be 1–160 characters from the user's request"
+            )
+        intake["creation_approach"] = dict(
+            version=1,
+            status="selected",
+            id="user_described",
+            label=creation_approach.strip(),
+            source="assistant_reported_user",
+        )
     profile = {} if output_profile is None else output_profile
     if not isinstance(profile, dict) or set(profile) - {
         "duration_seconds",
@@ -124,6 +187,15 @@ def intake_context(state, project_id=None):
         phase = "basics"
         questions = [deepcopy(BASIC_QUESTIONS[q]) for q in missing]
         action = "Ask only these missing output basics and wait for explicit answers; You decide is valid delegation. Do not repeat known values or begin production yet."
+    elif mode == "hands_on" and needs_creation_approach(intake):
+        phase = "approach"
+        existing = state.get("widgets", {}).get("brief", {})
+        questions = (
+            deepcopy(existing["questions"])
+            if existing.get("purpose") == "approach"
+            else [approach_question(state)]
+        )
+        action = "Before finding references, ask which creation approach the user wants using one native question or short chat. The supplied choices are relevant starting points; tailor this one question to the brief with show_video_brief if needed, keeping its creation_approach ID and a You decide option. Do not treat the content category as a technique choice. Reuse an approach explicitly stated in the request instead of asking again. Wait for the actual choice or delegation; do not search, render or silently choose a default. Check capabilities before promising generated footage or paid assets."
     elif (pending_questions and not pending_questions.get("answered")) or pending_style:
         phase, questions = "personalization", []
         action = "The hands-on user has an unanswered content or style choice. Wait for that explicit answer before dependent production; do not invent a selection."
@@ -139,7 +211,7 @@ def intake_context(state, project_id=None):
         elif status == "refining":
             action = "The user rejected the references. Use their saved feedback to search for better examples; if the reason is unclear, ask one focused contrast question in native questions or normal chat first. Preserve likes and dislikes across rounds. Save new results with record_video_references; do not start production or recycle rejected examples unchanged."
         else:
-            action = "Derive fresh visual queries from this brief and the answered essentials, then search suitable curated reference_sources. When style or medium is unspecified, compare meaningfully different treatments; category labels and early assumptions are provisional. Let confirmed essentials override earlier assumptions. Run independent host searches in parallel where supported; serialize actions in the shared Browser Harness tab. Inspect promising finalists and return 1–5 useful references, never more than five or filler to reach five. The registry is search locations, not preselected examples. Save the live search, evidence and comparison in record_video_references; don't merely pick the first results. Present simple linked references followed by one native choice question, not a custom gallery. Inspect a supplied reference first. Use browse_video_references where host tools fall short and save evidence_ids. If both research paths or suitable approved sources are unavailable, ask for a reference or explicit delegation; never fabricate research or substitute cached clips."
+            action = "Derive fresh visual queries from this brief, the answered essentials and the saved creation_approach, then search suitable curated reference_sources. Stay within the selected creation approach while comparing meaningfully different treatments; category labels and early assumptions are provisional. Let confirmed essentials override earlier assumptions. Run independent host searches in parallel where supported; serialize actions in the shared Browser Harness tab. Inspect promising finalists and return 1–5 useful references, never more than five or filler to reach five. The registry is search locations, not preselected examples. Save the live search, evidence and comparison in record_video_references; don't merely pick the first results. Present simple linked references followed by one native choice question, not a custom gallery. Inspect a supplied reference first. Use browse_video_references where host tools fall short and save evidence_ids. If both research paths or suitable approved sources are unavailable, ask for a reference or explicit delegation; never fabricate research or substitute cached clips."
     elif mode == "hands_on" and review.get("status") != "approved":
         phase, questions = "excerpt_review", []
         if review.get("status") == "pending":
@@ -147,7 +219,7 @@ def intake_context(state, project_id=None):
         elif review.get("status") == "changes_requested":
             action = "The user asked to refine the sample. Use feedback already supplied; if none says what should change, ask one focused content or style refinement question before revising. Do not invent a change. Show the revised short excerpt for explicit review before completing the video."
         else:
-            action = "Use the original request, answered essentials and selected reference traits together to make one short representative snippet. Show its playable preview once, then prepare show_video_checkpoint for one native Continue or Refine question about that exact clip. Wait before producing the complete video. Do not insert another style picker, script form or routine questionnaire; ask only if a real blocker remains."
+            action = "Plan the full video from the original request, answered essentials, saved creation approach and selected reference traits; then make one short representative snippet from that plan. Show its playable preview once, then prepare show_video_checkpoint for one native Continue or Refine question about that exact clip. Wait before producing the complete video. Do not insert another style picker, script form or routine questionnaire; ask only if a real blocker remains."
     else:
         phase, questions = "production", []
         action = (
@@ -163,6 +235,7 @@ def intake_context(state, project_id=None):
         mode=mode if mode in MODES else None,
         source=intake.get("provenance", {}).get("mode", "awaiting_user"),
         output_profile=deepcopy(profile),
+        creation_approach=deepcopy(intake.get("creation_approach", {})),
         delegated_basics=list(delegated),
         missing_basics=missing,
         missing_basic_questions=[deepcopy(BASIC_QUESTIONS[q]) for q in missing],
@@ -200,7 +273,11 @@ def intake_context(state, project_id=None):
                         project_id=project_id,
                         creative_revision=state["revision"],
                         questions=questions,
-                        title="Make it yours" if phase == "mode" else "The basics",
+                        title={
+                            "mode": "Make it yours",
+                            "basics": "The basics",
+                            "approach": "The approach",
+                        }[phase],
                     ),
                 )
     elif project_id and pending_questions:
@@ -271,7 +348,7 @@ def record_answered(record):
 def pending_widget(state):
     """Construct or reuse a required brief; caller persists it with creative state."""
     context = intake_context(state)
-    if not context or context["phase"] not in ("mode", "basics"):
+    if not context or context["phase"] not in ("mode", "basics", "approach"):
         return None
     purpose, questions = context["phase"], context["questions"]
     existing = state.get("widgets", {}).get("brief")
@@ -287,7 +364,11 @@ def pending_widget(state):
         id=ident(),
         kind="brief",
         purpose=purpose,
-        title="Make it yours" if purpose == "mode" else "The basics",
+        title={
+            "mode": "Make it yours",
+            "basics": "The basics",
+            "approach": "The approach",
+        }[purpose],
         revision=1,
         creative_revision=state["revision"],
         state="open",

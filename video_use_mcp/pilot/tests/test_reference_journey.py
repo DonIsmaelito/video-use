@@ -35,7 +35,13 @@ def test_native_references_then_reviewed_snippet_then_full_video(pilot):
     basics = call(pilot, tool["name"], tool["arguments"])
     assert basics["question"]["required"] == ["viewing_destination"]
     ready = answer(pilot, basics, {"viewing_destination": "landscape"})
+    assert ready["intake"]["phase"] == "approach"
+    tool = ready["intake"]["next_tool"]
+    approach = call(pilot, tool["name"], tool["arguments"])
+    assert approach["question"]["required"] == ["creation_approach"]
+    ready = answer(pilot, approach, {"creation_approach": "diagram_animation"})
     assert ready["intake"]["phase"] == "references"
+    assert ready["intake"]["creation_approach"]["id"] == "diagram_animation"
 
     references = [
         dict(

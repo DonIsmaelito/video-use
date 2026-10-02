@@ -9,7 +9,7 @@ from video_use_mcp.pilot.runtime import require_production_intake
 pytest_plugins = ["video_use_mcp.pilot.tests.test_oauth_discovery"]
 
 
-def start(pilot, profile=None):
+def start(pilot, profile=None, approach=None):
     return call(
         pilot,
         "start_video",
@@ -18,6 +18,7 @@ def start(pilot, profile=None):
             brief="Explain how rain forms",
             category="explainer",
             **({"output_profile": profile} if profile else {}),
+            **({"creation_approach": approach} if approach else {}),
         ),
     )
 
@@ -41,7 +42,11 @@ def answer(pilot, data, answers, request_id="click"):
 
 
 def mode(pilot, selected):
-    result = start(pilot, {"duration_seconds": 30, "viewing_destination": "YouTube"})
+    result = start(
+        pilot,
+        {"duration_seconds": 30, "viewing_destination": "YouTube"},
+        approach="Manim diagrams",
+    )
     return answer(pilot, result, {"involvement": selected})
 
 

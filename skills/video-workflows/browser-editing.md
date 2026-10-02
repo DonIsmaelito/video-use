@@ -14,8 +14,8 @@ labeled key-moments default. Do not restart intake for an existing request.
   video. No optional questions, story cards or intermediate previews.
 - **Key moments:** use selective questions and useful visual updates; compatible
   work continues without a stop at every milestone.
-- **Hands on:** research real online visual/video references after output basics,
-  agree on traits, create a short sample, then wait for continue/refine before the rest.
+- **Hands on:** after basics, choose the video type if unspecified (e.g. motion
+  design or Manim diagrams), find playable references, then review a short sample.
 
 Required decisions wait for answers; only cheap compatible preparation continues.
 Resolve real blockers in every mode. Save actual chat answers with
@@ -43,8 +43,9 @@ Captures prove neither inspection nor playback; sampled frames cannot establish
 continuous motion, pacing or audio. Reopen captures with
 `read_video_reference_evidence`. Attribute page claims and label evidence limits.
 
-Present a simple native link preview or linked title plus one fit sentence per
-reference; no custom gallery or form. Ask ONE native question listing every
+Save observed `playback.url` and `playback.browser_request_id` with each reference.
+Use `show_video_reference` for a plain source player, or source link if unavailable;
+no downloading or copied sample. Label hero clips honestly. No custom choice controls. Ask ONE native question listing every
 reference and a final “Give my input” free-text option. Use short normal chat
 if unavailable; never drop choices to fit a tool limit. Record the actual reply
 with `record_video_references` select/refine/delegate. Clarify unclear feedback,
@@ -81,19 +82,19 @@ Unknown capacity is not zero; cached audio may remain usable. Never silently cha
 
 ## Show useful increments and keep context
 
-Prove a meaningful mechanism or treatment before coding every scene, then reuse
-it. Hands off keeps this internal; Key moments shows useful drafts selectively.
+Plan the full arc internally; render a representative short sample in the chosen
+technique, adapting composition/type/motion as well as palette. Reuse accepted work. Hands off keeps this internal; Key moments shows useful drafts selectively.
 Hands on uses `show_video_preview`, then `show_video_checkpoint` returns a native
 or normal chat question about that player, not a second card: continue, or refine
 with the user’s actual feedback. Wait for explicit acceptance before the full video;
 a refine answer changes only the sample and returns to this same checkpoint. Tool traces and private QA sheets are not previews.
-Use `preview_delivery.open_if_missing` only without a working player; it refreshes
-for up to ten minutes on compatible hosts. Avoid empty cards and duplicate previews.
+Reuse the player: while mounted on compatible hosts it refreshes through final
+delivery and resumes on visibility. Use plain media controls; edits stay in chat.
 
 Read `creative`, `latest_feedback`, revision and user edits in task results; refresh
 `get_video_project` after a long gap. Unknown `creative_handoff.preferences_changed`
 means no earlier revision. Adapt affected work; reuse compatible renders.
-**Edit this moment** targets an exact version/timestamp, not a newer cut.
+Keep feedback tied to the stated version/time.
 
 ## Use the runtime directly
 

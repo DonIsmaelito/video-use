@@ -260,8 +260,10 @@ PAGE_CONTENT_JS = """(() => ({
     ({url:a.href.slice(0,4096),text:(a.innerText||a.getAttribute('aria-label')||'').trim().slice(0,180)})),
   videos: Array.from(document.querySelectorAll('video')).slice(0,20).map((v,index) =>
     ({index,src:(v.currentSrc||v.src||'').slice(0,2048),duration_seconds:Number.isFinite(v.duration)?v.duration:null,
-      current_time_seconds:v.currentTime,paused:v.paused,ready_state:v.readyState,width:v.videoWidth,height:v.videoHeight})),
+      current_time_seconds:v.currentTime,paused:v.paused,loop:v.loop,ready_state:v.readyState,width:v.videoWidth,height:v.videoHeight})),
   embedded_frames: document.querySelectorAll('iframe').length,
+  embedded_players: Array.from(document.querySelectorAll('iframe[src]')).slice(0,12).map(f =>
+    ({src:f.src.slice(0,2048),title:(f.title||'').slice(0,160)})),
   password_field: !!document.querySelector('input[type=password]')
 }))()"""
 
@@ -325,8 +327,16 @@ class _Session:
                 links.append(link)
             except ValueError:
                 pass
+        players = []
+        for player in content.get("embedded_players", []):
+            try:
+                _public_url(player.get("src"))
+                players.append(player)
+            except ValueError:
+                pass
         return page | {"text": content.get("text", ""), "links": links,
                        "accessibility": compact, "videos": content.get("videos", []),
+                       "embedded_players": players,
                        "snapshot_limits": {"text_characters": 6000, "links": 60, "ax_nodes": 120, "ax_depth": 8}}
 
     def _node(self, node_id):
