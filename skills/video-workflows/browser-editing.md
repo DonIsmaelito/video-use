@@ -25,26 +25,33 @@ Host turn and tool limits still apply.
 
 ## Find the hands-on direction before rendering
 
-Consult `reference_sources` from `start_video` or capabilities first. Follow its
-categories and search/inspection notes with host web/image tools for 2–3 distinct
-real examples. If empty or no entry fits, explain that limitation; ask for a
-user reference or explicit delegation to a described direction. General open-web
-discovery is not enabled by an empty registry; do not invent curated sources.
-Link each source and state what you inspected: page, thumbnail, still or played
-clip. A still does not establish pace or motion. Present through normal chat,
-native link previews or images when supported, not a custom form. Let the user
-choose or combine. On rejection, ask one targeted question about the unresolved
-pace, texture, composition, typography or mood using their feedback, then search
-again. Do not re-ask a supplied answer. Save dislikes so they are not repeated.
-Use `record_video_references` to save offers, selections, refinements or explicit
-delegation. Preserve sources, approved traits and user words; drive the excerpt's
-layout, type, motion and rhythm from them. Selection does not import media.
+Read `reference_sources`: search locations/access notes, not preinspected media
+recommendations. Search and inspect fresh references for this query with host tools.
+Set visual intent from audience, material, treatment and constraints. Route to
+relevant collections, not fixed source order. Batch 2–3 independent targeted queries
+when supported. Scan metadata/available thumbnails cheaply; inspect only 2–3
+promising finalists, a short excerpt for motion if possible. Compare fit, design,
+evidence and feasibility. Stop at distinct useful choices; do not retry inaccessible
+playback repeatedly or inspect every candidate. No pool quota or scoring ritual.
+Keep factual research separate. Deepen inspection only when feedback needs it.
 
-An explicit user reference, exact edit or request to skip search can delegate
-this step: record those words and the direction. Inspect supplied references
-honestly. If host search is unavailable, say so and ask for a reference or permission
-to use a described direction. Never fabricate research or silently substitute
-cached samples. Hands off and Key moments retain their existing flow.
+Save intent, queries, candidate evaluations, source/discovery URLs, inspection
+limits and selection reasons with the offer. Prior research is not current evidence.
+Attribute page claims; viewed images support palette/layout, not motion/audio.
+An image URL is not inspection. Claim only actual playback. Show supported native
+links/images, not forms; state evidence limits.
+
+Let the user choose or combine. On rejection, ask only about unclear feedback,
+then vary the relevant attribute while retaining likes and dislikes. A phrase
+like “too corporate” does not mandate one source or aesthetic. Use
+`record_video_references` for offers, selections, refinements or delegation.
+Apply approved traits to the excerpt; selection does not import media.
+
+User references, exact edits or explicit skip requests can delegate search; save
+the user's words and inspect supplied material honestly. If host search or suitable
+curated sources are unavailable, explain the gap; ask for a reference or explicit
+delegation. No invented sources, arbitrary web discovery or cached substitutes.
+Hands off and Key moments retain their flow.
 
 ## Keep conversation useful
 

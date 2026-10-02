@@ -1,6 +1,7 @@
 """Real MCP reference choices persist explicit direction without an app or spend."""
 
 from copy import deepcopy
+import hashlib
 import json
 
 import pytest
@@ -90,6 +91,9 @@ def refs():
 
 
 def args(pilot, project, action="offer", **updates):
+    search = {}
+    if action == "offer" and updates.get("references"):
+        search = {"search": research(updates["references"])}
     return (
         dict(
             project_id=project,
@@ -97,7 +101,31 @@ def args(pilot, project, action="offer", **updates):
             request_id="request-" + action,
             action=action,
         )
+        | search
         | updates
+    )
+
+
+def research(references):
+    return dict(
+        search_intent="Compare ways to explain lunar phases with readable geometry",
+        search_queries=["orbital diagram motion", "editorial astronomy animation"],
+        candidates=[
+            dict(
+                reference=reference,
+                evidence_note=(
+                    "Inspected the opening excerpt showing the orbit reveal"
+                    if reference["inspection"] == "video"
+                    else "Inspected the project image, not playback"
+                ),
+                fit="Readable lunar geometry with room for labels",
+                limitations="Adapt to this audience; references do not verify lunar facts",
+                disposition="recommend",
+            )
+            for reference in references
+        ],
+        selection_reason="Contrast diagram-led motion with editorial typography",
+        coverage_limitations="Small relevant sample, not an exhaustive search",
     )
 
 
@@ -437,3 +465,155 @@ def test_private_history_is_bounded_and_context_has_no_receipts(pilot, project):
     assert len(context["recent_feedback"]) == 3
     assert "receipts" not in json.dumps(context)
     assert "digest" not in json.dumps(context)
+
+
+def test_comparison_records_rejected_candidates_without_bloating_context(
+    pilot, project
+):
+    search = research(refs())
+    rejected = deepcopy(search["candidates"][0])
+    rejected["reference"].update(id="busy", url="https://artist.example/busy")
+    rejected.update(
+        disposition="reject", fit="Space theme", limitations="Labels too crowded"
+    )
+    search["candidates"].append(rejected)
+    result = invoke(pilot, project, references=refs(), search=search)
+    summary = result["reference_direction"]["search_summary"]
+    assert summary["candidate_count"] == 3
+    assert summary["search_queries"] == search["search_queries"]
+    assert summary["selection_reason"] == search["selection_reason"]
+    assert summary["recorded_at"]
+    assert [item["id"] for item in summary["recommended_evidence"]] == [
+        "diagram",
+        "editorial",
+    ]
+    assert "candidates" not in summary
+    stored = saved(pilot, project)["intake"]["reference_direction"]["rounds"][-1][
+        "search"
+    ]
+    assert stored["candidates"][-1]["disposition"] == "reject"
+    reloaded = call(pilot, "get_video_project", dict(project_id=project))
+    resumed = reloaded["creative"]["intake"]["reference_direction"]["search_summary"]
+    assert resumed["other_candidates"][0]["limitations"] == "Labels too crowded"
+    assert resumed["selection_reason"] == search["selection_reason"]
+
+
+def test_offer_requires_new_comparison_and_does_not_fill_from_registry(pilot, project):
+    before = saved(pilot, project)
+    assert "live search" in failure(
+        pilot, args(pilot, project, references=refs(), search=None)
+    )
+    assert saved(pilot, project) == before
+    invoke(pilot, project, references=refs())
+    invoke(pilot, project, "refine", user_message="Use a less formal approach")
+    before = saved(pilot, project)
+    assert "live search" in failure(
+        pilot,
+        args(pilot, project, references=refs(), search=None, request_id="new-search"),
+    )
+    assert saved(pilot, project) == before
+
+
+@pytest.mark.parametrize(
+    "change", ["missing", "extra", "inspection", "provenance", "duplicate"]
+)
+def test_offer_and_candidate_comparison_must_agree(pilot, project, change):
+    search = research(refs())
+    if change == "missing":
+        search["candidates"][0]["disposition"] = "reserve"
+    elif change == "extra":
+        other = deepcopy(search["candidates"][0])
+        other["reference"].update(id="other", url="https://artist.example/other")
+        search["candidates"].append(other)
+    elif change == "inspection":
+        search["candidates"][0]["reference"]["inspection"] = "page"
+    elif change == "provenance":
+        other = deepcopy(search["candidates"][0])
+        other["reference"].update(
+            id="other", url="https://artist.example/other", source_id="unapproved"
+        )
+        other["disposition"] = "reject"
+        search["candidates"].append(other)
+    else:
+        search["candidates"].append(deepcopy(search["candidates"][0]))
+    before = saved(pilot, project)
+    failure(pilot, args(pilot, project, references=refs(), search=search))
+    assert saved(pilot, project) == before
+
+
+def test_comparison_is_part_of_exact_retry_and_cannot_change_on_selection(
+    pilot, project
+):
+    parameters = args(pilot, project, references=refs())
+    call(pilot, "record_video_references", parameters)
+    before = saved(pilot, project)
+    parameters["search"]["selection_reason"] = "A different comparison"
+    assert "different reference action" in failure(pilot, parameters)
+    assert "action offer only" in failure(
+        pilot,
+        args(
+            pilot,
+            project,
+            "select",
+            selected_ids=["diagram"],
+            user_message="Choose the diagram",
+            search=research(refs()),
+        ),
+    )
+    assert saved(pilot, project) == before
+
+
+def test_pre_search_receipt_retry_remains_idempotent(pilot, project):
+    before = saved(pilot, project)
+    references = [Reference.model_validate(item).model_dump() for item in refs()]
+    payload = dict(
+        creative_revision=before["revision"],
+        action="offer",
+        references=references,
+        selected_ids=[],
+        direction="",
+        user_message="",
+    )
+    digest = hashlib.sha256(
+        json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()
+    ).hexdigest()
+    before["revision"] += 1
+    before["intake"]["reference_direction"].update(
+        status="offered",
+        rounds=[dict(id="old-round", references=references, status="offered")],
+        receipts=[dict(request_id="old-request", digest=digest)],
+    )
+    pilot[1].state.store.put("creative", project, before)
+    result = call(
+        pilot,
+        "record_video_references",
+        dict(
+            project_id=project,
+            creative_revision=payload["creative_revision"],
+            request_id="old-request",
+            action="offer",
+            references=references,
+        ),
+    )
+    assert result["repeated"]
+    assert result["reference_direction"]["search_summary"] is None
+    assert saved(pilot, project) == before
+
+
+def test_index_screening_is_not_recorded_as_page_or_video_inspection(pilot, project):
+    search = research(refs())
+    screened = deepcopy(search["candidates"][0])
+    screened["reference"].update(
+        id="index-only", url="https://artist.example/indexed", inspection="metadata"
+    )
+    screened.update(
+        disposition="reject",
+        evidence_note="Read search index synopsis only",
+        limitations="Wrong audience; never opened or played",
+    )
+    search["candidates"].append(screened)
+    invoke(pilot, project, references=refs(), search=search)
+    stored = saved(pilot, project)["intake"]["reference_direction"]["rounds"][-1][
+        "search"
+    ]
+    assert stored["candidates"][-1]["reference"]["inspection"] == "metadata"

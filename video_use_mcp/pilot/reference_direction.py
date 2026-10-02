@@ -8,10 +8,11 @@ import hashlib
 import ipaddress
 import json
 from copy import deepcopy
+from datetime import datetime, timezone
 from typing import Literal
 from urllib.parse import urlsplit
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 from .creative_state import creative_edit
 from .store import ident
@@ -73,7 +74,7 @@ class Reference(BaseModel):
     title: str = Field(min_length=1, max_length=160)
     url: str = Field(min_length=1, max_length=2048)
     observed_traits: str = Field(min_length=1, max_length=1200)
-    inspection: Literal["page", "image", "video"]
+    inspection: Literal["metadata", "page", "image", "video"]
     source: Literal["web_search", "user_supplied"] = "web_search"
     source_id: str = Field(default="", max_length=100)
     discovery_url: str = Field(default="", max_length=2048)
@@ -87,6 +88,90 @@ class Reference(BaseModel):
     @classmethod
     def valid_discovery(cls, value):
         return public_reference_url(value) if value else value
+
+
+class CandidateEvaluation(BaseModel):
+    """One candidate examined for this brief, not a reusable recommendation."""
+
+    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+    reference: Reference
+    evidence_note: str = Field(min_length=1, max_length=800)
+    fit: str = Field(min_length=1, max_length=800)
+    limitations: str = Field(min_length=1, max_length=800)
+    disposition: Literal["recommend", "reserve", "reject"]
+
+
+class ReferenceSearch(BaseModel):
+    """Assistant-reported, query-specific inspection and comparison record."""
+
+    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+    search_intent: str = Field(min_length=1, max_length=1200)
+    search_queries: list[str] = Field(default_factory=list, max_length=8)
+    candidates: list[CandidateEvaluation] = Field(min_length=1, max_length=12)
+    selection_reason: str = Field(min_length=1, max_length=1200)
+    coverage_limitations: str = Field(min_length=1, max_length=800)
+    elapsed_seconds: float | None = Field(
+        default=None, ge=0, le=86400, allow_inf_nan=False
+    )
+
+    @field_validator("search_queries")
+    @classmethod
+    def valid_queries(cls, values):
+        if any(not value.strip() or len(value) > 500 for value in values):
+            raise ValueError("Keep actual search queries within 1–500 characters")
+        return [value.strip() for value in values]
+
+    @model_validator(mode="after")
+    def distinct_candidates(self):
+        references = [candidate.reference for candidate in self.candidates]
+        if len({item.id for item in references}) != len(references) or len(
+            {item.url for item in references}
+        ) != len(references):
+            raise ValueError("Candidate evaluations need distinct IDs and URLs")
+        return self
+
+
+def search_summary(search):
+    """Keep routine context small; the full comparison stays in project history."""
+    if not search:
+        return None
+    return {
+        key: deepcopy(search[key])
+        for key in (
+            "search_intent",
+            "search_queries",
+            "selection_reason",
+            "coverage_limitations",
+            "recorded_at",
+            "elapsed_seconds",
+        )
+        if key in search
+    } | {
+        "candidate_count": len(search["candidates"]),
+        "recommended_evidence": [
+            {
+                "id": candidate["reference"]["id"],
+                **{
+                    key: candidate[key]
+                    for key in ("evidence_note", "fit", "limitations")
+                },
+            }
+            for candidate in search["candidates"]
+            if candidate["disposition"] == "recommend"
+        ],
+        "other_candidates": [
+            {
+                "id": candidate["reference"]["id"],
+                "title": candidate["reference"]["title"],
+                "url": candidate["reference"]["url"],
+                "disposition": candidate["disposition"],
+                "fit": candidate["fit"][:300],
+                "limitations": candidate["limitations"][:300],
+            }
+            for candidate in search["candidates"]
+            if candidate["disposition"] != "recommend"
+        ],
+    }
 
 
 def reference_context(state):
@@ -107,6 +192,7 @@ def reference_context(state):
         "inspection_provenance": "assistant_reported_not_server_verified",
         "round_id": current.get("id"),
         "references": deepcopy(current.get("references", [])),
+        "search_summary": search_summary(current.get("search")),
         "selected_ids": deepcopy(reference.get("selected_ids", [])),
         "direction": reference.get("direction", ""),
         "decision_source": reference.get("decision_source"),
@@ -134,7 +220,9 @@ def reference_context(state):
     if status in {"needed", "refining", "offered"}:
         from .reference_sources import reference_source_catalog
 
-        context["source_catalog"] = reference_source_catalog()
+        context["source_catalog"] = reference_source_catalog(
+            state.get("category"), compact=True
+        )
     if status == "offered":
         context["next_action"] = (
             "Show these real source links once in ordinary chat with brief observed traits and any available native previews. "
@@ -144,8 +232,9 @@ def reference_context(state):
     elif status == "refining":
         context["next_action"] = (
             "Use the saved rejection and any earlier likes to improve the search. If the feedback does not identify what to change, ask one focused "
-            "contrast question in native questions or ordinary chat before searching again. Search the curated sources using available host tools, "
-            "inspect the actual results, then offer a new round. Do not recycle rejected examples unchanged or infer acceptance."
+            "contrast question in native questions or ordinary chat before searching again. Run a new query-specific search with available host tools, "
+            "compare and inspect promising candidates, then record a new search and offer. Preserve liked traits while changing disliked ones. "
+            "The registry lists places to search, not preselected examples. Do not recycle rejected examples unchanged or infer acceptance."
         )
     elif status in {"accepted", "delegated"}:
         context["next_action"] = (
@@ -154,8 +243,10 @@ def reference_context(state):
         )
     else:
         context["next_action"] = (
-            "Before creation, search the maintained source catalog with available host web tools for 2–3 relevant visual or video references, "
-            "inspect the actual material, and record an offer. One user-supplied reference is sufficient. Do not invent links, observations, or video playback. "
+            "Before creation, derive a visual search intent from this brief, then search suitable curated collections live using host tools. "
+            "Compare a small candidate pool, inspect promising material, and record search evidence and reasons for offering 2–3 distinct references. "
+            "Collection order and prior research examples are not recommendations. One user-supplied reference is sufficient. "
+            "Never invent candidates to meet a quota or claim video playback from page metadata. "
             "If search or approved sources are unavailable, explain that and ask for a user reference or explicit delegation to skip reference search. "
             "Record that actual reply with action delegate; silence is not delegation."
         )
@@ -174,8 +265,9 @@ def register_references(mcp, store, muser, read, write):
         selected_ids: list[str] | None = None,
         direction: str = "",
         user_message: str = "",
+        search: ReferenceSearch | None = None,
     ) -> dict:
-        """Save a Hands on reference-search round or the user's explicit response, without displaying an app. Search using available host tools and the curated source catalog first; this tool does not browse. Offer 2–3 inspected references (one if user supplied), with stable IDs, actual observed_traits and inspection page/image/video. Use video only if playback was inspected. web_search entries need a curated source_id and discovery_url. Select only IDs from the current offer, or refine rejected examples and search again. Delegate only when the user's actual words authorize skipping search. Decisions must quote user_message, never inferred consent. These reports are assistant-reported, not verified native clicks."""
+        """Save live, brief-specific reference research or the user's response without displaying an app. This tool does NOT search or inspect: use host tools first. Each offer requires search: search_intent, actual search_queries (empty for direct browsing), candidates with reference/evidence_note/fit/limitations/disposition, selection_reason, coverage_limitations. Compare relevance, design differences and production feasibility; no fixed candidate quota or fabricated rejections. Recommend 2–3 inspected references (one if user supplied); their records must match the recommended candidates exactly. Record page/image/video evidence honestly: only actual motion inspection supports pacing claims. web_search entries need curated source_id and discovery_url. The registry supplies search locations, never preapproved example videos. Select current IDs, refine with user feedback and new research, or delegate only on explicit user request to skip. Decisions quote user_message. All inspection and user quotes are assistant-reported, not independently verified."""
         uid = muser(True)
         store.project(uid, project_id)
         if (
@@ -194,6 +286,8 @@ def register_references(mcp, store, muser, read, write):
             item if isinstance(item, Reference) else Reference.model_validate(item)
             for item in references or []
         ]
+        if search is not None and not isinstance(search, ReferenceSearch):
+            search = ReferenceSearch.model_validate(search)
         selected_ids = selected_ids or []
         if len(references) > 3 or len(selected_ids) > 3:
             raise ValueError("Use at most three reference choices")
@@ -205,6 +299,9 @@ def register_references(mcp, store, muser, read, write):
             direction=direction.strip(),
             user_message=user_message.strip(),
         )
+        # Omit absent search to preserve exact retry hashes from earlier clients.
+        if search is not None:
+            payload["search"] = search.model_dump()
         digest = hashlib.sha256(
             json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()
         ).hexdigest()
@@ -282,9 +379,33 @@ def register_references(mcp, store, muser, read, write):
 
             for item in references:
                 validate_reference_source(item.model_dump())
+            if search is None:
+                raise ValueError(
+                    "Record this brief's live search, candidate evidence and comparison in search before offering references"
+                )
+            recommended = {
+                candidate.reference.id: candidate.reference.model_dump()
+                for candidate in search.candidates
+                if candidate.disposition == "recommend"
+            }
+            if recommended != {item.id: item.model_dump() for item in references}:
+                raise ValueError(
+                    "Offered references must match the recommended candidate records exactly"
+                )
+            for candidate in search.candidates:
+                validate_reference_source(candidate.reference.model_dump())
+            comparison = deepcopy(payload["search"])
+            comparison["recorded_at"] = datetime.now(timezone.utc).isoformat()
             reference["rounds"] = (
                 rounds
-                + [dict(id=ident(), references=payload["references"], status="offered")]
+                + [
+                    dict(
+                        id=ident(),
+                        references=payload["references"],
+                        search=comparison,
+                        status="offered",
+                    )
+                ]
             )[-6:]
             reference.update(
                 status="offered",
@@ -294,6 +415,8 @@ def register_references(mcp, store, muser, read, write):
                 user_message="",
             )
         else:
+            if search is not None:
+                raise ValueError("Save search evidence with action offer only")
             if references:
                 raise ValueError(
                     "Save new references with action offer; do not replace them while recording a response"

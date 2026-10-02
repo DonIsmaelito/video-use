@@ -643,7 +643,7 @@ def register_workflow(mcp, store, muser, new_project, read, write):
             experience=experience_context(state, event="start"),
             complementary_workflows=[workflow_summary(c) for c in supporting],
             intake=intake_context(state, pid),
-            reference_sources=reference_source_catalog(),
+            reference_sources=reference_source_catalog(category, compact=True),
             next_action=(intake_context(state, pid) or {}).get("next_action")
             or "Continue this existing project using its saved creative choices and involvement level.",
             capabilities={

@@ -11,16 +11,22 @@ projects retain their saved mode or labeled default. Resolve real blockers in al
 Choose a subject-specific visual idea, hierarchy and signature transformation.
 Reuse rendering mechanics, not the same layout or aesthetic for every request.
 Diagrams, type, images, footage and 3D can mix when the idea needs them.
-Hands on consults the maintained source registry first, then uses host web/image
-tools for 2–3 distinct relevant references. If empty or none fit, ask for a user reference or
-explicit delegation to a described direction; no open-web discovery. Include source
-URLs and honest page/thumbnail/still/played-clip evidence. Present native links or
-images, not forms; save chosen traits. If rejected, ask one targeted question from
-the feedback and search again without repeating dislikes. Apply approved traits
-to the sample. Record explicit user words to delegate search for a supplied
-reference, exact edit or skip request. Without host search, ask for a reference or
-permission to use a described direction; never silently substitute cached samples.
-Reference selection does not import media. Follow the overview's full research loop.
+The registry supplies search locations/access notes, not fixed media suggestions.
+Search and inspect fresh query-specific references with host tools. For Hands on,
+derive a visual search intent and route adaptively through relevant
+curated collections, not the first two sources. Scan candidates cheaply, inspect
+only 2–3 promising finalists, batching independent searches when supported, then
+stop once useful choices exist. Compare brief fit, design, evidence and feasible adaptation
+to offer 2–3 distinct approaches. Save intent, queries and evaluation reasons.
+Source research verified no playback. Page claims are attributed; actually viewed
+images support visible palette/layout, not motion or sound. Record honest evidence
+and source URLs; use native links/images, not forms. Separate factual research.
+Retain likes and dislikes by attribute; ask only what is unclear and adapt the
+search, not a fixed phrase-to-source rule. Apply approved traits to the sample.
+Supplied references, exact edits or explicit skip requests can delegate search;
+record the user's words. Missing search or suitable curated coverage needs a user
+reference or explicit delegation, not invented sources, open-web roaming or cached
+substitutes. Selection does not import media. Follow the overview's research loop.
 
 Build one meaningful short motion excerpt before authoring the entire film;
 declare `production_stage="excerpt"` in its `run_video_step`. Hands off keeps it

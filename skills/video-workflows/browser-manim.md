@@ -1,27 +1,23 @@
 # Manim in the browser worker
 
-Version-1 interaction takes priority: `start_video` returns the involvement question.
-Use the native question tool if available, otherwise normal chat; do not repeat it
-through `show_video_brief` or open a form. Then ask only missing duration/destination
-and wait for explicit answers. Hands off shows only
-the finished video, Key moments uses selective updates, and Hands on researches
-real online references before creating, then reviews a short sample before the rest.
-Legacy projects retain their saved mode or labeled default. Real blockers still
-need resolution; ordinary rendering needs no extra approval.
+Version-1 interaction takes priority: ask `start_video`'s involvement question with
+the native question tool if available, otherwise normal chat. Do not repeat it
+through `show_video_brief`. Ask only missing duration/destination and wait for answers.
+Hands off shows only the final video; Key moments uses selective updates;
+Hands on researches online references, then reviews a short sample before the rest.
+Legacy projects retain their saved mode or labeled default. Resolve real blockers;
+ordinary rendering needs no extra approval.
 
-Use Manim when geometry, a mechanism, equations or data relationships carry the
-explanation. It does not prescribe a dark palette, a scene count or a title-card
-format. Choose the visual premise for the subject and the user's direction.
-For Hands on, consult the maintained source registry first, then use host web/image
-tools for 2–3 distinct references. If empty or none fit, ask for a user reference or explicit
-delegation to a described direction; no open-web discovery.
-Link sources and distinguish inspected pages/thumbnails/stills from played clips.
-Use native links/images or chat, not forms. Save chosen or combined traits. If
-rejected, ask one targeted feedback question, search again and retain dislikes.
-Drive the sample from approved traits; selection does not import source media.
-Record the user's words for a supplied-reference, exact-edit or skip-search
-delegation. If search is unavailable, ask for a reference or permission to use a
-described direction; never fabricate research or substitute cached examples.
+Use Manim for geometry, mechanisms, equations and data relationships. Palette,
+scene count and visual premise follow the subject and user's direction.
+Hands on follows the overview's real-time reference loop. The registry lists search
+locations/access notes, not recommended media. Search fresh candidates adaptively;
+batch independent queries, inspect few finalists, stop at distinct feasible choices.
+Save intent, queries and evaluation reasons. Keep factual research separate.
+Attribute page claims; stills cannot establish motion/audio. Claim only actual
+playback. Retain likes/dislikes and apply approved traits. Explicit user words can
+delegate search; missing access/coverage needs a reference or delegation, not cached
+substitutes. Selection does not import media.
 
 ## Author less before the first useful preview
 

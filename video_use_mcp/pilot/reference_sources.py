@@ -1,14 +1,50 @@
 """Curator-owned discovery locations, separate from the agent's creative choices."""
 
 import json
+import ipaddress
 import posixpath
+import re
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
 REGISTRY = Path(__file__).with_name("reference_sources.json")
 
 
-def reference_source_catalog():
+def _public_https_url(value):
+    if (
+        not isinstance(value, str)
+        or "\\" in value
+        or any(c.isspace() or ord(c) < 32 for c in value)
+    ):
+        raise ValueError("Reference sources need public HTTPS collection URLs")
+    try:
+        url = urlsplit(value)
+        host, port = url.hostname or "", url.port
+    except ValueError as exc:
+        raise ValueError("Reference sources need public HTTPS collection URLs") from exc
+    if (
+        url.scheme != "https"
+        or not host
+        or url.username is not None
+        or url.password is not None
+        or port not in {None, 443}
+        or "%" in host
+    ):
+        raise ValueError("Reference sources need public HTTPS collection URLs")
+    try:
+        address = ipaddress.ip_address(host)
+    except ValueError:
+        if "." not in host or host.endswith(
+            (".localhost", ".local", ".internal", ".invalid", ".test")
+        ):
+            raise ValueError("Reference sources need public HTTPS collection URLs")
+    else:
+        if not address.is_global:
+            raise ValueError("Reference sources need public HTTPS collection URLs")
+    return url
+
+
+def _registry():
     data = json.loads(REGISTRY.read_text())
     if data.get("version") != 1 or not isinstance(data.get("sources"), list):
         raise ValueError("Invalid reference source registry")
@@ -24,24 +60,151 @@ def reference_source_catalog():
             raise ValueError(
                 "Reference sources need distinct IDs, names and categories"
             )
-        url = urlsplit(source.get("url", ""))
-        if url.scheme != "https" or not url.hostname or url.username or url.password:
-            raise ValueError("Reference sources need public HTTPS collection URLs")
+        _public_https_url(source.get("url", ""))
+        roots = source.get("discovery_roots", [source["url"]])
+        patterns = source.get("discovery_patterns", [])
+        if (
+            not isinstance(roots, list)
+            or not isinstance(patterns, list)
+            or not (roots or patterns)
+        ):
+            raise ValueError(
+                "Reference sources need explicit discovery roots or patterns"
+            )
+        for root in roots:
+            _public_https_url(root)
+        for pattern in patterns:
+            if not isinstance(pattern, dict):
+                raise ValueError(
+                    "Discovery patterns must declare origin and path_regex"
+                )
+            origin = _public_https_url(pattern.get("origin", ""))
+            if origin.path not in {"", "/"} or origin.query or origin.fragment:
+                raise ValueError("Discovery pattern origins must be HTTPS origins")
+            expression = pattern.get("path_regex", "")
+            if (
+                not isinstance(expression, str)
+                or not expression.startswith("/")
+                or len(expression) > 200
+            ):
+                raise ValueError(
+                    "Discovery patterns need bounded absolute path expressions"
+                )
+            try:
+                re.compile(expression)
+            except re.error as exc:
+                raise ValueError("Invalid discovery path expression") from exc
         seen.add(source["id"])
-    return data | dict(
+    for route in data.get("routing", {}).values():
+        if any(
+            item not in seen
+            for key in ("primary", "secondary", "nearest")
+            for item in route.get(key, [])
+        ):
+            raise ValueError("Reference routing points to an unknown approved source")
+    return data
+
+
+def reference_source_catalog(category=None, *, compact=False):
+    """Category routes express fit, not a global popularity or quality ranking.
+
+    Full mode includes curator evidence and unapproved reserves. Routine model
+    context may request compact mode to avoid repeating that research history.
+    Filtering changes suggestions only; validation always uses the full allowlist.
+    """
+    data = _registry()
+    approved = data["sources"]
+    route = data.get("routing", {}).get(category)
+    if category and route:
+        ids = list(
+            dict.fromkeys(
+                item
+                for key in ("primary", "secondary", "nearest")
+                for item in route.get(key, [])
+            )
+        )
+        selected = [
+            source
+            for source_id in ids
+            for source in approved
+            if source["id"] == source_id
+        ]
+    elif category:
+        selected = [source for source in approved if category in source["categories"]]
+    else:
+        selected = approved
+    if compact:
+        keys = {
+            "id",
+            "name",
+            "url",
+            "categories",
+            "discovery_roots",
+            "discovery_patterns",
+            "verification",
+            "search_notes",
+            "inspection_notes",
+            "access_notes",
+            "biases",
+        }
+        base = {
+            "version": data["version"],
+            "checked_at": data.get("checked_at"),
+            "sources": [
+                {k: v for k, v in source.items() if k in keys} for source in selected
+            ],
+            "evidence_policy": data.get("evidence_policy", []),
+            "selection_policy": data.get("selection_policy", ""),
+            "feedback_policy": data.get("feedback_policy", []),
+        }
+    else:
+        base = data | {"sources": selected}
+    if category:
+        base.update(
+            category=category,
+            coverage=route
+            or {
+                "coverage": "unmapped",
+                "notes": "No researched route for this category. Explain the gap; use a relevant approved neighbor or ask for a user reference.",
+            },
+        )
+        base["available_sources"] = [
+            {key: source[key] for key in ("id", "name", "url", "categories")}
+            for source in approved
+        ]
+    return base | dict(
         status="ready" if data["sources"] else "awaiting_curation",
+        source_count=len(approved),
+        matched_source_count=len(selected),
+        routing_policy="Category routes are starting points, not a browsing whitelist or a global ranking. Any approved source may fit a particular query. Discover and inspect fresh candidates for this request; there are no preselected reference videos.",
         policy=(
             "Search these curator-approved collections using host tools, not arbitrary sites. "
             "Save source_id and the discovery_url inside that collection for each web reference. "
             "An example may link out to its creator's site; preserve both links. "
             "User-supplied references can be inspected directly. If the list is empty or no source fits, "
-            "ask for a reference or an explicitly delegated direction; do not silently broaden the search."
+            "ask for a reference or an explicitly delegated direction; do not silently broaden the search. "
+            "Reserve sources are research leads, not approved discovery sources. Metadata access never proves playback."
         ),
     )
 
 
 def _collection_path(path):
-    return posixpath.normpath("/" + unquote(path).lstrip("/"))
+    # Reject encoded traversal rather than allowing multiple decoding layers to
+    # disagree about collection membership. Query strings do not expand a root.
+    decoded = unquote(path)
+    if (
+        "\\" in decoded
+        or any(part in {".", ".."} for part in decoded.split("/"))
+        or re.search(r"%[0-9a-fA-F]{2}", decoded)
+    ):
+        raise ValueError("discovery_url must be inside the selected curated collection")
+    return posixpath.normpath("/" + decoded.lstrip("/"))
+
+
+def _same_origin(left, right):
+    return left.hostname.lower() == right.hostname.lower() and (left.port or 443) == (
+        right.port or 443
+    )
 
 
 def validate_reference_source(reference):
@@ -51,7 +214,7 @@ def validate_reference_source(reference):
     source = next(
         (
             item
-            for item in reference_source_catalog()["sources"]
+            for item in _registry()["sources"]
             if item["id"] == reference.get("source_id")
         ),
         None,
@@ -60,16 +223,22 @@ def validate_reference_source(reference):
         raise ValueError(
             "Choose a curated source_id or inspect a user-supplied reference"
         )
-    entry, discovery = (
-        urlsplit(source["url"]),
-        urlsplit(reference.get("discovery_url", "")),
-    )
-    root, path = _collection_path(entry.path), _collection_path(discovery.path)
-    if (
-        discovery.scheme != "https"
-        or discovery.netloc.lower() != entry.netloc.lower()
-        or discovery.username
-        or discovery.password
-        or not (root == "/" or path == root or path.startswith(root.rstrip("/") + "/"))
-    ):
-        raise ValueError("discovery_url must be inside the selected curated collection")
+    try:
+        discovery = _public_https_url(reference.get("discovery_url", ""))
+        path = _collection_path(discovery.path)
+    except ValueError as exc:
+        raise ValueError(
+            "discovery_url must be inside the selected curated collection"
+        ) from exc
+    for root_url in source.get("discovery_roots", [source["url"]]):
+        entry = _public_https_url(root_url)
+        root = _collection_path(entry.path)
+        if _same_origin(entry, discovery) and (
+            root == "/" or path == root or path.startswith(root.rstrip("/") + "/")
+        ):
+            return
+    for pattern in source.get("discovery_patterns", []):
+        entry = _public_https_url(pattern["origin"])
+        if _same_origin(entry, discovery) and re.fullmatch(pattern["path_regex"], path):
+            return
+    raise ValueError("discovery_url must be inside the selected curated collection")

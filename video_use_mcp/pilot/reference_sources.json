@@ -1,4 +1,564 @@
 {
   "version": 1,
-  "sources": []
+  "checked_at": "2026-10-02",
+  "research_document": "AI Video Reference Sources.md supplied by the user on 2026-10-02",
+  "selection_policy": "Choose examples for the user's category and contrasting approaches. The list has no global quality or popularity ranking. Awards, views, likes and appreciation counts are contextual metadata, never proof of fit or a quality score.",
+  "evidence_policy": [
+    "fetched means page text was opened; indexed means a search-engine copy was read; unverified means a lead that still needs checking.",
+    "No reference video was played during this curation. Describe page-stated titles, creators, categories, runtime, synopsis, credits and tools as attributed metadata.",
+    "Do not infer motion, pacing, palette or sound from a title or thumbnail. Use image inspection only for visible image traits; use video inspection only after actual playback. Otherwise invite the user to watch and describe what they notice.",
+    "Fetch outcomes are observations from one tool and date, not universal access guarantees. Trust current access evidence; disclose unavailable media and preserve original source links.",
+    "A reference is inspiration, not permission to reuse its footage. Preserve discovery and original-creator links separately."
+  ],
+  "feedback_policy": [
+    "Save tone, palette, motion and medium feedback separately. Change the criticized attribute while preserving explicit likes; compare distinct approaches rather than near duplicates.",
+    "Treat feedback like too corporate or too childish as a clue about tone, medium or audience, not a fixed source-selection rule. Ask a focused contrast question when the intended change is unclear, then vary the relevant source/filter or candidate while preserving liked traits.",
+    "When motion is liked but color is not, preserve the selected technique and seek a separate palette reference. Do not discard the liked motion or claim it was inspected when it was only described by the user."
+  ],
+  "routing": {
+    "explainer": {
+      "primary": [
+        "ordinary_folk"
+      ],
+      "secondary": [
+        "wine_after_coffee"
+      ],
+      "coverage": "good",
+      "notes": "Studio explanations versus broader curated animation; inspect the actual topic fit."
+    },
+    "motion_design": {
+      "primary": [
+        "motion_awards"
+      ],
+      "secondary": [
+        "wine_after_coffee"
+      ],
+      "coverage": "good"
+    },
+    "typography": {
+      "primary": [
+        "art_of_the_title"
+      ],
+      "secondary": [
+        "behance",
+        "eyecannndy"
+      ],
+      "coverage": "good"
+    },
+    "ads": {
+      "primary": [
+        "ads_of_the_world"
+      ],
+      "secondary": [
+        "motion_awards"
+      ],
+      "coverage": "good",
+      "notes": "Use Film and Commercial labels, retaining country and industry context."
+    },
+    "product_video": {
+      "primary": [
+        "stash"
+      ],
+      "secondary": [
+        "what_ships"
+      ],
+      "coverage": "good",
+      "notes": "Compare a CG product film with a Hardware launch example."
+    },
+    "brand": {
+      "primary": [
+        "ads_of_the_world",
+        "stash"
+      ],
+      "secondary": [
+        "motion_awards",
+        "what_ships",
+        "ordinary_folk"
+      ],
+      "coverage": "good",
+      "notes": "Choose the ad, product-film or brand-film route from the actual brief, not every source at once."
+    },
+    "software_demo": {
+      "primary": [
+        "what_ships"
+      ],
+      "secondary": [],
+      "coverage": "good",
+      "notes": "Launch Library remains an unapproved reserve. Distinguish screen-led demonstrations from product announcements."
+    },
+    "social_clips": {
+      "primary": [
+        "eyecannndy"
+      ],
+      "secondary": [],
+      "coverage": "weak",
+      "notes": "Technique references are nearest neighbors, not a dedicated social-clips catalog. TikTok reserve access may require login."
+    },
+    "footage_story": {
+      "primary": [
+        "eyecannndy"
+      ],
+      "secondary": [
+        "vimeo_staff_picks"
+      ],
+      "coverage": "weak",
+      "notes": "No dedicated personal-montage collection; offer film/editing neighbors and disclose the gap."
+    },
+    "data_story": {
+      "primary": [
+        "the_pudding"
+      ],
+      "secondary": [
+        "motion_awards"
+      ],
+      "coverage": "fair",
+      "notes": "Compare an essay/video with Infographics or News graphic packages; many Pudding entries are interactive essays rather than videos."
+    },
+    "document_video": {
+      "primary": [],
+      "secondary": [],
+      "nearest": [
+        "the_pudding"
+      ],
+      "coverage": "gap",
+      "notes": "No document-to-video collection found. Essay-and-video pairs are only a nearby reference format."
+    },
+    "audio_first": {
+      "primary": [],
+      "secondary": [],
+      "coverage": "gap",
+      "notes": "No curated podcast/audiogram gallery found. Reserve articles need separate verification and approval; ask for a user reference or explicit fallback."
+    },
+    "procedural_3d": {
+      "primary": [
+        "stash"
+      ],
+      "secondary": [
+        "art_of_the_title",
+        "vimeo_staff_picks"
+      ],
+      "coverage": "good",
+      "notes": "Start with Stash 3D Style; distinguish page-described CG from inspected moving images."
+    }
+  },
+  "sources": [
+    {
+      "id": "motion_awards",
+      "name": "The Motion Awards winners archive",
+      "url": "https://motionawards.com/winners-2025.html",
+      "discovery_roots": [],
+      "discovery_patterns": [
+        {
+          "origin": "https://motionawards.com",
+          "path_regex": "/winners-[0-9]{4}\\.html"
+        }
+      ],
+      "categories": [
+        "motion_design",
+        "ads",
+        "brand",
+        "typography",
+        "data_story",
+        "procedural_3d"
+      ],
+      "verification": "fetched",
+      "research_verification": "fetched",
+      "search_notes": "Open a winners year archive and filter by discipline/subcategory such as Commercial, Infographics, News or Feature Film. Known linked years: 2016, 2017, 2020–2025. Then search the listed title and studio for the film, preserving the archive as discovery_url.",
+      "inspection_notes": "Archive text supplies award category, work title and studio. Thumbnails do not establish animation or sound; inspect a linked original separately.",
+      "access_notes": "2025 archive text opened without login on 2026-10-02; fetched text exposed thumbnails but no film links.",
+      "biases": "Jury-selected, often high-budget studio work; awards are not evidence that an approach fits a small project.",
+      "verification_evidence": [
+        {
+          "url": "https://motionawards.com/winners-2025.html",
+          "checked_at": "2026-10-02",
+          "method": "fetched",
+          "outcome": "Work titles, studio credits, disciplines and archive links readable; no playback."
+        }
+      ]
+    },
+    {
+      "id": "eyecannndy",
+      "name": "Eyecannndy technique pages",
+      "url": "https://eyecannndy.com/technique/transition",
+      "discovery_roots": [
+        "https://eyecannndy.com/technique"
+      ],
+      "categories": [
+        "social_clips",
+        "footage_story",
+        "ads",
+        "typography",
+        "motion_design"
+      ],
+      "verification": "fetched",
+      "research_verification": "fetched",
+      "search_notes": "Use /technique/<slug>: typography, quick-cuts, whip-pan, match-cut, speed-ramping, split-screen, mixed-media, collage, stop-motion, product, interview, parallax, freeze-frame, jump-cut, slow-motion, fpv-drone, hard-light, maximalism, screen-in-screen. Floating UI uses digital-overlay; Vintage vhs; Animation traditional; Zoom zoom-in.",
+      "inspection_notes": "Technique definitions and source-labeled GIFs can guide discovery. A GIF address or technique label is not inspected playback. Report actual image/motion inspection separately.",
+      "access_notes": "Technique text and category links opened without login. User research found GIF assets on asset.eyecannndy.com; current text fetch did not inspect those animations. Account features are separate from public browsing.",
+      "biases": "Technique-led rather than genre-led, with many music-video references. Site explicitly cautions that labels are imperfect.",
+      "verification_evidence": [
+        {
+          "url": "https://eyecannndy.com/technique/transition",
+          "checked_at": "2026-10-02",
+          "method": "fetched",
+          "outcome": "Technique descriptions, category links and one asset address readable; animations not played."
+        }
+      ]
+    },
+    {
+      "id": "what_ships",
+      "name": "What Ships",
+      "url": "https://whatships.com/",
+      "discovery_roots": [
+        "https://whatships.com/"
+      ],
+      "categories": [
+        "software_demo",
+        "product_video",
+        "brand"
+      ],
+      "verification": "fetched",
+      "research_verification": "fetched",
+      "search_notes": "Filter AI, Developer tools, Design, Motion, Productivity, Consumer, Hardware or Other, then inspect runtime and project content. Entries use /videos/<slug>/. Choose contrasts in approach; view counts are not a universal quality ranking.",
+      "inspection_notes": "Cards provide titles, companies, categories, dates, listed runtimes, view counts and original X posts. Posters and metadata do not verify product motion or playback.",
+      "access_notes": "Homepage text and card metadata opened without login. X-hosted video playback was not tested; do not assume availability in the host chat.",
+      "biases": "Strong AI and developer-tool emphasis; performance counts favor reach, not necessarily creative suitability.",
+      "verification_evidence": [
+        {
+          "url": "https://whatships.com/",
+          "checked_at": "2026-10-02",
+          "method": "fetched",
+          "outcome": "Launch directory and card metadata readable; X playback not tested."
+        }
+      ]
+    },
+    {
+      "id": "wine_after_coffee",
+      "name": "WINE after COFFEE",
+      "url": "https://vimeo.com/channels/wineaftercoffee",
+      "discovery_roots": [
+        "https://vimeo.com/channels/wineaftercoffee"
+      ],
+      "categories": [
+        "explainer",
+        "motion_design"
+      ],
+      "verification": "indexed",
+      "research_verification": "indexed",
+      "search_notes": "Search this exact Vimeo channel or the quoted channel name plus topic/brand. Search-index results can expose chosen titles and creators even when direct fetch fails. Keep a channel discovery URL and the original film URL separately.",
+      "inspection_notes": "Channel curation and indexed titles are evidence of discovery only; do not invent visual style or claim to watch an inaccessible Vimeo player.",
+      "access_notes": "Current direct open returned a page-unavailable/navigation shell. The primary channel's search-index copy exposed titles and moderator information. Video playback untested.",
+      "biases": "Moderator-selected animation and motion design, not comprehensive educational or everyday editing examples.",
+      "verification_evidence": [
+        {
+          "url": "https://vimeo.com/channels/wineaftercoffee",
+          "checked_at": "2026-10-02",
+          "method": "indexed",
+          "outcome": "Search-index copy exposed channel description and titles; direct fetch returned unavailable/navigation content."
+        }
+      ]
+    },
+    {
+      "id": "art_of_the_title",
+      "name": "Art of the Title",
+      "url": "https://www.artofthetitle.com/titles/",
+      "discovery_roots": [
+        "https://www.artofthetitle.com/titles",
+        "https://www.artofthetitle.com/title",
+        "https://www.artofthetitle.com/style",
+        "https://www.artofthetitle.com/category",
+        "https://www.artofthetitle.com/designer"
+      ],
+      "categories": [
+        "typography",
+        "procedural_3d",
+        "motion_design"
+      ],
+      "verification": "fetched",
+      "research_verification": "fetched",
+      "search_notes": "Browse /style/3d/, /style/cgi/, /style/main-title/, /style/2020s/, /category/tv/, /titles/<year>/ or a designer page. Open /title/<slug>/ articles for credited processes and available stills.",
+      "inspection_notes": "Attribute type, technique or process claims to the interview. Inspect stills for visible design; embedded Vimeo links alone do not establish watched motion or sound.",
+      "access_notes": "Severance article text opened without login with process discussion, still references and credits. Embedded playback not inspected.",
+      "biases": "Film and television title sequences; often cinematic and production-heavy compared with a short explainer.",
+      "verification_evidence": [
+        {
+          "url": "https://www.artofthetitle.com/title/severance/",
+          "checked_at": "2026-10-02",
+          "method": "fetched",
+          "outcome": "Article/process text readable; no video playback."
+        }
+      ]
+    },
+    {
+      "id": "ads_of_the_world",
+      "name": "Ads of the World Film",
+      "url": "https://www.adsoftheworld.com/medium_types/film",
+      "discovery_roots": [
+        "https://www.adsoftheworld.com/medium_types/film",
+        "https://www.adsoftheworld.com/industries",
+        "https://www.adsoftheworld.com/campaigns"
+      ],
+      "categories": [
+        "ads",
+        "brand"
+      ],
+      "verification": "indexed",
+      "research_verification": "indexed",
+      "search_notes": "Start with Film, narrow an industry (for example /industries/movies), or search brand plus Ads of the World. Open /campaigns/<slug> and verify its medium before offering a film reference.",
+      "inspection_notes": "Use page-stated synopsis, country, industry, dates and credits. An indexed campaign listing is not a watched commercial.",
+      "access_notes": "Direct Film-page fetch timed out; its primary-site search-index copy exposed campaign titles and agencies. Actual campaign/player access remains to be checked.",
+      "biases": "Commercial advertising with agency production values and market-specific context.",
+      "verification_evidence": [
+        {
+          "url": "https://www.adsoftheworld.com/medium_types/film",
+          "checked_at": "2026-10-02",
+          "method": "indexed",
+          "outcome": "Film index visible in search results; direct fetch timed out."
+        }
+      ]
+    },
+    {
+      "id": "stash",
+      "name": "Stash Best of Stash roundups",
+      "url": "https://www.stashmedia.tv/best-of-stash-2023-product-films/",
+      "discovery_roots": [],
+      "discovery_patterns": [
+        {
+          "origin": "https://www.stashmedia.tv",
+          "path_regex": "/best-of-stash-[0-9]{4}-[a-z0-9-]+"
+        },
+        {
+          "origin": "https://www.stashmedia.tv",
+          "path_regex": "/tag/best-of-stash-[0-9]{4}"
+        }
+      ],
+      "categories": [
+        "product_video",
+        "brand",
+        "procedural_3d",
+        "motion_design"
+      ],
+      "verification": "fetched",
+      "research_verification": "indexed",
+      "search_notes": "Search Best of Stash plus year and Product Films, 3D Style or Passion Projects. Use public roundup articles as discovery, then retain their linked films/studio pages as original references.",
+      "inspection_notes": "Roundups contain credited production descriptions and director statements. Attribute those claims; Vimeo embeds were not played during curation.",
+      "access_notes": "2023 Product Films article opened with text and player links. Public roundups are distinct from the paid Permanent Collection; do not assume free access to subscription material.",
+      "biases": "Polished CG, commercial objects and studio work; may imply budgets or assets beyond a small video request.",
+      "verification_evidence": [
+        {
+          "url": "https://www.stashmedia.tv/best-of-stash-2023-product-films/",
+          "checked_at": "2026-10-02",
+          "method": "fetched",
+          "outcome": "Public article, production descriptions and embedded-player links readable; no playback."
+        }
+      ]
+    },
+    {
+      "id": "ordinary_folk",
+      "name": "Ordinary Folk Work",
+      "url": "https://www.ordinaryfolk.co/work",
+      "discovery_roots": [
+        "https://www.ordinaryfolk.co/work"
+      ],
+      "categories": [
+        "explainer",
+        "brand",
+        "motion_design"
+      ],
+      "verification": "fetched",
+      "research_verification": "indexed",
+      "search_notes": "Scan the client/project index, then inspect the chosen project page. Compare topic and communication approach instead of applying one studio look to every brief.",
+      "inspection_notes": "A title/client list identifies candidates, not their moving-image appearance. Verify process and visible artwork on the individual project before describing it.",
+      "access_notes": "Work index opened without login and lists Spline, Webflow and other projects. Individual film playback not inspected.",
+      "biases": "One studio's portfolio and production strengths; not a neutral sample of all explainer styles.",
+      "verification_evidence": [
+        {
+          "url": "https://www.ordinaryfolk.co/work",
+          "checked_at": "2026-10-02",
+          "method": "fetched",
+          "outcome": "Client/project links readable, including Spline and Webflow projects; no playback."
+        }
+      ]
+    },
+    {
+      "id": "behance",
+      "name": "Behance typography project search",
+      "url": "https://www.behance.net/search/projects/kinetic%20typography",
+      "discovery_roots": [
+        "https://www.behance.net/search/projects",
+        "https://www.behance.net/gallery"
+      ],
+      "categories": [
+        "typography",
+        "motion_design"
+      ],
+      "verification": "indexed",
+      "research_verification": "indexed",
+      "search_notes": "Search /search/projects/<URL-encoded-query> for typography and short loops; inspect project pages. Curator badges can help discovery but do not rank by appreciations or views unless the user explicitly requests performance research.",
+      "inspection_notes": "Project descriptions, creator credits and tool listings may be indexed. Image placeholders or an appreciation count cannot establish the motion quality of a type specimen.",
+      "access_notes": "Direct search-page fetch returned 403. A primary project search-index result was readable. Personalization may require sign-in; playback untested.",
+      "biases": "Self-published design portfolios; visibility, popularity and platform curation skew discovery.",
+      "verification_evidence": [
+        {
+          "url": "https://www.behance.net/search/projects/kinetic%20typography",
+          "checked_at": "2026-10-02",
+          "method": "fetch_attempt",
+          "outcome": "403 Forbidden."
+        },
+        {
+          "url": "https://www.behance.net/gallery/96289771/36-Days-of-Kinetic-Type",
+          "checked_at": "2026-10-02",
+          "method": "indexed",
+          "outcome": "Creator Sam Miles and project description available in search copy; no media inspection."
+        }
+      ]
+    },
+    {
+      "id": "the_pudding",
+      "name": "The Pudding",
+      "url": "https://pudding.cool/",
+      "discovery_roots": [
+        "https://pudding.cool/"
+      ],
+      "categories": [
+        "data_story",
+        "document_video"
+      ],
+      "verification": "fetched",
+      "research_verification": "indexed",
+      "search_notes": "Use the story index and Video label, then check whether the selected essay actually has a video version. Preserve the essay/index discovery URL when following its original YouTube link.",
+      "inspection_notes": "Many entries are interactive visual essays. An article or a listed video runtime is not inspected playback; do not describe every entry as a video template.",
+      "access_notes": "Homepage index and explicit loneliness-video link opened without login. YouTube playback was not tested.",
+      "biases": "Data-led editorial essays with original research; a near neighbor, not a dedicated document-to-video collection.",
+      "verification_evidence": [
+        {
+          "url": "https://pudding.cool/",
+          "checked_at": "2026-10-02",
+          "method": "fetched",
+          "outcome": "Visual-essay index, Video label and explicit YouTube video entry readable; no playback."
+        }
+      ]
+    },
+    {
+      "id": "vimeo_staff_picks",
+      "name": "Vimeo Best of Staff Picks and Staff Pick Premieres",
+      "url": "https://vimeo.com/channels/bestofstaffpicks",
+      "discovery_roots": [
+        "https://vimeo.com/channels/bestofstaffpicks",
+        "https://vimeo.com/channels/premieres"
+      ],
+      "categories": [
+        "footage_story",
+        "procedural_3d"
+      ],
+      "verification": "fetched",
+      "research_verification": "fetched",
+      "search_notes": "Search the exact curated channel names plus subject or technique. An original Vimeo video URL may be the final reference, but discovery_url must remain inside one of these two channels; do not browse arbitrary Vimeo as an approved collection.",
+      "inspection_notes": "Navigation-only fetches do not verify a film list. Find indexed channel membership, title and creator evidence; inspect a film separately or ask the user to watch.",
+      "access_notes": "User research fetched only navigation for Best of Staff Picks and indexed Premieres. Current Best-of fetch timed out; Premieres again returned navigation only. Playback not verified.",
+      "biases": "Curated cinematic shorts and independent films, not a dedicated personal-montage library.",
+      "verification_evidence": [
+        {
+          "url": "https://vimeo.com/channels/bestofstaffpicks",
+          "checked_at": "2026-10-02",
+          "method": "fetch_attempt",
+          "outcome": "Timeout; prior research observed navigation only."
+        },
+        {
+          "url": "https://vimeo.com/channels/premieres",
+          "checked_at": "2026-10-02",
+          "method": "fetched",
+          "outcome": "Navigation-only response, no film list or playback inspected."
+        }
+      ]
+    }
+  ],
+  "reserves": [
+    {
+      "id": "launch_library",
+      "name": "Launch Library",
+      "url": "https://launchlibrary.xyz/",
+      "verification": "indexed",
+      "approved": false,
+      "notes": "Research-document lead for launch videos from X; metrics only matter when the user requests performance context. Not rechecked or approved for discovery."
+    },
+    {
+      "id": "koalary",
+      "name": "Koalary",
+      "url": "https://koalary.com/",
+      "verification": "indexed",
+      "approved": false,
+      "notes": "Smaller launch-video gallery from user research; verify current access before seeking curator approval."
+    },
+    {
+      "id": "launch_gallery",
+      "name": "launch.gallery",
+      "url": "https://launch.gallery/about",
+      "verification": "indexed",
+      "approved": false,
+      "notes": "Smaller launch gallery, not rechecked or approved."
+    },
+    {
+      "id": "tiktok_creative_center",
+      "name": "TikTok Creative Center Top Ads",
+      "verification": "unverified",
+      "approved": false,
+      "notes": "Research cites TikTok help stating only five ads appear without login; actual examples and access were not verified. No discovery URL approved."
+    },
+    {
+      "id": "information_is_beautiful",
+      "name": "Information is Beautiful Awards showcase",
+      "verification": "indexed",
+      "approved": false,
+      "notes": "Mostly static/interactive work with occasional video, from research-document lead. Collection URL not supplied or newly verified."
+    },
+    {
+      "id": "podcast_articles",
+      "name": "Podcast format articles and audiogram roundups",
+      "verification": "indexed",
+      "approved": false,
+      "notes": "Research mentions Pacific Content's format taxonomy, WVFRM/Waveform Clips and journalism.co.uk audiograms. These are leads, not a verified curated video library."
+    },
+    {
+      "id": "headliner_wall",
+      "name": "Headliner Wall of Awesome",
+      "verification": "unverified",
+      "approved": false,
+      "notes": "Secondhand mention in an older Buzzsprout article; not located. Do not fabricate a link."
+    },
+    {
+      "id": "educational_youtube",
+      "name": "Kurzgesagt, Vox and TED-Ed on YouTube",
+      "verification": "unverified",
+      "approved": false,
+      "notes": "General-knowledge leads in the document, not inspected collections. Do not silently expand the approved allowlist to all YouTube."
+    }
+  ],
+  "gaps": [
+    {
+      "category": "audio_first",
+      "coverage": "gap",
+      "notes": "Podcast references are article leads, not a curated gallery."
+    },
+    {
+      "category": "document_video",
+      "coverage": "gap",
+      "notes": "No dedicated document-to-video collection found."
+    },
+    {
+      "category": "social_clips",
+      "coverage": "weak",
+      "notes": "Technique library is a neighbor; the social-ad reserve may require login."
+    },
+    {
+      "category": "footage_story",
+      "coverage": "weak",
+      "notes": "Individual films exist, but no dedicated personal-montage collection was found."
+    },
+    {
+      "category": "all",
+      "coverage": "playback_unverified",
+      "notes": "No reference motion or audio was confirmed by playback during this curation."
+    }
+  ]
 }

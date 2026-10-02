@@ -13,16 +13,21 @@ only the final video, Key moments uses selective updates, and Hands on researche
 real online references before creation and short sample review. Legacy projects keep
 their saved mode or labeled default. Real blockers still need resolution.
 
-Hands on consults the maintained source registry first, then uses host web/image
-tools for 2–3 distinct relevant examples. If empty or none fit, ask for a user reference or
-explicit delegation to a described direction; no open-web discovery. Include
-source URLs and precise page/thumbnail/still/played-clip evidence. Show native
-links/images or chat, not forms; save approved traits and drive the sample from
-them. Rejection means one targeted feedback question and a better search that
-retains dislikes. Record explicit user words when a supplied reference, exact edit
-or skip request delegates search. Without search access, ask for a reference or
-permission to use a described direction; no fabricated or silently cached research.
-Choosing a reference does not import its media. The overview details this loop.
+The registry supplies search locations/access notes, not fixed media suggestions.
+Search and inspect fresh query-specific references with host tools. For Hands on,
+derive a visual search intent and adaptively choose relevant curated
+collections, not the first two sources. Scan candidates cheaply, inspect promising
+finalists (2–3), batch independent queries when supported, and stop once useful
+choices exist. Compare brief fit, design, evidence and feasible adaptation to offer
+2–3 distinct approaches. Save intent, queries and evaluation reasons. Separate
+factual research. Source research verified no playback: page claims are attributed;
+actually viewed images support palette/layout, not motion or sound. State evidence
+limits and source URLs in native chat/links/images, not forms. Refine only relevant
+attributes, retain likes/dislikes and ask only what is unclear. Use approved traits
+in the sample. A supplied reference, exact edit or explicit skip can delegate search
+with saved user words. Missing search or suitable curated coverage needs a reference
+or delegation, not arbitrary web discovery or cached substitutes. Choosing a
+reference does not import media. The overview details this loop.
 
 Pass `project_id`, a new `request_id`, stable `scene_id`, `note`, the current
 `creative_revision`, and `scene`. For the first sample, explicitly pass

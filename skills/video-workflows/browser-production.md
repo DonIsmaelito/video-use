@@ -82,38 +82,98 @@ a sentimental montage's essential people, or exact product fidelity in 3D.
 Do not repeat information already in the prompt or ask the user to choose a
 renderer. Explain creative choices in terms of the result the viewer sees.
 
-In hands-on mode, consult the connector's maintained reference-source registry
-after output basics and before rendering. Follow its categories and search or
-inspection notes, using available host web/image tools to find 2–3 distinct real
-references. Read `reference_sources` in `start_video` or capabilities. If empty or
-no entry fits, explain that limitation; ask for a supplied reference or explicit
-delegation to a described direction. General open-web discovery is not enabled
-by an empty registry, which must not be filled with guessed
-approved sites. Examples may inform an edit, montage, interface demo, product
-film, data story or animation; do not force every request into explainer styles.
-Preserve each curated `source_id`, its `discovery_url` inside that collection,
-and the example's own URL if it links elsewhere. Describe relevant traits and the evidence actually inspected:
-page, thumbnail, still or played clip. A thumbnail cannot establish choreography,
-pace or audio. The host's native links/images can help the person compare; do not
-claim an embed or playback that the host did not provide.
+In hands-on mode, read `reference_sources` from `start_video` or capabilities
+after output basics and before rendering. The registry supplies search locations
+and access knowledge, not fixed recommended media. Search and inspect actual
+references in real time for this query; do not reuse preinspected examples or
+cached seed recommendations as if they were newly researched candidates.
+Begin with a short **visual search intent** grounded in this request: viewer,
+source material, desired treatment, format and constraints. Unknown traits remain
+open; do not invent user preferences. Subject research investigates factual accuracy;
+visual-reference research
+establishes possible design approaches. Keep their queries and evidence separate.
 
-Let the user choose one or combine specific traits. On rejection, ask one targeted
-what-is-wrong question grounded in their feedback—pace, texture, composition,
-typography or mood—then search again. If they already explained the dislike, ask
-only about what remains unclear. Save disliked traits and excluded references so
-the next search improves instead of repeating them. Persist selected sources,
-approved traits and actual user words with `record_video_references` (offer,
-select, refine or delegate), then make those traits concrete in the
-excerpt's composition, typography, motion and rhythm. The existing snippet
-acceptance still applies; choosing inspiration is not approving an unseen film.
+Use the registry's categories, search notes, access limitations and coverage gaps
+to choose useful collections and filters. Route adaptively: an abstract product
+reveal may benefit from typography or cinematic sources, not just a product label.
+Registry order, ranked popularity and a primary/secondary example are not mandatory
+search order. When the host supports it, batch 2–3 independent targeted queries
+in parallel. Scan inexpensive titles, descriptions and actually available
+thumbnails across relevant collections, then inspect only 2–3 promising finalists.
+For motion, a short representative excerpt is usually enough to compare a trait;
+do not play every candidate end to end or repeatedly retry inaccessible players.
+Stop once distinct useful choices exist. Aim for a first useful shortlist in roughly
+20–40 seconds when access permits; this is an aspiration, not a promise or server
+timeout. Page/image-only choices are valid when honestly labeled. Deepen inspection
+when the user's feedback makes it worthwhile. There is no minimum pool quota,
+numeric quality score or requirement to visit every source. Cache navigation and
+media-location knowledge to speed access, not fixed candidate choices or old
+observations presented as fresh inspection.
+
+Compare candidates against the actual brief: relevance, useful design traits,
+strength of inspection evidence and practical adaptation with available assets,
+runtime and render capabilities. An ambitious studio film can supply one useful
+trait without making its production scale feasible here; say what can be adapted.
+Choose 2–3 meaningfully different approaches, not the first search results, two
+near-duplicates or a fixed explainer menu. Keep the shortlist small for the user.
+Persist an offer's `search` object with `search_intent`, `search_queries`,
+`candidates`, `selection_reason` and `coverage_limitations`. Each candidate contains
+its `reference`, `evidence_note`, `fit`, `limitations` and `disposition`
+(`recommend`, `reserve` or `reject`). Save actual queries and observations, not
+retrospective claims of research. The bounded record accepts 1–12 candidates;
+it does not require rejected candidates or a large search for its own sake.
+Offered references must match the recommended candidates exactly. Direct collection
+browsing can leave `search_queries` empty; do not invent a search query to fill it.
+Optional `search.elapsed_seconds` records actual measured research time; omit it
+when unavailable. Do not estimate it from the aspirational shortlist target.
+Explain why the chosen approaches fit and differ. Keep this internal comparison
+out of the chat unless useful.
+Preserve each curated `source_id`, its `discovery_url` inside that collection,
+and the example's own URL when it links to a creator elsewhere. A collection's
+linked creator is not permission for unrelated open-web discovery.
+
+The source research verified pages or search indexes, **not playback**. Recheck
+access with this host: `fetched` and `indexed` describe the curator's evidence,
+not yours. Set each reference's `inspection` to `metadata`, `page`, `image` or
+`video`, matching the actual evidence. `metadata` means search-index/title-only
+screening; it is neither an opened page nor visual inspection. A partially
+inspected finalist can still be useful if its limitations are explicit, but must
+not be described as visually verified. Page text supports attributed title,
+credits, synopsis and listed
+runtime; label listed statistics as the source's claims. A visually inspected
+still or thumbnail supports visible palette, composition and typography, not
+choreography, pacing or audio. Merely retrieving an image/GIF address is not visual
+inspection; an animated image supports motion only if its sequence was actually
+observed. Claim played-clip evidence only with a capable tool and actual playback
+inspection. If motion is inaccessible, state that limit and let the user watch
+the link; their observations remain user-reported. Saved evidence is an assistant
+report, not automatic semantic verification or proof of quality.
+
+Show normal source links with concise observed contrasts and native images or
+previews when supported; do not create a form or promise an unavailable embed.
+Let the user choose or combine specific traits. On rejection, separate feedback
+into the relevant attributes—pace, medium, texture, palette, composition, type or
+mood—and ask one targeted question only where unclear. Preserve accepted traits
+while varying the rejected ones; save explicit dislikes and excluded examples.
+“Too corporate” could mean polish, type, imagery or tone: it does not automatically
+mean a particular source, medium or keyword. Change collection, filter or query
+when that addresses the feedback, rather than applying a deterministic phrase map.
+Persist approved traits and actual user words with `record_video_references`
+(offer, select, refine or delegate), then use them in the excerpt's composition,
+typography, motion and rhythm. Choosing inspiration is not approving an unseen
+film; the existing snippet acceptance still applies.
 
 An explicitly supplied reference, exact edit or request to skip research may
 delegate the search. Record the user's actual words and the specific direction;
 inspect their reference where accessible, without inventing unseen details.
-If host search is unavailable, say so and ask for a user reference or permission
-to proceed from a described direction. Never fabricate research or silently
-replace it with cached samples. Selecting a reference does not import its media
-into the edit; asset transfer remains an explicit, separate action.
+If host search or a suitable approved collection is unavailable, explain the
+limitation and ask for a user reference or permission to proceed from a described
+direction. The initial curated set has weak social/personal-montage coverage and
+gaps for podcasts and document-to-video; nearest neighbors must be labeled as such,
+not presented as exhaustive coverage. Do not invent approved sources, search
+arbitrary sites, fabricate research or silently replace it with cached samples.
+Selecting a reference does not import its media into the edit; asset transfer
+remains an explicit, separate action.
 
 Hands off and Key moments keep their existing behavior. In Key moments,
 `show_video_choices` may offer relevant cached samples; identify them as cached
