@@ -123,6 +123,23 @@ def test_hands_on_style_excerpt_refine_and_acceptance(pilot):
         "choose_video_style",
         dict(project_id=pid, revision=choices["choices"]["revision"], choice="diagram"),
     )
+    # A cached sample alone does not answer the new online reference stage.
+    with pytest.raises(ValueError, match="intake"):
+        require_production_intake(
+            state(pilot, pid), "step", {"production_stage": "excerpt"}
+        )
+    call(
+        pilot,
+        "record_video_references",
+        dict(
+            project_id=pid,
+            creative_revision=state(pilot, pid)["revision"],
+            request_id="skip-online",
+            action="delegate",
+            user_message="Skip online references and use that diagram style",
+            direction="Use the diagram style the user selected",
+        ),
+    )
     require_production_intake(
         state(pilot, pid), "step", {"production_stage": "excerpt"}
     )

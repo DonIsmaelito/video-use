@@ -108,7 +108,12 @@ def experience_context(
             check["hint"] = (
                 "Repair ordinary execution failures internally and continue the requested work. Surface an error only when it becomes a genuine blocker needing user input; do not poll a finished task."
             )
-    elif intake and intake["phase"] in {"mode", "basics", "personalization"}:
+    elif intake and intake["phase"] in {
+        "mode",
+        "basics",
+        "personalization",
+        "references",
+    }:
         phase = intake["phase"]
         key = f"intake:{phase}:creative:{revision}"
         check.update(
@@ -116,12 +121,14 @@ def experience_context(
                 "mode": "involvement_required",
                 "basics": "output_basics_required",
                 "personalization": "early_decision_pending",
+                "references": "reference_direction_needed",
             }[phase],
             update="brief",
             question={
                 "mode": "required_mode_choice",
                 "basics": "missing_output_basics_only",
                 "personalization": "await_offered_content_or_style_answer",
+                "references": "choose_or_refine_visual_references",
             }[phase],
             continuation="continue_cheap_independent_work",
             blocking_scope="dependent_production",
@@ -134,6 +141,8 @@ def experience_context(
         elif phase == "basics":
             check["missing_basics"] = intake.get("missing_basics", [])
         check["presentation"] = "host_native_question_if_available_else_short_chat"
+        if phase == "references":
+            check["continuation"] = "research_and_align_references"
     elif (
         handoff and handoff.get("preferences_changed") is True and not awaiting_excerpt
     ):
@@ -187,7 +196,7 @@ def experience_context(
             question="tailored_content_if_unresolved",
             continuation="develop_representative_excerpt",
             blocking_scope="remaining_production",
-            hint="Use the supplied context first. If the topic is unfamiliar, inspect sources or use research tools actually available to the host before asking tailored content questions. Offer relevant style references only when helpful. Resolve offered early decisions, then make one short representative snippet for review before building the rest; a known answer needs no new question.",
+            hint="Use the saved reference direction and user feedback to make one short representative snippet: carry through the chosen composition, typography, palette and pacing rather than reverting to a generic template. Resolve consequential content uncertainties using available sources and short conversation, without repeating known answers. Show the excerpt for review before building the rest.",
         )
         if status == "changes_requested":
             check.update(

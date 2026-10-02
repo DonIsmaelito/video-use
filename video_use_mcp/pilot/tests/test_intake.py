@@ -335,9 +335,9 @@ def test_cannot_bypass_mode_or_basics_with_generic_questions_or_story(pilot):
             assert result["isError"]
 
 
-def test_hands_on_offered_content_requires_all_answers_then_unlocks_excerpt(pilot):
+def test_hands_on_content_answers_do_not_skip_reference_direction(pilot):
     initial = ready(pilot)
-    assert initial["intake"]["phase"] == "excerpt_review"  # No invented mandatory quiz.
+    assert initial["intake"]["phase"] == "references"
     shown = call(
         pilot,
         "show_video_brief",
@@ -350,7 +350,7 @@ def test_hands_on_offered_content_requires_all_answers_then_unlocks_excerpt(pilo
     assert shown["intake"]["phase"] == "personalization"
     fail_save(pilot, shown, {"audience": "kids"})
     saved = save(pilot, shown, {"audience": "kids", "tone": "warm"})
-    assert saved["intake"]["phase"] == "excerpt_review"
+    assert saved["intake"]["phase"] == "references"
     assert "pending_questions" not in saved["creative"]["intake"]
     assert saved["intake"]["excerpt_review"]["status"] == "not_requested"
 
@@ -390,7 +390,9 @@ def test_key_moments_optional_brief_and_delegate_skips_optional_widgets(pilot):
 
 def checkpoint(pilot):
     initial = ready(pilot)
-    pid, state = initial["project_id"], deepcopy(initial["creative"])
+    pid = initial["project_id"]
+    state = deepcopy(pilot[1].state.store.get("creative", pid))
+    state["intake"]["reference_direction"].update(status="accepted")
     widget = dict(
         id="review-widget",
         kind="brief",

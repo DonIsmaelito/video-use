@@ -4,17 +4,24 @@ Version-1 interaction takes priority: `start_video` returns the involvement ques
 Use the native question tool if available, otherwise normal chat; do not repeat it
 through `show_video_brief` or open a form. Then ask only missing duration/destination
 and wait for explicit answers. Hands off shows only
-the finished video, Key moments uses selective updates, and Hands on settles
-tailored content/style decisions and reviews a short sample before the rest.
+the finished video, Key moments uses selective updates, and Hands on researches
+real online references before creating, then reviews a short sample before the rest.
 Legacy projects retain their saved mode or labeled default. Real blockers still
 need resolution; ordinary rendering needs no extra approval.
 
 Use Manim when geometry, a mechanism, equations or data relationships carry the
 explanation. It does not prescribe a dark palette, a scene count or a title-card
 format. Choose the visual premise for the subject and the user's direction.
-In interactive modes, briefly share the proposed takeaway, audience, look and
-delivery format. Hands on waits for offered meaningful style choices before
-dependent rendering; only compatible inexpensive work continues while unanswered.
+For Hands on, consult the maintained source registry first, then use host web/image
+tools for 2–3 distinct references. If empty or none fit, ask for a user reference or explicit
+delegation to a described direction; no open-web discovery.
+Link sources and distinguish inspected pages/thumbnails/stills from played clips.
+Use native links/images or chat, not forms. Save chosen or combined traits. If
+rejected, ask one targeted feedback question, search again and retain dislikes.
+Drive the sample from approved traits; selection does not import source media.
+Record the user's words for a supplied-reference, exact-edit or skip-search
+delegation. If search is unavailable, ask for a reference or permission to use a
+described direction; never fabricate research or substitute cached examples.
 
 ## Author less before the first useful preview
 

@@ -4,6 +4,7 @@ from copy import deepcopy
 import math
 
 from .store import ident
+from .reference_direction import reference_context
 
 MODES = {"delegate", "key_moments", "hands_on"}
 INVOLVEMENT_QUESTION = dict(
@@ -54,6 +55,7 @@ def initialize_intake(state, output_profile=None):
             delegated_basics=[],
             provenance={},
             excerpt_review={"status": "not_requested"},
+            reference_direction={"version": 1, "status": "needed", "rounds": []},
         )
         state["intake"] = intake
     profile = {} if output_profile is None else output_profile
@@ -125,6 +127,19 @@ def intake_context(state, project_id=None):
     elif (pending_questions and not pending_questions.get("answered")) or pending_style:
         phase, questions = "personalization", []
         action = "The hands-on user has an unanswered content or style choice. Wait for that explicit answer before dependent production; do not invent a selection."
+    elif (
+        mode == "hands_on"
+        and intake.get("reference_direction", {}).get("version") == 1
+        and intake["reference_direction"].get("status") not in {"accepted", "delegated"}
+    ):
+        phase, questions = "references", []
+        status = intake["reference_direction"].get("status", "needed")
+        if status == "offered":
+            action = "Show the saved online references once as concise source links and available native previews. Ask which traits to use or combine, then wait for the user's actual response. Save selection or rejection with record_video_references; silence is not a choice. Do not render or narrate yet."
+        elif status == "refining":
+            action = "The user rejected the references. Use their saved feedback to search for better examples; if the reason is unclear, ask one focused contrast question in native questions or normal chat first. Preserve likes and dislikes across rounds. Save new results with record_video_references; do not start production or recycle rejected examples unchanged."
+        else:
+            action = "Use the host's available web/image search within the curated reference_sources to find 2–3 relevant visual or motion references before creating anything. Save real source URLs, discovery provenance and observed traits with record_video_references. Show concise linked references with native previews where available; do not create a custom gallery. Inspect an explicit user reference first. If search is unavailable or the curated list is empty or unsuitable, say so and ask for a reference or explicit delegation to a described direction; never fabricate a search, browse arbitrary sites or substitute cached examples silently."
     elif mode == "hands_on" and review.get("status") != "approved":
         phase, questions = "excerpt_review", []
         if review.get("status") == "pending":
@@ -158,6 +173,8 @@ def intake_context(state, project_id=None):
         context["pending_questions"] = deepcopy(pending_questions)
     if pending_style:
         context["pending_style"] = deepcopy(pending_style)
+    if mode == "hands_on" and intake.get("reference_direction"):
+        context["reference_direction"] = reference_context(state)
     if questions:
         context["questions"] = questions
         if project_id:

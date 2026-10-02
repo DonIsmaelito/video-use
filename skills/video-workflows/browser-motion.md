@@ -4,16 +4,23 @@ Version-1 interaction takes priority: `start_video` returns the involvement ques
 Use the native question tool if available, otherwise normal chat; do not repeat it
 through `show_video_brief` or open a form. Then ask only missing duration/destination
 and wait for explicit answers. Hands off shows only
-the final result, Key moments uses selective updates, and Hands on settles useful
-content/style decisions and reviews a short sample before the rest. Legacy
+the final result, Key moments uses selective updates, and Hands on researches real
+online references before creating, then reviews a short sample before the rest. Legacy
 projects retain their saved mode or labeled default. Resolve real blockers in all modes.
 
 Choose a subject-specific visual idea, hierarchy and signature transformation.
 Reuse rendering mechanics, not the same layout or aesthetic for every request.
 Diagrams, type, images, footage and 3D can mix when the idea needs them.
-In interactive modes, state consequential assumptions briefly before substantial
-work. A hands-on reference choice waits for an answer before dependent rendering;
-compatible inexpensive preparation may continue. Current choices steer later work.
+Hands on consults the maintained source registry first, then uses host web/image
+tools for 2–3 distinct relevant references. If empty or none fit, ask for a user reference or
+explicit delegation to a described direction; no open-web discovery. Include source
+URLs and honest page/thumbnail/still/played-clip evidence. Present native links or
+images, not forms; save chosen traits. If rejected, ask one targeted question from
+the feedback and search again without repeating dislikes. Apply approved traits
+to the sample. Record explicit user words to delegate search for a supplied
+reference, exact edit or skip request. Without host search, ask for a reference or
+permission to use a described direction; never silently substitute cached samples.
+Reference selection does not import media. Follow the overview's full research loop.
 
 Build one meaningful short motion excerpt before authoring the entire film;
 declare `production_stage="excerpt"` in its `run_video_step`. Hands off keeps it

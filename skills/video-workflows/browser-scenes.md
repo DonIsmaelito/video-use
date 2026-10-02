@@ -9,9 +9,20 @@ Version-1 interaction takes priority: `start_video` returns the involvement ques
 Use the native question tool if available, otherwise normal chat; do not repeat it
 through `show_video_brief` or open a form. Then ask only missing duration/destination
 and wait for explicit answers. Hands off shows
-only the final video, Key moments uses selective updates, and Hands on settles
-tailored content/style choices before a short sample review. Legacy projects keep
+only the final video, Key moments uses selective updates, and Hands on researches
+real online references before creation and short sample review. Legacy projects keep
 their saved mode or labeled default. Real blockers still need resolution.
+
+Hands on consults the maintained source registry first, then uses host web/image
+tools for 2–3 distinct relevant examples. If empty or none fit, ask for a user reference or
+explicit delegation to a described direction; no open-web discovery. Include
+source URLs and precise page/thumbnail/still/played-clip evidence. Show native
+links/images or chat, not forms; save approved traits and drive the sample from
+them. Rejection means one targeted feedback question and a better search that
+retains dislikes. Record explicit user words when a supplied reference, exact edit
+or skip request delegates search. Without search access, ask for a reference or
+permission to use a described direction; no fabricated or silently cached research.
+Choosing a reference does not import its media. The overview details this loop.
 
 Pass `project_id`, a new `request_id`, stable `scene_id`, `note`, the current
 `creative_revision`, and `scene`. For the first sample, explicitly pass

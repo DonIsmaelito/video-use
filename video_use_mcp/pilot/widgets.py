@@ -63,7 +63,14 @@ def creative_public(creative):
     """Widget schemas/receipts need not be repeated in routine model context."""
     if creative is None:
         return None
-    return {k: v for k, v in creative.items() if k != "widgets"}
+    public = {k: v for k, v in creative.items() if k != "widgets"}
+    if creative.get("intake", {}).get("reference_direction"):
+        from .reference_direction import reference_context
+
+        public["intake"] = dict(
+            creative["intake"], reference_direction=reference_context(creative)
+        )
+    return public
 
 
 def saved_brief_answers(state, questions):
@@ -360,7 +367,12 @@ def register_widgets(mcp, store, muser, read, write):
         """Save the proposed story/script and return a compact outline for a short conversational summary. No custom form or app is displayed. Do not expose editable fields or paste JSON; the user can request changes in ordinary chat. Proposed durations are not measured. Hands on separately reviews a real short excerpt. Hands off plans internally instead. Skip precise edits or already specified scripts and never overwrite newer direction."""
         state = context(project_id)
         intake = intake_context(state, project_id)
-        if intake and intake["phase"] in ("mode", "basics", "personalization"):
+        if intake and intake["phase"] in (
+            "mode",
+            "basics",
+            "personalization",
+            "references",
+        ):
             raise ValueError(intake["next_action"])
         if intake and intake["mode"] == "delegate":
             raise ValueError(

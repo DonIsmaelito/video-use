@@ -13,6 +13,7 @@ from .allowance import narration_allowance
 from .experience import experience_context, involvement_preference
 from .widgets import creative_public
 from .intake import initialize_intake, intake_context, pending_widget, question_context
+from .reference_sources import reference_source_catalog
 
 Category = Literal[
     "explainer",
@@ -554,7 +555,7 @@ def register_workflow(mcp, store, muser, new_project, read, write):
             ),
         ] = None,
     ) -> CallToolResult:
-        """Start a new video and return its opening question for YOU to ask once: Hands off, Key moments, or Hands on. No app card is displayed. Use your native question tool if available, otherwise one short chat question; do not call show_video_brief to repeat this returned question. Record the actual reply with question.record_with. Then ask only missing output basics. Save stated length/destination in output_profile to avoid repeating them. Keep brief faithful; inferred content/style belong in assumptions. Hands off produces the finished video; key moments uses selective check-ins; hands on explores consequential choices conversationally and reviews a short real excerpt before the rest. Reuse project_id for revisions without restarting intake. Categories are hints, not templates."""
+        """Start a new video and return its opening question for YOU to ask once: Hands off, Key moments, or Hands on. No app card is displayed. Use your native question tool if available, otherwise one short chat question; do not call show_video_brief to repeat this returned question. Record the actual reply with question.record_with. Then ask only missing output basics. Save stated length/destination in output_profile to avoid repeating them. Keep brief faithful; inferred content/style belong in assumptions. Hands off produces the finished video; key moments uses selective check-ins. Hands on searches actual online visual references with available host research tools, saves examples and explicit feedback using record_video_references, and follows the selected visual direction in a short real excerpt before the rest. Rejected examples require refinement and a new search, not production. Reuse project_id for revisions without restarting intake. Categories are hints, not templates."""
         uid = muser(True)
         if (
             not title.strip()
@@ -642,6 +643,7 @@ def register_workflow(mcp, store, muser, new_project, read, write):
             experience=experience_context(state, event="start"),
             complementary_workflows=[workflow_summary(c) for c in supporting],
             intake=intake_context(state, pid),
+            reference_sources=reference_source_catalog(),
             next_action=(intake_context(state, pid) or {}).get("next_action")
             or "Continue this existing project using its saved creative choices and involvement level.",
             capabilities={

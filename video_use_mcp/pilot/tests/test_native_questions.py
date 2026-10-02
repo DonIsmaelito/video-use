@@ -214,7 +214,7 @@ def test_actual_freeform_content_answer_preserves_words_without_fake_option(pilo
         user_message="For first-year engineering students, warm and curious",
         text_answers={"audience": "First-year engineering students"},
     )
-    assert saved["intake"]["phase"] == "excerpt_review"
+    assert saved["intake"]["phase"] == "references"
     assert saved["question"]["status"] == "answered"
     assert saved["question"]["recorded_text_answers"] == {
         "audience": "First-year engineering students"
@@ -408,7 +408,7 @@ def test_known_reopened_content_does_not_force_another_answer(pilot):
     )
     assert reopened["question"]["status"] == "answered"
     assert reopened["question"]["recorded_answers"] == {"audience": "kids"}
-    assert reopened["intake"]["phase"] == "excerpt_review"
+    assert reopened["intake"]["phase"] == "references"
     assert (
         "pending_questions"
         not in pilot[1].state.store.get("creative", shown["project_id"])["intake"]
@@ -437,7 +437,7 @@ def test_known_freeform_answer_survives_reopened_question_and_can_be_corrected(p
     assert reopened["question"]["recorded_text_answers"] == {
         "audience": "Engineering students"
     }
-    assert reopened["intake"]["phase"] == "excerpt_review"
+    assert reopened["intake"]["phase"] == "references"
     corrected = answer(
         pilot,
         reopened,
@@ -480,7 +480,7 @@ def test_freeform_restoration_with_a_new_question_requires_only_its_answer(pilot
         "audience": "Engineering students"
     }
     saved = answer(pilot, reopened, {"goal": "intuition"}, user_message="An intuition")
-    assert saved["intake"]["phase"] == "excerpt_review"
+    assert saved["intake"]["phase"] == "references"
     entries = pilot[1].state.store.get("creative", shown["project_id"])["brief_answers"]
     assert {a["question_id"]: a["answer"] for a in entries} == {
         "involvement": "Hands on",

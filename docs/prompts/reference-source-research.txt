@@ -1,0 +1,48 @@
+Research the best places for a video-creation agent to find high-quality creative references online. Browse and inspect the actual sites; don't give me a generic list of video tools or rely on search snippets.
+
+Context
+We're building video-use, a video editor inside Claude and ChatGPT. In hands-on mode, the agent should find a few relevant references before making anything, show them in the chat, ask what the user likes or dislikes, and narrow the direction. Its job is to be excellent at finding and adapting an existing visual approach to the user's content. We will maintain a curated list of places it is allowed to search. We are researching reference sources, not adding a separate paid search service.
+
+Cover a broad range of work
+Explainers and lessons; data visualization; motion graphics and typography; marketing, ads and product showcases; software demos and tutorials; social clips and caption treatments; personal montages, events and photo-based videos; document-to-video; podcasts and music visuals; personalized or localized variants; 3D, procedural animation and cinematic or generative-video references. Categories can overlap. Don't force an equally good source into every category: identify gaps honestly.
+
+What makes a source useful
+The examples are consistently strong, genuinely useful as visual references, varied and discoverable by creative intent. Prefer curated galleries, festival or award collections, studio portfolios, specialist communities, editorial collections, and specific channels or playlists over an entire giant platform. Include broad platforms only when you can identify a useful curated subsection. Distinguish inspiration galleries from stock libraries, template marketplaces and creation tools.
+
+Evaluate two things separately
+1. Can a human quickly find and judge excellent work there?
+2. Can an agent inside Claude or ChatGPT actually find, open and inspect enough of it to use it?
+Report what you tested: readable page, image, thumbnail, playable video, transcript, or nothing. A thumbnail is not proof you inspected motion. Don't assume the agent can play a video just because a human can. Note login, paywall, dynamic-page and embedding limits; a useful link is acceptable when an inline preview isn't available. Do not bypass access restrictions.
+
+For every recommended source provide
+- Name, canonical URL and the specific collection/search entry point worth using.
+- Best-fit categories and creative traits (for example clean technical diagrams, editorial typography, tactile 3D, documentary pacing).
+- Why its curation is strong, plus where it is weak.
+- Search/filter method and one realistic example query.
+- Two concrete example links you opened, with a short explanation of why each is useful and exactly what you inspected.
+- Access/inspection limitations and whether it offers shareable previews.
+- Whether it is for inspiration, reusable assets, or templates; don't imply watching something grants permission to reuse its footage, music or branding.
+- Checked date and confidence in your findings.
+
+Deliver
+1. A prioritized starter list of about 8–12 sources, plus a smaller specialist reserve. Quality and coverage matter more than hitting a number. Keep inaccessible but excellent human-only sources clearly separate from reliable agent-accessible ones.
+2. A compact category-to-source table showing where the agent should look first and second, and any uncovered categories.
+3. Test the shortlist on six ordinary user requests across different categories, such as an explainer, an app launch, podcast clips, a travel montage, a data story and a 3D product ad. Find two plausible references per request and explain what materially distinguishes them. Don't just name a website.
+4. Show how to search again after feedback like 'too corporate', 'too childish', 'too busy' or 'I like the motion but not the colors'. Translate feedback into search criteria without losing the user's earlier preferences.
+5. Return a proposed JSON source registry using the schema below. This is a candidate list for my review, not authorization to add or deploy sources. Use concise general category tags and practical instructions, not a rigid prompt-to-template mapping.
+
+{
+  "version": 1,
+  "sources": [
+    {
+      "id": "stable-short-id",
+      "name": "Source name",
+      "url": "https://example.com/curated-collection",
+      "categories": ["explainer", "motion_design"],
+      "search_notes": "Where and how to search this collection",
+      "inspection_notes": "What an agent can inspect and any access limits"
+    }
+  ]
+}
+
+Keep the recommendation concise enough to use as an operating shortlist. Cite supporting pages directly and label anything you could not verify. Don't recommend a source just because it is popular or repeats the same visual style as the others.

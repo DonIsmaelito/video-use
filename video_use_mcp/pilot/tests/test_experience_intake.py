@@ -106,10 +106,16 @@ def test_offered_hands_on_questions_wait_before_dependent_work(pending):
 
 def test_hands_on_context_then_excerpt_review_then_remaining_production():
     state = ready_request("hands_on")
+    searching = experience_context(state, event="start")
+    assert searching["check_in"]["trigger"] == "reference_direction_needed"
+    assert searching["check_in"]["continuation"] == "research_and_align_references"
+    state["intake"]["reference_direction"].update(
+        status="accepted", direction="Use the chosen geometry and pacing"
+    )
     early = experience_context(state, event="start")
     assert early["check_in"]["trigger"] == "representative_excerpt_needed"
-    assert "If the topic is unfamiliar" in early["check_in"]["hint"]
-    assert "tailored content questions" in early["check_in"]["hint"]
+    assert "saved reference direction" in early["check_in"]["hint"]
+    assert "without repeating known answers" in early["check_in"]["hint"]
     assert early["check_in"]["widgets"] == [], "No invented visual exists yet"
     state["intake"]["excerpt_review"] = {"status": "pending", "object_id": "snippet"}
     before = deepcopy(state)
@@ -130,6 +136,7 @@ def test_hands_on_context_then_excerpt_review_then_remaining_production():
 
 def test_an_existing_final_asset_does_not_invent_missing_hands_on_approval():
     state = ready_request("hands_on")
+    state["intake"]["reference_direction"].update(status="accepted")
     state["intake"]["excerpt_review"] = {"status": "pending", "object_id": "snippet"}
     result = experience_context(state, media={"object_id": "later-cut", "final": True})
     assert result["check_in"]["continuation"] == "wait_for_excerpt_feedback"

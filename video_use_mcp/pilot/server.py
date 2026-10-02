@@ -41,6 +41,8 @@ from .feedback import register_feedback, feedback_context
 from .review_findings import ReviewFinding, normalize_review_findings
 from .voices import narration_voices, resolve_voice
 from .widgets import register_widgets, creative_public
+from .reference_direction import register_references
+from .reference_sources import reference_source_catalog
 from .allowance import narration_allowance
 from .branding import (
     BRAND_WEBSITE,
@@ -93,7 +95,9 @@ def create_app(config=None, store=None, manager=None):
             "After involvement, ask only missing high-level output basics, such as length and where the video will be watched. Follow intake.question or prepare intake.next_tool once if needed. Do not mix content questions into this step. Already supplied values must not be asked again. An explicit You decide delegates that field; silence or a recommended default does not. Keep internal IDs, tool arguments, JSON and next-action instructions out of user-facing text. "
             "Once the output profile is ready, branch by mode. Hands off: make sensible creative choices, run production and review, and show only the finished playable video; no optional questions, style boards, script cards or intermediate previews. Real missing assets, contradictory requirements or unavailable requested capabilities still need honest resolution. "
             "Key moments: keep selective useful conversational check-ins and relevant style options when they materially help. Continue independent work rather than making every milestone a stop. "
-            "Hands on: first understand the subject from supplied context or available host research tools if unfamiliar. Ask one consequential content question at a time, only where the brief leaves room. show_video_brief records a question for your native question tool or normal chat; it does not display an app form. Offer motion references with show_video_choices only if actual clips help choose an unresolved look; references are samples, not this user's draft. Then plan and render a coherent short excerpt, show_video_preview, and prepare show_video_checkpoint for one native or conversational continue/refine question about that same player. Do not add a second preview or questionnaire. Wait before making the rest. Keep compatible source inspection and inexpensive preparation moving. "
+            "Hands on: establish the visual direction from real references before narration or rendering. Understand an unfamiliar subject using available host research tools; search the curated reference_sources returned by start_video or video_use_capabilities for 2–3 relevant examples with meaningfully different approaches. Inspect supplied references first. If the curated list is empty or unsuitable, ask for a reference or explicit delegation rather than silently searching arbitrary sites. Save source_id, discovery_url, example URLs and specifically observed design traits with record_video_references action=offer, then show short source links and native image/link previews where available. Do not build a custom reference app or send the user technical forms. Never claim to have watched motion based on a thumbnail or webpage. This server does not inherit your search results; save what matters. "
+            "Ask which reference or combination feels closest. Save their actual reply with record_video_references action=select or refine. If none fit, preserve their likes/dislikes, ask one focused contrast question where feedback is missing, and search again; rejection is not approval to invent a design. Reproduce the chosen visual grammar—composition, palette, type, texture and pacing—adapted to this user's content. An existing exact edit or explicit request to skip references can use action=delegate with the user's actual words; never treat silence as delegation. If host search is unavailable, explain and obtain a supplied reference or an explicitly delegated direction. Cached clips are not online research. "
+            "Once reference direction is accepted or explicitly delegated, ask only consequential unresolved content questions using native questions or short chat. show_video_brief records these questions without displaying an app form. Then plan and render one coherent short excerpt following the saved direction; show_video_preview and prepare show_video_checkpoint for one native or conversational continue/refine question about that same player. Do not add a second preview or questionnaire. Wait before making the rest. Keep compatible source inspection and inexpensive preparation moving. "
             "Use plan_video or show_video_story to save the internal scene/script proposal, not to display a technical editor. If useful, discuss a short outline or script in chat; do not expose a field for every title, duration, visual and narration line. Skip questions already answered or delegated. Stay concise and speak about creative decisions, not setup. A tool trace is not a conversational update. "
             "Tool results include intake and experience signals. Follow real blockers and saved preferences; combine related concerns. Normal authorized rendering needs no extra payment approval. Expanding a budget or external publication needs explicit authorization. Never infer consent from inactivity. "
             "When voiceover is requested, check narration_allowance in video_use_capabilities before timing or rendering narration-dependent work; show_video_story also estimates characters. Do not discuss narration quotas when no speech was requested or distract from the opening involvement question. If requested speech will not fit, briefly explain the blocker and ask about alternatives before dependent work. Never silently choose a captioned substitute or spend another connector's credits. Snapshots are not reservations or invoices. "
@@ -271,6 +275,7 @@ def create_app(config=None, store=None, manager=None):
     register_scenes(mcp, store, manager, muser, cards, execute)
     register_feedback(mcp, store, muser, write)
     register_widgets(mcp, store, muser, read, write)
+    register_references(mcp, store, muser, read, write)
 
     @mcp.tool(annotations=read, title="Video capabilities")
     def video_use_capabilities(
@@ -284,12 +289,13 @@ def create_app(config=None, store=None, manager=None):
                 {"id": k, "label": v["label"], "description": v["description"]}
                 for k, v in catalog().items()
             ],
+            "reference_sources": reference_source_catalog(),
             "narration": narration_voices(store, config, discover=include_voices),
             "narration_allowance": narration_allowance(store, uid),
             "interaction": {
                 "brief": "Host-authored question: native question tool if available, otherwise short chat; record actual answers with record_video_answers. No custom form.",
                 "checkpoint": "One conversational continue/refine question about the existing excerpt player via show_video_checkpoint; no second card.",
-                "references": "Cached motion comparison via show_video_choices",
+                "references": "Hands-on curated online references and feedback via record_video_references; present links/images in host chat. Cached motion samples via show_video_choices remain separate.",
                 "story": "Internal scene/script plan via show_video_story; discuss a concise outline in chat when useful, without a technical editor.",
                 "media": "Evolving player, timestamped suggestions, download and host-supported fullscreen",
                 "sources": "Explicit in-chat source upload",
@@ -694,7 +700,8 @@ def create_app(config=None, store=None, manager=None):
         response.headers["X-Content-Type-Options"] = "nosniff"
         response.headers["Cache-Control"] = (
             "public, max-age=86400"
-            if request.url.path in {PNG_ROUTE, SVG_ROUTE, "/favicon.png", "/favicon.svg"}
+            if request.url.path
+            in {PNG_ROUTE, SVG_ROUTE, "/favicon.png", "/favicon.svg"}
             and response.status_code in {200, 304}
             else "no-store"
         )

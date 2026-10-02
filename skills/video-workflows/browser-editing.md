@@ -1,104 +1,88 @@
 # Editing in a conversation
 
-You edit in the user's chat; tools render and deliver media, not hidden model
-agents. Supply judgment and design while preserving sources and user preferences.
+Edit in the user's chat; preserve sources and explicit preferences.
 
-## Begin with the requested involvement
+## Begin with involvement and output basics
 
-For every new version-1 request, `start_video` returns one question: **Hands off**,
-**Key moments**, or **Hands on**. Ask it with the host's native question tool if
-available, otherwise in short normal chat. Do not call `show_video_brief` to repeat
-this question or open a custom form. Wait for the answer, then ask only missing duration
-and viewing destination returned by intake. Reuse supplied values; content and
-style questions come later. Continue existing projects without restarting intake.
-Legacy projects retain their saved mode or labeled key-moments default.
+For every new version-1 request, `start_video` returns **Hands off**, **Key moments**,
+or **Hands on**. Use the native question tool if available, otherwise normal chat.
+Do not call `show_video_brief` to repeat that question. Wait for the explicit answer,
+then ask only missing duration and viewing destination; reuse supplied values.
+Legacy projects keep their saved mode or labeled key-moments default. Continue an
+existing project without restarting intake.
 
-- **Hands off:** decide and produce within the request; show only the finished
-  playable video. No optional questions, story cards or intermediate previews.
-- **Key moments:** use selective questions and meaningful visual updates; keep
-  compatible work moving without stopping at every milestone.
-- **Hands on:** understand an unfamiliar topic from available context, ask tailored
-  consequential content questions where needed, offer useful style options, then
-  show a short sample and wait for explicit continue/refine before the rest.
-  Supplied answers need no repeated quiz.
+- **Hands off:** make the piece within the request; show only the finished playable
+  video. No optional questions, story cards or intermediate previews.
+- **Key moments:** use selective questions and useful visual updates; compatible
+  work continues without a stop at every milestone.
+- **Hands on:** research real online visual/video references after output basics,
+  agree on traits, create a short sample, then wait for continue/refine before the rest.
 
-Required setup and hands-on decisions wait for answers; only cheap compatible
-preparation continues. Resolve real missing inputs or service blockers in every mode.
-Record explicit chat answers with `record_video_answers`; never invent clicks or
-infer consent from silence. Do not invent native tools or promise endless generation.
-Keep IDs, revisions, JSON and technical EDLs out of user-facing questions.
+Required decisions wait for answers; only cheap compatible preparation continues.
+Resolve real blockers in every mode. Save actual chat answers with
+`record_video_answers`; silence is not consent. Keep IDs, revisions, JSON and technical EDLs out of user-facing questions.
+Host turn and tool limits still apply.
 
-## Choose useful conversation and controls
+## Find the hands-on direction before rendering
 
-In interactive modes, briefly state the proposed outline, audience, look and final
-format before substantial work. Identify assumptions as proposals. Tool notes are
-not chat prose; ordinary progress updates need no approval.
+Consult `reference_sources` from `start_video` or capabilities first. Follow its
+categories and search/inspection notes with host web/image tools for 2–3 distinct
+real examples. If empty or no entry fits, explain that limitation; ask for a
+user reference or explicit delegation to a described direction. General open-web
+discovery is not enabled by an empty registry; do not invent curated sources.
+Link each source and state what you inspected: page, thumbnail, still or played
+clip. A still does not establish pace or motion. Present through normal chat,
+native link previews or images when supported, not a custom form. Let the user
+choose or combine. On rejection, ask one targeted question about the unresolved
+pace, texture, composition, typography or mood using their feedback, then search
+again. Do not re-ask a supplied answer. Save dislikes so they are not repeated.
+Use `record_video_references` to save offers, selections, refinements or explicit
+delegation. Preserve sources, approved traits and user words; drive the excerpt's
+layout, type, motion and rhythm from them. Selection does not import media.
 
-Keep `brief` faithful and `preferences` limited to user instructions. Put inferred
-scope, audience, style and format in `assumptions` and the proposed plan.
-`brief_provenance=assistant_summary` and `plan_provenance=assistant_plan` label
-interpretation, not user quotes or approval.
+An explicit user reference, exact edit or request to skip search can delegate
+this step: record those words and the direction. Inspect supplied references
+honestly. If host search is unavailable, say so and ask for a reference or permission
+to use a described direction. Never fabricate research or silently substitute
+cached samples. Hands off and Key moments retain their existing flow.
 
-Choose only the controls that help after setup:
+## Keep conversation useful
 
-- `show_video_brief`: saves and returns a stable question for a consequential
-  unresolved choice. Ask it through native questions or normal chat; it opens no
-  custom form. Recommendations remain unselected. Reuse an unanswered question.
-- `show_video_choices`: two relevant cached motion references, not the user's
-  draft. Skip specified looks, precise edits, irrelevant samples and Hands off.
-  Hands on waits for an offered choice before dependent visuals.
+Keep `brief` faithful and `preferences` explicit; put inferred scope, audience,
+style and format in `assumptions` and the plan. `brief_provenance=assistant_summary`
+and `plan_provenance=assistant_plan` are interpretation, not user approval.
+In interactive modes, briefly explain consequential proposals; tool notes are not chat.
+
+- `show_video_brief`: saves one stable question for native questions or normal chat,
+  without a form. Recommendations are unselected; reuse an unanswered question.
+- `show_video_choices`: optional cached examples in Key moments, not a substitute
+  for hands-on online research or the user's draft.
 - `show_video_story`: saves the story and script internally, replacing `plan_video`.
-  It opens no form. Mention a short outline only if useful for the chosen mode;
-  keep the technical EDL internal. Proposed durations are not measured timings.
+  It opens no form. Share a short outline only when useful; proposed times are not measured.
 
-No widget checklist: a precise cut needs no creative questionnaire after setup.
-Optional suggestions do not block compatible work. Explicit edits appear in
-`brief_answers`, `beats`, `script`, and `latest_widget_change`; apply them before
-related expensive work without asking for the same approval again.
+No widget checklist. `experience.check_in` suggests an update or decision, not a
+display receipt; use `repeat_key` to avoid repeats. Ordinary fixes need no approval.
+Authorized work within service limits needs no new payment approval; unapproved
+budget expansion or external publication does. Check speech capacity only when narration is requested or needed.
+A capacity snapshot is not a bill or an opening quota warning. Resolve a material
+speech shortfall before dependent work; never silently remove requested voiceover.
+Unknown capacity is not zero; cached audio may remain usable. Never silently change audio or visual direction while the mode answer is pending.
 
-## Check in according to mode
+## Show useful increments and keep context
 
-`experience.check_in` suggests an update, decision or blocker; it is not a display
-receipt. Use `repeat_key` to avoid repeats. Hands off stays quiet until delivery
-unless a real blocker needs the user. Keep alternatives specific and reusable;
-fresh rendered options consume compute, so do not create a gallery by default.
+Prove a meaningful mechanism or treatment before coding every scene, then reuse
+it. Hands off keeps this internal; Key moments shows useful drafts selectively.
+Hands on uses `show_video_preview`, then `show_video_checkpoint` returns a native
+or normal chat question about that player, not a second card. Wait for the user's
+continue/refine before the rest. Tool traces and private QA sheets are not previews.
+Use `preview_delivery.open_if_missing` only without a working player; it refreshes
+for up to ten minutes on compatible hosts. Avoid empty cards and duplicate previews.
 
-Authorized rendering and narration within the service allowance need no fresh
-payment approval. An unapproved budget expansion or external publication does.
-Check speech capacity only when narration is requested or needed. A capacity
-snapshot is not a bill or a reason to warn during the mode question. If requested
-speech will not fit, explain the material limit before dependent work:
-wait, use supplied audio or let the user explicitly choose a silent draft. Do not
-silently remove requested speech or build a timed film around unresolved audio.
-Unknown allowance is not zero; matching cached audio may remain reusable. Never
-silently change audio or visual direction while the mode answer is pending.
-
-For original work, prove one meaningful relationship, mechanism or treatment
-before coding every scene; reuse it later. Hands off keeps this check internal.
-Key moments shows useful previews selectively. Hands on uses `show_video_preview`
-then `show_video_checkpoint` returns the review question for native questions or
-normal chat about that visible player. It adds no second card. Wait for
-continue/refine before the rest.
-Private QA sheets and tool traces do not show the user a video.
-
-Use `preview_delivery.open_if_missing` only without a working player. It refreshes
-new drafts and final exports for up to ten minutes on compatible hosts. Reopen
-only when absent, expired or unable to refresh. In interactive modes publish
-meaningful changes; avoid setup/status cards and identical duplicate previews.
-
-## Let preferences steer later work
-
-Every task response, including narration, carries current `creative` state. Read
-its selected choice, revision and `latest_feedback` before the next render. After
-a long authoring interval, refresh `get_video_project` once before a large batch.
-An unknown `creative_handoff.preferences_changed` means no earlier revision was
-recorded, not that preferences stayed unchanged. Adapt affected work and retain
-compatible renders; another approval is unnecessary.
-
-The player's **Edit this moment** records a timestamp and the exact media version.
-Do not apply an older draft's timestamp blindly to a changed cut. Hosts may forward
-explicit feedback into the conversation, but may not interrupt a running model.
-Do not promise to bypass their turn scheduling, permissions or tool limits.
+Read current `creative`, `latest_feedback`, revision and user edits in every task
+result. Refresh `get_video_project` after a long authoring gap before a large batch.
+Unknown `creative_handoff.preferences_changed` means no earlier revision was recorded.
+Adapt affected work and reuse compatible renders. **Edit this moment** is bound to
+the exact video version and timestamp; do not apply it blindly to a newer cut.
 
 ## Use the runtime directly
 

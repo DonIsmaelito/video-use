@@ -84,7 +84,7 @@ def creative_handoff(task, creative):
         "Before the next render, use the current creative state returned here, "
         "including selected choices and latest_feedback. Distinguish the user's "
         "stated preferences from your proposed direction. A default is not approval. "
-        "Continue without an approval pause; read get_video_project only if this "
+        "Continue within the saved intake and excerpt-review decisions; read get_video_project only if this "
         "state may be stale after a substantial authoring interval."
     )
     if changed:

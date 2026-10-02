@@ -34,13 +34,12 @@ If the basics are already present, proceed directly to the selected mode.
 - **Key moments:** keep existing selective collaboration. Share a small number of
   useful choices or meaningful drafts when an answer could change the result.
   Avoid routine approval stops; preserve what the user has already specified.
-- **Hands on:** first understand an unfamiliar subject from supplied material or
-  research tools actually available to the host. Then ask tailored content questions
-  that help uncover this user's intended piece. Offer suitable style references when
-  they help, and make a short representative snippet for review before the rest of
-  the film. Wait at these early user decisions before producing work that depends
-  on the answer. Cheap independent source inspection can continue; do not treat
-  an unanswered choice as permission to make all the scenes anyway.
+- **Hands on:** after output basics, research actual online visual/video references
+  using host web/image tools before creating. Let the user choose or combine
+  examples, save the approved traits, then make a representative snippet for review
+  before the rest. Understand unfamiliar subject matter and ask consequential
+  content questions when needed. Wait for required direction; cheap independent
+  inspection can continue, but an unanswered choice does not authorize production.
 
 Hands-on collaboration is not a fixed list of topic questions. A supplied script,
 known reference or exact edit can already settle a decision. Ask only what is
@@ -49,8 +48,8 @@ one stable pending question; ask it through native questions or normal chat, not
 a custom form. Record the actual answer with `record_video_answers`. Do not invent
 a native Claude or ChatGPT capability. `show_video_story` saves the plan internally
 without opening an editor; share only a useful short outline, not the technical
-EDL, internal IDs, revisions or JSON. Actual motion reference clips may use a
-gallery when visual comparison helps; do not turn controls into a checklist.
+EDL, internal IDs, revisions or JSON. Present online references through normal
+chat, source links, native link previews or images when supported, not custom forms.
 
 ## Start from the material and the outcome
 
@@ -59,7 +58,8 @@ and what must remain true. A precise request with accessible footage can go stra
 to the edit once its required setup is complete. An open creative brief usually
 benefits from a reversible visual premise.
 An inaccessible source, contradictory facts or an essential missing provider is
-a real dependency; the absence of a style choice usually is not.
+a real dependency. Hands-on reference selection is also a requested decision;
+other modes need not turn an unspecified style into a blocker.
 
 `start_video` saves the user's brief and known preferences. Choose a primary
 category for useful hints, add supporting categories for a mixed piece, or use
@@ -82,15 +82,43 @@ a sentimental montage's essential people, or exact product fidelity in 3D.
 Do not repeat information already in the prompt or ask the user to choose a
 renderer. Explain creative choices in terms of the result the viewer sees.
 
-Cached examples are optional references to a visual technique, not a menu of all
-possible videos. The catalog includes diagram, editorial, two caption, interface
-and dimensional-product examples. `show_video_choices(reference_ids=[...])` can
-offer two or three relevant catalog IDs even for a custom or mixed request.
-Identify them as examples. In key-moments mode, source analysis or outlining can
-continue with a stated reversible default. In hands-on mode, wait for an offered
-early style decision before committing to dependent visuals. Hands-off mode skips
-this optional picker. If the available examples do not fit the request, do not show the picker. A photo montage, a music
-visualizer and a specific trim do not need the same caption-style question.
+In hands-on mode, consult the connector's maintained reference-source registry
+after output basics and before rendering. Follow its categories and search or
+inspection notes, using available host web/image tools to find 2–3 distinct real
+references. Read `reference_sources` in `start_video` or capabilities. If empty or
+no entry fits, explain that limitation; ask for a supplied reference or explicit
+delegation to a described direction. General open-web discovery is not enabled
+by an empty registry, which must not be filled with guessed
+approved sites. Examples may inform an edit, montage, interface demo, product
+film, data story or animation; do not force every request into explainer styles.
+Preserve each curated `source_id`, its `discovery_url` inside that collection,
+and the example's own URL if it links elsewhere. Describe relevant traits and the evidence actually inspected:
+page, thumbnail, still or played clip. A thumbnail cannot establish choreography,
+pace or audio. The host's native links/images can help the person compare; do not
+claim an embed or playback that the host did not provide.
+
+Let the user choose one or combine specific traits. On rejection, ask one targeted
+what-is-wrong question grounded in their feedback—pace, texture, composition,
+typography or mood—then search again. If they already explained the dislike, ask
+only about what remains unclear. Save disliked traits and excluded references so
+the next search improves instead of repeating them. Persist selected sources,
+approved traits and actual user words with `record_video_references` (offer,
+select, refine or delegate), then make those traits concrete in the
+excerpt's composition, typography, motion and rhythm. The existing snippet
+acceptance still applies; choosing inspiration is not approving an unseen film.
+
+An explicitly supplied reference, exact edit or request to skip research may
+delegate the search. Record the user's actual words and the specific direction;
+inspect their reference where accessible, without inventing unseen details.
+If host search is unavailable, say so and ask for a user reference or permission
+to proceed from a described direction. Never fabricate research or silently
+replace it with cached samples. Selecting a reference does not import its media
+into the edit; asset transfer remains an explicit, separate action.
+
+Hands off and Key moments keep their existing behavior. In Key moments,
+`show_video_choices` may offer relevant cached samples; identify them as cached
+references, not online findings or the user's draft. Skip irrelevant samples,
+specified looks and precise edits. Hands off skips this optional picker.
 
 An answer can arrive through chat or an embedded click. Persist that preference
 and re-read creative context at meaningful boundaries. Do not claim a default
