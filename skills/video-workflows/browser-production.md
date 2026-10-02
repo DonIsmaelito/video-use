@@ -100,7 +100,7 @@ Registry order, ranked popularity and a primary/secondary example are not mandat
 search order. When the host supports it, batch 2–3 independent targeted queries
 in parallel. Scan inexpensive titles, descriptions and actually available
 thumbnails across relevant collections, then inspect only 2–3 promising finalists.
-For motion, a short representative excerpt is usually enough to compare a trait;
+With actual playback, a short excerpt is usually enough to compare a motion trait;
 do not play every candidate end to end or repeatedly retry inaccessible players.
 Stop once distinct useful choices exist. Aim for a first useful shortlist in roughly
 20–40 seconds when access permits; this is an aspiration, not a promise or server
@@ -109,6 +109,39 @@ when the user's feedback makes it worthwhile. There is no minimum pool quota,
 numeric quality score or requirement to visit every source. Cache navigation and
 media-location knowledge to speed access, not fixed candidate choices or old
 observations presented as fresh inspection.
+
+Prefer inexpensive host web search/direct fetch for discovery and readable pages.
+Use `browse_video_references(project_id, request_id, operations, budget_seconds)`
+for JavaScript galleries, page controls and media inspection. It is available
+during reference intake, before render authorization. A dedicated isolated
+Browser Harness browser executes the host assistant's bounded actions; it does
+not run an autonomous researcher or require another model/API key. You remain
+responsible for queries, candidate selection, evidence interpretation and feedback.
+
+Batch up to six `search`, `open`, `read`, `click`, `fill`, `press`, `scroll`,
+`screenshot`, `sample_video` or `close` operations. `budget_seconds` defaults to 30
+and accepts 5–45 action seconds; cold startup can add time.
+`search` takes a `query` and 1–3 approved `source_ids`;
+it uses constrained web search when host search is unavailable. `open` takes `url`
+and its curated `source_id`, or the actual `user_message` containing a supplied URL.
+Use returned AX `node_id` values for clicks/fills, `text` for fills, `key` for
+presses and `delta_y` for scrolling; do not guess targets. `sample_video` takes up
+to three `timestamps`. New decisions may require another bounded batch.
+Start only from registry-approved collection roots or explicit user-supplied URLs,
+then follow evidenced creator or media links. An
+external creator link does not authorize unrelated discovery. Avoid repeated
+retries on blocked players; retain page/image evidence and its limits. This browser
+does not inherit the host's signed-in accounts, accept account passwords or record
+an entire browsing session. Sessions use one project browser and one attached tab;
+close it when research is complete. The offline render worker and its local
+composition browser remain separate.
+
+The response supplies page text, links/AX nodes, inline captures and retained
+evidence IDs. Save relevant `evidence_ids` on each reference when calling
+`record_video_references`. Use `read_video_reference_evidence(project_id,
+evidence_id)` to retrieve a retained capture if it needs inspection again. A saved
+navigation/capture trail supports provenance; it does not choose the candidates or
+certify the assistant's visual judgments.
 
 Compare candidates against the actual brief: relevance, useful design traits,
 strength of inspection evidence and practical adaptation with available assets,
@@ -145,7 +178,13 @@ still or thumbnail supports visible palette, composition and typography, not
 choreography, pacing or audio. Merely retrieving an image/GIF address is not visual
 inspection; an animated image supports motion only if its sequence was actually
 observed. Claim played-clip evidence only with a capable tool and actual playback
-inspection. If motion is inaccessible, state that limit and let the user watch
+inspection. Browser screenshots and `sample_video` images must actually be viewed
+by the host assistant before supporting visual observations. Successful capture
+does not establish that inspection occurred. Record sample timestamps; frames
+support visible states at those times, not continuous motion, transition quality,
+pacing or sound. Use image-level inspection for sampled stills, with the sampling
+method and limits in the evidence note; do not label them watched video. If motion
+is inaccessible, state that limit and let the user watch
 the link; their observations remain user-reported. Saved evidence is an assistant
 report, not automatic semantic verification or proof of quality.
 
@@ -166,8 +205,8 @@ film; the existing snippet acceptance still applies.
 An explicitly supplied reference, exact edit or request to skip research may
 delegate the search. Record the user's actual words and the specific direction;
 inspect their reference where accessible, without inventing unseen details.
-If host search or a suitable approved collection is unavailable, explain the
-limitation and ask for a user reference or permission to proceed from a described
+If available search/browser tools cannot inspect suitable approved sources,
+explain the limitation and ask for a user reference or permission to use a described
 direction. The initial curated set has weak social/personal-montage coverage and
 gaps for podcasts and document-to-video; nearest neighbors must be labeled as such,
 not presented as exhaustive coverage. Do not invent approved sources, search
@@ -209,8 +248,10 @@ media. A host's Google Drive or Photos connection does not grant video-use those
 credentials. Ask the host to obtain an accessible file through its own available
 connector, or have the user upload/export it. Do not request account passwords.
 
-The worker has no outbound network and no account secrets. Fetching media and
-calling speech services belong in the coordinator's explicit tools. Runtime code
+The render worker has no outbound network and no account secrets. The separate
+reference browser has bounded public-web access, not render execution or source
+import authority. Fetching media and calling speech services belong in the
+coordinator's explicit tools. Runtime code
 uses local source files. Do not make a sandbox script call a cloud API, download
 packages, scrape YouTube, or reuse the host's browser cookies.
 

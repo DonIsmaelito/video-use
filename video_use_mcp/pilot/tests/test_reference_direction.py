@@ -206,6 +206,51 @@ def test_offered_references_have_no_custom_app_and_never_approve_production(
     )
 
 
+@pytest.mark.parametrize(
+    "change",
+    [
+        {"owner": "another-user"},
+        {"project": "another-project"},
+        {"page_url": "https://unrelated.example/film"},
+    ],
+)
+def test_browser_evidence_must_belong_to_project_and_cited_page(pilot, project, change):
+    store = pilot[1].state.store
+    references = refs()
+    references[0]["evidence_ids"] = ["capture"]
+    store.put(
+        "reference_browser_evidence",
+        "capture",
+        {
+            "owner": "tester",
+            "project": project,
+            "page_url": references[0]["url"],
+        }
+        | change,
+    )
+    error = failure(pilot, args(pilot, project, references=references))
+    assert "Reference evidence must" in error
+
+
+def test_sampled_media_evidence_can_cite_its_server_recorded_source_page(
+    pilot, project
+):
+    references = refs()
+    references[0]["evidence_ids"] = ["capture"]
+    pilot[1].state.store.put(
+        "reference_browser_evidence",
+        "capture",
+        {
+            "owner": "tester",
+            "project": project,
+            "page_url": "https://cdn.example/film.mp4",
+            "source_page_url": references[0]["url"],
+        },
+    )
+    result = invoke(pilot, project, references=references)
+    assert result["reference_direction"]["references"][0]["evidence_ids"] == ["capture"]
+
+
 def test_explicit_selection_preserves_traits_but_requires_excerpt_review(
     pilot, project
 ):

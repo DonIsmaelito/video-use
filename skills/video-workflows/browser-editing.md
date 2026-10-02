@@ -4,12 +4,11 @@ Edit in the user's chat; preserve sources and explicit preferences.
 
 ## Begin with involvement and output basics
 
-For every new version-1 request, `start_video` returns **Hands off**, **Key moments**,
-or **Hands on**. Use the native question tool if available, otherwise normal chat.
-Do not call `show_video_brief` to repeat that question. Wait for the explicit answer,
-then ask only missing duration and viewing destination; reuse supplied values.
-Legacy projects keep their saved mode or labeled key-moments default. Continue an
-existing project without restarting intake.
+For a new version-1 request, ask `start_video`'s **Hands off**, **Key moments** or
+**Hands on** question using the native question tool if available, otherwise normal chat.
+Do not repeat it through `show_video_brief`. Wait for an explicit answer, then ask
+only missing duration/destination. Legacy projects retain their saved mode or
+labeled key-moments default. Do not restart intake for an existing request.
 
 - **Hands off:** make the piece within the request; show only the finished playable
   video. No optional questions, story cards or intermediate previews.
@@ -25,32 +24,37 @@ Host turn and tool limits still apply.
 
 ## Find the hands-on direction before rendering
 
-Read `reference_sources`: search locations/access notes, not preinspected media
-recommendations. Search and inspect fresh references for this query with host tools.
-Set visual intent from audience, material, treatment and constraints. Route to
-relevant collections, not fixed source order. Batch 2–3 independent targeted queries
-when supported. Scan metadata/available thumbnails cheaply; inspect only 2–3
-promising finalists, a short excerpt for motion if possible. Compare fit, design,
-evidence and feasibility. Stop at distinct useful choices; do not retry inaccessible
-playback repeatedly or inspect every candidate. No pool quota or scoring ritual.
-Keep factual research separate. Deepen inspection only when feedback needs it.
+Read `reference_sources`: discovery locations/access notes, not fixed video picks.
+Find fresh candidates for this request. Set visual intent from audience, material,
+treatment and constraints; choose relevant collections. Use cheap host search/fetch
+first, batching independent queries. For JavaScript galleries, controls or media,
+use `browse_video_references` before rendering. It drives an isolated Browser Harness
+browser; you choose actions and candidates, with no second model or model API key.
+Batch up to six `search/open/read/click/fill/press/scroll/screenshot/sample_video/close`
+operations in a 5–45 second `budget_seconds` (default 30); use returned `node_id`
+targets. Browser search is constrained to selected curated sources. Start from
+curated roots or user-supplied URLs, then follow evidenced creator/media links.
+No account passwords, host cookies or full-session recording. Close when finished.
+Scan cheaply, inspect only 2–3 promising finalists, compare fit/design/evidence/
+feasibility, then stop at distinct useful choices. Do not repeatedly retry blocked
+players. Keep factual research separate; deepen inspection when feedback needs it.
 
-Save intent, queries, candidate evaluations, source/discovery URLs, inspection
-limits and selection reasons with the offer. Prior research is not current evidence.
-Attribute page claims; viewed images support palette/layout, not motion/audio.
-An image URL is not inspection. Claim only actual playback. Show supported native
-links/images, not forms; state evidence limits.
+Save intent, queries, candidate evaluations, source/discovery URLs, limits, reasons
+and returned `evidence_ids` with the offer. Prior research is not current evidence.
+Attribute page claims. Actually inspect returned images before claiming visible
+traits: capture success is not your inspection. Timestamped `sample_video` frames
+support sampled states, not continuous motion, pacing or audio. An image URL proves
+none of these. `read_video_reference_evidence` retrieves retained images for review.
+Claim only actual playback. Show native links/images, not forms.
 
-Let the user choose or combine. On rejection, ask only about unclear feedback,
-then vary the relevant attribute while retaining likes and dislikes. A phrase
-like “too corporate” does not mandate one source or aesthetic. Use
+Let the user choose or combine. Clarify unclear feedback, vary its attribute and
+retain likes/dislikes; “too corporate” does not mandate one source. Use
 `record_video_references` for offers, selections, refinements or delegation.
 Apply approved traits to the excerpt; selection does not import media.
 
-User references, exact edits or explicit skip requests can delegate search; save
-the user's words and inspect supplied material honestly. If host search or suitable
-curated sources are unavailable, explain the gap; ask for a reference or explicit
-delegation. No invented sources, arbitrary web discovery or cached substitutes.
+User references, exact edits or explicit skips can delegate search; save the user's
+words. Missing access/coverage needs a reference or explicit delegation. No invented
+sources, arbitrary web discovery or cached substitutes.
 Hands off and Key moments retain their flow.
 
 ## Keep conversation useful
@@ -85,11 +89,10 @@ continue/refine before the rest. Tool traces and private QA sheets are not previ
 Use `preview_delivery.open_if_missing` only without a working player; it refreshes
 for up to ten minutes on compatible hosts. Avoid empty cards and duplicate previews.
 
-Read current `creative`, `latest_feedback`, revision and user edits in every task
-result. Refresh `get_video_project` after a long authoring gap before a large batch.
-Unknown `creative_handoff.preferences_changed` means no earlier revision was recorded.
-Adapt affected work and reuse compatible renders. **Edit this moment** is bound to
-the exact video version and timestamp; do not apply it blindly to a newer cut.
+Read `creative`, `latest_feedback`, revision and user edits in task results; refresh
+`get_video_project` after a long gap. Unknown `creative_handoff.preferences_changed`
+means no earlier revision. Adapt affected work; reuse compatible renders.
+**Edit this moment** targets an exact version/timestamp, not a newer cut.
 
 ## Use the runtime directly
 
@@ -100,14 +103,11 @@ the exact video version and timestamp; do not apply it blindly to a newer cut.
   DejaVu Serif and Noto Sans. No font/package inventory or installation is needed.
 - Render workers have no external network. Use connector speech and explicit
   source-transfer tools; never embed credentials in a script.
-- `narrate_video` returns measured duration, sentence timings, `word_timings` and
-  a complete timing file. Read the file only for missing timings when
-  `word_timings_truncated` is true. Use word timing for spoken labels/captions;
-  sentence duration does not establish word-level sync. No extra duration probe.
-- When voice selection matters, inspect
-  `video_use_capabilities(include_voices=true)` and use a listed `voice_id`.
-  Otherwise retain the configured default. Do not invent a voice identity,
-  promise unsupported languages or offer private/cloned voices.
+- `narrate_video` returns duration, sentence/word timings and a complete timing file.
+  Read the file for missing words only when `word_timings_truncated` is true.
+  Spoken labels/captions need word timing; sentence timing is insufficient.
+- Select a listed `voice_id` from `video_use_capabilities(include_voices=true)` when
+  needed; otherwise retain the default. Do not invent voices, languages or clones.
 - Workers render with bounded CPU/memory and at most two independent components
   concurrently. They do not author scenes for you.
 
@@ -117,27 +117,22 @@ Read only the relevant compact guide: `scenes` for editable 2D drawing data,
 
 ## Build and assemble useful increments
 
-For compact 2D motion, `render_video_scene(production_stage="excerpt")` creates
-an editable narrated sample. Custom `run_video_step` samples also declare
-`production_stage="excerpt"`; never label a whole film as a sample. Remaining
-production uses the default `production_stage="full_video"`, after hands-on sample
-acceptance. Then `assemble_video` takes ordered scene IDs and optional remaining scene data,
-validates everything before rendering, reuses compatible clips, mixes narration,
-records actual timing, and publishes the assembled draft. This avoids writing a
-generator or FFmpeg concat command for ordinary scene assembly. Use custom Manim,
-footage or 3D when their expressive power better serves the idea.
+`render_video_scene(production_stage="excerpt")` creates an editable 2D sample.
+Custom `run_video_step` samples also declare `production_stage="excerpt"`; never
+label a whole film as a sample. Default `production_stage="full_video"` waits for
+hands-on sample acceptance. `assemble_video` takes ordered scene IDs and optional
+scene data, validates, reuses compatible clips, mixes narration, records timing
+and publishes a draft. Use custom Manim, footage or 3D when they serve the idea.
 
-State the final format before committing to it. A 960×540 working draft is not an
-implicit final requirement. Preserve requested/source dimensions for edits;
-for new work state a sensible destination and aspect ratio. Assembly's `final`
-quality rerenders at delivery dimensions without rewriting authored coordinates.
+State the final format; a 960×540 draft does not settle delivery. Preserve edit
+dimensions; state destination/aspect for new work. Assembly's `final` quality
+rerenders at delivery dimensions without rewriting coordinates.
 
-`run_video_step` remains available for custom files and commands. Give parallel
-components distinct outputs; assemble only after all succeed. Supply the actual
-`preview_path` for a meaningful draft and `review_path` for final encoded review.
-Use returned paths/manifests, never the first/newest MP4 found on disk. Keep shell
-failures visible and reuse picture for audio-only changes. Changed arguments need
-a new request ID; exact retries can reuse one.
+Use `run_video_step` for custom files/commands. Parallel components need distinct
+outputs; assemble after all succeed. Supply `preview_path` for drafts and
+`review_path` for final encoded review. Use returned paths/manifests, keep failures
+visible and reuse picture for audio-only changes. New arguments need a new request
+ID; exact retries can reuse one.
 
 For custom assembly, pass `production_timing={scenes:[{title,seconds}],
 narration_offset?}` using actual ordered durations, not rough story estimates.

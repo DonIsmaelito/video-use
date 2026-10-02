@@ -78,6 +78,7 @@ class Reference(BaseModel):
     source: Literal["web_search", "user_supplied"] = "web_search"
     source_id: str = Field(default="", max_length=100)
     discovery_url: str = Field(default="", max_length=2048)
+    evidence_ids: list[str] = Field(default_factory=list, max_length=6)
 
     @field_validator("url")
     @classmethod
@@ -247,7 +248,7 @@ def reference_context(state):
             "Compare a small candidate pool, inspect promising material, and record search evidence and reasons for offering 2–3 distinct references. "
             "Collection order and prior research examples are not recommendations. One user-supplied reference is sufficient. "
             "Never invent candidates to meet a quota or claim video playback from page metadata. "
-            "If search or approved sources are unavailable, explain that and ask for a user reference or explicit delegation to skip reference search. "
+            "Use browse_video_references for live browser search and visual inspection where host tools fall short; save returned evidence_ids. If both research paths or suitable approved sources are unavailable, ask for a user reference or explicit delegation. "
             "Record that actual reply with action delegate; silence is not delegation."
         )
     return context
@@ -267,7 +268,7 @@ def register_references(mcp, store, muser, read, write):
         user_message: str = "",
         search: ReferenceSearch | None = None,
     ) -> dict:
-        """Save live, brief-specific reference research or the user's response without displaying an app. This tool does NOT search or inspect: use host tools first. Each offer requires search: search_intent, actual search_queries (empty for direct browsing), candidates with reference/evidence_note/fit/limitations/disposition, selection_reason, coverage_limitations. Compare relevance, design differences and production feasibility; no fixed candidate quota or fabricated rejections. Recommend 2–3 inspected references (one if user supplied); their records must match the recommended candidates exactly. Record page/image/video evidence honestly: only actual motion inspection supports pacing claims. web_search entries need curated source_id and discovery_url. The registry supplies search locations, never preapproved example videos. Select current IDs, refine with user feedback and new research, or delegate only on explicit user request to skip. Decisions quote user_message. All inspection and user quotes are assistant-reported, not independently verified."""
+        """Save live, brief-specific reference research or the user's response without displaying an app. This tool does NOT search or inspect: use host tools or browse_video_references first. Each offer requires search: search_intent, actual search_queries (empty for direct browsing), candidates with reference/evidence_note/fit/limitations/disposition, selection_reason, coverage_limitations. Compare relevance, design differences and production feasibility; no fixed candidate quota or fabricated rejections. Recommend 2–3 inspected references (one if user supplied); their records must match the recommended candidates exactly. Record page/image/video evidence honestly: only actual motion inspection supports pacing claims. web_search entries need curated source_id and discovery_url. The registry supplies search locations, never preapproved example videos. Select current IDs, refine with user feedback and new research, or delegate only on explicit user request to skip. Decisions quote user_message. All inspection and user quotes are assistant-reported, not independently verified."""
         uid = muser(True)
         store.project(uid, project_id)
         if (
@@ -394,6 +395,26 @@ def register_references(mcp, store, muser, read, write):
                 )
             for candidate in search.candidates:
                 validate_reference_source(candidate.reference.model_dump())
+                for evidence_id in candidate.reference.evidence_ids:
+                    evidence = store.get("reference_browser_evidence", evidence_id)
+                    if (
+                        not evidence
+                        or evidence.get("owner") != uid
+                        or evidence.get("project") != project_id
+                    ):
+                        raise ValueError(
+                            "Reference evidence must belong to this project"
+                        )
+                    cited_urls = {
+                        candidate.reference.url,
+                        candidate.reference.discovery_url,
+                    } - {""}
+                    if not cited_urls.intersection(
+                        {evidence.get("page_url"), evidence.get("source_page_url")}
+                    ):
+                        raise ValueError(
+                            "Reference evidence must show the cited reference or discovery page"
+                        )
             comparison = deepcopy(payload["search"])
             comparison["recorded_at"] = datetime.now(timezone.utc).isoformat()
             reference["rounds"] = (

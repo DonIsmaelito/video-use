@@ -12,6 +12,55 @@ drafts and the final export without assistant polling.
 
 This private pilot lets the assistant in a tester's Claude or ChatGPT account drive the existing video-use harness. The host assistant reads guidance, writes editing code, runs commands, inspects returned images, and exports MP4s. It does not start a second LLM agent. InsForge provides email-code sign-in, private files, project state, and the hosted Studio. Modal provides one coordinator and isolated render workspaces. ElevenLabs supplies transcription and narration using the owner's server-side key.
 
+## Live reference research
+
+Hands-on requests consult `video_use_mcp/pilot/reference_sources.json` after output
+basics and before creation. The registry adapts the supplied **AI Video Reference
+Sources** research into discovery roots, category routes and access notes. It
+contains places to search, not a set of videos to recommend repeatedly. The host
+assistant finds current candidates for the actual request, compares 2–3 distinct
+approaches, records evidence and refines the search from the user's feedback.
+
+Use inexpensive host web search/direct fetch first. The
+`browse_video_references(project_id, request_id, operations, budget_seconds=30)`
+MCP tool opens a dedicated isolated Browser Harness browser for JavaScript
+galleries, controls and media inspection, including while reference intake still
+blocks rendering. Claude or ChatGPT chooses every query, action and candidate;
+the browser executes controlled operations without another model or model API
+key. It is separate from the offline browser that renders authored compositions.
+
+Each call batches up to six `search`, `open`, `read`, `click`, `fill`, `press`,
+`scroll`, `screenshot`, `sample_video` or `close` operations within a 5–45 second
+budget. Browser search uses a query scoped to 1–3 approved sources. Opens start
+from curated roots or actual user-supplied URLs and can follow evidenced
+creator/media links. Read returned page text, links and AX nodes before selecting
+controls. The browser has no host cookies or signed-in accounts, accepts no account
+passwords and does not record a full browsing session. Reference selection does
+not download or import the media into an edit.
+
+One browser per project uses one attached tab, with at most two browsers globally,
+a 60-second idle timeout and a 180-second total lifetime. Close it when research
+finishes. Browser time uses the existing compute allowance; a batch's wall-time
+budget bounds actions, while cold startup can add time. It is not a promise of a
+useful shortlist or a price quote.
+
+Results return visible state, inline captures and retained evidence IDs. Save
+`evidence_ids` with references through `record_video_references`; retrieve a
+retained image with `read_video_reference_evidence(project_id, evidence_id)` when
+needed. The host must actually inspect returned images before describing visible
+traits. Capture success and evidence persistence do not prove that inspection.
+`sample_video` returns up to three timestamped frames, supporting only those
+sampled states. It does not establish continuous motion, pacing, transition
+quality or audio. Record sampled stills as image evidence and disclose those
+limits. Registry access checks also do not establish current playback.
+
+Blocked pages, logins or inaccessible players should lead to another suitable
+curated source or an honest evidence limit, not repeated browser retries. A
+coverage gap does not authorize unrelated open-web discovery. See
+[the interaction contract](browser-interaction-surfaces.md) for reference records
+and the hands-on feedback loop. Browser protocol tests and captures do not prove
+that a signed-in host researched or visually judged a real user's request.
+
 ## Invite a coworker
 
 1. Share the workspace URL and the invitation code stored in the owner's ignored `.env.pilot-production` file (`PILOT_INVITE_CODE`). Do not share that file or any API keys.
@@ -69,6 +118,9 @@ Emergency stop: pause from Studio, then stop Modal app `video-use-browser-pilot`
 | --- | --- |
 | `video_use_mcp/pilot/server.py` | `create_app` exposes OAuth, direct MCP editing tools, Studio APIs, consent and owner controls. |
 | `video_use_mcp/pilot/runtime.py` | `Manager` restores projects, runs bounded tasks in network-isolated Modal sandboxes, checkpoints source, returns review images and exports revisions. |
+| `video_use_mcp/pilot/reference_browser.py` | Coordinates project-scoped reference browser sessions, MCP operations and retained evidence. |
+| `video_use_mcp/pilot/reference_browser_worker.py` | Dispatches bounded browser actions through Browser Harness and returns page/capture evidence. |
+| `video_use_mcp/pilot/reference_browser_image.py` | Defines the pinned, isolated reference-browser container. |
 | `video_use_mcp/pilot/store.py` | `Store` uses parameterized SQL, encrypts OAuth records and transfers private InsForge objects. |
 | `video_use_mcp/pilot/deployment.py` | Modal coordinator definition, separate from the existing MCP deployment. |
 | `video_use_mcp/pilot/deploy.py` | Builds the existing harness image and deploys this coordinator. |

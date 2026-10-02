@@ -24,6 +24,7 @@ image = (
             "PYTHONPATH": "/opt/video-use",
             "VIDEO_USE_ROOT": "/opt/video-use",
             "PILOT_RUNTIME_IMAGE": os.environ["PILOT_RUNTIME_IMAGE"],
+            "PILOT_REFERENCE_BROWSER_IMAGE": os.environ["PILOT_REFERENCE_BROWSER_IMAGE"],
             "PILOT_HARNESS_VERSION": os.environ["PILOT_HARNESS_VERSION"],
         }
     )

@@ -11,7 +11,11 @@ ordinary rendering needs no extra approval.
 Use Manim for geometry, mechanisms, equations and data relationships. Palette,
 scene count and visual premise follow the subject and user's direction.
 Hands on follows the overview's real-time reference loop. The registry lists search
-locations/access notes, not recommended media. Search fresh candidates adaptively;
+locations/access notes, not recommended media. Prefer cheap host search/fetch; use
+`browse_video_references` for JavaScript galleries/media before rendering. You direct
+Browser Harness actions, not another model. Inspect returned captures; timestamped
+samples show sampled states, not continuous motion/audio. Close when done.
+Search fresh candidates adaptively;
 batch independent queries, inspect few finalists, stop at distinct feasible choices.
 Save intent, queries and evaluation reasons. Keep factual research separate.
 Attribute page claims; stills cannot establish motion/audio. Claim only actual

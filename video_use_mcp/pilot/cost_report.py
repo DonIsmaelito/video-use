@@ -30,7 +30,13 @@ SELECT json_build_object(
  'objects',(SELECT coalesce(json_agg(o),'[]') FROM
    (SELECT project,sum(size) AS bytes FROM public.vp_objects GROUP BY project) o),
  'lifetimes',(SELECT coalesce(json_agg(l),'[]') FROM
-   (SELECT value FROM public.vp_kv WHERE kind='lifetime') l)
+   (SELECT value FROM public.vp_kv WHERE kind='lifetime') l),
+ 'reference_lifetimes',(SELECT coalesce(json_agg(l),'[]') FROM
+   (SELECT value FROM public.vp_kv WHERE kind='reference_browser_lifetime') l),
+ 'reference_sessions',(SELECT coalesce(json_agg(l),'[]') FROM
+   (SELECT value FROM public.vp_kv WHERE kind='reference_browser_session') l),
+ 'reference_evidence',(SELECT coalesce(json_agg(l),'[]') FROM
+   (SELECT value FROM public.vp_kv WHERE kind='reference_browser_evidence') l)
 ) AS snapshot
 """
 
@@ -64,6 +70,26 @@ def project_report(snapshot, rates, now, tts_per_1000, scribe_per_hour):
         }
         narration = speech.get("narrate", 0)
         transcription = speech.get("transcribe", 0)
+        research = [
+            x
+            for x in snapshot.get("reference_lifetimes", [])
+            if x["project"] == p["id"]
+        ]
+        settled = {x.get("reservation") for x in research}
+        research_seconds = sum(x["seconds"] for x in research)
+        research_seconds += sum(
+            min(180, max(0, now - x["created"]))
+            for x in snapshot.get("reference_sessions", [])
+            if x["project"] == p["id"] and x.get("reservation") not in settled
+        )
+        research_cost = (
+            Decimal(str(research_seconds))
+            / 3600
+            * (
+                Decimal(str(rates["cpu_hour_cost_sandbox"]))
+                + 2 * Decimal(str(rates["mem_gib_hour_cost_sandbox"]))
+            )
+        )
         result.append(
             {
                 "id": p["id"],
@@ -71,6 +97,13 @@ def project_report(snapshot, rates, now, tts_per_1000, scribe_per_hour):
                 "workspace_seconds_recorded": round(seconds, 2),
                 "workspace_open": bool(p["sandbox_id"]),
                 "render_estimate": estimate(seconds, rates),
+                "reference_browser_seconds_recorded": round(research_seconds, 3),
+                "reference_browser_estimate_usd": float(research_cost),
+                "reference_capture_bytes": sum(
+                    x.get("bytes", 0)
+                    for x in snapshot.get("reference_evidence", [])
+                    if x["project"] == p["id"]
+                ),
                 "completed_task_seconds": sum(
                     t["amount"] or 0 for t in tasks if t["settled"]
                 ),
@@ -100,10 +133,16 @@ def collect(store, start, tts_per_1000=0.08, scribe_per_hour=None):
 
     now = datetime.now(timezone.utc)
     snapshot = store.sql(SNAPSHOT_SQL)[0]["snapshot"]
-    snapshot["lifetimes"] = [
-        json.loads(store.vault.decrypt(x["value"].encode()))
-        for x in snapshot["lifetimes"]
-    ]
+    for field in (
+        "lifetimes",
+        "reference_lifetimes",
+        "reference_sessions",
+        "reference_evidence",
+    ):
+        snapshot[field] = [
+            json.loads(store.vault.decrypt(x["value"].encode()))
+            for x in snapshot.get(field, [])
+        ]
     workspace = modal.Workspace.from_context()
     rates = {
         k: str(v)
@@ -147,10 +186,11 @@ def collect(store, start, tts_per_1000=0.08, scribe_per_hour=None):
         "limitations": [
             "Render estimates use recorded workspace wall time including idle time; startup and restart gaps can be missing. Bounds apply to recorded time only.",
             "Task allowances are reservations and are not added to workspace cost.",
+            "Reference browser estimates use recorded sandbox lifetime at 1 CPU and 2 GiB including idle time, separately from rendering. Evidence bytes exclude page metadata. Startup/restart gaps and storage/network charges are not fully allocated.",
             "Modal provider reports cover completed UTC hours, may lag, and cover the shared app including earlier testing. Do not add them to the overlapping project estimates.",
             "Speech quantities can include failed-call reservations. These are list-price estimates, not account credit invoices. Scribe v1 pricing is left unknown unless supplied.",
             "InsForge subscription, dedicated backend compute, storage, bandwidth, Modal image builds, account credits, discounts and taxes are not allocated to individual videos.",
-            "Claude or ChatGPT reasoning uses the connected user account; this pilot makes no additional LLM inference API calls.",
+            "Claude or ChatGPT reasoning uses the connected user account. Browser Harness executes host-directed actions; this pilot makes no additional LLM inference API calls.",
         ],
     }
 
@@ -170,8 +210,8 @@ def write_report(report, output):
         "",
         "Updated: " + report["observed_at"],
         "",
-        "| Project | Recorded workspace minutes | Render estimate USD | Speech estimate USD | Stored MB | Tasks running |",
-        "| --- | ---: | ---: | ---: | ---: | ---: |",
+        "| Project | Recorded workspace minutes | Render estimate USD | Reference browser estimate USD | Speech estimate USD | Stored MB | Tasks running |",
+        "| --- | ---: | ---: | ---: | ---: | ---: | ---: |",
     ]
     for p in report["projects"]:
         r = p["render_estimate"]
@@ -183,7 +223,7 @@ def write_report(report, output):
         )
         title = p["title"].replace("|", "/").replace("\n", " ")
         lines.append(
-            f"| {title} | {p['workspace_seconds_recorded']/60:.2f} | {r['usd_at_requested_resources']:.4f}–{r['usd_at_resource_limits']:.4f} | {speech} | {p['stored_bytes']/1e6:.2f} | {p['task_counts']['running']} |"
+            f"| {title} | {p['workspace_seconds_recorded']/60:.2f} | {r['usd_at_requested_resources']:.4f}–{r['usd_at_resource_limits']:.4f} | {p['reference_browser_estimate_usd']:.4f} | {speech} | {p['stored_bytes']/1e6:.2f} | {p['task_counts']['running']} |"
         )
     lines += [
         "",

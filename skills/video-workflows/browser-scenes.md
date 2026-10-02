@@ -14,7 +14,10 @@ real online references before creation and short sample review. Legacy projects 
 their saved mode or labeled default. Real blockers still need resolution.
 
 The registry supplies search locations/access notes, not fixed media suggestions.
-Search and inspect fresh query-specific references with host tools. For Hands on,
+Prefer cheap host search/fetch; use `browse_video_references` for JavaScript galleries
+or media before rendering. You direct bounded Browser Harness actions, not another
+model. Inspect returned captures; timestamped samples show only sampled states,
+not continuous motion or sound. Close when done. For Hands on,
 derive a visual search intent and adaptively choose relevant curated
 collections, not the first two sources. Scan candidates cheaply, inspect promising
 finalists (2–3), batch independent queries when supported, and stop once useful

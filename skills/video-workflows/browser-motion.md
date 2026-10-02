@@ -12,7 +12,10 @@ Choose a subject-specific visual idea, hierarchy and signature transformation.
 Reuse rendering mechanics, not the same layout or aesthetic for every request.
 Diagrams, type, images, footage and 3D can mix when the idea needs them.
 The registry supplies search locations/access notes, not fixed media suggestions.
-Search and inspect fresh query-specific references with host tools. For Hands on,
+Search/fetch cheaply with host tools; use `browse_video_references` for JavaScript
+galleries or media before rendering. You direct bounded Browser Harness actions,
+not another model. Inspect returned captures; timestamped samples show only sampled
+states, not continuous motion or sound. Close when done. For Hands on,
 derive a visual search intent and route adaptively through relevant
 curated collections, not the first two sources. Scan candidates cheaply, inspect
 only 2–3 promising finalists, batching independent searches when supported, then
