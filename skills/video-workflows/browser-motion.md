@@ -18,9 +18,9 @@ not another model. Inspect returned captures; timestamped samples show only samp
 states, not continuous motion or sound. Close when done. For Hands on,
 derive a visual search intent and route adaptively through relevant
 curated collections, not the first two sources. Scan candidates cheaply, inspect
-only 2–3 promising finalists, batching independent searches when supported, then
-stop once useful choices exist. Compare brief fit, design, evidence and feasible adaptation
-to offer 2–3 distinct approaches. Save intent, queries and evaluation reasons.
+useful finalists, parallelizing independent host searches when supported. Compare
+brief fit, design, evidence and feasible adaptation. Offer 1–5 useful references,
+at most five, without a quota. Save intent, queries and evaluation reasons.
 Source research verified no playback. Page claims are attributed; actually viewed
 images support visible palette/layout, not motion or sound. Record honest evidence
 and source URLs; use native links/images, not forms. Separate factual research.
@@ -30,6 +30,13 @@ Supplied references, exact edits or explicit skip requests can delegate search;
 record the user's words. Missing search or suitable curated coverage needs a user
 reference or explicit delegation, not invented sources, open-web roaming or cached
 substitutes. Selection does not import media. Follow the overview's research loop.
+Browser batches use one tab serially.
+Show simple native link previews or linked titles with one fit sentence, never a
+custom gallery. Ask ONE native question listing each reference and a final “Give my input”
+free-text option; use short normal chat if unavailable. Record the reply,
+then use the chosen references plus the brief for the snippet. No extra style picker
+or script-editor detour. After its one player, ask ONE continue/refine question;
+refinement needs actual feedback and another sample review before full production.
 
 Build one meaningful short motion excerpt before authoring the entire film;
 declare `production_stage="excerpt"` in its `run_video_step`. Hands off keeps it

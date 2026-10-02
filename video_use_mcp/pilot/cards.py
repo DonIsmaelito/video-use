@@ -594,10 +594,10 @@ def register_cards(
         if (
             not intake
             or intake["mode"] != "hands_on"
-            or intake["phase"] in ("mode", "basics", "personalization")
+            or intake["phase"] in ("mode", "basics", "personalization", "references")
         ):
             raise ValueError(
-                "Complete hands-on intake and the offered content/style choices before sample review"
+                "Complete hands-on intake and choose a reference direction before sample review"
             )
         if state.get("revision") != creative_revision:
             raise ValueError(

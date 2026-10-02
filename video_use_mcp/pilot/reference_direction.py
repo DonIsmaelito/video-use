@@ -9,6 +9,7 @@ import ipaddress
 import json
 from copy import deepcopy
 from datetime import datetime, timezone
+from textwrap import shorten
 from typing import Literal
 from urllib.parse import urlsplit
 
@@ -175,7 +176,70 @@ def search_summary(search):
     }
 
 
-def reference_context(state):
+def reference_question(state, current, project_id=None):
+    """Describe a host-native choice, without allocating or rendering an app."""
+
+    def recorder(action, **values):
+        if not project_id:
+            return {}
+        return {
+            "record_with": {
+                "name": "record_video_references",
+                "arguments": {
+                    "project_id": project_id,
+                    "creative_revision": state["revision"],
+                    "action": action,
+                    **values,
+                },
+            }
+        }
+
+    options = [
+        {
+            "id": item["id"],
+            "label": shorten(item["title"], width=80, placeholder="…"),
+            "reference_id": item["id"],
+            **recorder("select", selected_ids=[item["id"]]),
+        }
+        for item in current.get("references", [])
+    ]
+    options.append(
+        {
+            "id": "__input__",
+            "label": "Give my input",
+            "description": "Describe a different direction, combine ideas, or share your own reference link.",
+            "input": "text",
+            **recorder("refine"),
+        }
+    )
+    return {
+        "id": current["id"],
+        "presentation_key": f"references:{current['id']}",
+        "presenter": "host",
+        "presentation": "native_question_tool_if_available_else_short_chat",
+        "status": "awaiting_user",
+        "questions": [
+            {
+                "id": "reference_direction",
+                "prompt": "Which reference should guide your video?",
+                "options": options,
+            }
+        ],
+        "required": ["reference_direction"],
+        "instructions": (
+            "Show the source link cards first, then ask this question once using native host questions when available. "
+            "If native controls are unavailable or cannot fit every choice, use a short numbered chat question with all choices and the final free-input option. "
+            "Do not build a custom form or gallery, paste tool arguments, or add an automatic delegation choice. "
+            "If this presentation_key was already asked, wait for its answer. Use each choice's record_with arguments, "
+            "adding a fresh request_id and the user's actual words as user_message. 'Give my input' opens a free-text reply; "
+            "the button label alone is not feedback. Record actual preferences or rejection as refine and inspect any new reference link before offering it. "
+            "If the user explicitly chooses a combination of current references, record select with those IDs and their requested traits in direction. "
+            "No answer is not acceptance. Only an explicit selection or user-requested delegation unlocks the snippet; full production still requires snippet approval."
+        ),
+    }
+
+
+def reference_context(state, project_id=None):
     """Return current reference direction, without private receipts or full history."""
     if not isinstance(state, dict) or not isinstance(state.get("intake"), dict):
         return None
@@ -225,10 +289,28 @@ def reference_context(state):
             state.get("category"), compact=True
         )
     if status == "offered":
+        context["link_presentation"] = (
+            "native_link_preview_if_available_else_markdown_link"
+        )
+        context["link_cards"] = [
+            {
+                "id": item["id"],
+                "title": item["title"],
+                "url": item["url"],
+                "description": shorten(
+                    item["observed_traits"], width=240, placeholder="…"
+                ),
+                "inspection": item["inspection"],
+            }
+            for item in current.get("references", [])
+        ]
+        if current.get("id"):
+            context["question"] = reference_question(state, current, project_id)
         context["next_action"] = (
-            "Show these real source links once in ordinary chat with brief observed traits and any available native previews. "
-            "Use a native question only if available; no custom form or gallery. Ask which traits to use or combine, then record the explicit reply "
-            "with action select or refine. A page or image inspection is not video playback. Do not begin production yet."
+            "Show these 1–5 real reference link_cards once, each as a simple native link preview if available or a titled link with one short observed trait. "
+            "Then present the supplied question using native host questions if available; no custom form or gallery. "
+            "List each current reference and keep Give my input as the final free-text option. Record the actual choice with select or actual feedback with refine. "
+            "A page or image inspection is not video playback. Wait for the user's choice before creating a snippet; do not begin production yet."
         )
     elif status == "refining":
         context["next_action"] = (
@@ -239,14 +321,17 @@ def reference_context(state):
         )
     elif status in {"accepted", "delegated"}:
         context["next_action"] = (
-            "Use this explicit direction for the story and one representative motion excerpt. Preserve compatible work and follow the remaining "
-            "hands-on review steps before the full film. References are inspiration, not a license to import their media."
+            "Combine the original query with the chosen reference and requested traits to make one representative motion snippet. "
+            "Show the snippet, then ask whether to continue or what to change using a native question if available or a short chat question. "
+            "Revise when requested; only the user's explicit approval unlocks the full film. Preserve compatible work. "
+            "References are inspiration, not a license to import their media."
         )
     else:
         context["next_action"] = (
             "Before creation, derive a visual search intent from this brief, then search suitable curated collections live using host tools. "
-            "Compare a small candidate pool, inspect promising material, and record search evidence and reasons for offering 2–3 distinct references. "
-            "Collection order and prior research examples are not recommendations. One user-supplied reference is sufficient. "
+            "Search independent sources in parallel where supported, compare a small candidate pool, inspect promising material, and offer at most five distinct actual references. "
+            "One good reference is sufficient; five is a maximum, not a quota. Record the search evidence and reasons for the choices. "
+            "Collection order and prior research examples are not recommendations. "
             "Never invent candidates to meet a quota or claim video playback from page metadata. "
             "Use browse_video_references for live browser search and visual inspection where host tools fall short; save returned evidence_ids. If both research paths or suitable approved sources are unavailable, ask for a user reference or explicit delegation. "
             "Record that actual reply with action delegate; silence is not delegation."
@@ -268,7 +353,7 @@ def register_references(mcp, store, muser, read, write):
         user_message: str = "",
         search: ReferenceSearch | None = None,
     ) -> dict:
-        """Save live, brief-specific reference research or the user's response without displaying an app. This tool does NOT search or inspect: use host tools or browse_video_references first. Each offer requires search: search_intent, actual search_queries (empty for direct browsing), candidates with reference/evidence_note/fit/limitations/disposition, selection_reason, coverage_limitations. Compare relevance, design differences and production feasibility; no fixed candidate quota or fabricated rejections. Recommend 2–3 inspected references (one if user supplied); their records must match the recommended candidates exactly. Record page/image/video evidence honestly: only actual motion inspection supports pacing claims. web_search entries need curated source_id and discovery_url. The registry supplies search locations, never preapproved example videos. Select current IDs, refine with user feedback and new research, or delegate only on explicit user request to skip. Decisions quote user_message. All inspection and user quotes are assistant-reported, not independently verified."""
+        """Save live, brief-specific reference research or the user's response without displaying an app. This tool does NOT search or inspect: use host tools or browse_video_references first. Each offer requires search: search_intent, actual search_queries (empty for direct browsing), candidates with reference/evidence_note/fit/limitations/disposition, selection_reason, coverage_limitations. Compare relevance, design differences and production feasibility; no fixed candidate quota or fabricated rejections. Offer 1–5 inspected references, never more than five; their records must match the recommended candidates exactly. Show the returned simple source links, then the native question descriptor with reference choices and a final free-input option; no custom widget. Record page/image/video evidence honestly: only actual motion inspection supports pacing claims. web_search entries need curated source_id and discovery_url. The registry supplies search locations, never preapproved example videos. Select current IDs, refine with actual user feedback and new research, or delegate only on explicit user request to skip. Selection unlocks a snippet, not the full video. Decisions quote user_message. All inspection and user quotes are assistant-reported, not independently verified."""
         uid = muser(True)
         store.project(uid, project_id)
         if (
@@ -290,8 +375,8 @@ def register_references(mcp, store, muser, read, write):
         if search is not None and not isinstance(search, ReferenceSearch):
             search = ReferenceSearch.model_validate(search)
         selected_ids = selected_ids or []
-        if len(references) > 3 or len(selected_ids) > 3:
-            raise ValueError("Use at most three reference choices")
+        if len(references) > 5 or len(selected_ids) > 5:
+            raise ValueError("Use at most five reference choices")
         payload = dict(
             creative_revision=creative_revision,
             action=action,
@@ -310,7 +395,7 @@ def register_references(mcp, store, muser, read, write):
         reference = state.get("intake", {}).get("reference_direction", {})
 
         def result(repeated=False):
-            context = reference_context(state)
+            context = reference_context(state, project_id)
             return dict(
                 project_id=project_id,
                 creative_revision=state["revision"],
@@ -364,11 +449,9 @@ def register_references(mcp, store, muser, read, write):
                 )
             if selected_ids:
                 raise ValueError("An offer cannot select references for the user")
-            if len(references) not in {2, 3} and not (
-                len(references) == 1 and references[0].source == "user_supplied"
-            ):
+            if not references:
                 raise ValueError(
-                    "Offer 2–3 references, or one reference supplied by the user"
+                    "Offer 1–5 actual references; five is a maximum, not a quota"
                 )
             if len({item.id for item in references}) != len(references) or len(
                 {item.url for item in references}

@@ -90,6 +90,19 @@ def refs():
     ]
 
 
+def many_refs(count):
+    return [
+        dict(
+            refs()[index % 2],
+            id=f"reference-{index}",
+            title=f"Reference {index + 1}",
+            url=f"https://artist.example/reference-{index}",
+            discovery_url=f"https://example.com/collection/reference-{index}",
+        )
+        for index in range(count)
+    ]
+
+
 def args(pilot, project, action="offer", **updates):
     search = {}
     if action == "offer" and updates.get("references"):
@@ -204,6 +217,182 @@ def test_offered_references_have_no_custom_app_and_never_approve_production(
         "vp_reserve" in query or "INSERT INTO public.vp_tasks" in query
         for query in queries
     )
+
+
+def test_five_real_references_have_link_cards_and_native_choice_with_final_input(
+    pilot, project
+):
+    references = many_refs(5)
+    parameters = args(pilot, project, references=references)
+    result = call(pilot, "record_video_references", parameters)
+    context = result["reference_direction"]
+    assert (
+        context["link_presentation"]
+        == "native_link_preview_if_available_else_markdown_link"
+    )
+    assert [card["url"] for card in context["link_cards"]] == [
+        item["url"] for item in references
+    ]
+    assert [card["title"] for card in context["link_cards"]] == [
+        item["title"] for item in references
+    ]
+    question = context["question"]
+    assert (
+        question["presentation"] == "native_question_tool_if_available_else_short_chat"
+    )
+    assert question["status"] == "awaiting_user"
+    assert len(question["questions"]) == 1
+    options = question["questions"][0]["options"]
+    assert [item["reference_id"] for item in options[:-1]] == [
+        item["id"] for item in references
+    ]
+    for reference, option in zip(references, options[:-1], strict=True):
+        assert option["record_with"] == {
+            "name": "record_video_references",
+            "arguments": {
+                "project_id": project,
+                "creative_revision": result["creative_revision"],
+                "action": "select",
+                "selected_ids": [reference["id"]],
+            },
+        }
+    assert options[-1]["input"] == "text"
+    assert options[-1]["label"] == "Give my input"
+    assert options[-1]["record_with"]["arguments"]["action"] == "refine"
+    assert not any("recommended" in option for option in options)
+    assert "default" not in question
+    assert "widget" not in result
+    assert "_meta" not in question
+    repeated = call(pilot, "record_video_references", parameters)
+    assert repeated["reference_direction"]["question"] == question
+    assert reference_context(saved(pilot, project), project)["question"] == question
+
+
+def test_six_reference_offer_and_selection_are_rejected_without_mutation(
+    pilot, project
+):
+    before = saved(pilot, project)
+    assert "at most five" in failure(
+        pilot, args(pilot, project, references=many_refs(6))
+    )
+    assert saved(pilot, project) == before
+    invoke(pilot, project, references=many_refs(5))
+    before = saved(pilot, project)
+    assert "at most five" in failure(
+        pilot,
+        args(
+            pilot,
+            project,
+            "select",
+            selected_ids=[f"reference-{index}" for index in range(6)],
+            user_message="Combine them",
+        ),
+    )
+    assert saved(pilot, project) == before
+
+
+def test_reference_cards_stay_compact_without_losing_full_inspection_notes(
+    pilot, project
+):
+    reference = many_refs(1)[0]
+    reference["title"] = "Reference with a detailed descriptive name " * 3
+    reference["observed_traits"] = (
+        "Large warm shapes move around readable scene labels. " * 18
+    )
+    offered = invoke(pilot, project, references=[reference])["reference_direction"]
+    card = offered["link_cards"][0]
+    option = offered["question"]["questions"][0]["options"][0]
+    assert len(card["description"]) <= 240
+    assert len(option["label"]) <= 80
+    assert card["title"] == reference["title"].strip()
+    assert (
+        offered["references"][0]["observed_traits"]
+        == reference["observed_traits"].strip()
+    )
+    assert option["reference_id"] == reference["id"]
+
+
+def test_one_fresh_reference_is_enough_and_empty_offer_does_not_meet_quota(
+    pilot, project
+):
+    before = saved(pilot, project)
+    assert "1–5 actual references" in failure(
+        pilot, args(pilot, project, references=[])
+    )
+    assert saved(pilot, project) == before
+    result = invoke(pilot, project, references=many_refs(1))
+    assert len(result["reference_direction"]["link_cards"]) == 1
+    assert (
+        len(result["reference_direction"]["question"]["questions"][0]["options"]) == 2
+    )
+
+
+def test_final_input_records_feedback_and_requires_a_new_reference_choice(
+    pilot, project
+):
+    result = invoke(pilot, project, references=many_refs(5))
+    question = result["reference_direction"]["question"]
+    input_option = question["questions"][0]["options"][-1]
+    feedback = call(
+        pilot,
+        input_option["record_with"]["name"],
+        input_option["record_with"]["arguments"]
+        | {
+            "request_id": "real-feedback",
+            "user_message": "None of these; I want a playful paper cutout look",
+            "direction": "Playful paper cutout movement",
+        },
+    )
+    context = feedback["reference_direction"]
+    assert context["status"] == "refining"
+    assert not context["selected_ids"]
+    assert not context["selected_references"]
+    assert "question" not in context
+    assert context["recent_feedback"][0]["events"][-1]["user_message"] == (
+        "None of these; I want a playful paper cutout look"
+    )
+    state = saved(pilot, project)
+    assert state["intake"]["excerpt_review"] == {"status": "not_requested"}
+    for payload in (
+        {"production_stage": "excerpt"},
+        {"production_stage": "full_video"},
+    ):
+        with pytest.raises(ValueError):
+            require_production_intake(state, "step", payload)
+    replacement = invoke(
+        pilot, project, references=many_refs(1), request_id="fresh-search"
+    )
+    assert (
+        replacement["reference_direction"]["question"]["presentation_key"]
+        != question["presentation_key"]
+    )
+
+
+def test_reference_summary_without_project_id_never_emits_incomplete_tool_call(
+    pilot, project
+):
+    invoke(pilot, project, references=refs())
+    question = reference_context(saved(pilot, project))["question"]
+    assert all(
+        "record_with" not in option for option in question["questions"][0]["options"]
+    )
+
+
+def test_native_reference_choice_unlocks_snippet_but_never_full_video(pilot, project):
+    offered = invoke(pilot, project, references=many_refs(5))
+    option = offered["reference_direction"]["question"]["questions"][0]["options"][4]
+    call(
+        pilot,
+        option["record_with"]["name"],
+        option["record_with"]["arguments"]
+        | {"request_id": "choose-fifth", "user_message": "Reference 5"},
+    )
+    state = saved(pilot, project)
+    assert intake_context(state)["phase"] == "excerpt_review"
+    require_production_intake(state, "step", {"production_stage": "excerpt"})
+    with pytest.raises(ValueError):
+        require_production_intake(state, "step", {"production_stage": "full_video"})
+    assert "question" not in reference_context(state, project)
 
 
 @pytest.mark.parametrize(

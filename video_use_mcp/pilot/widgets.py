@@ -500,6 +500,11 @@ def register_widgets(mcp, store, muser, read, write):
         submitted = {"answers": value, "output_profile": exact} if exact else value
         if freeform:
             submitted = dict(answers=value, text_answers=freeform)
+        if source == "assistant_reported_user":
+            # A second "Refine" with different words is a different edit.
+            # Legacy app receipts keep their format; old native receipts fail
+            # closed rather than silently treating unverifiable feedback as equal.
+            submitted = dict(values=submitted, source=source, user_message=user_message)
         digest = hashlib.sha256(
             json.dumps(submitted, sort_keys=True).encode()
         ).hexdigest()
@@ -679,6 +684,10 @@ def register_widgets(mcp, store, muser, read, write):
                     source=source,
                     creative_revision=state["revision"],
                 )
+                if user_message:
+                    state["intake"]["excerpt_review"]["user_message"] = user_message
+                else:
+                    state["intake"]["excerpt_review"].pop("user_message", None)
         else:
             widget["beats"] = value
             state["beats"] = value

@@ -16,12 +16,19 @@ locations/access notes, not recommended media. Prefer cheap host search/fetch; u
 Browser Harness actions, not another model. Inspect returned captures; timestamped
 samples show sampled states, not continuous motion/audio. Close when done.
 Search fresh candidates adaptively;
-batch independent queries, inspect few finalists, stop at distinct feasible choices.
+parallelize independent host queries when supported, inspect useful finalists,
+and offer 1–5 references, at most five, without a quota.
 Save intent, queries and evaluation reasons. Keep factual research separate.
 Attribute page claims; stills cannot establish motion/audio. Claim only actual
 playback. Retain likes/dislikes and apply approved traits. Explicit user words can
 delegate search; missing access/coverage needs a reference or delegation, not cached
-substitutes. Selection does not import media.
+substitutes. Selection does not import media. Browser batches use one tab serially.
+Show simple native link previews or linked titles with one fit sentence, never a
+custom gallery. Ask ONE native question listing each reference and a final “Give my input”
+free-text option; use short normal chat if unavailable. Record the reply,
+then use the chosen references plus the brief for the snippet. No extra style picker
+or script-editor detour. After its one player, ask ONE continue/refine question;
+refinement needs actual feedback and another sample review before full production.
 
 ## Author less before the first useful preview
 

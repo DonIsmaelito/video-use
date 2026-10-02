@@ -468,6 +468,14 @@ class ReferenceBrowserManager:
                     for item in data["evidence"]
                 ]
                 return data, images
+            if any(op.action != "close" for op in operations):
+                from .intake import intake_context
+
+                intake = intake_context(self.store.get("creative", pid))
+                if intake and intake["phase"] in {"mode", "basics", "personalization"}:
+                    raise ValueError(
+                        "Answer the involvement and missing essential questions before reference browsing"
+                    )
             session = self.sessions.get(pid)
             prepared = prepare_operations(
                 operations, session["links"] if session else ()

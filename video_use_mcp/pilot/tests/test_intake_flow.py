@@ -207,6 +207,18 @@ def test_hands_on_style_excerpt_refine_and_acceptance(pilot):
 def test_sample_cannot_be_accepted_after_new_media_or_changed_preferences(pilot):
     selected = mode(pilot, "hands_on")
     pid = selected["project_id"]
+    call(
+        pilot,
+        "record_video_references",
+        dict(
+            project_id=pid,
+            creative_revision=selected["creative_revision"],
+            request_id="user-direction",
+            action="delegate",
+            user_message="Skip references and use a simple diagram",
+            direction="Simple diagram",
+        ),
+    )
     publish(pilot, pid)
     checkpoint = call(
         pilot,
@@ -259,3 +271,17 @@ def test_existing_request_retains_mode_and_new_request_starts_fresh(pilot):
     assert "widget" not in resumed
     fresh = start(pilot)
     assert fresh["project_id"] != pid and fresh["intake"]["phase"] == "mode"
+
+
+def test_reference_choice_is_required_before_snippet_question(pilot):
+    selected = mode(pilot, "hands_on")
+    pid = selected["project_id"]
+    publish(pilot, pid)
+    assert "choose a reference direction" in error(
+        pilot,
+        "show_video_checkpoint",
+        project_id=pid,
+        creative_revision=selected["creative_revision"],
+        object_id="sample",
+    )
+    assert state(pilot, pid)["intake"]["excerpt_review"]["status"] == "not_requested"

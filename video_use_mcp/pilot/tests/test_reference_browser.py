@@ -15,7 +15,7 @@ from PIL import Image
 import pytest
 
 from video_use_mcp.pilot import reference_sources
-from video_use_mcp.pilot.intake import intake_context
+from video_use_mcp.pilot.intake import intake_context, initialize_intake
 from video_use_mcp.pilot.reference_browser import (
     BrowserOperation,
     MAX_IMAGE_BYTES,
@@ -172,6 +172,19 @@ def test_later_video_can_be_selected_from_snapshot(catalog):
     assert validate_request({"operations": prepared})["operations"] == prepared
     with pytest.raises(ValueError):
         op("sample_video", timestamps=[2], video_index=20)
+
+
+@pytest.mark.parametrize("mode", [None, "hands_on"])
+def test_reference_browsing_waits_for_involvement_and_missing_basics(manager, mode):
+    creative = initialize_intake({"revision": 1})
+    creative["intake"]["mode"] = mode
+    manager.store.put("creative", PID, creative)
+    with pytest.raises(ValueError, match="missing essential"):
+        run(manager)
+    manager.execute.assert_not_awaited()
+    manager.session.assert_not_awaited()
+    closed, _ = run(manager, "close", [op("close")])
+    assert closed["results"][0]["ok"]
 
 
 def test_discovered_media_frames_preserve_source_page(manager):

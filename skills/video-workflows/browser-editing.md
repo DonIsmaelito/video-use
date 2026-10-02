@@ -24,38 +24,38 @@ Host turn and tool limits still apply.
 
 ## Find the hands-on direction before rendering
 
-Read `reference_sources`: discovery locations/access notes, not fixed video picks.
-Find fresh candidates for this request. Set visual intent from audience, material,
-treatment and constraints; choose relevant collections. Use cheap host search/fetch
-first, batching independent queries. For JavaScript galleries, controls or media,
-use `browse_video_references` before rendering. It drives an isolated Browser Harness
-browser; you choose actions and candidates, with no second model or model API key.
-Batch up to six `search/open/read/click/fill/press/scroll/screenshot/sample_video/close`
-operations in a 5–45 second `budget_seconds` (default 30); use returned `node_id`
-targets. Browser search is constrained to selected curated sources. Start from
-curated roots or user-supplied URLs, then follow evidenced creator/media links.
-No account passwords, host cookies or full-session recording. Close when finished.
-Scan cheaply, inspect only 2–3 promising finalists, compare fit/design/evidence/
-feasibility, then stop at distinct useful choices. Do not repeatedly retry blocked
-players. Keep factual research separate; deepen inspection when feedback needs it.
+Read `reference_sources`: approved discovery locations, not fixed video picks.
+Derive visual intent from this brief; keep factual research separate. Parallelize
+independent host search/fetch when supported, scan cheaply, then inspect promising
+candidates for fit, evidence and feasible adaptation. Offer 1–5 useful references,
+at most five, without filling a quota. Avoid repeated blocked-player retries.
 
-Save intent, queries, candidate evaluations, source/discovery URLs, limits, reasons
-and returned `evidence_ids` with the offer. Prior research is not current evidence.
-Attribute page claims. Actually inspect returned images before claiming visible
-traits: capture success is not your inspection. Timestamped `sample_video` frames
-support sampled states, not continuous motion, pacing or audio. An image URL proves
-none of these. `read_video_reference_evidence` retrieves retained images for review.
-Claim only actual playback. Show native links/images, not forms.
+For interactive pages/media, use `browse_video_references` before rendering.
+You direct Browser Harness, not another model. Its isolated browser has no host
+cookies or account passwords; one project's tab runs batches serially. Each batch
+allows six browser operations in 5–45 seconds (default 30), excluding cold startup.
+Use observed `node_id` targets, curated roots or user-supplied URLs, and evidenced
+creator links. Close when done. The workflows guide details operation arguments.
 
-Let the user choose or combine. Clarify unclear feedback, vary its attribute and
-retain likes/dislikes; “too corporate” does not mandate one source. Use
-`record_video_references` for offers, selections, refinements or delegation.
-Apply approved traits to the excerpt; selection does not import media.
+Save intent, queries, comparisons, source/discovery URLs, limits and `evidence_ids`
+with `record_video_references`. Inspect returned images before describing traits.
+Captures prove neither inspection nor playback; sampled frames cannot establish
+continuous motion, pacing or audio. Reopen captures with
+`read_video_reference_evidence`. Attribute page claims and label evidence limits.
 
-User references, exact edits or explicit skips can delegate search; save the user's
-words. Missing access/coverage needs a reference or explicit delegation. No invented
-sources, arbitrary web discovery or cached substitutes.
-Hands off and Key moments retain their flow.
+Present a simple native link preview or linked title plus one fit sentence per
+reference; no custom gallery or form. Ask ONE native question listing every
+reference and a final “Give my input” free-text option. Use short normal chat
+if unavailable; never drop choices to fit a tool limit. Record the actual reply
+with `record_video_references` select/refine/delegate. Clarify unclear feedback,
+retain likes/dislikes and search again when needed. Use the chosen references plus
+the original brief for the snippet; selection does not import media.
+No script editor, extra style picker or questionnaire detour.
+
+User references, exact edits or explicit skips can delegate search; save the words.
+Missing access/coverage needs a reference or explicit delegation, not fabricated
+research, arbitrary web discovery or cached substitutes. Hands off and Key moments
+retain their flow.
 
 ## Keep conversation useful
 
@@ -84,8 +84,9 @@ Unknown capacity is not zero; cached audio may remain usable. Never silently cha
 Prove a meaningful mechanism or treatment before coding every scene, then reuse
 it. Hands off keeps this internal; Key moments shows useful drafts selectively.
 Hands on uses `show_video_preview`, then `show_video_checkpoint` returns a native
-or normal chat question about that player, not a second card. Wait for the user's
-continue/refine before the rest. Tool traces and private QA sheets are not previews.
+or normal chat question about that player, not a second card: continue, or refine
+with the user’s actual feedback. Wait for explicit acceptance before the full video;
+a refine answer changes only the sample and returns to this same checkpoint. Tool traces and private QA sheets are not previews.
 Use `preview_delivery.open_if_missing` only without a working player; it refreshes
 for up to ten minutes on compatible hosts. Avoid empty cards and duplicate previews.
 
@@ -98,14 +99,12 @@ means no earlier revision. Adapt affected work; reuse compatible renders.
 
 - `/workspace/sources/` contains originals; `/workspace/edit/` contains editable
   work. The harness is `/opt/video-use`; source files persist in checkpoints.
-- Python, Pillow, NumPy, FFmpeg/ffprobe, Manim CE 0.19.2 with default MathTex,
-  Node, Puppeteer and Chromium are installed. Known fonts include DejaVu Sans,
-  DejaVu Serif and Noto Sans. No font/package inventory or installation is needed.
+- Python/Pillow/NumPy, FFmpeg, Manim CE 0.19.2 with MathTex, Node/Puppeteer/Chromium
+  are installed. Use DejaVu Sans/Serif or Noto Sans; no inventory or installation.
 - Render workers have no external network. Use connector speech and explicit
   source-transfer tools; never embed credentials in a script.
-- `narrate_video` returns duration, sentence/word timings and a complete timing file.
-  Read the file for missing words only when `word_timings_truncated` is true.
-  Spoken labels/captions need word timing; sentence timing is insufficient.
+- `narrate_video` returns duration, sentence/word timings and their complete file.
+  Read omitted words when `word_timings_truncated`; spoken labels need word timings.
 - Select a listed `voice_id` from `video_use_capabilities(include_voices=true)` when
   needed; otherwise retain the default. Do not invent voices, languages or clones.
 - Workers render with bounded CPU/memory and at most two independent components
@@ -134,12 +133,10 @@ outputs; assemble after all succeed. Supply `preview_path` for drafts and
 visible and reuse picture for audio-only changes. New arguments need a new request
 ID; exact retries can reuse one.
 
-For custom assembly, pass `production_timing={scenes:[{title,seconds}],
-narration_offset?}` using actual ordered durations, not rough story estimates.
-Assembly tooling records this automatically. Keep the evolving plan accurate when
-meaning or structure changes; technical duration corrections need no approval.
-Poll only queued/running tasks. If publication was omitted, publish the existing
-output in a small follow-up instead of rerendering it.
+Custom assembly supplies `production_timing={scenes:[{title,seconds}],
+narration_offset?}` with actual ordered durations; assembly tooling records this.
+Update the plan when meaning changes. Poll only queued/running tasks. Publish an
+existing output if publication was omitted; do not rerender it.
 
 ## Judge the deliverable honestly
 
@@ -150,12 +147,10 @@ unreadable labels, misleading explanations or missing requested audio; do not
 relabel defects as style preferences. Intentional artistic cropping is different.
 
 `review_path` returns sampled frames and `audio_evidence` from the encoded mix.
-Loudness, peak, silence and stream timing are measurements, not listening or a
-transcript-to-picture check. A contact sheet does not prove motion continuity.
-Investigate uncertain animation and word alignment with the relevant evidence.
-If the host cannot play motion/audio for you, say exactly what was measured or
-sampled; do not claim you watched or listened. Quiet audio merits assessment for
-its destination, not a universal loudness target. Silent films can be intentional.
+Loudness, peak, silence and stream timings do not prove listening or semantic sync;
+stills do not prove motion. Investigate uncertain animation/alignment. Report only
+what was measured or observed. Judge quiet audio for its destination; silence can
+be intentional.
 
 Export only the exact reviewed encode. Report concrete `findings` with kind
 `correctness`, `meaning`, `layout`, `audio` or `style`, description and `resolved`.

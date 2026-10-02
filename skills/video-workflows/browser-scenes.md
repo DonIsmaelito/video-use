@@ -20,9 +20,10 @@ model. Inspect returned captures; timestamped samples show only sampled states,
 not continuous motion or sound. Close when done. For Hands on,
 derive a visual search intent and adaptively choose relevant curated
 collections, not the first two sources. Scan candidates cheaply, inspect promising
-finalists (2–3), batch independent queries when supported, and stop once useful
-choices exist. Compare brief fit, design, evidence and feasible adaptation to offer
-2–3 distinct approaches. Save intent, queries and evaluation reasons. Separate
+finalists, parallelize independent host queries when supported, and stop at useful
+choices. Compare brief fit, design, evidence and feasible adaptation to offer
+1–5 useful references, at most five, without a quota. Save intent, queries and
+evaluation reasons. Separate
 factual research. Source research verified no playback: page claims are attributed;
 actually viewed images support palette/layout, not motion or sound. State evidence
 limits and source URLs in native chat/links/images, not forms. Refine only relevant
@@ -30,7 +31,14 @@ attributes, retain likes/dislikes and ask only what is unclear. Use approved tra
 in the sample. A supplied reference, exact edit or explicit skip can delegate search
 with saved user words. Missing search or suitable curated coverage needs a reference
 or delegation, not arbitrary web discovery or cached substitutes. Choosing a
-reference does not import media. The overview details this loop.
+reference does not import media. The overview details this loop. Browser batches
+use one tab serially.
+Show simple native link previews or linked titles with one fit sentence, never a
+custom gallery. Ask ONE native question listing each reference and a final “Give my input”
+free-text option; use short normal chat if unavailable. Record the reply,
+then use the chosen references plus the brief for the snippet. No extra style picker
+or script-editor detour. After its one player, ask ONE continue/refine question;
+refinement needs actual feedback and another sample review before full production.
 
 Pass `project_id`, a new `request_id`, stable `scene_id`, `note`, the current
 `creative_revision`, and `scene`. For the first sample, explicitly pass

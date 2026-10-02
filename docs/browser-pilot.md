@@ -12,14 +12,42 @@ drafts and the final export without assistant polling.
 
 This private pilot lets the assistant in a tester's Claude or ChatGPT account drive the existing video-use harness. The host assistant reads guidance, writes editing code, runs commands, inspects returned images, and exports MP4s. It does not start a second LLM agent. InsForge provides email-code sign-in, private files, project state, and the hosted Studio. Modal provides one coordinator and isolated render workspaces. ElevenLabs supplies transcription and narration using the owner's server-side key.
 
+## Hands-on prototype flow
+
+1. `start_video` returns the involvement question: **Hands off**, **Key moments** or
+   **Hands on**. The assistant asks it once with the host's native question tool,
+   or short normal chat if that tool is unavailable.
+2. Ask only essential missing output information. Reuse length, destination and
+   other requirements already supplied; do not reopen settled decisions.
+3. For Hands on, search relevant curated sources for this brief. Run independent
+   host searches in parallel when supported, then inspect promising references.
+   Offer 1–5 useful works, never more than five and never a required five-item quota.
+4. Show a simple native link preview/container per reference when supported, or a
+   linked title and one sentence explaining the fit. Include a direct source link.
+   Ask **one native question** with each reference plus **Give my input** as the
+   last free-text option. Use one short chat question if the host cannot represent
+   those options. No custom gallery, technical form or style picker.
+5. Save the user's choice or feedback. Re-search if needed; a supplied direction
+   can explicitly delegate references. Make one snippet from the chosen references
+   **and the original request**, without another script/storyboard approval detour.
+6. Show one playable snippet, then one native **Continue / Refine** question.
+   Save actual feedback, revise and review the snippet if needed. Only explicit
+   acceptance unlocks creation of the complete reviewed video and its final player.
+
+Hands off skips optional reference questions and previews. Key moments retains
+selective collaboration. Native question availability and link preview layout are
+host features; the MCP returns the choices and source links, not a custom question
+widget or control over host scheduling. A required answer is never inferred from
+silence. A native tool with too few options falls back to one concise chat question.
+
 ## Live reference research
 
 Hands-on requests consult `video_use_mcp/pilot/reference_sources.json` after output
 basics and before creation. The registry adapts the supplied **AI Video Reference
 Sources** research into discovery roots, category routes and access notes. It
 contains places to search, not a set of videos to recommend repeatedly. The host
-assistant finds current candidates for the actual request, compares 2–3 distinct
-approaches, records evidence and refines the search from the user's feedback.
+assistant finds current candidates for the actual request, inspects 1–5 useful
+references (at most five, not a quota), records evidence and refines from feedback.
 
 Use inexpensive host web search/direct fetch first. The
 `browse_video_references(project_id, request_id, operations, budget_seconds=30)`
@@ -38,7 +66,9 @@ controls. The browser has no host cookies or signed-in accounts, accepts no acco
 passwords and does not record a full browsing session. Reference selection does
 not download or import the media into an edit.
 
-One browser per project uses one attached tab, with at most two browsers globally,
+Browser batches run serially on one project tab; they are not parallel research
+agents. Independent host searches can run in parallel when supported. With at most
+two browsers globally, each project uses one browser and one attached tab,
 a 60-second idle timeout and a 180-second total lifetime. Close it when research
 finishes. Browser time uses the existing compute allowance; a batch's wall-time
 budget bounds actions, while cold startup can add time. It is not a promise of a

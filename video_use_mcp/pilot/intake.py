@@ -135,11 +135,11 @@ def intake_context(state, project_id=None):
         phase, questions = "references", []
         status = intake["reference_direction"].get("status", "needed")
         if status == "offered":
-            action = "Show the saved online references once as concise source links and available native previews. Ask which traits to use or combine, then wait for the user's actual response. Save selection or rejection with record_video_references; silence is not a choice. Do not render or narrate yet."
+            action = "Show the saved references once as simple native link cards where available, otherwise titled clickable links with one short fit line. Then ask the supplied native reference question once, with each reference as a choice and a final option for the user's own input; use short chat only if native questions are unavailable. Wait for the actual response and save selection or refinement with record_video_references. No custom gallery or questionnaire. Do not render or narrate yet."
         elif status == "refining":
             action = "The user rejected the references. Use their saved feedback to search for better examples; if the reason is unclear, ask one focused contrast question in native questions or normal chat first. Preserve likes and dislikes across rounds. Save new results with record_video_references; do not start production or recycle rejected examples unchanged."
         else:
-            action = "Derive fresh visual queries from this brief, then search suitable curated reference_sources using host tools. Search in parallel where supported, screen cheaply, and inspect only promising finalists until 2–3 distinct useful references are ready. The registry is search locations, not preselected examples. Save the live search, candidate evidence and comparison in record_video_references; don't merely pick the first results. Show concise links and native previews, no custom gallery. Inspect an explicit user reference first. Use browse_video_references for live browser search or visual inspection where host tools fall short; save evidence_ids. If both research paths or suitable approved sources are unavailable, ask for a reference or explicit delegation; never fabricate research or substitute cached clips."
+            action = "Derive fresh visual queries from this brief and the answered essentials, then search suitable curated reference_sources. Run independent host searches in parallel where supported; serialize actions in the shared Browser Harness tab. Inspect promising finalists and return 1–5 useful references, never more than five or filler to reach five. The registry is search locations, not preselected examples. Save the live search, evidence and comparison in record_video_references; don't merely pick the first results. Present simple linked references followed by one native choice question, not a custom gallery. Inspect a supplied reference first. Use browse_video_references where host tools fall short and save evidence_ids. If both research paths or suitable approved sources are unavailable, ask for a reference or explicit delegation; never fabricate research or substitute cached clips."
     elif mode == "hands_on" and review.get("status") != "approved":
         phase, questions = "excerpt_review", []
         if review.get("status") == "pending":
@@ -147,7 +147,7 @@ def intake_context(state, project_id=None):
         elif review.get("status") == "changes_requested":
             action = "The user asked to refine the sample. Use feedback already supplied; if none says what should change, ask one focused content or style refinement question before revising. Do not invent a change. Show the revised short excerpt for explicit review before completing the video."
         else:
-            action = "Use the user's content and style direction to make one short excerpt. Show it for explicit review before producing the complete video. Ask topic/content questions only where needed; do not repeat supplied context."
+            action = "Use the original request, answered essentials and selected reference traits together to make one short representative snippet. Show its playable preview once, then prepare show_video_checkpoint for one native Continue or Refine question about that exact clip. Wait before producing the complete video. Do not insert another style picker, script form or routine questionnaire; ask only if a real blocker remains."
     else:
         phase, questions = "production", []
         action = (
@@ -174,7 +174,9 @@ def intake_context(state, project_id=None):
     if pending_style:
         context["pending_style"] = deepcopy(pending_style)
     if mode == "hands_on" and intake.get("reference_direction"):
-        context["reference_direction"] = reference_context(state)
+        context["reference_direction"] = reference_context(state, project_id)
+        if phase == "references" and context["reference_direction"].get("question"):
+            context["question"] = context["reference_direction"]["question"]
     if questions:
         context["questions"] = questions
         if project_id:
@@ -245,6 +247,13 @@ def question_context(project_id, record, *, answered=False):
     )
     if record.get("text_answers"):
         data["recorded_text_answers"] = deepcopy(record["text_answers"])
+    if record.get("purpose") == "excerpt_review":
+        data["media_object_id"] = record["media_object_id"]
+        data["feedback_prompt"] = "What would you like to change in this snippet?"
+        data["instructions"] += (
+            " Show the existing clip once before asking. A written change request maps to Refine, "
+            "with the user's exact feedback in user_message; only explicit acceptance maps to Continue."
+        )
     return data
 
 

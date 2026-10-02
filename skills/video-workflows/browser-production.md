@@ -37,8 +37,8 @@ If the basics are already present, proceed directly to the selected mode.
 - **Hands on:** after output basics, research actual online visual/video references
   using host web/image tools before creating. Let the user choose or combine
   examples, save the approved traits, then make a representative snippet for review
-  before the rest. Understand unfamiliar subject matter and ask consequential
-  content questions when needed. Wait for required direction; cheap independent
+  before the rest. Research unfamiliar subject matter; ask only about a real missing
+  dependency, not a mandatory content questionnaire. Wait for required direction; cheap independent
   inspection can continue, but an unanswered choice does not authorize production.
 
 Hands-on collaboration is not a fixed list of topic questions. A supplied script,
@@ -74,11 +74,11 @@ its required account, source asset, font or renderer is available in this run.
 
 ## Ask where a different answer changes the piece
 
-After the mode and missing output basics are settled, ask a small, natural group
-of content questions only when the selected mode calls for them and their answers
-are consequential and missing. Useful uncertainties include a novice versus specialist audience,
-a faithful document adaptation versus a new interpretation, a brand reference,
-a sentimental montage's essential people, or exact product fidelity in 3D.
+After the mode, ask only essential missing information before research. Do not turn
+hands-on setup into a content questionnaire or add one after reference selection.
+Clarify a real dependency such as a montage's essential people, source permission,
+or required product fidelity when the request cannot proceed without it. Otherwise,
+use the brief to research alternatives and let the reference choice carry direction.
 Do not repeat information already in the prompt or ask the user to choose a
 renderer. Explain creative choices in terms of the result the viewer sees.
 
@@ -99,7 +99,8 @@ reveal may benefit from typography or cinematic sources, not just a product labe
 Registry order, ranked popularity and a primary/secondary example are not mandatory
 search order. When the host supports it, batch 2–3 independent targeted queries
 in parallel. Scan inexpensive titles, descriptions and actually available
-thumbnails across relevant collections, then inspect only 2–3 promising finalists.
+thumbnails across relevant collections, then inspect promising finalists for a shortlist of 1–5 useful references, at most
+five; do not manufacture weaker choices to reach five.
 With actual playback, a short excerpt is usually enough to compare a motion trait;
 do not play every candidate end to end or repeatedly retry inaccessible players.
 Stop once distinct useful choices exist. Aim for a first useful shortlist in roughly
@@ -133,7 +134,8 @@ external creator link does not authorize unrelated discovery. Avoid repeated
 retries on blocked players; retain page/image evidence and its limits. This browser
 does not inherit the host's signed-in accounts, accept account passwords or record
 an entire browsing session. Sessions use one project browser and one attached tab;
-close it when research is complete. The offline render worker and its local
+browser batches run serially. Parallelize only independent host searches/fetches
+when their tools support it, not navigation on that shared tab. Close after research. The offline render worker and its local
 composition browser remain separate.
 
 The response supplies page text, links/AX nodes, inline captures and retained
@@ -147,8 +149,8 @@ Compare candidates against the actual brief: relevance, useful design traits,
 strength of inspection evidence and practical adaptation with available assets,
 runtime and render capabilities. An ambitious studio film can supply one useful
 trait without making its production scale feasible here; say what can be adapted.
-Choose 2–3 meaningfully different approaches, not the first search results, two
-near-duplicates or a fixed explainer menu. Keep the shortlist small for the user.
+Choose 1–5 meaningfully useful references, never more than five or a fixed quota.
+Avoid the first search results by default, near-duplicates or a fixed explainer menu.
 Persist an offer's `search` object with `search_intent`, `search_queries`,
 `candidates`, `selection_reason` and `coverage_limitations`. Each candidate contains
 its `reference`, `evidence_note`, `fit`, `limitations` and `disposition`
@@ -188,9 +190,13 @@ is inaccessible, state that limit and let the user watch
 the link; their observations remain user-reported. Saved evidence is an assistant
 report, not automatic semantic verification or proof of quality.
 
-Show normal source links with concise observed contrasts and native images or
-previews when supported; do not create a form or promise an unavailable embed.
-Let the user choose or combine specific traits. On rejection, separate feedback
+Present each of the 1–5 references as a simple host-native link preview/container
+when supported, or a linked title and one sentence saying why it fits. Keep the
+source link directly clickable. Do not build a custom gallery, picker or editor.
+Then ask ONE native question with each reference as an option and a final “Give my input” option for free-text input, including a supplied reference or combination.
+If the native tool is unavailable or cannot represent all options, use one short
+normal chat question listing the same choices; do not split it into repeated forms.
+Record the actual reply before developing the excerpt. On rejection, separate feedback
 into the relevant attributes—pace, medium, texture, palette, composition, type or
 mood—and ask one targeted question only where unclear. Preserve accepted traits
 while varying the rejected ones; save explicit dislikes and excluded examples.
@@ -200,7 +206,12 @@ when that addresses the feedback, rather than applying a deterministic phrase ma
 Persist approved traits and actual user words with `record_video_references`
 (offer, select, refine or delegate), then use them in the excerpt's composition,
 typography, motion and rhythm. Choosing inspiration is not approving an unseen
-film; the existing snippet acceptance still applies.
+film; the existing snippet acceptance still applies. Use the selected references
+together with the original request, not inspiration alone. Show the playable
+snippet once, then ask ONE native question to continue or refine it with actual
+feedback. Normal chat is the fallback. Refine the sample and re-review when needed;
+create the full video only after explicit acceptance. Do not insert a script editor,
+extra style picker or mandatory storyboard before this checkpoint.
 
 An explicitly supplied reference, exact edit or request to skip research may
 delegate the search. Record the user's actual words and the specific direction;
@@ -227,7 +238,7 @@ context is applied when the host makes it available to the assistant. Submitted
 render jobs can run while the host is waiting, within task and workspace limits.
 
 Do not end every stage to ask permission. The initial mode/output choices and
-hands-on early content, style and snippet decisions are meaningful checkpoints;
+hands-on reference choice and snippet review are meaningful checkpoints;
 they do not make every implementation step an approval stage. Continue compatible
 independent work while awaiting an answer, and resume dependent work after it
 arrives. A genuine missing input and a host turn limit are separate constraints.
