@@ -555,7 +555,7 @@ def register_workflow(mcp, store, muser, new_project, read, write):
             ),
         ] = None,
     ) -> CallToolResult:
-        """Start a new video and return its opening question for YOU to ask once: Hands off, Key moments, or Hands on. No app card is displayed. Use your native question tool if available, otherwise one short chat question; do not call show_video_brief to repeat this returned question. Record the actual reply with question.record_with. Then ask only missing output basics. Save stated length/destination in output_profile to avoid repeating them. Keep brief faithful; inferred content/style belong in assumptions. Hands off produces the finished video; key moments uses selective check-ins. Hands on searches actual online visual references with available host research tools, saves examples and explicit feedback using record_video_references, and follows the selected visual direction in a short real excerpt before the rest. Rejected examples require refinement and a new search, not production. Reuse project_id for revisions without restarting intake. Categories are hints, not templates."""
+        """Start a new video and return its opening question for YOU to ask once: Hands off, Key moments, or Hands on. No app card is displayed. Use your native question tool if available, otherwise one short chat question; do not call show_video_brief to repeat this returned question. Record the actual reply with question.record_with. Then ask only missing output basics. Save stated length/destination in output_profile to avoid repeating them. Keep brief faithful; inferred content/style belong in assumptions. Hands off produces the finished video; key moments uses selective check-ins. Hands on searches curated sources with available host research tools, parallelizing independent searches when supported. Inspect and show 1–5 useful references as simple native link previews or linked titles, then ask one native question listing each reference and a final Give my input option; short normal chat is the fallback. Use record_video_references to save research and the actual reply. Combine the chosen reference with the original brief to create one snippet, show its player once, then ask one continue/refine question using show_video_checkpoint. Only explicit snippet acceptance unlocks the full video. Refine from actual feedback; no custom gallery, cached style picker or script-editor detour. Reuse project_id for revisions without restarting intake. Categories are hints, not templates."""
         uid = muser(True)
         if (
             not title.strip()
@@ -672,13 +672,24 @@ def register_workflow(mcp, store, muser, new_project, read, write):
         recommended: str = "",
         reference_ids: list[str] = [],
     ) -> CallToolResult:
-        """Show 2–3 relevant cached motion references for an unresolved visual decision, after intake. Samples are references, not user drafts. Skip when the style is already specified, examples do not fit, or mode is Hands off. Hands on waits for the choice; Key moments can continue independent work. A chat reply can be saved with reply_video_style. Do not make the user choose among irrelevant templates."""
+        """Show optional cached motion examples for Key moments or an existing legacy flow. This custom picker is unavailable in new Hands on projects: research fresh references, record them with record_video_references, show simple source links, and ask the returned native question instead. Skip when the style is specified, examples do not fit, or mode is Hands off. Cached samples are references, not user drafts. Key moments can continue independent work. Legacy picker replies can be saved with reply_video_style. Do not force irrelevant templates."""
         uid = muser(True)
         state = context(uid, project_id)
         intake = intake_context(state) or {}
         mode, _ = involvement_preference(state)
         if intake.get("phase") in ("mode", "basics"):
             raise ValueError(intake["next_action"])
+        if (
+            mode == "hands_on"
+            and state.get("intake", {}).get("reference_direction", {}).get("version")
+            == 1
+        ):
+            raise ValueError(
+                "Hands on uses fresh references, not this custom cached picker. "
+                "Use record_video_references to save 1–5 inspected references, show their plain source links, "
+                "then ask its native question with each reference and Give my input. "
+                "Use one short chat question if native questions are unavailable."
+            )
         if state.get("intake", {}).get("version") == 1 and mode == "delegate":
             raise ValueError(
                 "Hands off is selected. Use the brief and proceed to the finished video without optional style questions."

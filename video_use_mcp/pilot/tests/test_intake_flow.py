@@ -110,20 +110,13 @@ def test_hands_off_rejects_optional_style_and_draft_but_allows_production(pilot)
     assert selected["intake"]["phase"] == "production"
 
 
-def test_hands_on_style_excerpt_refine_and_acceptance(pilot):
+def test_hands_on_explicit_direction_excerpt_refine_and_acceptance(pilot):
     selected = mode(pilot, "hands_on")
     pid = selected["project_id"]
-    choices = call(pilot, "show_video_choices", dict(project_id=pid))
-    with pytest.raises(ValueError, match="intake"):
-        require_production_intake(
-            state(pilot, pid), "step", {"production_stage": "excerpt"}
-        )
-    call(
-        pilot,
-        "choose_video_style",
-        dict(project_id=pid, revision=choices["choices"]["revision"], choice="diagram"),
+    assert "record_video_references" in error(
+        pilot, "show_video_choices", project_id=pid
     )
-    # A cached sample alone does not answer the new online reference stage.
+    assert not state(pilot, pid)["intake"].get("pending_style")
     with pytest.raises(ValueError, match="intake"):
         require_production_intake(
             state(pilot, pid), "step", {"production_stage": "excerpt"}
@@ -136,8 +129,8 @@ def test_hands_on_style_excerpt_refine_and_acceptance(pilot):
             creative_revision=state(pilot, pid)["revision"],
             request_id="skip-online",
             action="delegate",
-            user_message="Skip online references and use that diagram style",
-            direction="Use the diagram style the user selected",
+            user_message="Skip online references and use a simple diagram",
+            direction="Simple diagram",
         ),
     )
     require_production_intake(
