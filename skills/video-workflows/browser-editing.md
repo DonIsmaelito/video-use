@@ -24,18 +24,18 @@ Host turn and tool limits still apply.
 
 ## Find the hands-on direction before rendering
 
-Read `reference_sources`: approved discovery locations, not fixed video picks.
-Derive visual intent from this brief; keep factual research separate. Parallelize
-independent host search/fetch when supported, scan cheaply, then inspect promising
-candidates for fit, evidence and feasible adaptation. Offer 1–5 useful references,
-at most five, without filling a quota. Avoid repeated blocked-player retries.
+Search `reference_sources` afresh for this brief; factual research stays separate.
+Parallelize independent host searches when supported. Inspect finalists for fit,
+evidence and feasibility; offer 1–5 useful references without filler or repeated
+blocked-player retries. Unspecified styles/media stay open: compare different
+treatments across suitable collections. Category labels and assumptions are
+provisional; confirmed answers override them.
 
 For interactive pages/media, use `browse_video_references` before rendering.
-You direct Browser Harness, not another model. Its isolated browser has no host
-cookies or account passwords; one project's tab runs batches serially. Each batch
-allows six browser operations in 5–45 seconds (default 30), excluding cold startup.
-Use observed `node_id` targets, curated roots or user-supplied URLs, and evidenced
-creator links. Close when done. The workflows guide details operation arguments.
+Browser Harness uses no second model or host credentials. Its shared tab runs
+serially: six actions/batch, 5–45 seconds (default 30), plus cold startup. Use observed
+`node_id` targets, curated/user URLs or discovered creator links; close when done.
+See workflows for arguments.
 
 Save intent, queries, comparisons, source/discovery URLs, limits and `evidence_ids`
 with `record_video_references`. Inspect returned images before describing traits.

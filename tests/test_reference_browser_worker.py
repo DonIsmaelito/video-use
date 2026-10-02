@@ -198,14 +198,89 @@ def test_credentials_fail_and_stop_later_batch_actions(isolated, monkeypatch, ca
     assert not any(call[0] in {"type", "press"} for call in harness.calls)
 
 
+@pytest.mark.parametrize("budget,expected_url", [
+    (5, "https://example.com/film"), (0.6, "https://example.com/collection")
+])
+def test_link_snapshot_waits_for_delayed_navigation_within_batch_budget(isolated, monkeypatch, budget, expected_url):
+    """A delayed site transition must not silently return the old collection."""
+    clock = SimpleNamespace(now=0.0)
+    monkeypatch.setattr(worker.time, "monotonic", lambda: clock.now)
+    monkeypatch.setattr(worker.time, "sleep", lambda seconds: setattr(clock, "now", clock.now + seconds))
+
+    class DelayedLinkHarness(Harness):
+        pending = None
+
+        def cdp(self, method, **kwargs):
+            if method == "Runtime.callFunctionOn":
+                return {"result": {"value": {"href": "https://example.com/film"}}}
+            return super().cdp(method, **kwargs)
+
+        def click_at_xy(self, x, y):
+            self.pending = clock.now + 0.8
+
+        def page_info(self):
+            if self.pending is not None and clock.now >= self.pending:
+                self.url = "https://example.com/film"
+            return super().page_info()
+
+    session = worker._Session(DelayedLinkHarness(), budget)
+    session.perform({"action": "open", "url": "https://example.com/collection"})
+    result = session.perform({"action": "click", "node_id": 123})
+    assert result["page_url"] == expected_url
+    assert clock.now <= budget
+    if budget < 1:
+        assert any("did not finish navigating" in note for note in session.limitations)
+    else:
+        assert clock.now >= 0.8
+        assert not any("did not finish navigating" in note for note in session.limitations)
+
+
 def test_video_without_real_decoded_frame_cannot_create_evidence(isolated):
     session = worker._Session(Harness(), worker.time.monotonic() + 30)
     session.perform({"action": "open", "url": "https://example.com"})
     result = session.perform({"action": "sample_video", "timestamps": [0, 1]})
     assert result["sampled_frames"] == 0
+    assert result["ok"] is False and result["availability"] == "unavailable"
     assert not result["playback_verified"]
     assert session.evidence == []
     assert any("HTML5 video" in note for note in session.limitations)
+
+
+def test_unavailable_sampling_keeps_earlier_evidence_and_stops_dependent_actions(isolated, monkeypatch, capsys):
+    harness = Harness()
+    monkeypatch.setitem(sys.modules, "browser_harness", SimpleNamespace(helpers=harness))
+    worker._harness_dispatch({"budget_seconds": 30, "operations": [
+        {"action": "open", "url": "https://example.com"},
+        {"action": "screenshot"},
+        {"action": "sample_video", "timestamps": [0]},
+        {"action": "screenshot"},
+    ]})
+    report, done = worker._parse_events(capsys.readouterr().out)
+    assert done and len(report["results"]) == 3
+    assert report["results"][-1]["availability"] == "unavailable"
+    assert report["results"][-1]["ok"] is False
+    assert "No decoded video frames" in report["results"][-1]["error"]
+    assert len(report["evidence"]) == 1
+    assert any("HTML5 video" in note for note in report["limitations"])
+
+
+def test_partial_sampling_retains_real_frame_without_claiming_all_samples(isolated):
+    class PartialHarness(Harness):
+        def js(self, expression):
+            if expression == worker.PAGE_CONTENT_JS:
+                return super().js(expression)
+            if not self.video:
+                self.video = True
+                return {"ok": True, "timestamp_seconds": 0, "duration_seconds": 1}
+            return {"ok": False, "reason": "The requested timestamp is outside the video duration."}
+
+    session = worker._Session(PartialHarness(), worker.time.monotonic() + 30)
+    session.perform({"action": "open", "url": "https://example.com"})
+    result = session.perform({"action": "sample_video", "timestamps": [0, 2]})
+    assert result["ok"] and result["availability"] == "partial"
+    assert result["sampled_frames"] == len(session.evidence) == 1
+    assert not result["playback_verified"]
+    assert any("outside the video duration" in note for note in session.limitations)
 
 
 def test_sampled_frame_records_requested_and_actual_time(isolated):
@@ -220,6 +295,61 @@ def test_sampled_frame_records_requested_and_actual_time(isolated):
     assert frame["requested_timestamp_seconds"] == 2 and frame["timestamp_seconds"] == 2.01
     assert Path(frame["path"]).is_file()
     assert any("continuous playback" in note for note in session.limitations)
+
+
+@pytest.mark.parametrize("loads", [True, False])
+def test_sampling_waits_for_lazy_metadata_and_first_decoded_frame_within_budget(isolated, loads):
+    """Execute the real page expression across loadedmetadata then loadeddata."""
+    node = shutil.which("node")
+    if not node:
+        pytest.skip("Node is required to execute the browser JavaScript regression")
+
+    class LoadingHarness(Harness):
+        diagnostics = None
+
+        def js(self, expression):
+            if expression == worker.PAGE_CONTENT_JS:
+                return super().js(expression)
+            setup = """
+              const listeners=new Map(); let loadCalls=0;
+              const emit=name=>[...(listeners.get(name)||[])].forEach(f=>f());
+              const video={duration:NaN,readyState:0,currentTime:0,
+                pause(){},
+                load(){
+                  loadCalls++;
+                  if(LOADS) {
+                    setTimeout(()=>{this.duration=12;this.readyState=1;emit('loadedmetadata');},30);
+                    setTimeout(()=>{this.readyState=4;emit('loadeddata');},60);
+                  }
+                },
+                addEventListener(name,fn){if(!listeners.has(name)) listeners.set(name,new Set());listeners.get(name).add(fn);},
+                removeEventListener(name,fn){listeners.get(name)?.delete(fn);},
+                getBoundingClientRect(){return {width:200,height:100,bottom:200,right:300,top:100,left:100};},
+                checkVisibility(){return true;}
+              };
+              global.document={querySelectorAll:()=>[video]};
+              global.innerWidth=1280;global.innerHeight=900;
+              global.requestAnimationFrame=callback=>callback();
+              const started=performance.now();
+            """.replace("LOADS", json.dumps(loads))
+            program = setup + "\nPromise.resolve(" + expression + ").then(result=>process.stdout.write(JSON.stringify({result,loadCalls,elapsed:performance.now()-started})));"
+            completed = subprocess.run([node, "-e", program], capture_output=True, text=True, timeout=2, check=True)
+            self.diagnostics = json.loads(completed.stdout)
+            return self.diagnostics["result"]
+
+    harness = LoadingHarness()
+    session = worker._Session(harness, worker.time.monotonic() + 0.8)
+    session.perform({"action": "open", "url": "https://example.com"})
+    result = session.perform({"action": "sample_video", "timestamps": [0]})
+    assert result["sampled_frames"] == int(loads)
+    assert result["ok"] == loads
+    assert harness.diagnostics["loadCalls"] == 1
+    assert harness.diagnostics["elapsed"] < 750
+    if loads:
+        assert harness.diagnostics["elapsed"] >= 50
+        assert session.evidence[0]["timestamp_seconds"] == 0
+    else:
+        assert any("metadata is unavailable" in note for note in session.limitations)
 
 
 @pytest.mark.parametrize("visible", [False, True])

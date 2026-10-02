@@ -348,7 +348,7 @@ class _Session:
             _public_url(info["href"])
             if info.get("target") == "_blank":
                 self.h.goto_url(info["href"])
-                return
+                return info["href"]
         self.h.cdp("DOM.scrollIntoViewIfNeeded", backendNodeId=node_id)
         quad = self.h.cdp("DOM.getBoxModel", backendNodeId=node_id)["model"]["content"]
         x, y = sum(quad[0::2]) / 4, sum(quad[1::2]) / 4
@@ -356,6 +356,22 @@ class _Session:
         if not (0 <= x < viewport.get("w", 0) and 0 <= y < viewport.get("h", 0)):
             raise ValueError("The requested node is outside the browser viewport")
         self.h.click_at_xy(x, y)
+        return info.get("href")
+
+    def _settle_link(self, previous_url, href):
+        """Wait for an asynchronous link navigation, within this batch's budget."""
+        if not href or href == previous_url:
+            return
+        deadline = min(self.deadline, time.monotonic() + 3)
+        while time.monotonic() < deadline:
+            current = self.h.page_info().get("url", "")
+            if current and current not in {previous_url, "about:blank"}:
+                remaining = deadline - time.monotonic()
+                if remaining > 0 and not self.h.wait_for_load(timeout=remaining):
+                    self.limitations.append("The linked page is still loading; the snapshot reflects its current rendered state.")
+                return
+            time.sleep(min(0.1, max(0, deadline - time.monotonic())))
+        self.limitations.append("The link did not finish navigating within the browser budget; inspect the returned page URL before reusing node IDs.")
 
     def _capture(self, kind="screenshot", **metadata):
         page = self._page()
@@ -372,23 +388,39 @@ class _Session:
         frames = []
         index = operation.get("video_index", 0)
         for requested in operation["timestamps"]:
-            if self.deadline - time.monotonic() < 4:
+            remaining = self.deadline - time.monotonic()
+            if remaining < 0.5:
                 self.limitations.append("Video sampling stopped at the browser time budget.")
                 break
             # The timeout is below Browser Harness's Runtime.evaluate timeout.
             # Successful seeking is evidence of these frames, not full playback.
             expression = """(async () => {
+              const deadline=performance.now()+WAIT_MS;
+              const remaining=()=>Math.max(0,deadline-performance.now());
               const v=document.querySelectorAll('video')[INDEX];
               if(!v) return {ok:false,reason:'No top-document HTML5 video is available; embedded or custom players cannot be sampled here.'};
+              if(!Number.isFinite(v.duration)||v.readyState<1) {
+                await new Promise(resolve => {
+                  let timer; const events=['loadedmetadata','error'];
+                  const done=()=>{clearTimeout(timer);events.forEach(event=>v.removeEventListener(event,done));resolve();};
+                  timer=setTimeout(done,Math.min(1500,remaining()));
+                  events.forEach(event=>v.addEventListener(event,done,{once:true}));
+                  // Lazy video elements may not request metadata until asked.
+                  // Loading does not play audio or grant page permissions.
+                  if(v.readyState===0) {v.preload='auto';v.load();}
+                  if(Number.isFinite(v.duration)&&v.readyState>=1) done();
+                });
+              }
               if(!Number.isFinite(v.duration)||v.readyState<1) return {ok:false,reason:'Video metadata is unavailable or the stream is not seekable.'};
               const target=STAMP;
               if(target>=v.duration) return {ok:false,reason:'The requested timestamp is outside the video duration.'};
               v.pause(); v.muted=true;
               const settled=await new Promise(resolve => {
-                let timer; const finish=ok=>{clearTimeout(timer);v.removeEventListener('seeked',done);resolve(ok);};
-                const done=()=>finish(v.readyState>=2);
-                timer=setTimeout(()=>finish(false),3000);
-                v.addEventListener('seeked',done,{once:true});
+                let timer; const events=['seeked','loadeddata'];
+                const finish=ok=>{clearTimeout(timer);events.forEach(event=>v.removeEventListener(event,done));resolve(ok);};
+                const done=()=>{if(v.readyState>=2&&Math.abs(v.currentTime-target)<0.03) finish(true);};
+                timer=setTimeout(()=>finish(false),remaining());
+                events.forEach(event=>v.addEventListener(event,done));
                 if(Math.abs(v.currentTime-target)<0.03 && v.readyState>=2) finish(true);
                 else v.currentTime=target;
               });
@@ -399,7 +431,8 @@ class _Session:
               if(!visible) return {ok:false,reason:'Video is hidden or outside the viewport; make it visible before sampling.'};
               await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
               return {ok:true,timestamp_seconds:v.currentTime,duration_seconds:v.duration};
-            })()""".replace("INDEX", json.dumps(index)).replace("STAMP", json.dumps(requested))
+            })()""".replace("INDEX", json.dumps(index)).replace("STAMP", json.dumps(requested)).replace(
+                "WAIT_MS", json.dumps(max(1, int(min(3, remaining - 0.25) * 1000))))
             sampled = self.h.js(expression) or {}
             if not sampled.get("ok"):
                 self.limitations.append(str(sampled.get("reason", "Video frame is unavailable"))[:400])
@@ -408,8 +441,12 @@ class _Session:
                                      timestamp_seconds=sampled["timestamp_seconds"], video_index=index)
             frames.append(evidence)
         self.limitations.append("Video evidence contains only the returned decoded frame screenshots; audio and continuous playback were not inspected.")
-        return {"page_url": self._page()["page_url"], "frames": frames, "sampled_frames": len(frames),
-                "playback_verified": False}
+        result = {"ok": bool(frames), "page_url": self._page()["page_url"],
+                  "frames": frames, "sampled_frames": len(frames), "playback_verified": False,
+                  "availability": "available" if len(frames) == len(operation["timestamps"]) else "partial" if frames else "unavailable"}
+        if not frames:
+            result["error"] = "No decoded video frames were captured; inspect the limitations or a page screenshot before retrying."
+        return result
 
     def perform(self, operation):
         action = operation["action"]
@@ -437,7 +474,9 @@ class _Session:
         if action == "sample_video":
             return self._sample_video(operation)
         if action == "click":
-            self._click(operation["node_id"])
+            previous_url = self._page()["page_url"]
+            href = self._click(operation["node_id"])
+            self._settle_link(previous_url, href)
         elif action == "fill":
             node_id = operation["node_id"]
             info = self._node(node_id)
