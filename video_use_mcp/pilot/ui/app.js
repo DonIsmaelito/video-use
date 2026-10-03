@@ -3,6 +3,7 @@ const app = new App({ name: "Video preview", version: "3.0.0" });
 const $ = (id) => document.getElementById(id);
 let media, shown, mediaProject, pendingMedia, refreshState, refreshInFlight=false;
 let followProject=true, mediaRenewal=null, tornDown=false, blockedEmbedKey;
+let referencePoster;
 const reportedEmbedFailures=new Set();
 const REFRESH_INTERVAL_MS=5000,IDLE_REFRESH_INTERVAL_MS=30000;
 function unpack(result) {
@@ -179,11 +180,57 @@ function hostAllowsFrame(url,context=app.getHostContext?.()){
   }
   return unknown?undefined:false;
 }
+function youtubePosterUrl(next){
+  if(next.provider!=='youtube' || !next.source_url || typeof next.poster_url!=='string')return null;
+  try{
+    const source=new URL(next.source_url),poster=new URL(next.poster_url);
+    if(source.protocol!=='https:' || source.username || source.password || source.port
+      || poster.origin!=='https://i.ytimg.com' || poster.username || poster.password || poster.hash)return null;
+    let id;
+    if(source.hostname==='youtu.be')id=source.pathname.slice(1);
+    else if(['youtube.com','www.youtube.com','m.youtube.com'].includes(source.hostname)){
+      id=source.pathname==='/watch'?source.searchParams.get('v'):source.pathname.match(/^\/(?:shorts|live)\/([^/]+)$/)?.[1];
+    }
+    if(!/^[a-zA-Z0-9_-]{11}$/.test(id || ''))return null;
+    const path=poster.pathname.match(/^\/(vi|vi_webp)\/([a-zA-Z0-9_-]{11})\/(?:default|mqdefault|hqdefault|sddefault|maxresdefault|[0-3])(?:_live)?\.(jpg|webp)$/);
+    if(!path || path[2]!==id || (path[1]==='vi'?path[3]!=='jpg':path[3]!=='webp'))return null;
+    return poster.href;
+  }catch{return null;}
+}
+function clearReferencePoster(){
+  if(referencePoster){referencePoster.image.onload=null;referencePoster.image.onerror=null;}
+  referencePoster=null;
+  const link=$('reference-poster');link.hidden=true;link.removeAttribute('href');link.replaceChildren();
+}
+function showReferencePoster(next){
+  const url=youtubePosterUrl(next),link=$('reference-poster');
+  if(!url){clearReferencePoster();return;}
+  const key=next.source_url+'|'+url;
+  if(referencePoster?.key===key){link.hidden=referencePoster.status!=='loaded';return;}
+  clearReferencePoster();
+  const image=document.createElement('img'),label=document.createElement('span');
+  const state={key,image,status:'loading'};referencePoster=state;
+  image.alt=next.title?`Thumbnail for ${next.title}`:'YouTube source thumbnail';
+  image.referrerPolicy='no-referrer';
+  label.textContent='Watch on YouTube ↗';
+  link.href=next.source_url;link.setAttribute('aria-label','Watch the original source on YouTube · opens YouTube');
+  link.append(image,label);
+  image.onload=()=>{
+    if(tornDown || referencePoster!==state)return;
+    state.status='loaded';link.hidden=false;$('media-status').textContent='Video thumbnail';
+  };
+  image.onerror=()=>{
+    if(tornDown || referencePoster!==state)return;
+    state.status='failed';link.hidden=true;link.replaceChildren();$('media-status').textContent=media?.caption || 'Source reference';
+  };
+  image.src=url;
+}
 function blockedReference(element){
   if(tornDown || !media?.source_url || element!==$('media').firstElementChild)return;
   blockedEmbedKey=shown;$('media').hidden=true;
   $('source-playback-hint').hidden=false;
   $('source-playback-hint').textContent='This chat blocked the embedded player. Open the original source using the link above.';
+  showReferencePoster(media);
   const source=media.source_url;
   if(!reportedEmbedFailures.has(source) && app.getHostCapabilities?.()?.updateModelContext?.text){
     reportedEmbedFailures.add(source);
@@ -225,6 +272,7 @@ function render(next) {
   const key = next.object_id || next.embed_url || next.url || next.source_url;
   if (shown !== key) {
     blockedEmbedKey=undefined;
+    clearReferencePoster();
     const video = ['video/mp4','video/webm'].includes(next.media_type);
     const embed=next.media_type === 'text/html' && next.embed_url;
     const sourceOnly=next.media_type==='source_link';
@@ -267,10 +315,12 @@ function render(next) {
   $('source-playback-hint').textContent=embedded?'If playback does not load, open the original source using the link above.':'';
   $('source-playback-hint').hidden=!embedded;
   if(blockedEmbedKey===shown || (next.embed_url && hostAllowsFrame(next.embed_url)===false))blockedReference($('media').firstElementChild);
+  else if(source && next.media_type==='source_link')showReferencePoster(next);
+  else clearReferencePoster();
   const downloadable=next.media_type==='video/mp4' && !source && Boolean(next.download_url || next.object_id);
   $('download').hidden=!downloadable;
   $('download').href=next.download_url || next.url || '';
-  $('media-status').textContent=source?(next.caption || 'Source video'):next.final===true?'Final video':next.media_type==='video/mp4'?'Sample':'';
+  $('media-status').textContent=source?(referencePoster?.status==='loaded'?'Video thumbnail':next.caption || 'Source video'):next.final===true?'Final video':next.media_type==='video/mp4'?'Sample':'';
   $('excerpt').hidden=next.truncated!==true;
   if(next.truncated===true){
     const seconds=Number(next.duration),total=Number(next.source_duration);
@@ -301,7 +351,14 @@ $('download').onclick=async(event)=>{
   if(active.object_id!==media?.object_id || element!==$('media').firstElementChild)return;
   await app.openLink({url:media.download_url || media.url});
 };
-$('source-reference').onclick=async(event)=>{event?.preventDefault?.();if(media?.source_url)await app.openLink({url:media.source_url});};
+function openReference(event){
+  // The anchor's real href remains usable when the host has no link API.
+  if(!media?.source_url || !app.getHostCapabilities?.()?.openLinks || typeof app.openLink!=='function')return;
+  event?.preventDefault?.();
+  return app.openLink({url:media.source_url});
+}
+$('source-reference').onclick=openReference;
+$('reference-poster').onclick=openReference;
 document.addEventListener('visibilitychange',()=>{
   if(document.hidden===true){if(refreshState){clearTimeout(refreshState.timer);refreshState.timer=null;}return;}
   startRefresh();if(refreshState && !refreshState.timer)pollPreview(refreshState);
@@ -316,6 +373,7 @@ app.onhostcontextchanged=(context)=>{
 };
 app.onteardown=async()=>{
   tornDown=true;stopRefresh();
+  clearReferencePoster();
   const element=$('media').firstElementChild;
   if(element){element.onpause=null;element.onended=null;}
   return {};

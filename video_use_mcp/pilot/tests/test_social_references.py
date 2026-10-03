@@ -14,6 +14,7 @@ from video_use_mcp.pilot.social_references import (
     inspect_social_post,
     social_post,
     validate_social_receipt,
+    youtube_thumbnail_url,
 )
 
 YT = "https://www.youtube.com/watch?v=aqz-KE-bpKQ"
@@ -154,6 +155,60 @@ def test_oembed_attribution_does_not_invent_metrics_or_execute_html(store):
     assert any("not zero" in text for text in result["limitations"])
     assert any("not visual inspection" in text for text in result["limitations"])
     assert "owner" not in result and "project" not in result
+
+
+@pytest.mark.parametrize("url", [
+    "https://i.ytimg.com/vi/aqz-KE-bpKQ/hqdefault.jpg",
+    "https://i.ytimg.com/vi/aqz-KE-bpKQ/maxresdefault.jpg?provider=public",
+    "https://i.ytimg.com/vi/aqz-KE-bpKQ/0.jpg",
+    "https://i.ytimg.com/vi/aqz-KE-bpKQ/hqdefault_live.jpg",
+    "https://i.ytimg.com/vi_webp/aqz-KE-bpKQ/mqdefault.webp",
+])
+def test_official_youtube_thumbnail_is_retained_in_owned_receipt(store, url):
+    result = inspect(store, handler=lambda request: httpx.Response(200, json={
+        "type": "video", "author_name": "Creator", "title": "Example film", "thumbnail_url": url,
+    }))
+    assert result["thumbnail_url"] == url
+    saved = validate_social_receipt(store, "owner", "project", result["social_receipt_id"], YT)
+    assert saved["thumbnail_url"] == url
+    assert result["post_verified"] is True
+
+
+@pytest.mark.parametrize("url", [
+    "http://i.ytimg.com/vi/aqz-KE-bpKQ/hqdefault.jpg",
+    "https://i.ytimg.com.evil.example/vi/aqz-KE-bpKQ/hqdefault.jpg",
+    "https://example.com/vi/aqz-KE-bpKQ/hqdefault.jpg",
+    "https://i.ytimg.com/vi/abcdefghijk/hqdefault.jpg",
+    "https://user@i.ytimg.com/vi/aqz-KE-bpKQ/hqdefault.jpg",
+    "https://i.ytimg.com:444/vi/aqz-KE-bpKQ/hqdefault.jpg",
+    "https://i.ytimg.com/vi/aqz-KE-bpKQ/../../another.jpg",
+    "https://i.ytimg.com/vi/aqz-KE-bpKQ/custom.html",
+    "https://i.ytimg.com/vi/aqz-KE-bpKQ/hqdefault.jpg#wrong",
+    "https://i.ytimg.com/vi/aqz-KE-bpKQ/hqdefault.webp",
+    "https://i.ytimg.com/vi_webp/aqz-KE-bpKQ/hqdefault.jpg",
+    "https://i.ytimg.com/vi/aqz-KE-bpKQ/hqdefault.jpg\n",
+    "https://i.ytimg.com/vi/aqz-KE-bpKQ/hqdefault.jpg\\other",
+    None,
+])
+def test_untrusted_or_wrong_video_thumbnails_do_not_enter_metadata(store, url):
+    result = inspect(store, handler=lambda request: httpx.Response(200, json={
+        "type": "video", "author_name": "Creator", "title": "Example film", "thumbnail_url": url,
+    }))
+    assert result["post_verified"] is True
+    assert result["thumbnail_url"] is None
+
+
+@pytest.mark.parametrize("post_id", ["../aqz-KE-bpKQ", "aqz-KE-bpKQ/other", "aqz-KE-bpK", "", None])
+def test_thumbnail_requires_a_valid_exact_youtube_id(post_id):
+    assert youtube_thumbnail_url("https://i.ytimg.com/vi/aqz-KE-bpKQ/hqdefault.jpg", post_id) is None
+
+
+@pytest.mark.parametrize("url", [TT, X])
+def test_other_platforms_do_not_adopt_youtube_thumbnail_urls(store, url):
+    result = inspect(store, url, handler=lambda request: httpx.Response(200, json={
+        "type": "video", "author_name": "Creator", "thumbnail_url": "https://i.ytimg.com/vi/aqz-KE-bpKQ/hqdefault.jpg",
+    }))
+    assert result["thumbnail_url"] is None
 
 
 def test_receipts_and_cache_are_private_and_alias_bound(store):

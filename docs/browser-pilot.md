@@ -133,6 +133,14 @@ It retains the source link, candidate description, verified creator/metrics, and
 inspection limitations. Supported hosts receive a short model-context failure
 notice, not a fabricated user reply. No proxy or security-policy bypass is used.
 
+For a verified YouTube source, a blocked player displays the video's own thumbnail
+linked to its original watch page, labeled **Watch on YouTube**. This is an image
+fallback, not inline playback. Official oEmbed thumbnails are retained only from
+`i.ytimg.com` with the exact verified video ID; older receipts use the standard
+public thumbnail path for that same ID. Only that image origin is added to the
+reference resource policy. Missing or failed images leave the normal source link
+without a blank media box. Hosts that permit the player keep the actual embed.
+
 `reference_playback.py` attaches the matching current-round candidate's `fit` to
 each media result. The UI renders it as plain text beneath that specific player,
 so explanations survive a skipped chat sentence or blocked frame. Unavailable

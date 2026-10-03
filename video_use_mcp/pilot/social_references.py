@@ -100,6 +100,31 @@ def same_social_post(left, right):
     )
 
 
+def youtube_thumbnail_url(value, post_id):
+    """Keep only an official image URL for this exact public video identity."""
+    if (not isinstance(post_id, str) or not re.fullmatch(r"[A-Za-z0-9_-]{11}", post_id)
+            or not isinstance(value, str) or len(value) > 2048
+            or any(c.isspace() or ord(c) < 32 for c in value) or "\\" in value):
+        return None
+    try:
+        parsed = urlsplit(value)
+        if (parsed.scheme != "https" or parsed.hostname != "i.ytimg.com"
+                or parsed.username is not None or parsed.password is not None
+                or parsed.port not in {None, 443} or parsed.fragment):
+            return None
+    except ValueError:
+        return None
+    image = re.fullmatch(
+        r"/(vi|vi_webp)/([A-Za-z0-9_-]{11})/((?:default|hqdefault|mqdefault|sddefault|maxresdefault|[0-3])(?:_live)?)\.(jpg|webp)",
+        parsed.path,
+    )
+    if not image or image[2] != post_id:
+        return None
+    if (image[1] == "vi" and image[4] != "jpg") or (image[1] == "vi_webp" and image[4] != "webp"):
+        return None
+    return value
+
+
 class _PostText(HTMLParser):
     def __init__(self):
         super().__init__(convert_charrefs=True)
@@ -314,6 +339,7 @@ async def inspect_social_post(
     metadata = {
         **post,
         "title": None,
+        "thumbnail_url": None,
         "creator": {"name": None, "url": None},
         "observed_at": now.isoformat(),
         "published_at": None,
@@ -365,6 +391,8 @@ async def inspect_social_post(
                 parser.feed(str(raw.get("html", ""))[:50000])
                 title = " ".join(parser.parts)
             metadata.update(title=_text(title) or None, post_verified=True)
+            if platform == "youtube":
+                metadata["thumbnail_url"] = youtube_thumbnail_url(raw.get("thumbnail_url"), post["post_id"])
             metadata["creator"] = {
                 "name": _text(raw["author_name"], 160),
                 "url": _creator_url(raw.get("author_url"), platform),

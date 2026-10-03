@@ -25,6 +25,10 @@ html,body{color:#eee;color-scheme:dark light}#visual{background:transparent;colo
 #source-reference{overflow-wrap:anywhere}#excerpt{opacity:.7;padding:0;margin:5px 0 0}
 .reference-description{font-size:14px;line-height:1.5;margin:10px 0 0;overflow-wrap:anywhere}
 .reference-detail{font-size:12px;line-height:1.45;margin:5px 0 0;opacity:.75;overflow-wrap:anywhere}
+#reference-poster{display:block;color:inherit;text-decoration:none}
+#reference-poster img{display:block;width:100%;height:auto;max-height:540px;object-fit:contain;border-radius:8px}
+#reference-poster span{display:block;margin-top:7px;font-size:13px;text-decoration:underline}
+#reference-poster:focus-visible{outline:2px solid currentColor;outline-offset:3px}
 #notice{color:inherit;font-size:12px;line-height:1.4}
 .brief-options button,.option button,#widget-latest,#source-library,#source-fallback{background:#21192d;color:#f4efff}#widget,#choices,#sources{background:#15111d;color:#f4efff;padding:12px;border-radius:10px}
 </style>
@@ -33,7 +37,7 @@ html,body{color:#eee;color-scheme:dark light}#visual{background:transparent;colo
 <section id="choices" hidden><p id="question"></p><div id="options"></div><p id="sample-label">Style references · You can also describe your own direction.</p></section>
 <section id="sources" hidden><label class="source-select">Add your files<input id="source-files" type="file" multiple></label><button id="source-library" hidden>Choose from ChatGPT files</button><button id="source-fallback">Open upload page</button><p id="source-status" role="status"></p></section>
 <section id="widget" hidden aria-labelledby="widget-title"><form id="widget-form"><h2 id="widget-title" class="widget-heading"></h2><div id="widget-fields"></div><p id="widget-status" role="status" aria-live="polite"></p><div class="widget-actions"><button id="widget-latest" type="button" hidden>Load latest · discard my edits</button><button id="widget-submit" type="submit" disabled>Save preferences</button></div></form></section>
-<figure id="visual" hidden><div id="media"></div><figcaption class="media-caption"><span id="media-status" role="status" aria-live="polite"></span><a id="source-reference" href="" target="_blank" rel="noopener noreferrer" hidden></a><a id="download" href="" target="_blank" rel="noopener noreferrer" hidden>Download MP4</a></figcaption><p id="reference-description" class="reference-description" hidden></p><p id="reference-attribution" class="reference-detail" hidden></p><p id="reference-evidence" class="reference-detail" hidden></p><p id="source-playback-hint" class="reference-detail" role="status" hidden></p><p id="excerpt" hidden></p></figure>
+<figure id="visual" hidden><div id="media"></div><a id="reference-poster" target="_blank" rel="noopener noreferrer" hidden></a><figcaption class="media-caption"><span id="media-status" role="status" aria-live="polite"></span><a id="source-reference" href="" target="_blank" rel="noopener noreferrer" hidden></a><a id="download" href="" target="_blank" rel="noopener noreferrer" hidden>Download MP4</a></figcaption><p id="reference-description" class="reference-description" hidden></p><p id="reference-attribution" class="reference-detail" hidden></p><p id="reference-evidence" class="reference-detail" hidden></p><p id="source-playback-hint" class="reference-detail" role="status" hidden></p><p id="excerpt" hidden></p></figure>
 <p id="notice" role="status"></p>
 <script>/* APP_BUNDLE */</script>
 </body>

@@ -10,7 +10,7 @@ from urllib.parse import parse_qs, urlsplit
 from mcp.types import CallToolResult, TextContent
 
 from .reference_direction import public_reference_url
-from .social_references import social_post, validate_social_receipt
+from .social_references import social_post, validate_social_receipt, youtube_thumbnail_url
 
 
 # This list is also enforced in Python: a URL outside the resource CSP never
@@ -34,6 +34,7 @@ FRAME_ORIGINS = (
 SOCIAL_RESOURCE_ORIGINS = (
     "https://platform.twitter.com", "https://platform.x.com", "https://pbs.twimg.com",
     "https://abs.twimg.com", "https://cdn.syndication.twimg.com",
+    "https://i.ytimg.com",
 )
 SOCIAL_CONNECT_ORIGINS = (
     "https://platform.twitter.com", "https://platform.x.com",
@@ -204,6 +205,24 @@ def _social_attribution(social):
     return " · ".join(parts)
 
 
+def _social_poster(social):
+    """A source thumbnail is an image/link fallback, never proof of playback."""
+    if social.get("post_verified") is not True:
+        return {}
+    try:
+        post = social_post(social.get("canonical_url"))
+    except ValueError:
+        return {}
+    if (post["platform"] != "youtube"
+            or social.get("platform", "youtube") != "youtube"
+            or social.get("post_id", post["post_id"]) != post["post_id"]):
+        return {}
+    # Older owned receipts predate stored thumbnails. The standard public
+    # image path preserves the verified ID; the UI handles unavailable images.
+    url = youtube_thumbnail_url(social.get("thumbnail_url"), post["post_id"])
+    return {"provider": "youtube", "poster_url": url or f"https://i.ytimg.com/vi/{post['post_id']}/hqdefault.jpg"}
+
+
 def _presentation_context(direction, current, reference):
     inspection = reference.get("inspection", "metadata")
     evidence_status = {
@@ -258,6 +277,7 @@ def reference_player(store, uid, project_id, reference_id, round_id=""):
             social = validate_social_receipt(store, uid, project_id, reference["social_receipt_id"], reference["url"])
             data["social"] = social
             data["media"]["attribution"] = _social_attribution(social)
+            data["media"].update(_social_poster(social))
             if social.get("embeddable") is False:
                 raise ValueError("This video's owner does not permit embedding; open the original source")
             if not social.get("post_verified"):

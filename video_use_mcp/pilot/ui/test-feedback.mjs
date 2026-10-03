@@ -6,7 +6,7 @@ import fs from 'node:fs';
 const source=fs.readFileSync('app.js','utf8').replace(/^import[^\n]*\n/,'');
 const template=fs.readFileSync('template.html','utf8');
 const result=(object='video-one',project='project',extra={})=>({structuredContent:{project_id:project,media:{object_id:object,media_type:'video/mp4',url:`https://private.test/${object}?ticket=expired-token`,download_url:`https://private.test/${object}?ticket=expired-token&download=true`,final:true,...extra}}});
-function host({tool,capabilities={serverTools:{}},widgets,context}={}){
+function host({tool,capabilities={serverTools:{},openLinks:{}},widgets,context}={}){
   const {document}=parseHTML(template),calls=[],messages=[],links=[],listeners={};let app;
   class App{
     constructor(){app=this}async connect(){}
@@ -223,3 +223,77 @@ for(const origin of ['https://platform.twitter.com','https://platform.x.com']){
   assert.equal(h.document.getElementById('notice').textContent,'');
 }
 console.log('PASS X descendant iframe CSP detection validates official origins and preserves current-player race guards');
+
+const withPoster=(extra={})=>({structuredContent:{...youtubeReference.structuredContent,media:{...youtubeReference.structuredContent.media,poster_url:'https://i.ytimg.com/vi/9O7Az0qgtuQ/hqdefault.jpg',attribution:'Source creator · observed engagement unavailable',...extra}}});
+{
+  const h=host();h.app.ontoolresult(withPoster());
+  assert.equal(h.document.querySelector('#reference-poster img'),null,'a working or untested provider iframe is not replaced by a thumbnail');
+  const frame=h.document.querySelector('iframe');cspViolation(h);
+  const link=h.document.getElementById('reference-poster'),image=link.querySelector('img');
+  assert(image);assert(link.hidden,'the poster does not occupy a blank container while its image is loading');
+  assert.equal(h.document.querySelector('iframe'),frame,'the CSP state stays tied to the original iframe');
+  image.onload();assert.equal(link.hidden,false);assert(h.document.getElementById('media').hidden);
+  assert.equal(h.document.getElementById('media-status').textContent,'Video thumbnail');
+  assert.equal(link.querySelector('span').textContent,'Watch on YouTube ↗');
+  assert(link.getAttribute('aria-label').includes('opens YouTube'));
+  assert.equal(h.document.getElementById('reference-description').textContent,youtubeReference.structuredContent.media.description);
+  assert.equal(h.document.getElementById('reference-attribution').textContent,'Source creator · observed engagement unavailable');
+  assert(h.document.getElementById('source-playback-hint').textContent.includes('This chat blocked'));
+  let prevented=false;await link.onclick({preventDefault(){prevented=true}});
+  assert(prevented);assert.equal(h.links[0].url,youtubeReference.structuredContent.media.source_url);
+  assert.equal(h.messages.length,0,'opening the exact source is not a chat message or generation request');
+  h.app.ontoolresult(withPoster());assert.equal(link.querySelector('img'),image,'duplicate results preserve a loaded poster');assert.equal(link.hidden,false);
+  assert.equal(h.document.getElementById('media-status').textContent,'Video thumbnail','duplicate results retain the honest thumbnail label');
+  h.app.ontoolresult(youtubeReference);assert(link.hidden);assert.equal(link.children.length,0,'removing poster data clears the old thumbnail');
+}
+{
+  const h=host({context:{csp:{frameDomains:[]}}});h.app.ontoolresult(withPoster());
+  const image=h.document.querySelector('#reference-poster img');assert(image);image.onload();
+  assert.equal(h.document.getElementById('reference-poster').hidden,false,'explicit host denial has the same source thumbnail fallback');
+  assert.equal(h.document.querySelector('iframe').getAttribute('src'),null);
+}
+{
+  const h=host({capabilities:{}});h.app.ontoolresult(withPoster({media_type:'source_link',embed_url:undefined}));
+  assert.equal(h.document.querySelector('iframe'),null);
+  const link=h.document.getElementById('reference-poster');link.querySelector('img').onload();assert.equal(link.hidden,false);
+  let prevented=false;await link.onclick({preventDefault(){prevented=true}});
+  assert.equal(prevented,false,'without the host link API the ordinary target blank anchor remains active');
+  assert.equal(link.href,youtubeReference.structuredContent.media.source_url);assert.equal(link.target,'_blank');
+  assert.equal(h.links.length,0);assert.equal(h.messages.length,0);
+  assert(h.document.getElementById('source-playback-hint').hidden,'a nonembeddable provider result is not mislabeled as a proven host block');
+}
+{
+  const h=host();h.app.ontoolresult(withPoster());cspViolation(h);
+  const link=h.document.getElementById('reference-poster'),image=link.querySelector('img');image.onerror();
+  assert(link.hidden);assert.equal(link.children.length,0,'a failed thumbnail leaves no broken image box');
+  assert.equal(h.document.getElementById('source-reference').hidden,false);assert(h.document.getElementById('reference-description').textContent);
+  h.app.ontoolresult(withPoster());assert.equal(link.children.length,0,'repeated tool results do not create an automatic failed-image retry loop');
+}
+{
+  const h=host();h.app.ontoolresult(withPoster());cspViolation(h);
+  const link=h.document.getElementById('reference-poster'),old=link.querySelector('img'),lateLoad=old.onload,lateError=old.onerror;
+  h.app.ontoolresult(withPoster({media_type:'source_link',embed_url:undefined,source_url:'https://www.youtube.com/watch?v=jk6sz25OZgw',poster_url:'https://i.ytimg.com/vi/jk6sz25OZgw/hqdefault.jpg'}));
+  const current=link.querySelector('img');assert.notEqual(current,old);lateLoad();lateError();
+  assert(link.hidden,'an old poster completion cannot reveal a new loading image');assert.equal(link.querySelector('img'),current);
+  current.onload();assert.equal(link.hidden,false);
+  const finalLateLoad=current.onload,finalLateError=current.onerror;
+  h.app.ontoolresult(result('final','p'));finalLateLoad();finalLateError();
+  assert(link.hidden);assert.equal(link.children.length,0);assert.equal(link.getAttribute('href'),null);
+  assert.equal(h.document.getElementById('media').hidden,false);assert(h.document.querySelector('video'));
+}
+for(const extra of [
+  {poster_url:'https://i.ytimg.com/vi/jk6sz25OZgw/hqdefault.jpg'},
+  {poster_url:'https://i.ytimg.com.attacker.test/vi/9O7Az0qgtuQ/hqdefault.jpg'},
+  {poster_url:'https://attacker@i.ytimg.com/vi/9O7Az0qgtuQ/hqdefault.jpg'},
+  {poster_url:'http://i.ytimg.com/vi/9O7Az0qgtuQ/hqdefault.jpg'},
+  {poster_url:'https://i.ytimg.com/vi/9O7Az0qgtuQ/other.svg'},
+  {poster_url:'https://i.ytimg.com/vi_webp/9O7Az0qgtuQ/hqdefault.jpg'},
+  {poster_url:'https://i.ytimg.com:8443/vi/9O7Az0qgtuQ/hqdefault.jpg'},
+  {provider:'tiktok'},
+  {source_url:'https://youtube.com.attacker.test/watch?v=9O7Az0qgtuQ'},
+]){
+  const h=host();h.app.ontoolresult(withPoster({media_type:'source_link',embed_url:undefined,...extra}));
+  assert.equal(h.document.querySelector('#reference-poster img'),null,'untrusted or mismatched thumbnails are not requested');
+  assert(h.document.getElementById('reference-poster').hidden);
+}
+console.log('PASS blocked YouTube embeds retain exact-source clickable thumbnails with honest labels and image failure race guards');

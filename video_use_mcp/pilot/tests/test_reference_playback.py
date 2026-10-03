@@ -398,3 +398,75 @@ def test_explicit_embed_denial_cannot_be_bypassed_with_browser_receipt(store, po
     assert result["playback_status"] == "source_link"
     assert "does not permit embedding" in result["fallback_reason"]
     assert "embed_url" not in result["media"]
+
+
+@pytest.mark.parametrize("embeddable", [None, True, False])
+def test_older_verified_youtube_receipts_supply_visual_source_fallback(store, embeddable):
+    ref = reference(url=YOUTUBE, social_receipt_id="social-receipt", playback=None)
+    save_reference(store, ref)
+    metadata = {"canonical_url": YOUTUBE, "post_verified": True}
+    if embeddable is not None:
+        metadata["embeddable"] = embeddable
+    store.put("social_reference", "social-receipt", {"owner": UID, "project": PID, "metadata": metadata})
+    before = deepcopy(store.get("social_reference", "social-receipt"))
+    result = reference_player(store, UID, PID, ref["id"], "round")
+    assert result["media"]["poster_url"] == "https://i.ytimg.com/vi/abcdefghijk/hqdefault.jpg"
+    assert result["media"]["provider"] == "youtube"
+    assert result["media"]["source_url"] == YOUTUBE
+    if embeddable is False:
+        assert result["playback_status"] == "source_link"
+        assert "embed_url" not in result["media"]
+    else:
+        assert result["playback_status"] == "available"
+        assert result["media"]["embed_url"] == "https://www.youtube-nocookie.com/embed/abcdefghijk"
+    assert store.get("social_reference", "social-receipt") == before
+    store.download.assert_not_called()
+    store.upload.assert_not_called()
+
+
+@pytest.mark.parametrize("thumbnail,expected", [
+    ("https://i.ytimg.com/vi/abcdefghijk/maxresdefault.jpg", "https://i.ytimg.com/vi/abcdefghijk/maxresdefault.jpg"),
+    ("https://i.ytimg.com/vi/DIFFERENTID/hqdefault.jpg", "https://i.ytimg.com/vi/abcdefghijk/hqdefault.jpg"),
+    ("https://images.example/other.jpg", "https://i.ytimg.com/vi/abcdefghijk/hqdefault.jpg"),
+])
+def test_saved_poster_is_revalidated_before_rendering(store, thumbnail, expected):
+    ref = reference(url=YOUTUBE, social_receipt_id="social-receipt", playback=None)
+    save_reference(store, ref)
+    store.put("social_reference", "social-receipt", {"owner": UID, "project": PID, "metadata": {
+        "canonical_url": YOUTUBE, "post_verified": True, "thumbnail_url": thumbnail,
+    }})
+    result = reference_player(store, UID, PID, ref["id"], "round")
+    assert result["media"]["poster_url"] == expected
+
+
+@pytest.mark.parametrize("changes", [
+    {"owner": "other"},
+    {"project": "other"},
+    {"metadata": {"canonical_url": "https://youtu.be/DIFFERENTID", "post_verified": True}},
+    {"metadata": {"canonical_url": YOUTUBE, "post_verified": False}},
+    {"metadata": {"canonical_url": YOUTUBE, "post_verified": True, "post_id": "../abcdefghijk"}},
+    {"metadata": {"canonical_url": YOUTUBE, "post_verified": True, "post_id": "ABCDEFGHIJK"}},
+    {"metadata": {"canonical_url": YOUTUBE, "post_verified": True, "platform": "tiktok"}},
+])
+def test_poster_requires_owned_verified_matching_youtube_identity(store, changes):
+    ref = reference(url=YOUTUBE, social_receipt_id="social-receipt", playback=None)
+    save_reference(store, ref)
+    receipt = {"owner": UID, "project": PID, "metadata": {
+        "canonical_url": YOUTUBE, "post_verified": True,
+        "thumbnail_url": "https://i.ytimg.com/vi/abcdefghijk/hqdefault.jpg",
+    }}
+    receipt.update(changes)
+    store.put("social_reference", "social-receipt", receipt)
+    result = reference_player(store, UID, PID, ref["id"], "round")
+    assert "poster_url" not in result["media"]
+
+
+def test_only_reference_image_csp_adds_exact_youtube_thumbnail_origin(store):
+    mcp = FastMCP("reference-images-test")
+    register_reference_playback(mcp, store, lambda: UID, ToolAnnotations(readOnlyHint=True))
+    resource = next(item.model_dump(by_alias=True) for item in asyncio.run(mcp.list_resources())
+                    if str(item.uri) == REFERENCE_UI_URI)
+    csp = resource["_meta"]["ui"]["csp"]
+    assert "https://i.ytimg.com" in csp["resourceDomains"]
+    assert "https://i.ytimg.com" not in csp["frameDomains"]
+    assert "https://i.ytimg.com" not in csp["connectDomains"]
