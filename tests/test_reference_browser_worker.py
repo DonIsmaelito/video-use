@@ -393,6 +393,58 @@ def test_video_sampling_checks_css_visibility_before_emitting_frame(isolated, vi
         assert any("CSS-hidden" in note for note in session.limitations)
 
 
+@pytest.mark.parametrize("ad_phase", ["ad-showing", "ad-interrupting", "during_seek", "before_capture", "none"])
+def test_youtube_ad_frames_never_become_source_video_evidence(isolated, ad_phase):
+    node = shutil.which("node")
+    if not node:
+        pytest.skip("Node is required to exercise the production video sampler")
+
+    class AdHarness(Harness):
+        diagnostics = None
+
+        def js(self, expression):
+            if expression == worker.PAGE_CONTENT_JS:
+                return super().js(expression)
+            setup = r"""
+              const phase=AD_PHASE,listeners=new Map();
+              let activeAd=phase.startsWith('ad-'),pauses=0,seeks=0,frames=0,stamp=0;
+              const player={classList:{contains(name){return activeAd&&name===(phase==='ad-interrupting'?'ad-interrupting':'ad-showing');}}};
+              const video={duration:900,readyState:4,
+                closest(selector){if(selector!=='.html5-video-player')throw Error('Unexpected player selector');return player;},
+                pause(){pauses++;},scrollIntoView(){},checkVisibility(){return true;},
+                addEventListener(name,fn){if(!listeners.has(name))listeners.set(name,new Set());listeners.get(name).add(fn);},
+                removeEventListener(name,fn){listeners.get(name)?.delete(fn);},
+                getBoundingClientRect(){return {width:200,height:100,bottom:200,right:300,top:100,left:100};}
+              };
+              Object.defineProperty(video,'currentTime',{
+                get(){return stamp;},set(value){
+                  seeks++;stamp=value;if(phase==='during_seek')activeAd=true;
+                  [...(listeners.get('seeked')||[])].forEach(fn=>fn());
+                }
+              });
+              global.document={querySelectorAll:()=>[video]};
+              global.innerWidth=1280;global.innerHeight=900;
+              global.requestAnimationFrame=callback=>{
+                frames++;if(phase==='before_capture'&&frames===3)activeAd=true;callback();
+              };
+            """.replace("AD_PHASE", json.dumps(ad_phase))
+            program = setup + "\nPromise.resolve(" + expression + ").then(result=>process.stdout.write(JSON.stringify({result,pauses,seeks})));"
+            completed = subprocess.run([node, "-e", program], capture_output=True, text=True, check=True, timeout=5)
+            self.diagnostics = json.loads(completed.stdout)
+            return self.diagnostics["result"]
+
+    harness = AdHarness()
+    session = worker._Session(harness, worker.time.monotonic() + 30)
+    session.perform({"action": "open", "url": "https://example.com"})
+    result = session.perform({"action": "sample_video", "timestamps": [2]})
+    assert result["sampled_frames"] == len(session.evidence) == int(ad_phase == "none")
+    if ad_phase != "none":
+        assert result["availability"] == "unavailable"
+        assert any("showing an ad" in note and "visible controls or wait" in note for note in session.limitations)
+    if ad_phase.startswith("ad-"):
+        assert harness.diagnostics["pauses"] == harness.diagnostics["seeks"] == 0
+
+
 def test_failed_sampling_still_closes_but_never_runs_later_page_interactions(isolated, monkeypatch, capsys):
     harness = Harness()
     monkeypatch.setitem(sys.modules, "browser_harness", SimpleNamespace(helpers=harness))
@@ -567,6 +619,76 @@ def test_social_json_ld_counts_require_exact_post_identity_and_preserve_abbrevia
     assert result["metrics"]["likes"]["value"] is None
     assert result["metrics"]["likes"]["display"] == "1.2K"
     assert result["metrics"]["comments"] is None
+
+
+@pytest.mark.parametrize("raw,expected", [
+    ("PT119S", 119), ("PT14M45S", 885), ("P1DT2H3M4S", 93784),
+    ("PT0.5S", 0.5), ("P7D", 604800), ("PT168H", 604800),
+    ("P8D", None), ("PT0S", None), ("PT-3S", None), ("PTNaNS", None),
+    ("PTInfinityS", None), ("PT9999999999999S", None), ("P1M", None),
+    ("P1Y", None), ("P1W", None), ("PT", None), ("P1DT", None),
+    ("PT1S\n", None), ("1:59", None), (119, None), (None, None),
+])
+def test_social_duration_parses_only_bounded_positive_iso_day_time(raw, expected):
+    page = "https://www.youtube.com/watch?v=abcdefghijk"
+    result = social_metadata_fixture(url=page, schemas=[{
+        "@type": "VideoObject", "url": page, "duration": raw,
+    }])
+    if expected is None:
+        assert result["duration"] is None
+    else:
+        assert result["duration"] == {
+            "seconds": expected, "source": "json_ld", "evidence": f"VideoObject.duration: {raw}",
+        }
+
+
+def test_social_duration_uses_exact_video_not_recommendations_titles_or_player():
+    page = "https://www.youtube.com/watch?v=abcdefghijk"
+    result = social_metadata_fixture(url=page, schemas=[{"@graph": [
+        {"@type": "VideoObject", "url": "https://youtu.be/ABCDEFGHIJK", "duration": "PT15M"},
+        {"@type": "VideoObject", "duration": "PT30S", "name": "Unidentified video"},
+        {"@type": "SocialMediaPosting", "url": page, "duration": "PT90S"},
+        {"@type": "VideoObject", "url": page, "duration": "PT119S", "name": "15 minute tutorial"},
+    ]}])
+    assert result["duration"]["seconds"] == 119
+
+
+@pytest.mark.parametrize("schema", [
+    {"@type": "VideoObject", "url": "https://youtu.be/ABCDEFGHIJK", "duration": "PT119S"},
+    {"@type": "VideoObject", "duration": "PT119S"},
+    {"@type": "VideoObject", "url": "https://youtu.be/ABCDEFGHIJK", "mainEntityOfPage": "https://youtu.be/abcdefghijk", "duration": "PT119S"},
+    {"@type": "SocialMediaPosting", "url": "https://youtu.be/abcdefghijk", "duration": "PT119S"},
+])
+def test_social_duration_needs_unambiguous_exact_video_identity(schema):
+    result = social_metadata_fixture(url="https://www.youtube.com/watch?v=abcdefghijk", schemas=[schema])
+    assert result["duration"] is None
+
+
+@pytest.mark.parametrize("durations,expected", [
+    (["PT119S", "PT1M59S"], 119),
+    (["PT119S", "PT9S", "PT119S"], None),
+])
+def test_social_duration_conflicting_exact_post_claims_stay_unknown(durations, expected):
+    page = "https://www.youtube.com/watch?v=abcdefghijk"
+    result = social_metadata_fixture(url=page, schemas=[{
+        "@type": "VideoObject", "url": page, "duration": duration,
+    } for duration in durations])
+    assert (result["duration"]["seconds"] if result["duration"] else None) == expected
+    if expected is None:
+        assert any("Conflicting public video durations" in note for note in result["limitations"])
+
+
+@pytest.mark.parametrize("live", [
+    {"isLiveBroadcast": True},
+    {"publication": {"@type": "BroadcastEvent", "isLiveBroadcast": True}},
+    {"publication": [{"@type": "BroadcastEvent", "isLiveBroadcast": True, "endDate": "9999-01-01T00:00:00Z"}]},
+])
+def test_social_duration_active_or_unended_broadcast_is_unknown(live):
+    page = "https://www.youtube.com/watch?v=abcdefghijk"
+    result = social_metadata_fixture(url=page, schemas=[{
+        "@type": "VideoObject", "url": page, "duration": "PT119S", **live,
+    }])
+    assert result["duration"] is None
 
 
 def test_social_metadata_rejects_canonical_mismatch_instead_of_stale_post_counts():

@@ -2,6 +2,7 @@
 
 import hashlib
 import json
+from math import ceil
 from pathlib import Path
 import re
 from textwrap import shorten
@@ -10,7 +11,7 @@ from urllib.parse import parse_qs, urlsplit
 from mcp.types import CallToolResult, TextContent
 
 from .reference_direction import public_reference_url
-from .social_references import social_post, validate_social_receipt, youtube_thumbnail_url
+from .social_references import social_post, validate_social_receipt, validated_duration, youtube_thumbnail_url
 
 
 # This list is also enforced in Python: a URL outside the resource CSP never
@@ -199,6 +200,13 @@ def _social_attribution(social):
             display = f"{number:,}"
         if display:
             parts.append(f"{label}: {display}")
+    duration = validated_duration(social.get("duration"))
+    if duration:
+        seconds = ceil(duration["seconds"])
+        hours, rest = divmod(seconds, 3600)
+        minutes, seconds = divmod(rest, 60)
+        label = f"{hours}:{minutes:02}:{seconds:02}" if hours else f"{minutes}:{seconds:02}"
+        parts.append("Length " + label)
     published = social.get("published_at")
     if isinstance(published, str) and re.match(r"^\d{4}-\d{2}-\d{2}(?:T|$)", published):
         parts.append("Published " + published[:10])
@@ -278,6 +286,9 @@ def reference_player(store, uid, project_id, reference_id, round_id=""):
             data["social"] = social
             data["media"]["attribution"] = _social_attribution(social)
             data["media"].update(_social_poster(social))
+            duration = validated_duration(social.get("duration")) if social.get("post_verified") is True else None
+            if duration:
+                data["media"]["duration_seconds"] = duration["seconds"]
             if social.get("embeddable") is False:
                 raise ValueError("This video's owner does not permit embedding; open the original source")
             if not social.get("post_verified"):

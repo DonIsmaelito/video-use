@@ -13,6 +13,7 @@ from video_use_mcp.pilot.social_references import (
     _json,
     inspect_social_post,
     social_post,
+    validated_duration,
     validate_social_receipt,
     youtube_thumbnail_url,
 )
@@ -279,10 +280,13 @@ def test_browser_evidence_requires_owned_exact_post(store, changes):
 
 def test_optional_youtube_api_provides_only_returned_metrics_and_omits_secret(store):
     store.config.youtube_api_key = "private-test-key"
+    requests = []
 
     def handler(request):
+        requests.append(request)
         if request.url.host == "www.googleapis.com":
             assert request.url.params["key"] == "private-test-key"
+            assert "contentDetails" in request.url.params["part"].split(",")
             return httpx.Response(
                 200,
                 json={
@@ -295,6 +299,7 @@ def test_optional_youtube_api_provides_only_returned_metrics_and_omits_secret(st
                                 "publishedAt": "2021-02-03T04:05:06Z",
                             },
                             "statistics": {"viewCount": "56789", "commentCount": "0"},
+                            "contentDetails": {"duration": "PT14M45S"},
                             "status": {"embeddable": False},
                         }
                     ]
@@ -308,10 +313,118 @@ def test_optional_youtube_api_provides_only_returned_metrics_and_omits_secret(st
     assert result["engagement"]["likes"] is None
     assert result["embeddable"] is False and result["post_verified"]
     assert result["published_at"] == "2021-02-03T04:05:06+00:00"
+    assert result["duration"] == {
+        "seconds": 885,
+        "source": "youtube_api",
+        "evidence": "YouTube contentDetails.duration: PT14M45S",
+        "observed_at": result["observed_at"],
+    }
+    assert len(requests) == 2  # Runtime shares the existing metadata call.
     assert "private-test-key" not in str(result)
     assert "private-test-key" not in str(
         store.get("social_reference", result["social_receipt_id"])
     )
+
+
+@pytest.mark.parametrize("details,live", [
+    ({"duration": "PT0S"}, "none"),
+    ({"duration": "PT119S"}, "live"),
+    ({"duration": "PT119S"}, "upcoming"),
+    ({"duration": "885"}, "none"),
+    ({"duration": "P1M"}, "none"),
+    ({"duration": "PT999999H"}, "none"),
+    ({"duration": 119}, "none"),
+    ({}, "none"),
+    (None, "none"),
+    ([], "none"),
+])
+def test_youtube_runtime_unknown_for_live_missing_or_invalid_duration(store, details, live):
+    store.config.youtube_api_key = "test-key"
+
+    def handler(request):
+        if request.url.host == "www.googleapis.com":
+            return httpx.Response(200, json={"items": [{
+                "id": "aqz-KE-bpKQ", "snippet": {"liveBroadcastContent": live},
+                "contentDetails": details, "statistics": {"viewCount": "123"},
+            }]})
+        return httpx.Response(404)
+
+    result = inspect(store, handler=handler)
+    assert result["duration"] is None
+    assert result["engagement"]["views"]["value"] == 123
+    assert any("Runtime is unavailable" in note for note in result["limitations"])
+
+
+@pytest.mark.parametrize("api_case,expected_seconds,expected_source", [
+    ("failed", 119, "json_ld"),
+    ("missing", 119, "json_ld"),
+    ("different_post", 119, "json_ld"),
+    ("valid", 885, "youtube_api"),
+    ("live", None, None),
+])
+def test_api_runtime_priority_and_exact_browser_fallback(store, api_case, expected_seconds, expected_source):
+    store.config.youtube_api_key = "test-key"
+    browser_receipt(store, metadata={"duration": {
+        "seconds": 119, "source": "json_ld", "evidence": "VideoObject.duration: PT119S",
+        "observed_at": "2026-10-01T00:00:00Z",  # Capture time, not page input, must win.
+    }})
+
+    def handler(request):
+        if request.url.host != "www.googleapis.com" or api_case == "failed":
+            return httpx.Response(403)
+        return httpx.Response(200, json={"items": [{
+            "id": "abcdefghijk" if api_case == "different_post" else "aqz-KE-bpKQ",
+            "snippet": {"liveBroadcastContent": "live" if api_case == "live" else "none"},
+            "contentDetails": {} if api_case == "missing" else {"duration": "PT14M45S"},
+        }]})
+
+    result = inspect(store, request_id="read-post", handler=handler)
+    if expected_seconds is None:
+        assert result["duration"] is None
+    else:
+        assert result["duration"]["seconds"] == expected_seconds
+        assert result["duration"]["source"] == expected_source
+        if expected_source == "json_ld":
+            assert result["duration"]["observed_at"] == "2023-11-14T22:13:20+00:00"
+            assert result["duration"]["evidence"] == "VideoObject.duration: PT119S"
+            assert result["evidence"][-1]["request_id"] == "read-post"
+        else:
+            assert result["duration"]["observed_at"] == result["observed_at"]
+
+
+@pytest.mark.parametrize("changes", [
+    {"seconds": True}, {"seconds": "119"}, {"seconds": 0}, {"seconds": -1},
+    {"seconds": float("inf")}, {"seconds": float("nan")}, {"seconds": 604801},
+    {"seconds": 10**1000}, {"source": "title"}, {"source": {}}, {"evidence": ""},
+    {"evidence": []}, {"observed_at": None}, {"observed_at": "invalid"},
+    {"observed_at": "2026-10-01"},
+])
+def test_receipt_duration_validation_rejects_unattributable_or_unbounded_values(changes):
+    assert validated_duration({
+        "seconds": 119, "source": "json_ld", "evidence": "VideoObject.duration: PT119S",
+        "observed_at": "2026-10-01T00:00:00Z", **changes,
+    }) is None
+
+
+@pytest.mark.parametrize("seconds", [0.5, 119, 604800])
+def test_receipt_duration_validation_preserves_real_runtime(seconds):
+    result = validated_duration({
+        "seconds": seconds, "source": "json_ld", "evidence": "VideoObject.duration",
+        "observed_at": "2026-10-01T00:00:00Z",
+    })
+    assert result["seconds"] == seconds
+    assert result["observed_at"] == "2026-10-01T00:00:00+00:00"
+
+
+@pytest.mark.parametrize("changes", [
+    {"post_verified": False}, {"observed_at": None},
+    {"duration": {"seconds": 119, "source": "youtube_api", "evidence": "Not an API response"}},
+])
+def test_browser_runtime_requires_verified_content_capture_time_and_json_ld(store, changes):
+    browser_receipt(store, metadata={"duration": {
+        "seconds": 119, "source": "json_ld", "evidence": "VideoObject.duration: PT119S",
+    }, **changes})
+    assert inspect(store, request_id="read-post")["duration"] is None
 
 
 def test_x_text_is_parsed_as_text_never_returned_html_and_views_are_post_views(store):
@@ -419,6 +532,7 @@ def test_actual_worker_snapshot_contract_hydrates_only_verified_public_posts(
         "name": "Real browser title",
         "author": {"name": "Real browser creator"},
         "uploadDate": "2026-01-02",
+        "duration": "PT1M59S",
         "interactionStatistic": [
             {
                 "interactionType": "https://schema.org/WatchAction",
@@ -476,8 +590,13 @@ def test_actual_worker_snapshot_contract_hydrates_only_verified_public_posts(
         assert output["engagement"]["likes"]["value"] is None
         assert output["engagement"]["likes"]["display"] == "1.2K"
         assert output["published_at"] == "2026-01-02T00:00:00"
+        assert output["duration"] == {
+            "seconds": 119, "source": "json_ld", "evidence": "VideoObject.duration: PT1M59S",
+            "observed_at": "2023-11-14T22:13:20+00:00",
+        }
     else:
         assert output["title"] is None
         assert output["creator"]["name"] is None
         assert output["engagement_status"] == "unavailable"
+        assert output["duration"] is None
         assert all(metric is None for metric in output["engagement"].values())

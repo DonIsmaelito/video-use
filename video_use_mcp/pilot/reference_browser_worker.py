@@ -296,7 +296,7 @@ SOCIAL_METADATA_JS = r"""(() => {
   };
   const meta=key=>bounded(one('meta[property="'+key+'"],meta[name="'+key+'"]')?.content);
   const canonical=one('link[rel="canonical"]')?.href||meta('og:url');
-  const result={...current,page_url:location.href,post_verified:false,title:'',creator:'',published_at:'',
+  const result={...current,page_url:location.href,post_verified:false,title:'',creator:'',published_at:'',duration:null,
     metrics:{views:null,likes:null,comments:null,shares:null},visible_text:'',limitations:[]};
   if(canonical&&!same(canonical)) {
     result.limitations.push('Page canonical identity differs from the requested post; engagement was not attributed.');
@@ -306,6 +306,26 @@ SOCIAL_METADATA_JS = r"""(() => {
   if(canonicalBound) {result.title=meta('og:title');result.published_at=meta('article:published_time');}
   const visible=e=>!!e&&typeof e.checkVisibility==='function'&&e.checkVisibility({checkOpacity:true,checkVisibilityCSS:true});
   const evidenceLines=[],conflicts=new Set();
+  let durationConflict=false,durationLive=false;
+  const putDuration=entry=>{
+    const publications=Array.isArray(entry.publication)?entry.publication:[entry.publication];
+    if(entry.isLiveBroadcast===true||publications.slice(0,8).some(event=>
+      event?.isLiveBroadcast===true&&(!Number.isFinite(Date.parse(event.endDate))||Date.parse(event.endDate)>Date.now()))) {
+      durationLive=true;result.duration=null;return;
+    }
+    if(durationConflict||durationLive)return;
+    const raw=entry.duration;
+    if(typeof raw!=='string'||raw.length>64||raw.endsWith('T'))return;
+    const match=raw.match(/^P(?:([0-9]{1,6})D)?(?:T(?:([0-9]{1,6})H)?(?:([0-9]{1,6})M)?(?:([0-9]{1,6}(?:\.[0-9]{1,6})?)S)?)?$/);
+    if(!match||match[0]!==raw||!match.slice(1).some(part=>part!==undefined))return;
+    const seconds=match.slice(1).reduce((sum,part,index)=>sum+Number(part||0)*[86400,3600,60,1][index],0);
+    if(!Number.isFinite(seconds)||seconds<=0||seconds>604800)return;
+    if(result.duration&&result.duration.seconds!==seconds) {
+      result.duration=null;durationConflict=true;
+      result.limitations.push('Conflicting public video durations; left unknown.');return;
+    }
+    result.duration={seconds,source:'json_ld',evidence:'VideoObject.duration: '+raw};
+  };
   const ranks={meta:0,json_ld:1,visible_text:2};
   const put=(name,raw,evidence,source)=>{
     if(!(name in result.metrics)||conflicts.has(name)) return;
@@ -344,6 +364,7 @@ SOCIAL_METADATA_JS = r"""(() => {
       const author=Array.isArray(entry.author)?entry.author[0]:entry.author;
       result.creator=result.creator||bounded(typeof author==='string'?author:author?.name,160);
       result.published_at=result.published_at||bounded(entry.datePublished||entry.uploadDate,80);
+      if(types.includes('VideoObject')&&urls.every(u=>typeof u!=='string'||!identity(u)||same(u)))putDuration(entry);
       const counters=Array.isArray(entry.interactionStatistic)?entry.interactionStatistic:[entry.interactionStatistic];
       counters.slice(0,8).forEach(counter=>{
         if(!counter||typeof counter!=='object')return;
@@ -580,6 +601,12 @@ class _Session:
               const remaining=()=>Math.max(0,deadline-performance.now());
               const v=document.querySelectorAll('video')[INDEX];
               if(!v) return {ok:false,reason:'No top-document HTML5 video is available; embedded or custom players cannot be sampled here.'};
+              const showingAd=()=>{
+                const player=v.closest?.('.html5-video-player');
+                return player?.classList.contains('ad-showing')||player?.classList.contains('ad-interrupting');
+              };
+              const adUnavailable={ok:false,reason:'The selected YouTube player is showing an ad; use its visible controls or wait for the ad to finish before sampling source-video frames.'};
+              if(showingAd())return adUnavailable;
               if(!v.checkVisibility({checkOpacity:true,checkVisibilityCSS:true}))
                 return {ok:false,reason:'The chosen video is CSS-hidden; reveal that player or explicitly select the correct video_index. No different video was substituted.'};
               // Keep the exact selected element. Do not fall back to a visible
@@ -599,6 +626,7 @@ class _Session:
                 });
               }
               if(!Number.isFinite(v.duration)||v.readyState<1) return {ok:false,reason:'Video metadata is unavailable or the stream is not seekable.'};
+              if(showingAd())return adUnavailable;
               const target=STAMP;
               if(target>=v.duration) return {ok:false,reason:'The requested timestamp is outside the video duration.'};
               v.pause(); v.muted=true;
@@ -617,6 +645,7 @@ class _Session:
               if(!settled||Math.abs(v.currentTime-target)>0.25) return {ok:false,reason:'Video did not decode the requested frame before the seek timeout.'};
               if(!visible) return {ok:false,reason:'Video is hidden or outside the viewport; make it visible before sampling.'};
               await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+              if(showingAd())return adUnavailable;
               return {ok:true,timestamp_seconds:v.currentTime,duration_seconds:v.duration,
                 video_src:(v.currentSrc||v.src||'').slice(0,2048)};
             })()""".replace("INDEX", json.dumps(index)).replace("STAMP", json.dumps(requested)).replace(

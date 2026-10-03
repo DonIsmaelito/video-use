@@ -370,6 +370,38 @@ def test_only_observed_metrics_are_rendered_and_real_zero_is_not_missing(store, 
     assert reference_player(store, UID, PID, ref["id"], "round")["media"]["attribution"] == expected
 
 
+@pytest.mark.parametrize("seconds,label", [(119, "1:59"), (885, "14:45"), (3661, "1:01:01")])
+def test_source_runtime_remains_visible_when_embedding_is_unavailable(store, seconds, label):
+    ref = reference(url=YOUTUBE, social_receipt_id="social-receipt", playback=None)
+    save_reference(store, ref)
+    store.put("social_reference", "social-receipt", {"owner": UID, "project": PID, "metadata": {
+        "canonical_url": YOUTUBE, "post_verified": True, "embeddable": False,
+        "creator": {"name": "Actual uploader"}, "duration": {
+            "seconds": seconds, "source": "json_ld", "evidence": "VideoObject.duration",
+            "observed_at": "2026-10-03T21:00:00+00:00",
+        },
+    }})
+    result = reference_player(store, UID, PID, ref["id"], "round")
+    assert result["media"]["attribution"] == f"Actual uploader · Length {label}"
+    assert result["media"]["duration_seconds"] == seconds
+    assert "embed_url" not in result["media"]
+
+
+@pytest.mark.parametrize("verified,source", [(False, "json_ld"), (True, "assistant"), (True, "html_video")])
+def test_unverified_runtime_and_ad_player_duration_are_not_presented_as_source_length(store, verified, source):
+    ref = reference(url=YOUTUBE, social_receipt_id="social-receipt", playback=None)
+    save_reference(store, ref)
+    store.put("social_reference", "social-receipt", {"owner": UID, "project": PID, "metadata": {
+        "canonical_url": YOUTUBE, "post_verified": verified, "duration": {
+            "seconds": 15, "source": source, "evidence": "Duration claim",
+            "observed_at": "2026-10-03T21:00:00+00:00",
+        },
+    }})
+    result = reference_player(store, UID, PID, ref["id"], "round")
+    assert "Length" not in result["media"]["attribution"]
+    assert "duration_seconds" not in result["media"]
+
+
 def test_unknown_social_metadata_keeps_independently_observed_source_playback(store):
     ref = reference(url=YOUTUBE, social_receipt_id="social-receipt",
                     playback={"url": YOUTUBE, "browser_request_id": "inspect-source"})

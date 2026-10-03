@@ -107,6 +107,14 @@ statistics; no API key is required for public oEmbed or browser inspection. TikT
 and X public oEmbed responses do not supply a complete engagement API. X post views
 are labeled separately from video views. Missing counts are unavailable, not zero.
 
+Source runtime comes from YouTube `contentDetails.duration` or an exact-post
+`VideoObject.duration` in public page metadata. The receipt preserves its source,
+evidence and observation time; the reference displays a **Length** label when
+verified. Unknown, conflicting and live durations stay unavailable. An HTML
+player's duration is not source runtime: it can describe a preroll ad. YouTube
+frame sampling also refuses a player marked as showing an ad instead of returning
+those frames as evidence of the reference's design.
+
 For incremental delivery, use `record_video_references` with `action="offer"` and
 `more_expected=true` for the first candidate, then `append` with the same `round_id`.
 Immediately call each returned `new_link_cards[].show_video_reference` descriptor

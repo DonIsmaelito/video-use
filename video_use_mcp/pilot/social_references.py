@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 import hashlib
 from html.parser import HTMLParser
 import json
+import math
 import re
 from urllib.parse import parse_qs, urljoin, urlsplit
 
@@ -15,6 +16,7 @@ from mcp.types import CallToolResult, TextContent
 from .store import ident
 
 METRICS = ("views", "likes", "comments", "shares")
+MAX_DURATION_SECONDS = 7 * 24 * 60 * 60
 API_ENDPOINTS = {
     "https://www.youtube.com/oembed",
     "https://www.tiktok.com/oembed",
@@ -223,6 +225,48 @@ def _published(value):
         return None
 
 
+def _duration_seconds(value):
+    """Read bounded ISO 8601 day/time durations, never titles or player guesses."""
+    if not isinstance(value, str) or len(value) > 64 or value.endswith("T"):
+        return None
+    match = re.fullmatch(
+        r"P(?:([0-9]{1,6})D)?(?:T(?:([0-9]{1,6})H)?(?:([0-9]{1,6})M)?"
+        r"(?:([0-9]{1,6}(?:\.[0-9]{1,6})?)S)?)?",
+        value,
+    )
+    if not match or not any(part is not None for part in match.groups()):
+        return None
+    seconds = sum(
+        float(part or 0) * scale
+        for part, scale in zip(match.groups(), (86400, 3600, 60, 1))
+    )
+    return seconds if 0 < seconds <= MAX_DURATION_SECONDS else None
+
+
+def validated_duration(value):
+    """Keep attributable runtime observations safe at receipt and player boundaries."""
+    if not isinstance(value, dict) or value.get("source") not in ("youtube_api", "json_ld"):
+        return None
+    seconds = value.get("seconds")
+    if (
+        type(seconds) not in {int, float}
+        or not 0 < seconds <= MAX_DURATION_SECONDS
+        or not math.isfinite(seconds)
+        or not isinstance(value.get("evidence"), str)
+    ):
+        return None
+    evidence = _text(value["evidence"], 240)
+    observed_at = _published(value.get("observed_at"))
+    if not evidence or not observed_at or datetime.fromisoformat(observed_at).tzinfo is None:
+        return None
+    return {
+        "seconds": int(seconds) if seconds == int(seconds) else seconds,
+        "source": value["source"],
+        "evidence": evidence,
+        "observed_at": observed_at,
+    }
+
+
 def _browser_metadata(store, uid, pid, post, request_id):
     key = hashlib.sha256(f"{uid}:{pid}:{request_id}".encode()).hexdigest()
     receipt = store.get("reference_browser_run", key)
@@ -334,12 +378,14 @@ async def inspect_social_post(
                 return {
                     "social_receipt_id": cached["receipt_id"],
                     **deepcopy(receipt["metadata"]),
+                    "duration": validated_duration(receipt["metadata"].get("duration")),
                     "cached": True,
                 }
     metadata = {
         **post,
         "title": None,
         "thumbnail_url": None,
+        "duration": None,
         "creator": {"name": None, "url": None},
         "observed_at": now.isoformat(),
         "published_at": None,
@@ -409,13 +455,14 @@ async def inspect_social_post(
                 "Official public post metadata was unavailable; the post may be restricted, removed or temporarily blocked."
             )
         key = getattr(getattr(store, "config", None), "youtube_api_key", "")
+        duration_is_live = False
         if platform == "youtube" and key:
             try:
                 raw = await _json(
                     client,
                     "https://www.googleapis.com/youtube/v3/videos",
                     {
-                        "part": "snippet,statistics,status",
+                        "part": "snippet,statistics,status,contentDetails",
                         "id": post["post_id"],
                         "key": key,
                     },
@@ -451,6 +498,16 @@ async def inspect_social_post(
                 )
                 metadata["embeddable"] = item.get("status", {}).get("embeddable")
                 metadata["published_at"] = _published(snippet.get("publishedAt"))
+                duration_is_live = snippet.get("liveBroadcastContent") in ("live", "upcoming")
+                details = item.get("contentDetails")
+                raw_duration = details.get("duration") if isinstance(details, dict) else None
+                if not duration_is_live:
+                    metadata["duration"] = validated_duration({
+                        "seconds": _duration_seconds(raw_duration),
+                        "source": "youtube_api",
+                        "evidence": f"YouTube contentDetails.duration: {raw_duration}",
+                        "observed_at": now.isoformat(),
+                    })
                 for metric, field in {
                     "views": "viewCount",
                     "likes": "likeCount",
@@ -509,6 +566,11 @@ async def inspect_social_post(
                     ).isoformat()
             except (ValueError, OverflowError, OSError):
                 pass
+            duration = browser.get("duration")
+            if isinstance(duration, dict) and duration.get("source") == "json_ld" and not duration_is_live:
+                metadata["duration"] = metadata["duration"] or validated_duration(
+                    {**duration, "observed_at": captured_at}
+                )
             for metric in METRICS:
                 observation = _metric(browser.get("metrics", {}).get(metric))
                 if observation:
@@ -536,6 +598,10 @@ async def inspect_social_post(
         else:
             metadata["limitations"].append(
                 "Engagement is unavailable. oEmbed supplies attribution, not view or like counts; unknown counts are not zero and do not establish popularity."
+            )
+        if metadata["duration"] is None:
+            metadata["limitations"].append(
+                "Runtime is unavailable; do not infer that this video is short from its title or format."
             )
         metadata["limitations"].append(
             "Post metadata and popularity are not visual inspection. Inspect the actual media before claiming its style or motion."
