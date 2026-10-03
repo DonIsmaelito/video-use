@@ -2,7 +2,8 @@ import { App, applyDocumentTheme } from "@modelcontextprotocol/ext-apps";
 const app = new App({ name: "Video preview", version: "3.0.0" });
 const $ = (id) => document.getElementById(id);
 let media, shown, mediaProject, pendingMedia, refreshState, refreshInFlight=false;
-let followProject=true, mediaRenewal=null, tornDown=false;
+let followProject=true, mediaRenewal=null, tornDown=false, blockedEmbedKey;
+const reportedEmbedFailures=new Set();
 const REFRESH_INTERVAL_MS=5000,IDLE_REFRESH_INTERVAL_MS=30000;
 function unpack(result) {
   if (result.isError) throw Error("This preview could not be loaded.");
@@ -140,16 +141,90 @@ async function renderXPost(element,next){
       widgets.createTweet(String(next.post_id),element,{align:'center',dnt:true,conversation:'none'}),
       new Promise((_,reject)=>{timeout=setTimeout(()=>reject(Error('X embed unavailable')),8000);}),
     ]).finally(()=>clearTimeout(timeout));
+    if(tornDown || element!==$('media').firstElementChild)return;
     if(!frame)throw Error('X embed unavailable');
+    if(currentReferenceFrames().some(frame=>hostAllowsFrame(frame.src)===false))blockedReference(element);
   }catch{
-    if(!tornDown && element===$('media').firstElementChild)$('notice').textContent='This X post cannot be displayed here. Open the source link below.';
+    if(!tornDown && element===$('media').firstElementChild && blockedEmbedKey!==shown)$('notice').textContent='This X post cannot be displayed here. Open the source link below.';
   }
 }
+function currentReferenceFrames(){
+  const element=$('media').firstElementChild;
+  if(element?.tagName==='IFRAME')return [element];
+  if(media?.media_type!=='social/x' || !element?.classList.contains('social-post'))return [];
+  return [...element.querySelectorAll('iframe')].filter(frame=>{
+    try{return ['https://platform.twitter.com','https://platform.x.com'].includes(new URL(frame.src).origin);}catch{return false;}
+  });
+}
+function hostAllowsFrame(url,context=app.getHostContext?.()){
+  const domains=context?.csp?.frameDomains ?? app.getHostCapabilities?.()?.sandbox?.csp?.frameDomains;
+  if(!Array.isArray(domains))return undefined; // Missing host information is not a denial.
+  let target;try{target=new URL(url);}catch{return undefined;}
+  let unknown=false;
+  for(const domain of domains){
+    if(domain==='*' || domain===target.protocol)return true;
+    if(domain==="'none'")continue;
+    if(domain==="'self'"){
+      if(!globalThis.location?.origin){unknown=true;continue;}
+      if(target.origin===globalThis.location.origin)return true;
+      continue;
+    }
+    try{
+      const allowed=new URL(domain);
+      if(allowed.pathname!=='/' || allowed.search || allowed.hash){unknown=true;continue;}
+      if(target.origin===allowed.origin)return true;
+      if(allowed.hostname.startsWith('*.') && target.protocol===allowed.protocol && target.port===allowed.port
+        && target.hostname.endsWith(allowed.hostname.slice(1)))return true;
+    }catch{unknown=true;}
+  }
+  return unknown?undefined:false;
+}
+function blockedReference(element){
+  if(tornDown || !media?.source_url || element!==$('media').firstElementChild)return;
+  blockedEmbedKey=shown;$('media').hidden=true;
+  $('source-playback-hint').hidden=false;
+  $('source-playback-hint').textContent='This chat blocked the embedded player. Open the original source using the link above.';
+  const source=media.source_url;
+  if(!reportedEmbedFailures.has(source) && app.getHostCapabilities?.()?.updateModelContext?.text){
+    reportedEmbedFailures.add(source);
+    try{Promise.resolve(app.updateModelContext({content:[{type:'text',text:`Reference embed display: blocked by the chat content security policy. Source: ${source}. Its description and source link remain visible; playback was not verified.`}]})).catch(()=>{});}catch{}
+  }
+}
+document.addEventListener('securitypolicyviolation',event=>{
+  const element=$('media').firstElementChild;
+  if(tornDown || event.isTrusted===false || event.disposition!=='enforce'
+    || !['frame-src','child-src'].includes(event.effectiveDirective || event.violatedDirective?.split(' ')[0]))return;
+  try{
+    const blocked=new URL(event.blockedURI);
+    // Browsers may strip a cross-origin blocked URL down to its origin.
+    if(currentReferenceFrames().some(frame=>{
+      const current=new URL(frame.src);
+      return blocked.href===current.href || (blocked.origin===current.origin && blocked.pathname==='/' && !blocked.search && !blocked.hash);
+    }))blockedReference(element);
+  }catch{} // Empty/inline/opaque reports do not identify this iframe.
+});
+// TikTok documents these player events. Only the currently displayed provider
+// iframe may report an error; a load event or elapsed time is not playback proof.
+globalThis.addEventListener?.('message',event=>{
+  const element=$('media').firstElementChild;
+  if(tornDown || element?.tagName!=='IFRAME' || element.getAttribute('data-provider')!=='tiktok'
+    || !element.contentWindow || event.source!==element.contentWindow || event.origin!=='https://www.tiktok.com')return;
+  const data=event.data;
+  if(!data || typeof data!=='object' || data['x-tiktok-player']!==true)return;
+  if(data.type==='onPlayerError' && [1001,2001,3001].includes(data.value?.errorCode)){
+    $('source-playback-hint').hidden=false;
+    $('source-playback-hint').textContent='TikTok reported a playback problem. Open the original source using the link above.';
+  }else if(data.type==='onStateChange' && data.value===1){
+    $('source-playback-hint').hidden=true;
+    $('source-playback-hint').textContent='';
+  }
+});
 function render(next) {
   if (!next) return;
   media = next;
   const key = next.object_id || next.embed_url || next.url || next.source_url;
   if (shown !== key) {
+    blockedEmbedKey=undefined;
     const video = ['video/mp4','video/webm'].includes(next.media_type);
     const embed=next.media_type === 'text/html' && next.embed_url;
     const sourceOnly=next.media_type==='source_link';
@@ -159,7 +234,8 @@ function render(next) {
     if(xPost){element.className='social-post';element.setAttribute('aria-label','X source post');}
     else if(embed){
       element.setAttribute('data-provider',next.provider || '');
-      element.src=next.embed_url;element.title=next.title || next.caption || 'Video reference';
+      if(hostAllowsFrame(next.embed_url)!==false)element.src=next.embed_url;
+      element.title=next.title || next.caption || 'Video reference';
       element.setAttribute('allow','fullscreen; picture-in-picture');
       element.setAttribute('allowfullscreen','');element.setAttribute('referrerpolicy','strict-origin-when-cross-origin');
       element.setAttribute('sandbox','allow-scripts allow-same-origin allow-presentation');
@@ -183,6 +259,14 @@ function render(next) {
   $('source-reference').hidden=!source;
   $('source-reference').href=source || '';
   $('source-reference').textContent=next.title || next.caption || 'Open reference';
+  for(const [id,field] of [['reference-description','description'],['reference-attribution','attribution'],['reference-evidence','evidence_status']]){
+    const text=source && typeof next[field]==='string'?next[field].trim():'';
+    $(id).textContent=text;$(id).hidden=!text;
+  }
+  const embedded=source && ['text/html','social/x'].includes(next.media_type);
+  $('source-playback-hint').textContent=embedded?'If playback does not load, open the original source using the link above.':'';
+  $('source-playback-hint').hidden=!embedded;
+  if(blockedEmbedKey===shown || (next.embed_url && hostAllowsFrame(next.embed_url)===false))blockedReference($('media').firstElementChild);
   const downloadable=next.media_type==='video/mp4' && !source && Boolean(next.download_url || next.object_id);
   $('download').hidden=!downloadable;
   $('download').href=next.download_url || next.url || '';
@@ -225,7 +309,11 @@ document.addEventListener('visibilitychange',()=>{
 app.ontoolresult=(result)=>{
   try {receiveMediaResult(result);} catch(e){stopRefresh();$("notice").textContent=e.message;}
 };
-app.onhostcontextchanged=(context)=>{if(context.theme)applyDocumentTheme(context.theme);syncDisplayMode(context);};
+app.onhostcontextchanged=(context)=>{
+  if(context.theme)applyDocumentTheme(context.theme);syncDisplayMode(context);
+  if((media?.embed_url && hostAllowsFrame(media.embed_url,context)===false)
+    || currentReferenceFrames().some(frame=>hostAllowsFrame(frame.src,context)===false))blockedReference($('media').firstElementChild);
+};
 app.onteardown=async()=>{
   tornDown=true;stopRefresh();
   const element=$('media').firstElementChild;

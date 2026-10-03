@@ -279,3 +279,122 @@ def test_browser_observed_tiktok_player_is_supported(store):
     result = reference_player(store, UID, PID, "source-film", "round")
     assert result["media"]["embed_url"] == player.split("?")[0]
     assert result["coverage"] == "source_video"
+
+
+def test_each_player_keeps_its_exact_candidate_explanation_across_search_batches(store):
+    refs = [reference(id=f"film-{index}", url=f"https://example.com/film-{index}", playback=None)
+            for index in range(3)]
+    batches = [{"candidates": [{"reference": ref, "fit": f"Fit for this brief {index}",
+                                "disposition": "recommend"}]} for index, ref in enumerate(refs)]
+    state = {"revision": 7, "intake": {"reference_direction": {
+        "status": "collecting", "rounds": [{"id": "round", "references": refs, "search_batches": batches}],
+    }}}
+    store.put("creative", PID, state)
+    for index, ref in enumerate(refs):
+        result = reference_player(store, UID, PID, ref["id"], "round")
+        assert result["media"]["description"] == f"Fit for this brief {index}"
+        assert result["media"]["inspection"] == "video"
+        assert result["media"]["evidence_status"] == "Video inspection reported by the assistant."
+        assert "Describe THIS reference now" in result["next_action"]
+        assert "continue sequential research" in result["next_action"]
+        assert "Do not ask the reference-choice question yet" in result["next_action"]
+    assert store.get("creative", PID) == state
+
+
+@pytest.mark.parametrize("inspection,limitation", [
+    ("metadata", "visuals and motion not inspected"),
+    ("page", "video motion and sound not checked"),
+    ("image", "video motion and sound not checked"),
+])
+def test_fallback_description_does_not_borrow_another_film_or_claim_visual_inspection(store, inspection, limitation):
+    ref = reference(inspection=inspection, observed_traits="Reference details " * 60, playback=None)
+    save_reference(store, ref)
+    state = store.get("creative", PID)
+    state["intake"]["reference_direction"]["rounds"][-1]["search_batches"] = [{"candidates": [
+        {"reference": ref | {"id": "other"}, "fit": "Wrong ID", "disposition": "recommend"},
+        {"reference": ref | {"url": "https://example.com/other"}, "fit": "Wrong URL", "disposition": "recommend"},
+        {"reference": ref, "fit": "Rejected candidate", "disposition": "reject"},
+    ]}]
+    store.put("creative", PID, state)
+    result = reference_player(store, UID, PID, ref["id"], "round")
+    assert result["media"]["description"].startswith("Reference details")
+    assert len(result["media"]["description"]) <= 360
+    assert limitation in result["media"]["evidence_status"]
+    assert "native reference-choice question once" in result["next_action"]
+
+
+def test_legacy_search_fit_remains_visible_and_accepted_reference_does_not_ask_again(store):
+    ref = reference()
+    save_reference(store, ref)
+    state = store.get("creative", PID)
+    direction = state["intake"]["reference_direction"]
+    direction["status"] = "accepted"
+    direction["rounds"][-1]["search"] = {"candidates": [
+        {"reference": ref, "fit": "Fits the saved request", "disposition": "recommend"},
+    ]}
+    store.put("creative", PID, state)
+    result = reference_player(store, UID, PID, ref["id"], "round")
+    assert result["media"]["description"] == "Fits the saved request"
+    assert "do not ask an already answered" in result["next_action"]
+
+
+def test_attribution_uses_verified_receipt_without_inventing_missing_counts(store):
+    ref = reference(url=YOUTUBE, social_receipt_id="social-receipt", inspection="metadata", playback=None)
+    ref["social"] = {"creator": {"name": "Untrusted copy"}, "engagement": {"likes": 999999}}
+    save_reference(store, ref)
+    metadata = {"canonical_url": YOUTUBE, "post_verified": True, "platform": "youtube",
+                "creator": {"name": "Actual channel"}, "published_at": "2026-10-02T01:02:03Z",
+                "engagement": {"views": {"value": 1200000, "display": "1.2M", "evidence": "1.2M views",
+                                         "source": "visible_text"}, "likes": None}}
+    store.put("social_reference", "social-receipt", {"owner": UID, "project": PID, "metadata": metadata})
+    result = reference_player(store, UID, PID, ref["id"], "round")
+    assert result["media"]["attribution"] == "Actual channel · Views: 1.2M · Published 2026-10-02"
+    assert "Likes" not in result["media"]["attribution"]
+    assert result["media"]["inspection"] == "metadata"
+    assert "not inspected" in result["media"]["evidence_status"]
+
+
+@pytest.mark.parametrize("observation,expected", [
+    (None, "Actual channel"),
+    ({"value": 3, "display": "3"}, "Actual channel"),
+    ({"value": 3, "display": "3", "evidence": "3 views", "source": "assistant"}, "Actual channel"),
+    ({"value": 0, "display": "0", "evidence": "0 views", "source": "youtube_api"}, "Actual channel · Views: 0"),
+])
+def test_only_observed_metrics_are_rendered_and_real_zero_is_not_missing(store, observation, expected):
+    ref = reference(url=YOUTUBE, social_receipt_id="social-receipt", playback=None)
+    save_reference(store, ref)
+    store.put("social_reference", "social-receipt", {"owner": UID, "project": PID, "metadata": {
+        "canonical_url": YOUTUBE, "post_verified": True, "creator": {"name": "Actual channel"},
+        "engagement": {"views": observation},
+    }})
+    assert reference_player(store, UID, PID, ref["id"], "round")["media"]["attribution"] == expected
+
+
+def test_unknown_social_metadata_keeps_independently_observed_source_playback(store):
+    ref = reference(url=YOUTUBE, social_receipt_id="social-receipt",
+                    playback={"url": YOUTUBE, "browser_request_id": "inspect-source"})
+    save_reference(store, ref)
+    save_receipt(store, page=YOUTUBE, media=YOUTUBE, kind="links")
+    store.put("social_reference", "social-receipt", {"owner": UID, "project": PID, "metadata": {
+        "canonical_url": YOUTUBE, "post_verified": False, "creator": {"name": "Not verified"},
+    }})
+    result = reference_player(store, UID, PID, ref["id"], "round")
+    assert result["media"]["provider"] == "youtube"
+    assert result["playback_status"] == "available"
+    assert result["source_page_url"] == YOUTUBE
+    assert result["media"]["attribution"] == ""
+
+
+@pytest.mark.parametrize("post_verified", [False, True])
+def test_explicit_embed_denial_cannot_be_bypassed_with_browser_receipt(store, post_verified):
+    ref = reference(url=YOUTUBE, social_receipt_id="social-receipt",
+                    playback={"url": YOUTUBE, "browser_request_id": "inspect-source"})
+    save_reference(store, ref)
+    save_receipt(store, page=YOUTUBE, media=YOUTUBE, kind="links")
+    store.put("social_reference", "social-receipt", {"owner": UID, "project": PID, "metadata": {
+        "canonical_url": YOUTUBE, "post_verified": post_verified, "embeddable": False,
+    }})
+    result = reference_player(store, UID, PID, ref["id"], "round")
+    assert result["playback_status"] == "source_link"
+    assert "does not permit embedding" in result["fallback_reason"]
+    assert "embed_url" not in result["media"]

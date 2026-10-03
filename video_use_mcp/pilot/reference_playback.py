@@ -4,6 +4,7 @@ import hashlib
 import json
 from pathlib import Path
 import re
+from textwrap import shorten
 from urllib.parse import parse_qs, urlsplit
 
 from mcp.types import CallToolResult, TextContent
@@ -156,6 +157,82 @@ def observed_playback(store, uid, project_id, reference):
     raise ValueError("Playback URL was not observed on the cited reference or discovery page")
 
 
+def _plain(value, width=360):
+    return shorten(value, width=width, placeholder="…") if isinstance(value, str) else ""
+
+
+def _reference_description(current, reference):
+    """Use this candidate's reason, never an adjacent or previous round's film."""
+    batches = current.get("search_batches") or [current.get("search", {})]
+    for batch in reversed(batches):
+        for candidate in batch.get("candidates", []):
+            cited = candidate.get("reference", {})
+            if (cited.get("id") == reference["id"]
+                    and cited.get("url") == reference["url"]
+                    and candidate.get("disposition") == "recommend"):
+                fit = _plain(candidate.get("fit"))
+                if fit:
+                    return fit
+    return _plain(reference.get("observed_traits"))
+
+
+def _social_attribution(social):
+    """Plain source labels only from the owned, exact-post metadata receipt."""
+    if not social.get("post_verified"):
+        return ""
+    parts = []
+    creator = social.get("creator") or {}
+    if isinstance(creator, dict) and (name := _plain(creator.get("name"), 160)):
+        parts.append(name)
+    for metric, label in (("views", "Post views" if social.get("platform") == "x" else "Views"), ("likes", "Likes")):
+        observation = (social.get("engagement") or {}).get(metric)
+        if not isinstance(observation, dict) or not observation.get("evidence"):
+            continue
+        if observation.get("source") not in {"visible_text", "json_ld", "meta", "youtube_api"}:
+            continue
+        number = observation.get("value")
+        if number is not None and (type(number) is not int or number < 0):
+            continue
+        display = _plain(observation.get("display"), 80)
+        if not display and number is not None:
+            display = f"{number:,}"
+        if display:
+            parts.append(f"{label}: {display}")
+    published = social.get("published_at")
+    if isinstance(published, str) and re.match(r"^\d{4}-\d{2}-\d{2}(?:T|$)", published):
+        parts.append("Published " + published[:10])
+    return " · ".join(parts)
+
+
+def _presentation_context(direction, current, reference):
+    inspection = reference.get("inspection", "metadata")
+    evidence_status = {
+        "metadata": "Metadata only · visuals and motion not inspected.",
+        "page": "Page inspected · video motion and sound not checked.",
+        "image": "Still images inspected · video motion and sound not checked.",
+        "video": "Video inspection reported by the assistant.",
+    }.get(inspection, "Visual inspection not recorded.")
+    action = (
+        "Describe THIS reference now in one short chat sentence using media.description and available media.attribution. "
+        "Keep its inspection limitation clear; metadata is not proof of visual style, motion or popularity. "
+    )
+    status = direction.get("status", current.get("status"))
+    if status == "collecting":
+        action += (
+            "Then continue sequential research and append the next useful candidate to this round, or finish collection. "
+            "Do not ask the reference-choice question yet or replay earlier players."
+        )
+    elif status == "offered":
+        action += (
+            "Show any remaining unshown references with their own descriptions, then ask the supplied native reference-choice question once. "
+            "Include Find another batch and Give my input."
+        )
+    else:
+        action += "Follow the saved reference decision; do not ask an already answered reference-choice question again."
+    return {"description": _reference_description(current, reference), "attribution": "",
+            "inspection": inspection, "evidence_status": evidence_status}, action
+
+
 def reference_player(store, uid, project_id, reference_id, round_id=""):
     store.project(uid, project_id)
     state = store.get("creative", project_id) or {}
@@ -169,22 +246,29 @@ def reference_player(store, uid, project_id, reference_id, round_id=""):
     if reference is None:
         raise ValueError("Choose a reference ID from this project's current offered references")
     source_url = public_reference_url(reference["url"])
+    presentation, next_action = _presentation_context(direction, rounds[-1], reference)
     data = {"project_id": project_id, "reference_id": reference_id, "round_id": current_round, "follow_project": False,
             "source_link": {"url": source_url, "title": reference["title"]},
             "playback_status": "source_link", "coverage": "unavailable",
-            "media": {"media_type": "source_link", "title": reference["title"],
+            "media": {**presentation, "media_type": "source_link", "title": reference["title"],
                       "source_url": source_url, "caption": "Open source"},
-            "next_action": "Let the user inspect the source, then ask the supplied native reference-choice question. Playback does not select or approve a reference."}
+            "next_action": next_action + " Playback does not select or approve a reference."}
     try:
         if reference.get("social_receipt_id"):
             social = validate_social_receipt(store, uid, project_id, reference["social_receipt_id"], reference["url"])
             data["social"] = social
-            if not social.get("post_verified"):
-                raise ValueError("The public social post could not be verified; open its original source")
+            data["media"]["attribution"] = _social_attribution(social)
             if social.get("embeddable") is False:
                 raise ValueError("This video's owner does not permit embedding; open the original source")
-            observed = {"url": social["canonical_url"], "source_page_url": social["canonical_url"], "observed_as": "official_social_metadata"}
-            if social.get("title"):
+            if not social.get("post_verified"):
+                if not reference.get("playback"):
+                    raise ValueError("The public social post could not be verified; open its original source")
+                # An unavailable metadata API must not erase independent,
+                # exact-page browser evidence. Explicit embed denials still win.
+                observed = observed_playback(store, uid, project_id, reference)
+            else:
+                observed = {"url": social["canonical_url"], "source_page_url": social["canonical_url"], "observed_as": "official_social_metadata"}
+            if social.get("post_verified") and social.get("title"):
                 data["media"]["title"] = social["title"]
                 data["source_link"]["title"] = social["title"]
         else:
@@ -214,7 +298,7 @@ def reference_player(store, uid, project_id, reference_id, round_id=""):
                     source_page_url=observed["source_page_url"],
                     coverage_note=("This displays the cited X post; inspect it to confirm whether it contains playable video." if coverage == "source_post" else "This player points to the cited source video." if exact else
                                    "This is a source clip or page preview; it has not been verified as the complete reference film."),
-                    playback_note="The source controls availability and embed permissions. If playback is blocked or requires sign-in, open the source link.")
+                    playback_note="A player address is ready; client display and playback have not been verified. The source and chat host control embed permissions. If blocked or sign-in is required, open the source link.")
         if duration is not None:
             data["duration_seconds"] = duration
     except ValueError as exc:

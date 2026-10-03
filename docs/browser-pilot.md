@@ -121,6 +121,25 @@ Platform embeds remain controlled by the source: private, deleted, region-limite
 or non-embeddable posts can fail. Keep the exact source link visible. Browser
 frames and oEmbed metadata do not establish that the assistant watched motion.
 
+The host can also block nested players even when the declared `frameDomains`
+are correct; [this Claude issue](https://github.com/anthropics/claude-code/issues/59351)
+reports the same grey blocked-document symptom seen during testing. A successful
+`show_video_reference` call means a source/player address was resolved, not that
+the host displayed or played it. Test both allowed and denied `frame-src` policies,
+then check the actual signed-in host separately. The player collapses a frame only
+after an enforced CSP violation identifies that current frame or explicit host
+permissions exclude it; missing host information is not evidence of a denial.
+It retains the source link, candidate description, verified creator/metrics, and
+inspection limitations. Supported hosts receive a short model-context failure
+notice, not a fabricated user reply. No proxy or security-policy bypass is used.
+
+`reference_playback.py` attaches the matching current-round candidate's `fit` to
+each media result. The UI renders it as plain text beneath that specific player,
+so explanations survive a skipped chat sentence or blocked frame. Unavailable
+metrics remain absent, and metadata-only discovery stays labeled as such. The
+tool's next action distinguishes collecting, offered and already-selected rounds
+to keep explanations sequential and avoid premature or repeated choice questions.
+
 Blocked pages, logins or inaccessible players should lead to another suitable
 curated source or an honest evidence limit, not repeated browser retries. A
 coverage gap does not authorize unrelated open-web discovery. See
