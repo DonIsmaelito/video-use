@@ -2,146 +2,362 @@
   "version": 1,
   "checked_at": "2026-10-02",
   "research_document": "AI Video Reference Sources.md supplied by the user on 2026-10-02",
-  "selection_policy": "Choose examples for the user's category and contrasting approaches. The list has no global quality or popularity ranking. Awards, views, likes and appreciation counts are contextual metadata, never proof of fit or a quality score.",
+  "selection_policy": "Start with accessible, appealing videos on YouTube, TikTok and X that fit the actual brief and chosen creation approach. Prefer candidates with observed substantial views or likes, while keeping subject, audience, clarity and achievable visual treatment ahead of raw popularity. There is no global quality or popularity ranking across platforms. Report exact or rounded counts only with their source and observation time; missing counts mean unavailable, never zero or popular. Discover, inspect and show each candidate sequentially before researching the next. Usually offer three different useful directions, at most five. Specialist studio collections are supplemental only when the user asks or primary platforms do not fit.",
   "evidence_policy": [
     "fetched means page text was opened; indexed means a search-engine copy was read; unverified means a lead that still needs checking.",
     "No reference video was played during this curation. Describe page-stated titles, creators, categories, runtime, synopsis, credits and tools as attributed metadata.",
     "Do not infer motion, pacing, palette or sound from a title or thumbnail. Use image inspection only for visible image traits; use video inspection only after actual playback. Otherwise invite the user to watch and describe what they notice.",
     "Fetch outcomes are observations from one tool and date, not universal access guarantees. Trust current access evidence; disclose unavailable media and preserve original source links.",
-    "A reference is inspiration, not permission to reuse its footage. Preserve discovery and original-creator links separately."
+    "A reference is inspiration, not permission to reuse its footage. Preserve discovery and original-creator links separately.",
+    "For social posts use the canonical original post URL and inspect_social_reference receipt. Public oEmbed metadata verifies identity and attribution, not visual inspection or engagement. Prefer verified popularity among otherwise useful references; do not invent views or likes when access is blocked."
   ],
   "feedback_policy": [
     "Save tone, palette, motion and medium feedback separately. Change the criticized attribute while preserving explicit likes; compare distinct approaches rather than near duplicates.",
     "Treat feedback like too corporate or too childish as a clue about tone, medium or audience, not a fixed source-selection rule. Ask a focused contrast question when the intended change is unclear, then vary the relevant source/filter or candidate while preserving liked traits.",
-    "When motion is liked but color is not, preserve the selected technique and seek a separate palette reference. Do not discard the liked motion or claim it was inspected when it was only described by the user."
+    "When motion is liked but color is not, preserve the selected technique and seek a separate palette reference. Do not discard the liked motion or claim it was inspected when it was only described by the user.",
+    "Find another batch preserves the brief, selected technique and saved likes or dislikes, and starts a fresh sequential search. Do not repeat already shown references unless the user explicitly asks to revisit one. No criticism is required to request another batch."
   ],
   "routing": {
     "explainer": {
       "primary": [
-        "ordinary_folk"
+        "youtube",
+        "tiktok",
+        "x"
       ],
-      "secondary": [
+      "secondary": [],
+      "supplemental": [
+        "ordinary_folk",
         "wine_after_coffee"
       ],
-      "coverage": "good",
-      "notes": "Studio explanations versus broader curated animation; inspect the actual topic fit."
+      "coverage": "live_search",
+      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Use specialist collections only when requested or explain the primary-source gap first."
     },
     "motion_design": {
       "primary": [
-        "motion_awards"
+        "youtube",
+        "tiktok",
+        "x"
       ],
-      "secondary": [
+      "secondary": [],
+      "supplemental": [
+        "motion_awards",
         "wine_after_coffee"
       ],
-      "coverage": "good"
+      "coverage": "live_search",
+      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Use specialist collections only when requested or explain the primary-source gap first."
     },
     "typography": {
       "primary": [
-        "art_of_the_title"
+        "youtube",
+        "tiktok",
+        "x"
       ],
-      "secondary": [
+      "secondary": [],
+      "supplemental": [
+        "art_of_the_title",
         "behance",
         "eyecannndy"
       ],
-      "coverage": "good"
+      "coverage": "live_search",
+      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Use specialist collections only when requested or explain the primary-source gap first."
     },
     "ads": {
       "primary": [
-        "ads_of_the_world"
+        "youtube",
+        "tiktok",
+        "x"
       ],
-      "secondary": [
+      "secondary": [],
+      "supplemental": [
+        "ads_of_the_world",
         "motion_awards"
       ],
-      "coverage": "good",
-      "notes": "Use Film and Commercial labels, retaining country and industry context."
+      "coverage": "live_search",
+      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Use specialist collections only when requested or explain the primary-source gap first."
     },
     "product_video": {
       "primary": [
-        "stash"
+        "youtube",
+        "tiktok",
+        "x"
       ],
-      "secondary": [
+      "secondary": [],
+      "supplemental": [
+        "stash",
         "what_ships"
       ],
-      "coverage": "good",
-      "notes": "Compare a CG product film with a Hardware launch example."
+      "coverage": "live_search",
+      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Use specialist collections only when requested or explain the primary-source gap first."
     },
     "brand": {
       "primary": [
-        "ads_of_the_world",
-        "stash"
+        "youtube",
+        "tiktok",
+        "x"
       ],
-      "secondary": [
+      "secondary": [],
+      "supplemental": [
+        "ads_of_the_world",
+        "stash",
         "motion_awards",
         "what_ships",
         "ordinary_folk"
       ],
-      "coverage": "good",
-      "notes": "Choose the ad, product-film or brand-film route from the actual brief, not every source at once."
+      "coverage": "live_search",
+      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Use specialist collections only when requested or explain the primary-source gap first."
     },
     "software_demo": {
       "primary": [
-        "what_ships"
+        "x",
+        "youtube",
+        "tiktok"
       ],
       "secondary": [],
-      "coverage": "good",
-      "notes": "Launch Library remains an unapproved reserve. Distinguish screen-led demonstrations from product announcements."
+      "supplemental": [
+        "what_ships"
+      ],
+      "coverage": "live_search",
+      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Use specialist collections only when requested or explain the primary-source gap first."
     },
     "social_clips": {
       "primary": [
-        "eyecannndy"
+        "tiktok",
+        "youtube",
+        "x"
       ],
       "secondary": [],
-      "coverage": "weak",
-      "notes": "Technique references are nearest neighbors, not a dedicated social-clips catalog. TikTok reserve access may require login."
+      "supplemental": [
+        "eyecannndy"
+      ],
+      "coverage": "live_search",
+      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Use specialist collections only when requested or explain the primary-source gap first."
     },
     "footage_story": {
       "primary": [
-        "eyecannndy"
+        "tiktok",
+        "youtube",
+        "x"
       ],
-      "secondary": [
+      "secondary": [],
+      "supplemental": [
+        "eyecannndy",
         "vimeo_staff_picks"
       ],
-      "coverage": "weak",
-      "notes": "No dedicated personal-montage collection; offer film/editing neighbors and disclose the gap."
+      "coverage": "live_search",
+      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Use specialist collections only when requested or explain the primary-source gap first."
     },
     "data_story": {
       "primary": [
-        "the_pudding"
+        "youtube",
+        "tiktok",
+        "x"
       ],
-      "secondary": [
+      "secondary": [],
+      "supplemental": [
+        "the_pudding",
         "motion_awards"
       ],
-      "coverage": "fair",
-      "notes": "Compare an essay/video with Infographics or News graphic packages; many Pudding entries are interactive essays rather than videos."
+      "coverage": "live_search",
+      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Use specialist collections only when requested or explain the primary-source gap first."
     },
     "document_video": {
-      "primary": [],
+      "primary": [
+        "youtube",
+        "tiktok",
+        "x"
+      ],
       "secondary": [],
-      "nearest": [
+      "supplemental": [
         "the_pudding"
       ],
-      "coverage": "gap",
-      "notes": "No document-to-video collection found. Essay-and-video pairs are only a nearby reference format."
+      "coverage": "live_search",
+      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Use specialist collections only when requested or explain the primary-source gap first."
     },
     "audio_first": {
-      "primary": [],
+      "primary": [
+        "tiktok",
+        "youtube",
+        "x"
+      ],
       "secondary": [],
-      "coverage": "gap",
-      "notes": "No curated podcast/audiogram gallery found. Reserve articles need separate verification and approval; ask for a user reference or explicit fallback."
+      "supplemental": [],
+      "coverage": "live_search",
+      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Use specialist collections only when requested or explain the primary-source gap first."
     },
     "procedural_3d": {
       "primary": [
-        "stash"
+        "youtube",
+        "tiktok",
+        "x"
       ],
-      "secondary": [
+      "secondary": [],
+      "supplemental": [
+        "stash",
         "art_of_the_title",
         "vimeo_staff_picks"
       ],
-      "coverage": "good",
-      "notes": "Start with Stash 3D Style; distinguish page-described CG from inspected moving images."
+      "coverage": "live_search",
+      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Use specialist collections only when requested or explain the primary-source gap first."
     }
   },
   "sources": [
+    {
+      "id": "youtube",
+      "name": "YouTube",
+      "url": "https://www.youtube.com/",
+      "categories": [
+        "explainer",
+        "motion_design",
+        "typography",
+        "ads",
+        "product_video",
+        "brand",
+        "software_demo",
+        "social_clips",
+        "footage_story",
+        "data_story",
+        "document_video",
+        "audio_first",
+        "procedural_3d",
+        "generative",
+        "personalized",
+        "precise_edit"
+      ],
+      "discovery_roots": [],
+      "discovery_patterns": [
+        {
+          "origin": "https://www.youtube.com",
+          "path_regex": "/(?:results|watch|shorts/[A-Za-z0-9_-]{11}|live/[A-Za-z0-9_-]{11}|@[^/]+(?:/.*)?|channel/[^/]+(?:/.*)?)/?"
+        },
+        {
+          "origin": "https://youtube.com",
+          "path_regex": "/(?:results|watch|shorts/[A-Za-z0-9_-]{11}|live/[A-Za-z0-9_-]{11}|@[^/]+(?:/.*)?)/?"
+        },
+        {
+          "origin": "https://m.youtube.com",
+          "path_regex": "/(?:results|watch|shorts/[A-Za-z0-9_-]{11})/?"
+        },
+        {
+          "origin": "https://youtu.be",
+          "path_regex": "/[A-Za-z0-9_-]{11}/?"
+        },
+        {
+          "origin": "https://www.youtube.com",
+          "path_regex": "/"
+        }
+      ],
+      "verification": "fetched",
+      "verification_evidence": "Official YouTube Data API videos/list and search/list documentation checked 2026-10-02; live post availability is checked per request.",
+      "search_notes": "Search topic + chosen technique + audience using host web search with site:youtube.com; select approachable examples and compare visible engagement. Inspect each promising post and show it before the next search. Shorts are useful for short formats.",
+      "inspection_notes": "Public oEmbed supplies title and creator, not views/likes. Optional YouTube Data API key enables official statistics; otherwise capture exact post-bound public page evidence. Use standard YouTube embed with original source link.",
+      "access_notes": "Some videos disable embeds, require age verification, or are region restricted. Stop at access controls and keep the original source link. API statistics need a configured API key.",
+      "biases": [
+        "Views accumulate with age and vary by topic; inspect actual fit and publication date.",
+        "Do not equate a recognizable creator or algorithm rank with verified popularity."
+      ]
+    },
+    {
+      "id": "tiktok",
+      "name": "TikTok",
+      "url": "https://www.tiktok.com/",
+      "categories": [
+        "explainer",
+        "motion_design",
+        "typography",
+        "ads",
+        "product_video",
+        "brand",
+        "software_demo",
+        "social_clips",
+        "footage_story",
+        "data_story",
+        "document_video",
+        "audio_first",
+        "procedural_3d",
+        "generative",
+        "personalized",
+        "precise_edit"
+      ],
+      "discovery_roots": [],
+      "discovery_patterns": [
+        {
+          "origin": "https://www.tiktok.com",
+          "path_regex": "/(?:search|tag/[^/]+|@[^/]+(?:/video/[0-9]{10,25})?)/?"
+        },
+        {
+          "origin": "https://tiktok.com",
+          "path_regex": "/(?:search|tag/[^/]+|@[^/]+(?:/video/[0-9]{10,25})?)/?"
+        },
+        {
+          "origin": "https://www.tiktok.com",
+          "path_regex": "/"
+        }
+      ],
+      "verification": "fetched",
+      "verification_evidence": "Official TikTok Embed Player and Embed Videos documentation checked 2026-10-02; no general commercial research API assumed.",
+      "search_notes": "Use host web search site:tiktok.com with topic and technique. Look for understandable hooks, edits, short explainers and accessible creator formats. Prefer observed traction, not niche award reels.",
+      "inspection_notes": "Use canonical @creator/video/id post and official player/v1/id embed. Public oEmbed supplies attribution and description; views and likes require separate visible post evidence.",
+      "access_notes": "Public pages may be blocked or require login; no login bypass. Research API eligibility does not make it a general commercial search backend. Keep source links if embedding fails.",
+      "biases": [
+        "Search indexing and regional availability are incomplete.",
+        "Views and likes are not comparable one-to-one with YouTube or X."
+      ]
+    },
+    {
+      "id": "x",
+      "name": "X",
+      "url": "https://x.com/",
+      "categories": [
+        "explainer",
+        "motion_design",
+        "typography",
+        "ads",
+        "product_video",
+        "brand",
+        "software_demo",
+        "social_clips",
+        "footage_story",
+        "data_story",
+        "document_video",
+        "audio_first",
+        "procedural_3d",
+        "generative",
+        "personalized",
+        "precise_edit"
+      ],
+      "discovery_roots": [],
+      "discovery_patterns": [
+        {
+          "origin": "https://x.com",
+          "path_regex": "/(?:search|(?:[A-Za-z0-9_]{1,15}|i)/status/[0-9]{1,25})(?:/video/[0-9]+)?/?"
+        },
+        {
+          "origin": "https://www.x.com",
+          "path_regex": "/(?:search|(?:[A-Za-z0-9_]{1,15}|i)/status/[0-9]{1,25})(?:/video/[0-9]+)?/?"
+        },
+        {
+          "origin": "https://twitter.com",
+          "path_regex": "/(?:search|(?:[A-Za-z0-9_]{1,15}|i)/status/[0-9]{1,25})(?:/video/[0-9]+)?/?"
+        },
+        {
+          "origin": "https://www.twitter.com",
+          "path_regex": "/(?:search|(?:[A-Za-z0-9_]{1,15}|i)/status/[0-9]{1,25})(?:/video/[0-9]+)?/?"
+        },
+        {
+          "origin": "https://x.com",
+          "path_regex": "/"
+        }
+      ],
+      "verification": "fetched",
+      "verification_evidence": "Official X embedded posts documentation and public embed product reviewed 2026-10-02; no paid search API assumed.",
+      "search_notes": "Use host web search site:x.com topic technique video to find creator demos, explainers and motion clips. Inspect the actual post, source and visible engagement sequentially.",
+      "inspection_notes": "Use canonical status URL and official embedded post. Public oEmbed provides embed/attribution, not trustworthy engagement statistics. Count only post-bound visible evidence or an explicitly configured official API.",
+      "access_notes": "Direct X search/pages may require login. Use indexed public results and public official embeds; no paid API subscription or private account access is assumed.",
+      "biases": [
+        "A post may contain text or images rather than a video; verify media before offering it as a video reference.",
+        "Do not treat post impressions as video plays."
+      ]
+    },
     {
       "id": "motion_awards",
       "name": "The Motion Awards winners archive",
@@ -163,7 +379,7 @@
       ],
       "verification": "fetched",
       "research_verification": "fetched",
-      "search_notes": "Open a winners year archive and filter by discipline/subcategory such as Commercial, Infographics, News or Feature Film. Known linked years: 2016, 2017, 2020–2025. Then search the listed title and studio for the film, preserving the archive as discovery_url.",
+      "search_notes": "Open a winners year archive and filter by discipline/subcategory such as Commercial, Infographics, News or Feature Film. Known linked years: 2016, 2017, 2020\u20132025. Then search the listed title and studio for the film, preserving the archive as discovery_url.",
       "inspection_notes": "Archive text supplies award category, work title and studio. Thumbnails do not establish animation or sound; inspect a linked original separately.",
       "access_notes": "2025 archive text opened without login on 2026-10-02; fetched text exposed thumbnails but no film links.",
       "biases": "Jury-selected, often high-budget studio work; awards are not evidence that an approach fits a small project.",
@@ -174,7 +390,8 @@
           "method": "fetched",
           "outcome": "Work titles, studio credits, disciplines and archive links readable; no playback."
         }
-      ]
+      ],
+      "role": "supplemental"
     },
     {
       "id": "eyecannndy",
@@ -203,7 +420,8 @@
           "method": "fetched",
           "outcome": "Technique descriptions, category links and one asset address readable; animations not played."
         }
-      ]
+      ],
+      "role": "supplemental"
     },
     {
       "id": "what_ships",
@@ -230,7 +448,8 @@
           "method": "fetched",
           "outcome": "Launch directory and card metadata readable; X playback not tested."
         }
-      ]
+      ],
+      "role": "supplemental"
     },
     {
       "id": "wine_after_coffee",
@@ -256,7 +475,8 @@
           "method": "indexed",
           "outcome": "Search-index copy exposed channel description and titles; direct fetch returned unavailable/navigation content."
         }
-      ]
+      ],
+      "role": "supplemental"
     },
     {
       "id": "art_of_the_title",
@@ -287,7 +507,8 @@
           "method": "fetched",
           "outcome": "Article/process text readable; no video playback."
         }
-      ]
+      ],
+      "role": "supplemental"
     },
     {
       "id": "ads_of_the_world",
@@ -315,7 +536,8 @@
           "method": "indexed",
           "outcome": "Film index visible in search results; direct fetch timed out."
         }
-      ]
+      ],
+      "role": "supplemental"
     },
     {
       "id": "stash",
@@ -351,7 +573,8 @@
           "method": "fetched",
           "outcome": "Public article, production descriptions and embedded-player links readable; no playback."
         }
-      ]
+      ],
+      "role": "supplemental"
     },
     {
       "id": "ordinary_folk",
@@ -378,7 +601,8 @@
           "method": "fetched",
           "outcome": "Client/project links readable, including Spline and Webflow projects; no playback."
         }
-      ]
+      ],
+      "role": "supplemental"
     },
     {
       "id": "behance",
@@ -411,7 +635,8 @@
           "method": "indexed",
           "outcome": "Creator Sam Miles and project description available in search copy; no media inspection."
         }
-      ]
+      ],
+      "role": "supplemental"
     },
     {
       "id": "the_pudding",
@@ -437,7 +662,8 @@
           "method": "fetched",
           "outcome": "Visual-essay index, Video label and explicit YouTube video entry readable; no playback."
         }
-      ]
+      ],
+      "role": "supplemental"
     },
     {
       "id": "vimeo_staff_picks",
@@ -470,7 +696,8 @@
           "method": "fetched",
           "outcome": "Navigation-only response, no film list or playback inspected."
         }
-      ]
+      ],
+      "role": "supplemental"
     }
   ],
   "reserves": [
@@ -560,5 +787,10 @@
       "coverage": "playback_unverified",
       "notes": "No reference motion or audio was confirmed by playback during this curation."
     }
+  ],
+  "default_primary": [
+    "youtube",
+    "tiktok",
+    "x"
   ]
 }

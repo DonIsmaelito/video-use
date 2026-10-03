@@ -208,6 +208,7 @@ def collect(store, project_id=None, include_logs=False):
     for secret in (
         store.config.api_key,
         store.config.speech_key,
+        getattr(store.config, "youtube_api_key", ""),
         store.config.encryption_key,
         store.config.invite_code,
     ):

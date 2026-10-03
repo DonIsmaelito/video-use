@@ -6,7 +6,7 @@ import fs from 'node:fs';
 const source=fs.readFileSync('app.js','utf8').replace(/^import[^\n]*\n/,'');
 const template=fs.readFileSync('template.html','utf8');
 const result=(object='video-one',project='project',extra={})=>({structuredContent:{project_id:project,media:{object_id:object,media_type:'video/mp4',url:`https://private.test/${object}?ticket=expired-token`,download_url:`https://private.test/${object}?ticket=expired-token&download=true`,final:true,...extra}}});
-function host({tool,capabilities={serverTools:{}}}={}){
+function host({tool,capabilities={serverTools:{}},widgets}={}){
   const {document}=parseHTML(template),calls=[],messages=[],links=[];let app;
   class App{
     constructor(){app=this}async connect(){}
@@ -15,7 +15,7 @@ function host({tool,capabilities={serverTools:{}}}={}){
     async updateModelContext(input){messages.push(input)}async sendMessage(input){messages.push(input)}
     async openLink(input){links.push(input)}
   }
-  vm.runInNewContext(source,{document,App,applyDocumentTheme(){},console,setTimeout(){return 1},clearTimeout(){}});
+  vm.runInNewContext(source,{document,App,applyDocumentTheme(){},console,setTimeout(){return 1},clearTimeout(){},twttr:widgets?{widgets}:undefined});
   return {document,app,calls,messages,links};
 }
 {
@@ -67,3 +67,33 @@ for(const media of [
   assert.equal(h.calls.length,0);assert.equal(h.messages.length,0);
 }
 console.log('PASS native media supports external references and exact-version expiry repair with no custom editing controls');
+
+const flush=async()=>{for(let i=0;i<12;i++)await Promise.resolve();};
+{
+  const made=[];
+  const h=host({widgets:{async createTweet(id,element,options){made.push({id,element,options});const frame=h.document.createElement('iframe');frame.src='https://platform.twitter.com/embed/Tweet.html?id='+id;element.append(frame);return frame;}}});
+  const media={media_type:'social/x',post_id:'463440424141459456',source_url:'https://x.com/Interior/status/463440424141459456',title:'The source post',caption:'Source post',html:'<script>ignore me</script>'};
+  h.app.ontoolresult({structuredContent:{project_id:'project',follow_project:false,media}});await flush();
+  assert.equal(made.length,1);assert.equal(made[0].id,media.post_id);assert.equal(made[0].options.dnt,true);
+  assert(h.document.querySelector('.social-post iframe'));
+  assert.equal(h.document.querySelector('#media script'),null,'oEmbed HTML is never injected');
+  assert.equal(h.document.getElementById('download').hidden,true);assert.equal(h.calls.length,0);assert.equal(h.messages.length,0);
+}
+{
+  const h=host();
+  h.app.ontoolresult({structuredContent:{project_id:'p',follow_project:false,media:{media_type:'social/x',post_id:'463440424141459456',source_url:'https://x.com/Interior/status/463440424141459456'}}});
+  const script=h.document.querySelector('head script[src]');assert.equal(script.src,'https://platform.twitter.com/widgets.js');
+  script.onerror();await flush();
+  assert(h.document.getElementById('notice').textContent.includes('Open the source'));
+  assert.equal(h.document.getElementById('source-reference').hidden,false);
+}
+{
+  let called=false;const h=host({widgets:{createTweet(){called=true;}}});
+  h.app.ontoolresult({structuredContent:{project_id:'p',follow_project:false,media:{media_type:'social/x',post_id:'<script>',source_url:'https://x.com'}}});await flush();
+  assert.equal(called,false);assert.equal(h.document.querySelector('head script[src]'),null);
+}
+{
+  const h=host();h.app.ontoolresult({structuredContent:{project_id:'p',follow_project:false,media:{media_type:'text/html',provider:'tiktok',embed_url:'https://www.tiktok.com/player/v1/6718335390845095173',source_url:'https://www.tiktok.com/@scout2015/video/6718335390845095173'}}});
+  const frame=h.document.querySelector('iframe');assert.equal(frame.getAttribute('data-provider'),'tiktok');assert(frame.getAttribute('allow').includes('fullscreen'));
+}
+console.log('PASS official X factory receives only a post ID and TikTok uses its provider player with honest failure links');

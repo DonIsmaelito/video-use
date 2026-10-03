@@ -119,9 +119,12 @@ def prepare_operations(operations, discovered_links=()):
             }
         elif operation.action == "open":
             if operation.source_id:
-                validate_reference_source(
-                    {"source_id": operation.source_id, "discovery_url": operation.url}
-                )
+                if operation.source_id not in catalog:
+                    raise ValueError("Open only known curated source_ids")
+                if operation.url not in discovered_links:
+                    validate_reference_source(
+                        {"source_id": operation.source_id, "discovery_url": operation.url}
+                    )
             elif operation.url in discovered_links:
                 pass
             elif operation.user_message and operation.url in operation.user_message:
@@ -501,6 +504,7 @@ class ReferenceBrowserManager:
                         "results": [{"action": "close", "ok": True}],
                         "evidence": [],
                         "limitations": [],
+                        "session_closed": True,
                     }
                 else:
                     session = await asyncio.wait_for(self.session(uid, pid), timeout=30)
@@ -599,6 +603,23 @@ class ReferenceBrowserManager:
                     session["touched"] = time.time()
                     if operations[-1].action == "close":
                         await self.stop(pid)
+                        out["session_closed"] = True
+                    else:
+                        out["session_closed"] = False
+                if out.get("session_closed"):
+                    out["recovery_hint"] = (
+                        "The browser session is closed, including after an earlier action failed. "
+                        "Start the next browser batch with open(url); prior tab state and node IDs are no longer available."
+                    )
+                elif any(result.get("requires_open") for result in out.get("results", [])):
+                    out["recovery_hint"] = (
+                        "This browser session has no open reference page. Start with open(url) before reading, sampling or interacting."
+                    )
+                elif any(result.get("ok") is False for result in out.get("results", [])):
+                    out["recovery_hint"] = (
+                        "The browser session remains open. Read the current page before retrying an interaction; "
+                        "use the reported limitation and video_index to correct failed sampling."
+                    )
                 out.update(
                     project_id=pid,
                     request_id=request_id,
@@ -606,7 +627,7 @@ class ReferenceBrowserManager:
                     repeated=False,
                     engine="browser-harness",
                     model_api_cost_usd=0,
-                    next_action="Inspect returned images and page evidence, then compare candidates in record_video_references. Capture is not a claim of continuous playback or audio review. Close the research browser when finished.",
+                    next_action=(out.get("recovery_hint", "") + " Inspect returned images and page evidence, then compare candidates in record_video_references. Capture is not a claim of continuous playback or audio review. Close the research browser when finished.").strip(),
                 )
                 self.store.put(
                     "reference_browser_run",

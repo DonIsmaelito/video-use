@@ -9,6 +9,7 @@ from urllib.parse import parse_qs, urlsplit
 from mcp.types import CallToolResult, TextContent
 
 from .reference_direction import public_reference_url
+from .social_references import social_post, validate_social_receipt
 
 
 # This list is also enforced in Python: a URL outside the resource CSP never
@@ -25,10 +26,21 @@ MEDIA_ORIGINS = (
     "https://framerusercontent.com",
     "https://vod-progressive.akamaized.net",
 )
-FRAME_ORIGINS = ("https://www.youtube-nocookie.com", "https://player.vimeo.com")
+FRAME_ORIGINS = (
+    "https://www.youtube-nocookie.com", "https://player.vimeo.com",
+    "https://www.tiktok.com", "https://platform.twitter.com", "https://platform.x.com",
+)
+SOCIAL_RESOURCE_ORIGINS = (
+    "https://platform.twitter.com", "https://platform.x.com", "https://pbs.twimg.com",
+    "https://abs.twimg.com", "https://cdn.syndication.twimg.com",
+)
+SOCIAL_CONNECT_ORIGINS = (
+    "https://platform.twitter.com", "https://platform.x.com",
+    "https://syndication.twitter.com", "https://cdn.syndication.twimg.com",
+)
 CARD = Path(__file__).parent / "ui" / "card.html"
 _DIGEST = hashlib.sha256(
-    CARD.read_bytes() + json.dumps([MEDIA_ORIGINS, FRAME_ORIGINS]).encode()
+    CARD.read_bytes() + json.dumps([MEDIA_ORIGINS, FRAME_ORIGINS, SOCIAL_RESOURCE_ORIGINS, SOCIAL_CONNECT_ORIGINS]).encode()
 ).hexdigest()[:16]
 REFERENCE_UI_URI = f"ui://video-use/reference-{_DIGEST}.html"
 REFERENCE_UI_META = {"ui": {"resourceUri": REFERENCE_UI_URI}}
@@ -60,6 +72,18 @@ def _provider(value):
     if video_id and re.fullmatch(r"[A-Za-z0-9_-]{11}", video_id):
         return {"provider": "youtube", "id": video_id,
                 "embed_url": "https://www.youtube-nocookie.com/embed/" + video_id}
+    if host in {"tiktok.com", "www.tiktok.com", "m.tiktok.com"}:
+        match = re.fullmatch(r"/player/v1/([0-9]{10,24})", path)
+        if match:
+            return {"provider": "tiktok", "id": match.group(1), "embed_url": "https://www.tiktok.com/player/v1/" + match.group(1)}
+    try:
+        social = social_post(value)
+    except ValueError:
+        social = None
+    if social and social["platform"] == "tiktok":
+        return {"provider": "tiktok", "id": social["post_id"], "embed_url": "https://www.tiktok.com/player/v1/" + social["post_id"]}
+    if social and social["platform"] == "x":
+        return {"provider": "x", "id": social["post_id"]}
     if host in {"vimeo.com", "www.vimeo.com", "player.vimeo.com"}:
         pattern = r"/video/([0-9]{1,12})" if host == "player.vimeo.com" else r"/([0-9]{1,12})"
         match = re.fullmatch(pattern, path)
@@ -152,29 +176,43 @@ def reference_player(store, uid, project_id, reference_id, round_id=""):
                       "source_url": source_url, "caption": "Open source"},
             "next_action": "Let the user inspect the source, then ask the supplied native reference-choice question. Playback does not select or approve a reference."}
     try:
-        observed = observed_playback(store, uid, project_id, reference)
+        if reference.get("social_receipt_id"):
+            social = validate_social_receipt(store, uid, project_id, reference["social_receipt_id"], reference["url"])
+            data["social"] = social
+            if not social.get("post_verified"):
+                raise ValueError("The public social post could not be verified; open its original source")
+            if social.get("embeddable") is False:
+                raise ValueError("This video's owner does not permit embedding; open the original source")
+            observed = {"url": social["canonical_url"], "source_page_url": social["canonical_url"], "observed_as": "official_social_metadata"}
+            if social.get("title"):
+                data["media"]["title"] = social["title"]
+                data["source_link"]["title"] = social["title"]
+        else:
+            observed = observed_playback(store, uid, project_id, reference)
         url = observed["url"]
         provider = _provider(url)
         duration = observed.get("duration_seconds")
         short_clip = isinstance(duration, (int, float)) and duration <= 15
         if provider:
             exact = _same_media(url, reference["url"])
-            media = {"media_type": "text/html", "embed_url": provider["embed_url"]}
+            media = ({"media_type": "social/x", "post_id": provider["id"]}
+                     if provider["provider"] == "x" else
+                     {"media_type": "text/html", "embed_url": provider["embed_url"], "provider": provider["provider"]})
         else:
             parsed = _https(url)
             extension = Path(parsed.path).suffix.lower()
             if observed["observed_as"] != "video" or extension not in {".mp4", ".webm"}:
-                raise ValueError("This source has no supported public MP4, WebM, YouTube or Vimeo player")
+                raise ValueError("This source has no supported public MP4, WebM or supported provider player")
             origin = parsed.scheme + "://" + parsed.netloc
             if origin not in MEDIA_ORIGINS:
                 raise ValueError("This source's media origin is not enabled for inline playback; open the original source")
             exact = url == reference["url"] and not short_clip and not observed.get("loop")
             media = {"media_type": "video/mp4" if extension == ".mp4" else "video/webm", "url": url}
-        coverage = "source_video" if exact else "source_preview"
-        data["media"].update(media, caption="Source video" if exact else "Source clip")
+        coverage = "source_post" if provider and provider["provider"] == "x" else "source_video" if exact else "source_preview"
+        data["media"].update(media, caption="Source post" if provider and provider["provider"] == "x" else "Source video" if exact else "Source clip")
         data.update(playback_status="available", coverage=coverage,
                     source_page_url=observed["source_page_url"],
-                    coverage_note=("This player points to the cited source video." if exact else
+                    coverage_note=("This displays the cited X post; inspect it to confirm whether it contains playable video." if coverage == "source_post" else "This player points to the cited source video." if exact else
                                    "This is a source clip or page preview; it has not been verified as the complete reference film."),
                     playback_note="The source controls availability and embed permissions. If playback is blocked or requires sign-in, open the source link.")
         if duration is not None:
@@ -186,7 +224,7 @@ def reference_player(store, uid, project_id, reference_id, round_id=""):
 
 def register_reference_playback(mcp, store, muser, read):
     resource_meta = {"ui": {"prefersBorder": False, "csp": {
-        "resourceDomains": list(MEDIA_ORIGINS), "connectDomains": [],
+        "resourceDomains": list(MEDIA_ORIGINS + SOCIAL_RESOURCE_ORIGINS), "connectDomains": list(SOCIAL_CONNECT_ORIGINS),
         "frameDomains": list(FRAME_ORIGINS),
     }}}
 
@@ -202,6 +240,6 @@ def register_reference_playback(mcp, store, muser, read):
 
     @mcp.tool(annotations=read, meta=REFERENCE_UI_META, title="Play source reference")
     def show_video_reference(project_id: str, reference_id: str, round_id: str = "") -> CallToolResult:
-        """Show an offered source reference in a neutral player, before asking the user's choice. Always pass the round_id from the returned show_video_reference descriptor so an older offer cannot display a different film with a reused ID. Reads only saved references and Browser Harness receipts; never downloads, stores or generates source video. Save Reference.playback.url and playback.browser_request_id from the cited page's actual videos, embedded_players or provider links when offering references. Short source clips are labeled honestly. Unsupported or unverified media returns the original source link. Showing playback does not select a reference or approve production."""
+        """Show an offered source reference in a neutral player, before asking the user's choice. Always pass the round_id from the returned show_video_reference descriptor so an older offer cannot display a different film with a reused ID. Reads only saved references and owned social-metadata or Browser Harness receipts; never downloads, stores or generates source video. For YouTube, TikTok and X attach social_receipt_id from inspect_social_reference; it does not prove visual inspection or popularity. Otherwise save Reference.playback.url and playback.browser_request_id from the cited page's actual videos, embedded_players or provider links when offering references. Short source clips are labeled honestly. Unsupported or unverified media returns the original source link. Showing playback does not select a reference or approve production."""
         data = reference_player(store, muser(), project_id, reference_id, round_id)
         return CallToolResult(content=[TextContent(type="text", text=json.dumps(data))], structuredContent=data)

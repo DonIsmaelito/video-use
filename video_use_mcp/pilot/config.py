@@ -18,6 +18,7 @@ class Config:
     bucket: str = "video-pilot"
     modal_app: str = "video-use-browser-pilot"
     job_timeout: int = 1800
+    youtube_api_key: str = ""
 
     @classmethod
     def env(cls):
@@ -35,4 +36,5 @@ class Config:
                 )
             },
             speech_key=os.getenv("ELEVENLABS_API_KEY", ""),
+            youtube_api_key=os.getenv("PILOT_YOUTUBE_API_KEY", "") or os.getenv("YOUTUBE_API_KEY", ""),
         )

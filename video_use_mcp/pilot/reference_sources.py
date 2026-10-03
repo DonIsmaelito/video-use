@@ -95,10 +95,12 @@ def _registry():
             except re.error as exc:
                 raise ValueError("Invalid discovery path expression") from exc
         seen.add(source["id"])
+    if any(item not in seen for item in data.get("default_primary", [])):
+        raise ValueError("Default reference routing points to an unknown source")
     for route in data.get("routing", {}).values():
         if any(
             item not in seen
-            for key in ("primary", "secondary", "nearest")
+            for key in ("primary", "secondary", "nearest", "supplemental")
             for item in route.get(key, [])
         ):
             raise ValueError("Reference routing points to an unknown approved source")
@@ -129,6 +131,8 @@ def reference_source_catalog(category=None, *, compact=False):
             for source in approved
             if source["id"] == source_id
         ]
+    elif data.get("default_primary") and (category or compact):
+        selected = [source for key in data["default_primary"] for source in approved if source["id"] == key]
     elif category:
         selected = [source for source in approved if category in source["categories"]]
     else:
@@ -146,6 +150,7 @@ def reference_source_catalog(category=None, *, compact=False):
             "inspection_notes",
             "access_notes",
             "biases",
+            "role",
         }
         base = {
             "version": data["version"],
@@ -162,11 +167,17 @@ def reference_source_catalog(category=None, *, compact=False):
     if category:
         base.update(
             category=category,
-            coverage=route
-            or {
-                "coverage": "unmapped",
-                "notes": "No researched route for this category. Explain the gap; use a relevant approved neighbor or ask for a user reference.",
-            },
+            coverage=route or (
+                {
+                    "primary": data["default_primary"],
+                    "coverage": "live_search",
+                    "notes": "Use the primary social platforms for this brief; candidate access and fit still need live inspection.",
+                }
+                if data.get("default_primary") else {
+                    "coverage": "unmapped",
+                    "notes": "No researched route for this category. Explain the gap; use a relevant approved neighbor or ask for a user reference.",
+                }
+            ),
         )
         base["available_sources"] = [
             {key: source[key] for key in ("id", "name", "url", "categories")}
@@ -176,11 +187,12 @@ def reference_source_catalog(category=None, *, compact=False):
         status="ready" if data["sources"] else "awaiting_curation",
         source_count=len(approved),
         matched_source_count=len(selected),
-        routing_policy="Category routes are starting points, not a browsing whitelist or a global ranking. Any approved source may fit a particular query. Discover and inspect fresh candidates for this request; there are no preselected reference videos.",
+        routing_policy="Category routes are starting points, not a browsing whitelist or a global ranking. YouTube, TikTok and X are the primary discovery platforms. Specialist collections are supplemental. Discover, inspect and show one fresh candidate before searching for the next; there are no preselected videos.",
         policy=(
-            "Search these curator-approved collections using host tools, not arbitrary sites. "
+            "Search the approved primary social platforms sequentially using host tools, with Browser Harness for public inspection when needed. "
             "Save source_id and the discovery_url inside that collection for each web reference. "
             "An example may link out to its creator's site; preserve both links. "
+            "Prioritize approachable examples with observed traction and actual brief fit. Report only sourced views/likes and observation dates, never invented popularity. "
             "User-supplied references can be inspected directly. If the list is empty or no source fits, "
             "ask for a reference or an explicitly delegated direction; do not silently broaden the search. "
             "Reserve sources are research leads, not approved discovery sources. Metadata access never proves playback."

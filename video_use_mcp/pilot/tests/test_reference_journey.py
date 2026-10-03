@@ -69,7 +69,8 @@ def test_native_references_then_reviewed_snippet_then_full_video(pilot):
     assert [c["url"] for c in direction["link_cards"]] == [r["url"] for r in references]
     question = direction["question"]
     options = question["questions"][0]["options"]
-    assert len(options) == 6 and options[-1]["input"] == "text"
+    assert len(options) == 7 and options[-1]["input"] == "text"
+    assert options[-2]["label"] == "Find another batch"
     recovered = intake_context(state(pilot, pid), pid)
     assert recovered["question"]["presentation_key"] == question["presentation_key"]
     assert recovered["question"]["questions"] == question["questions"]

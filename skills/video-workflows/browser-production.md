@@ -89,148 +89,65 @@ use the brief to research alternatives and let the reference choice carry direct
 Do not repeat information already in the prompt or ask the user to choose a
 renderer. Explain creative choices in terms of the result the viewer sees.
 
-In hands-on mode, read `reference_sources` from `start_video` or capabilities
-after output basics and before rendering. The registry supplies search locations
-and access knowledge, not fixed recommended media. Search and inspect actual
-references in real time for this query; do not reuse preinspected examples or
-cached seed recommendations as if they were newly researched candidates.
-Begin with a short **visual search intent** grounded in this request: viewer,
-source material, desired treatment, format and constraints. Unknown traits remain
-open; do not invent user preferences. Subject research investigates factual accuracy;
-visual-reference research
-establishes possible design approaches. Keep their queries and evidence separate.
+Search YouTube, TikTok and X sequentially for accessible examples that fit the
+brief and creation approach, preferring observed traction over niche studio reels.
+Inspect one candidate, use `inspect_social_reference` for attribution and available
+engagement, save `social_receipt_id` with `record_video_references` using
+`offer(more_expected=true)`, and show `new_link_cards` immediately through
+`show_video_reference`. Between embeds, write one short explanation plus observed
+creator/views/likes/date; unknown counts stay unavailable. Then find and `append`
+the next candidate on the same round. Usually three useful choices, at most five.
+Finish with `more_expected=false` or `finish`, then ask ONE native question listing
+references, **Find another batch**, and **Give my input**; normal chat is the fallback.
+Another batch preserves preferences and avoids prior works; it needs no critique.
+Browser Harness supports public inspection in serial batches; inspect its captures,
+save `evidence_ids` and close when done. Stills do not prove motion or sound.
+Official embeds retain source links; no custom controls, copying or generated
+stand-ins. Counts require post-bound evidence, not oEmbed or guessed popularity.
+Plan the full arc from the brief and chosen visual treatment, make one representative
+snippet, and use `show_video_checkpoint` for native Continue/Refine about its plain
+player. Wait for acceptance, then finish in that same player. Choosing inspiration
+does not import source media. Use the overview for the complete flow.
 
-Use the registry's categories, search notes, access limitations and coverage gaps
-to choose useful collections and filters. Route adaptively: an abstract product
-reveal may benefit from typography or cinematic sources, not just a product label.
-Registry order, ranked popularity and a primary/secondary example are not mandatory
-search order. When the host supports it, batch 2–3 independent targeted queries
-in parallel. Scan inexpensive titles, descriptions and actually available
-thumbnails across relevant collections, then inspect promising finalists for a shortlist of 1–5 useful references, at most
-five; do not manufacture weaker choices to reach five.
-With actual playback, a short excerpt is usually enough to compare a motion trait;
-do not play every candidate end to end or repeatedly retry inaccessible players.
-Stop once distinct useful choices exist. Aim for a first useful shortlist in roughly
-20–40 seconds when access permits; this is an aspiration, not a promise or server
-timeout. Page/image-only choices are valid when honestly labeled. Deepen inspection
-when the user's feedback makes it worthwhile. There is no minimum pool quota,
-numeric quality score or requirement to visit every source. Cache navigation and
-media-location knowledge to speed access, not fixed candidate choices or old
-observations presented as fresh inspection.
+Use topic + medium + audience queries on the three primary platforms. Favor an
+approachable treatment the user could plausibly want; a highly viewed niche studio
+reel can still be a poor match. Popularity is contextual: do not equate X impressions
+with video plays or compare platforms as one score. Save metric observation time,
+source and whether a number was visibly rounded. Prefer high observed engagement
+among candidates that otherwise fit. Missing counts are unavailable, never zero.
+Host search snippets may suggest a lead; verify its identity and any claimed count
+with the actual post or supported API. Do not repeatedly retry blocked platforms.
 
-Prefer inexpensive host web search/direct fetch for discovery and readable pages.
-Use `browse_video_references(project_id, request_id, operations, budget_seconds)`
-for JavaScript galleries, page controls and media inspection. It is available
-during reference intake, before render authorization. A dedicated isolated
-Browser Harness browser executes the host assistant's bounded actions; it does
-not run an autonomous researcher or require another model/API key. You remain
-responsible for queries, candidate selection, evidence interpretation and feedback.
+`inspect_social_reference(project_id, url, browser_request_id=...)` can use an actual
+Browser Harness receipt for post-bound metadata. It returns a private receipt ID
+for the offered reference and does not claim visual inspection from metadata.
+For non-social references, preserve observed `playback.url` and
+`playback.browser_request_id`; specialist collections remain supplemental.
 
-Batch up to six `search`, `open`, `read`, `click`, `fill`, `press`, `scroll`,
-`screenshot`, `sample_video` or `close` operations. `budget_seconds` defaults to 30
-and accepts 5–45 action seconds; cold startup can add time.
-`search` takes a `query` and 1–3 approved `source_ids`;
-it uses constrained web search when host search is unavailable. `open` takes `url`
-and its curated `source_id`, or the actual `user_message` containing a supplied URL.
-Use returned AX `node_id` values for clicks/fills, `text` for fills, `key` for
-presses and `delta_y` for scrolling; do not guess targets. `sample_video` takes up
-to three `timestamps`. New decisions may require another bounded batch.
-Start only from registry-approved collection roots or explicit user-supplied URLs,
-then follow evidenced creator or media links. An
-external creator link does not authorize unrelated discovery. Avoid repeated
-retries on blocked players; retain page/image evidence and its limits. This browser
-does not inherit the host's signed-in accounts, accept account passwords or record
-an entire browsing session. Sessions use one project browser and one attached tab;
-browser batches run serially. Parallelize only independent host searches/fetches
-when their tools support it, not navigation on that shared tab. Close after research. The offline render worker and its local
-composition browser remain separate.
+Save each candidate's real `search_intent`, `search_queries`, evidence, fit,
+limitations and disposition in `record_video_references`. Offered references must
+match recommended candidates. `append` uses the current `round_id`, current
+creative revision and a new request ID. Reuse request IDs only for identical retries.
+Do not redisplay old source players. An explicit early choice can end collection.
+When no additional suitable candidates are found, `finish` the collected batch
+rather than searching indefinitely. Optional `elapsed_seconds` is measured elapsed
+time, never an estimate from a desired speed target.
 
-The response supplies page text, links/AX nodes, inline captures and retained
-evidence IDs. Save relevant `evidence_ids` on each reference when calling
-`record_video_references`. Use `read_video_reference_evidence(project_id,
-evidence_id)` to retrieve a retained capture if it needs inspection again. A saved
-navigation/capture trail supports provenance; it does not choose the candidates or
-certify the assistant's visual judgments.
+`browse_video_references` supports 1–6 bounded operations per batch, 5–45 seconds:
+`search(query, source_ids)`, `open(url, source_id)`, `read`, observed-node `click`/
+`fill`, `press`, `scroll`, `screenshot`, `sample_video` and `close`. Use sequential
+navigation on its shared tab and read recovery information after failures. The
+browser has no user account cookies; do not cross login or access barriers.
+Inspect returned image captures before describing traits, and preserve evidence
+IDs. Sampled states do not prove continuous pacing, motion quality or sound.
 
-Compare candidates against the actual brief: relevance, useful design traits,
-strength of inspection evidence and practical adaptation with available assets,
-runtime and render capabilities. An ambitious studio film can supply one useful
-trait without making its production scale feasible here; say what can be adapted.
-Choose 1–5 meaningfully useful references, never more than five or a fixed quota.
-Avoid the first search results by default, near-duplicates or a fixed explainer menu.
-Persist an offer's `search` object with `search_intent`, `search_queries`,
-`candidates`, `selection_reason` and `coverage_limitations`. Each candidate contains
-its `reference`, `evidence_note`, `fit`, `limitations` and `disposition`
-(`recommend`, `reserve` or `reject`). Save actual queries and observations, not
-retrospective claims of research. The bounded record accepts 1–12 candidates;
-it does not require rejected candidates or a large search for its own sake.
-Offered references must match the recommended candidates exactly. Direct collection
-browsing can leave `search_queries` empty; do not invent a search query to fill it.
-Optional `search.elapsed_seconds` records actual measured research time; omit it
-when unavailable. Do not estimate it from the aspirational shortlist target.
-Explain why the chosen approaches fit and differ. Keep this internal comparison
-out of the chat unless useful.
-Preserve each curated `source_id`, its `discovery_url` inside that collection,
-and the example's own URL when it links to a creator elsewhere. A collection's
-linked creator is not permission for unrelated open-web discovery.
-
-The source research verified pages or search indexes, **not playback**. Recheck
-access with this host: `fetched` and `indexed` describe the curator's evidence,
-not yours. Set each reference's `inspection` to `metadata`, `page`, `image` or
-`video`, matching the actual evidence. `metadata` means search-index/title-only
-screening; it is neither an opened page nor visual inspection. A partially
-inspected finalist can still be useful if its limitations are explicit, but must
-not be described as visually verified. Page text supports attributed title,
-credits, synopsis and listed
-runtime; label listed statistics as the source's claims. A visually inspected
-still or thumbnail supports visible palette, composition and typography, not
-choreography, pacing or audio. Merely retrieving an image/GIF address is not visual
-inspection; an animated image supports motion only if its sequence was actually
-observed. Claim played-clip evidence only with a capable tool and actual playback
-inspection. Browser screenshots and `sample_video` images must actually be viewed
-by the host assistant before supporting visual observations. Successful capture
-does not establish that inspection occurred. Record sample timestamps; frames
-support visible states at those times, not continuous motion, transition quality,
-pacing or sound. Use image-level inspection for sampled stills, with the sampling
-method and limits in the evidence note; do not label them watched video. If motion
-is inaccessible, state that limit and let the user watch
-the link; their observations remain user-reported. Saved evidence is an assistant
-report, not automatic semantic verification or proof of quality.
-
-Present each of the 1–5 references as a simple host-native link preview/container
-when supported, or a linked title and one sentence saying why it fits. Keep the
-source link directly clickable. Do not build a custom gallery, picker or editor.
-Then ask ONE native question with each reference as an option and a final “Give my input” option for free-text input, including a supplied reference or combination.
-If the native tool is unavailable or cannot represent all options, use one short
-normal chat question listing the same choices; do not split it into repeated forms.
-Record the actual reply before developing the excerpt. On rejection, separate feedback
-into the relevant attributes—pace, medium, texture, palette, composition, type or
-mood—and ask one targeted question only where unclear. Preserve accepted traits
-while varying the rejected ones; save explicit dislikes and excluded examples.
-“Too corporate” could mean polish, type, imagery or tone: it does not automatically
-mean a particular source, medium or keyword. Change collection, filter or query
-when that addresses the feedback, rather than applying a deterministic phrase map.
-Persist approved traits and actual user words with `record_video_references`
-(offer, select, refine or delegate), then use them in the excerpt's composition,
-typography, motion and rhythm. Choosing inspiration is not approving an unseen
-film; the existing snippet acceptance still applies. Use the selected references
-together with the original request, not inspiration alone. Show the playable
-snippet once, then ask ONE native question to continue or refine it with actual
-feedback. Normal chat is the fallback. Refine the sample and re-review when needed;
-create the full video only after explicit acceptance. Do not insert a script editor,
-extra style picker or mandatory storyboard before this checkpoint.
-
-An explicitly supplied reference, exact edit or request to skip research may
-delegate the search. Record the user's actual words and the specific direction;
-inspect their reference where accessible, without inventing unseen details.
-If available search/browser tools cannot inspect suitable approved sources,
-explain the limitation and ask for a user reference or permission to use a described
-direction. The initial curated set has weak social/personal-montage coverage and
-gaps for podcasts and document-to-video; nearest neighbors must be labeled as such,
-not presented as exhaustive coverage. Do not invent approved sources, search
-arbitrary sites, fabricate research or silently replace it with cached samples.
-Selecting a reference does not import its media into the edit; asset transfer
-remains an explicit, separate action.
+Use native questions; no script editor, repeated content questionnaire or custom
+gallery. Refine from actual feedback, retaining likes and changing rejected traits.
+Find another batch itself is enough direction. Keep the original brief alongside
+reference traits when building the snippet, and use available custom rendering,
+assets or other capabilities where simple shapes cannot express that treatment.
+An explicit user skip can delegate research; record the actual words. If access
+prevents useful research, explain the gap and ask for a source or delegation.
 
 Hands off and Key moments keep their existing behavior. In Key moments,
 `show_video_choices` may offer relevant cached samples; identify them as cached

@@ -1,0 +1,428 @@
+"""Social attribution comes from official endpoints or owned exact-post evidence."""
+
+import asyncio
+import hashlib
+from types import SimpleNamespace
+from unittest.mock import Mock
+
+import httpx
+import pytest
+
+from video_use_mcp.store import Store
+from video_use_mcp.pilot.social_references import (
+    _json,
+    inspect_social_post,
+    social_post,
+    validate_social_receipt,
+)
+
+YT = "https://www.youtube.com/watch?v=aqz-KE-bpKQ"
+TT = "https://www.tiktok.com/@scout2015/video/6718335390845095173"
+X = "https://x.com/Interior/status/463440424141459456"
+
+
+@pytest.fixture
+def store(tmp_path):
+    value = Store(tmp_path)
+    value.project = Mock(return_value={"title": "Project"})
+    value.config = SimpleNamespace(youtube_api_key="")
+    return value
+
+
+def inspect(store, url=YT, request_id="", handler=None):
+    async def run():
+        async with httpx.AsyncClient(
+            transport=httpx.MockTransport(
+                handler
+                or (
+                    lambda request: httpx.Response(
+                        200,
+                        json={
+                            "type": "video",
+                            "author_name": "Creator",
+                            "title": "Example film",
+                            "author_url": "https://www.youtube.com/@creator",
+                            "html": "<script>never execute me</script>",
+                        },
+                    )
+                )
+            )
+        ) as client:
+            return await inspect_social_post(
+                store, "owner", "project", url, request_id, client=client
+            )
+
+    return asyncio.run(run())
+
+
+def browser_receipt(store, *, url=YT, owner="owner", project="project", metadata=None):
+    post = social_post(url)
+    social = {
+        **post,
+        "page_url": url,
+        "post_verified": True,
+        "observed_at": 1700000000,
+        "title": "Visible title",
+        "published_at": "2026-01-02T03:04:05Z",
+        "metrics": {
+            "views": {
+                "value": 125000,
+                "display": "125,000",
+                "evidence": "125,000 views",
+                "source": "visible_text",
+            },
+            "likes": {
+                "value": None,
+                "display": "1.2K",
+                "evidence": "1.2K likes",
+                "source": "visible_text",
+            },
+        },
+    }
+    social.update(metadata or {})
+    receipt = {
+        "owner": owner,
+        "project": project,
+        "status": "complete",
+        "result": {
+            "engine": "browser-harness",
+            "project_id": project,
+            "results": [{"ok": True, "page_url": url, "social_metadata": social}],
+        },
+    }
+    key = hashlib.sha256(b"owner:project:read-post").hexdigest()
+    store.put("reference_browser_run", key, receipt)
+    return receipt
+
+
+@pytest.mark.parametrize(
+    "url,platform,post_id",
+    [
+        (YT + "&t=20", "youtube", "aqz-KE-bpKQ"),
+        ("https://youtu.be/aqz-KE-bpKQ?si=tracking", "youtube", "aqz-KE-bpKQ"),
+        ("https://www.youtube.com/shorts/aqz-KE-bpKQ", "youtube", "aqz-KE-bpKQ"),
+        (TT + "?is_from_webapp=1", "tiktok", "6718335390845095173"),
+        (X + "/video/1", "x", "463440424141459456"),
+        (
+            "https://twitter.com/Interior/status/463440424141459456",
+            "x",
+            "463440424141459456",
+        ),
+        ("https://x.com/i/web/status/463440424141459456", "x", "463440424141459456"),
+    ],
+)
+def test_canonical_posts_strip_tracking(url, platform, post_id):
+    post = social_post(url)
+    assert post["platform"] == platform and post["post_id"] == post_id
+    assert (
+        "tracking" not in post["canonical_url"]
+        and "is_from" not in post["canonical_url"]
+    )
+
+
+@pytest.mark.parametrize(
+    "url",
+    [
+        "http://www.youtube.com/watch?v=aqz-KE-bpKQ",
+        "https://www.youtube.com.evil.example/watch?v=aqz-KE-bpKQ",
+        "https://user@www.youtube.com/watch?v=aqz-KE-bpKQ",
+        "https://www.youtube.com:444/watch?v=aqz-KE-bpKQ",
+        "https://www.youtube.com/watch?v=aqz-KE-bpKQ&v=abcdefghijk",
+        "https://youtube.com/@creator",
+        "https://vm.tiktok.com/short",
+        "https://www.tiktok.com/@creator",
+        "https://x.com/search?q=film",
+        "https://127.0.0.1/post",
+        "javascript:alert(1)",
+        "https://x.com/Interior/status/463440424141459456<script>",
+    ],
+)
+def test_non_post_or_unsafe_urls_are_rejected(url):
+    with pytest.raises(ValueError):
+        social_post(url)
+
+
+def test_oembed_attribution_does_not_invent_metrics_or_execute_html(store):
+    result = inspect(store)
+    assert result["post_verified"] is True and result["title"] == "Example film"
+    assert result["engagement_status"] == "unavailable"
+    assert result["engagement"] == dict(
+        views=None, likes=None, comments=None, shares=None
+    )
+    assert result["observed_at"] and result["published_at"] is None
+    assert "html" not in result and "never execute" not in str(result)
+    assert any("not zero" in text for text in result["limitations"])
+    assert any("not visual inspection" in text for text in result["limitations"])
+    assert "owner" not in result and "project" not in result
+
+
+def test_receipts_and_cache_are_private_and_alias_bound(store):
+    first = inspect(store)
+    again = inspect(
+        store,
+        handler=lambda request: (_ for _ in ()).throw(AssertionError("cached request")),
+    )
+    assert again["cached"] and again["social_receipt_id"] == first["social_receipt_id"]
+    metadata = validate_social_receipt(
+        store,
+        "owner",
+        "project",
+        first["social_receipt_id"],
+        "https://youtu.be/aqz-KE-bpKQ",
+    )
+    assert metadata["title"] == first["title"]
+    for uid, pid, url in [
+        ("other", "project", YT),
+        ("owner", "other", YT),
+        ("owner", "project", "https://youtu.be/abcdefghijk"),
+    ]:
+        with pytest.raises(ValueError):
+            validate_social_receipt(store, uid, pid, first["social_receipt_id"], url)
+
+
+def test_project_ownership_checked_before_network(store):
+    store.project.side_effect = PermissionError("Denied")
+    with pytest.raises(PermissionError):
+        inspect(
+            store,
+            handler=lambda request: (_ for _ in ()).throw(AssertionError("network")),
+        )
+
+
+def test_visible_counts_are_kept_exact_or_explicitly_abbreviated(store):
+    browser_receipt(store)
+    result = inspect(store, request_id="read-post")
+    assert result["engagement"]["views"]["value"] == 125000
+    assert result["engagement"]["likes"]["value"] is None
+    assert result["engagement"]["likes"]["display"] == "1.2K"
+    assert result["engagement"]["comments"] is None
+    assert result["engagement_status"] == "observed"
+    assert result["published_at"] == "2026-01-02T03:04:05+00:00"
+    assert result["evidence"][-1]["source"] == "browser_harness"
+
+
+@pytest.mark.parametrize(
+    "changes",
+    [
+        {"owner": "other"},
+        {"project": "other"},
+        {"url": X},
+        {"metadata": {"canonical_url": "https://youtu.be/abcdefghijk"}},
+    ],
+)
+def test_browser_evidence_requires_owned_exact_post(store, changes):
+    browser_receipt(store, **changes)
+    with pytest.raises(ValueError):
+        inspect(
+            store,
+            request_id="read-post",
+            handler=lambda request: (_ for _ in ()).throw(
+                AssertionError("network before provenance")
+            ),
+        )
+
+
+def test_optional_youtube_api_provides_only_returned_metrics_and_omits_secret(store):
+    store.config.youtube_api_key = "private-test-key"
+
+    def handler(request):
+        if request.url.host == "www.googleapis.com":
+            assert request.url.params["key"] == "private-test-key"
+            return httpx.Response(
+                200,
+                json={
+                    "items": [
+                        {
+                            "id": "aqz-KE-bpKQ",
+                            "snippet": {
+                                "title": "Official title",
+                                "channelTitle": "Official creator",
+                                "publishedAt": "2021-02-03T04:05:06Z",
+                            },
+                            "statistics": {"viewCount": "56789", "commentCount": "0"},
+                            "status": {"embeddable": False},
+                        }
+                    ]
+                },
+            )
+        return httpx.Response(404)
+
+    result = inspect(store, handler=handler)
+    assert result["engagement"]["views"]["value"] == 56789
+    assert result["engagement"]["comments"]["value"] == 0
+    assert result["engagement"]["likes"] is None
+    assert result["embeddable"] is False and result["post_verified"]
+    assert result["published_at"] == "2021-02-03T04:05:06+00:00"
+    assert "private-test-key" not in str(result)
+    assert "private-test-key" not in str(
+        store.get("social_reference", result["social_receipt_id"])
+    )
+
+
+def test_x_text_is_parsed_as_text_never_returned_html_and_views_are_post_views(store):
+    def handler(request):
+        assert request.url.host == "publish.twitter.com"
+        return httpx.Response(
+            200,
+            json={
+                "type": "rich",
+                "author_name": "Creator",
+                "url": X.replace("x.com", "twitter.com"),
+                "author_url": "https://twitter.com/creator",
+                "html": '<blockquote><p>Original <a href="https://x.com">post</a><script>evil()</script></p></blockquote><script src="https://evil.test/x.js"></script>',
+            },
+        )
+
+    result = inspect(store, url=X, handler=handler)
+    assert result["title"] == "Original post"
+    assert result["engagement_labels"]["views"] == "Post views"
+    assert "evil" not in str(result)
+
+
+def test_failed_provider_is_honest_and_does_not_verify_a_post(store):
+    result = inspect(store, url=TT, handler=lambda request: httpx.Response(403))
+    assert (
+        result["post_verified"] is False
+        and result["engagement_status"] == "unavailable"
+    )
+    assert result["creator"] == {"name": None, "url": None}
+    assert any("unavailable" in text for text in result["limitations"])
+
+
+@pytest.mark.parametrize(
+    "response",
+    [
+        httpx.Response(302, headers={"location": "http://127.0.0.1/secret"}),
+        httpx.Response(302, headers={"location": "https://evil.test/secret"}),
+        httpx.Response(200, content=b"x" * 262145),
+        httpx.Response(200, json=[{"title": "wrong shape"}]),
+    ],
+)
+def test_provider_response_is_bounded_and_redirects_are_fixed(response):
+    async def run():
+        requests = []
+
+        def handler(request):
+            requests.append(str(request.url))
+            return response
+
+        async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
+            with pytest.raises(ValueError):
+                await _json(client, "https://www.youtube.com/oembed", {"url": YT})
+        assert len(requests) == 1
+
+    asyncio.run(run())
+
+
+def test_official_x_redirect_is_supported():
+    async def run():
+        async with httpx.AsyncClient(
+            transport=httpx.MockTransport(
+                lambda request: httpx.Response(
+                    302, headers={"location": "https://publish.x.com/oembed?url=" + X}
+                )
+                if request.url.host == "publish.twitter.com"
+                else httpx.Response(200, json={"ok": True})
+            )
+        ) as client:
+            assert await _json(
+                client, "https://publish.twitter.com/oembed", {"url": X}
+            ) == {"ok": True}
+
+    asyncio.run(run())
+
+
+def test_login_wall_address_does_not_prove_content_or_metrics(store):
+    browser_receipt(store, metadata={"post_verified": False})
+    result = inspect(
+        store, request_id="read-post", handler=lambda request: httpx.Response(403)
+    )
+    assert result["post_verified"] is False
+    assert result["engagement_status"] == "unavailable"
+    assert all(value is None for value in result["engagement"].values())
+    assert any(
+        "could not verify its public content" in text for text in result["limitations"]
+    )
+
+
+@pytest.mark.parametrize("has_post", [True, False])
+def test_actual_worker_snapshot_contract_hydrates_only_verified_public_posts(
+    store, has_post
+):
+    import json
+    import shutil
+    import subprocess
+
+    from video_use_mcp.pilot.reference_browser_worker import SOCIAL_METADATA_JS
+
+    node = shutil.which("node")
+    if not node:
+        pytest.skip("Node is required to exercise the production browser extractor")
+    schema = {
+        "@type": "VideoObject",
+        "url": YT,
+        "name": "Real browser title",
+        "author": {"name": "Real browser creator"},
+        "uploadDate": "2026-01-02",
+        "interactionStatistic": [
+            {
+                "interactionType": "https://schema.org/WatchAction",
+                "userInteractionCount": 12345,
+            },
+            {
+                "interactionType": "https://schema.org/LikeAction",
+                "userInteractionCount": "1.2K",
+            },
+        ],
+    }
+    setup = (
+        "const source="
+        + json.dumps(YT)
+        + "; const schema="
+        + json.dumps(schema if has_post else None)
+        + ";"
+        + r"""
+        global.location={href:source};
+        global.document={querySelectorAll(selector){
+            if(selector==='link[rel="canonical"]')return [{href:source}];
+            if(selector==='script[type="application/ld+json"]')return schema?[{textContent:JSON.stringify(schema)}]:[];
+            return [];
+        }};
+        global.fetch=()=>{throw Error('Extractor must not call network')};
+    """
+    )
+    result = subprocess.run(
+        [
+            node,
+            "-e",
+            setup + "process.stdout.write(JSON.stringify(" + SOCIAL_METADATA_JS + "));",
+        ],
+        capture_output=True,
+        text=True,
+        check=True,
+        timeout=5,
+    )
+    metadata = json.loads(result.stdout)
+    # This is precisely the shape snapshot() saves, with its capture timestamp.
+    metadata["observed_at"] = 1700000000
+    browser_receipt(store, metadata=metadata)
+    output = inspect(
+        store, request_id="read-post", handler=lambda request: httpx.Response(403)
+    )
+    assert metadata["post_verified"] is has_post
+    assert output["post_verified"] is has_post
+    if has_post:
+        assert output["title"] == "Real browser title"
+        assert output["creator"]["name"] == "Real browser creator"
+        assert output["engagement"]["views"]["value"] == 12345
+        assert (
+            output["engagement"]["views"]["observed_at"] == "2023-11-14T22:13:20+00:00"
+        )
+        assert output["engagement"]["likes"]["value"] is None
+        assert output["engagement"]["likes"]["display"] == "1.2K"
+        assert output["published_at"] == "2026-01-02T00:00:00"
+    else:
+        assert output["title"] is None
+        assert output["creator"]["name"] is None
+        assert output["engagement_status"] == "unavailable"
+        assert all(metric is None for metric in output["engagement"].values())

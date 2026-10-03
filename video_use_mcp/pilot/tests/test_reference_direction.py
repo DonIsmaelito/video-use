@@ -91,7 +91,7 @@ def refs():
     ]
 
 
-def many_refs(count):
+def many_refs(count, offset=0):
     return [
         dict(
             refs()[index % 2],
@@ -100,13 +100,13 @@ def many_refs(count):
             url=f"https://artist.example/reference-{index}",
             discovery_url=f"https://example.com/collection/reference-{index}",
         )
-        for index in range(count)
+        for index in range(offset, offset + count)
     ]
 
 
 def args(pilot, project, action="offer", **updates):
     search = {}
-    if action == "offer" and updates.get("references"):
+    if action in {"offer", "append"} and updates.get("references"):
         search = {"search": research(updates["references"])}
     return (
         dict(
@@ -244,16 +244,17 @@ def test_five_real_references_have_link_cards_and_native_choice_with_final_input
     assert question["status"] == "awaiting_user"
     assert len(question["questions"]) == 1
     options = question["questions"][0]["options"]
-    assert [item["reference_id"] for item in options[:-1]] == [
+    assert [item["reference_id"] for item in options[:-2]] == [
         item["id"] for item in references
     ]
-    for reference, option in zip(references, options[:-1], strict=True):
+    for reference, option in zip(references, options[:-2], strict=True):
         assert option["record_with"] == {
             "name": "record_video_references",
             "arguments": {
                 "project_id": project,
                 "creative_revision": result["creative_revision"],
                 "action": "select",
+                "round_id": context["round_id"],
                 "selected_ids": [reference["id"]],
             },
         }
@@ -324,7 +325,7 @@ def test_one_fresh_reference_is_enough_and_empty_offer_does_not_meet_quota(
     result = invoke(pilot, project, references=many_refs(1))
     assert len(result["reference_direction"]["link_cards"]) == 1
     assert (
-        len(result["reference_direction"]["question"]["questions"][0]["options"]) == 2
+        len(result["reference_direction"]["question"]["questions"][0]["options"]) == 3
     )
 
 
@@ -361,7 +362,7 @@ def test_final_input_records_feedback_and_requires_a_new_reference_choice(
         with pytest.raises(ValueError):
             require_production_intake(state, "step", payload)
     replacement = invoke(
-        pilot, project, references=many_refs(1), request_id="fresh-search"
+        pilot, project, references=many_refs(1, offset=5), request_id="fresh-search"
     )
     assert (
         replacement["reference_direction"]["question"]["presentation_key"]
@@ -441,26 +442,52 @@ def test_sampled_media_evidence_can_cite_its_server_recorded_source_page(
     assert result["reference_direction"]["references"][0]["evidence_ids"] == ["capture"]
 
 
-def test_offered_source_playback_uses_owned_observation_and_stays_separate_from_choice(pilot, project):
+def test_offered_source_playback_uses_owned_observation_and_stays_separate_from_choice(
+    pilot, project
+):
     store = pilot[1].state.store
-    reference = refs()[0] | {"playback": {
-        "url": "https://media.ordinary.co/video/home/observed.webm",
-        "browser_request_id": "source-inspection",
-    }}
-    key = hashlib.sha256(("tester:" + project + ":source-inspection").encode()).hexdigest()
-    store.put("reference_browser_run", key, {
-        "owner": "tester", "project": project, "status": "complete", "result": {
-            "engine": "browser-harness", "project_id": project, "results": [{
-                "action": "read", "ok": True, "page_url": reference["url"],
-                "videos": [{"src": reference["playback"]["url"], "duration_seconds": 5}],
-            }],
+    reference = refs()[0] | {
+        "playback": {
+            "url": "https://media.ordinary.co/video/home/observed.webm",
+            "browser_request_id": "source-inspection",
+        }
+    }
+    key = hashlib.sha256(
+        ("tester:" + project + ":source-inspection").encode()
+    ).hexdigest()
+    store.put(
+        "reference_browser_run",
+        key,
+        {
+            "owner": "tester",
+            "project": project,
+            "status": "complete",
+            "result": {
+                "engine": "browser-harness",
+                "project_id": project,
+                "results": [
+                    {
+                        "action": "read",
+                        "ok": True,
+                        "page_url": reference["url"],
+                        "videos": [
+                            {"src": reference["playback"]["url"], "duration_seconds": 5}
+                        ],
+                    }
+                ],
+            },
         },
-    })
+    )
     result = invoke(pilot, project, references=[reference])
     descriptor = result["reference_direction"]["link_cards"][0]["show_video_reference"]
-    assert descriptor == {"name": "show_video_reference", "arguments": {
-        "project_id": project, "reference_id": reference["id"], "round_id": result["reference_direction"]["round_id"],
-    }}
+    assert descriptor == {
+        "name": "show_video_reference",
+        "arguments": {
+            "project_id": project,
+            "reference_id": reference["id"],
+            "round_id": result["reference_direction"]["round_id"],
+        },
+    }
     before = saved(pilot, project)
     playback = call(pilot, descriptor["name"], descriptor["arguments"])
     assert playback["media"]["url"] == reference["playback"]["url"]
@@ -471,10 +498,12 @@ def test_offered_source_playback_uses_owned_observation_and_stays_separate_from_
 
 
 def test_offer_cannot_attach_an_unobserved_playback_url(pilot, project):
-    reference = refs()[0] | {"playback": {
-        "url": "https://media.ordinary.co/video/home/invented.webm",
-        "browser_request_id": "unrecorded-inspection",
-    }}
+    reference = refs()[0] | {
+        "playback": {
+            "url": "https://media.ordinary.co/video/home/invented.webm",
+            "browser_request_id": "unrecorded-inspection",
+        }
+    }
     before = saved(pilot, project)
     error = failure(pilot, args(pilot, project, references=[reference]))
     assert "completed browser request" in error
@@ -735,7 +764,12 @@ def test_full_legacy_project_is_not_silently_opted_in(pilot, project):
 
 def test_private_history_is_bounded_and_context_has_no_receipts(pilot, project):
     for index in range(8):
-        invoke(pilot, project, references=refs(), request_id=f"offer-{index}")
+        invoke(
+            pilot,
+            project,
+            references=many_refs(2, offset=index * 2),
+            request_id=f"offer-{index}",
+        )
         invoke(
             pilot,
             project,
@@ -793,7 +827,13 @@ def test_offer_requires_new_comparison_and_does_not_fill_from_registry(pilot, pr
     before = saved(pilot, project)
     assert "live search" in failure(
         pilot,
-        args(pilot, project, references=refs(), search=None, request_id="new-search"),
+        args(
+            pilot,
+            project,
+            references=many_refs(1),
+            search=None,
+            request_id="new-search",
+        ),
     )
     assert saved(pilot, project) == before
 
@@ -833,7 +873,7 @@ def test_comparison_is_part_of_exact_retry_and_cannot_change_on_selection(
     before = saved(pilot, project)
     parameters["search"]["selection_reason"] = "A different comparison"
     assert "different reference action" in failure(pilot, parameters)
-    assert "action offer only" in failure(
+    assert "action offer or append only" in failure(
         pilot,
         args(
             pilot,
@@ -901,3 +941,369 @@ def test_index_screening_is_not_recorded_as_page_or_video_inspection(pilot, proj
         "search"
     ]
     assert stored["candidates"][-1]["reference"]["inspection"] == "metadata"
+
+
+def test_sequential_candidates_show_immediately_then_form_one_final_question(
+    pilot, project
+):
+    first_args = args(pilot, project, references=many_refs(1), more_expected=True)
+    first = call(pilot, "record_video_references", first_args)
+    first_context = first["reference_direction"]
+    round_id = first_context["round_id"]
+    assert first_context["status"] == "collecting"
+    assert "question" not in first_context
+    assert first_context["new_reference_ids"] == ["reference-0"]
+    assert len(first_context["new_link_cards"]) == 1
+    assert (
+        first_context["new_link_cards"][0]["show_video_reference"]["arguments"][
+            "round_id"
+        ]
+        == round_id
+    )
+    presentation_key = first_context["link_cards"][0]["presentation_key"]
+    with pytest.raises(ValueError):
+        require_production_intake(
+            saved(pilot, project), "step", {"production_stage": "excerpt"}
+        )
+    second_args = args(
+        pilot,
+        project,
+        "append",
+        references=many_refs(1, 1),
+        round_id=round_id,
+        more_expected=True,
+    )
+    second = call(pilot, "record_video_references", second_args)
+    assert second["reference_direction"]["round_id"] == round_id
+    assert second["reference_direction"]["status"] == "collecting"
+    assert second["reference_direction"]["new_reference_ids"] == ["reference-1"]
+    assert (
+        second["reference_direction"]["link_cards"][0]["presentation_key"]
+        == presentation_key
+    )
+    assert "question" not in second["reference_direction"]
+    repeated = call(pilot, "record_video_references", second_args)
+    assert repeated["repeated"]
+    assert repeated["creative_revision"] == second["creative_revision"]
+    assert repeated["reference_direction"]["new_reference_ids"] == ["reference-1"]
+    final = invoke(
+        pilot,
+        project,
+        "append",
+        references=many_refs(1, 2),
+        round_id=round_id,
+        request_id="last-append",
+    )
+    context = final["reference_direction"]
+    assert context["round_id"] == round_id and context["status"] == "offered"
+    assert context["new_reference_ids"] == ["reference-2"]
+    assert len(context["question"]["questions"][0]["options"]) == 5
+    assert len(context["search_batches"]) == 3
+    assert [batch["candidate_count"] for batch in context["search_batches"]] == [
+        1,
+        1,
+        1,
+    ]
+    assert len(saved(pilot, project)["intake"]["reference_direction"]["rounds"]) == 1
+
+
+def test_collection_can_finish_without_filler_and_finish_retry_is_exact(pilot, project):
+    first = invoke(pilot, project, references=many_refs(1), more_expected=True)
+    finish = first["reference_direction"]["finish_with"]
+    parameters = finish["arguments"] | {"request_id": "finish-one"}
+    complete = call(pilot, finish["name"], parameters)
+    assert complete["reference_direction"]["status"] == "offered"
+    assert complete["reference_direction"]["new_link_cards"] == []
+    assert len(complete["reference_direction"]["references"]) == 1
+    assert call(pilot, finish["name"], parameters)["repeated"]
+
+
+@pytest.mark.parametrize(
+    "change",
+    [
+        "missing-round",
+        "stale-round",
+        "duplicate-id",
+        "duplicate-url",
+        "overflow",
+        "no-research",
+        "different-retry",
+    ],
+)
+def test_invalid_append_does_not_mutate_current_batch(pilot, project, change):
+    first = invoke(pilot, project, references=many_refs(2), more_expected=True)
+    round_id = first["reference_direction"]["round_id"]
+    parameters = args(
+        pilot,
+        project,
+        "append",
+        references=many_refs(1, 2),
+        round_id=round_id,
+        more_expected=True,
+    )
+    if change == "missing-round":
+        parameters.pop("round_id")
+    elif change == "stale-round":
+        parameters["round_id"] = "another-round"
+    elif change in {"duplicate-id", "duplicate-url"}:
+        field = "id" if change == "duplicate-id" else "url"
+        parameters["references"][0][field] = many_refs(1)[0][field]
+        parameters["search"] = research(parameters["references"])
+    elif change == "overflow":
+        parameters["references"] = many_refs(4, 2)
+        parameters["search"] = research(parameters["references"])
+    elif change == "no-research":
+        parameters.pop("search")
+    else:
+        call(pilot, "record_video_references", parameters)
+        parameters["more_expected"] = False
+    before = saved(pilot, project)
+    failure(pilot, parameters)
+    assert saved(pilot, project) == before
+
+
+def test_fifth_candidate_finishes_collection_and_forbids_sixth(pilot, project):
+    first = invoke(pilot, project, references=many_refs(4), more_expected=True)
+    round_id = first["reference_direction"]["round_id"]
+    last = invoke(
+        pilot,
+        project,
+        "append",
+        references=many_refs(1, 4),
+        round_id=round_id,
+        more_expected=True,
+    )
+    assert last["reference_direction"]["status"] == "offered"
+    assert len(last["reference_direction"]["question"]["questions"][0]["options"]) == 7
+    failure(
+        pilot,
+        args(
+            pilot,
+            project,
+            "append",
+            references=many_refs(1, 5),
+            round_id=round_id,
+            request_id="sixth",
+        ),
+    )
+
+
+def test_user_can_choose_early_without_waiting_for_remaining_sources(pilot, project):
+    first = invoke(pilot, project, references=many_refs(1), more_expected=True)
+    round_id = first["reference_direction"]["round_id"]
+    selected = invoke(
+        pilot,
+        project,
+        "select",
+        selected_ids=["reference-0"],
+        round_id=round_id,
+        user_message="Use this one",
+    )
+    assert selected["reference_direction"]["status"] == "accepted"
+    require_production_intake(
+        saved(pilot, project), "step", {"production_stage": "excerpt"}
+    )
+    failure(
+        pilot,
+        args(pilot, project, "append", references=many_refs(1, 1), round_id=round_id),
+    )
+
+
+def test_another_batch_needs_actual_request_preserves_preferences_and_excludes_old_work(
+    pilot, project
+):
+    first = invoke(
+        pilot, project, references=many_refs(2), direction="Warm organic paper textures"
+    )
+    context = first["reference_direction"]
+    option = context["question"]["questions"][0]["options"][-2]
+    assert option["label"] == "Find another batch"
+    assert option["record_with"]["arguments"]["action"] == "another_batch"
+    parameters = option["record_with"]["arguments"] | {
+        "request_id": "another",
+        "user_message": "Find another batch",
+    }
+    before = saved(pilot, project)
+    failure(pilot, parameters | {"user_message": ""})
+    assert saved(pilot, project) == before
+    refreshed = call(pilot, option["record_with"]["name"], parameters)
+    context = refreshed["reference_direction"]
+    assert context["status"] == "refining" and "question" not in context
+    assert context["direction"] == "Warm organic paper textures"
+    assert context["creation_approach"]["label"] == "Manim diagrams"
+    assert context["excluded_reference_urls"] == [item["url"] for item in many_refs(2)]
+    assert "do not ask them to invent a critique" in context["next_action"]
+    failure(pilot, args(pilot, project, references=many_refs(1), request_id="recycled"))
+    next_offer = invoke(
+        pilot,
+        project,
+        references=many_refs(1, 2),
+        more_expected=True,
+        request_id="fresh-batch",
+    )
+    assert (
+        next_offer["reference_direction"]["round_id"]
+        != first["reference_direction"]["round_id"]
+    )
+    assert (
+        next_offer["reference_direction"]["direction"] == "Warm organic paper textures"
+    )
+    assert next_offer["reference_direction"]["new_reference_ids"] == ["reference-2"]
+
+
+def test_stale_round_does_not_select_same_id_reused_for_another_work(pilot, project):
+    first = invoke(pilot, project, references=many_refs(1))
+    old_round = first["reference_direction"]["round_id"]
+    invoke(
+        pilot,
+        project,
+        "another_batch",
+        user_message="Find another batch",
+        round_id=old_round,
+    )
+    new_ref = many_refs(1, 1)[0] | {"id": "reference-0"}
+    invoke(pilot, project, references=[new_ref], request_id="new-offer")
+    before = saved(pilot, project)
+    assert "outdated" in failure(
+        pilot,
+        args(
+            pilot,
+            project,
+            "select",
+            round_id=old_round,
+            selected_ids=["reference-0"],
+            user_message="First one",
+        ),
+    )
+    assert saved(pilot, project) == before
+
+
+def test_old_offer_retry_never_relabels_a_later_reused_id_as_new(pilot, project):
+    parameters = args(pilot, project, references=many_refs(1), more_expected=True)
+    first = call(pilot, "record_video_references", parameters)
+    invoke(
+        pilot,
+        project,
+        "another_batch",
+        user_message="Find another batch",
+        round_id=first["reference_direction"]["round_id"],
+    )
+    replacement = many_refs(1, 1)[0] | {"id": "reference-0"}
+    invoke(
+        pilot,
+        project,
+        references=[replacement],
+        request_id="replacement",
+        more_expected=True,
+    )
+    before = saved(pilot, project)
+    retry = call(pilot, "record_video_references", parameters)
+    assert retry["repeated"]
+    assert retry["reference_direction"]["new_link_cards"] == []
+    assert retry["reference_direction"]["new_reference_ids"] == []
+    assert saved(pilot, project) == before
+
+
+def test_social_receipt_field_does_not_allow_fabricated_engagement():
+    reference = refs()[0]
+    with pytest.raises(ValueError):
+        Reference.model_validate(reference | {"engagement": {"views": 1000000}})
+    with pytest.raises(ValueError):
+        Reference.model_validate(reference | {"social_receipt_id": "x" * 121})
+    assert "social_receipt_id" not in Reference.model_validate(reference).model_dump()
+
+
+def test_social_receipt_is_hydrated_from_server_and_bound_to_exact_post(pilot, project):
+    store = pilot[1].state.store
+    url = "https://www.youtube.com/watch?v=AbCdEfGh123"
+    metadata = {
+        "platform": "youtube",
+        "post_id": "AbCdEfGh123",
+        "canonical_url": url,
+        "creator": {"name": "Studio", "url": "https://www.youtube.com/@studio"},
+        "engagement": {
+            "views": {
+                "value": 2345,
+                "display": "2,345",
+                "evidence": "2,345 views",
+                "source": "visible_text",
+            },
+            "likes": None,
+        },
+        "engagement_status": "partially_observed",
+        "observed_at": "2026-10-02T20:00:00Z",
+    }
+    store.put(
+        "social_reference",
+        "social-1",
+        {"owner": "tester", "project": project, "metadata": metadata},
+    )
+    reference = refs()[0] | {"url": url, "social_receipt_id": "social-1"}
+    offered = invoke(pilot, project, references=[reference])
+    hydrated = offered["reference_direction"]["references"][0]
+    assert hydrated["social"] == metadata
+    assert offered["reference_direction"]["link_cards"][0]["social"] == metadata
+    assert "owner" not in hydrated["social"]
+
+
+@pytest.mark.parametrize("mismatch", ["owner", "project", "post"])
+def test_social_receipt_cannot_be_transplanted(pilot, project, mismatch):
+    store = pilot[1].state.store
+    url = "https://www.youtube.com/watch?v=AbCdEfGh123"
+    receipt = {
+        "owner": "tester",
+        "project": project,
+        "metadata": {"canonical_url": url},
+    }
+    if mismatch == "post":
+        receipt["metadata"]["canonical_url"] = (
+            "https://www.youtube.com/watch?v=OtherVid123"
+        )
+    else:
+        receipt[mismatch] = "someone-else"
+    store.put("social_reference", "social-1", receipt)
+    before = saved(pilot, project)
+    failure(
+        pilot,
+        args(
+            pilot,
+            project,
+            references=[refs()[0] | {"url": url, "social_receipt_id": "social-1"}],
+        ),
+    )
+    assert saved(pilot, project) == before
+
+
+def test_rejected_social_work_cannot_return_as_a_short_or_tracking_link(pilot, project):
+    first = refs()[0] | {"url": "https://www.youtube.com/watch?v=AbCdEfGh123"}
+    invoke(pilot, project, references=[first])
+    invoke(pilot, project, "another_batch", user_message="Find another batch")
+    before = saved(pilot, project)
+    alias = first | {
+        "id": "other",
+        "url": "https://youtu.be/AbCdEfGh123?utm_source=feed",
+    }
+    assert "rejected" in failure(
+        pilot, args(pilot, project, references=[alias], request_id="alias")
+    )
+    assert saved(pilot, project) == before
+
+
+def test_needed_reference_guidance_is_sequential_social_and_source_honest(
+    pilot, project
+):
+    context = reference_context(saved(pilot, project), project)
+    action = context["next_action"]
+    assert "YouTube, TikTok and X" in action
+    assert "Search sequentially" in action
+    assert "parallel" not in action
+    assert "social_receipt_id" in action
+    assert "before searching for the next" in action
+    assert "Find another batch" in action and "Give my input" in action
+    assert "unknown counts are unavailable" in action
+    tools = {tool["name"]: tool for tool in rpc(pilot, "tools/list", {})["tools"]}
+    description = tools["record_video_references"]["description"]
+    assert "YouTube, TikTok and X sequentially" in description
+    assert "social_receipt_id" in description
+    assert "one short fit explanation" in description
+    assert "Find another batch" in description

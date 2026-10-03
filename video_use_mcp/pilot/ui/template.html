@@ -18,6 +18,8 @@ figure{margin:0}img,video{display:block;width:100%;height:auto;max-height:540px;
 html,body{color:#eee;color-scheme:dark light}#visual{background:transparent;color:inherit;overflow:hidden}
 #media video,#media img,#media iframe{border:0;border-radius:8px;background:#090909}
 #media iframe{display:block;width:100%;aspect-ratio:16/9}
+#media iframe[data-provider=tiktok]{width:min(100%,320px);height:540px;aspect-ratio:auto;margin:0 auto}
+#media .social-post{width:100%;min-height:1px;background:transparent}
 .media-caption{display:flex;align-items:center;gap:12px;justify-content:space-between;font-size:12px;line-height:1.4;margin-top:7px}
 #media-status{opacity:.7}#download,#source-reference{display:inline;padding:0;margin:0;color:inherit;text-decoration:underline;font:inherit;background:none;border:0;border-radius:0}
 #source-reference{overflow-wrap:anywhere}#excerpt{opacity:.7;padding:0;margin:5px 0 0}

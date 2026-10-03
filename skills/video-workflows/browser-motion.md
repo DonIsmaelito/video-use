@@ -11,35 +11,25 @@ projects retain their saved mode or labeled default. Resolve real blockers in al
 Choose a subject-specific visual idea, hierarchy and signature transformation.
 Reuse rendering mechanics, not the same layout or aesthetic for every request.
 Diagrams, type, images, footage and 3D can mix when the idea needs them.
-The registry supplies search locations/access notes, not fixed media suggestions.
-Search/fetch cheaply with host tools; use `browse_video_references` for JavaScript
-galleries or media before rendering. You direct bounded Browser Harness actions,
-not another model. Inspect returned captures; timestamped samples show only sampled
-states, not continuous motion or sound. Close when done. For Hands on,
-derive a visual search intent and route adaptively through relevant
-curated collections, not the first two sources. Scan candidates cheaply, inspect
-useful finalists, parallelizing independent host searches when supported. Compare
-brief fit, design, evidence and feasible adaptation. Offer 1–5 useful references,
-at most five, without a quota. Save intent, queries and evaluation reasons.
-Source research verified no playback. Page claims are attributed; actually viewed
-images support visible palette/layout, not motion or sound. Record honest evidence
-and source URLs; use native links/images, not forms. Separate factual research.
-Retain likes and dislikes by attribute; ask only what is unclear and adapt the
-search, not a fixed phrase-to-source rule. Apply approved traits to the sample.
-Supplied references, exact edits or explicit skip requests can delegate search;
-record the user's words. Missing search or suitable curated coverage needs a user
-reference or explicit delegation, not invented sources, open-web roaming or cached
-substitutes. Selection does not import media. Follow the overview's research loop.
-Browser batches use one tab serially.
-For new Hands on requests, settle the creation approach after basics using its
-native question; explicit techniques skip it. Use `show_video_reference` for plain
-source playback with a source link (or link fallback); save observed `playback.url`
-and `playback.browser_request_id`. Hero clips are not full films. No custom buttons.
-Ask ONE native reference question plus “Give my input”; short normal chat is the
-fallback. Plan the full arc from the brief and chosen reference, render a representative
-snippet, then ask ONE continue/refine question about its plain player. Reuse that
-player through final export. Actual refinement needs another snippet review.
-No script-editor detour.
+Search YouTube, TikTok and X sequentially for accessible examples that fit the
+brief and creation approach, preferring observed traction over niche studio reels.
+Inspect one candidate, use `inspect_social_reference` for attribution and available
+engagement, save `social_receipt_id` with `record_video_references` using
+`offer(more_expected=true)`, and show `new_link_cards` immediately through
+`show_video_reference`. Between embeds, write one short explanation plus observed
+creator/views/likes/date; unknown counts stay unavailable. Then find and `append`
+the next candidate on the same round. Usually three useful choices, at most five.
+Finish with `more_expected=false` or `finish`, then ask ONE native question listing
+references, **Find another batch**, and **Give my input**; normal chat is the fallback.
+Another batch preserves preferences and avoids prior works; it needs no critique.
+Browser Harness supports public inspection in serial batches; inspect its captures,
+save `evidence_ids` and close when done. Stills do not prove motion or sound.
+Official embeds retain source links; no custom controls, copying or generated
+stand-ins. Counts require post-bound evidence, not oEmbed or guessed popularity.
+Plan the full arc from the brief and chosen visual treatment, make one representative
+snippet, and use `show_video_checkpoint` for native Continue/Refine about its plain
+player. Wait for acceptance, then finish in that same player. Choosing inspiration
+does not import source media. Use the overview for the complete flow.
 
 Build one meaningful short motion excerpt before authoring the entire film;
 declare `production_stage="excerpt"` in its `run_video_step`. Hands off keeps it

@@ -11,7 +11,7 @@ import pytest
 
 from video_use_mcp.pilot.reference_direction import Reference
 from video_use_mcp.pilot.reference_playback import (
-    FRAME_ORIGINS, MEDIA_ORIGINS, REFERENCE_UI_URI, observed_playback,
+    FRAME_ORIGINS, MEDIA_ORIGINS, SOCIAL_RESOURCE_ORIGINS, SOCIAL_CONNECT_ORIGINS, REFERENCE_UI_URI, observed_playback,
     reference_player, register_reference_playback,
 )
 from video_use_mcp.store import Store
@@ -217,7 +217,65 @@ def test_reference_tool_has_its_own_restricted_media_resource(store):
     resources = asyncio.run(mcp.list_resources())
     resource = next(item.model_dump(by_alias=True) for item in resources if str(item.uri) == REFERENCE_UI_URI)
     csp = resource["_meta"]["ui"]["csp"]
-    assert csp["resourceDomains"] == list(MEDIA_ORIGINS)
+    assert csp["resourceDomains"] == list(MEDIA_ORIGINS + SOCIAL_RESOURCE_ORIGINS)
     assert csp["frameDomains"] == list(FRAME_ORIGINS)
-    assert csp["connectDomains"] == []
+    assert csp["connectDomains"] == list(SOCIAL_CONNECT_ORIGINS)
     assert not any("*" in value for values in csp.values() for value in values)
+
+
+@pytest.mark.parametrize("url,platform,post_id,expected", [
+    ("https://www.youtube.com/watch?v=aqz-KE-bpKQ", "youtube", "aqz-KE-bpKQ", "https://www.youtube-nocookie.com/embed/aqz-KE-bpKQ"),
+    ("https://www.tiktok.com/@scout2015/video/6718335390845095173", "tiktok", "6718335390845095173", "https://www.tiktok.com/player/v1/6718335390845095173"),
+    ("https://x.com/Interior/status/463440424141459456", "x", "463440424141459456", None),
+])
+def test_official_social_receipt_creates_exact_provider_player_without_browser_copy(store, url, platform, post_id, expected):
+    ref = reference(url=url, playback=None, social_receipt_id="social-receipt")
+    save_reference(store, ref)
+    store.put("social_reference", "social-receipt", {"owner": UID, "project": PID, "metadata": {
+        "platform": platform, "post_id": post_id, "canonical_url": url,
+        "post_verified": True, "title": "Actual creator title", "engagement": {"views": None},
+    }})
+    result = reference_player(store, UID, PID, ref["id"], "round")
+    assert result["playback_status"] == "available"
+    assert result["media"]["title"] == "Actual creator title"
+    assert result["social"]["engagement"]["views"] is None
+    if expected:
+        assert result["media"]["media_type"] == "text/html"
+        assert result["media"]["embed_url"] == expected
+        assert result["media"]["provider"] == platform
+    else:
+        assert result["media"]["media_type"] == "social/x"
+        assert result["media"]["post_id"] == post_id
+        assert result["media"]["caption"] == "Source post"
+        assert result["coverage"] == "source_post"
+        assert "html" not in result["media"] and "script_url" not in result["media"]
+    store.download.assert_not_called()
+    store.upload.assert_not_called()
+
+
+@pytest.mark.parametrize("changes", [
+    {"owner": "other"}, {"project": "other"},
+    {"metadata": {"canonical_url": "https://youtu.be/ABCDEFGHIJK", "post_verified": True}},
+    {"metadata": {"canonical_url": YOUTUBE, "post_verified": False}},
+    {"metadata": {"canonical_url": YOUTUBE, "post_verified": True, "embeddable": False}},
+])
+def test_social_receipts_cannot_transplant_posts_or_claim_blocked_embeds(store, changes):
+    ref = reference(url=YOUTUBE, social_receipt_id="social-receipt")
+    save_reference(store, ref)
+    receipt = {"owner": UID, "project": PID, "metadata": {"canonical_url": YOUTUBE, "post_verified": True}}
+    receipt.update(changes)
+    store.put("social_reference", "social-receipt", receipt)
+    result = reference_player(store, UID, PID, ref["id"], "round")
+    assert result["playback_status"] == "source_link"
+    assert "embed_url" not in result["media"]
+    assert result["fallback_reason"]
+
+
+def test_browser_observed_tiktok_player_is_supported(store):
+    post = "https://www.tiktok.com/@scout2015/video/6718335390845095173"
+    player = "https://www.tiktok.com/player/v1/6718335390845095173?autoplay=0"
+    save_reference(store, reference(url=post, playback={"url": player, "browser_request_id": "inspect-source"}))
+    save_receipt(store, page=post, media=player, kind="embedded_players")
+    result = reference_player(store, UID, PID, "source-film", "round")
+    assert result["media"]["embed_url"] == player.split("?")[0]
+    assert result["coverage"] == "source_video"

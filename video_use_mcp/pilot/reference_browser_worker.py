@@ -267,6 +267,166 @@ PAGE_CONTENT_JS = """(() => ({
   password_field: !!document.querySelector('input[type=password]')
 }))()"""
 
+# Only public post fields: never read cookies, account APIs or hydration state.
+# InteractionCounter semantics: https://schema.org/InteractionCounter
+SOCIAL_METADATA_JS = r"""(() => {
+  const bounded=(v,n=240)=>typeof v==='string'?v.trim().slice(0,n):'';
+  const identity=value=>{
+    try {
+      const u=new URL(value,location.href),h=u.hostname.toLowerCase();
+      if(u.protocol!=='https:'||u.username||u.password) return null;
+      let m,id;
+      if(['www.youtube.com','youtube.com','m.youtube.com','www.youtube-nocookie.com','youtu.be'].includes(h)) {
+        id=h==='youtu.be'?u.pathname.slice(1):u.pathname==='/watch'?u.searchParams.get('v'):(u.pathname.match(/^\/(?:shorts|embed|live)\/([\w-]{11})\/?$/)||[])[1];
+        if(/^[\w-]{11}$/.test(id||'')) return {platform:'youtube',post_id:id,canonical_url:'https://www.youtube.com/watch?v='+id};
+      }
+      if(['www.tiktok.com','tiktok.com','m.tiktok.com'].includes(h)&&(m=u.pathname.match(/^\/@([^/]+)\/video\/(\d+)\/?$/)))
+        return {platform:'tiktok',post_id:m[2],canonical_url:'https://www.tiktok.com/@'+m[1]+'/video/'+m[2]};
+      if(['x.com','www.x.com','twitter.com','www.twitter.com','mobile.twitter.com'].includes(h)&&(m=u.pathname.match(/^\/([^/]+)\/status\/(\d+)(?:\/.*)?$/)))
+        return {platform:'x',post_id:m[2],canonical_url:'https://x.com/'+m[1]+'/status/'+m[2]};
+    } catch {}
+    return null;
+  };
+  const current=identity(location.href);
+  if(!current) return null;
+  const same=value=>{const p=identity(value);return p&&p.platform===current.platform&&p.post_id===current.post_id;};
+  const one=(selector,root=document)=>{
+    const items=Array.from(root.querySelectorAll(selector)).slice(0,3);
+    return items.length===1?items[0]:null;
+  };
+  const meta=key=>bounded(one('meta[property="'+key+'"],meta[name="'+key+'"]')?.content);
+  const canonical=one('link[rel="canonical"]')?.href||meta('og:url');
+  const result={...current,page_url:location.href,post_verified:false,title:'',creator:'',published_at:'',
+    metrics:{views:null,likes:null,comments:null,shares:null},visible_text:'',limitations:[]};
+  if(canonical&&!same(canonical)) {
+    result.limitations.push('Page canonical identity differs from the requested post; engagement was not attributed.');
+    return result;
+  }
+  const canonicalBound=!!canonical&&same(canonical);
+  if(canonicalBound) {result.title=meta('og:title');result.published_at=meta('article:published_time');}
+  const visible=e=>!!e&&typeof e.checkVisibility==='function'&&e.checkVisibility({checkOpacity:true,checkVisibilityCSS:true});
+  const evidenceLines=[],conflicts=new Set();
+  const ranks={meta:0,json_ld:1,visible_text:2};
+  const put=(name,raw,evidence,source)=>{
+    if(!(name in result.metrics)||conflicts.has(name)) return;
+    const display=bounded(String(raw),40);
+    if(!/^\d[\d,. ]*\s?[KMB]?$/i.test(display)) return;
+    let value=null;
+    if(/^\d+$/.test(display)||/^\d{1,3}(,\d{3})+$/.test(display)) {
+      const n=Number(display.replaceAll(',',''));if(Number.isSafeInteger(n)&&n>=0)value=n;
+    }
+    const previous=result.metrics[name];
+    if(previous&&ranks[previous.source]>ranks[source])return;
+    if(previous&&previous.source===source&&previous.display!==display) {
+      result.metrics[name]=null;conflicts.add(name);result.limitations.push('Conflicting public '+name+' counts; left unknown.');return;
+    }
+    result.metrics[name]={value,display,evidence:bounded(evidence,300),source};
+    if(source==='visible_text'&&evidenceLines.length<12)evidenceLines.push(bounded(evidence,200));
+  };
+  const readLabel=(element,name)=>{
+    if(!visible(element))return;
+    const label=bounded(element.getAttribute?.('aria-label')||element.innerText||'',300);
+    const words={views:'views?',likes:'likes?',comments:'comments?|replies',shares:'reposts?|shares?'}[name];
+    const count=label.match(new RegExp('(?:^|\\s)(\\d[\\d,.]*\\s?[KMB]?)\\s+(?:'+words+')(?:\\b|$)','i'));
+    if(count)put(name,count[1],label,'visible_text');
+  };
+  let visited=0;
+  const visit=(entry,depth=0)=>{
+    if(!entry||depth>4||++visited>60)return;
+    if(Array.isArray(entry)){entry.slice(0,12).forEach(x=>visit(x,depth+1));return;}
+    if(typeof entry!=='object')return;
+    const types=[entry['@type']].flat();
+    const urls=[entry.url,entry['@id'],entry.embedUrl,
+      typeof entry.mainEntityOfPage==='string'?entry.mainEntityOfPage:entry.mainEntityOfPage?.['@id']];
+    if(types.some(t=>['VideoObject','SocialMediaPosting'].includes(t))&&urls.some(u=>typeof u==='string'&&same(u))) {
+      result.post_verified=true;
+      result.title=result.title||bounded(entry.name||entry.headline);
+      const author=Array.isArray(entry.author)?entry.author[0]:entry.author;
+      result.creator=result.creator||bounded(typeof author==='string'?author:author?.name,160);
+      result.published_at=result.published_at||bounded(entry.datePublished||entry.uploadDate,80);
+      const counters=Array.isArray(entry.interactionStatistic)?entry.interactionStatistic:[entry.interactionStatistic];
+      counters.slice(0,8).forEach(counter=>{
+        if(!counter||typeof counter!=='object')return;
+        const type=typeof counter.interactionType==='string'?counter.interactionType:counter.interactionType?.['@type'];
+        const action=String(type||'').split('/').pop();
+        const name={WatchAction:'views',ViewAction:'views',LikeAction:'likes',CommentAction:'comments',ShareAction:'shares'}[action];
+        if(name&&counter.userInteractionCount!==undefined)put(name,counter.userInteractionCount,action+': '+counter.userInteractionCount,'json_ld');
+      });
+      if(entry.commentCount!==undefined)put('comments',entry.commentCount,'commentCount: '+entry.commentCount,'json_ld');
+    }
+    // Traverse only schema containers, never recommendation/hydration graphs.
+    if(entry['@graph'])visit(entry['@graph'],depth+1);
+    if(entry.mainEntity)visit(entry.mainEntity,depth+1);
+  };
+  Array.from(document.querySelectorAll('script[type="application/ld+json"]')).slice(0,8).forEach(script=>{
+    const raw=script.textContent||'';if(raw.length>65536)return;
+    try{visit(JSON.parse(raw));}catch{}
+  });
+  if(current.platform==='youtube'&&canonicalBound) {
+    const scope=one('ytd-watch-metadata');
+    if(visible(scope)) {
+      const view=one('#view-count',scope)||one('.view-count',scope);
+      readLabel(view,'views');
+      Array.from(scope.querySelectorAll('button[aria-label]')).slice(0,30).forEach(button=>{
+        const label=bounded(button.getAttribute('aria-label'),300);
+        if(!visible(button)||/dislike/i.test(label))return;
+        if(/\blikes?\b/i.test(label)) {
+          const match=label.match(/along with ([\d,]+) other people/i);
+          if(match)put('likes',match[1],label,'visible_text');else readLabel(button,'likes');
+        }
+      });
+      const author=one('#owner a[href]',scope);
+      if(visible(author)&&bounded(author.innerText,160)) {
+        result.creator=result.creator||bounded(author.innerText,160);result.post_verified=true;
+      }
+    }
+    const comments=one('ytd-comments-header-renderer #count');readLabel(comments,'comments');
+    // Explicit page-level counts only, not generic interactionCount metadata.
+    for(const [field,name] of [['video:views','views'],['video:likes','likes'],['video:comments','comments']]) {
+      const value=meta(field);if(value)put(name,value,field+': '+value,'meta');
+    }
+  } else if(current.platform==='tiktok'&&canonicalBound) {
+    for(const [field,name] of [['browse-like-count','likes'],['browse-comment-count','comments'],['browse-share-count','shares']]) {
+      const element=one('[data-e2e="'+field+'"]');
+      if(visible(element))put(name,bounded(element.innerText,40),field+': '+bounded(element.innerText,40),'visible_text');
+    }
+    const author=one('[data-e2e="browse-username"]');
+    if(visible(author)&&bounded(author.innerText,160)) {
+      result.creator=result.creator||bounded(author.innerText,160);result.post_verified=true;
+    }
+  } else if(current.platform==='x') {
+    const articles=Array.from(document.querySelectorAll('article[data-testid="tweet"]')).slice(0,20).filter(article=>{
+      const time=article.querySelector('time');return time&&same(time.closest('a[href]')?.href||'');
+    });
+    if(articles.length===1&&visible(articles[0])) {
+      const article=articles[0];result.published_at=result.published_at||bounded(article.querySelector('time')?.dateTime,80);
+      const body=one('[data-testid="tweetText"]',article),author=one('[data-testid="User-Name"]',article);
+      if((visible(body)&&bounded(body.innerText))||(visible(author)&&bounded(author.innerText))||visible(one('video',article))) {
+        result.post_verified=true;result.title=result.title||bounded(body?.innerText);
+        result.creator=result.creator||bounded(author?.innerText,160);
+      }
+      for(const [field,name] of [['like','likes'],['unlike','likes'],['reply','comments'],['retweet','shares'],['unretweet','shares']]) {
+        const e=one('[data-testid="'+field+'"]',article);
+        if(visible(e)&&e.closest('article')===article) {
+          const raw=bounded(e.innerText,40);if(raw)put(name,raw,field+': '+raw,'visible_text');
+        }
+      }
+      for(const a of Array.from(article.querySelectorAll('a[href]')).slice(0,30)) {
+        if(visible(a)&&a.href.includes('/status/'+current.post_id+'/analytics'))readLabel(a,'views');
+      }
+    }
+  }
+  if(!result.post_verified) {
+    for(const name of Object.keys(result.metrics))result.metrics[name]=null;
+    evidenceLines.length=0;
+    result.limitations.push('Post content could not be verified on the public page; login walls or unavailable posts were not bypassed.');
+  }
+  result.visible_text=evidenceLines.join('\n').slice(0,1800);
+  if(!Object.values(result.metrics).some(Boolean))result.limitations.push('No unambiguous public engagement counts for this post were available; missing counts are unknown, not zero.');
+  result.limitations.push('Counts are public page claims observed at capture time; login walls and hidden data were not bypassed.');
+  return result;
+})()"""
+
 NODE_INFO_JS = """function() {
   const link=this.closest?.('a[href]');
   return {tag:this.tagName,type:this.type||'',autocomplete:this.autocomplete||'',
@@ -334,10 +494,21 @@ class _Session:
                 players.append(player)
             except ValueError:
                 pass
-        return page | {"text": content.get("text", ""), "links": links,
+        result = page | {"text": content.get("text", ""), "links": links,
                        "accessibility": compact, "videos": content.get("videos", []),
                        "embedded_players": players,
                        "snapshot_limits": {"text_characters": 6000, "links": 60, "ax_nodes": 120, "ax_depth": 8}}
+        host = urlsplit(page["page_url"]).hostname
+        if host in {"youtube.com", "www.youtube.com", "m.youtube.com", "youtu.be",
+                    "www.youtube-nocookie.com", "tiktok.com", "www.tiktok.com", "m.tiktok.com",
+                    "x.com", "www.x.com", "twitter.com", "www.twitter.com", "mobile.twitter.com"}:
+            try:
+                social = self.h.js(SOCIAL_METADATA_JS)
+                if isinstance(social, dict):
+                    result["social_metadata"] = social | {"observed_at": time.time()}
+            except Exception:
+                self.limitations.append("Public social metadata was unavailable; no engagement counts were inferred.")
+        return result
 
     def _node(self, node_id):
         resolved = self.h.cdp("DOM.resolveNode", backendNodeId=node_id)["object"]["objectId"]
@@ -409,6 +580,12 @@ class _Session:
               const remaining=()=>Math.max(0,deadline-performance.now());
               const v=document.querySelectorAll('video')[INDEX];
               if(!v) return {ok:false,reason:'No top-document HTML5 video is available; embedded or custom players cannot be sampled here.'};
+              if(!v.checkVisibility({checkOpacity:true,checkVisibilityCSS:true}))
+                return {ok:false,reason:'The chosen video is CSS-hidden; reveal that player or explicitly select the correct video_index. No different video was substituted.'};
+              // Keep the exact selected element. Do not fall back to a visible
+              // related clip when the requested player is hidden or unavailable.
+              v.scrollIntoView({block:'center',inline:'nearest',behavior:'instant'});
+              await new Promise(resolve=>requestAnimationFrame(resolve));
               if(!Number.isFinite(v.duration)||v.readyState<1) {
                 await new Promise(resolve => {
                   let timer; const events=['loadedmetadata','error'];
@@ -440,7 +617,8 @@ class _Session:
               if(!settled||Math.abs(v.currentTime-target)>0.25) return {ok:false,reason:'Video did not decode the requested frame before the seek timeout.'};
               if(!visible) return {ok:false,reason:'Video is hidden or outside the viewport; make it visible before sampling.'};
               await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
-              return {ok:true,timestamp_seconds:v.currentTime,duration_seconds:v.duration};
+              return {ok:true,timestamp_seconds:v.currentTime,duration_seconds:v.duration,
+                video_src:(v.currentSrc||v.src||'').slice(0,2048)};
             })()""".replace("INDEX", json.dumps(index)).replace("STAMP", json.dumps(requested)).replace(
                 "WAIT_MS", json.dumps(max(1, int(min(3, remaining - 0.25) * 1000))))
             sampled = self.h.js(expression) or {}
@@ -448,11 +626,13 @@ class _Session:
                 self.limitations.append(str(sampled.get("reason", "Video frame is unavailable"))[:400])
                 continue
             evidence = self._capture("video_frame", requested_timestamp_seconds=requested,
-                                     timestamp_seconds=sampled["timestamp_seconds"], video_index=index)
+                                     timestamp_seconds=sampled["timestamp_seconds"], video_index=index,
+                                     video_src=sampled.get("video_src", ""))
             frames.append(evidence)
         self.limitations.append("Video evidence contains only the returned decoded frame screenshots; audio and continuous playback were not inspected.")
         result = {"ok": bool(frames), "page_url": self._page()["page_url"],
                   "frames": frames, "sampled_frames": len(frames), "playback_verified": False,
+                  "video_index": index,
                   "availability": "available" if len(frames) == len(operation["timestamps"]) else "partial" if frames else "unavailable"}
         if not frames:
             result["error"] = "No decoded video frames were captured; inspect the limitations or a page screenshot before retrying."
@@ -531,18 +711,21 @@ def _harness_dispatch(payload):
 
     deadline = time.monotonic() + payload["budget_seconds"]
     session = _Session(helpers, deadline)
+    halted = False
     for operation in payload["operations"]:
-        if time.monotonic() >= deadline:
-            break
+        if (halted or time.monotonic() >= deadline) and operation["action"] != "close":
+            continue
         evidence_start, limits_start = len(session.evidence), len(session.limitations)
         try:
             result = {"action": operation["action"], "ok": True, **session.perform(operation)}
         except Exception as exc:
             result = {"action": operation["action"], "ok": False, "error": str(exc)[:500]}
+            if not session.tab:
+                result["requires_open"] = True
         _emit_event({"result": result, "evidence": session.evidence[evidence_start:],
                      "limitations": session.limitations[limits_start:]})
         if not result["ok"]:
-            break  # Later node IDs or inputs could target a stale/different page.
+            halted = True  # Only explicit cleanup may follow a failed action.
     _emit_event({"done": True})
 
 

@@ -21,17 +21,21 @@ This private pilot lets the assistant in a tester's Claude or ChatGPT account dr
    other requirements already supplied; do not reopen settled decisions.
 3. For Hands on, ask the native creation-approach question if the request leaves it
    open: Motion design, Manim diagrams, footage or another relevant treatment.
-   Explicit techniques are reused. Then search relevant curated sources for this brief. Run independent
-   host searches in parallel when supported, then inspect promising references.
-   Offer 1–5 useful works, never more than five and never a required five-item quota.
+   Explicit techniques are reused. Search YouTube, TikTok and X for approachable
+   examples that fit this brief and technique. Inspect and present one candidate
+   before searching for the next; usually offer three, with a maximum of five.
 4. Show each reference through `show_video_reference`: plain source streaming or
-   a provider embed, with a linked title and one fit sentence. No media is copied
+   an official platform embed, with a linked title. Between players, explain the
+   fit in one sentence and name the creator plus observed views/likes when available.
+   Unknown engagement stays unknown. No media is copied
    or generated. Unsupported playback falls back to the original source link.
    Short hero clips are labeled as source clips, never as the full reference film.
-   Ask **one native question** with each reference plus **Give my input** as the
-   last free-text option. Use one short chat question if the host cannot represent
+   Ask **one native question** with each reference, **Find another batch**, and
+   **Give my input** as the last free-text option. Use one short chat question if the host cannot represent
    those options. No custom gallery, technical form or style picker.
-5. Save the user's choice or feedback. Re-search if needed; a supplied direction
+5. Save the user's choice or feedback. **Find another batch** starts fresh research
+   with the same brief and preferences, excluding already shown works; it does not
+   require a critique. Repeat until a choice or explicit delegation. A supplied direction
    can explicitly delegate references. Plan the full story internally, then make one
    representative snippet from the chosen references
    **and the original request**, without another script/storyboard approval detour.
@@ -52,7 +56,9 @@ silence. A native tool with too few options falls back to one concise chat quest
 Hands-on requests consult `video_use_mcp/pilot/reference_sources.json` after output
 basics and before creation. The registry adapts the supplied **AI Video Reference
 Sources** research into discovery roots, category routes and access notes. It
-contains places to search, not a set of videos to recommend repeatedly. The host
+makes YouTube, TikTok and X primary, with eleven specialist collections kept as
+supplemental sources. It contains places to search, not videos to recommend
+repeatedly. The host
 assistant finds current candidates for the actual request, inspects 1–5 useful
 references (at most five, not a quota), records evidence and refines from feedback.
 
@@ -74,7 +80,8 @@ passwords and does not record a full browsing session. Reference selection does
 not download or import the media into an edit.
 
 Browser batches run serially on one project tab; they are not parallel research
-agents. Independent host searches can run in parallel when supported. With at most
+agents. Reference discovery and presentation are sequential even when host search
+could fan out: find, inspect, explain and show one candidate, then continue. With at most
 two browsers globally, each project uses one browser and one attached tab,
 a 60-second idle timeout and a 180-second total lifetime. Close it when research
 finishes. Browser time uses the existing compute allowance; a batch's wall-time
@@ -90,6 +97,29 @@ traits. Capture success and evidence persistence do not prove that inspection.
 sampled states. It does not establish continuous motion, pacing, transition
 quality or audio. Record sampled stills as image evidence and disclose those
 limits. Registry access checks also do not establish current playback.
+
+`inspect_social_reference` reads official public oEmbed metadata and optionally
+merges engagement observed in a completed browser snapshot of the **same post**.
+It returns an owner/project-bound receipt; attach its `social_receipt_id` to the
+reference. Client-provided popularity numbers are not accepted. The optional
+server-side `PILOT_YOUTUBE_API_KEY` (or `YOUTUBE_API_KEY`) enables YouTube Data API
+statistics; no API key is required for public oEmbed or browser inspection. TikTok
+and X public oEmbed responses do not supply a complete engagement API. X post views
+are labeled separately from video views. Missing counts are unavailable, not zero.
+
+For incremental delivery, use `record_video_references` with `action="offer"` and
+`more_expected=true` for the first candidate, then `append` with the same `round_id`.
+Immediately call each returned `new_link_cards[].show_video_reference` descriptor
+and explain its fit and verified metadata in chat before continuing research.
+Finish with `more_expected=false` on the last append, or `action="finish"` without
+adding a candidate. At five references the round finishes automatically. The final
+native question is returned only when collection ends. Record `another_batch` for
+the user's actual request; each new batch excludes previous works, including URL
+aliases. Selecting an already shown candidate early also ends research.
+
+Platform embeds remain controlled by the source: private, deleted, region-limited
+or non-embeddable posts can fail. Keep the exact source link visible. Browser
+frames and oEmbed metadata do not establish that the assistant watched motion.
 
 Blocked pages, logins or inaccessible players should lead to another suitable
 curated source or an honest evidence limit, not repeated browser retries. A

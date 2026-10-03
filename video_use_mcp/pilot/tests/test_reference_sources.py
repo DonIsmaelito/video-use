@@ -176,8 +176,8 @@ def test_explicit_https_default_port_preserves_same_collection(registry):
 
 def test_researched_registry_keeps_access_evidence_and_reserves_separate():
     catalog = sources.reference_source_catalog()
-    assert len(catalog["sources"]) == 11
-    assert catalog["source_count"] == 11
+    assert len(catalog["sources"]) == 14
+    assert catalog["source_count"] == 14
     assert catalog["status"] == "ready"
     assert catalog["checked_at"] == "2026-10-02"
     assert {item["verification"] for item in catalog["sources"]} == {
@@ -205,12 +205,13 @@ def test_researched_registry_keeps_access_evidence_and_reserves_separate():
 def test_category_routing_is_compact_advice_not_an_allowlist():
     catalog = sources.reference_source_catalog("explainer", compact=True)
     assert [source["id"] for source in catalog["sources"]] == [
-        "ordinary_folk",
-        "wine_after_coffee",
+        "youtube",
+        "tiktok",
+        "x",
     ]
-    assert catalog["coverage"]["coverage"] == "good"
-    assert catalog["matched_source_count"] == 2
-    assert len(catalog["available_sources"]) == 11
+    assert catalog["coverage"]["coverage"] == "live_search"
+    assert catalog["matched_source_count"] == 3
+    assert len(catalog["available_sources"]) == 14
     assert "not a browsing whitelist" in catalog["routing_policy"]
     assert "reserves" not in catalog
     assert all(
@@ -225,20 +226,20 @@ def test_category_routing_is_compact_advice_not_an_allowlist():
     )
 
 
-def test_unknown_categories_and_podcast_gap_do_not_invent_coverage():
+def test_social_primary_routes_cover_unknown_and_audio_topics_without_claiming_inspection():
     unknown = sources.reference_source_catalog("unusual_user_request", compact=True)
-    assert unknown["sources"] == []
-    assert unknown["coverage"]["coverage"] == "unmapped"
-    assert len(unknown["available_sources"]) == 11
+    assert [s["id"] for s in unknown["sources"]] == ["youtube", "tiktok", "x"]
+    assert unknown["coverage"]["coverage"] == "live_search"
+    assert len(unknown["available_sources"]) == 14
     gap = sources.reference_source_catalog("audio_first", compact=True)
-    assert gap["sources"] == []
-    assert gap["coverage"]["coverage"] == "gap"
+    assert [s["id"] for s in gap["sources"]] == ["tiktok", "youtube", "x"]
+    assert gap["coverage"]["coverage"] == "live_search"
     assert (
         gap["status"] == "ready"
-    )  # The whole catalog exists; this category has a gap.
+    )  # Access and brief fit are checked per candidate, not assumed by the route.
     nearby = sources.reference_source_catalog("document_video", compact=True)
-    assert [source["id"] for source in nearby["sources"]] == ["the_pudding"]
-    assert nearby["coverage"]["coverage"] == "gap"
+    assert [source["id"] for source in nearby["sources"]] == ["youtube", "tiktok", "x"]
+    assert nearby["coverage"]["coverage"] == "live_search"
 
 
 @pytest.mark.parametrize(
@@ -263,3 +264,29 @@ def test_invalid_curator_rules_fail_closed(registry, change):
     registry.write_text(json.dumps(data))
     with pytest.raises(ValueError):
         sources.reference_source_catalog()
+
+
+@pytest.mark.parametrize("source_id,url", [
+    ("youtube", "https://www.youtube.com/results?search_query=solar+animation"),
+    ("youtube", "https://www.youtube.com/watch?v=AbCdEfGhI12"),
+    ("youtube", "https://youtu.be/AbCdEfGhI12"),
+    ("youtube", "https://www.youtube.com/shorts/AbCdEfGhI12"),
+    ("tiktok", "https://www.tiktok.com/search?q=motion"),
+    ("tiktok", "https://www.tiktok.com/@creator/video/6718335390845095173"),
+    ("x", "https://x.com/search?q=animation"),
+    ("x", "https://x.com/creator/status/1234567890123456789"),
+    ("x", "https://twitter.com/creator/status/1234567890123456789/video/1"),
+])
+def test_primary_platform_search_and_post_routes(source_id, url):
+    sources.validate_reference_source(reference(url) | {"source_id": source_id})
+
+
+@pytest.mark.parametrize("source_id,url", [
+    ("youtube", "https://www.youtube.com.evil.test/watch?v=AbCdEfGhI12"),
+    ("tiktok", "https://www.tiktok.com/login"),
+    ("x", "https://x.com/settings/account"),
+    ("x", "https://x.com/creator/status/not-an-id"),
+])
+def test_social_discovery_does_not_allow_private_or_spoofed_routes(source_id, url):
+    with pytest.raises(ValueError, match="discovery_url"):
+        sources.validate_reference_source(reference(url) | {"source_id": source_id})

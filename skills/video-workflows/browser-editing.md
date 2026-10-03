@@ -24,39 +24,30 @@ Host turn and tool limits still apply.
 
 ## Find the hands-on direction before rendering
 
-Search `reference_sources` afresh for this brief; factual research stays separate.
-Parallelize independent host searches when supported. Inspect finalists for fit,
-evidence and feasibility; offer 1–5 useful references without filler or repeated
-blocked-player retries. Unspecified styles/media stay open: compare different
-treatments across suitable collections. Category labels and assumptions are
-provisional; confirmed answers override them.
+Search YouTube, TikTok and X sequentially for accessible examples that fit the
+brief and creation approach, preferring observed traction over niche studio reels.
+Inspect one candidate, use `inspect_social_reference` for attribution and available
+engagement, save `social_receipt_id` with `record_video_references` using
+`offer(more_expected=true)`, and show `new_link_cards` immediately through
+`show_video_reference`. Between embeds, write one short explanation plus observed
+creator/views/likes/date; unknown counts stay unavailable. Then find and `append`
+the next candidate on the same round. Usually three useful choices, at most five.
+Finish with `more_expected=false` or `finish`, then ask ONE native question listing
+references, **Find another batch**, and **Give my input**; normal chat is the fallback.
+Another batch preserves preferences and avoids prior works; it needs no critique.
+Browser Harness supports public inspection in serial batches; inspect its captures,
+save `evidence_ids` and close when done. Stills do not prove motion or sound.
+Official embeds retain source links; no custom controls, copying or generated
+stand-ins. Counts require post-bound evidence, not oEmbed or guessed popularity.
+Plan the full arc from the brief and chosen visual treatment, make one representative
+snippet, and use `show_video_checkpoint` for native Continue/Refine about its plain
+player. Wait for acceptance, then finish in that same player. Choosing inspiration
+does not import source media. Use the overview for the complete flow.
 
-For interactive pages/media, use `browse_video_references` before rendering.
-Browser Harness uses no second model or host credentials. Its shared tab runs
-serially: six actions/batch, 5–45 seconds (default 30), plus cold startup. Use observed
-`node_id` targets, curated/user URLs or discovered creator links; close when done.
-See workflows for arguments.
-
-Save intent, queries, comparisons, source/discovery URLs, limits and `evidence_ids`
-with `record_video_references`. Inspect returned images before describing traits.
-Captures prove neither inspection nor playback; sampled frames cannot establish
-continuous motion, pacing or audio. Reopen captures with
-`read_video_reference_evidence`. Attribute page claims and label evidence limits.
-
-Save observed `playback.url` and `playback.browser_request_id` with each reference.
-Use `show_video_reference` for a plain source player, or source link if unavailable;
-no downloading or copied sample. Label hero clips honestly. No custom choice controls. Ask ONE native question listing every
-reference and a final “Give my input” free-text option. Use short normal chat
-if unavailable; never drop choices to fit a tool limit. Record the actual reply
-with `record_video_references` select/refine/delegate. Clarify unclear feedback,
-retain likes/dislikes and search again when needed. Use the chosen references plus
-the original brief for the snippet; selection does not import media.
-No script editor, extra style picker or questionnaire detour.
-
-User references, exact edits or explicit skips can delegate search; save the words.
-Missing access/coverage needs a reference or explicit delegation, not fabricated
-research, arbitrary web discovery or cached substitutes. Hands off and Key moments
-retain their flow.
+Keep factual research separate. Start from approved platform URLs or user-supplied
+links. User references, exact edits or explicit skips can delegate search; save the
+actual words. Missing access requires a supplied reference or explicit delegation,
+not fabricated research. Hands off and Key moments retain their distinct flow.
 
 ## Keep conversation useful
 

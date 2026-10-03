@@ -114,6 +114,37 @@ async function renewMedia(element,{reload=false}={}){
   mediaRenewal=promise;
   try{return await promise;}finally{if(mediaRenewal===promise)mediaRenewal=null;}
 }
+let xWidgetPromise;
+function xWidget(){
+  if(globalThis.twttr?.widgets?.createTweet)return Promise.resolve(globalThis.twttr.widgets);
+  if(xWidgetPromise)return xWidgetPromise;
+  xWidgetPromise=new Promise((resolve,reject)=>{
+    const script=document.createElement('script');
+    const timeout=setTimeout(()=>reject(Error('X embed unavailable')),8000);
+    script.src='https://platform.twitter.com/widgets.js';script.async=true;
+    script.onload=()=>{clearTimeout(timeout);const widgets=globalThis.twttr?.widgets;widgets?.createTweet?resolve(widgets):reject(Error('X embed unavailable'));};
+    script.onerror=()=>{clearTimeout(timeout);reject(Error('X embed unavailable'));};
+    document.head.append(script);
+  });
+  return xWidgetPromise;
+}
+async function renderXPost(element,next){
+  try{
+    if(!/^[0-9]{5,24}$/.test(String(next.post_id)))throw Error('Invalid post');
+    const widgets=await xWidget();
+    if(tornDown || element!==$('media').firstElementChild)return;
+    // Only a validated post ID reaches the official factory. Never insert
+    // returned oEmbed HTML or let a source choose a script URL.
+    let timeout;
+    const frame=await Promise.race([
+      widgets.createTweet(String(next.post_id),element,{align:'center',dnt:true,conversation:'none'}),
+      new Promise((_,reject)=>{timeout=setTimeout(()=>reject(Error('X embed unavailable')),8000);}),
+    ]).finally(()=>clearTimeout(timeout));
+    if(!frame)throw Error('X embed unavailable');
+  }catch{
+    if(!tornDown && element===$('media').firstElementChild)$('notice').textContent='This X post cannot be displayed here. Open the source link below.';
+  }
+}
 function render(next) {
   if (!next) return;
   media = next;
@@ -122,9 +153,12 @@ function render(next) {
     const video = ['video/mp4','video/webm'].includes(next.media_type);
     const embed=next.media_type === 'text/html' && next.embed_url;
     const sourceOnly=next.media_type==='source_link';
-    const element = document.createElement(sourceOnly?'span':embed?'iframe':video?'video':'img');
+    const xPost=next.media_type==='social/x';
+    const element = document.createElement(sourceOnly?'span':xPost?'div':embed?'iframe':video?'video':'img');
     $('media').hidden=sourceOnly;
-    if(embed){
+    if(xPost){element.className='social-post';element.setAttribute('aria-label','X source post');}
+    else if(embed){
+      element.setAttribute('data-provider',next.provider || '');
       element.src=next.embed_url;element.title=next.title || next.caption || 'Video reference';
       element.setAttribute('allow','fullscreen; picture-in-picture');
       element.setAttribute('allowfullscreen','');element.setAttribute('referrerpolicy','strict-origin-when-cross-origin');
@@ -142,6 +176,7 @@ function render(next) {
       loadSource(element,next);
     }else if(!sourceOnly){element.src=next.url;element.alt=next.caption || 'Proposed video frame';}
     $('media').replaceChildren(element);shown=key;
+    if(xPost)renderXPost(element,next);
   }
   $('visual').hidden=false;
   const source=next.source_url;

@@ -319,7 +319,7 @@ def test_sampling_waits_for_lazy_metadata_and_first_decoded_frame_within_budget(
               const listeners=new Map(); let loadCalls=0;
               const emit=name=>[...(listeners.get(name)||[])].forEach(f=>f());
               const video={duration:NaN,readyState:0,currentTime:0,
-                pause(){},
+                pause(){},scrollIntoView(){},
                 load(){
                   loadCalls++;
                   if(LOADS) {
@@ -370,7 +370,7 @@ def test_video_sampling_checks_css_visibility_before_emitting_frame(isolated, vi
                 return super().js(expression)
             setup = """
               const video={duration:12,readyState:4,currentTime:2,
-                pause(){},addEventListener(){},removeEventListener(){},
+                pause(){},scrollIntoView(){},addEventListener(){},removeEventListener(){},
                 getBoundingClientRect(){return {width:200,height:100,bottom:200,right:300,top:100,left:100};},
                 checkVisibility(options){
                   if(!options.checkOpacity||!options.checkVisibilityCSS) throw Error('Missing CSS visibility checks');
@@ -390,7 +390,71 @@ def test_video_sampling_checks_css_visibility_before_emitting_frame(isolated, vi
     assert result["sampled_frames"] == int(visible)
     assert len(session.evidence) == int(visible)
     if not visible:
-        assert any("Video is hidden" in note for note in session.limitations)
+        assert any("CSS-hidden" in note for note in session.limitations)
+
+
+def test_failed_sampling_still_closes_but_never_runs_later_page_interactions(isolated, monkeypatch, capsys):
+    harness = Harness()
+    monkeypatch.setitem(sys.modules, "browser_harness", SimpleNamespace(helpers=harness))
+    worker._harness_dispatch({"budget_seconds": 30, "operations": [
+        {"action": "open", "url": "https://example.com"},
+        {"action": "sample_video", "timestamps": [0]},
+        {"action": "click", "node_id": 123}, {"action": "close"},
+    ]})
+    report, done = worker._parse_events(capsys.readouterr().out)
+    assert done and [item["action"] for item in report["results"]] == ["open", "sample_video", "close"]
+    assert report["results"][1]["ok"] is False
+    assert report["results"][2] == {"action": "close", "ok": True, "closed": True}
+    assert ("close", "owned-tab") in harness.calls
+    assert not any(item[0] == "click" for item in harness.calls)
+    assert not (isolated[0] / "tab.json").exists()
+
+
+def test_sample_in_new_session_explicitly_requires_open(isolated, monkeypatch, capsys):
+    monkeypatch.setitem(sys.modules, "browser_harness", SimpleNamespace(helpers=Harness()))
+    worker._harness_dispatch({"budget_seconds": 30, "operations": [{"action": "sample_video", "timestamps": [0]}]})
+    report, _ = worker._parse_events(capsys.readouterr().out)
+    assert report["results"][0]["requires_open"] is True
+    assert report["results"][0]["ok"] is False
+
+
+@pytest.mark.parametrize("visible", [True, False])
+def test_sampling_scrolls_only_selected_video_and_never_substitutes_related_clip(isolated, visible):
+    node = shutil.which("node")
+    if not node:
+        pytest.skip("Node is required for browser JavaScript regression")
+
+    class OffscreenHarness(Harness):
+        diagnostics = None
+
+        def js(self, expression):
+            if expression == worker.PAGE_CONTENT_JS:
+                return super().js(expression)
+            setup = """
+              let scrolled=0;
+              const related={checkVisibility(){throw Error('Wrong video selected');}};
+              const selected={duration:12,readyState:4,currentTime:2,currentSrc:'https://cdn.example/chosen.webm',
+                pause(){},addEventListener(){},removeEventListener(){},
+                checkVisibility(){return VISIBLE;},
+                scrollIntoView(options){if(options.block!=='center')throw Error('Wrong alignment');scrolled++;},
+                getBoundingClientRect(){const top=scrolled?100:2000;return {width:200,height:100,top,bottom:top+100,right:300,left:100};}};
+              global.document={querySelectorAll:()=>[related,selected]};
+              global.innerWidth=1280;global.innerHeight=900;global.requestAnimationFrame=cb=>cb();
+            """.replace("VISIBLE", json.dumps(visible))
+            program = setup + "\nPromise.resolve(" + expression + ").then(result=>process.stdout.write(JSON.stringify({result,scrolled})));"
+            completed = subprocess.run([node, "-e", program], capture_output=True, text=True, check=True, timeout=5)
+            self.diagnostics = json.loads(completed.stdout)
+            return self.diagnostics["result"]
+
+    harness = OffscreenHarness()
+    session = worker._Session(harness, worker.time.monotonic() + 30)
+    session.perform({"action": "open", "url": "https://example.com"})
+    result = session.perform({"action": "sample_video", "timestamps": [2], "video_index": 1})
+    assert result["sampled_frames"] == int(visible)
+    assert harness.diagnostics["scrolled"] == int(visible)
+    if visible:
+        assert session.evidence[0]["video_index"] == 1
+        assert session.evidence[0]["video_src"] == "https://cdn.example/chosen.webm"
 
 
 def test_cli_gets_only_fixed_dispatch_and_encoded_data(isolated, monkeypatch):
@@ -441,3 +505,126 @@ def test_large_unicode_snapshot_is_bounded_without_losing_evidence(capsys):
     report, _ = worker._parse_events(output)
     assert report["results"][0]["output_truncated"]
     assert report["evidence"] == [evidence]
+
+
+def social_metadata_fixture(*, url, canonical=None, schemas=(), meta=None, tiktok=None, tweets=()):
+    """Execute production extraction against bounded, post-scoped DOM fixtures."""
+    node = shutil.which("node")
+    if not node:
+        pytest.skip("Node is required for public social metadata regression")
+    payload = {"url": url, "canonical": canonical if canonical is not None else url,
+               "schemas": list(schemas), "meta": meta or {}, "tiktok": tiktok or {}, "tweets": list(tweets)}
+    setup = r"""
+      const f=FIXTURE;
+      const element=(text,attrs={})=>({innerText:text,content:text,textContent:text,...attrs,
+        checkVisibility(){return attrs.visible!==false;},getAttribute(key){return attrs[key]||null;}});
+      const articles=f.tweets.map(tweet=>{
+        const article=element('');
+        const time=element('',{dateTime:'2026-01-01T00:00:00Z',closest:()=>({href:tweet.url})});
+        article.querySelector=selector=>selector==='time'?time:null;
+        article.querySelectorAll=selector=>{
+          const match=selector.match(/^\[data-testid="([^"]+)"\]$/);
+          if(match&&tweet[match[1]]!==undefined){const item=element(tweet[match[1]],{closest:()=>article});return[item];}
+          return [];
+        };
+        return article;
+      });
+      global.location={href:f.url};
+      global.document={querySelectorAll(selector){
+        if(selector==='link[rel="canonical"]')return f.canonical?[element('',{href:f.canonical})]:[];
+        if(selector==='script[type="application/ld+json"]')return f.schemas.map(value=>element(typeof value==='string'?value:JSON.stringify(value)));
+        if(selector==='article[data-testid="tweet"]')return articles;
+        const meta=selector.match(/^meta\[property="([^"]+)"\]/);
+        if(meta&&f.meta[meta[1]]!==undefined)return[element(f.meta[meta[1]])];
+        const tik=selector.match(/^\[data-e2e="([^"]+)"\]$/);
+        if(tik&&f.tiktok[tik[1]]!==undefined)return[].concat(f.tiktok[tik[1]]).map(value=>element(value));
+        return [];
+      }};
+      Object.defineProperty(document,'cookie',{get(){throw Error('Cookies must not be read');}});
+      global.fetch=()=>{throw Error('No network requests are allowed');};
+    """.replace("FIXTURE", json.dumps(payload))
+    completed = subprocess.run([node, "-e", setup + "\nprocess.stdout.write(JSON.stringify(" + worker.SOCIAL_METADATA_JS + "));"],
+                               capture_output=True, text=True, check=True, timeout=5)
+    return json.loads(completed.stdout)
+
+
+def test_social_json_ld_counts_require_exact_post_identity_and_preserve_abbreviations():
+    page = "https://www.youtube.com/watch?v=abcdefghijk"
+    result = social_metadata_fixture(url=page, schemas=[{"@graph": [
+        {"@type": "VideoObject", "url": "https://www.youtube.com/watch?v=ABCDEFGHIJK", "interactionStatistic": {
+            "interactionType": "https://schema.org/WatchAction", "userInteractionCount": 999999}},
+        {"@type": "VideoObject", "url": page, "name": "Actual post", "author": {"name": "Actual creator"},
+         "uploadDate": "2026-01-01", "interactionStatistic": [
+             {"interactionType": {"@type": "WatchAction"}, "userInteractionCount": 12345},
+             {"interactionType": "https://schema.org/LikeAction", "userInteractionCount": "1.2K"},
+         ]},
+    ]}])
+    assert result["platform"] == "youtube" and result["post_id"] == "abcdefghijk"
+    assert result["post_verified"] is True
+    assert result["title"] == "Actual post" and result["creator"] == "Actual creator"
+    assert result["metrics"]["views"]["value"] == 12345
+    assert result["metrics"]["views"]["source"] == "json_ld"
+    assert result["metrics"]["likes"]["value"] is None
+    assert result["metrics"]["likes"]["display"] == "1.2K"
+    assert result["metrics"]["comments"] is None
+
+
+def test_social_metadata_rejects_canonical_mismatch_instead_of_stale_post_counts():
+    result = social_metadata_fixture(url="https://www.youtube.com/watch?v=abcdefghijk",
+                                     canonical="https://www.youtube.com/watch?v=ABCDEFGHIJK",
+                                     meta={"video:views": "12345"})
+    assert all(value is None for value in result["metrics"].values())
+    assert result["post_verified"] is False
+    assert any("canonical identity differs" in note for note in result["limitations"])
+
+
+def test_social_metadata_ignores_large_schema_and_unsupported_listing_pages():
+    assert social_metadata_fixture(url="https://www.youtube.com/results?search_query=motion") is None
+    page = "https://www.tiktok.com/@artist/video/1234567890"
+    schema = {"@type": "VideoObject", "url": page, "description": "x" * 65536,
+              "interactionStatistic": {"interactionType": "WatchAction", "userInteractionCount": 99999}}
+    result = social_metadata_fixture(url=page, schemas=[schema])
+    assert all(value is None for value in result["metrics"].values())
+    assert any("unknown, not zero" in note for note in result["limitations"])
+
+
+def test_tiktok_counts_use_unique_public_post_controls_and_do_not_infer_views():
+    result = social_metadata_fixture(url="https://www.tiktok.com/@artist/video/1234567890", tiktok={
+        "browse-like-count": "1.2K", "browse-comment-count": "45", "browse-share-count": ["12", "998"],
+        "browse-username": "artist",
+    })
+    assert result["post_verified"] is True
+    assert result["metrics"]["likes"]["display"] == "1.2K"
+    assert result["metrics"]["likes"]["value"] is None
+    assert result["metrics"]["comments"]["value"] == 45
+    assert result["metrics"]["shares"] is None  # More than one candidate is ambiguous.
+    assert result["metrics"]["views"] is None
+    assert "browse-like-count" in result["visible_text"]
+
+
+def test_x_counts_belong_to_exact_post_not_recommended_tweet():
+    result = social_metadata_fixture(url="https://x.com/artist/status/1234567890", tweets=[
+        {"url": "https://x.com/other/status/9999999999", "like": "99000", "reply": "100"},
+        {"url": "https://x.com/artist/status/1234567890", "tweetText": "Our new film", "like": "14", "reply": "2", "retweet": "3"},
+    ])
+    assert result["post_verified"] is True
+    assert result["metrics"]["likes"]["value"] == 14
+    assert result["metrics"]["comments"]["value"] == 2
+    assert result["metrics"]["shares"]["value"] == 3
+    assert result["metrics"]["views"] is None
+    assert result["published_at"] == "2026-01-01T00:00:00Z"
+
+
+@pytest.mark.parametrize("url,fields", [
+    ("https://www.youtube.com/watch?v=abcdefghijk", {"meta": {"video:views": "12345"}}),
+    ("https://www.tiktok.com/@artist/video/1234567890", {"tiktok": {"browse-like-count": "998"}}),
+    ("https://x.com/artist/status/1234567890", {"tweets": [
+        {"url": "https://x.com/artist/status/1234567890", "like": "99"},
+    ]}),
+])
+def test_social_post_url_and_counts_do_not_verify_missing_post_content(url, fields):
+    result = social_metadata_fixture(url=url, **fields)
+    assert result["post_verified"] is False
+    assert all(value is None for value in result["metrics"].values())
+    assert result["visible_text"] == ""
+    assert any("Post content could not be verified" in note for note in result["limitations"])
