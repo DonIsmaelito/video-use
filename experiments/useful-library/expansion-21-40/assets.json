@@ -1,0 +1,138 @@
+[
+  {
+    "id": "nasa-fincke",
+    "url": "https://images-assets.nasa.gov/video/ksc_020305_fincke/ksc_020305_fincke~orig.mp4",
+    "sha256": "860c10f48fe986a85deeb00496ac6d5e17f46762f2fef4e89be11c25d43ffee3",
+    "bytes": 9587637,
+    "width": 320,
+    "height": 212,
+    "fps": "12/1",
+    "duration": 234.083333,
+    "audioStreams": 1,
+    "reviewedFrameTimes": [
+      27,
+      39,
+      50
+    ],
+    "observations": "Frames at 27/39/50 s show lunar/Apollo launch B-roll under the attributed interview voice; native 320×212 at 12 fps, not a talking-head view. No listening inspection performed.",
+    "cloudVolume": "video-use-useful-library-20261003",
+    "cloudPath": "research/expansion-assets/nasa-fincke/source.mp4",
+    "rawBundledInPublicSource": false,
+    "workflowIds": [
+      "useful-21-speech-captions"
+    ],
+    "sourcePage": "https://images.nasa.gov/details/ksc_020305_fincke",
+    "license": "NASA media policy and US government work context; not a blanket CC0/endorsement permission",
+    "licenseUrl": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "licenseVerifiedDate": "2026-10-04 UTC"
+  },
+  {
+    "id": "mixkit-1641",
+    "url": "https://assets.mixkit.co/videos/1641/1641-1080.mp4",
+    "sha256": "e9896dd13f6194d1d54519a0e6e87ae4eb2e0f8d48cd6ebe6ea1623d37639dc0",
+    "bytes": 62006198,
+    "width": 1920,
+    "height": 1080,
+    "fps": "30000/1001",
+    "duration": 20.1201,
+    "audioStreams": 0,
+    "reviewedFrameTimes": [
+      4.024,
+      10.06,
+      16.096
+    ],
+    "observations": "Three frames show a stable wide view of moving rapids beneath a bridge; foliage/sky/rocks provide grade and loop references. Seam/motion continuity still needs dense output inspection.",
+    "cloudVolume": "video-use-useful-library-20261003",
+    "cloudPath": "research/expansion-assets/mixkit-1641/source.mp4",
+    "rawBundledInPublicSource": false,
+    "workflowIds": [
+      "useful-22-grade-comparison",
+      "useful-26-website-loop"
+    ],
+    "sourcePage": "https://mixkit.co/free-stock-video/river-under-a-bridge-1641/",
+    "license": "Mixkit Stock Video Free License; specific item page explicitly allows commercial and personal use",
+    "licenseUrl": "https://mixkit.co/license/#videoFree",
+    "licenseVerifiedDate": "2026-10-04 UTC"
+  },
+  {
+    "id": "mixkit-1973",
+    "url": "https://assets.mixkit.co/videos/1973/1973-1080.mp4",
+    "sha256": "4d7d35ca550b9db885f0897a803bbf6bcb1bf6dec63906fa5e1ccaa9b287cc43",
+    "bytes": 39139028,
+    "width": 1920,
+    "height": 1080,
+    "fps": "24000/1001",
+    "duration": 13.013,
+    "audioStreams": 0,
+    "reviewedFrameTimes": [
+      2.6023334,
+      6.5058335,
+      10.4093336
+    ],
+    "observations": "Three frames show hands coning/pressing clay on a wheel; source alone does not show a completed vessel.",
+    "cloudVolume": "video-use-useful-library-20261003",
+    "cloudPath": "research/expansion-assets/mixkit-1973/source.mp4",
+    "rawBundledInPublicSource": false,
+    "workflowIds": [
+      "useful-24-craft-process"
+    ],
+    "sourcePage": "https://mixkit.co/free-stock-video/a-ceramic-artist-modeling-pottery-1973/",
+    "license": "Mixkit Stock Video Free License; specific item page explicitly allows commercial and personal use",
+    "licenseUrl": "https://mixkit.co/license/#videoFree",
+    "licenseVerifiedDate": "2026-10-04 UTC"
+  },
+  {
+    "id": "mixkit-1974",
+    "url": "https://assets.mixkit.co/videos/1974/1974-1080.mp4",
+    "sha256": "5eb2c5f3f5b31dd213130ecd1ea93867fc28622755e8d49118044bc03d772bad",
+    "bytes": 36165836,
+    "width": 1920,
+    "height": 1080,
+    "fps": "24000/1001",
+    "duration": 11.011,
+    "audioStreams": 0,
+    "reviewedFrameTimes": [
+      2.202,
+      5.505,
+      8.808
+    ],
+    "observations": "Three frames show an opened clay form being worked at the wheel; shoulder occludes some detail. Do not invent missing glazing/firing stages.",
+    "cloudVolume": "video-use-useful-library-20261003",
+    "cloudPath": "research/expansion-assets/mixkit-1974/source.mp4",
+    "rawBundledInPublicSource": false,
+    "workflowIds": [
+      "useful-24-craft-process"
+    ],
+    "sourcePage": "https://mixkit.co/free-stock-video/woman-using-pottery-wheel-1974/",
+    "license": "Mixkit Stock Video Free License; specific item page explicitly allows commercial and personal use",
+    "licenseUrl": "https://mixkit.co/license/#videoFree",
+    "licenseVerifiedDate": "2026-10-04 UTC"
+  },
+  {
+    "id": "mixkit-10365",
+    "url": "https://assets.mixkit.co/videos/10365/10365-1080.mp4",
+    "sha256": "8e47ea8a8343742c969615966ad3d9592fb556c891213f9dec207709bab11baa",
+    "bytes": 34693187,
+    "width": 1920,
+    "height": 1080,
+    "fps": "24/1",
+    "duration": 11.083333,
+    "audioStreams": 0,
+    "reviewedFrameTimes": [
+      2.2166666,
+      5.5416665,
+      8.8666664
+    ],
+    "observations": "Dachshund crosses the lower part of a landscape frame and approaches a person. Full body/tail need careful crop margins; dense path inspection required.",
+    "cloudVolume": "video-use-useful-library-20261003",
+    "cloudPath": "research/expansion-assets/mixkit-10365/source.mp4",
+    "rawBundledInPublicSource": false,
+    "workflowIds": [
+      "useful-25-subject-reframe"
+    ],
+    "sourcePage": "https://mixkit.co/free-stock-video/dachshund-dog-running-through-a-park-to-reach-its-owner-10365/",
+    "license": "Mixkit Stock Video Free License; specific item page explicitly allows commercial and personal use",
+    "licenseUrl": "https://mixkit.co/license/#videoFree",
+    "licenseVerifiedDate": "2026-10-04 UTC"
+  }
+]

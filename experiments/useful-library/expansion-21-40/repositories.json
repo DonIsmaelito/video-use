@@ -1,0 +1,102 @@
+[
+  {
+    "repo": "ggml-org/whisper.cpp",
+    "branch": "master",
+    "licenseFile": "LICENSE",
+    "commit": "60c0be6ac8fa71b1a2ae2dd938a31a34a508e774",
+    "licenseRawUrl": "https://raw.githubusercontent.com/ggml-org/whisper.cpp/60c0be6ac8fa71b1a2ae2dd938a31a34a508e774/LICENSE",
+    "cachedFile": "sources/ggml-org--whisper.cpp--LICENSE",
+    "licenseSha256": "94f29bbed6a22c35b992c5c6ebf0e7c92f13b836b90f36f461c9cf2f0f1d010d",
+    "licenseExcerpt": "MIT License\n\nCopyright (c) 2023-2026 The ggml authors\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software a"
+  },
+  {
+    "repo": "FFmpeg/FFmpeg",
+    "branch": "master",
+    "licenseFile": "LICENSE.md",
+    "commit": "9a688ce884b5073ff2e87077a3792d219dba3d7a",
+    "licenseRawUrl": "https://raw.githubusercontent.com/FFmpeg/FFmpeg/9a688ce884b5073ff2e87077a3792d219dba3d7a/LICENSE.md",
+    "cachedFile": "sources/FFmpeg--FFmpeg--LICENSE.md",
+    "licenseSha256": "e6dc72d5665a1ebd6dcc841de59278dad4ca77ecc47b03f1064a55c3e9ea8bb8",
+    "licenseExcerpt": "# License\n\nMost files in FFmpeg are under the GNU Lesser General Public License version 2.1\nor later (LGPL v2.1+). Read the file `COPYING.LGPLv2.1` fo"
+  },
+  {
+    "repo": "google-ai-edge/mediapipe",
+    "branch": "master",
+    "licenseFile": "LICENSE",
+    "commit": "102f362f5255388a574de7e1eb4b5656611f8f6d",
+    "licenseRawUrl": "https://raw.githubusercontent.com/google-ai-edge/mediapipe/102f362f5255388a574de7e1eb4b5656611f8f6d/LICENSE",
+    "cachedFile": "sources/google-ai-edge--mediapipe--LICENSE",
+    "licenseSha256": "8707eef0533987efc5b155d64761eeb6e20793f50b9bd1a68dad1cf4719d0ed8",
+    "licenseExcerpt": "                                 Apache License\n                           Version 2.0, January 2004\n                        http://www.apache.org/lic"
+  },
+  {
+    "repo": "WyattBlue/auto-editor",
+    "branch": "master",
+    "licenseFile": "LICENSE",
+    "commit": "43cb036af0b924fc4719e5b3a1e90db3ae79efb6",
+    "licenseRawUrl": "https://raw.githubusercontent.com/WyattBlue/auto-editor/43cb036af0b924fc4719e5b3a1e90db3ae79efb6/LICENSE",
+    "cachedFile": "sources/WyattBlue--auto-editor--LICENSE",
+    "licenseSha256": "ca2abdf695884c77ea4b4a5b64ca7b732d9d9dbade4eebc1c2e76c53e9e3bc83",
+    "licenseExcerpt": "This is free and unencumbered software released into the public domain.\n\nAnyone is free to copy, modify, publish, use, compile, sell, or\ndistribute th"
+  },
+  {
+    "repo": "mifi/lossless-cut",
+    "branch": "master",
+    "licenseFile": "LICENSE",
+    "commit": "70f2663a7a7c995903701acd2f616d057f4fdc2f",
+    "licenseRawUrl": "https://raw.githubusercontent.com/mifi/lossless-cut/70f2663a7a7c995903701acd2f616d057f4fdc2f/LICENSE",
+    "cachedFile": "sources/mifi--lossless-cut--LICENSE",
+    "licenseSha256": "ed4033ab1ae27bdff154db7f90a24a2ed166dc52bf0dcdc50f805e837448a802",
+    "licenseExcerpt": "                    GNU GENERAL PUBLIC LICENSE\n                       Version 2, June 1991\n\n Copyright (C) 1989, 1991 Free Software Foundation, Inc.,\n"
+  },
+  {
+    "repo": "motion-canvas/examples",
+    "branch": "master",
+    "licenseFile": "LICENSE",
+    "commit": "8ffefed144368d33de4b0e451894c718eb95d574",
+    "licenseRawUrl": "https://raw.githubusercontent.com/motion-canvas/examples/8ffefed144368d33de4b0e451894c718eb95d574/LICENSE",
+    "cachedFile": "sources/motion-canvas--examples--LICENSE",
+    "licenseSha256": "b58b18ec3a622bb72af16058f73634a3c0ef98a81dd0f6f16e2b7d492480f3e3",
+    "licenseExcerpt": "MIT License\n\nCopyright (c) 2022 motion-canvas\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and assoc"
+  },
+  {
+    "repo": "motion-canvas/motion-canvas",
+    "branch": "main",
+    "licenseFile": "LICENSE",
+    "commit": "7b91435c301d530351dcf5ebb91dd139c002e405",
+    "licenseRawUrl": "https://raw.githubusercontent.com/motion-canvas/motion-canvas/7b91435c301d530351dcf5ebb91dd139c002e405/LICENSE",
+    "cachedFile": "sources/motion-canvas--motion-canvas--LICENSE",
+    "licenseSha256": "b3f12201916c5d478263cd210cf17f3d0c007d03bd574e0b77cac6307953068e",
+    "licenseExcerpt": "MIT License\n\nCopyright (c) 2022 motion-canvas\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and assoc"
+  },
+  {
+    "repo": "mrdoob/three.js",
+    "branch": "dev",
+    "licenseFile": "LICENSE",
+    "commit": "2bebd158c15d46deb3d772cd400cc6b64f3d908d",
+    "licenseRawUrl": "https://raw.githubusercontent.com/mrdoob/three.js/2bebd158c15d46deb3d772cd400cc6b64f3d908d/LICENSE",
+    "cachedFile": "sources/mrdoob--three.js--LICENSE",
+    "licenseSha256": "8b378ebe60e2fe500158cb0ac71cb5e8b7d92953c2abcc63a0eb90499653b5bc",
+    "licenseExcerpt": "The MIT License\n\nCopyright \u00a9 2010-2026 three.js authors\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software"
+  },
+  {
+    "repo": "ManimCommunity/manim",
+    "branch": "main",
+    "licenseFile": "LICENSE",
+    "commit": "5dc0d3b8dfe23b1dbf2284cca111c5d146a44db0",
+    "licenseRawUrl": "https://raw.githubusercontent.com/ManimCommunity/manim/5dc0d3b8dfe23b1dbf2284cca111c5d146a44db0/LICENSE",
+    "cachedFile": "sources/ManimCommunity--manim--LICENSE",
+    "licenseSha256": "c6a922fc1cfaed7ac0f87aa1dc77ebf5a3c8d1ccc5ab01da33153f0d013bf019",
+    "licenseExcerpt": "MIT License\n\nCopyright (c) 2018 3Blue1Brown LLC\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and ass"
+  },
+  {
+    "repo": "instavar/remotion-templates",
+    "branch": "main",
+    "licenseFile": "LICENSE",
+    "commit": "f294dafe7e7c871ebdf0c872b48dbce5e998d93d",
+    "licenseRawUrl": "https://raw.githubusercontent.com/instavar/remotion-templates/f294dafe7e7c871ebdf0c872b48dbce5e998d93d/LICENSE",
+    "cachedFile": "sources/instavar--remotion-templates--LICENSE",
+    "licenseSha256": "f25823563e547e1a98cb21b04d9ebfc297674a28813db233efb4d7402a82c1b1",
+    "licenseExcerpt": "MIT License\n\nCopyright (c) 2026 Wei Jie Chee\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associ"
+  }
+]

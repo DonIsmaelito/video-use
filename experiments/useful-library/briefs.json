@@ -1,11 +1,11 @@
 {
-  "description": "Twenty useful workflows and one extra Video Use MCP product film. Creative prompts remain separate from the container technical wrapper. Only reviewed completed exports are added to website data.",
+  "description": "Forty useful workflows and one extra Video Use MCP product film. The current MCP brief replaces the earlier launch concept; executed prompts remain preserved in their production attempts. Only reviewed completed exports are added to website data.",
   "briefs": [
     {
       "id": "mcp-launch",
       "title": "Video Use MCP",
       "category": "Video Creation",
-      "description": "A product film showing the reference-to-preview workflow inside a conversation.",
+      "description": "Connect your AI chat to Video Use, choose a direction, and preview before the full film.",
       "audiences": [
         "Content creators",
         "Founders",
@@ -19,34 +19,39 @@
         "Getting started"
       ],
       "technique": "motion-design",
-      "duration": 24,
+      "duration": 28,
       "orientation": "landscape",
       "aspect": "16:9",
       "promptKind": "Original prompt",
-      "sourceRepo": "https://github.com/veedstudio/open-edit",
-      "promptSource": "Original Video Use product film; the open-source launch-title prompt is a structural starting point only.",
-      "license": "Apache-2.0",
-      "licenseUrl": "https://github.com/veedstudio/open-edit/blob/main/LICENSE",
-      "prompt": "Create a 24-second 1920×1080 launch film for Video Use MCP using the current Video Use production workflow. Match the actual Video Use website: soft lavender, warm near-white, dark ink, generous space, a refined serif headline paired with clear sans-serif UI text. Use the real Video Use mark from this repository. Open with the promise “Your idea. A video worth making.” A generic chat interface receives the brief “Make a launch video for my new note-taking app.” At 4 seconds, show three compact reference cards with original abstract thumbnails; one is selected. The selected composition opens up while its old copy changes to the fictional product name “Fieldnote” and a note-card interface, visually demonstrating adaptation. At 11 seconds, show a short playable snippet preview with the controls “Refine” and “Continue”. Let the pointer select Continue only after the snippet has been shown. At 17 seconds, reveal the completed Fieldnote launch video beside its editable project/source card and an MP4 download action. End with the real Video Use mark and “Create in your conversation”, followed by small plain text “ChatGPT · Claude”. The film should explain this sequence through actions and clean camera framing, with no long setup checklist. Use a recurring moving lavender cursor or line to carry attention between the chat, reference, preview and result. Keep each UI state readable, the ending visible for 3 seconds, and the film understandable muted for website autoplay. Sound can be a very quiet original pulse and UI accents. Avoid invented testimonials, prices, usage statistics, provider endorsements, guarantees of universal MCP support, and photorealistic image/video generation claims. Deliver the finished MP4, an autoplay-friendly compressed copy, a poster, and editable scene source. Review rendered frames and the full transition sequence before delivery.",
-      "assetPlan": "Use the repository’s actual logo and site font/color tokens. Create fictional source thumbnails, Fieldnote UI, generic chat layout and result preview from original vector/code assets. Reuse an actual verified showcase render as the final in-video result if available, with permission/source tracked; otherwise render the small fictional Fieldnote scene as part of this job.",
+      "sourceRepo": "https://github.com/browser-use/video-use",
+      "promptSource": "Original Video Use product film with official client marks used for identification.",
+      "license": "MIT for authored scene code; client marks retain their owners’ trademark rights",
+      "licenseUrl": "https://github.com/browser-use/video-use/blob/main/LICENSE",
+      "prompt": "Create a new 28-second 1920×1080 product launch film for Video Use MCP with the current Video Use workflow. The user requested a clearer integration scene with AI client icons and a visible pointer, and tighter alignment throughout. Match our actual site: black #000000, near-white #f1f0ee, lavender #b28af7, Instrument Serif for short editorial headlines and Inter for UI. Use the exact supplied Video Use mark and official ChatGPT/OpenAI, Claude and Cursor SVGs; do not redraw, distort or recolor them. Video Use remains the main brand. Keep the film useful and immediately understandable muted, with very little copy.\n\nOpen 0–3s on the Video Use mark and “Your chat. Your video studio.” During 3–8s, show three carefully aligned, equally spaced client tiles labeled ChatGPT, Claude and Cursor. Use their real marks at balanced optical sizes with generous clear space. A visible pointer selects a client and clicks one clear “Connect Video Use” action. Show a restrained connection line reaching the Video Use hub and the button becoming “Connected”. This is an original illustrative connection diagram, not a fake recording of a provider’s current settings UI. Do not imply partnership, endorsement, universal MCP compatibility or automatic access without account authorization.\n\nDuring 8–13s, transition to one original chat/workspace panel containing “Make a launch film for Fieldnote.” and three clean original style/reference cards. The pointer selects an editorial reference. During 13–18s, show that direction adapted to the fictional Fieldnote note-taking product, with an original mini launch composition and its own UI/content. Avoid overlaying outgoing and incoming product names. Use a shared panel grid so source, selected state and preview occupy aligned anchors rather than drifting independently. During 18–23s, show the actual short animated snippet in a clipped preview panel with “Refine” and “Continue” below it. Let the viewer see the snippet for at least1.5s before the pointer clicks Continue. Only then reveal the finished film with concise MP4 and editable-source icons. During the last3s, hold the real Video Use mark, “Make it in chat.” and video-use.insforge.site. The icons/connection scene should feel like a polished product launch, not a slide of provider logos.\n\nUse a consistent spatial system: equal card sizes/gaps, text baselines and padding, 96px or larger outer safe margins, consistent icon containers, stable centers, intentional optical alignment and no accidental overlaps. Move panels on a small set of shared anchors; keep pointer position and click targets synchronized on the same deterministic timeline. Avoid paragraphs, tiny labels, decorative metric badges, gratuitous particles and unrelated orbiting objects. During the conceptual app walkthrough, a small readable “Illustrative workflow” label is sufficient. Animate only enough to explain actions; settle readable states before transitions. Build the miniature Fieldnote result with original code/assets, not a static placeholder or a fake generated photoreal clip. Use a restrained original tactile score if helpful; it must remain understandable muted.\n\nReview actual encoded frames throughout, especially every transition, connection line endpoint, pointer click, caption boundary, and final hold. Measure DOM boxes at dense transition intervals to catch accidental collisions or off-canvas content; distinguish intentional contained previews from overlaps. Also inspect at960px-wide autoplay size for legibility. Deliver final.mp4, editable scene/source, dependency locks and fresh-machine replay instructions. Keep all logo source notices and record that client marks belong to their owners. No invented prices, testimonials, universal compatibility or provider endorsements.",
+      "assetPlan": "Exact first-party Video Use logo/fonts plus official unmodified client SVGs supplied at /opt/video-use/brand/chatgpt.svg, claude.svg, cursor.svg and brand-sources.json. Original connection diagram, pointer, generic illustrative chat, reference cards and fictional Fieldnote mini-film. No stock or AI-generated provider logos.",
       "productFacts": [
-        "Reference selection is followed by adapting the query context",
-        "A snippet is shown before the continuation decision",
-        "Continue advances the approved work",
-        "Video Use delivers an MP4 with editable source",
-        "ChatGPT and Claude are named hosts, with no broader compatibility promise"
+        "Video Use is the primary open-source product",
+        "ChatGPT and Claude expose remote MCP connectors; Cursor supports remote HTTP MCP with OAuth",
+        "The connection scene is illustrative, not a verified recording of three completed client sessions",
+        "A reference adapts to the user context",
+        "Hands-on users see a snippet before Continue",
+        "An MP4 and editable source follow the approved work"
       ],
       "qualityChecks": [
-        "Real repository logo used",
-        "Snippet appears before Continue click",
-        "Muted playback communicates all four stages",
-        "No fake generation provider promises",
-        "Final card holds 3 seconds",
-        "Title and UI labels readable at 960-pixel preview width"
+        "Use exact supplied brand assets and preserve notices",
+        "Three client marks visibly present with balanced spacing and contrast",
+        "Pointer actually lands on its selected client and connection control",
+        "Lines end precisely at icon or hub anchors",
+        "Snippet moves before Continue click and full result appears only afterwards",
+        "No outgoing/incoming title overlap or accidental panel clipping",
+        "DOM bounding-box audit at0.1s around transitions plus encoded frame review",
+        "All meaningful text and marks readable at960px-wide preview",
+        "Last3seconds stable brand/URL hold",
+        "Portable README references the recorded public framework and real packaged assets"
       ],
       "websitePlacement": "Featured autoplay-muted tile on the repository-focused main site; tile opens /mcp. Also usable as the /mcp hero film.",
-      "productionStatus": "brief only; not rendered",
-      "productionBatch": "batch-01"
+      "productionStatus": "User-requested remake; not yet rendered",
+      "revision": "integration-and-alignment-20261003"
     },
     {
       "id": "useful-01-launch-approvals",
@@ -1024,6 +1029,1075 @@
         }
       ],
       "productionBatch": "batch-06"
+    },
+    {
+      "id": "useful-21-speech-captions",
+      "title": "Caption an Interview Excerpt",
+      "category": "Video Edits",
+      "description": "Make an archival NASA interview easier to follow with accurate captions and clear speaker credit.",
+      "audiences": [
+        "Content creators",
+        "Educators"
+      ],
+      "useCases": [
+        "Accessibility",
+        "Interview clips"
+      ],
+      "technique": "video-editing",
+      "duration": 25,
+      "width": 1080,
+      "height": 1920,
+      "orientation": "portrait",
+      "aspect": "9:16",
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/ggml-org/whisper.cpp",
+      "sourceFile": "https://github.com/ggml-org/whisper.cpp/blob/60c0be6ac8fa71b1a2ae2dd938a31a34a508e774/README.md",
+      "sourceCommit": "60c0be6ac8fa71b1a2ae2dd938a31a34a508e774",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/ggml-org/whisper.cpp/blob/60c0be6ac8fa71b1a2ae2dd938a31a34a508e774/LICENSE",
+      "sourceConcept": "Timed speech transcription and subtitle output, with experimental word timestamps treated as a draft; adapt the workflow to a short, credited archival excerpt, with word-level verification rather than automatic-transcript trust.",
+      "promptSource": "Original Video Use brief; conceptual workflow inspiration from ggml-org/whisper.cpp. No upstream prompt, implementation, or media copied.",
+      "sourceUse": "Conceptual inspiration only; fresh wording, data, design and implementation. The repository license does not license unrelated media or dependencies.",
+      "prompt": "Use Video Use to create a 25-second portrait accessibility edit from NASA’s archival Mike Fincke interview, asset ksc_020305_fincke. Use the continuous passage at approximately source 27–51 seconds about seeing Apollo as a child and wanting to become an astronaut. Verify the actual spoken boundaries against the audio and NASA’s VTT; do not rewrite, synthesize, translate, rearrange, or speed up his words. Fit the complete thought within 24 seconds and reserve the remaining second for a quiet held image and credit; use the exact passage boundaries rather than padding with unrelated speech. Keep the archival picture’s aspect ratio inside a restrained midnight-blue portrait canvas, using a modest inset because the actual source is 320×212 at 12 fps. The selected passage shows Apollo B-roll under his voice; do not pretend it is a talking-head shot. Place captions below the picture in ample readable space. Identify the voice as Mike Fincke, NASA astronaut, and label this Archival interview; the catalog publication date is 2005, not proof of the recording day. Set accurate two-line captions with calm word-group changes, comfortable reading speed and no karaoke bouncing. Credit NASA throughout and in provenance. Keep only the selected speech audio with short clean fades; exclude the source’s intro/outro music. This is an editorial captioning example, not an endorsement of Video Use. The gallery description must identify NASA archival source footage. Preserve editable captions and the actual EDL. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+      "assetPlan": "Official NASA asset https://images.nasa.gov/details/ksc_020305_fincke; direct source https://images-assets.nasa.gov/video/ksc_020305_fincke/ksc_020305_fincke~orig.mp4 (HEAD 200, 9587637 bytes); official captions https://images-assets.nasa.gov/video/ksc_020305_fincke/ksc_020305_fincke.vtt. Metadata https://images-assets.nasa.gov/video/ksc_020305_fincke/metadata.json and media policy https://www.nasa.gov/nasa-brand-center/images-and-media/. Candidate 27–51 seconds avoids VTT-marked intro/outro music; verify actual speech-only segment before use. Public source ZIP excludes the NASA movie and speech audio; include reacquisition URLs, precise ranges, transcript/caption edits, credit and original source hash. The actual source is 320×212 at 12 fps, mono AAC, 234.174 seconds. Source frames 27, 39, 50 seconds were inspected and show Apollo B-roll, not Fincke’s face. Present it honestly in a modest archival inset; no newly generated or native-HD footage claim. Actual speech/music boundaries remain an audio review gate.",
+      "toolNeeds": [
+        "Existing Video Use transcription/captions and EDL helpers",
+        "FFmpeg original-audio extraction and final caption composition",
+        "Optional existing local ASR; NASA VTT provides a transcription seed and must be checked"
+      ],
+      "qualityChecks": [
+        "Captions match audible words, speaker and timing; first and last words are complete and meaning remains intact. Do not rely on VTT boundaries without checking the audio.",
+        "No third-party intro/outro music or NASA employee product endorsement; credit remains readable and gallery description identifies archival footage.",
+        "Retain editable SRT/ASS or timed JSON, source/output time mapping, line breaks, typography and audio fades. Recording-date uncertainty is preserved.",
+        "Keep acquired source media unchanged and record URL, acquisition date, SHA256, dimensions, frame rate, source in/out ranges, crop/grade/audio settings and any speed changes. Inspect actual source actions; metadata alone does not establish what a shot depicts. Gallery credit must distinguish edited footage from generated imagery.",
+        "Public handoff must include an explicit license for original source, all bundled third-party notices, recorded Video Use commit and file hashes, dependency locks/pins, and portable replay instructions. Document every hardcoded text/date/timing dependency. Exclude raw audio/video, models downloaded under separate terms, private traces, secrets and render caches; document legal asset reacquisition or original-media regeneration."
+      ],
+      "factualSources": [
+        "https://images.nasa.gov/details/ksc_020305_fincke",
+        "https://images-assets.nasa.gov/video/ksc_020305_fincke/ksc_020305_fincke.vtt",
+        "https://www.nasa.gov/nasa-brand-center/images-and-media/"
+      ],
+      "proposedBatch": 6,
+      "productionBatch": "batch-06",
+      "productionStatus": "research brief only; not rendered",
+      "assetEvidence": [
+        {
+          "id": "nasa-fincke",
+          "url": "https://images-assets.nasa.gov/video/ksc_020305_fincke/ksc_020305_fincke~orig.mp4",
+          "sha256": "860c10f48fe986a85deeb00496ac6d5e17f46762f2fef4e89be11c25d43ffee3",
+          "bytes": 9587637,
+          "width": 320,
+          "height": 212,
+          "fps": "12/1",
+          "duration": 234.083333,
+          "audioStreams": 1,
+          "reviewedFrameTimes": [
+            27,
+            39,
+            50
+          ],
+          "observations": "Frames at 27/39/50 s show lunar/Apollo launch B-roll under the attributed interview voice; native 320×212 at 12 fps, not a talking-head view. No listening inspection performed.",
+          "cloudVolume": "video-use-useful-library-20261003",
+          "cloudPath": "research/expansion-assets/nasa-fincke/source.mp4",
+          "rawBundledInPublicSource": false
+        }
+      ]
+    },
+    {
+      "id": "useful-22-grade-comparison",
+      "title": "Review a Color Grade",
+      "category": "Video Edits",
+      "description": "Compare an original licensed landscape shot with a restrained correction at exactly the same moment.",
+      "audiences": [
+        "Content creators",
+        "Designers"
+      ],
+      "useCases": [
+        "Client reviews",
+        "Color correction"
+      ],
+      "technique": "video-editing",
+      "duration": 20,
+      "width": 1920,
+      "height": 1080,
+      "orientation": "landscape",
+      "aspect": "16:9",
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/FFmpeg/FFmpeg",
+      "sourceFile": "https://github.com/FFmpeg/FFmpeg/blob/9a688ce884b5073ff2e87077a3792d219dba3d7a/doc/filters.texi",
+      "sourceCommit": "9a688ce884b5073ff2e87077a3792d219dba3d7a",
+      "license": "LGPL-2.1-or-later base; optional GPL components",
+      "licenseUrl": "https://github.com/FFmpeg/FFmpeg/blob/9a688ce884b5073ff2e87077a3792d219dba3d7a/LICENSE.md",
+      "sourceConcept": "Filter-graph split, matched timing, color adjustment and side-by-side comparison concepts. Do not copy GPL/LGPL implementation or bundle FFmpeg binaries.",
+      "promptSource": "Original Video Use brief; conceptual workflow inspiration from FFmpeg/FFmpeg. No upstream prompt, implementation, or media copied.",
+      "sourceUse": "Conceptual inspiration only; fresh wording, data, design and implementation. The repository license does not license unrelated media or dependencies.",
+      "prompt": "Use Video Use to make a 20-second color-review reel from the licensed Mixkit river-under-a-bridge clip 1641. Choose one calm continuous source range by looking at the footage. Begin with a full-frame Original label, then introduce a vertical comparison wipe revealing a gently corrected version of the identical source frames. Settle into a split view labelled Original and Warm neutral, then finish on the corrected full frame for 3 seconds. Keep water, foliage, sky and bridge detail natural: modest exposure/white-balance correction, no dramatic teal-orange look, false HDR claim or crushed shadows. The two sides must remain frame-synchronized with the same crop and speed; only the stated grade changes. Retain a small movable dividing line and quiet neutral labels. Deliberately omit audio for this review export. State in the gallery that the input is licensed stock, and preserve the exact grade parameters, source time range and split/wipe animation as editable source. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+      "assetPlan": "Licensed source page https://mixkit.co/free-stock-video/river-under-a-bridge-1641/; official 1080 download https://assets.mixkit.co/videos/1641/1641-1080.mp4 (HEAD 200, 62006198 bytes). Specific item page confirms commercial/personal use under Mixkit Stock Video Free License, https://mixkit.co/license/#videoFree and https://mixkit.co/terms/. Edited exports permitted; never bundle or redistribute the raw stock asset in source.zip. Actual source frames/probes have been inspected in the research evidence; producers must inspect their chosen complete action ranges and verify the recorded source hash again.",
+      "toolNeeds": [
+        "Existing Video Use grade and EDL helpers",
+        "FFmpeg split/crop/overlay or xfade with one shared source clock"
+      ],
+      "qualityChecks": [
+        "Compare corresponding pixels/landmarks on both sides at multiple times to establish identical source frames and crop.",
+        "No clipping introduced in sky/highlights or crushed shadow detail; assess actual encoded full-size frames, not only metadata.",
+        "Original grade is unchanged; adjusted grade coefficients and wipe path remain editable. Final corrected view holds 3 seconds.",
+        "Keep acquired source media unchanged and record URL, acquisition date, SHA256, dimensions, frame rate, source in/out ranges, crop/grade/audio settings and any speed changes. Inspect actual source actions; metadata alone does not establish what a shot depicts. Gallery credit must distinguish edited footage from generated imagery.",
+        "Public handoff must include an explicit license for original source, all bundled third-party notices, recorded Video Use commit and file hashes, dependency locks/pins, and portable replay instructions. Document every hardcoded text/date/timing dependency. Exclude raw audio/video, models downloaded under separate terms, private traces, secrets and render caches; document legal asset reacquisition or original-media regeneration."
+      ],
+      "factualSources": [],
+      "proposedBatch": 6,
+      "productionBatch": "batch-06",
+      "productionStatus": "research brief only; not rendered",
+      "assetEvidence": [
+        {
+          "id": "mixkit-1641",
+          "url": "https://assets.mixkit.co/videos/1641/1641-1080.mp4",
+          "sha256": "e9896dd13f6194d1d54519a0e6e87ae4eb2e0f8d48cd6ebe6ea1623d37639dc0",
+          "bytes": 62006198,
+          "width": 1920,
+          "height": 1080,
+          "fps": "30000/1001",
+          "duration": 20.1201,
+          "audioStreams": 0,
+          "reviewedFrameTimes": [
+            4.024,
+            10.06,
+            16.096
+          ],
+          "observations": "Three frames show a stable wide view of moving rapids beneath a bridge; foliage/sky/rocks provide grade and loop references. Seam/motion continuity still needs dense output inspection.",
+          "cloudVolume": "video-use-useful-library-20261003",
+          "cloudPath": "research/expansion-assets/mixkit-1641/source.mp4",
+          "rawBundledInPublicSource": false
+        }
+      ]
+    },
+    {
+      "id": "useful-23-screen-redaction",
+      "title": "Redact a Screen Recording",
+      "category": "Video Edits",
+      "description": "Hide sample contact details throughout an original support-demo recording while preserving the useful action.",
+      "audiences": [
+        "Product teams",
+        "Content creators"
+      ],
+      "useCases": [
+        "Privacy in demos",
+        "Support tutorials"
+      ],
+      "technique": "video-editing",
+      "duration": 22,
+      "width": 1920,
+      "height": 1080,
+      "orientation": "landscape",
+      "aspect": "16:9",
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/FFmpeg/FFmpeg",
+      "sourceFile": "https://github.com/FFmpeg/FFmpeg/blob/9a688ce884b5073ff2e87077a3792d219dba3d7a/doc/filters.texi",
+      "sourceCommit": "9a688ce884b5073ff2e87077a3792d219dba3d7a",
+      "license": "LGPL-2.1-or-later base; optional GPL components",
+      "licenseUrl": "https://github.com/FFmpeg/FFmpeg/blob/9a688ce884b5073ff2e87077a3792d219dba3d7a/LICENSE.md",
+      "sourceConcept": "Timed opaque-region compositing on an immutable source; use original animation as a raw capture and keep a separate redaction edit.",
+      "promptSource": "Original Video Use brief; conceptual workflow inspiration from FFmpeg/FFmpeg. No upstream prompt, implementation, or media copied.",
+      "sourceUse": "Conceptual inspiration only; fresh wording, data, design and implementation. The repository license does not license unrelated media or dependencies.",
+      "prompt": "Use Video Use to create an original 36-second browser recording of a fictional support app called Beacon Desk, then edit it into a 22-second demonstration of reliable redaction. The raw app shows a support record with sample email alex@example.com and sample order ID DEMO-4821. Open the record, scroll its details and return to the queue. These values are fictional, and the source must be labelled Demo data. Keep that raw recording unchanged. In the final edit, cover every visible occurrence of the email and order ID with fully opaque rounded charcoal masks from the very first frame; do not reveal the values in an introductory before/after. Let the masks follow the known source layout through scrolling. Preserve the request title, status and cursor so viewers still understand the support action. Use two restrained annotations, Share the workflow and Keep the details private. Finish with the masked record and Demo data / Redaction example held for 3 seconds. No voiceover or music is needed. Keep the mask paths, active intervals and source-to-output time mapping editable; include commands to regenerate the excluded original demo capture. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+      "assetPlan": "Original fictional HTML support app, deterministic 36 second raw capture and separate EDL edit. All names/addresses/order IDs must be synthetic; reserved example.com domain only. Public source ZIP contains HTML/capture instructions, mask geometry, EDL and fonts/licenses, but no raw or finished video.",
+      "toolNeeds": [
+        "Existing motion-design capture + Video Use EDL helpers",
+        "Opaque polygon/rectangle overlay with time/scroll tracking; create a narrowly scoped reusable mask helper only if current helpers lack it"
+      ],
+      "qualityChecks": [
+        "Masks must cover email and order ID on every final encoded frame, including cut boundaries and the first/last frame. No unmasked before shot.",
+        "Inspect actual raw and final frames at scroll/cut boundaries; masks move with the source content and never obscure the useful control action.",
+        "Original source contains the demo data before editing; masks are applied in the separate edit. Retain mask coordinates/keyframes, padding and deterministic capture recreation.",
+        "Keep acquired source media unchanged and record URL, acquisition date, SHA256, dimensions, frame rate, source in/out ranges, crop/grade/audio settings and any speed changes. Inspect actual source actions; metadata alone does not establish what a shot depicts. Gallery credit must distinguish edited footage from generated imagery.",
+        "Public handoff must include an explicit license for original source, all bundled third-party notices, recorded Video Use commit and file hashes, dependency locks/pins, and portable replay instructions. Document every hardcoded text/date/timing dependency. Exclude raw audio/video, models downloaded under separate terms, private traces, secrets and render caches; document legal asset reacquisition or original-media regeneration."
+      ],
+      "factualSources": [],
+      "proposedBatch": 7,
+      "productionBatch": "batch-07",
+      "productionStatus": "research brief only; not rendered",
+      "assetEvidence": []
+    },
+    {
+      "id": "useful-24-craft-process",
+      "title": "Tighten a Craft Process",
+      "category": "Video Edits",
+      "description": "Turn licensed pottery footage into a concise process study without inventing missing steps.",
+      "audiences": [
+        "Content creators",
+        "Marketers"
+      ],
+      "useCases": [
+        "Process videos",
+        "Maker portfolios"
+      ],
+      "technique": "video-editing",
+      "duration": 20,
+      "width": 1080,
+      "height": 1350,
+      "orientation": "portrait",
+      "aspect": "4:5",
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/WyattBlue/auto-editor",
+      "sourceFile": "https://github.com/WyattBlue/auto-editor/blob/43cb036af0b924fc4719e5b3a1e90db3ae79efb6/README.md",
+      "sourceCommit": "43cb036af0b924fc4719e5b3a1e90db3ae79efb6",
+      "license": "Unlicense",
+      "licenseUrl": "https://github.com/WyattBlue/auto-editor/blob/43cb036af0b924fc4719e5b3a1e90db3ae79efb6/LICENSE",
+      "sourceConcept": "Separate active moments from dead space and preserve useful action margins; apply editorial judgment to a hands-on making sequence rather than audio-only thresholds.",
+      "promptSource": "Original Video Use brief; conceptual workflow inspiration from WyattBlue/auto-editor. No upstream prompt, implementation, or media copied.",
+      "sourceUse": "Conceptual inspiration only; fresh wording, data, design and implementation. The repository license does not license unrelated media or dependencies.",
+      "prompt": "Use Video Use to edit the licensed pottery clips 1973 and 1974 into a 20-second 4:5 process study titled Taking shape. Inspect the real hand movements first. Select an opening contact with the clay, a useful shaping movement and a settled view of the form, preserving the order within each source. Do not pretend two unrelated shots document an entire finished vessel or add unrecorded glazing, firing or finished-product stages. Use quiet warm typography reading Center, Shape, Refine only when the visible action supports that label; otherwise use a more literal short observation. Prefer clean action cuts and trim inactive holds. If a continuous repetitive movement benefits from speeding up, use a modest fixed speed, disclose it in the EDL, and return to real time before the action completes. Protect the hands and clay in the crop. End on a genuine clay detail for 3 seconds with Taking shape / A process study. Use a soft original procedural pulse or deliberate silence, not invented workshop room tone. Credit licensed stock in the gallery and source records. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+      "assetPlan": "Item pages https://mixkit.co/free-stock-video/a-ceramic-artist-modeling-pottery-1973/ and https://mixkit.co/free-stock-video/woman-using-pottery-wheel-1974/; official 1080 downloads https://assets.mixkit.co/videos/1973/1973-1080.mp4 (39139028 bytes) and https://assets.mixkit.co/videos/1974/1974-1080.mp4 (36165836 bytes), HEAD 200. Specific item page confirms commercial/personal use under Mixkit Stock Video Free License, https://mixkit.co/license/#videoFree and https://mixkit.co/terms/. Edited exports permitted; never bundle or redistribute the raw stock asset in source.zip. Actual source frames/probes have been inspected in the research evidence; producers must inspect their chosen complete action ranges and verify the recorded source hash again. Both are actual 1920×1080 at 24000/1001 fps, silent; 1973 is 13.013 seconds and 1974 is 11.011 seconds. Three frames of each were inspected:1973 shows hands coning/pressing clay, 1974 shows an opened clay form being worked at the wheel. They are process fragments, not evidence of a complete chronological project or a finished product.",
+      "toolNeeds": [
+        "Existing Video Use inspect_source + EDL edit/crop/speed helpers",
+        "Optional original tactile rhythm; no need to install auto-editor for conceptual inspiration"
+      ],
+      "qualityChecks": [
+        "Labels match actual visible hand actions; do not equate shot metadata with demonstrated pottery technique.",
+        "No fabricated completion or continuity across different vessels; identify the film as a process study.",
+        "At least one action is shown through completion without a mid-gesture cut. Preserve crop centers, source range/order and speed factors, and inspect hands at full size.",
+        "Keep acquired source media unchanged and record URL, acquisition date, SHA256, dimensions, frame rate, source in/out ranges, crop/grade/audio settings and any speed changes. Inspect actual source actions; metadata alone does not establish what a shot depicts. Gallery credit must distinguish edited footage from generated imagery.",
+        "Public handoff must include an explicit license for original source, all bundled third-party notices, recorded Video Use commit and file hashes, dependency locks/pins, and portable replay instructions. Document every hardcoded text/date/timing dependency. Exclude raw audio/video, models downloaded under separate terms, private traces, secrets and render caches; document legal asset reacquisition or original-media regeneration."
+      ],
+      "factualSources": [],
+      "proposedBatch": 7,
+      "productionBatch": "batch-07",
+      "productionStatus": "research brief only; not rendered",
+      "assetEvidence": [
+        {
+          "id": "mixkit-1973",
+          "url": "https://assets.mixkit.co/videos/1973/1973-1080.mp4",
+          "sha256": "4d7d35ca550b9db885f0897a803bbf6bcb1bf6dec63906fa5e1ccaa9b287cc43",
+          "bytes": 39139028,
+          "width": 1920,
+          "height": 1080,
+          "fps": "24000/1001",
+          "duration": 13.013,
+          "audioStreams": 0,
+          "reviewedFrameTimes": [
+            2.6023334,
+            6.5058335,
+            10.4093336
+          ],
+          "observations": "Three frames show hands coning/pressing clay on a wheel; source alone does not show a completed vessel.",
+          "cloudVolume": "video-use-useful-library-20261003",
+          "cloudPath": "research/expansion-assets/mixkit-1973/source.mp4",
+          "rawBundledInPublicSource": false
+        },
+        {
+          "id": "mixkit-1974",
+          "url": "https://assets.mixkit.co/videos/1974/1974-1080.mp4",
+          "sha256": "5eb2c5f3f5b31dd213130ecd1ea93867fc28622755e8d49118044bc03d772bad",
+          "bytes": 36165836,
+          "width": 1920,
+          "height": 1080,
+          "fps": "24000/1001",
+          "duration": 11.011,
+          "audioStreams": 0,
+          "reviewedFrameTimes": [
+            2.202,
+            5.505,
+            8.808
+          ],
+          "observations": "Three frames show an opened clay form being worked at the wheel; shoulder occludes some detail. Do not invent missing glazing/firing stages.",
+          "cloudVolume": "video-use-useful-library-20261003",
+          "cloudPath": "research/expansion-assets/mixkit-1974/source.mp4",
+          "rawBundledInPublicSource": false
+        }
+      ]
+    },
+    {
+      "id": "useful-25-subject-reframe",
+      "title": "Keep a Subject in Portrait",
+      "category": "Video Edits",
+      "description": "Reframe licensed moving-dog footage for a vertical post while keeping the subject visible.",
+      "audiences": [
+        "Content creators",
+        "Marketers"
+      ],
+      "useCases": [
+        "Social reframing",
+        "Pet content"
+      ],
+      "technique": "video-editing",
+      "duration": 16,
+      "width": 1080,
+      "height": 1920,
+      "orientation": "portrait",
+      "aspect": "9:16",
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/google-ai-edge/mediapipe",
+      "sourceFile": "https://github.com/google-ai-edge/mediapipe/blob/102f362f5255388a574de7e1eb4b5656611f8f6d/mediapipe/examples/desktop/autoflip/README.md",
+      "sourceCommit": "102f362f5255388a574de7e1eb4b5656611f8f6d",
+      "license": "Apache-2.0",
+      "licenseUrl": "https://github.com/google-ai-edge/mediapipe/blob/102f362f5255388a574de7e1eb4b5656611f8f6d/LICENSE",
+      "sourceConcept": "Content-aware reframing with an explicit output aspect ratio. Implement using current Video Use tracking/keyframes, not an obsolete AutoFlip/OpenCV3 installation.",
+      "promptSource": "Original Video Use brief; conceptual workflow inspiration from google-ai-edge/mediapipe. No upstream prompt, implementation, or media copied.",
+      "sourceUse": "Conceptual inspiration only; fresh wording, data, design and implementation. The repository license does not license unrelated media or dependencies.",
+      "prompt": "Use Video Use to make a 16-second portrait reframing example from licensed Mixkit dachshund clip 10365. First inspect the dog’s actual path and choose the complete useful movement. Use the first 2 seconds to show the landscape shot fitted inside the portrait canvas with a subtle 9:16 crop guide, then show the selected movement at its original pace in the portrait crop, and finish with a 2-second held frame. Use the remaining time as a clean final crop/detail hold if the source action is shorter; never invent extra action or loop the run as if it happened twice. Animate the crop only when needed to keep the dog’s face, ears and paws comfortably visible. Movement should have anticipation and a small safe margin rather than jerk after the subject. Do not stretch the source or crop off the dog to fill the screen; if its complete body cannot fit a full-height portrait crop with margin, use a deliberately framed portrait matte for that moment. A single line, Keep the moment in frame, may appear in the opening only. Use deliberate silence. Credit the licensed stock and keep the actual crop keyframes or tracked bounds editable. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+      "assetPlan": "Source page https://mixkit.co/free-stock-video/dachshund-dog-running-through-a-park-to-reach-its-owner-10365/; official 1080 download https://assets.mixkit.co/videos/10365/10365-1080.mp4 (HEAD 200, 34693187 bytes). Specific item page confirms commercial/personal use under Mixkit Stock Video Free License, https://mixkit.co/license/#videoFree and https://mixkit.co/terms/. Edited exports permitted; never bundle or redistribute the raw stock asset in source.zip. Actual source frames/probes have been inspected in the research evidence; producers must inspect their chosen complete action ranges and verify the recorded source hash again. Actual source is 1920×1080, 24 fps, 11.083333 seconds, silent. Three source frames show the dachshund traversing across the lower frame toward its owner. Dense action/crop inspection remains necessary; the long body and tail may require a modest portrait matte to preserve the entire subject. Fallback candidate for a longer action: https://mixkit.co/free-stock-video/dog-running-in-the-meadow-3518/ with https://assets.mixkit.co/videos/3518/3518-1080.mp4, also verified Free License; any replacement needs root review and new provenance.",
+      "toolNeeds": [
+        "Existing Video Use motion tracking or manually authored smooth crop keyframes",
+        "FFmpeg portrait crop and opening crop-guide overlay; no MediaPipe install required"
+      ],
+      "qualityChecks": [
+        "Inspect source and cropped output at dense intervals through the entire path; face/ears/paws stay visible with margin.",
+        "Retain source speed and correct aspect; portrait output is an editorial crop, not native portrait or newly generated animal footage.",
+        "Document actual source duration and every hold, crop center, easing segment and source/output time mapping; no repeated run disguised as continuity.",
+        "Keep acquired source media unchanged and record URL, acquisition date, SHA256, dimensions, frame rate, source in/out ranges, crop/grade/audio settings and any speed changes. Inspect actual source actions; metadata alone does not establish what a shot depicts. Gallery credit must distinguish edited footage from generated imagery.",
+        "Public handoff must include an explicit license for original source, all bundled third-party notices, recorded Video Use commit and file hashes, dependency locks/pins, and portable replay instructions. Document every hardcoded text/date/timing dependency. Exclude raw audio/video, models downloaded under separate terms, private traces, secrets and render caches; document legal asset reacquisition or original-media regeneration."
+      ],
+      "factualSources": [],
+      "proposedBatch": 7,
+      "productionBatch": "batch-07",
+      "productionStatus": "research brief only; not rendered",
+      "assetEvidence": [
+        {
+          "id": "mixkit-10365",
+          "url": "https://assets.mixkit.co/videos/10365/10365-1080.mp4",
+          "sha256": "8e47ea8a8343742c969615966ad3d9592fb556c891213f9dec207709bab11baa",
+          "bytes": 34693187,
+          "width": 1920,
+          "height": 1080,
+          "fps": "24/1",
+          "duration": 11.083333,
+          "audioStreams": 0,
+          "reviewedFrameTimes": [
+            2.2166666,
+            5.5416665,
+            8.8666664
+          ],
+          "observations": "Dachshund crosses the lower part of a landscape frame and approaches a person. Full body/tail need careful crop margins; dense path inspection required.",
+          "cloudVolume": "video-use-useful-library-20261003",
+          "cloudPath": "research/expansion-assets/mixkit-10365/source.mp4",
+          "rawBundledInPublicSource": false
+        }
+      ]
+    },
+    {
+      "id": "useful-26-website-loop",
+      "title": "Build a Quiet Website Loop",
+      "category": "Video Edits",
+      "description": "Turn licensed river footage into a subtle background loop with a checked seam.",
+      "audiences": [
+        "Designers",
+        "Founders",
+        "Marketers"
+      ],
+      "useCases": [
+        "Website backgrounds",
+        "Ambient loops"
+      ],
+      "technique": "video-editing",
+      "duration": 18,
+      "width": 1920,
+      "height": 1080,
+      "orientation": "landscape",
+      "aspect": "16:9",
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/mifi/lossless-cut",
+      "sourceFile": "https://github.com/mifi/lossless-cut/blob/70f2663a7a7c995903701acd2f616d057f4fdc2f/docs/index.md",
+      "sourceCommit": "70f2663a7a7c995903701acd2f616d057f4fdc2f",
+      "license": "GPL-2.0",
+      "licenseUrl": "https://github.com/mifi/lossless-cut/blob/70f2663a7a7c995903701acd2f616d057f4fdc2f/LICENSE",
+      "sourceConcept": "Preserve explicit source in/out segments and repeatable exports. The loop blend is an original extension implemented in Video Use; LosslessCut itself does not provide the planned lossy transition. No LosslessCut code or binary is bundled.",
+      "promptSource": "Original Video Use brief; conceptual workflow inspiration from mifi/lossless-cut. No upstream prompt, implementation, or media copied.",
+      "sourceUse": "Conceptual inspiration only; fresh wording, data, design and implementation. The repository license does not license unrelated media or dependencies.",
+      "prompt": "Use Video Use to make an 18-second silent website-background loop from licensed Mixkit river clip 1641. Inspect the real footage and choose a stable composition with moving water and a calm area that could sit behind webpage text. Preserve natural forward motion. Construct a short, subtle overlap between compatible end and beginning moments so repeated playback has no hard camera jump, exposure flash or obvious double bridge. Do not reverse the river, freeze the final image, add text, or insert a branded end card. This export is meant to loop quietly under a webpage. Keep the original color treatment restrained and protect useful water and foliage detail. Review at least two consecutive cycles around the seam, including the actual encoded last-to-first frame transition. Preserve the exact selected source range, overlap duration, blend curve and export settings. The gallery description must identify licensed stock; the downloadable source should reacquire the raw asset rather than redistribute it. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+      "assetPlan": "Source https://mixkit.co/free-stock-video/river-under-a-bridge-1641/; direct https://assets.mixkit.co/videos/1641/1641-1080.mp4. Specific item page confirms commercial/personal use under Mixkit Stock Video Free License, https://mixkit.co/license/#videoFree and https://mixkit.co/terms/. Edited exports permitted; never bundle or redistribute the raw stock asset in source.zip. Actual source frames/probes have been inspected in the research evidence; producers must inspect their chosen complete action ranges and verify the recorded source hash again. Candidate 20 second source can support an 18 second loop with a 2 second overlap, but use measured duration and actual visual compatibility, not assumed arithmetic alone.",
+      "toolNeeds": [
+        "Existing Video Use EDL and FFmpeg crossfade/trim",
+        "If necessary, a small reusable loop-seam helper with explicit timing; no new renderer or LosslessCut install"
+      ],
+      "qualityChecks": [
+        "Check repeated playback and decoded frames around the seam; no discontinuous camera/brightness jump, reversed water, frozen ending or ghosted static structures.",
+        "Source range minus overlap must equal exactly 18 seconds/540 frames; no empty audio stream.",
+        "Retain editable loop parameters and show actual final-to-first evidence. Static near-identical pixels alone do not establish a smooth motion loop.",
+        "Keep acquired source media unchanged and record URL, acquisition date, SHA256, dimensions, frame rate, source in/out ranges, crop/grade/audio settings and any speed changes. Inspect actual source actions; metadata alone does not establish what a shot depicts. Gallery credit must distinguish edited footage from generated imagery.",
+        "Public handoff must include an explicit license for original source, all bundled third-party notices, recorded Video Use commit and file hashes, dependency locks/pins, and portable replay instructions. Document every hardcoded text/date/timing dependency. Exclude raw audio/video, models downloaded under separate terms, private traces, secrets and render caches; document legal asset reacquisition or original-media regeneration."
+      ],
+      "factualSources": [],
+      "proposedBatch": 7,
+      "productionBatch": "batch-07",
+      "productionStatus": "research brief only; not rendered",
+      "assetEvidence": [
+        {
+          "id": "mixkit-1641",
+          "url": "https://assets.mixkit.co/videos/1641/1641-1080.mp4",
+          "sha256": "e9896dd13f6194d1d54519a0e6e87ae4eb2e0f8d48cd6ebe6ea1623d37639dc0",
+          "bytes": 62006198,
+          "width": 1920,
+          "height": 1080,
+          "fps": "30000/1001",
+          "duration": 20.1201,
+          "audioStreams": 0,
+          "reviewedFrameTimes": [
+            4.024,
+            10.06,
+            16.096
+          ],
+          "observations": "Three frames show a stable wide view of moving rapids beneath a bridge; foliage/sky/rocks provide grade and loop references. Seam/motion continuity still needs dense output inspection.",
+          "cloudVolume": "video-use-useful-library-20261003",
+          "cloudPath": "research/expansion-assets/mixkit-1641/source.mp4",
+          "rawBundledInPublicSource": false
+        }
+      ]
+    },
+    {
+      "id": "useful-27-hiring-post",
+      "title": "Announce a Job Opening",
+      "category": "Motion Design",
+      "description": "Turn a role brief into a readable social hiring post with a clear next step.",
+      "audiences": [
+        "Founders",
+        "Marketers",
+        "Designers"
+      ],
+      "useCases": [
+        "Hiring",
+        "Social announcements"
+      ],
+      "technique": "motion-design",
+      "duration": 20,
+      "width": 1080,
+      "height": 1350,
+      "orientation": "portrait",
+      "aspect": "4:5",
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/instavar/remotion-templates",
+      "sourceFile": "https://github.com/instavar/remotion-templates/blob/f294dafe7e7c871ebdf0c872b48dbce5e998d93d/examples/announcement-brief.video.json",
+      "sourceCommit": "f294dafe7e7c871ebdf0c872b48dbce5e998d93d",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/instavar/remotion-templates/blob/f294dafe7e7c871ebdf0c872b48dbce5e998d93d/LICENSE",
+      "sourceConcept": "A structured announcement with hook, concrete role details and a final action; use fresh typography and a fictional role instead of the source subject.",
+      "promptSource": "Original Video Use brief; conceptual workflow inspiration from instavar/remotion-templates. No upstream prompt, implementation, or media copied.",
+      "sourceUse": "Conceptual inspiration only; fresh wording, data, design and implementation. The repository license does not license unrelated media or dependencies.",
+      "prompt": "Use Video Use to create a 20-second 4:5 hiring post for the fictional studio Common Ground. Open with We’re looking for a service designer, using confident editorial type on warm paper with one cobalt rule. Let a simple service-map line connect three concrete role details: Map the journey, Prototype the service, Work with the team. Resolve into a compact role panel reading Service designer / Remote within UK / Full time. End with Explore the role / commonground.example/jobs held for 4 seconds. Keep Example opening visible in a small readable footer throughout so this cannot be mistaken for a real vacancy. Do not invent salary, benefits, applicants, employee portraits or a real application destination. Use meaningful type/layout transitions and an original restrained click rhythm; avoid a generic feature-card grid. Make role, location, work pattern, capabilities and CTA editable in one content file. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+      "assetPlan": "Original typography, simple vector service-map path and fictional content; reserved .example URL; bundled licensed fonts and optional original synthesized audio. No stock portraits or real employer marks.",
+      "toolNeeds": [
+        "Existing motion-design renderer",
+        "Original procedural accents if useful"
+      ],
+      "qualityChecks": [
+        "Fictional opening disclosure and complete role details/CTA remain readable at half size; final action holds 4 seconds.",
+        "No real hiring claims; central content edits update all repeated role/company strings and URL.",
+        "Public handoff must include an explicit license for original source, all bundled third-party notices, recorded Video Use commit and file hashes, dependency locks/pins, and portable replay instructions. Document every hardcoded text/date/timing dependency. Exclude raw audio/video, models downloaded under separate terms, private traces, secrets and render caches; document legal asset reacquisition or original-media regeneration."
+      ],
+      "factualSources": [],
+      "proposedBatch": 8,
+      "productionBatch": "batch-08",
+      "productionStatus": "research brief only; not rendered",
+      "assetEvidence": []
+    },
+    {
+      "id": "useful-28-course-syllabus",
+      "title": "Preview a Course Syllabus",
+      "category": "Motion Design",
+      "description": "Show what learners will make and how three lessons build toward that result.",
+      "audiences": [
+        "Educators",
+        "Content creators"
+      ],
+      "useCases": [
+        "Course previews",
+        "Learning materials"
+      ],
+      "technique": "motion-design",
+      "duration": 24,
+      "width": 1920,
+      "height": 1080,
+      "orientation": "landscape",
+      "aspect": "16:9",
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/motion-canvas/motion-canvas",
+      "sourceFile": "https://github.com/motion-canvas/motion-canvas/blob/7b91435c301d530351dcf5ebb91dd139c002e405/packages/examples/src/scenes/presentation.tsx",
+      "sourceCommit": "7b91435c301d530351dcf5ebb91dd139c002e405",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/motion-canvas/motion-canvas/blob/7b91435c301d530351dcf5ebb91dd139c002e405/LICENSE",
+      "sourceConcept": "Sequenced presentation beats with deliberate reading holds; adapt into one accumulating course map instead of copying slide content.",
+      "promptSource": "Original Video Use brief; conceptual workflow inspiration from motion-canvas/motion-canvas. No upstream prompt, implementation, or media copied.",
+      "sourceUse": "Conceptual inspiration only; fresh wording, data, design and implementation. The repository license does not license unrelated media or dependencies.",
+      "prompt": "Use Video Use to create a 24-second syllabus preview for an original fictional mini-course called Make a Useful Map. Keep one cream notebook spread on screen. A blank map develops across three named lessons: Choose a place, Show what matters, Guide the reader. At each step add an original visible artifact—a simple local-area outline, three clearly different place symbols, then a legend and route. Show that each lesson produces part of the final map. Do not imply this is a real geographic location or accurate navigation. Finish on the completed example map with Three short lessons. One map you can explain. Hold the result for 3 seconds. Use ink-blue linework, warm orange highlights, original vector icons and crisp lesson numbers. This is a course overview, not an event invitation; omit dates, ticket prices and enrollment promises. Keep lesson order, titles, symbols, legend and route editable. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+      "assetPlan": "Original invented neighborhood map and vector symbols; fictional course. Use no external basemap, trademarked maptiles or real navigation claims. Original quiet page/click accents optional.",
+      "toolNeeds": [
+        "Existing motion-design renderer",
+        "Original SVG line/path animation"
+      ],
+      "qualityChecks": [
+        "One accumulating map persists across all lessons and the legend matches every symbol used.",
+        "Map is visibly an example; no geospatial accuracy implied. Final result holds 3 seconds.",
+        "Lesson labels, route coordinates, symbol meanings and numbering are stored coherently and documented for edits.",
+        "Public handoff must include an explicit license for original source, all bundled third-party notices, recorded Video Use commit and file hashes, dependency locks/pins, and portable replay instructions. Document every hardcoded text/date/timing dependency. Exclude raw audio/video, models downloaded under separate terms, private traces, secrets and render caches; document legal asset reacquisition or original-media regeneration."
+      ],
+      "factualSources": [],
+      "proposedBatch": 8,
+      "productionBatch": "batch-08",
+      "productionStatus": "research brief only; not rendered",
+      "assetEvidence": []
+    },
+    {
+      "id": "useful-29-faq-answer",
+      "title": "Answer a Customer Question",
+      "category": "Motion Design",
+      "description": "Explain a recurring customer question through one visible, concrete example.",
+      "audiences": [
+        "Founders",
+        "Product teams",
+        "Marketers"
+      ],
+      "useCases": [
+        "Customer education",
+        "FAQ videos"
+      ],
+      "technique": "motion-design",
+      "duration": 22,
+      "width": 1080,
+      "height": 1080,
+      "orientation": "square",
+      "aspect": "1:1",
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/instavar/remotion-templates",
+      "sourceFile": "https://github.com/instavar/remotion-templates/blob/f294dafe7e7c871ebdf0c872b48dbce5e998d93d/examples/proof-walkthrough.video.json",
+      "sourceCommit": "f294dafe7e7c871ebdf0c872b48dbce5e998d93d",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/instavar/remotion-templates/blob/f294dafe7e7c871ebdf0c872b48dbce5e998d93d/LICENSE",
+      "sourceConcept": "Question→visible mechanism→takeaway structure. Replace the source mathematical proof with an original customer explanation; no source wording copied.",
+      "promptSource": "Original Video Use brief; conceptual workflow inspiration from instavar/remotion-templates. No upstream prompt, implementation, or media copied.",
+      "sourceUse": "Conceptual inspiration only; fresh wording, data, design and implementation. The repository license does not license unrelated media or dependencies.",
+      "prompt": "Use Video Use to create a 22-second square FAQ video for fictional brand-kit app Palette Room. Start with the question Can everyone use the same brand kit? Keep one original brand-kit sheet visible with three assets: a simple leaf mark, the colors Forest and Cream, and the typeface Inter. Show the sheet saved to Team space, then two teammate cursors opening the same unchanged kit in two small composition canvases. Each output must visibly use the same mark, palette and type. Answer with One shared kit. Two consistent starting points. Finish with the two example outputs and Palette Room / Fictional product demo held for 3 seconds. Use a quiet editorial layout; teach the idea rather than inventing access-control guarantees, synchronization latency or actual integrations. Keep the kit data, teammates and example copy editable. Original shapes and fonts only; no existing company UI. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+      "assetPlan": "Original fictional app UI and leaf mark, Inter font with OFL notice; no live product or service. Optional original cursor clicks.",
+      "toolNeeds": [
+        "Existing motion-design HTML/SVG renderer"
+      ],
+      "qualityChecks": [
+        "The exact same kit assets appear in both results, with no unexplained color/font/logo changes.",
+        "No claim of actual product integration or permissions enforcement. Brand and kit changes propagate to source and both outputs.",
+        "Question and answer receive reading time; final result holds 3 seconds.",
+        "Public handoff must include an explicit license for original source, all bundled third-party notices, recorded Video Use commit and file hashes, dependency locks/pins, and portable replay instructions. Document every hardcoded text/date/timing dependency. Exclude raw audio/video, models downloaded under separate terms, private traces, secrets and render caches; document legal asset reacquisition or original-media regeneration."
+      ],
+      "factualSources": [],
+      "proposedBatch": 8,
+      "productionBatch": "batch-08",
+      "productionStatus": "research brief only; not rendered",
+      "assetEvidence": []
+    },
+    {
+      "id": "useful-30-match-result",
+      "title": "Publish a Match Result",
+      "category": "Motion Design",
+      "description": "Build a clear score recap from editable fictional match events.",
+      "audiences": [
+        "Content creators",
+        "Marketers"
+      ],
+      "useCases": [
+        "Sports recaps",
+        "Community updates"
+      ],
+      "technique": "motion-design",
+      "duration": 20,
+      "width": 1080,
+      "height": 1920,
+      "orientation": "portrait",
+      "aspect": "9:16",
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/motion-canvas/motion-canvas",
+      "sourceFile": "https://github.com/motion-canvas/motion-canvas/blob/7b91435c301d530351dcf5ebb91dd139c002e405/packages/examples/src/scenes/node-signal.tsx",
+      "sourceCommit": "7b91435c301d530351dcf5ebb91dd139c002e405",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/motion-canvas/motion-canvas/blob/7b91435c301d530351dcf5ebb91dd139c002e405/LICENSE",
+      "sourceConcept": "Derive displayed values and transitions from shared signals; adapt the concept into event-driven score changes with original team identity.",
+      "promptSource": "Original Video Use brief; conceptual workflow inspiration from motion-canvas/motion-canvas. No upstream prompt, implementation, or media copied.",
+      "sourceUse": "Conceptual inspiration only; fresh wording, data, design and implementation. The repository license does not license unrelated media or dependencies.",
+      "prompt": "Use Video Use to create a 20-second vertical result graphic for a fictional football match, North FC versus Harbor FC. Use original geometric club marks, never real club badges or player likenesses. Start at 0–0 and progress through these five events in order: North scores at 12 minutes, Harbor at 37, North at 51, Harbor at 69, North at 88. Keep the same central scoreboard throughout, animate only the team that scored, and place the corresponding minute on a compact timeline. The final result must be North 3–2 Harbor. End with Full time / North 3–2 Harbor and a small Illustrative match footer for 3 seconds. Use midnight blue, soft white and one vivid lime accent with restrained sports-broadcast motion. Do not claim this match occurred. Generate any short score accents originally and keep them quiet. Store the event list once and derive totals, minute markers and final copy from it. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+      "assetPlan": "Original fictional score data, club names, vector crests and optional procedural audio. No external sports data, real badges, broadcast footage or copyrighted music.",
+      "toolNeeds": [
+        "Existing motion-design renderer",
+        "Small data-driven score/timeline functions"
+      ],
+      "qualityChecks": [
+        "Score sequence is 0–0→1–0→1–1→2–1→2–2→3–2; each event belongs to the correct team and minute.",
+        "Final score derives from the event list and holds 3 seconds. Keep Illustrative match legible.",
+        "Changing event data updates every scoreboard/timeline occurrence; no actual sports result is implied.",
+        "Public handoff must include an explicit license for original source, all bundled third-party notices, recorded Video Use commit and file hashes, dependency locks/pins, and portable replay instructions. Document every hardcoded text/date/timing dependency. Exclude raw audio/video, models downloaded under separate terms, private traces, secrets and render caches; document legal asset reacquisition or original-media regeneration."
+      ],
+      "factualSources": [],
+      "proposedBatch": 8,
+      "productionBatch": "batch-08",
+      "productionStatus": "research brief only; not rendered",
+      "assetEvidence": []
+    },
+    {
+      "id": "useful-31-service-status",
+      "title": "Explain a Service Update",
+      "category": "Motion Design",
+      "description": "Present a fictional incident timeline with precise states and a calm customer update.",
+      "audiences": [
+        "Product teams",
+        "Founders"
+      ],
+      "useCases": [
+        "Customer communication",
+        "Status updates"
+      ],
+      "technique": "motion-design",
+      "duration": 22,
+      "width": 1920,
+      "height": 1080,
+      "orientation": "landscape",
+      "aspect": "16:9",
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/motion-canvas/examples",
+      "sourceFile": "https://github.com/motion-canvas/examples/blob/8ffefed144368d33de4b0e451894c718eb95d574/examples/anniversary/src/scenes/intro.tsx",
+      "sourceCommit": "8ffefed144368d33de4b0e451894c718eb95d574",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/motion-canvas/examples/blob/8ffefed144368d33de4b0e451894c718eb95d574/LICENSE",
+      "sourceConcept": "Time-ordered milestones driven by data; adapt into an original service-status timeline rather than a celebratory metrics sequence.",
+      "promptSource": "Original Video Use brief; conceptual workflow inspiration from motion-canvas/examples. No upstream prompt, implementation, or media copied.",
+      "sourceUse": "Conceptual inspiration only; fresh wording, data, design and implementation. The repository license does not license unrelated media or dependencies.",
+      "prompt": "Use Video Use to create a 22-second calm service-update video for fictional file-sharing app Sparrow. Keep an Example incident label visible. Present one horizontal timeline for File uploads with three supplied states: Investigating 09:10, Recovering 10:05, Resolved 10:20. Reveal them in order, keeping earlier timestamps visible. At the recovery stage, show Uploads recovering, monitoring continues; only at 10:20 show Uploads restored. End on the complete timeline with Thank you for your patience and Resolved 10:20 held for 3 seconds. Do not add a root cause, outage duration statistic, SLA claim, compensation promise or claim that all services were affected. Use warm grey, charcoal, amber during investigation and muted green after resolution. Motion should support clarity rather than urgency. Keep the state data, affected feature and timestamps editable and clearly identify the content as a fictional demonstration in the gallery. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+      "assetPlan": "Original fictional status record and vector timeline; no external service/API, real incident or customer data. Deliberate silence.",
+      "toolNeeds": [
+        "Existing motion-design renderer",
+        "Data-driven status progression"
+      ],
+      "qualityChecks": [
+        "Resolved appears only at the supplied final timestamp; recovery is not conflated with resolution.",
+        "Affected scope remains File uploads; no invented cause or broader impact. Example incident disclosure persists.",
+        "All timestamps/state labels are generated from one record and the final timeline holds 3 seconds.",
+        "Public handoff must include an explicit license for original source, all bundled third-party notices, recorded Video Use commit and file hashes, dependency locks/pins, and portable replay instructions. Document every hardcoded text/date/timing dependency. Exclude raw audio/video, models downloaded under separate terms, private traces, secrets and render caches; document legal asset reacquisition or original-media regeneration."
+      ],
+      "factualSources": [],
+      "proposedBatch": 9,
+      "productionBatch": "batch-09",
+      "productionStatus": "research brief only; not rendered",
+      "assetEvidence": []
+    },
+    {
+      "id": "useful-32-break-even",
+      "title": "Explain Break Even Visually",
+      "category": "Explainers",
+      "description": "Use illustrative numbers to show where revenue and total cost meet.",
+      "audiences": [
+        "Educators",
+        "Founders"
+      ],
+      "useCases": [
+        "Business education",
+        "Math explainers"
+      ],
+      "technique": "diagrams",
+      "duration": 26,
+      "width": 1920,
+      "height": 1080,
+      "orientation": "landscape",
+      "aspect": "16:9",
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/ManimCommunity/manim",
+      "sourceFile": "https://github.com/ManimCommunity/manim/blob/5dc0d3b8dfe23b1dbf2284cca111c5d146a44db0/docs/source/examples.rst",
+      "sourceCommit": "5dc0d3b8dfe23b1dbf2284cca111c5d146a44db0",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/ManimCommunity/manim/blob/5dc0d3b8dfe23b1dbf2284cca111c5d146a44db0/LICENSE",
+      "sourceConcept": "Axes and data-derived graph animation; adapt the engine example into a small arithmetic lesson with explicit units and assumptions.",
+      "promptSource": "Original Video Use brief; conceptual workflow inspiration from ManimCommunity/manim. No upstream prompt, implementation, or media copied.",
+      "sourceUse": "Conceptual inspiration only; fresh wording, data, design and implementation. The repository license does not license unrelated media or dependencies.",
+      "prompt": "Use Video Use to create a 26-second educational diagram explaining a simple break-even model for a fictional print stall. State the illustrative inputs: fixed cost $120, variable cost $3 per print, price $9 per print. Draw a single stable chart with horizontal axis Prints sold from 0 to 30 and vertical axis Dollars from 0 to 300. Reveal total cost 120+3 q and revenue 9 q from their correct intercepts. Mark the intersection at 20 prints and $180, then show 120÷(9−3)=20. Explain that in this simplified example revenue equals total cost there; do not call revenue profit or imply real business advice or a guaranteed outcome. Show Illustrative numbers / Single-product model throughout. Keep labels attached to the right lines and use equal, truthful axis scales. End with the graph and calculation together for 4 seconds. Use original vector geometry, charcoal text, teal revenue and amber cost on a light background. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+      "assetPlan": "Original illustrative dataset and charts; no real financial/customer data. Fact reference: SBA break-even formula https://legacy.sba.gov/business-guide/plan-your-business/calculate-your-startup-costs/break-even-point . Use current Video Use Manim/diagram path and original fonts with licenses; no narration required.",
+      "toolNeeds": [
+        "Existing Video Use Manim teaching scaffold",
+        "Data-derived axes, line functions and intersection computation"
+      ],
+      "qualityChecks": [
+        "Cost intercept 120, revenue intercept 0; at q 20 both 180. At q 0 cost 120; at q 30 cost 210 and revenue 270.",
+        "Graph labels/units/ticks and intersection derive from the inputs; count 20 is not a dollar amount and 180 is not profit.",
+        "Source edit changing costs/price recomputes equation, crossing and annotation or fails explicitly when no positive break-even exists. Final hold 4 seconds.",
+        "Public handoff must include an explicit license for original source, all bundled third-party notices, recorded Video Use commit and file hashes, dependency locks/pins, and portable replay instructions. Document every hardcoded text/date/timing dependency. Exclude raw audio/video, models downloaded under separate terms, private traces, secrets and render caches; document legal asset reacquisition or original-media regeneration."
+      ],
+      "factualSources": [
+        "https://legacy.sba.gov/business-guide/plan-your-business/calculate-your-startup-costs/break-even-point"
+      ],
+      "proposedBatch": 9,
+      "productionBatch": "batch-09",
+      "productionStatus": "research brief only; not rendered",
+      "assetEvidence": []
+    },
+    {
+      "id": "useful-33-binary-search",
+      "title": "Teach Binary Search",
+      "category": "Explainers",
+      "description": "Follow three comparisons that find one value in a sorted list.",
+      "audiences": [
+        "Educators",
+        "Product teams"
+      ],
+      "useCases": [
+        "Algorithm lessons",
+        "Technical explainers"
+      ],
+      "technique": "diagrams",
+      "duration": 27,
+      "width": 1920,
+      "height": 1080,
+      "orientation": "landscape",
+      "aspect": "16:9",
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/motion-canvas/motion-canvas",
+      "sourceFile": "https://github.com/motion-canvas/motion-canvas/blob/7b91435c301d530351dcf5ebb91dd139c002e405/packages/examples/src/scenes/code.tsx",
+      "sourceCommit": "7b91435c301d530351dcf5ebb91dd139c002e405",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/motion-canvas/motion-canvas/blob/7b91435c301d530351dcf5ebb91dd139c002e405/LICENSE",
+      "sourceConcept": "Couple highlighted code/state with changes to visible data. The search algorithm, array and teaching sequence are independently authored.",
+      "promptSource": "Original Video Use brief; conceptual workflow inspiration from motion-canvas/motion-canvas. No upstream prompt, implementation, or media copied.",
+      "sourceUse": "Conceptual inspiration only; fresh wording, data, design and implementation. The repository license does not license unrelated media or dependencies.",
+      "prompt": "Use Video Use to create a 27-second binary-search lesson for the sorted array [3, 7, 12, 19, 24, 31, 42], searching for 24. Keep all seven indexed cells visible and distinguish zero-based index from value. Start with low 0, high 6. Compare midpoint index 3, value 19; because 24 is greater, dim indices 0–3 and set low 4. Compare midpoint index 5, value 31; because 24 is smaller, set high 4 and dim indices 5–6. Compare index 4, value 24 and mark Found / index 4. Keep the target 24 fixed above the row and show only the current comparison, low and high bounds; avoid a wall of code. An optional tiny pseudocode line may track the actual operation. Do not move values around or imply the algorithm works on an unsorted list. End with the successful cell and Three comparisons / Sorted input for 3 seconds. Use navy outlines, a mint active range and amber comparison markers. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+      "assetPlan": "Original array, calculated binary-search trace and diagram. No external dataset or executable service. Existing diagram/Manim engine; licensed bundled fonts.",
+      "toolNeeds": [
+        "Existing Video Use diagram/Manim engine",
+        "Small pure function deriving the search trace from sorted values and target"
+      ],
+      "qualityChecks": [
+        "Exact midpoint trace 3→5→4, values 19→31→24. Bounds update to [4, 6], then[4, 4]; excluded cells never become candidates again.",
+        "Index 4 and value 24 remain distinct; sorted-input condition appears. No data rearrangement.",
+        "Array/target changes recompute comparisons, bounds, count and found/not-found result. Preserve 3 second final hold.",
+        "Public handoff must include an explicit license for original source, all bundled third-party notices, recorded Video Use commit and file hashes, dependency locks/pins, and portable replay instructions. Document every hardcoded text/date/timing dependency. Exclude raw audio/video, models downloaded under separate terms, private traces, secrets and render caches; document legal asset reacquisition or original-media regeneration."
+      ],
+      "factualSources": [],
+      "proposedBatch": 9,
+      "productionBatch": "batch-09",
+      "productionStatus": "research brief only; not rendered",
+      "assetEvidence": []
+    },
+    {
+      "id": "useful-34-cache-expiry",
+      "title": "Explain Cache Expiry",
+      "category": "Explainers",
+      "description": "Show a miss, a cache hit, and a fresh fetch after a simple TTL expires.",
+      "audiences": [
+        "Product teams",
+        "Educators"
+      ],
+      "useCases": [
+        "Architecture explainers",
+        "Developer documentation"
+      ],
+      "technique": "diagrams",
+      "duration": 26,
+      "width": 1920,
+      "height": 1080,
+      "orientation": "landscape",
+      "aspect": "16:9",
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/motion-canvas/examples",
+      "sourceFile": "https://github.com/motion-canvas/examples/blob/8ffefed144368d33de4b0e451894c718eb95d574/examples/asset-code/src/scenes/state-machine.tsx",
+      "sourceCommit": "8ffefed144368d33de4b0e451894c718eb95d574",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/motion-canvas/examples/blob/8ffefed144368d33de4b0e451894c718eb95d574/LICENSE",
+      "sourceConcept": "Persistent named states and directional transitions; replace source game states with an original cache-aside example and explicit expiry clock.",
+      "promptSource": "Original Video Use brief; conceptual workflow inspiration from motion-canvas/examples. No upstream prompt, implementation, or media copied.",
+      "sourceUse": "Conceptual inspiration only; fresh wording, data, design and implementation. The repository license does not license unrelated media or dependencies.",
+      "prompt": "Use Video Use to create a 26-second technical diagram of one simplified cache-aside request flow: Client→Cache→Origin. Track the key menu:v1. On request 1 at simulated 0 seconds, show Cache miss, fetch the value from Origin, return it and store it with TTL 10 seconds. On request 2 at simulated 4 seconds, return the same cached value and show no origin request. Advance a clearly labelled compressed clock to 11 seconds; the cached item is now expired. Request 3 must miss and fetch a fresh value from Origin before the cache refills. Use solid arrows for requests, a distinct response path, and one persistent key label so identity stays clear. Finish on Miss→Hit→Expired→Refetch with Simplified example / Time compressed for 3 seconds. Do not claim TTL guarantees data freshness or that all caches share these semantics. Use a dark technical canvas, amber misses and mint hits, with no live endpoint. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+      "assetPlan": "Original state diagram, synthetic menu value and simulated clock. Technical fact reference https://redis.io/docs/latest/commands/expire/ for expiry semantics only; this is not a Redis product demo or an implementation guarantee.",
+      "toolNeeds": [
+        "Existing Video Use diagram/Manim engine",
+        "Explicit state and simulated-time model"
+      ],
+      "qualityChecks": [
+        "TTL starts at insertion, request 2 at 4 is a hit with no origin call, request 3 at 11 misses after expiry and refetches.",
+        "Do not label an expired value fresh or show a successful response before the fetch completes; all arrows have clear direction.",
+        "Key, TTL, request times and origin/cached values are editable in one state model; labels and clock derive from those values.",
+        "Public handoff must include an explicit license for original source, all bundled third-party notices, recorded Video Use commit and file hashes, dependency locks/pins, and portable replay instructions. Document every hardcoded text/date/timing dependency. Exclude raw audio/video, models downloaded under separate terms, private traces, secrets and render caches; document legal asset reacquisition or original-media regeneration."
+      ],
+      "factualSources": [
+        "https://redis.io/docs/latest/commands/expire/"
+      ],
+      "proposedBatch": 9,
+      "productionBatch": "batch-09",
+      "productionStatus": "research brief only; not rendered",
+      "assetEvidence": []
+    },
+    {
+      "id": "useful-35-water-cycle",
+      "title": "Explain a Natural Cycle",
+      "category": "Explainers",
+      "description": "Trace one simplified route through evaporation, condensation, rain and runoff.",
+      "audiences": [
+        "Educators",
+        "Content creators"
+      ],
+      "useCases": [
+        "Science lessons",
+        "Learning materials"
+      ],
+      "technique": "diagrams",
+      "duration": 25,
+      "width": 1920,
+      "height": 1080,
+      "orientation": "landscape",
+      "aspect": "16:9",
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/ManimCommunity/manim",
+      "sourceFile": "https://github.com/ManimCommunity/manim/blob/5dc0d3b8dfe23b1dbf2284cca111c5d146a44db0/docs/source/examples.rst",
+      "sourceCommit": "5dc0d3b8dfe23b1dbf2284cca111c5d146a44db0",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/ManimCommunity/manim/blob/5dc0d3b8dfe23b1dbf2284cca111c5d146a44db0/LICENSE",
+      "sourceConcept": "Persistent vector scenes and path-following animation; adapt to an original scientific process diagram with correct phase labels.",
+      "promptSource": "Original Video Use brief; conceptual workflow inspiration from ManimCommunity/manim. No upstream prompt, implementation, or media copied.",
+      "sourceUse": "Conceptual inspiration only; fresh wording, data, design and implementation. The repository license does not license unrelated media or dependencies.",
+      "prompt": "Use Video Use to create a 25-second classroom animation following one simplified route through the water cycle. Draw one stable landscape with a lake, hillside, cloud and stream. Show solar energy at the lake and label Evaporation: liquid→vapor; represent vapor as a subtle rising dotted path, not visible smoke. At the cloud show Condensation: vapor→liquid droplets, then Precipitation as rain falling toward the hillside. Follow surface runoff downhill through the stream back to the lake. Keep arrows directional and preserve the diagram instead of replacing it with unrelated slides. Conclude with Water moves and changes state and a small One simplified route; the cycle has no fixed start note for 3 seconds. Do not claim all water follows this path or that clouds are made only of vapor. Use original vector scenery, sky blue, deep green and warm sunlight; no unsupported percentages or weather forecasts. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+      "assetPlan": "Original educational vector landscape and particles; no copied textbook art. USGS primary references https://www.usgs.gov/water-science-school/water-cycle and https://www.usgs.gov/water-science-school/science/condensation-and-water-cycle . No external footage/audio required.",
+      "toolNeeds": [
+        "Existing Video Use Manim/diagram helpers",
+        "Original SVG/vector paths and particle states"
+      ],
+      "qualityChecks": [
+        "Evaporation changes liquid to gas; condensation changes vapor to liquid droplets. Cloud is not labelled gaseous vapor.",
+        "Rain and runoff move down toward the lake; the loop has no asserted beginning or universal exclusive path.",
+        "Phase labels, reservoir names and path control points remain editable and consistent with actual animated motion.",
+        "Public handoff must include an explicit license for original source, all bundled third-party notices, recorded Video Use commit and file hashes, dependency locks/pins, and portable replay instructions. Document every hardcoded text/date/timing dependency. Exclude raw audio/video, models downloaded under separate terms, private traces, secrets and render caches; document legal asset reacquisition or original-media regeneration."
+      ],
+      "factualSources": [
+        "https://www.usgs.gov/water-science-school/water-cycle",
+        "https://www.usgs.gov/water-science-school/science/condensation-and-water-cycle"
+      ],
+      "proposedBatch": 10,
+      "productionBatch": "batch-10",
+      "productionStatus": "research brief only; not rendered",
+      "assetEvidence": []
+    },
+    {
+      "id": "useful-36-support-triage",
+      "title": "Map a Support Decision",
+      "category": "Explainers",
+      "description": "Make a sample support-routing policy visible, including its fallback path.",
+      "audiences": [
+        "Product teams",
+        "Founders"
+      ],
+      "useCases": [
+        "Internal training",
+        "Process documentation"
+      ],
+      "technique": "diagrams",
+      "duration": 25,
+      "width": 1920,
+      "height": 1080,
+      "orientation": "landscape",
+      "aspect": "16:9",
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/motion-canvas/examples",
+      "sourceFile": "https://github.com/motion-canvas/examples/blob/8ffefed144368d33de4b0e451894c718eb95d574/examples/asset-code/src/scenes/state-machine.tsx",
+      "sourceCommit": "8ffefed144368d33de4b0e451894c718eb95d574",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/motion-canvas/examples/blob/8ffefed144368d33de4b0e451894c718eb95d574/LICENSE",
+      "sourceConcept": "Named states, criteria and arrows as a readable graph; adapt to an original decision tree with explicit exclusive branches and a fallback.",
+      "promptSource": "Original Video Use brief; conceptual workflow inspiration from motion-canvas/examples. No upstream prompt, implementation, or media copied.",
+      "sourceUse": "Conceptual inspiration only; fresh wording, data, design and implementation. The repository license does not license unrelated media or dependencies.",
+      "prompt": "Use Video Use to create a 25-second support-training diagram for a fictional helpdesk policy. Start with one ticket reading Charged twice. Ask Can the customer sign in? Follow Yes, then ask Is this a billing question? Follow Yes to Billing team. Keep the unchosen branches visible but quiet: No at the sign-in decision leads to Account support; No at the billing decision leads to General support. Label the whole chart Example routing policy. After the example ticket reaches Billing, briefly reveal an Unclear issue→General support fallback so no ticket disappears. Use a stable left-to-right decision layout with actual labelled connectors and a single ticket identity. Do not imply this is a real company’s policy or that a billing adjustment/refund was performed. End on the complete tree and Route first. Resolve with the right team. for 3 seconds. Use ivory, ink blue, teal active paths and restrained motion. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+      "assetPlan": "Original fictional ticket and routing policy; no customer data, live helpdesk, refund promise or service integration. Original vector diagram and optional quiet procedural ticks.",
+      "toolNeeds": [
+        "Existing Video Use Manim/diagram helpers",
+        "Explicit decision-tree state/data model"
+      ],
+      "qualityChecks": [
+        "Both questions have labelled Yes/No destinations; example Charged twice follows Yes→Yes→Billing. Unclear fallback is visible.",
+        "One ticket identity persists and reaches exactly one team; routing is not depicted as problem resolution/refund.",
+        "Tree labels, predicates, ticket example and destinations remain editable together; no unconnected/dangling branch.",
+        "Public handoff must include an explicit license for original source, all bundled third-party notices, recorded Video Use commit and file hashes, dependency locks/pins, and portable replay instructions. Document every hardcoded text/date/timing dependency. Exclude raw audio/video, models downloaded under separate terms, private traces, secrets and render caches; document legal asset reacquisition or original-media regeneration."
+      ],
+      "factualSources": [],
+      "proposedBatch": 10,
+      "productionBatch": "batch-10",
+      "productionStatus": "research brief only; not rendered",
+      "assetEvidence": []
+    },
+    {
+      "id": "useful-37-product-dimensions",
+      "title": "Show Product Dimensions",
+      "category": "Motion Design",
+      "description": "Turn a fictional lamp into a clear size-and-fit explanation with anchored measurements.",
+      "audiences": [
+        "Designers",
+        "Marketers",
+        "Founders"
+      ],
+      "useCases": [
+        "Product detail pages",
+        "Size guides"
+      ],
+      "technique": "3d",
+      "duration": 24,
+      "width": 1080,
+      "height": 1080,
+      "orientation": "square",
+      "aspect": "1:1",
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/mrdoob/three.js",
+      "sourceFile": "https://github.com/mrdoob/three.js/blob/2bebd158c15d46deb3d772cd400cc6b64f3d908d/examples/css2d_label.html",
+      "sourceCommit": "2bebd158c15d46deb3d772cd400cc6b64f3d908d",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/mrdoob/three.js/blob/2bebd158c15d46deb3d772cd400cc6b64f3d908d/LICENSE",
+      "sourceConcept": "Labels anchored to actual 3D coordinates; adapt the concept to a measured original product model instead of copying the astronomy scene or its textures.",
+      "promptSource": "Original Video Use brief; conceptual workflow inspiration from mrdoob/three.js. No upstream prompt, implementation, or media copied.",
+      "sourceUse": "Conceptual inspiration only; fresh wording, data, design and implementation. The repository license does not license unrelated media or dependencies.",
+      "prompt": "Use Video Use to create a 24-second square 3D size guide for an original fictional desk lamp called Luma. Model real geometry with a circular 18 cm-diameter base, a total 42 cm height, and a widest horizontal reach of 28 cm. Choose a form that actually fits those dimensions. Begin with a slow three-quarter view, then settle into a readable measurement view. Reveal one anchored dimension at a time:42 cm tall, 28 cm reach, 18 cm base. Leader lines must touch the correct physical endpoints and stay legible as the camera moves; use projected 2D type over the 3D render. Finish with all three measurements and Luma / Illustrative dimensions held for 3 seconds. Use a warm cream studio, charcoal lamp and one orange measurement accent. Do not claim real-product specifications or show impossible scale. Keep dimensions, geometry, camera and labels driven from the same configuration. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+      "assetPlan": "Original Three.js lamp geometry, studio and dimension lines. No CAD downloads, real manufacturer logos or borrowed model textures. Bundled Three.js/fonts retain licenses. Deliberate silence.",
+      "toolNeeds": [
+        "Existing Three.js runtime",
+        "Project-local world-to-screen dimension callouts; propose a reusable measured-callout helper if existing tools lack it"
+      ],
+      "qualityChecks": [
+        "Geometry extrema match 42 cm height/28 cm reach/18 cm base diameter under one consistent unit scale.",
+        "Dimension endpoints refer to actual geometry and are not misleading perspective ruler lengths; labels do not collide or go behind the object.",
+        "Changing one dimension changes the corresponding geometry/callout and any final labels; maintain physically valid lamp form.",
+        "Public handoff must include an explicit license for original source, all bundled third-party notices, recorded Video Use commit and file hashes, dependency locks/pins, and portable replay instructions. Document every hardcoded text/date/timing dependency. Exclude raw audio/video, models downloaded under separate terms, private traces, secrets and render caches; document legal asset reacquisition or original-media regeneration."
+      ],
+      "factualSources": [],
+      "proposedBatch": 10,
+      "productionBatch": "batch-10",
+      "productionStatus": "research brief only; not rendered",
+      "assetEvidence": []
+    },
+    {
+      "id": "useful-38-filter-replacement",
+      "title": "Show a Maintenance Step",
+      "category": "Motion Design",
+      "description": "Explain an original fictional fan’s filter replacement with a clear 3D assembly sequence.",
+      "audiences": [
+        "Product teams",
+        "Designers",
+        "Marketers"
+      ],
+      "useCases": [
+        "Product instructions",
+        "Maintenance guides"
+      ],
+      "technique": "3d",
+      "duration": 26,
+      "width": 1920,
+      "height": 1080,
+      "orientation": "landscape",
+      "aspect": "16:9",
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/mrdoob/three.js",
+      "sourceFile": "https://github.com/mrdoob/three.js/blob/2bebd158c15d46deb3d772cd400cc6b64f3d908d/examples/webgl_clipping.html",
+      "sourceCommit": "2bebd158c15d46deb3d772cd400cc6b64f3d908d",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/mrdoob/three.js/blob/2bebd158c15d46deb3d772cd400cc6b64f3d908d/LICENSE",
+      "sourceConcept": "Reveal internal structure through real 3D geometry and controlled cutaways; independently model a simple serviceable assembly.",
+      "promptSource": "Original Video Use brief; conceptual workflow inspiration from mrdoob/three.js. No upstream prompt, implementation, or media copied.",
+      "sourceUse": "Conceptual inspiration only; fresh wording, data, design and implementation. The repository license does not license unrelated media or dependencies.",
+      "prompt": "Use Video Use to create a 26-second 3D instruction film for a fictional desktop fan called Breeze. Model a simple fan housing, rear cover and removable dust-filter panel as original geometry. Begin with Power off and unplug, visibly show the disconnected plug, and keep the blades still throughout. Rotate to the rear, release two visible cover tabs, remove the cover, lift out the old plain filter panel and insert a matching clean panel along the same guide rails. Replace the cover so both tabs visibly return into place. Use one short phrase per action: Open the back, Swap the filter, Close the cover. Finish with the assembled fan and Breeze / Fictional maintenance example for 3 seconds; do not reconnect it or show powered motion. This is an invented assembly demonstration, not instructions for a real appliance or a filtration-performance claim. Use a pale blue studio, off-white housing and coral tab highlights, with crisp overlays and clear depth. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+      "assetPlan": "Original Three.js geometry and fictional product; no real-appliance CAD, electrical diagrams, HEPA/health claims or external media. Optional original quiet plastic-click accents, labelled procedural not recorded Foley.",
+      "toolNeeds": [
+        "Existing Three.js motion-design runtime",
+        "Articulated parent groups and explicit tab/cover/filter pivots"
+      ],
+      "qualityChecks": [
+        "Plug disconnected before opening; blades remain still. Tabs release before cover moves; filter follows rails; replacement aligns before cover closes.",
+        "No intersecting parts, flying cover through housing or unsupported filtration/safety certification claims.",
+        "Part dimensions, assembly coordinates, tab states, instruction copy and timing remain editable; alterations need geometry/intersection review.",
+        "Public handoff must include an explicit license for original source, all bundled third-party notices, recorded Video Use commit and file hashes, dependency locks/pins, and portable replay instructions. Document every hardcoded text/date/timing dependency. Exclude raw audio/video, models downloaded under separate terms, private traces, secrets and render caches; document legal asset reacquisition or original-media regeneration."
+      ],
+      "factualSources": [],
+      "proposedBatch": 10,
+      "productionBatch": "batch-10",
+      "productionStatus": "research brief only; not rendered",
+      "assetEvidence": []
+    },
+    {
+      "id": "useful-39-kit-packing",
+      "title": "Explain a Kit Layout",
+      "category": "Motion Design",
+      "description": "Show how three original welcome-kit items fit into a box with readable placement order.",
+      "audiences": [
+        "Marketers",
+        "Designers",
+        "Product teams"
+      ],
+      "useCases": [
+        "Packaging design",
+        "Assembly instructions"
+      ],
+      "technique": "3d",
+      "duration": 24,
+      "width": 1920,
+      "height": 1080,
+      "orientation": "landscape",
+      "aspect": "16:9",
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/mrdoob/three.js",
+      "sourceFile": "https://github.com/mrdoob/three.js/blob/2bebd158c15d46deb3d772cd400cc6b64f3d908d/examples/webgl_geometry_shapes.html",
+      "sourceCommit": "2bebd158c15d46deb3d772cd400cc6b64f3d908d",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/mrdoob/three.js/blob/2bebd158c15d46deb3d772cd400cc6b64f3d908d/LICENSE",
+      "sourceConcept": "Extruded shapes, holes and depth as original geometry; adapt into a physical fit explanation rather than a decorative 3D scene.",
+      "promptSource": "Original Video Use brief; conceptual workflow inspiration from mrdoob/three.js. No upstream prompt, implementation, or media copied.",
+      "sourceUse": "Conceptual inspiration only; fresh wording, data, design and implementation. The repository license does not license unrelated media or dependencies.",
+      "prompt": "Use Video Use to create a 24-second 3D packing guide for the fictional studio welcome kit First Day. Model an open cardboard box with an inner cavity 30×22×8 cm, a notebook 18×13×1 cm, a pencil sleeve 19×3×1 cm and a small accessory pouch 10×6×3 cm. Use one consistent scale and an original divider layout that truly fits all three items without overlap or protrusion. Begin on the empty divided box, place the notebook, then the pencil sleeve, then the pouch in a clear order. Call out each item once and briefly show enough of the top view to prove the fit. Close the lid only after every item is below its sweep, then settle on First Day / Ready to welcome for 3 seconds. Keep measurements in editable source and label Illustrative kit dimensions in the film. Do not claim tested shipping protection or use real customer names/addresses. Use kraft paper, warm ivory and a cobalt notebook with real shadows. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+      "assetPlan": "Original Three.js box, divider and item geometry with specified illustrative dimensions; no stock models, labels or shipping data. Optional original soft taps.",
+      "toolNeeds": [
+        "Existing Three.js runtime",
+        "Simple bounding-box fit/clearance checks and hinged-lid animation"
+      ],
+      "qualityChecks": [
+        "Inner cavity 30×22×8 cm, physical item dimensions and divider clearance fit under a consistent scale; no overlap/protrusion.",
+        "Each object follows a collision-free placement path; lid clears all items and closes last.",
+        "Dimensions, placements, lid hinge, labels and sequence remain editable; documentary fit checks correspond to actual generated geometry.",
+        "Public handoff must include an explicit license for original source, all bundled third-party notices, recorded Video Use commit and file hashes, dependency locks/pins, and portable replay instructions. Document every hardcoded text/date/timing dependency. Exclude raw audio/video, models downloaded under separate terms, private traces, secrets and render caches; document legal asset reacquisition or original-media regeneration."
+      ],
+      "factualSources": [],
+      "proposedBatch": 11,
+      "productionBatch": "batch-11",
+      "productionStatus": "research brief only; not rendered",
+      "assetEvidence": []
+    },
+    {
+      "id": "useful-40-gear-ratio",
+      "title": "Explain a Gear Ratio in 3D",
+      "category": "Motion Design",
+      "description": "Use two real 3D gear shapes to connect tooth count with rotational speed.",
+      "audiences": [
+        "Educators",
+        "Designers"
+      ],
+      "useCases": [
+        "Engineering explainers",
+        "Technical lessons"
+      ],
+      "technique": "3d",
+      "duration": 26,
+      "width": 1920,
+      "height": 1080,
+      "orientation": "landscape",
+      "aspect": "16:9",
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/mrdoob/three.js",
+      "sourceFile": "https://github.com/mrdoob/three.js/blob/2bebd158c15d46deb3d772cd400cc6b64f3d908d/examples/webgl_geometry_shapes.html",
+      "sourceCommit": "2bebd158c15d46deb3d772cd400cc6b64f3d908d",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/mrdoob/three.js/blob/2bebd158c15d46deb3d772cd400cc6b64f3d908d/LICENSE",
+      "sourceConcept": "Extruded parametric outlines with holes; independently create an educational gear pair and deterministic rotation model, not an importedCAD asset.",
+      "promptSource": "Original Video Use brief; conceptual workflow inspiration from mrdoob/three.js. No upstream prompt, implementation, or media copied.",
+      "sourceUse": "Conceptual inspiration only; fresh wording, data, design and implementation. The repository license does not license unrelated media or dependencies.",
+      "prompt": "Use Video Use to create a 26-second 3D lesson showing a simple external spur-gear pair with 20 teeth on the small driver and 40 teeth on the large driven gear. Model actual extruded toothed geometry with the same tooth spacing/module and correct center distance, so the gears visibly mesh. Use a fixed, readable three-quarter view that reveals thickness; the teaching must not be a flat illustrated spinning disc. Label the gears 20 teeth and 40 teeth, mark one tooth on each, and rotate the small gear through exactly two complete turns while the large gear makes one turn in the opposite direction. Show turn counters tied to actual angle, then the relationship 40÷20=2 and Small gear turns twice per large gear turn. Finish with the matched marks, labels and Simplified gear model / Not a manufacturing drawing held for 3 seconds. Do not invent efficiency, torque or power gains. Use warm graphite, mint and amber, with slow enough motion to follow the meshing. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+      "assetPlan": "Original Three.js parametric gear meshes, markers and angle-driven labels. No downloadedCAD or textures. Primary technical reference for tooth/profile and meshing concepts: https://khkgears.net/gear-knowledge/gear-technical-reference/calculation-gear-dimensions/ . This is an explanatory stylized model, not a physically certified part.",
+      "toolNeeds": [
+        "Existing Three.js runtime",
+        "Original parametric gear-outline builder and exact coupled angular motion; propose a reusable geometry helper if necessary, not a new rendering engine"
+      ],
+      "qualityChecks": [
+        "Actual tooth counts 20 and 40; same module, pitch-radius ratio 1:2, matching center distance and phase. Teeth mesh without major visible intersection or slipping.",
+        "Small rotation+4π corresponds to large−2π over the same interval; counters derive from angles and agree at the end.",
+        "No torque/efficiency guarantee. Geometry, counts, module, phase, camera, motion and labels are editable coherently; final teaching hold 3 seconds.",
+        "Public handoff must include an explicit license for original source, all bundled third-party notices, recorded Video Use commit and file hashes, dependency locks/pins, and portable replay instructions. Document every hardcoded text/date/timing dependency. Exclude raw audio/video, models downloaded under separate terms, private traces, secrets and render caches; document legal asset reacquisition or original-media regeneration."
+      ],
+      "factualSources": [
+        "https://khkgears.net/gear-knowledge/gear-technical-reference/calculation-gear-dimensions/"
+      ],
+      "proposedBatch": 11,
+      "productionBatch": "batch-11",
+      "productionStatus": "research brief only; not rendered",
+      "assetEvidence": []
     }
   ]
 }
