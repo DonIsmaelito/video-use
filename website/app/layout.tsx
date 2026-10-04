@@ -1,8 +1,11 @@
 import type { Metadata } from 'next';
+import { McpAnnouncement } from '@/components/mcp-announcement';
 import './globals.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.SITE_URL || 'https://video-use.insforge.site'),
+  metadataBase: new URL(
+    process.env.SITE_URL || 'https://video-use.insforge.site',
+  ),
   title: 'video-use — Prompt something worth watching',
   description:
     'An open-source video toolkit. Explore real edits, motion design, and explainers. Copy a prompt, bring a reference, and make it yours.',
@@ -52,9 +55,15 @@ export default function RootLayout({
           type="font/woff2"
           crossOrigin="anonymous"
         />
-        <link rel="preconnect" href="https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev" />
+        <link
+          rel="preconnect"
+          href="https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev"
+        />
       </head>
-      <body>{children}</body>
+      <body>
+        <McpAnnouncement />
+        {children}
+      </body>
     </html>
   );
 }

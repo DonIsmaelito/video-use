@@ -37,8 +37,9 @@ The production build explicitly uses Next.js's webpack builder, matching the loc
 - `components/connect-mcp.tsx` provides copyable setup URLs and separate ChatGPT, Claude, Cursor, and local-source instructions. Official client artwork lives in `public/clients`, with its provenance in `brand-sources.json`; compatible clients are not presented as end-to-end tested.
 - `components/ui/disclosure.tsx` uses Base UI for optional filters and source details. `technique-icon.tsx` gives each video type a consistent icon.
 - `components/mcp-feature.tsx` leads the fixed hero order: MCP, Product Launches, then Whiplash. `featured-film.tsx` shares an accessible full-film dialog for the product and MCP films; opening it pauses background previews. `mcp-launch.tsx` places the new 12-second film on the MCP page.
-- `components/featured-carousel.tsx` places those three films and five empty slots in a horizontal rail. Its CSS module shows two full desktop cards with the third peeking in; native scroll snapping settles touch/trackpad swipes on card edges. Mouse drags, arrow controls and keyboard navigation use the same stops, honor reduced motion and never auto-advance.
-- `lib/gallery.ts` contains the real filtering and URL parsing logic. `buildChatPrompt` appends a visible handoff to the example's original brief.
+- `components/featured-carousel.tsx` places those three films and five empty slots in a horizontal rail. Its CSS module follows Higgsfield's fixed 512px desktop / 400px tablet / 312px mobile cards, 20px gaps, 8px corners and edge-mounted arrows. Small phones narrow the card to preserve a peek. Native scroll snapping settles touch/trackpad swipes on card edges; mouse drags, arrow controls and keyboard navigation use the same stops, honor reduced motion and never auto-advance.
+- `components/mcp-announcement.tsx` adds the orange blended MCP banner above the shared header through the root layout. Its action opens `/mcp#setup`; the close button remembers dismissal for the browser tab's session and returns keyboard focus to the home link.
+- `lib/gallery.ts` contains the real filtering and URL parsing logic. Legacy classifications use stable IDs rather than display titles, so renaming a clip preserves its filters. `buildChatPrompt` appends a visible handoff to the example's original brief.
 - `app/globals.css` owns the neutral black/white/gray palette, responsive containers, and media treatment. All brand accents share `--accent: #fe750e`, matching Browser Use's `--pumpkin-500` color; MCP page tints derive from the same token.
 - `components/use-gallery-likes.ts`, `app/api/likes/route.ts`, and `lib/likes-server.ts` provide shared, persistent likes with one vote per example per signed browser identity. Counts start at zero; the database stores a hash rather than the cookie itself.
 
@@ -53,6 +54,8 @@ Coordination and verification notes are in `docs/ui-refresh-handoff.md`.
 ## Example data
 
 `data/examples.json` is the public gallery source. Every entry must point to a real, reviewed video and poster. Do not publish queued jobs or placeholder media as examples.
+
+Clip titles name the visible subject in a few words (for example, Red Telephone or Messi Goals). Cards allow two compact lines. Rename the title without changing the stable ID, source prompt, or media URLs so saved links and likes keep working.
 
 Required fields:
 

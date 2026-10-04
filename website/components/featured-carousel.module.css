@@ -1,6 +1,9 @@
-.carousel {
-  --slide-width: 36.5%;
-  --slide-gap: clamp(16px, 1.2vw, 24px);
+.carousel:global(.homepage-featured) {
+  --slide-width: 512px;
+  --slide-gap: 20px;
+  position: relative;
+  max-width: 1920px;
+  padding: 12px 0 0;
 }
 
 .viewport {
@@ -9,13 +12,14 @@
   grid-auto-flow: column;
   grid-auto-columns: var(--slide-width);
   gap: var(--slide-gap);
+  padding: 0 16px 4px;
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
+  scroll-padding-inline: 16px;
   scrollbar-width: none;
   cursor: grab;
   user-select: none;
-  padding-bottom: 4px;
 }
 
 .viewport::-webkit-scrollbar {
@@ -24,8 +28,7 @@
 
 .viewport:focus-visible {
   outline: 2px solid var(--accent);
-  outline-offset: 5px;
-  border-radius: 16px;
+  outline-offset: -2px;
 }
 
 .viewport[data-dragging] {
@@ -43,20 +46,27 @@
   scroll-snap-stop: always;
 }
 
+.slide :global(.featured-frame) {
+  border-radius: 8px;
+}
+
 .slide :global(.featured-caption) {
   align-items: flex-start;
   flex-direction: column;
-  gap: 8px;
-  padding-top: 12px;
+  gap: 0;
+  padding: 12px 0 0;
 }
 
 .slide :global(.featured-caption) > a,
 .slide :global(.featured-caption) > button {
-  font-size: clamp(16px, 1.3vw, 20px);
+  font-size: 16px;
+  line-height: 24px;
 }
 
 .slide :global(.featured-caption) > span {
-  font-size: 12px;
+  display: flex;
+  font-size: 14px;
+  line-height: 24px;
 }
 
 .placeholder:global(.featured-frame) {
@@ -65,56 +75,68 @@
 }
 
 .controls {
+  position: absolute;
+  z-index: 2;
+  top: calc(12px + var(--slide-width) * 9 / 32);
+  inset-inline: 4px;
   display: flex;
-  justify-content: flex-end;
-  gap: 6px;
-  margin-top: 10px;
+  justify-content: space-between;
+  height: 0;
+  pointer-events: none;
 }
 
 .controls button {
   display: grid;
   place-items: center;
-  width: 36px;
-  height: 36px;
-  border: 1px solid #303030;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
   border-radius: 50%;
-  color: #ddd;
-  background: #171717;
+  color: #fff;
+  background: #363636e6;
+  backdrop-filter: blur(8px);
+  transform: translateY(-50%);
+  pointer-events: auto;
   transition:
     background 160ms,
-    border-color 160ms,
     opacity 160ms;
 }
 
 .controls button:hover:not(:disabled) {
-  background: #282828;
-  border-color: #555;
+  background: #555;
 }
 
 .controls button:disabled {
-  opacity: 0.3;
-  cursor: default;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
 }
 
-@media (max-width: 1000px) {
-  .carousel {
-    --slide-width: 58%;
+@media (max-width: 1279px) {
+  .carousel:global(.homepage-featured) {
+    --slide-width: 400px;
   }
 }
 
-@media (max-width: 700px) {
-  .carousel {
-    --slide-width: 88%;
-    --slide-gap: 12px;
+@media (max-width: 767px) {
+  .carousel:global(.homepage-featured) {
+    --slide-width: min(312px, calc(100vw - 48px));
+    padding-top: 8px;
+  }
+
+  .controls {
+    top: calc(8px + var(--slide-width) * 9 / 32);
+  }
+
+  .slide :global(.featured-caption) > a,
+  .slide :global(.featured-caption) > button {
+    font-size: 15px;
+    line-height: 22px;
   }
 
   .slide :global(.featured-caption) > span {
-    font-size: 11px;
-  }
-
-  .controls button {
-    width: 40px;
-    height: 40px;
+    font-size: 12px;
+    line-height: 20px;
   }
 }
 

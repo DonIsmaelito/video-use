@@ -56,10 +56,11 @@ export function FeaturedCarousel({ children }: { children: ReactNode }) {
     const track = viewport.current;
     if (!track) return [0];
     const max = track.scrollWidth - track.clientWidth;
+    const inset = Number.parseFloat(getComputedStyle(track).paddingLeft) || 0;
     return [
       ...new Set(
         Array.from(track.children, (item) =>
-          Math.min(max, (item as HTMLElement).offsetLeft),
+          Math.min(max, (item as HTMLElement).offsetLeft - inset),
         ),
       ),
     ];
