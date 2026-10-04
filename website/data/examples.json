@@ -690,6 +690,32 @@
     "loop": true
   },
   {
+    "id": "useful-27-hiring-post",
+    "title": "Announce a Job Opening",
+    "category": "Motion Design",
+    "description": "Turn a role brief into a readable social hiring post with a clear next step.",
+    "prompt": "Use Video Use to create a 20-second 4:5 hiring post for the fictional studio Common Ground. Open with We’re looking for a service designer, using confident editorial type on warm paper with one cobalt rule. Let a simple service-map line connect three concrete role details: Map the journey, Prototype the service, Work with the team. Resolve into a compact role panel reading Service designer / Remote within UK / Full time. End with Explore the role / commonground.example/jobs held for 4 seconds. Keep Example opening visible in a small readable footer throughout so this cannot be mistaken for a real vacancy. Do not invent salary, benefits, applicants, employee portraits or a real application destination. Use meaningful type/layout transitions and an original restrained click rhythm; avoid a generic feature-card grid. Make role, location, work pattern, capabilities and CTA editable in one content file. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+    "duration": 20,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": [
+      "Founders",
+      "Marketers",
+      "Designers"
+    ],
+    "useCases": [
+      "Hiring",
+      "Social announcements"
+    ],
+    "technique": "motion-design",
+    "sourceRepo": "https://github.com/instavar/remotion-templates",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from instavar/remotion-templates. No upstream prompt, implementation, or media copied.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-27-hiring-post-243e29316944-2f6522de/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-27-hiring-post-243e29316944-2f6522de/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-27-hiring-post-243e29316944-2f6522de/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-27-hiring-post-243e29316944-2f6522de/review.md"
+  },
+  {
     "id": "useful-28-course-syllabus",
     "title": "Preview a Course Syllabus",
     "category": "Motion Design",

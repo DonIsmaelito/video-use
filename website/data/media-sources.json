@@ -3618,5 +3618,39 @@
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-30-match-result-1c1a491cbb1e-73385504/poster.jpg"
       }
     ]
+  },
+  {
+    "id": "useful-27-hiring-post",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-08",
+    "sourceRun": "useful-27-hiring-post",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "c0d4e8da2eb788225c3283ec85928b7547cb1557",
+    "frameworkArchiveSha256": "59f3fdfbea2eabeb1d1e0dec485b88dadf2b7ac457fd03086482005e2bb3cf40",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "243e29316944e9525fdaecde186578fe00386df0b74ac71e759d8f840c4b0f8d",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from instavar/remotion-templates. No upstream prompt, implementation, or media copied.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-27-hiring-post-243e29316944-2f6522de/source.zip",
+    "editableSourceSha256": "170cd02ef4cb9616f1ff40af818b66336712cc3d93eade516198ffee44d79aa9",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-08/useful-27-hiring-post/repairs/repair-cta-rule-20261004/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-27-hiring-post-243e29316944-2f6522de/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-27-hiring-post-243e29316944-2f6522de/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-27-hiring-post-243e29316944-2f6522de/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-27-hiring-post-243e29316944-2f6522de/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-27-hiring-post-243e29316944-2f6522de/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-27-hiring-post-243e29316944-2f6522de/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-27-hiring-post-243e29316944-2f6522de/poster.jpg"
+      }
+    ]
   }
 ]
