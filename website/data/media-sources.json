@@ -4472,5 +4472,73 @@
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-13-robot-hand-dialogue-1ff9f8870368-1ee5de0d/poster.jpg"
       }
     ]
+  },
+  {
+    "id": "social-14-robot-action",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "social-14-17",
+    "sourceRun": "social-14-robot-action",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "398a38eb6fae9bfed4703e91381a09def7f7e621",
+    "frameworkArchiveSha256": "0b58c1b06a71eb8e9f5781b7111bf854a314616dabc11ba7596852a4b50b673c",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "ab1cb0047f70fa1beff2e21960a909fb5ab4a0ba627c0b5ebf5cac6c6d50cda1",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-14-robot-action-ab1cb0047f70-ba89a13e/source.zip",
+    "editableSourceSha256": "3e7229b3c5d3f8ef81106881f827863ff97a8c720cd1effa6bd79d0f2213739e",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/social-14-17/social-14-robot-action/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-14-robot-action-ab1cb0047f70-ba89a13e/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-14-robot-action-ab1cb0047f70-ba89a13e/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-14-robot-action-ab1cb0047f70-ba89a13e/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-14-robot-action-ab1cb0047f70-ba89a13e/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-14-robot-action-ab1cb0047f70-ba89a13e/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-14-robot-action-ab1cb0047f70-ba89a13e/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-14-robot-action-ab1cb0047f70-ba89a13e/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "social-16-question-answer-cut",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "social-14-17",
+    "sourceRun": "social-16-question-answer-cut",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "398a38eb6fae9bfed4703e91381a09def7f7e621",
+    "frameworkArchiveSha256": "0b58c1b06a71eb8e9f5781b7111bf854a314616dabc11ba7596852a4b50b673c",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "a741c098b43722f499f96cb896d0b98618bd91f2f3d56d4d0e2fb2cdda431db8",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-16-question-answer-cut-a741c098b437-c59ea1e3/source.zip",
+    "editableSourceSha256": "31721a2a23c2fa1689291fd1ccbb43db2df22b30cf1f0838cd6cb6c425ec5bdf",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/social-14-17/social-16-question-answer-cut/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-16-question-answer-cut-a741c098b437-c59ea1e3/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-16-question-answer-cut-a741c098b437-c59ea1e3/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-16-question-answer-cut-a741c098b437-c59ea1e3/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-16-question-answer-cut-a741c098b437-c59ea1e3/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-16-question-answer-cut-a741c098b437-c59ea1e3/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-16-question-answer-cut-a741c098b437-c59ea1e3/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-16-question-answer-cut-a741c098b437-c59ea1e3/poster.jpg"
+      }
+    ]
   }
 ]

@@ -301,6 +301,56 @@
     "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-13-robot-hand-dialogue-1ff9f8870368-1ee5de0d/review.md"
   },
   {
+    "id": "social-14-robot-action",
+    "title": "Build an action trailer",
+    "category": "Video Edits",
+    "description": "A short Tears of Steel battle teaser: a defender, a growing robot threat and an unresolved breach, cut from the real film.",
+    "prompt": "Use Video Use to cut a 24-second vertical action trailer from licensed film footage. Build one clear escalation: establish who is under pressure, reveal the approaching threat, show the encounter and leave a strong unresolved final image. Use actual action and source order to carry the story, with deliberate changes of scale and shot duration. Keep the main subject, weapon or moving limb and the direction of movement readable on a phone. Use the film’s original sound and music where licensed, shape clean joins, and avoid constant extra impacts. A compact hook and a film-title credit are enough; do not add fake dialogue, invented explosions, a made-up release date or unrelated stock shots. End on a real suspenseful image rather than spoiling a resolution or cutting to an empty card. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the current query. Deliver 1080×1920 at 30 fps. Make the footage large and keep words few; use a compact first-second hook, not a title card followed by a small landscape rectangle. Keep essential text out of the top 150px, bottom 300px and rightmost 120px social controls. Use a deliberate wider picture window only when an essential action cannot fit a portrait crop. Keep honest credits, an editable cut map, source-to-output timing and complete replay instructions. In normal interactive use, show a short preview for approval before the full edit.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": [
+      "Content creators",
+      "Designers"
+    ],
+    "useCases": [
+      "Social content",
+      "Short-form edits"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/browser-use/video-use",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-14-robot-action-ab1cb0047f70-ba89a13e/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-14-robot-action-ab1cb0047f70-ba89a13e/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-14-robot-action-ab1cb0047f70-ba89a13e/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-14-robot-action-ab1cb0047f70-ba89a13e/review.md"
+  },
+  {
+    "id": "social-16-question-answer-cut",
+    "title": "Turn a question into a short",
+    "category": "Video Edits",
+    "description": "A focused Q&A with broadcast delay trimmed and captions rebuilt around the cuts.",
+    "prompt": "Use Video Use to make a 34-second vertical Q&A from a longer recorded interview. Keep a concise original question and a self-contained passage from the answer immediately following it, preserving its context. Remove broadcast delay and long empty pauses while preserving the actual order and speaker meaning. Adapt the portrait layout when the source camera changes, keeping the questioner and respondent visible when needed. Use a short editorial question as the opening hook, large phrase captions and clean speech. Avoid background music, unrelated reaction shots and a generic outro. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the query. Deliver a polished 1080×1920 vertical MP4 at 30 fps. Put the real footage first: a generous picture, a compact hook, captions readable on a phone, and very little unused matte. Keep important text away from the top 150px, bottom 300px and rightmost 120px used by social app controls. Keep source credits quiet and truthful. Preserve original voices, meaning and real reactions. Do not fabricate missing actions or quotes. Save editable cuts, caption timings, source URLs and replay instructions. In normal interactive use, show a short preview for approval before finishing the full edit.",
+    "duration": 34,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": [
+      "Content creators",
+      "Marketers"
+    ],
+    "useCases": [
+      "Social content",
+      "Short-form edits"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/browser-use/video-use",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-16-question-answer-cut-a741c098b437-c59ea1e3/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-16-question-answer-cut-a741c098b437-c59ea1e3/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-16-question-answer-cut-a741c098b437-c59ea1e3/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-16-question-answer-cut-a741c098b437-c59ea1e3/review.md"
+  },
+  {
     "title": "A calm browser tour",
     "duration": 27.6,
     "orientation": "landscape",
