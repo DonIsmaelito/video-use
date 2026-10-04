@@ -1081,6 +1081,11 @@ em {
   height: 100%;
   object-fit: contain;
 }
+.dialog-video.square {
+  aspect-ratio: 1;
+  max-width: 58svh;
+  margin-inline: auto;
+}
 .detail-facts {
   display: flex;
   gap: 10px;

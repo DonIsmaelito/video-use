@@ -558,7 +558,9 @@ export function Gallery() {
                 <span>
                   {selected.orientation === 'portrait'
                     ? 'Portrait'
-                    : 'Landscape'}
+                    : selected.orientation === 'square'
+                      ? 'Square'
+                      : 'Landscape'}
                 </span>
               </div>
               <div className="detail-workflow">
