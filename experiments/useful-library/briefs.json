@@ -1,0 +1,986 @@
+{
+  "description": "Twenty useful workflows and one extra Video Use MCP product film. Creative prompts remain separate from the container technical wrapper. Only reviewed completed exports are added to website data.",
+  "briefs": [
+    {
+      "id": "mcp-launch",
+      "title": "Video Use MCP",
+      "category": "Video Creation",
+      "description": "A product film showing the reference-to-preview workflow inside a conversation.",
+      "audiences": [
+        "Content creators",
+        "Founders",
+        "Marketers",
+        "Designers",
+        "Educators",
+        "Product teams"
+      ],
+      "useCases": [
+        "Product launches",
+        "Getting started"
+      ],
+      "technique": "motion-design",
+      "duration": 24,
+      "orientation": "landscape",
+      "aspect": "16:9",
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/veedstudio/open-edit",
+      "promptSource": "Original Video Use product film; the open-source launch-title prompt is a structural starting point only.",
+      "license": "Apache-2.0",
+      "licenseUrl": "https://github.com/veedstudio/open-edit/blob/main/LICENSE",
+      "prompt": "Create a 24-second 1920×1080 launch film for Video Use MCP using the current Video Use production workflow. Match the actual Video Use website: soft lavender, warm near-white, dark ink, generous space, a refined serif headline paired with clear sans-serif UI text. Use the real Video Use mark from this repository. Open with the promise “Your idea. A video worth making.” A generic chat interface receives the brief “Make a launch video for my new note-taking app.” At 4 seconds, show three compact reference cards with original abstract thumbnails; one is selected. The selected composition opens up while its old copy changes to the fictional product name “Fieldnote” and a note-card interface, visually demonstrating adaptation. At 11 seconds, show a short playable snippet preview with the controls “Refine” and “Continue”. Let the pointer select Continue only after the snippet has been shown. At 17 seconds, reveal the completed Fieldnote launch video beside its editable project/source card and an MP4 download action. End with the real Video Use mark and “Create in your conversation”, followed by small plain text “ChatGPT · Claude”. The film should explain this sequence through actions and clean camera framing, with no long setup checklist. Use a recurring moving lavender cursor or line to carry attention between the chat, reference, preview and result. Keep each UI state readable, the ending visible for 3 seconds, and the film understandable muted for website autoplay. Sound can be a very quiet original pulse and UI accents. Avoid invented testimonials, prices, usage statistics, provider endorsements, guarantees of universal MCP support, and photorealistic image/video generation claims. Deliver the finished MP4, an autoplay-friendly compressed copy, a poster, and editable scene source. Review rendered frames and the full transition sequence before delivery.",
+      "assetPlan": "Use the repository’s actual logo and site font/color tokens. Create fictional source thumbnails, Fieldnote UI, generic chat layout and result preview from original vector/code assets. Reuse an actual verified showcase render as the final in-video result if available, with permission/source tracked; otherwise render the small fictional Fieldnote scene as part of this job.",
+      "productFacts": [
+        "Reference selection is followed by adapting the query context",
+        "A snippet is shown before the continuation decision",
+        "Continue advances the approved work",
+        "Video Use delivers an MP4 with editable source",
+        "ChatGPT and Claude are named hosts, with no broader compatibility promise"
+      ],
+      "qualityChecks": [
+        "Real repository logo used",
+        "Snippet appears before Continue click",
+        "Muted playback communicates all four stages",
+        "No fake generation provider promises",
+        "Final card holds 3 seconds",
+        "Title and UI labels readable at 960-pixel preview width"
+      ],
+      "websitePlacement": "Featured autoplay-muted tile on the repository-focused main site; tile opens /mcp. Also usable as the /mcp hero film.",
+      "productionStatus": "brief only; not rendered",
+      "productionBatch": "batch-01"
+    },
+    {
+      "id": "useful-01-launch-approvals",
+      "title": "Launch a Product Feature",
+      "category": "Motion Design",
+      "description": "Turn a feature announcement into a short product story with a clear before and after.",
+      "audiences": [
+        "Founders",
+        "Marketers",
+        "Product teams"
+      ],
+      "useCases": [
+        "Product launches",
+        "Feature announcements"
+      ],
+      "technique": "motion-design",
+      "duration": 22,
+      "orientation": "landscape",
+      "aspect": "16:9",
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/instavar/remotion-templates",
+      "promptSource": "Original Video Use brief adapted from Instavar’s MIT-licensed announcement-brief scene structure.",
+      "sourceFile": "https://github.com/instavar/remotion-templates/blob/main/examples/announcement-brief.video.json",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/instavar/remotion-templates/blob/main/LICENSE",
+      "sourceConcept": "Five-beat announcement: hook, problem, mechanism, outcomes, next action. Source topic and wording replaced entirely.",
+      "batch": 1,
+      "prompt": "Use Video Use to create a 22-second 1920×1080 product launch film for the fictional team app Loopboard. The new feature is one-click approvals. Open on three overlapping feedback threads with the headline “Still waiting for a yes?” At 4 seconds, gather the threads into one crisp approval request. Animate a cursor selecting Approve; the card changes from Pending to Approved and the board advances to Ready to publish. Follow with three tangible benefits—one owner, one decision, one clear next step—shown as part of the working interface, not a bullet slide. End on “Keep good work moving” and the Loopboard wordmark. Use warm ivory, deep navy, electric coral, editorial typography, restrained depth, elegant position changes and short, purposeful push-ins. Give the approved state and final CTA at least 2 seconds to read. Build an original fictional UI. Add quiet custom UI clicks and a light original pulse; no voiceover is necessary. Use Video Use and its current production helpers to create the finished video and editable source. Keep typography large, all content inside safe areas, and camera motion motivated by the message. Review representative rendered frames and the opening and ending before delivery. Use only original geometry, demo interfaces, and licensed assets. All company names and numbers in this example are fictional demonstration content.",
+      "assetPlan": "Original SVG/HTML demo UI and typography; original synthesized UI sounds. No downloaded media.",
+      "toolNeeds": [
+        "Existing motion-design renderer",
+        "FFmpeg audio synthesis/mix"
+      ],
+      "qualityChecks": [
+        "Approval transition must be legible",
+        "End card stays visible 2 seconds",
+        "Never imply demo UI is a real customer product"
+      ],
+      "productionBatch": "batch-01"
+    },
+    {
+      "id": "useful-02-modular-desk",
+      "title": "Show How a Product Fits Together",
+      "category": "Motion Design",
+      "description": "A 3D assembly film turns an everyday product’s parts into its main selling point.",
+      "audiences": [
+        "Designers",
+        "Marketers",
+        "Founders"
+      ],
+      "useCases": [
+        "Product launches",
+        "Ecommerce",
+        "Product explainers"
+      ],
+      "technique": "3d",
+      "duration": 20,
+      "orientation": "landscape",
+      "aspect": "16:9",
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/ahujasid/mcp-for-blender",
+      "promptSource": "Original Video Use brief inspired by MCP for Blender’s MIT-licensed studio-lighting and low-poly furniture prompts.",
+      "sourceFile": "https://github.com/ahujasid/mcp-for-blender#example-commands",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/ahujasid/mcp-for-blender/blob/main/LICENSE",
+      "sourceConcept": "Create low-poly furniture, control materials, set studio lighting and an isometric camera; adapted into a functional product assembly story.",
+      "batch": 1,
+      "prompt": "Use Video Use to make a 20-second 1920×1080 true 3D product film for Pebble, a fictional modular desktop organizer. Model an original soft-cornered tray, a pen cup and a phone rest from clean primitive geometry. Start with the three modules slightly separated over a warm studio surface; the camera makes a slow three-quarter arc so the real depth and contact shadows are clear. The pieces slide and seat into the tray one at a time. Label the corresponding benefits only when visible: “A place for the small things”, “Your tools within reach”, “A little room to focus”. Finish with the assembled organizer, a restrained 25-degree turn and “Pebble / Make space for your day”. Use matte terracotta, oat and charcoal, a large soft key light, realistic shadows, gentle bevels and quiet tactile sound accents. Keep labels as crisp post-composited type. No fake specifications, impossible joins or aimless orbiting. Hold the finished product for the last 3 seconds. Use Video Use and its current production helpers to create the finished video and editable source. Keep typography large, all content inside safe areas, and camera motion motivated by the message. Review representative rendered frames and the opening and ending before delivery. Use only original geometry, demo interfaces, and licensed assets. All company names and numbers in this example are fictional demonstration content.",
+      "assetPlan": "Original Three.js primitive meshes and studio lighting using the existing Video Use 3D runtime; no imported models or asset packs.",
+      "toolNeeds": [
+        "Existing Three.js true 3D renderer",
+        "FFmpeg compositing for typography"
+      ],
+      "qualityChecks": [
+        "Actual geometry and changing perspective, not flat fake 3D",
+        "No module intersections in assembled frame",
+        "Contact shadows visible",
+        "Labels do not intersect the model"
+      ],
+      "productionBatch": "batch-01"
+    },
+    {
+      "id": "useful-03-lead-routing",
+      "title": "Explain a Team Workflow",
+      "category": "Explainers",
+      "description": "Make a complex handoff understandable with one animated, end-to-end example.",
+      "audiences": [
+        "Product teams",
+        "Founders",
+        "Educators"
+      ],
+      "useCases": [
+        "Product explainers",
+        "Onboarding",
+        "Training"
+      ],
+      "technique": "diagrams",
+      "duration": 24,
+      "orientation": "landscape",
+      "aspect": "16:9",
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/motion-canvas/motion-canvas",
+      "promptSource": "Original Video Use scenario adapted from Motion Canvas’s MIT-licensed animated layout examples.",
+      "sourceFile": "https://github.com/motion-canvas/motion-canvas/blob/main/packages/examples/src/scenes/layout.tsx",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/motion-canvas/motion-canvas/blob/main/LICENSE",
+      "sourceConcept": "Animate a structured layout while preserving spatial relationships; use semantic state and directed movement to explain a process.",
+      "batch": 1,
+      "prompt": "Use Video Use to create a 24-second 1920×1080 workflow explainer for a fictional studio called Northstar. Show how a new enquiry becomes an assigned next step: Form submitted → Check service → Assign owner → Send reply. Use one persistent orange enquiry card labelled “Website redesign”; move it through the connected diagram rather than replacing the entire page each scene. Briefly branch at Check service into Brand / Web, then highlight Web and mute the other branch. Show “Maya” as the assigned owner and a concise drafted reply, “Thanks—Maya will be in touch”. Conclude by zooming back to the full path with “Every enquiry has a next step”. Use an off-white drawing surface, dark ink, generous spacing, simple arrow geometry, deliberate line draws and a single orange signal color. Each state must be readable and causally connected. Use quiet motion accents and no voiceover. The diagram should be useful for explaining any team handoff after replacing the labels. Use Video Use and its current production helpers to create the finished video and editable source. Keep typography large, all content inside safe areas, and camera motion motivated by the message. Review representative rendered frames and the opening and ending before delivery. Use only original geometry, demo interfaces, and licensed assets. All company names and numbers in this example are fictional demonstration content.",
+      "assetPlan": "Original diagram nodes, arrow geometry and a fictional enquiry record. No external assets.",
+      "toolNeeds": [
+        "Existing Manim or motion-design renderer",
+        "Text measurement / wrap safe areas"
+      ],
+      "qualityChecks": [
+        "Arrow direction and branch choice remain unambiguous",
+        "Persistent enquiry card is visible in each step",
+        "Full path visible in final teaching frame"
+      ],
+      "productionBatch": "batch-01"
+    },
+    {
+      "id": "useful-04-monthly-report",
+      "title": "Turn Metrics into a Story",
+      "category": "Explainers",
+      "description": "Make a monthly update that shows the change, explains it, and names the next action.",
+      "audiences": [
+        "Founders",
+        "Marketers",
+        "Product teams"
+      ],
+      "useCases": [
+        "Reports",
+        "Social content",
+        "Data stories"
+      ],
+      "technique": "diagrams",
+      "duration": 24,
+      "orientation": "square",
+      "aspect": "1:1",
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/ManimCommunity/manim",
+      "promptSource": "Original Video Use brief and visual explanation. Geometry, annotation and chart ideas informed by Manim Community examples (MIT).",
+      "sourceFile": "https://github.com/ManimCommunity/manim/blob/main/manim/mobject/graphing/probability.py",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/ManimCommunity/manim/blob/main/LICENSE",
+      "sourceConcept": "General chart/geometry/annotation techniques. The subject, dataset, pedagogical sequence and visual direction were authored for this example; no upstream scene body was copied by research.",
+      "batch": 1,
+      "prompt": "Use Video Use to produce a 24-second 1080×1080 monthly business update for fictional company Fieldnote. Use this exact demonstration dataset: trial signups July 240, August 320, September 400; paid conversions July 48, August 64, September 100. Open on “September, at a glance”. Build a three-month signup bar chart with a fixed zero baseline; grow the bars to their true relative heights. Highlight 320 → 400 and “Signups +25%”. Then transform into a conversion-rate view: 20%, 20%, 25%, with “Conversion +5 percentage points”. End with a small action card: “Next: improve the first-session checklist”. Use forest green, cream and a warm orange highlight, precise chart labels, short clean transitions, and no finance-dashboard clutter. Keep “Illustrative data” quietly visible. Let the strongest chart hold long enough to read. No fabricated causal claim or implied real customer results. Use Video Use and its current production helpers to create the finished video and editable source. Keep typography large, all content inside safe areas, and camera motion motivated by the message. Review representative rendered frames and the opening and ending before delivery. Use only original geometry, demo interfaces, and licensed assets. All company names and numbers in this example are fictional demonstration content.",
+      "assetPlan": "Original charts from explicit fictional CSV-equivalent values; original sound accents optional.",
+      "toolNeeds": [
+        "Existing Manim graph / chart support",
+        "FFmpeg final assembly"
+      ],
+      "qualityChecks": [
+        "25 percent signup growth calculated from320to400",
+        "Conversion is +5 percentage points, not +5 percent",
+        "Bar heights use shared zero baseline",
+        "All data explicitly illustrative",
+        "Signup bars share a true zero baseline and one scale; their heights are in3:4:5ratio.",
+        "Month labels remain chronological and attached to their own values during animation.",
+        "Conversion-rate view uses20%,20%,25%; do not reuse absolute signup bar heights without changing scale/units.",
+        "The August→September period is explicit when showing growth.",
+        "Illustrative data stays visible and readable; do not present these as real company results.",
+        "Final action is improve the first-session checklist, framed as a proposed next step, not a proven cause of the numbers.",
+        "Opening says September, at a glance; no one-minute claim in a24-second film.",
+        "Hold the settled chart and final action long enough to read at square-gallery playback size.",
+        "Keep the dataset in editable source and make derived percentages consistent with it.",
+        "A changed input should trigger a recalculation or an explicit manual update checklist; avoid hidden stale number strings."
+      ],
+      "productionStatus": "brief only; not rendered",
+      "productionBatch": "batch-02"
+    },
+    {
+      "id": "useful-05-screen-tutorial",
+      "title": "Make a Screen Recording Clear",
+      "category": "Video Edits",
+      "description": "Cut a slow screen recording into a focused tutorial with purposeful zooms and three clear steps.",
+      "audiences": [
+        "Product teams",
+        "Educators",
+        "Content creators"
+      ],
+      "useCases": [
+        "Tutorials",
+        "Onboarding",
+        "Training"
+      ],
+      "technique": "video-editing",
+      "duration": 24,
+      "orientation": "landscape",
+      "aspect": "16:9",
+      "promptKind": "Original prompt",
+      "batch": 2,
+      "sourceRepo": "https://github.com/veedstudio/open-edit",
+      "sourceFile": "https://github.com/veedstudio/open-edit/blob/main/.claude/skills/open-edit/SKILL.md",
+      "license": "Apache-2.0",
+      "licenseUrl": "https://github.com/veedstudio/open-edit/blob/main/LICENSE",
+      "sourceConcept": "Author a composition or edit source footage, inspect frames, cut/reframe, mix audio and retain editable source. The current verified source is SKILL.md; the search-index README prompt anchor is stale.",
+      "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled.",
+      "prompt": "Use Video Use to turn the supplied 45–60 second recording of a fictional Fieldnote workspace into a 24-second tutorial called “Share a project in three steps”. Keep the real screen recording as the main picture. Remove idle time, failed clicks and unnecessary pointer travel. Preserve the actual successful sequence: open Share, enter a teammate’s email, choose Can comment, send invite. Introduce only three step labels: “1 Open sharing”, “2 Choose access”, “3 Send the invite”. Use a restrained smooth crop to enlarge the active controls, returning to the full view for the confirmation. Make the selected permission legible; do not cover it with text or invent a UI response that did not occur. Use the original cursor and add a small highlight only when the click is otherwise hard to see. End on the successful invite with “Ready for feedback”. Use soft lavender and dark ink annotation graphics, no heavy transitions, and quiet click accents. For this showcase, create and record an original demo UI with deliberate pauses first, then edit that recorded video; label it as a demo app in the project notes. Execute the edit with the current Video Use helpers, keep the source media unchanged, and retain the EDL, overlays and editable source. Inspect the rendered cut boundaries, readability and ending before delivery. Use 30 ms audio fades at cut boundaries and composite captions last. Describe the supplied source footage and its credit honestly; do not imply Video Use generated the source footage.",
+      "assetPlan": "Record an original fictional HTML demo app to a raw source MP4; then create a separate Video Use EDL and final render from that source. No external accounts or private screen recordings.",
+      "toolNeeds": [
+        "Existing browser/HTML-to-video capture in container",
+        "Video Use render.py",
+        "Existing crop and graphics helpers"
+      ],
+      "qualityChecks": [
+        "Actual recorded source exists separately from final",
+        "Edits remove visible waiting time",
+        "Can comment permission remains readable",
+        "No fake UI event after recording"
+      ],
+      "productionStatus": "brief only; not rendered",
+      "productionBatch": "batch-02"
+    },
+    {
+      "id": "useful-06-fractions-lesson",
+      "title": "Teach a Visual Math Lesson",
+      "category": "Explainers",
+      "description": "Teach one idea clearly with a visual comparison and a final worked answer.",
+      "audiences": [
+        "Educators",
+        "Content creators"
+      ],
+      "useCases": [
+        "Lessons",
+        "Explainers",
+        "Training"
+      ],
+      "technique": "diagrams",
+      "duration": 26,
+      "orientation": "landscape",
+      "aspect": "16:9",
+      "promptKind": "Original prompt",
+      "batch": 2,
+      "sourceRepo": "https://github.com/ManimCommunity/manim",
+      "sourceFile": "https://github.com/ManimCommunity/manim/blob/main/docs/source/examples.rst",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/ManimCommunity/manim/blob/main/LICENSE",
+      "sourceConcept": "General chart/geometry/annotation techniques. The subject, dataset, pedagogical sequence and visual direction were authored for this example; no upstream scene body was copied by research.",
+      "promptSource": "Original Video Use brief and visual explanation. Geometry, annotation and chart ideas informed by Manim Community examples (MIT).",
+      "prompt": "Use Video Use to make a 26-second 1920×1080 classroom explainer answering “Which is larger: 2/3 or 3/4?” Draw two exactly equal-length horizontal bars. Split the upper bar into thirds and fill two; split the lower into fourths and fill three. Align their left edges so the filled lengths can be compared. Then subdivide both into twelfths without changing their widths: 2/3 becomes 8/12 and 3/4 becomes 9/12. Isolate the single extra twelfth in warm coral and end on “3/4 is larger by 1/12”. Use a warm white canvas, navy labels, teal fills and coral only for the difference. Keep mathematical meaning attached to the moving geometry rather than switching to a text slide. Use gentle line drawing and precise label placement; leave the final annotated comparison visible for 4 seconds. No voiceover is needed because each step is visibly explained. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
+      "assetPlan": "Original vector fraction bars and text. No external data or media.",
+      "toolNeeds": [
+        "Existing Manim engine",
+        "Existing frame-safe text/layout helpers"
+      ],
+      "qualityChecks": [
+        "Bars have identical total width",
+        "8 and9 shaded twelfths are counted correctly",
+        "Final difference is1/12",
+        "Labels remain next to correct bars",
+        "Both bars have identical total length and aligned left/right endpoints in every settled state.",
+        "Initial upper bar shows2of3equal parts; lower shows3of4equal parts.",
+        "Subdivision keeps filled physical lengths unchanged: each third becomes4twelfths; each quarter becomes3twelfths.",
+        "Exactly8upper twelfths and9lower twelfths are filled.",
+        "The highlighted difference spans exactly one twelfth of the whole bar, between8/12and9/12.",
+        "Final labels pair2/3with8/12and3/4with9/12; no numerator/denominator swaps.",
+        "End states both that3/4is larger and that the difference is1/12.",
+        "Keep the final annotated comparison visible for the requested4seconds, not just a single end frame.",
+        "Labels remain tied to geometry; all symbols render cleanly and stay inside the safe area.",
+        "Geometry should derive from one common whole width.",
+        "Cell count and shade count must agree with labels; check the final encoded frame, not only authored source."
+      ],
+      "productionStatus": "brief only; not rendered",
+      "productionBatch": "batch-02"
+    },
+    {
+      "id": "useful-07-workshop-invite",
+      "title": "Invite People to a Workshop",
+      "category": "Motion Design",
+      "description": "Make a mobile-first event announcement with a useful promise and a readable invitation.",
+      "audiences": [
+        "Educators",
+        "Marketers",
+        "Content creators"
+      ],
+      "useCases": [
+        "Event promotion",
+        "Social content",
+        "Courses"
+      ],
+      "technique": "motion-design",
+      "duration": 18,
+      "orientation": "portrait",
+      "aspect": "9:16",
+      "promptKind": "Original prompt",
+      "batch": 2,
+      "sourceRepo": "https://github.com/veedstudio/open-edit",
+      "sourceFile": "https://github.com/veedstudio/open-edit/blob/main/.claude/skills/open-edit/SKILL.md",
+      "license": "Apache-2.0",
+      "licenseUrl": "https://github.com/veedstudio/open-edit/blob/main/LICENSE",
+      "sourceConcept": "Author a composition or edit source footage, inspect frames, cut/reframe, mix audio and retain editable source. The current verified source is SKILL.md; the search-index README prompt anchor is stale.",
+      "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled.",
+      "prompt": "Use Video Use to create an 18-second 1080×1920 social invitation for a fictional workshop called “Make Your First Mini Documentary”. Build the story from three original paper-like scene frames: a notebook outline, a simple shot list, and a tidy three-clip edit timeline. The copy is “A story worth telling”, then “Plan it. Shoot it. Shape it.” End with “Mini Documentary Lab / Saturday, 10 AM / Bring your phone”. Use a cobalt blue background, cream serif headlines, lime accent tape and clean sans-serif event details. Let the three scene frames form one editorial collage instead of a stack of generic cards. Keep the important event details on screen for the last 4 seconds. Use original paper rustles or quiet clicks if helpful. Include “Example event” discreetly so the showcase is not mistaken for a real scheduled workshop. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
+      "assetPlan": "Original notebook, shot-list and timeline graphics. Original percussive accents.",
+      "toolNeeds": [
+        "Existing motion-design renderer",
+        "FFmpeg mix"
+      ],
+      "qualityChecks": [
+        "Event details fit mobile safe areas",
+        "Last card readable for4seconds",
+        "No real signup or date claim",
+        "Original rather than stock document artwork"
+      ],
+      "productionStatus": "brief only; not rendered",
+      "productionBatch": "batch-02"
+    },
+    {
+      "id": "useful-08-refill-product",
+      "title": "Explain a Product Benefit in 3D",
+      "category": "Motion Design",
+      "description": "Show a useful physical interaction so customers understand a product without a paragraph of copy.",
+      "audiences": [
+        "Marketers",
+        "Designers",
+        "Founders"
+      ],
+      "useCases": [
+        "Ecommerce",
+        "Product explainers",
+        "Social content"
+      ],
+      "technique": "3d",
+      "duration": 22,
+      "orientation": "square",
+      "aspect": "1:1",
+      "promptKind": "Original prompt",
+      "batch": 2,
+      "sourceRepo": "https://github.com/ahujasid/mcp-for-blender",
+      "sourceFile": "https://github.com/ahujasid/mcp-for-blender#example-commands",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/ahujasid/mcp-for-blender/blob/main/LICENSE",
+      "sourceConcept": "Original primitive modeling, materials, studio lights and isometric camera vocabulary. The new product/story and geometry are not copied from an upstream asset or paid pack.",
+      "promptSource": "Original Video Use brief and 3D scene. Modeling, studio-lighting and isometric-camera ideas inspired by MCP for Blender (MIT); built with Video Use’s selected runtime.",
+      "prompt": "Use Video Use to create a 22-second 1080×1080 true 3D product film for Moss, a fictional refillable hand-soap dispenser. Model the dispenser, removable top and refill pouch as original simple geometry. Begin on the complete bottle. The cap gently unscrews and rises; the pouch approaches the open neck and a short stylized stream shows a refill. Return the cap to the correct position and settle on the complete object. Pair each action with only one phrase: “Keep the bottle”, “Add a refill”, “Back to the sink”. End with “Moss / A simple refill ritual”. Use a pale sage studio, warm off-white bottle, forest-green pump and softly rounded geometry. The changing camera angle, shadows and occlusion must show real three-dimensional form. Avoid unsupported waste-reduction percentages, photoreal claims or invisible liquid physics. Use the existing documented 3D runtime and composite crisp type over the render. Hold the final product for 3 seconds. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
+      "assetPlan": "Original Three.js meshes and stylized geometric liquid; no imported brands or physical performance claims.",
+      "toolNeeds": [
+        "Existing Three.js renderer",
+        "FFmpeg typography composite"
+      ],
+      "qualityChecks": [
+        "Bottle opening and cap align",
+        "Pouch and stream do not pass through bottle",
+        "True geometry and shadows",
+        "No invented sustainability statistics"
+      ],
+      "productionStatus": "brief only; not rendered",
+      "productionBatch": "batch-03"
+    },
+    {
+      "id": "useful-09-cafe-promo",
+      "title": "Edit a Local Business Promo",
+      "category": "Video Edits",
+      "description": "Turn three everyday footage clips into a focused café announcement.",
+      "audiences": [
+        "Marketers",
+        "Content creators",
+        "Founders"
+      ],
+      "useCases": [
+        "Social content",
+        "Local business",
+        "Ads"
+      ],
+      "technique": "video-editing",
+      "duration": 20,
+      "orientation": "portrait",
+      "aspect": "9:16",
+      "promptKind": "Original prompt",
+      "batch": 3,
+      "sourceRepo": "https://github.com/veedstudio/open-edit",
+      "sourceFile": "https://github.com/veedstudio/open-edit/blob/main/.claude/skills/open-edit/SKILL.md",
+      "license": "Apache-2.0",
+      "licenseUrl": "https://github.com/veedstudio/open-edit/blob/main/LICENSE",
+      "sourceConcept": "Author a composition or edit source footage, inspect frames, cut/reframe, mix audio and retain editable source. The current verified source is SKILL.md; the search-index README prompt anchor is stale.",
+      "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled.",
+      "prompt": "Use Video Use to edit the supplied licensed coffee footage into a 20-second 1080×1920 social promo for a fictional café called Sunday Coffee. Build a tactile sequence from falling beans, espresso preparation and the finished pour. Choose the most useful moments by watching the actual clips, crop each shot to protect the cup and hands, and cut on the completion of each action. Keep the first two seconds visually immediate. Add restrained cream typography: “A little pause”, “Made properly”, then “Sunday Coffee / Your morning starts here”. Use a subtle warm corrective grade that keeps the coffee natural, quiet café room tone if available and a light original rhythmic bed. Avoid exaggerated speed ramps, fake discount offers or claims about the stock café. Finish with a clean 3-second title card over a real coffee detail. The gallery description must say the business is fictional and the footage is licensed stock. Execute the edit with the current Video Use helpers, keep the source media unchanged, and retain the EDL, overlays and editable source. Inspect the rendered cut boundaries, readability and ending before delivery. Use 30 ms audio fades at cut boundaries and composite captions last. Describe the supplied source footage and its credit honestly; do not imply Video Use generated the source footage.",
+      "assetPlan": "Three Mixkit coffee clips, each explicitly licensed for commercial and personal reuse on its own item page. Public720p source renditions verified; crop carefully and do not describe output as native4K.",
+      "toolNeeds": [
+        "Video Use render.py",
+        "Existing per-range reframing",
+        "FFmpeg grade and mix"
+      ],
+      "qualityChecks": [
+        "Cup and hands remain inside vertical crop",
+        "Real action continuity at cuts",
+        "Fictional business clearly documented",
+        "Footage source credited",
+        "No aggressive grade clipping"
+      ],
+      "productionStatus": "brief only; not rendered",
+      "sourceAssets": [
+        {
+          "title": "Coffee beans",
+          "page": "https://mixkit.co/free-stock-video/coffee-beans-235/",
+          "url": "https://assets.mixkit.co/videos/235/235-1080.mp4",
+          "license": "Mixkit Stock Video Free License",
+          "licenseUrl": "https://mixkit.co/license/#videoFree",
+          "credit": "Stock footage: Mixkit",
+          "verifiedHttpStatus": 200
+        },
+        {
+          "title": "Coffee is served in a cup",
+          "page": "https://mixkit.co/free-stock-video/coffee-is-served-in-a-cup-3573/",
+          "url": "https://assets.mixkit.co/videos/3573/3573-1080.mp4",
+          "license": "Mixkit Stock Video Free License",
+          "licenseUrl": "https://mixkit.co/license/#videoFree",
+          "credit": "Stock footage: Mixkit",
+          "verifiedHttpStatus": 200
+        },
+        {
+          "title": "Serving an espresso in a cup of a coffee pot",
+          "page": "https://mixkit.co/free-stock-video/serving-an-espresso-in-a-cup-of-a-coffee-pot-3575/",
+          "url": "https://assets.mixkit.co/videos/3575/3575-1080.mp4",
+          "license": "Mixkit Stock Video Free License",
+          "licenseUrl": "https://mixkit.co/license/#videoFree",
+          "credit": "Stock footage: Mixkit",
+          "verifiedHttpStatus": 200
+        }
+      ],
+      "productionBatch": "batch-03"
+    },
+    {
+      "id": "useful-10-welcome-flow",
+      "title": "Create a Customer Onboarding Video",
+      "category": "Motion Design",
+      "description": "Guide a new customer from an empty workspace to their first useful result.",
+      "audiences": [
+        "Product teams",
+        "Founders",
+        "Educators"
+      ],
+      "useCases": [
+        "Onboarding",
+        "Tutorials",
+        "Product explainers"
+      ],
+      "technique": "motion-design",
+      "duration": 24,
+      "orientation": "landscape",
+      "aspect": "16:9",
+      "promptKind": "Original prompt",
+      "batch": 3,
+      "sourceRepo": "https://github.com/instavar/remotion-templates",
+      "sourceFile": "https://github.com/instavar/remotion-templates/blob/main/examples/announcement-brief.video.json",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/instavar/remotion-templates/blob/main/LICENSE",
+      "sourceConcept": "Generic announcement sequence: introduce a question, show a mechanism, show the outcome and a next action. No source JSON or scene code is included by this research.",
+      "promptSource": "Original Video Use brief and implementation. Story structure inspired by Instavar Remotion Templates (MIT); fictional content and visual direction are new.",
+      "prompt": "Use Video Use to create a 24-second 1920×1080 welcome film for the fictional planning app Trail. The viewer should learn the first three things to do after joining. Start with an empty project titled “Spring launch”. Show a task being created, a teammate assigned, and a due date selected. Keep one continuous workspace on screen and move the camera only enough to read each action. The on-screen instruction copy is “Add the next task”, “Give it an owner”, “Set a clear date”. Finish with the populated board and “Your plan is ready to move”. Design an original clean UI with warm ivory, charcoal and saturated blue. Use the same task throughout so the viewer can follow the change. No floating abstract spheres, feature grids or unrelated promo language. The final completed state should be visible for 3 seconds. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
+      "assetPlan": "Original fictional planning-app UI and a single task record; original cursor and click sounds.",
+      "toolNeeds": [
+        "Existing HTML/motion-design renderer",
+        "Existing text-safe layout"
+      ],
+      "qualityChecks": [
+        "Same task persists across all3actions",
+        "Instructions match visible control actions",
+        "Readability at half-size",
+        "No existing product UI copied"
+      ],
+      "productionStatus": "brief only; not rendered",
+      "productionBatch": "batch-03"
+    },
+    {
+      "id": "useful-11-retry-webhook",
+      "title": "Explain a Technical Architecture",
+      "category": "Explainers",
+      "description": "Show a delivery failure and recovery path in an architecture diagram.",
+      "audiences": [
+        "Product teams",
+        "Educators",
+        "Content creators"
+      ],
+      "useCases": [
+        "Technical explainers",
+        "Documentation",
+        "Training"
+      ],
+      "technique": "diagrams",
+      "duration": 26,
+      "orientation": "landscape",
+      "aspect": "16:9",
+      "promptKind": "Original prompt",
+      "batch": 3,
+      "sourceRepo": "https://github.com/motion-canvas/motion-canvas",
+      "sourceFile": "https://github.com/motion-canvas/motion-canvas/blob/main/packages/examples/src/scenes/layout.tsx",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/motion-canvas/motion-canvas/blob/main/LICENSE",
+      "sourceConcept": "Structured layout or code highlighting as explanation; original scenario and implementation to be authored with Video Use rather than porting upstream scene code.",
+      "promptSource": "Original Video Use brief and implementation. Animated layout/code-selection ideas informed by Motion Canvas examples (MIT).",
+      "prompt": "Use Video Use to create a 26-second 1920×1080 technical explainer titled “When a webhook fails”. Draw a stable left-to-right path: App → Queue → Receiver. Send one event token labelled order.paid. On the first delivery, show the Receiver returning 503; keep the event in the Queue. Display “Retry later” with a small clock, then deliver again and show 200 OK. Move the token into a Delivered state only after success. Reveal the short takeaway “A queue keeps the event until delivery succeeds”. Use a deep navy background, soft white labels, mint success and amber retry. Explain only this simplified flow; do not claim retries guarantee exactly-once delivery. Let arrows draw along their real paths and use a consistent event identity across every state. End with the full successful path visible for 3 seconds and a quiet footnote “Simplified delivery flow”. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
+      "assetPlan": "Original diagram and event state machine. No external systems, endpoints or APIs are called.",
+      "toolNeeds": [
+        "Existing Manim or motion-design renderer",
+        "Arrow routing and text-safe helpers"
+      ],
+      "qualityChecks": [
+        "Event is not lost after503",
+        "Delivered appears only after200OK",
+        "Retry path is directional and readable",
+        "No exactly-once guarantee"
+      ],
+      "productionStatus": "brief only; not rendered",
+      "productionBatch": "batch-03"
+    },
+    {
+      "id": "useful-12-research-summary",
+      "title": "Present Research Findings Clearly",
+      "category": "Explainers",
+      "description": "Turn a small study into a transparent visual summary with context and limitations.",
+      "audiences": [
+        "Educators",
+        "Product teams",
+        "Designers"
+      ],
+      "useCases": [
+        "Research summaries",
+        "Reports",
+        "Data stories"
+      ],
+      "technique": "diagrams",
+      "duration": 25,
+      "orientation": "square",
+      "aspect": "1:1",
+      "promptKind": "Original prompt",
+      "batch": 3,
+      "sourceRepo": "https://github.com/ManimCommunity/manim",
+      "sourceFile": "https://github.com/ManimCommunity/manim/blob/main/manim/mobject/graphing/probability.py",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/ManimCommunity/manim/blob/main/LICENSE",
+      "sourceConcept": "General chart/geometry/annotation techniques. The subject, dataset, pedagogical sequence and visual direction were authored for this example; no upstream scene body was copied by research.",
+      "promptSource": "Original Video Use brief and visual explanation. Geometry, annotation and chart ideas informed by Manim Community examples (MIT).",
+      "prompt": "Use Video Use to make a 25-second 1080×1080 visual research summary for a fictional usability study. Use exactly this illustrative dataset: Prototype A,18 of 24 participants completed the task; Prototype B,21 of 24 completed it. Start with “Can people finish the task?” Show two grids of 24 equal dots, filling 18 then 21, with success counts and 75% versus 87.5%. Highlight the difference as “3 more completions in this sample”. Briefly show a compact study card: “Same task /24 participants per version /Illustrative results”. End with “Next: test the confusing step” and a persistent note “Small sample; no significance claim”. Use white, ink and a calm periwinkle accent with consistent scaling and no misleading truncated charts. Animate the actual count, not arbitrary decorative counters. Let viewers inspect both groups at the same time. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
+      "assetPlan": "Explicit fictional study data; original24-dot grids and labels.",
+      "toolNeeds": [
+        "Existing Manim chart/geometry support",
+        "Text layout"
+      ],
+      "qualityChecks": [
+        "Each group has24dots",
+        "Counts18and21matchpercentages75and87.5",
+        "No causal or statistical significance claim",
+        "Notes readable in square format"
+      ],
+      "productionStatus": "brief only; not rendered",
+      "productionBatch": "batch-04"
+    },
+    {
+      "id": "useful-13-launch-highlights",
+      "title": "Cut an Event Highlight",
+      "category": "Video Edits",
+      "description": "Find the defining moments in a long event clip and make a concise vertical recap.",
+      "audiences": [
+        "Content creators",
+        "Educators",
+        "Marketers"
+      ],
+      "useCases": [
+        "Event recaps",
+        "Social content",
+        "Science communication"
+      ],
+      "technique": "video-editing",
+      "duration": 24,
+      "orientation": "portrait",
+      "aspect": "9:16",
+      "promptKind": "Original prompt",
+      "batch": 4,
+      "sourceRepo": "https://github.com/veedstudio/open-edit",
+      "sourceFile": "https://github.com/veedstudio/open-edit/blob/main/.claude/skills/open-edit/SKILL.md",
+      "license": "Apache-2.0",
+      "licenseUrl": "https://github.com/veedstudio/open-edit/blob/main/LICENSE",
+      "sourceConcept": "Author a composition or edit source footage, inspect frames, cut/reframe, mix audio and retain editable source. The current verified source is SKILL.md; the search-index README prompt anchor is stale.",
+      "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled.",
+      "prompt": "Use Video Use to edit NASA’s public Artemis I press-site footage into a 24-second 1080×1920 factual launch recap. Inspect the full source and choose three useful moments: anticipation before ignition, liftoff, and the rocket climbing into the sky. Preserve the chronological order and the real launch sound when it is clean. Reframe each shot to keep the rocket and its plume visible; use a restrained movement only when the subject rises out of frame. The copy is “Artemis I”, “16 November 2022”, “From the launchpad toward the Moon”. Keep overlay text minimal so the event remains the focus. End with a 3-second view of the ascent and the credit “Footage: NASA /Edited excerpt”. Do not add unrelated space imagery, invented radio dialogue, background music with unclear rights, or any suggestion that NASA endorses Video Use. This is an editorial science recap example. Execute the edit with the current Video Use helpers, keep the source media unchanged, and retain the EDL, overlays and editable source. Inspect the rendered cut boundaries, readability and ending before delivery. Use 30 ms audio fades at cut boundaries and composite captions last. Describe the supplied source footage and its credit honestly; do not imply Video Use generated the source footage.",
+      "assetPlan": "NASA Artemis I press-site raw footage; official metadata confirms November16,2022 launch from Kennedy Space Center. Medium MP4 verified accessible, approximately100MB. Use factual informational treatment.",
+      "toolNeeds": [
+        "Video Use render.py",
+        "Existing per-range reframing",
+        "FFmpeg audio trimming and normalization"
+      ],
+      "qualityChecks": [
+        "Real ascent remains chronological",
+        "Vertical crop does not lose rocket",
+        "Date matches official metadata",
+        "Source credit visible",
+        "No fabricated radio or endorsement"
+      ],
+      "productionStatus": "brief only; not rendered",
+      "sourceAssets": [
+        {
+          "title": "Artemis I Launch (Press Site)",
+          "page": "https://images.nasa.gov/details/Artemis%20I%20Launch%202022%20CU%20tracking%20from%20Press%20Site_compressed",
+          "url": "https://images-assets.nasa.gov/video/Artemis%20I%20Launch%202022%20CU%20tracking%20from%20Press%20Site_compressed/Artemis%20I%20Launch%202022%20CU%20tracking%20from%20Press%20Site_compressed~medium.mp4",
+          "metadataUrl": "https://images-assets.nasa.gov/video/Artemis%20I%20Launch%202022%20CU%20tracking%20from%20Press%20Site_compressed/metadata.json",
+          "license": "NASA media usage guidelines; NASA-created factual editorial footage",
+          "licenseUrl": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+          "credit": "Footage: NASA. Edited excerpt. No NASA endorsement.",
+          "verifiedHttpStatus": 200,
+          "verifiedBytes": 100385320,
+          "rightsNote": "Use only factual editorial launch views; avoid prominent employee likenesses or logos in promotional cover art. No claim of NASA endorsement."
+        }
+      ],
+      "productionBatch": "batch-04"
+    },
+    {
+      "id": "useful-14-campaign-announcement",
+      "title": "Build a Reusable Campaign Ad",
+      "category": "Motion Design",
+      "description": "Promote one clear offer with brand-consistent motion and a readable next step.",
+      "audiences": [
+        "Marketers",
+        "Founders",
+        "Designers"
+      ],
+      "useCases": [
+        "Ads",
+        "Social content",
+        "Brand campaigns"
+      ],
+      "technique": "motion-design",
+      "duration": 20,
+      "orientation": "portrait",
+      "aspect": "4:5",
+      "promptKind": "Original prompt",
+      "batch": 4,
+      "sourceRepo": "https://github.com/veedstudio/open-edit",
+      "sourceFile": "https://github.com/veedstudio/open-edit/blob/main/.claude/skills/open-edit/SKILL.md",
+      "license": "Apache-2.0",
+      "licenseUrl": "https://github.com/veedstudio/open-edit/blob/main/LICENSE",
+      "sourceConcept": "Author a composition or edit source footage, inspect frames, cut/reframe, mix audio and retain editable source. The current verified source is SKILL.md; the search-index README prompt anchor is stale.",
+      "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled.",
+      "prompt": "Use Video Use to create a 20-second 1080×1350 campaign film for the fictional repair studio Second Life. Show an original illustrated desk lamp with a bent shade and loose cable; small parts align and the bulb turns on, making the service visible. Copy: “Keep the things you love”, then “Small repairs. Longer stories.” Finish with “Second Life /Book a repair assessment”. Use cream, tomato red and charcoal, editorial serif headlines and a simple tactile cut-paper visual treatment. Integrate the lettering with the repair action rather than placing a paragraph beside it. Keep the actual final service offer readable for 4 seconds. No fabricated before-and-after customer evidence, environmental savings figures or discount pricing. Include “Fictional studio” quietly in the project notes and gallery description. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
+      "assetPlan": "Original lamp illustration and articulated vector parts; no real service or customer images.",
+      "toolNeeds": [
+        "Existing motion-design renderer",
+        "Original vector artwork",
+        "FFmpeg sound mix"
+      ],
+      "qualityChecks": [
+        "Service benefit visible without sound",
+        "Broken/repaired states understandable",
+        "CTA clear for4seconds",
+        "No fabricated metrics or endorsements"
+      ],
+      "productionStatus": "brief only; not rendered",
+      "productionBatch": "batch-04"
+    },
+    {
+      "id": "useful-15-venue-wayfinding",
+      "title": "Show Visitors Where to Go",
+      "category": "Motion Design",
+      "description": "Use a simple spatial model to help attendees understand a venue before they arrive.",
+      "audiences": [
+        "Marketers",
+        "Designers",
+        "Educators"
+      ],
+      "useCases": [
+        "Event promotion",
+        "Onboarding",
+        "Wayfinding"
+      ],
+      "technique": "3d",
+      "duration": 24,
+      "orientation": "landscape",
+      "aspect": "16:9",
+      "promptKind": "Original prompt",
+      "batch": 4,
+      "sourceRepo": "https://github.com/ahujasid/mcp-for-blender",
+      "sourceFile": "https://github.com/ahujasid/mcp-for-blender#example-commands",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/ahujasid/mcp-for-blender/blob/main/LICENSE",
+      "sourceConcept": "Original primitive modeling, materials, studio lights and isometric camera vocabulary. The new product/story and geometry are not copied from an upstream asset or paid pack.",
+      "promptSource": "Original Video Use brief and 3D scene. Modeling, studio-lighting and isometric-camera ideas inspired by MCP for Blender (MIT); built with Video Use’s selected runtime.",
+      "prompt": "Use Video Use to create a 24-second 1920×1080 true 3D orientation film for a fictional event venue called The Workshop House. Build an original simplified floor plan in three-dimensional geometry with an entrance, welcome desk, central studio and coffee corner. Use an isometric three-quarter camera and a soft cream floor. Animate one amber route line from the entrance to the welcome desk, then to the studio; briefly point out the coffee corner as an optional stop. Label spaces with crisp post-composited type. Copy: “Start here”, “Check in”, “Make yourself at home”. End with a clear overview of the entire route and “The Workshop House /Find your first stop”. Use pale lavender walls, dark ink furniture and warm amber navigation. Keep walls low or partially transparent so the route is not occluded. This is a conceptual venue example, not directions to a real address or a fire-exit map. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
+      "assetPlan": "Original Three.js floor-plan geometry, furniture primitives and route line. No real architectural plans.",
+      "toolNeeds": [
+        "Existing Three.js renderer",
+        "3D camera and projected label positioning",
+        "FFmpeg typography composite"
+      ],
+      "qualityChecks": [
+        "Route remains continuous and unobstructed",
+        "Destination labels match spaces",
+        "No invented real address or safety map",
+        "Final overview readable"
+      ],
+      "productionStatus": "brief only; not rendered",
+      "productionBatch": "batch-04"
+    },
+    {
+      "id": "useful-16-room-walkthrough",
+      "title": "Polish a Room Walkthrough",
+      "category": "Video Edits",
+      "description": "Turn an unhurried room pan into a concise, inviting tour with useful visual labels.",
+      "audiences": [
+        "Marketers",
+        "Content creators",
+        "Designers"
+      ],
+      "useCases": [
+        "Property tours",
+        "Hospitality",
+        "Social content"
+      ],
+      "technique": "video-editing",
+      "duration": 22,
+      "orientation": "landscape",
+      "aspect": "16:9",
+      "promptKind": "Original prompt",
+      "batch": 4,
+      "sourceRepo": "https://github.com/veedstudio/open-edit",
+      "sourceFile": "https://github.com/veedstudio/open-edit/blob/main/.claude/skills/open-edit/SKILL.md",
+      "license": "Apache-2.0",
+      "licenseUrl": "https://github.com/veedstudio/open-edit/blob/main/LICENSE",
+      "sourceConcept": "Author a composition or edit source footage, inspect frames, cut/reframe, mix audio and retain editable source. The current verified source is SKILL.md; the search-index README prompt anchor is stale.",
+      "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled.",
+      "prompt": "Use Video Use to turn the supplied licensed 48-second room-and-terrace footage into a 22-second 1920×1080 hospitality walkthrough. Watch the source and choose a purposeful sequence of the visible bedroom, interior details and terrace view. Keep camera direction consistent, remove redundant panning, and use only gentle stabilization or reframing where it helps. Add restrained location labels only to details actually visible: “Rest”, “Room to unwind”, “A view outside”. Use warm neutral type, thin rules and natural daylight color correction. Finish on the terrace view with “A slower kind of stay”. Keep this an unbranded demonstration edit; do not invent an address, nightly price, room size or claims about amenities outside the frame. Credit the stock source in the gallery and project notes. Prefer calm editorial cuts to flashy transitions. Execute the edit with the current Video Use helpers, keep the source media unchanged, and retain the EDL, overlays and editable source. Inspect the rendered cut boundaries, readability and ending before delivery. Use 30 ms audio fades at cut boundaries and composite captions last. Describe the supplied source footage and its credit honestly; do not imply Video Use generated the source footage.",
+      "assetPlan": "Mixkit room-with-terrace clip4029,48seconds; item page explicitly permits commercial and personal reuse. Public MP4 verified accessible,14.7MB.",
+      "toolNeeds": [
+        "Video Use render.py",
+        "Existing crop and graphics helpers",
+        "FFmpeg corrective grade"
+      ],
+      "qualityChecks": [
+        "Selected details actually exist in footage",
+        "Cuts preserve direction or feel intentional",
+        "No property facts invented",
+        "Final view holds3seconds",
+        "Stock/demonstration credit retained"
+      ],
+      "productionStatus": "brief only; not rendered",
+      "sourceAssets": [
+        {
+          "title": "Interior of a room with terrace",
+          "page": "https://mixkit.co/free-stock-video/interior-of-a-room-with-terrace-4029/",
+          "url": "https://assets.mixkit.co/videos/4029/4029-1080.mp4",
+          "license": "Mixkit Stock Video Free License",
+          "licenseUrl": "https://mixkit.co/license/#videoFree",
+          "credit": "Stock footage: Mixkit. Demonstration edit; not a real listing.",
+          "verifiedHttpStatus": 200,
+          "verifiedBytes": 14745486
+        }
+      ],
+      "productionBatch": "batch-05"
+    },
+    {
+      "id": "useful-17-service-packages",
+      "title": "Explain Two Service Options",
+      "category": "Motion Design",
+      "description": "Help prospective customers choose a service by showing the difference in scope.",
+      "audiences": [
+        "Founders",
+        "Marketers",
+        "Designers"
+      ],
+      "useCases": [
+        "Sales enablement",
+        "Service explainers",
+        "Social content"
+      ],
+      "technique": "motion-design",
+      "duration": 22,
+      "orientation": "square",
+      "aspect": "1:1",
+      "promptKind": "Original prompt",
+      "batch": 5,
+      "sourceRepo": "https://github.com/instavar/remotion-templates",
+      "sourceFile": "https://github.com/instavar/remotion-templates#templates",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/instavar/remotion-templates/blob/main/LICENSE",
+      "sourceConcept": "Generic announcement sequence: introduce a question, show a mechanism, show the outcome and a next action. No source JSON or scene code is included by this research.",
+      "promptSource": "Original Video Use brief and implementation. Story structure inspired by Instavar Remotion Templates (MIT); fictional content and visual direction are new.",
+      "prompt": "Use Video Use to create a 22-second 1080×1080 service comparison for fictional design studio Form & Field. Show two options: “Starter /One landing page” and “Launch /Landing page +email kit +social kit”. Begin with a single page frame for Starter. Duplicate its design language into an email and two small social frames to reveal the Launch package. Keep the page, email and social views concrete, with original fictional content for a plant shop called Fern. Use a restrained editorial layout, parchment white, deep brown and fresh green accents. Ask visually “One page, or the whole launch?” End with both scopes visible and “Choose the support your launch needs”. No prices, discounts, fake ratings or urgency. Make this easy for a freelancer to reuse by swapping the service labels and deliverables. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
+      "assetPlan": "Original landing-page, email and social mockups; fictional service names and project content.",
+      "toolNeeds": [
+        "Existing motion-design renderer",
+        "Vector/HTML mockup composition"
+      ],
+      "qualityChecks": [
+        "The two scopes are visually distinct",
+        "Starter remains onepage",
+        "Launch includes all3deliverabletypes",
+        "Comparison readable in finalframe"
+      ],
+      "productionStatus": "brief only; not rendered",
+      "productionBatch": "batch-05"
+    },
+    {
+      "id": "useful-18-code-fix",
+      "title": "Explain a Small Code Fix",
+      "category": "Explainers",
+      "description": "Make a bug and its fix visible with an input, a changing code line, and the correct result.",
+      "audiences": [
+        "Educators",
+        "Product teams",
+        "Content creators"
+      ],
+      "useCases": [
+        "Developer education",
+        "Technical explainers",
+        "Tutorials"
+      ],
+      "technique": "diagrams",
+      "duration": 26,
+      "orientation": "landscape",
+      "aspect": "16:9",
+      "promptKind": "Original prompt",
+      "batch": 5,
+      "sourceRepo": "https://github.com/motion-canvas/motion-canvas",
+      "sourceFile": "https://github.com/motion-canvas/motion-canvas/blob/main/packages/examples/src/scenes/code.tsx",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/motion-canvas/motion-canvas/blob/main/LICENSE",
+      "sourceConcept": "Structured layout or code highlighting as explanation; original scenario and implementation to be authored with Video Use rather than porting upstream scene code.",
+      "promptSource": "Original Video Use brief and implementation. Animated layout/code-selection ideas informed by Motion Canvas examples (MIT).",
+      "prompt": "Use Video Use to make a 26-second 1920×1080 developer explainer called “Count the paid orders”. Show three sample orders: one pending and two paid. Start with the JavaScript line “const total = orders.length;” and the output 3. Highlight that the pending order is being counted. Replace the line with “const total = orders.filter(order => order.status === 'paid').length;” while visually filtering the pending row out. The corrected output becomes 2. Keep the code large enough to read; wrap the chained call across two lines if needed. Use a dark ink editor surface, soft lavender syntax accents and mint for the accepted rows. End with the two paid orders, the corrected code and “Filter first. Count second.” Use deliberate selection boxes and motion that follows the actual data flow. No fake terminal activity or scrolling walls of code. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
+      "assetPlan": "Original sample data and code illustration. Does not execute against any account or real order system.",
+      "toolNeeds": [
+        "Existing motion-design or Manim renderer",
+        "Measured monospace code layout"
+      ],
+      "qualityChecks": [
+        "Original count3andcorrectedcount2matchdata",
+        "Only pendingrowremoved",
+        "Code remains valid JavaScript",
+        "Linewrappingneverclips"
+      ],
+      "productionStatus": "brief only; not rendered",
+      "productionBatch": "batch-05"
+    },
+    {
+      "id": "useful-19-fulfilment-flow",
+      "title": "Show How an Order Moves",
+      "category": "Motion Design",
+      "description": "Use a miniature 3D scene to make a behind-the-scenes process easy to follow.",
+      "audiences": [
+        "Founders",
+        "Marketers",
+        "Product teams"
+      ],
+      "useCases": [
+        "Ecommerce",
+        "Process explainers",
+        "Training"
+      ],
+      "technique": "3d",
+      "duration": 24,
+      "orientation": "landscape",
+      "aspect": "16:9",
+      "promptKind": "Original prompt",
+      "batch": 5,
+      "sourceRepo": "https://github.com/ahujasid/mcp-for-blender",
+      "sourceFile": "https://github.com/ahujasid/mcp-for-blender#example-commands",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/ahujasid/mcp-for-blender/blob/main/LICENSE",
+      "sourceConcept": "Original primitive modeling, materials, studio lights and isometric camera vocabulary. The new product/story and geometry are not copied from an upstream asset or paid pack.",
+      "promptSource": "Original Video Use brief and 3D scene. Modeling, studio-lighting and isometric-camera ideas inspired by MCP for Blender (MIT); built with Video Use’s selected runtime.",
+      "prompt": "Use Video Use to create a 24-second 1920×1080 true 3D process film for fictional shop Parcel & Pine. Build a compact isometric packing bench using original geometry. Follow one small coral order box through three physical actions: a product goes into the box, a blank label is applied, and the sealed box moves to an outgoing tray. Pair the actions with crisp labels “Pack”, “Label”, “Ready to go”. Start with the whole bench, move closer for the packing action, and finish with a clear full-scene view. Use pale wood, soft sage, coral and warm studio light. Animate actual object motion and contact shadows; do not replace the story with icons floating in front of a flat wall. End on “Every order, handled with care”. No delivery-time guarantees, courier logos, customer addresses or invented real shipment tracking. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
+      "assetPlan": "Original Three.js bench, parcel, packing material and neutral label. No shipping APIs or stock models.",
+      "toolNeeds": [
+        "Existing Three.js renderer",
+        "FFmpeg post-composited labels"
+      ],
+      "qualityChecks": [
+        "Box is sameobjectthroughout",
+        "Packingandlabelapplywithoutgeometryintersections",
+        "Oneclearprocessstepatatime",
+        "No shippingguaranteesoraddresses"
+      ],
+      "productionStatus": "brief only; not rendered",
+      "productionBatch": "batch-05"
+    },
+    {
+      "id": "useful-20-science-broll",
+      "title": "Turn B-roll into an Explainer",
+      "category": "Video Edits",
+      "description": "Give long-form B-roll a short, understandable story using careful selects and factual labels.",
+      "audiences": [
+        "Educators",
+        "Content creators",
+        "Marketers"
+      ],
+      "useCases": [
+        "Science communication",
+        "Explainers",
+        "Educational content"
+      ],
+      "technique": "video-editing",
+      "duration": 26,
+      "orientation": "landscape",
+      "aspect": "16:9",
+      "promptKind": "Original prompt",
+      "batch": 5,
+      "sourceRepo": "https://github.com/veedstudio/open-edit",
+      "sourceFile": "https://github.com/veedstudio/open-edit/blob/main/.claude/skills/open-edit/SKILL.md",
+      "license": "Apache-2.0",
+      "licenseUrl": "https://github.com/veedstudio/open-edit/blob/main/LICENSE",
+      "sourceConcept": "Author a composition or edit source footage, inspect frames, cut/reframe, mix audio and retain editable source. The current verified source is SKILL.md; the search-index README prompt anchor is stale.",
+      "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled.",
+      "prompt": "Use Video Use to edit the supplied NASA International Space Station interior tour into a 26-second 1920×1080 educational short titled “A laboratory in orbit”. Inspect the actual footage and choose three clear visual moments that show the station’s connected working spaces, mounted equipment and a window view if present. Use labels only where the image supports them: “Connected modules”, “Equipment within reach”, “A view of Earth” only if Earth is actually visible. Keep any optional narration original and factual; the piece should also work without sound. Use short clean cuts, a subtle navy label band and a small line pointer only when it identifies something specific. End with “Explore the full station tour” and a visible “Footage: NASA /Edited excerpt” credit. Do not invent astronaut quotations, identify hardware without verifying it, add synthetic outside footage, or imply NASA endorses Video Use. Do not spend most of the film on a title card; the real footage is the evidence. Execute the edit with the current Video Use helpers, keep the source media unchanged, and retain the EDL, overlays and editable source. Inspect the rendered cut boundaries, readability and ending before delivery. Use 30 ms audio fades at cut boundaries and composite captions last. Describe the supplied source footage and its credit honestly; do not imply Video Use generated the source footage.",
+      "assetPlan": "Official NASA clean ISS-tour video, about15minutes. Medium MP4 verified accessible,265.5MB; inspect selects and record source time ranges. Credits and factual editorial framing required.",
+      "toolNeeds": [
+        "Video Use render.py",
+        "Existing clip selection and timed overlay helpers",
+        "FFmpeg frame extraction"
+      ],
+      "qualityChecks": [
+        "Labels supported by inspected footage",
+        "No unverified hardwareidentifications",
+        "Source ranges recorded",
+        "Credit readable",
+        "NoNASAendorsement"
+      ],
+      "productionStatus": "brief only; not rendered",
+      "sourceAssets": [
+        {
+          "title": "Step Inside the International Space Station (Full Tour, No Text)",
+          "page": "https://images.nasa.gov/details/Step_Inside_the_Station-4K-Clean",
+          "url": "https://images-assets.nasa.gov/video/Step_Inside_the_Station-4K-Clean/Step_Inside_the_Station-4K-Clean~medium.mp4",
+          "metadataUrl": "https://images-assets.nasa.gov/video/Step_Inside_the_Station-4K-Clean/metadata.json",
+          "license": "NASA media usage guidelines; NASA-created factual editorial footage",
+          "licenseUrl": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+          "credit": "Footage: NASA. Edited excerpt. No NASA endorsement.",
+          "verifiedHttpStatus": 200,
+          "verifiedBytes": 265500743,
+          "rightsNote": "Editorial educational use. Prefer hardware/interior views without identifiable crew for showcase cover art; do not imply endorsement. Original source is roughly15minutes."
+        }
+      ],
+      "productionBatch": "batch-06"
+    }
+  ]
+}

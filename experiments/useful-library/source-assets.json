@@ -1,0 +1,74 @@
+[
+  {
+    "title": "Coffee beans",
+    "page": "https://mixkit.co/free-stock-video/coffee-beans-235/",
+    "url": "https://assets.mixkit.co/videos/235/235-1080.mp4",
+    "license": "Mixkit Stock Video Free License",
+    "licenseUrl": "https://mixkit.co/license/#videoFree",
+    "credit": "Stock footage: Mixkit",
+    "verifiedHttpStatus": 200,
+    "verifiedBytes": 38251142,
+    "sourceResolution": "1920x1080",
+    "downloadPage": "https://mixkit.co/free-stock-video/download/235/?context=sidebar&type=1080p"
+  },
+  {
+    "title": "Coffee is served in a cup",
+    "page": "https://mixkit.co/free-stock-video/coffee-is-served-in-a-cup-3573/",
+    "url": "https://assets.mixkit.co/videos/3573/3573-1080.mp4",
+    "license": "Mixkit Stock Video Free License",
+    "licenseUrl": "https://mixkit.co/license/#videoFree",
+    "credit": "Stock footage: Mixkit",
+    "verifiedHttpStatus": 200,
+    "verifiedBytes": 33750360,
+    "sourceResolution": "1920x1080",
+    "downloadPage": "https://mixkit.co/free-stock-video/download/3573/?context=sidebar&type=1080p"
+  },
+  {
+    "title": "Serving an espresso in a cup of a coffee pot",
+    "page": "https://mixkit.co/free-stock-video/serving-an-espresso-in-a-cup-of-a-coffee-pot-3575/",
+    "url": "https://assets.mixkit.co/videos/3575/3575-1080.mp4",
+    "license": "Mixkit Stock Video Free License",
+    "licenseUrl": "https://mixkit.co/license/#videoFree",
+    "credit": "Stock footage: Mixkit",
+    "verifiedHttpStatus": 200,
+    "verifiedBytes": 45627881,
+    "sourceResolution": "1920x1080",
+    "downloadPage": "https://mixkit.co/free-stock-video/download/3575/?context=sidebar&type=1080p"
+  },
+  {
+    "title": "Artemis I Launch (Press Site)",
+    "page": "https://images.nasa.gov/details/Artemis%20I%20Launch%202022%20CU%20tracking%20from%20Press%20Site_compressed",
+    "url": "https://images-assets.nasa.gov/video/Artemis%20I%20Launch%202022%20CU%20tracking%20from%20Press%20Site_compressed/Artemis%20I%20Launch%202022%20CU%20tracking%20from%20Press%20Site_compressed~medium.mp4",
+    "metadataUrl": "https://images-assets.nasa.gov/video/Artemis%20I%20Launch%202022%20CU%20tracking%20from%20Press%20Site_compressed/metadata.json",
+    "license": "NASA media usage guidelines; NASA-created factual editorial footage",
+    "licenseUrl": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "credit": "Footage: NASA. Edited excerpt. No NASA endorsement.",
+    "verifiedHttpStatus": 200,
+    "verifiedBytes": 100385320,
+    "rightsNote": "Use only factual editorial launch views; avoid prominent employee likenesses or logos in promotional cover art. No claim of NASA endorsement."
+  },
+  {
+    "title": "Interior of a room with terrace",
+    "page": "https://mixkit.co/free-stock-video/interior-of-a-room-with-terrace-4029/",
+    "url": "https://assets.mixkit.co/videos/4029/4029-1080.mp4",
+    "license": "Mixkit Stock Video Free License",
+    "licenseUrl": "https://mixkit.co/license/#videoFree",
+    "credit": "Stock footage: Mixkit. Demonstration edit; not a real listing.",
+    "verifiedHttpStatus": 200,
+    "verifiedBytes": 148916713,
+    "sourceResolution": "1920x1080",
+    "downloadPage": "https://mixkit.co/free-stock-video/download/4029/?context=sidebar&type=1080p"
+  },
+  {
+    "title": "Step Inside the International Space Station (Full Tour, No Text)",
+    "page": "https://images.nasa.gov/details/Step_Inside_the_Station-4K-Clean",
+    "url": "https://images-assets.nasa.gov/video/Step_Inside_the_Station-4K-Clean/Step_Inside_the_Station-4K-Clean~medium.mp4",
+    "metadataUrl": "https://images-assets.nasa.gov/video/Step_Inside_the_Station-4K-Clean/metadata.json",
+    "license": "NASA media usage guidelines; NASA-created factual editorial footage",
+    "licenseUrl": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "credit": "Footage: NASA. Edited excerpt. No NASA endorsement.",
+    "verifiedHttpStatus": 200,
+    "verifiedBytes": 265500743,
+    "rightsNote": "Editorial educational use. Prefer hardware/interior views without identifiable crew for showcase cover art; do not imply endorsement. Original source is roughly15minutes."
+  }
+]

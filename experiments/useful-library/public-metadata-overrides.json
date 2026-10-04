@@ -1,0 +1,170 @@
+{
+  "useful-01-launch-approvals": {
+    "sourceRepo": "https://github.com/instavar/remotion-templates",
+    "sourceFile": "https://github.com/instavar/remotion-templates/blob/main/examples/announcement-brief.video.json",
+    "license": "MIT",
+    "licenseUrl": "https://github.com/instavar/remotion-templates/blob/main/LICENSE",
+    "sourceConcept": "Generic announcement sequence: introduce a question, show a mechanism, show the outcome and a next action. No source JSON or scene code is included by this research.",
+    "promptSource": "Original Video Use brief and implementation. Story structure inspired by Instavar Remotion Templates (MIT); fictional content and visual direction are new."
+  },
+  "useful-02-modular-desk": {
+    "sourceRepo": "https://github.com/ahujasid/mcp-for-blender",
+    "sourceFile": "https://github.com/ahujasid/mcp-for-blender#example-commands",
+    "license": "MIT",
+    "licenseUrl": "https://github.com/ahujasid/mcp-for-blender/blob/main/LICENSE",
+    "sourceConcept": "Original primitive modeling, materials, studio lights and isometric camera vocabulary. The new product/story and geometry are not copied from an upstream asset or paid pack.",
+    "promptSource": "Original Video Use brief and 3D scene. Modeling, studio-lighting and isometric-camera ideas inspired by MCP for Blender (MIT); built with Video Use’s selected runtime."
+  },
+  "useful-03-lead-routing": {
+    "sourceRepo": "https://github.com/motion-canvas/motion-canvas",
+    "sourceFile": "https://github.com/motion-canvas/motion-canvas/blob/main/packages/examples/src/scenes/layout.tsx",
+    "license": "MIT",
+    "licenseUrl": "https://github.com/motion-canvas/motion-canvas/blob/main/LICENSE",
+    "sourceConcept": "Structured layout or code highlighting as explanation; original scenario and implementation to be authored with Video Use rather than porting upstream scene code.",
+    "promptSource": "Original Video Use brief and implementation. Animated layout/code-selection ideas informed by Motion Canvas examples (MIT)."
+  },
+  "useful-04-monthly-report": {
+    "sourceRepo": "https://github.com/ManimCommunity/manim",
+    "sourceFile": "https://github.com/ManimCommunity/manim/blob/main/manim/mobject/graphing/probability.py",
+    "license": "MIT",
+    "licenseUrl": "https://github.com/ManimCommunity/manim/blob/main/LICENSE",
+    "sourceConcept": "General chart/geometry/annotation techniques. The subject, dataset, pedagogical sequence and visual direction were authored for this example; no upstream scene body was copied by research.",
+    "promptSource": "Original Video Use brief and visual explanation. Geometry, annotation and chart ideas informed by Manim Community examples (MIT)."
+  },
+  "useful-05-screen-tutorial": {
+    "sourceRepo": "https://github.com/veedstudio/open-edit",
+    "sourceFile": "https://github.com/veedstudio/open-edit/blob/main/.claude/skills/open-edit/SKILL.md",
+    "license": "Apache-2.0",
+    "licenseUrl": "https://github.com/veedstudio/open-edit/blob/main/LICENSE",
+    "sourceConcept": "Author a composition or edit source footage, inspect frames, cut/reframe, mix audio and retain editable source. The current verified source is SKILL.md; the search-index README prompt anchor is stale.",
+    "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled."
+  },
+  "useful-06-fractions-lesson": {
+    "sourceRepo": "https://github.com/ManimCommunity/manim",
+    "sourceFile": "https://github.com/ManimCommunity/manim/blob/main/docs/source/examples.rst",
+    "license": "MIT",
+    "licenseUrl": "https://github.com/ManimCommunity/manim/blob/main/LICENSE",
+    "sourceConcept": "General chart/geometry/annotation techniques. The subject, dataset, pedagogical sequence and visual direction were authored for this example; no upstream scene body was copied by research.",
+    "promptSource": "Original Video Use brief and visual explanation. Geometry, annotation and chart ideas informed by Manim Community examples (MIT)."
+  },
+  "useful-07-workshop-invite": {
+    "sourceRepo": "https://github.com/veedstudio/open-edit",
+    "sourceFile": "https://github.com/veedstudio/open-edit/blob/main/.claude/skills/open-edit/SKILL.md",
+    "license": "Apache-2.0",
+    "licenseUrl": "https://github.com/veedstudio/open-edit/blob/main/LICENSE",
+    "sourceConcept": "Author a composition or edit source footage, inspect frames, cut/reframe, mix audio and retain editable source. The current verified source is SKILL.md; the search-index README prompt anchor is stale.",
+    "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled."
+  },
+  "useful-08-refill-product": {
+    "sourceRepo": "https://github.com/ahujasid/mcp-for-blender",
+    "sourceFile": "https://github.com/ahujasid/mcp-for-blender#example-commands",
+    "license": "MIT",
+    "licenseUrl": "https://github.com/ahujasid/mcp-for-blender/blob/main/LICENSE",
+    "sourceConcept": "Original primitive modeling, materials, studio lights and isometric camera vocabulary. The new product/story and geometry are not copied from an upstream asset or paid pack.",
+    "promptSource": "Original Video Use brief and 3D scene. Modeling, studio-lighting and isometric-camera ideas inspired by MCP for Blender (MIT); built with Video Use’s selected runtime."
+  },
+  "useful-09-cafe-promo": {
+    "sourceRepo": "https://github.com/veedstudio/open-edit",
+    "sourceFile": "https://github.com/veedstudio/open-edit/blob/main/.claude/skills/open-edit/SKILL.md",
+    "license": "Apache-2.0",
+    "licenseUrl": "https://github.com/veedstudio/open-edit/blob/main/LICENSE",
+    "sourceConcept": "Author a composition or edit source footage, inspect frames, cut/reframe, mix audio and retain editable source. The current verified source is SKILL.md; the search-index README prompt anchor is stale.",
+    "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled."
+  },
+  "useful-10-welcome-flow": {
+    "sourceRepo": "https://github.com/instavar/remotion-templates",
+    "sourceFile": "https://github.com/instavar/remotion-templates/blob/main/examples/announcement-brief.video.json",
+    "license": "MIT",
+    "licenseUrl": "https://github.com/instavar/remotion-templates/blob/main/LICENSE",
+    "sourceConcept": "Generic announcement sequence: introduce a question, show a mechanism, show the outcome and a next action. No source JSON or scene code is included by this research.",
+    "promptSource": "Original Video Use brief and implementation. Story structure inspired by Instavar Remotion Templates (MIT); fictional content and visual direction are new."
+  },
+  "useful-11-retry-webhook": {
+    "sourceRepo": "https://github.com/motion-canvas/motion-canvas",
+    "sourceFile": "https://github.com/motion-canvas/motion-canvas/blob/main/packages/examples/src/scenes/layout.tsx",
+    "license": "MIT",
+    "licenseUrl": "https://github.com/motion-canvas/motion-canvas/blob/main/LICENSE",
+    "sourceConcept": "Structured layout or code highlighting as explanation; original scenario and implementation to be authored with Video Use rather than porting upstream scene code.",
+    "promptSource": "Original Video Use brief and implementation. Animated layout/code-selection ideas informed by Motion Canvas examples (MIT)."
+  },
+  "useful-12-research-summary": {
+    "sourceRepo": "https://github.com/ManimCommunity/manim",
+    "sourceFile": "https://github.com/ManimCommunity/manim/blob/main/manim/mobject/graphing/probability.py",
+    "license": "MIT",
+    "licenseUrl": "https://github.com/ManimCommunity/manim/blob/main/LICENSE",
+    "sourceConcept": "General chart/geometry/annotation techniques. The subject, dataset, pedagogical sequence and visual direction were authored for this example; no upstream scene body was copied by research.",
+    "promptSource": "Original Video Use brief and visual explanation. Geometry, annotation and chart ideas informed by Manim Community examples (MIT)."
+  },
+  "useful-13-launch-highlights": {
+    "sourceRepo": "https://github.com/veedstudio/open-edit",
+    "sourceFile": "https://github.com/veedstudio/open-edit/blob/main/.claude/skills/open-edit/SKILL.md",
+    "license": "Apache-2.0",
+    "licenseUrl": "https://github.com/veedstudio/open-edit/blob/main/LICENSE",
+    "sourceConcept": "Author a composition or edit source footage, inspect frames, cut/reframe, mix audio and retain editable source. The current verified source is SKILL.md; the search-index README prompt anchor is stale.",
+    "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled."
+  },
+  "useful-14-campaign-announcement": {
+    "sourceRepo": "https://github.com/veedstudio/open-edit",
+    "sourceFile": "https://github.com/veedstudio/open-edit/blob/main/.claude/skills/open-edit/SKILL.md",
+    "license": "Apache-2.0",
+    "licenseUrl": "https://github.com/veedstudio/open-edit/blob/main/LICENSE",
+    "sourceConcept": "Author a composition or edit source footage, inspect frames, cut/reframe, mix audio and retain editable source. The current verified source is SKILL.md; the search-index README prompt anchor is stale.",
+    "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled."
+  },
+  "useful-15-venue-wayfinding": {
+    "sourceRepo": "https://github.com/ahujasid/mcp-for-blender",
+    "sourceFile": "https://github.com/ahujasid/mcp-for-blender#example-commands",
+    "license": "MIT",
+    "licenseUrl": "https://github.com/ahujasid/mcp-for-blender/blob/main/LICENSE",
+    "sourceConcept": "Original primitive modeling, materials, studio lights and isometric camera vocabulary. The new product/story and geometry are not copied from an upstream asset or paid pack.",
+    "promptSource": "Original Video Use brief and 3D scene. Modeling, studio-lighting and isometric-camera ideas inspired by MCP for Blender (MIT); built with Video Use’s selected runtime."
+  },
+  "useful-16-room-walkthrough": {
+    "sourceRepo": "https://github.com/veedstudio/open-edit",
+    "sourceFile": "https://github.com/veedstudio/open-edit/blob/main/.claude/skills/open-edit/SKILL.md",
+    "license": "Apache-2.0",
+    "licenseUrl": "https://github.com/veedstudio/open-edit/blob/main/LICENSE",
+    "sourceConcept": "Author a composition or edit source footage, inspect frames, cut/reframe, mix audio and retain editable source. The current verified source is SKILL.md; the search-index README prompt anchor is stale.",
+    "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled."
+  },
+  "useful-17-service-packages": {
+    "sourceRepo": "https://github.com/instavar/remotion-templates",
+    "sourceFile": "https://github.com/instavar/remotion-templates#templates",
+    "license": "MIT",
+    "licenseUrl": "https://github.com/instavar/remotion-templates/blob/main/LICENSE",
+    "sourceConcept": "Generic announcement sequence: introduce a question, show a mechanism, show the outcome and a next action. No source JSON or scene code is included by this research.",
+    "promptSource": "Original Video Use brief and implementation. Story structure inspired by Instavar Remotion Templates (MIT); fictional content and visual direction are new."
+  },
+  "useful-18-code-fix": {
+    "sourceRepo": "https://github.com/motion-canvas/motion-canvas",
+    "sourceFile": "https://github.com/motion-canvas/motion-canvas/blob/main/packages/examples/src/scenes/code.tsx",
+    "license": "MIT",
+    "licenseUrl": "https://github.com/motion-canvas/motion-canvas/blob/main/LICENSE",
+    "sourceConcept": "Structured layout or code highlighting as explanation; original scenario and implementation to be authored with Video Use rather than porting upstream scene code.",
+    "promptSource": "Original Video Use brief and implementation. Animated layout/code-selection ideas informed by Motion Canvas examples (MIT)."
+  },
+  "useful-19-fulfilment-flow": {
+    "sourceRepo": "https://github.com/ahujasid/mcp-for-blender",
+    "sourceFile": "https://github.com/ahujasid/mcp-for-blender#example-commands",
+    "license": "MIT",
+    "licenseUrl": "https://github.com/ahujasid/mcp-for-blender/blob/main/LICENSE",
+    "sourceConcept": "Original primitive modeling, materials, studio lights and isometric camera vocabulary. The new product/story and geometry are not copied from an upstream asset or paid pack.",
+    "promptSource": "Original Video Use brief and 3D scene. Modeling, studio-lighting and isometric-camera ideas inspired by MCP for Blender (MIT); built with Video Use’s selected runtime."
+  },
+  "useful-20-science-broll": {
+    "sourceRepo": "https://github.com/veedstudio/open-edit",
+    "sourceFile": "https://github.com/veedstudio/open-edit/blob/main/.claude/skills/open-edit/SKILL.md",
+    "license": "Apache-2.0",
+    "licenseUrl": "https://github.com/veedstudio/open-edit/blob/main/LICENSE",
+    "sourceConcept": "Author a composition or edit source footage, inspect frames, cut/reframe, mix audio and retain editable source. The current verified source is SKILL.md; the search-index README prompt anchor is stale.",
+    "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled."
+  },
+  "mcp-launch": {
+    "sourceRepo": "https://github.com/browser-use/video-use",
+    "sourceFile": "https://github.com/browser-use/video-use/blob/main/SKILL.md",
+    "license": "MIT",
+    "licenseUrl": "https://github.com/browser-use/video-use/blob/main/LICENSE",
+    "sourceConcept": "First-party reference selection, query adaptation, snippet approval and editable video delivery.",
+    "promptSource": "Original Video Use product demonstration, created with Video Use. No third-party prompt template was copied."
+  }
+}
