@@ -13,21 +13,15 @@ only the final video, Key moments uses selective updates, and Hands on researche
 real online references before creation and short sample review. Legacy projects keep
 their saved mode or labeled default. Real blockers still need resolution.
 
-Aim for four distinct, feasible short references from YouTube, TikTok and X,
-shown consecutively; maximum five, no filler. Search quickly; use `inspect_social_reference` for attribution. Save its receipt
-with `record_video_references offer(more_expected=true)`, then append to that round.
-Show each `new_link_cards` with `show_video_reference` immediately: thumbnail,
-original link, brief fit explanation and sourced engagement only.
-Inspect a thumbnail/still; metadata is provisional. Neither proves motion or sound. One brief browser attempt per candidate: stop at
-blocked playback or login; no repeated scrolling, studio detours or frame sampling.
-Use `research_budget`; finish at four, or give a concrete `partial_reason` for fewer.
-Ask ONE reference question with every choice, **Find another batch**, and
-**Give my input** using native questions or normal chat. Respect an early selection.
-New batches exclude prior works. Save evidence, close the browser; inspect the
-chosen treatment before creation.
-For involvement, basics, approach and sample review, follow `question.presentation`:
-`inline_choices` displays and saves clicks; never repeat it. Otherwise use the
-native question tool if available or normal chat. Use supplied reference choices.
+Follow the overview's sequential YouTube, TikTok and X research protocol.
+Aim for four distinct, feasible references, maximum five; never pad a batch.
+Inspect relevant media frames before recommending, save evidence and show each
+`show_video_reference` thumbnail/link immediately. Metadata is a discovery lead;
+stills prove neither motion nor sound. Stop at blocked playback and use
+`research_budget`; explain fewer choices with `partial_reason`.
+Ask once: references, **Find another batch**, **Give my input**. Preserve early
+selection and preferences. Follow `question.presentation`: `inline_choices`
+already saves clicks; otherwise use the native question tool if available or normal chat.
 
 Plan the full arc and a representative snippet from the brief and chosen treatment.
 Use `show_video_checkpoint` for Continue/Refine about its player. Wait for explicit acceptance, then create and review the full video.

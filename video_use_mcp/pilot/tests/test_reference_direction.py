@@ -1147,7 +1147,7 @@ def test_budget_tracks_saved_search_time_expires_and_resets_after_user_request(
     assert context["collection_progress"]["count"] == 0
 
 
-def test_attributed_metadata_can_be_offered_with_explicit_inspection_limits(
+def test_attributed_metadata_remains_a_lead_until_visual_inspection(
     pilot, project
 ):
     candidate = refs()[0] | {
@@ -1159,16 +1159,13 @@ def test_attributed_metadata_can_be_offered_with_explicit_inspection_limits(
         evidence_note="Read the attributed project title and synopsis; player blocked.",
         limitations="Provisional direction only; no image, motion or sound inspected.",
     )
-    offered = invoke(
-        pilot, project, references=[candidate], search=search, more_expected=True
+    before = saved(pilot, project)
+    message = failure(
+        pilot,
+        args(pilot, project, references=[candidate], search=search, more_expected=True),
     )
-    assert offered["reference_direction"]["references"][0]["inspection"] == "metadata"
-    assert (
-        "Provisional"
-        in offered["reference_direction"]["search_summary"]["recommended_evidence"][0][
-            "limitations"
-        ]
-    )
+    assert "image or video inspection" in message
+    assert saved(pilot, project) == before
 
 
 @pytest.mark.parametrize(
@@ -1554,6 +1551,7 @@ def test_production_evidence_and_plan_survive_collection_reload_and_selection(
         search=search,
         round_id=first["reference_direction"]["round_id"],
         request_id="append-plan",
+        more_expected=True,
     )
     plan = search["candidates"][0]["production_plan"]
     batch = appended["reference_direction"]["search_batches"][1]
