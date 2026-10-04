@@ -8,13 +8,18 @@ import {
   ArrowUpRight,
   Check,
   Copy,
+  FileText,
+  FolderCode,
   Link2,
   Play,
+  Plug,
   Search,
   SlidersHorizontal,
   X,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Disclosure } from '@/components/ui/disclosure';
+import { Hint } from '@/components/ui/hint';
 import {
   Dialog,
   DialogContent,
@@ -25,6 +30,7 @@ import { AgentMarks, ConnectMcp } from '@/components/connect-mcp';
 import { McpFeature } from '@/components/mcp-feature';
 import { HowItWorks } from '@/components/hero';
 import { PreviewMedia } from '@/components/preview-media';
+import { TechniqueIcon } from '@/components/technique-icon';
 import {
   buildChatPrompt,
   categories,
@@ -42,13 +48,6 @@ import {
   type Filters,
   type GalleryExample,
 } from '@/lib/gallery';
-
-const categoryNotes: Record<string, string> = {
-  'Video Edits': 'Make more of the footage you already have.',
-  'Video Creation': 'Turn a collection of moments into a story.',
-  'Motion Design': 'Give your message a little movement.',
-  Explainers: 'Make the complicated feel clear.',
-};
 
 function VideoCard({
   example,
@@ -93,6 +92,7 @@ function VideoCard({
           {example.title}
         </button>
         <span className="card-technique">
+          <TechniqueIcon technique={example.technique} size={12} />
           {example.technique === '3d'
             ? '3D'
             : example.technique === 'video-editing'
@@ -102,7 +102,6 @@ function VideoCard({
                 : 'Motion'}
         </span>
       </div>
-      <p className="card-description">{example.description}</p>
       <div className="card-bottom">
         <button
           className={'copy-card ' + (copied ? 'copied' : '')}
@@ -110,17 +109,18 @@ function VideoCard({
           onClick={copy}
           aria-label={'Copy chat prompt for ' + example.title}
         >
-          {copied ? <Check size={12} /> : <Copy size={12} />}{' '}
+          {copied ? <Check size={14} /> : <Copy size={14} />}{' '}
           {copied ? 'Copied' : 'Copy prompt'}
         </button>
-        <Link
-          href="/mcp"
-          className="card-connect"
-          aria-label="Learn about Video Use MCP"
-        >
-          <AgentMarks compact />
-          <span>MCP</span>
-        </Link>
+        <Hint label="Use in your chat · Video Use MCP">
+          <Link
+            href="/mcp"
+            className="card-mcp-icon"
+            aria-label="Learn about Video Use MCP"
+          >
+            <Plug size={15} strokeWidth={1.7} />
+          </Link>
+        </Hint>
       </div>
     </article>
   );
@@ -155,19 +155,15 @@ export function Gallery() {
   const sections = [
     {
       name: 'Useful workflows',
-      note: 'Real work, ready for your own subject and brand.',
       items: practicalExamples,
     },
-    ...categories
-      .slice(1)
-      .map((category) => ({
-        name: category,
-        note: categoryNotes[category],
-        items: visible.filter(
-          (example) =>
-            example.category === category && !example.hasWorkflowMetadata,
-        ),
-      })),
+    ...categories.slice(1).map((category) => ({
+      name: category,
+      items: visible.filter(
+        (example) =>
+          example.category === category && !example.hasWorkflowMetadata,
+      ),
+    })),
   ];
   const selectedTags = selected ? Array.from(selected.useCases) : [];
   const filterCount =
@@ -298,14 +294,9 @@ export function Gallery() {
           <div>
             <span className="eyebrow">The Video Use library</span>
             <h2 id="library-heading">
-              Find your next <em>“let’s make that.”</em>
+              Find your <em>starting point.</em>
             </h2>
           </div>
-          <p>
-            Real videos. Reusable prompts.
-            <br />
-            <span>Pick a starting point, then make it yours.</span>
-          </p>
         </div>
         <div className="library-toolbar">
           <fieldset className="filter-list" aria-label="Filter by category">
@@ -366,7 +357,7 @@ export function Gallery() {
               )}
             </div>
             <fieldset className="facet-group">
-              <legend>By technique</legend>
+              <legend>Video type</legend>
               {techniqueOptions.map((item) => {
                 const count = filterExamples({
                   ...filters,
@@ -385,43 +376,51 @@ export function Gallery() {
                       }
                       disabled={!count && filters.technique !== item.value}
                     />
-                    <span>{item.label}</span>
+                    <span className="facet-label">
+                      <TechniqueIcon technique={item.value} />
+                      {item.label}
+                    </span>
                     <span className="facet-count">{count}</span>
                   </label>
                 );
               })}
             </fieldset>
             {(['audiences', 'useCases'] as const).map((field) => (
-              <fieldset className="facet-group" key={field}>
-                <legend>
-                  {field === 'audiences' ? 'By audience' : 'By use case'}
-                </legend>
-                {facetOptions(field).map((item) => {
-                  const count = filterExamples({
-                    ...filters,
-                    [field]: [item],
-                  }).length;
-                  return (
-                    <label className="facet-option" key={item}>
-                      <input
-                        type="checkbox"
-                        checked={filters[field].includes(item)}
-                        onChange={() => toggleFacet(field, item)}
-                        disabled={!count && !filters[field].includes(item)}
-                      />
-                      <span>{item}</span>
-                      <span className="facet-count">{count}</span>
-                    </label>
-                  );
-                })}
-              </fieldset>
+              <Disclosure
+                key={field}
+                label={field === 'audiences' ? 'Audience' : 'Use case'}
+                defaultOpen={field === 'audiences'}
+                className="facet-disclosure"
+              >
+                <fieldset className="facet-group">
+                  <legend className="sr-only">
+                    {field === 'audiences' ? 'By audience' : 'By use case'}
+                  </legend>
+                  {facetOptions(field).map((item) => {
+                    const count = filterExamples({
+                      ...filters,
+                      [field]: [item],
+                    }).length;
+                    return (
+                      <label className="facet-option" key={item}>
+                        <input
+                          type="checkbox"
+                          checked={filters[field].includes(item)}
+                          onChange={() => toggleFacet(field, item)}
+                          disabled={!count && !filters[field].includes(item)}
+                        />
+                        <span>{item}</span>
+                        <span className="facet-count">{count}</span>
+                      </label>
+                    );
+                  })}
+                </fieldset>
+              </Disclosure>
             ))}
             <Link href="/mcp" className="sidebar-mcp">
               <AgentMarks />
-              <strong>Already in a chat?</strong>
-              <span>Bring Video Use into the conversation.</span>
               <span className="sidebar-mcp-link">
-                Explore the MCP <ArrowUpRight size={13} />
+                Make it in your chat <ArrowUpRight size={13} />
               </span>
             </Link>
           </aside>
@@ -429,11 +428,9 @@ export function Gallery() {
             <div className="results-line" aria-live="polite">
               <span>
                 {visible.length} {visible.length === 1 ? 'example' : 'examples'}
-                {hasFilters ? ' for your selection' : ' to make your own'}
+                {hasFilters ? ' found' : ''}
               </span>
-              <span>
-                Every prompt is free <span aria-hidden="true">↗</span>
-              </span>
+              <span>Free to make your own</span>
             </div>
             {filterCount > 0 && (
               <div className="active-filters" aria-label="Active filters">
@@ -460,7 +457,7 @@ export function Gallery() {
                 )}
               </div>
             )}
-            {sections.map(({ name: category, note, items }) => {
+            {sections.map(({ name: category, items }) => {
               if (!items.length) return null;
               const headingId =
                 'category-' + category.toLowerCase().replaceAll(' ', '-');
@@ -476,7 +473,6 @@ export function Gallery() {
                         {category}
                         <span>{items.length}</span>
                       </h3>
-                      <p>{note}</p>
                     </div>
                   </div>
                   <div className="video-grid">
@@ -553,7 +549,10 @@ export function Gallery() {
                 )}
               </div>
               <div className="detail-facts">
-                <span>{techniqueLabel(selected.technique)}</span>
+                <span className="detail-technique">
+                  <TechniqueIcon technique={selected.technique} />
+                  {techniqueLabel(selected.technique)}
+                </span>
                 <span>{formatDuration(selected.duration)}</span>
                 <span>
                   {selected.orientation === 'portrait'
@@ -564,7 +563,6 @@ export function Gallery() {
                 </span>
               </div>
               <div className="detail-workflow">
-                <span>Made with</span>
                 <a
                   href="https://github.com/browser-use/video-use"
                   target="_blank"
@@ -572,14 +570,8 @@ export function Gallery() {
                 >
                   Video Use <ArrowUpRight size={12} />
                 </a>
-                <span>Try with</span>
-                <ConnectMcp label="Your agent + MCP" compact />
+                <ConnectMcp label="Connect your chat" compact />
               </div>
-              <p className="detail-howto">
-                Copy the prompt into a chat with Video Use enabled. Add your
-                subject, brand, or footage. Your agent adapts the workflow to
-                your context.
-              </p>
               {[
                 'edit-velocity',
                 'edit-freeze_poster',
@@ -616,7 +608,7 @@ export function Gallery() {
             </div>
             <div className="detail-body">
               <span className="eyebrow">
-                {selected.category} <span> / </span> Free prompt
+                <FileText size={13} /> Free prompt
               </span>
               <DialogTitle className="detail-title">
                 {selected.title}
@@ -625,7 +617,7 @@ export function Gallery() {
                 {selected.description}
               </DialogDescription>
               <div className="detail-tags">
-                {selectedTags.map((item) => (
+                {selectedTags.slice(0, 2).map((item) => (
                   <span key={item}>{item}</span>
                 ))}
               </div>
@@ -671,70 +663,70 @@ export function Gallery() {
                 </button>
               </div>
               <div className="prompt-heading">
-                <h3>Take it to your chat</h3>
+                <h3>Your prompt</h3>
                 <span>
                   {selected.promptKind === 'Starter prompt'
-                    ? 'Adaptable starter'
-                    : 'Original brief + handoff'}
+                    ? 'Starter + chat context'
+                    : 'Original brief + chat context'}
                 </span>
               </div>
               <textarea
                 className="prompt-text"
                 readOnly
-                rows={9}
+                rows={7}
                 aria-label="Complete prompt that will be copied"
                 value={buildChatPrompt(selected)}
               />
-              <p className="prompt-note">
-                {selected.promptKind === 'Starter prompt'
-                  ? 'A reusable starter inspired by this result. Adjust it freely.'
-                  : 'The creative brief used for this example, with instructions to adapt it to your chat.'}{' '}
-                Full production follows the approval mode you choose.
-              </p>
-              <div className="detail-audience">
-                <span>Useful for</span>
-                {selected.audiences.map((item) => (
-                  <span key={item}>{item}</span>
-                ))}
-              </div>
-              {(selected.promptSource ||
-                safeSourceUrl(selected.sourceRepo)) && (
-                <p className="prompt-source">
-                  {selected.promptSource}
-                  {safeSourceUrl(selected.sourceRepo) && (
-                    <a
-                      href={safeSourceUrl(selected.sourceRepo)!}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Open-source inspiration <ArrowUpRight size={11} />
-                    </a>
-                  )}
-                </p>
-              )}
-              {(safeSourceUrl(selected.sourceArchive) ||
-                safeSourceUrl(selected.reviewUrl)) && (
-                <div className="project-resources">
-                  {safeSourceUrl(selected.sourceArchive) && (
-                    <a
-                      href={safeSourceUrl(selected.sourceArchive)!}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Editable project <ArrowUpRight size={11} />
-                    </a>
-                  )}
-                  {safeSourceUrl(selected.reviewUrl) && (
-                    <a
-                      href={safeSourceUrl(selected.reviewUrl)!}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Production notes <ArrowUpRight size={11} />
-                    </a>
-                  )}
+              <Disclosure
+                label="Details & sources"
+                icon={<FolderCode size={16} />}
+                className="source-disclosure"
+              >
+                <div className="detail-audience">
+                  <span>Useful for</span>
+                  {selected.audiences.map((item) => (
+                    <span key={item}>{item}</span>
+                  ))}
                 </div>
-              )}
+                {(selected.promptSource ||
+                  safeSourceUrl(selected.sourceRepo)) && (
+                  <p className="prompt-source">
+                    {selected.promptSource}
+                    {safeSourceUrl(selected.sourceRepo) && (
+                      <a
+                        href={safeSourceUrl(selected.sourceRepo)!}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Open-source inspiration <ArrowUpRight size={11} />
+                      </a>
+                    )}
+                  </p>
+                )}
+                {(safeSourceUrl(selected.sourceArchive) ||
+                  safeSourceUrl(selected.reviewUrl)) && (
+                  <div className="project-resources">
+                    {safeSourceUrl(selected.sourceArchive) && (
+                      <a
+                        href={safeSourceUrl(selected.sourceArchive)!}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Editable project <ArrowUpRight size={11} />
+                      </a>
+                    )}
+                    {safeSourceUrl(selected.reviewUrl) && (
+                      <a
+                        href={safeSourceUrl(selected.reviewUrl)!}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Production notes <ArrowUpRight size={11} />
+                      </a>
+                    )}
+                  </div>
+                )}
+              </Disclosure>
             </div>
           </DialogContent>
         )}

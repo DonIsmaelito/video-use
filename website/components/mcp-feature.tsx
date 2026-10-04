@@ -41,15 +41,17 @@ export function McpFeature() {
         <Link href="/mcp">Your chat is a video studio</Link>
         <ArrowUpRight size={14} />
       </div>
-      <p className="card-description">
-        Meet Video Use MCP. From your idea to a preview, inside your
-        conversation.
-      </p>
       <div className="card-bottom">
-        <span className="feature-tag">Featured · Video Use MCP</span>
-        <Link className="card-connect" href="/mcp">
+        <span className="feature-tag">Video Use MCP</span>
+        <Link
+          className="card-connect"
+          href="/mcp"
+          aria-label="Connect Video Use to ChatGPT, Claude, or Cursor"
+        >
           <AgentMarks compact />
-          <span>Explore</span>
+          <span>
+            Connect <ArrowUpRight size={12} />
+          </span>
         </Link>
       </div>
     </article>

@@ -1,7 +1,9 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { Check, Copy, Terminal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Disclosure } from '@/components/ui/disclosure';
 import {
   Dialog,
   DialogContent,
@@ -41,7 +43,11 @@ export function GettingStarted() {
 
   return (
     <>
-      <div className="getting-started">
+      <Disclosure
+        label="Install Video Use"
+        icon={<Terminal size={15} />}
+        className="getting-started"
+      >
         <Button
           variant="ghost"
           className="clone-command"
@@ -51,13 +57,13 @@ export function GettingStarted() {
         >
           <code className="clone-command-text">{cloneCommand}</code>
           <span className="clone-command-action">
-            {copied ? 'Copied' : 'Copy'}
+            {copied ? <Check size={15} /> : <Copy size={15} />}
           </span>
         </Button>
         <output className="sr-only">
           {copied && 'Clone command copied. Paste it in your terminal.'}
         </output>
-      </div>
+      </Disclosure>
       <Dialog
         open={!!manualCopy}
         onOpenChange={(open) => {

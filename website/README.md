@@ -31,9 +31,10 @@ The production build explicitly uses Next.js's webpack builder, matching the loc
 - `app/page.tsx` assembles the repository-first homepage and example library.
 - `app/mcp/page.tsx` explains the hosted MCP, approval flow, account requirements, setup, and use cases.
 - `components/hero.tsx`, `site-header.tsx`, and `wordmark.tsx` link back to the open-source project.
-- `components/gallery.tsx` handles audience/use-case/technique/category filters, search, clipboard feedback, deep links, and the detail dialog.
+- `components/gallery.tsx` handles audience/use-case/video-type/category filters, search, clipboard feedback, deep links, and the detail dialog. Video type keeps the internal `technique` data key and URL parameter.
 - `components/preview-media.tsx` loads media near the viewport and plays only visible, muted previews. Previews pause in hidden tabs, under dialogs, and for reduced motion.
-- `components/connect-mcp.tsx` provides copyable setup URLs and separate ChatGPT, Claude, and local-source instructions.
+- `components/connect-mcp.tsx` provides copyable setup URLs and separate ChatGPT, Claude, Cursor, and local-source instructions. Official client artwork lives in `public/clients`, with its provenance in `brand-sources.json`; compatible clients are not presented as end-to-end tested.
+- `components/ui/disclosure.tsx` and `hint.tsx` use existing Base UI primitives for optional details and supplementary icon labels. `technique-icon.tsx` gives each video type a consistent icon.
 - `components/mcp-feature.tsx` places the MCP feature tile beside two real examples immediately below the repository hero. `mcp-launch.tsx` opens its full launch film on the MCP page.
 - `lib/gallery.ts` contains the real filtering and URL parsing logic. `buildChatPrompt` appends a visible handoff to the example's original brief.
 - `app/globals.css` owns the black/lavender palette, Instrument Serif/Inter typography, responsive layouts, and media treatment.
@@ -106,6 +107,8 @@ Replace these only after publication with the lighter muted autoplay URL, full M
 
 Cards use a consistent 16:9 crop; full players preserve the complete original frame, including portrait edits. Motion Design remains silent and loops in detail. Video Edits, Video Creation, and Explainers preserve the source audio in the full player. The MCP launch preview is muted; the full film has native controls.
 
-Dialogs support keyboard focus and dismissal. Every copy action has visible feedback and a manual-selection fallback. Mobile filters expand without covering the gallery. Fonts are local, with OFL licenses in `public/fonts`.
+Dialogs support keyboard focus, dismissal, and focus restoration. Every copy action has visible feedback and a manual-selection fallback. Optional installation, filters, and provenance use keyboard-accessible disclosures; the complete copied prompt stays visible. Mobile filters expand without covering the gallery. Reduced motion disables automatic previews and decorative transitions. Fonts are local, with OFL licenses in `public/fonts`.
+
+The quieter component hierarchy follows [Base UI disclosure guidance](https://base-ui.com/react/components/collapsible), [shadcn item patterns](https://ui.shadcn.com/docs/components/base/item), and [Motion accessibility guidance](https://motion.dev/docs/react-accessibility), using the dependencies already installed.
 
 The library does not provide accounts, uploads, payments, or a rendering backend. The hosted MCP is a private pilot with its own sign-in and access requirements. The website makes no promise that every MCP client or every account tier supports every feature.

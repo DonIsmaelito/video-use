@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowDown, ArrowUpRight } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, Copy, Play, Sparkles } from 'lucide-react';
 import Image from 'next/image';
 import { SiteHeader } from '@/components/site-header';
 import { GettingStarted } from '@/components/getting-started';
@@ -42,10 +42,10 @@ export function Hero() {
           </div>
         </div>
         <div className="hero-aside">
-          <span className="hero-index">CREATE. EDIT. MAKE IT YOURS.</span>
           <p>
-            Good videos start with a useful idea. Find yours in a library of
-            real edits, motion design, 3D, and explainers.
+            Real videos. Open-source tools.
+            <br />
+            Your next idea starts here.
           </p>
           <GettingStarted />
           <div className="hero-footnote">
@@ -62,30 +62,33 @@ export function HowItWorks() {
   return (
     <div className="how-it-works" aria-label="How to use this library">
       <div>
-        <span>01</span>
+        <span className="step-icon">
+          <Play size={16} />
+        </span>
         <p>
-          <strong>Find a direction</strong>
-          <span>Choose an example that does the job.</span>
+          <strong>Find a video</strong>
         </p>
       </div>
       <span className="flow-arrow" aria-hidden="true">
         ↗
       </span>
       <div>
-        <span>02</span>
+        <span className="step-icon">
+          <Copy size={16} />
+        </span>
         <p>
-          <strong>Copy the prompt</strong>
-          <span>The useful details are already there.</span>
+          <strong>Copy its prompt</strong>
         </p>
       </div>
       <span className="flow-arrow" aria-hidden="true">
         ↗
       </span>
       <div>
-        <span>03</span>
+        <span className="step-icon">
+          <Sparkles size={16} />
+        </span>
         <p>
           <strong>Make it your own</strong>
-          <span>Paste into your Video Use agent.</span>
         </p>
       </div>
     </div>

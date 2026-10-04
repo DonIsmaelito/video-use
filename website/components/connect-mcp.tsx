@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import { ArrowUpRight, Check, Copy, Plug, Terminal } from 'lucide-react';
 import {
   Dialog,
@@ -55,11 +56,21 @@ export function AgentMarks({ compact = false }: { compact?: boolean }) {
       className={`agent-marks ${compact ? 'compact' : ''}`}
       aria-hidden="true"
     >
-      <span className="agent-mark chatgpt-mark">G</span>
-      <span className="agent-mark claude-mark">C</span>
-      <span className="agent-mark mcp-mark">
-        <Plug size={compact ? 10 : 13} />
-      </span>
+      {(['chatgpt', 'claude', 'cursor'] as const).map((client) => (
+        <span className={`agent-mark ${client}-mark`} key={client}>
+          <Image
+            src={`/clients/${client}.svg`}
+            alt=""
+            width={
+              client === 'chatgpt' ? (compact ? 30 : 38) : compact ? 14 : 18
+            }
+            height={
+              client === 'chatgpt' ? (compact ? 30 : 38) : compact ? 14 : 18
+            }
+            unoptimized
+          />
+        </span>
+      ))}
     </span>
   );
 }
@@ -74,9 +85,9 @@ export function ConnectMcp({
   compact?: boolean;
 }) {
   const [open, setOpen] = useState(false);
-  const [client, setClient] = useState<'chatgpt' | 'claude' | 'local'>(
-    'chatgpt',
-  );
+  const [client, setClient] = useState<
+    'chatgpt' | 'claude' | 'cursor' | 'local'
+  >('chatgpt');
   const [copied, setCopied] = useState(false);
   const [manual, setManual] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -123,7 +134,7 @@ export function ConnectMcp({
         onClick={() => setOpen(true)}
         aria-label={
           compact
-            ? 'Connect Video Use MCP to ChatGPT, Claude, or your own agent'
+            ? 'Connect Video Use MCP to ChatGPT, Claude, Cursor, or your own agent'
             : undefined
         }
       >
@@ -138,11 +149,10 @@ export function ConnectMcp({
             Your chat. Your video studio.
           </DialogTitle>
           <DialogDescription className="connect-description">
-            Connect Video Use once, then paste an example prompt into your chat
-            and make it your own.
+            Add Video Use, then bring a prompt to your chat.
           </DialogDescription>
           <fieldset className="connection-tabs" aria-label="Choose your setup">
-            {(['chatgpt', 'claude', 'local'] as const).map((item) => (
+            {(['chatgpt', 'claude', 'cursor', 'local'] as const).map((item) => (
               <button
                 type="button"
                 key={item}
@@ -154,11 +164,25 @@ export function ConnectMcp({
                   setManual(false);
                 }}
               >
+                {item !== 'local' && (
+                  <span className="connection-client-icon">
+                    <Image
+                      src={`/clients/${item}.svg`}
+                      alt=""
+                      width={item === 'chatgpt' ? 34 : 16}
+                      height={item === 'chatgpt' ? 34 : 16}
+                      unoptimized
+                    />
+                  </span>
+                )}
+                {item === 'local' && <Terminal size={16} />}
                 {item === 'chatgpt'
                   ? 'ChatGPT'
                   : item === 'claude'
                     ? 'Claude'
-                    : 'Open source'}
+                    : item === 'cursor'
+                      ? 'Cursor'
+                      : 'Open source'}
               </button>
             ))}
           </fieldset>
@@ -272,10 +296,34 @@ export function ConnectMcp({
               </a>
             </div>
           )}
+          {client === 'cursor' && (
+            <div className="cursor-setup">
+              <p>
+                Add this entry to <code>.cursor/mcp.json</code> in your project.
+              </p>
+              <pre>
+                <code>
+                  {JSON.stringify(
+                    { mcpServers: { 'video-use': { url: mcpUrl } } },
+                    null,
+                    2,
+                  )}
+                </code>
+              </pre>
+              <p>
+                Save and restart Cursor. Complete OAuth when prompted, then use
+                Video Use in Agent.
+              </p>
+              <p className="cursor-pilot-note">
+                Cursor supports remote MCP and OAuth. This pilot has not yet
+                been tested end to end in Cursor.
+              </p>
+            </div>
+          )}
           <p className="connection-note">
             {client === 'local'
-              ? 'Library prompts are free. Running an agent or rendering video may use your provider’s paid resources.'
-              : 'The hosted MCP is in private pilot and requires a Video Use account with access. Client availability depends on your plan and workspace. Library prompts are free.'}
+              ? 'The toolkit is free. Model and rendering costs depend on your setup.'
+              : 'Private pilot: a Video Use account with access is required. Client and workspace requirements apply.'}
           </p>
           {client !== 'local' && (
             <a
@@ -283,14 +331,18 @@ export function ConnectMcp({
               href={
                 client === 'chatgpt'
                   ? 'https://developers.openai.com/plugins/deploy/connect-chatgpt'
-                  : 'https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp'
+                  : client === 'claude'
+                    ? 'https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp'
+                    : 'https://prod.cursor.com/help/customization/mcp'
               }
               target="_blank"
               rel="noreferrer"
             >
               {client === 'chatgpt'
                 ? 'Official OpenAI connection guide'
-                : 'Official Claude connection guide'}{' '}
+                : client === 'claude'
+                  ? 'Official Claude connection guide'
+                  : 'Official Cursor connection guide'}{' '}
               <ArrowUpRight size={12} />
             </a>
           )}
@@ -316,18 +368,14 @@ export function McpBanner() {
           <br />
           <em>A lot you can make.</em>
         </h2>
-        <p>
-          Pick a workflow. Copy its prompt. Bring it back to your agent with
-          your own idea, assets, and context.
-        </p>
+        <p>Bring a prompt. Make it yours in chat.</p>
       </div>
       <div className="mcp-banner-action">
         <div className="client-line">
           <AgentMarks />
-          <span>ChatGPT · Claude · MCP clients</span>
+          <span>ChatGPT · Claude · Cursor guides</span>
         </div>
         <ConnectMcp className="primary-button" label="Set up Video Use" />
-        <span className="quiet-note">Free prompts. Open-source toolkit.</span>
       </div>
     </section>
   );
