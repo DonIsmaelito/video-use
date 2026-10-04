@@ -83,6 +83,7 @@ Helpers (`helpers/transcribe.py`, `helpers/render.py`, etc.) live alongside this
 - **[Measured face following](skills/video-workflows/face-follow.md)** — reviewed face seeds, real per-frame YuNet observations and target-aspect crops through the normal renderer, with explicit loss and ambiguity handling.
 - **[Color comparisons](skills/video-workflows/grade-comparison.md)** — a silent original/corrected wipe using one decoded frame clock, matching geometry and bounded RGB curves.
 - **[Moving privacy masks](skills/video-workflows/tracked-masks.md)** — explicit opaque rectangle tracks mapped through source cuts, with fixed-clock and encoded-frame coverage checks.
+- **[Silent replays](skills/video-workflows/silent-replays.md)** — bounded speed changes for sources without audio, with actual timestamp mapping and a separately identified derivative.
 - **`grade.py <in> -o <out>`** — ffmpeg filter chain grade. Presets + `--filter '<raw>'` for custom.
 
 For animations, create `<edit>/animations/slot_<id>/` with `Bash` and spawn a sub-agent via the `Agent` tool.

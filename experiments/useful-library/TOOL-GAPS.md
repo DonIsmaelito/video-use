@@ -71,3 +71,14 @@ positive audio start offset. `transcribe.py` now fills/trims against actual inpu
 timestamps before dropping them into WAV, records extraction policy in cache v2,
 and only reuses a v1 cache after every decoded audio timestamp agrees with its
 continuous sample clock. Unverified caches are preserved, not silently migrated.
+
+The first social action edit needed an explicitly labeled slow replay from silent
+footage. `helpers/silent_retime.py` promotes that bounded operation: one new H.264
+derivative, actual source PTS mapping, exact output frames, source/hash protection
+and no audio removal or optical-flow claim. Normal rendering then consumes the
+derivative on its own clock. Actual CFR/VFR and nonzero-origin encode tests check
+frame order and timing; unsafe inputs and failed encodes leave reviewed files
+untouched. Existing social films keep their original authored implementation.
+The same batch exposed a timeline preview failure at an exact clip endpoint;
+`timeline_view.py` now resolves the real final decoded frame only when the normal
+seek yields no image, and still rejects genuinely out-of-range requests.

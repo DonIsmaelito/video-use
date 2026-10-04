@@ -21,7 +21,9 @@ Usage:
 from __future__ import annotations
 
 import argparse
+from fractions import Fraction
 import json
+import math
 import subprocess
 import sys
 import tempfile
@@ -34,8 +36,46 @@ from PIL import Image, ImageDraw, ImageFont
 # -------- Frame extraction ---------------------------------------------------
 
 
+def _last_visible_frame(video: Path, requested: float) -> int:
+    """Resolve an inclusive video endpoint only after FFmpeg emitted no image.
+
+    A seek at duration falls after the last frame's PTS. Use its actual decoded
+    index, including VFR and nonzero container origins, rather than guessing one
+    frame from average fps. Do not turn genuinely out-of-range requests into holds.
+    """
+    command = ["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_streams",
+               "-show_frames", "-show_format", "-show_entries",
+               "stream=time_base,start_pts,duration_ts,start_time,duration:format=start_time:"
+               "frame=best_effort_timestamp,duration,pkt_duration", "-of", "json", str(video)]
+    data = json.loads(subprocess.run(command, capture_output=True, check=True, timeout=180).stdout)
+    frames, streams = data.get("frames", []), data.get("streams", [])
+    if not frames or not streams:
+        raise ValueError("Source contains no decodable video frames")
+    stream, last = streams[0], frames[-1]
+    base = Fraction(stream["time_base"])
+    origin = Fraction(data.get("format", {}).get("start_time", "0"))
+    at = last["best_effort_timestamp"] * base - origin
+    if stream.get("duration_ts") is not None:
+        end = (int(stream.get("start_pts", frames[0]["best_effort_timestamp"])) + int(stream["duration_ts"])) * base - origin
+    elif last.get("duration") or last.get("pkt_duration"):
+        end = at + int(last.get("duration") or last["pkt_duration"]) * base
+    elif stream.get("duration") not in (None, "N/A"):
+        end = Fraction(stream.get("start_time", "0")) + Fraction(stream["duration"]) - origin
+    else:
+        raise ValueError("Cannot establish the final video frame endpoint")
+    # Container timestamp quantization can round an endpoint by a time-base tick.
+    tolerance = min(float(base), .001)
+    if requested < float(at) - tolerance or requested > float(end) + tolerance:
+        raise ValueError(f"No video frame at requested source time {requested:g}s")
+    return len(frames) - 1
+
+
 def extract_frames(video: Path, start: float, end: float, n: int, dest_dir: Path) -> list[Path]:
-    """Extract N frames evenly spaced across [start, end]. Returns paths in order."""
+    """Extract N samples over [start,end]; the video endpoint uses its last image."""
+    if not all(isinstance(t, (int, float)) and not isinstance(t, bool) and math.isfinite(t) for t in (start, end)) or not 0 <= start <= end:
+        raise ValueError("Frame range must have finite ordered nonnegative times")
+    if type(n) is not int or n > 240:
+        raise ValueError("n must be an integer no greater than 240")
     dest_dir.mkdir(parents=True, exist_ok=True)
     if n < 1:
         n = 1
@@ -48,16 +88,28 @@ def extract_frames(video: Path, start: float, end: float, n: int, dest_dir: Path
     paths: list[Path] = []
     for i, t in enumerate(times):
         out = dest_dir / f"f_{i:03d}.jpg"
+        out.unlink(missing_ok=True)  # Never mistake an old JPEG for a failed seek.
         cmd = [
             "ffmpeg", "-y",
-            "-ss", f"{t:.3f}",
+            "-ss", f"{t:.9f}",
             "-i", str(video),
             "-frames:v", "1",
             "-q:v", "4",
             "-vf", "scale=320:-2",
             str(out),
         ]
-        subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        result = subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=180)
+        if not out.is_file() or not out.stat().st_size:
+            last = _last_visible_frame(video, t)
+            subprocess.run([
+                "ffmpeg", "-y", "-i", str(video), "-map", "0:v:0", "-an",
+                "-vf", f"select=eq(n\\,{last}),scale=320:-2", "-fps_mode", "passthrough",
+                "-frames:v", "1", "-q:v", "4", str(out),
+            ], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=180)
+            if not out.is_file() or not out.stat().st_size:
+                raise ValueError("Decoder could not emit the final source frame")
+        else:
+            result.check_returncode()
         paths.append(out)
     return paths
 
