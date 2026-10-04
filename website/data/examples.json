@@ -128,10 +128,10 @@
     "technique": "video-editing",
     "sourceRepo": "https://github.com/veedstudio/open-edit",
     "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled.",
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-97c5dc1039e8-5835b2ca/final.mp4",
-    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-97c5dc1039e8-5835b2ca/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-97c5dc1039e8-5835b2ca/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-97c5dc1039e8-5835b2ca/review.md"
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-006ca60ebaaa-cd755d73/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-006ca60ebaaa-cd755d73/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-006ca60ebaaa-cd755d73/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-006ca60ebaaa-cd755d73/review.md"
   },
   {
     "id": "useful-06-fractions-lesson",

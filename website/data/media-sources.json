@@ -2789,25 +2789,25 @@
     "frameworkArchiveSha256": "410627cb7c37e18b3501608be8d4527257d832823896774eec01f785911943b2",
     "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
     "storage": "Cloudflare R2",
-    "websiteSha256": "97c5dc1039e8b3caaceed4dbab2b3a9075aa3c320dae45d2088429175bfee198",
+    "websiteSha256": "006ca60ebaaae5f6a4a0d7dc4d3906a8bafb31cac2b9207a7055b304b8784de8",
     "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled.",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-97c5dc1039e8-5835b2ca/source.zip",
-    "editableSourceSha256": "afdcbb510e20b60700fff9459c2d2f50ccdecf1de4b1fcf3df7793c914f59356",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-006ca60ebaaa-cd755d73/source.zip",
+    "editableSourceSha256": "8557e5a2f9fa7771226fbd9c9882055d0bd673ec3c8962e388cbd7825c92924a",
     "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
-    "cloudProject": "video-use-useful-library-20261003/batch-02/useful-05-screen-tutorial/repairs/repair-20261003-211526/project/edit",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-97c5dc1039e8-5835b2ca/review.md",
-    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-97c5dc1039e8-5835b2ca/verification.json",
-    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-97c5dc1039e8-5835b2ca/storyboard.jpg",
-    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-97c5dc1039e8-5835b2ca/creative-prompt.txt",
-    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-97c5dc1039e8-5835b2ca/provenance.json",
+    "cloudProject": "video-use-useful-library-20261003/batch-02/useful-05-screen-tutorial/repairs/repair-audio-20261003-2155/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-006ca60ebaaa-cd755d73/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-006ca60ebaaa-cd755d73/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-006ca60ebaaa-cd755d73/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-006ca60ebaaa-cd755d73/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-006ca60ebaaa-cd755d73/provenance.json",
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-97c5dc1039e8-5835b2ca/final.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-006ca60ebaaa-cd755d73/final.mp4"
       },
       {
         "field": "poster",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-97c5dc1039e8-5835b2ca/poster.jpg"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-006ca60ebaaa-cd755d73/poster.jpg"
       }
     ]
   },
