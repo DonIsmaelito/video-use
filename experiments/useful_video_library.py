@@ -38,6 +38,7 @@ APP_NAME = "video-use-useful-library"
 MODEL = "gpt-6-astra"
 EFFORT = "medium"
 CODEX_VERSION = "0.153.4"
+SOURCE_REPOSITORY = "https://github.com/DonIsmaelito/video-use"
 SOURCE_TREES = ("helpers", "skills", "references", "assets")
 SOURCE_FILES = ("SKILL.md", "LICENSE", "pyproject.toml", "experiments/useful_video_library.py",
                 "experiments/useful-library/REPLAY.md")
@@ -233,7 +234,7 @@ def public_framework(source: dict) -> dict:
             continue
         if isinstance(digest, str) and re.fullmatch(r"[a-f0-9]{64}", digest):
             files[name] = digest
-    return {key: source[key] for key in ("commit", "branch", "runtime_sha256") if key in source} | {"files": files}
+    return {key: source[key] for key in ("commit", "branch", "runtime_sha256") if key in source} | {"source_repository": SOURCE_REPOSITORY, "files": files}
 
 
 def archive_source(project: Path, target: Path, *, framework: dict | None = None, replay: Path | None = None) -> dict:

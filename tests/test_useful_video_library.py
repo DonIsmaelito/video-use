@@ -121,7 +121,8 @@ def test_source_replay_manifest_contains_only_public_producer_identity(tmp_path)
     assert target.read_bytes() == first
     with zipfile.ZipFile(target) as archive:
         metadata = json.loads(archive.read("video-use-framework.json"))
-        assert set(metadata) == {"commit", "branch", "runtime_sha256", "files"}
+        assert set(metadata) == {"commit", "branch", "runtime_sha256", "files", "source_repository"}
+        assert metadata["source_repository"] == "https://github.com/DonIsmaelito/video-use"
         assert metadata["commit"] == "original-commit"
         assert metadata["files"] == {"helpers/tool.py": "b" * 64}
         assert archive.read("REPLAY.md") == guide.read_bytes()

@@ -4,7 +4,7 @@ This archive preserves an authored example: its prompt, editable source, local a
 
 ## 1. Get the recorded framework
 
-Read the producer Git commit and snapshot information in `video-use-framework.json`. Older packages may instead record `frameworkCommit` in their provenance or in the companion `verification.json` linked from the example's published provenance. Keep the original archive. The snapshot SHA-256 identifies the production framework snapshot; it is not a Git commit and cannot be passed to `git checkout`.
+Read the producer Git commit, `source_repository` and snapshot information in `video-use-framework.json`. This showcase campaign's branch is published in [DonIsmaelito/video-use](https://github.com/DonIsmaelito/video-use/tree/feature/useful-video-library), a fork of the upstream framework; its recorded campaign commits are available there. Older packages may instead record `frameworkCommit` in their provenance or in the companion `verification.json` linked from the example's published provenance. Keep the original archive. The snapshot SHA-256 identifies the production framework snapshot; it is not a Git commit and cannot be passed to `git checkout`.
 
 Use a separate clone so replay does not change an existing Video Use installation. Replace the placeholders below with the recorded commit and your extracted folder; the project folder is the one containing `edit/`.
 
@@ -13,11 +13,18 @@ VIDEO_USE_ROOT="$HOME/Developer/video-use-replay"
 VIDEO_USE_COMMIT="<recorded frameworkCommit>"
 VIDEO_PROJECT_ROOT="/absolute/path/to/extracted-example"
 
-git clone https://github.com/browser-use/video-use "$VIDEO_USE_ROOT"
+git clone https://github.com/DonIsmaelito/video-use "$VIDEO_USE_ROOT"
 git -C "$VIDEO_USE_ROOT" checkout --detach "$VIDEO_USE_COMMIT"
 ```
 
-If that commit is unavailable from the public repository, obtain the matching published framework revision or snapshot from the example's maintainer. A production snapshot may contain branch changes beyond its recorded base commit; compare any recorded framework file hashes before claiming the same implementation. A current checkout can be used for a new render, but does not establish an exact replay of an unavailable snapshot. Retain its version and inspect the result.
+If you already created a separate upstream clone, fetch this campaign's public fork into that clone before checking out the recorded commit:
+
+```sh
+git -C "$VIDEO_USE_ROOT" fetch https://github.com/DonIsmaelito/video-use feature/useful-video-library
+git -C "$VIDEO_USE_ROOT" checkout --detach "$VIDEO_USE_COMMIT"
+```
+
+If the recorded commit remains unavailable, obtain the matching published framework revision or snapshot from the example's maintainer. A production snapshot may contain branch changes beyond its recorded base commit; compare any recorded framework file hashes before claiming the same implementation. A current checkout can be used for a new render, but does not establish an exact replay of an unavailable snapshot. Retain its version and inspect the result.
 
 ## 2. Install tools and locked dependencies
 
