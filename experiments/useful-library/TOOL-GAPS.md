@@ -82,3 +82,12 @@ untouched. Existing social films keep their original authored implementation.
 The same batch exposed a timeline preview failure at an exact clip endpoint;
 `timeline_view.py` now resolves the real final decoded frame only when the normal
 seek yields no image, and still rejects genuinely out-of-range requests.
+
+The waterfall edit's original tonal bed was useful beyond its fixed four-note
+score. `helpers/ambient_audio.py` now takes explicit sustained tones and timed
+soft pulses, reusing the tactile helper's PCM and headroom checks. It validates
+frequency, pan, fades, event bounds and total work, records deterministic phase
+seed and input/output hashes, and preserves existing files. This is original
+sinusoidal synthesis, not recorded nature sound or a generative music service.
+Focused tests inspect real WAV samples, oscillator frequency/pan, exact duration,
+silent boundaries, overlap rejection and failed/concurrent-write protection.
