@@ -279,7 +279,12 @@ export function Gallery() {
             <article className="featured-card" key={example.id}>
               <button
                 type="button"
-                className="featured-frame"
+                className={
+                  'featured-frame' +
+                  (example.id === 'whiplash-cinematic-story-edit'
+                    ? ' featured-frame-fill'
+                    : '')
+                }
                 onClick={() => openExample(example)}
                 aria-label={`Watch ${example.title}`}
               >

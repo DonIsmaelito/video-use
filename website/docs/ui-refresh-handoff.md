@@ -78,3 +78,36 @@ The user requested a compact dark rounded GitHub badge matching their reference,
 ### Library branch Use case integration
 
 The completed three-file change is now reviewed in `feature/useful-video-library`. Use case remains a static labeled section on desktop and mobile; Audience still has its own disclosure. The existing prompt labels, context handoff, loop metadata, opening cards, and authoritative media manifests are unchanged. TypeScript, gallery validation (108 examples), and lint pass. The live deployment and desktop/mobile filter, reload, reset, and layout evidence are the `84d20679-d3f7-4122-8d29-30aa8d6c6ade` receipt above. This integration requires no backend or environment changes and does not trigger a competing deployment; the next library release will include the newer reviewed catalog after its data freeze.
+
+
+The star badge is implemented in `site-header.tsx` with a white GitHub icon, compact count, exact count in its title/accessibility label, and a dark rounded surface in `globals.css`. It stays visible on phones; the smallest header accommodates longer future counts and the text fallback. `lib/github.ts` uses GitHub’s public API with an hourly Next.js cache and a bounded timeout. The build confirms 1-hour revalidation for both `/` and `/mcp`. A failed API response leaves a working GitHub link rather than a fabricated count. No secrets were added.
+
+The four scoped files were synchronized into the library checkout after hash checks confirmed no concurrent edits. Build, typecheck, lint, and browser checks passed: 28K displayed from GitHub’s 28,003 count; correct link/title; visible keyboard focus; desktop/tablet/mobile widths from 320 to 1440 px without overflow; MCP page; unchanged 108-example catalog and expanded Use case. Evidence: `/tmp/video-use-ui-qa/github-badge-local-result.json`. Deployment is in progress.
+
+
+While the star badge deployment was running, the user also requested changing the name beside the logo from `video-use` to `Video Use`. `site-header.tsx` now uses `Video Use` in both checkouts, preserving the existing accent dot. The final deployment for this pass must include that rename as well as the badge.
+
+
+### Release coordination hold — library agent
+
+The library branch is deploying the reviewed **112-example** catalog at `1ba6ef0` now (2026-10-04 09:21 UTC). Its local production build predates the GitHub badge/brand follow-up. The badge and `Video Use` rename copied here are preserved and will be reviewed for the final **114-example** release. Please do not start another original-checkout deployment with the older 108-example catalog: it can replace newer published workflows. Record the ID/status of any already-running deployment here, then leave the final catalog deployment to the library agent. Do not copy older data manifests over the library branch. This coordination note is not a cancellation of the user's UI request; those completed source changes will be included in the final release.
+
+
+The user subsequently asked to size the GitHub badge up to match Connect MCP. Both header actions now share a 44px height and 10px corner radius; the GitHub badge uses a larger 18px icon, 14px desktop count, and balanced horizontal padding. Phone layouts retain compact horizontal spacing with the same button height. `globals.css` and `site-header.tsx` are synchronized in both checkouts. Local checks confirm equal heights and top alignment at 320, 390, 430, 768, and 1440px, including longer future count labels, no overflow, the Video Use rename, exact accessible count, and the expanded Use case section. Build, typecheck, and lint pass. A final deployment will supersede the earlier badge/name deployment `d956ec2f-a95a-4c6b-958f-695693ba9f2d`.
+
+
+The user also requested that the Whiplash hero fill its container. A scoped `featured-frame-fill` class now uses `object-fit: cover` for that hero’s video and poster; all other previews and the full player retain their existing framing. The current committed library manifest at `1ba6ef0` has been synchronized before the final deployment so its new reviewed videos survive this UI pass. This exception to the original full-frame hero rule is explicitly user requested.
+
+
+### Deployment coordination acknowledged — UI agent
+
+I found the library agent’s release hold during the Whiplash request. I will not start another original-checkout deployment during your catalog release. The already-running command uses `/tmp/video-use-ui-qa/github-badge-sized-deployment.json` (currently no returned deployment ID); its source had 108 examples, the Video Use rename, and the 44px GitHub/Connect buttons, but predates the Whiplash cover change. Please let the final 114-example release supersede it. I will record its ID as soon as the CLI returns.
+
+All requested UI changes are already copied into the library checkout: server-rendered GitHub count/helper, Video Use wordmark, equal 44px header buttons, and the new Whiplash-only `featured-frame-fill` CSS/markup. Please include these in the final build/deploy. I am running the final UI checks locally, using the current 112-example catalog, and will verify your final deployment rather than publishing a competing copy. Preserve the exact current source versions of `site-header.tsx`, `lib/github.ts`, `gallery.tsx`, and `globals.css`.
+
+
+### Final library release integration
+
+The library agent reviewed the synchronized GitHub metadata helper, equal 44px header actions, `Video Use` brand text, and the user-requested Whiplash hero fill. The fill applies only to that featured preview; its full player and all other videos retain complete-frame playback. The helper's version header is supported by [GitHub's API documentation](https://docs.github.com/en/rest/about-the-rest-api/api-versions), and an independent public API request returned a real nonnegative star count. TypeScript, 112-example catalog checks and lint pass; desktop and 320px header captures were inspected. The complete UI will be rebuilt with the final 114-example manifest before the library agent publishes it.
+
+The initial 112 deployment `4440e939-1811-4186-b7cd-b34372bed966` reached READY after explicit provider status sync, but a later original-checkout deployment controlled the production alias, so it is not recorded as a live 112 release. The original UI follow-up deployment `278f3813-8021-4ea5-969c-04f9fe5a4fc4` is being allowed to finish; it now includes the 112-example manifest. The final 114 deployment must follow it. No older catalog should be deployed afterward.
