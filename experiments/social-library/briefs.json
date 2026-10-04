@@ -960,6 +960,1379 @@
         "Existing caption, overlay and audio helpers; document any bounded tool gap before implementing a new helper"
       ],
       "productionBatch": "social-02"
+    },
+    {
+      "category": "Video Edits",
+      "technique": "video-editing",
+      "orientation": "portrait",
+      "aspect": "9:16",
+      "fps": 30,
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/browser-use/video-use",
+      "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+      "license": "MIT for original editing code and documentation; source media retains its own credited terms",
+      "licenseUrl": "https://github.com/browser-use/video-use/blob/main/LICENSE",
+      "useCases": [
+        "Social content",
+        "Short-form edits"
+      ],
+      "id": "social-09-pottery-memory",
+      "title": "Save a workshop memory",
+      "description": "A warm pottery-day montage: shared clay work and a separate finished-mug selfie, without a false before-and-after claim.",
+      "duration": 18,
+      "audiences": [
+        "Content creators",
+        "Marketers"
+      ],
+      "prompt": "Use Video Use to make an 18-second vertical workshop-memory post from real footage of people making something together and taking a photo afterward. Open with a brief glimpse of the shared memory, then let hands, material and expressions carry the story. Keep both people and the useful handwork legible. Treat any different finished objects as part of the visit, not proof that the wet piece was instantly finished. Use one short warm hook, no recipe, invented venue, price, booking claim or generic CTA. Finish on a generous photo-like memory hold with a subtle drift, not an empty end card. Keep natural skin and clay tones and an understated licensed bed only if it fits. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the current query. Deliver 1080\u00d71920 at 30 fps. Make the footage large and keep words few; use a compact first-second hook, not a title card followed by a small landscape rectangle. Keep essential text out of the top 150px, bottom 300px and rightmost 120px social controls. Use a deliberate wider picture window only when an essential action cannot fit a portrait crop. Keep honest credits, an editable cut map, source-to-output timing and complete replay instructions. In normal interactive use, show a short preview for approval before the full edit.",
+      "sourceAssets": [
+        {
+          "id": "mixkit-40026",
+          "url": "https://assets.mixkit.co/videos/40026/40026-1080.mp4",
+          "sourcePage": "https://mixkit.co/free-stock-video/lgbt-couple-of-girls-making-a-clay-vase-together-40026/",
+          "license": "Mixkit Stock Video Free License",
+          "licenseUrl": "https://mixkit.co/license/",
+          "licenseEvidence": "The exact item page explicitly identifies the Stock Video Free License and permits commercial or personal use.",
+          "credit": "Footage: Mixkit item 40026, LGBT couple of girls making a clay vase together. Edited for an educational Video Use example.",
+          "actualContent": "Two people in aprons shape a grey clay pot together on a turning wheel; the framing is natively portrait.",
+          "limitations": "Use neutral descriptions of the visible activity. Preserve both sets of hands and pot. This depicts an experience, not a complete pottery tutorial.",
+          "transcribe": false,
+          "remote": "prepared-assets/social-20261004/mixkit-40026/mixkit-40026.mp4",
+          "sha256": "268786ab10123fa76bdb6de7eef026b4bfd6e0c6cdc4b53d7eacff356be8330d",
+          "bytes": 29019447,
+          "duration": 8.675,
+          "width": 1080,
+          "height": 1920,
+          "fps": "24000/1001",
+          "reviewMoments": [
+            0.0,
+            0.775,
+            1.55,
+            2.325,
+            3.1,
+            3.875,
+            4.65,
+            5.425,
+            6.2,
+            6.975,
+            7.75,
+            8.525
+          ],
+          "actualAcquisition": "yt-dlp direct public rendition in cloud; actual source probed and hashed"
+        },
+        {
+          "id": "mixkit-40017",
+          "url": "https://assets.mixkit.co/videos/40017/40017-1080.mp4",
+          "sourcePage": "https://mixkit.co/free-stock-video/lgbtq-girlfriends-taking-a-selfie-in-a-pottery-shop-40017/",
+          "license": "Mixkit Stock Video Free License",
+          "licenseUrl": "https://mixkit.co/license/",
+          "licenseEvidence": "The exact item page explicitly identifies the Stock Video Free License and permits commercial or personal use.",
+          "credit": "Footage: Mixkit item 40017, LGBTQ girlfriends taking a selfie in a pottery shop. Edited for an educational Video Use example.",
+          "actualContent": "The same visually matching pair, now without aprons, pose for a phone selfie holding dark finished ceramic mugs.",
+          "limitations": "The finished mugs are visibly different from the fresh grey vessel. Do not claim these are the same pieces completed immediately; use as workshop-memory imagery, with a truthful stock-footage description.",
+          "transcribe": false,
+          "remote": "prepared-assets/social-20261004/mixkit-40017/mixkit-40017.mp4",
+          "sha256": "b5b488b166cb2390cb552a76f455113f58eadc7b900c998bef177b9ce5297310",
+          "bytes": 18957237,
+          "duration": 6.13,
+          "width": 1920,
+          "height": 1080,
+          "fps": "24000/1001",
+          "reviewMoments": [
+            0.0,
+            0.544,
+            1.087,
+            1.631,
+            2.175,
+            2.718,
+            3.262,
+            3.805,
+            4.349,
+            4.893,
+            5.436,
+            5.98
+          ],
+          "actualAcquisition": "yt-dlp direct public rendition in cloud; actual source probed and hashed"
+        },
+        {
+          "id": "music-boogie",
+          "url": "https://freemusicarchive.org/music/John_Bartmann/retro-boogie/boogie-til-you-drop/",
+          "license": "CC BY4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "credit": "Boogie Til You Drop by John Bartmann \u2014 https://johnbartmann.com/music \u2014 CC BY 4.0 https://creativecommons.org/licenses/by/4.0/ \u2014 excerpt with volume normalization and fades",
+          "sha256": "d71a66c54c71902781c5a9e1b8007ed8ebe8b2aa9717b4c85844d3fc348794a6",
+          "duration": 84.264,
+          "acquisition": "Existing licensed project soundtrack; original hash verified locally and in cloud"
+        }
+      ],
+      "preparedInputs": [
+        {
+          "source": "prepared-assets/social-20261004/mixkit-40026/mixkit-40026.mp4",
+          "target": "edit/downloads/mixkit-40026.mp4",
+          "sha256": "268786ab10123fa76bdb6de7eef026b4bfd6e0c6cdc4b53d7eacff356be8330d",
+          "bytes": 29019447
+        },
+        {
+          "source": "prepared-assets/social-20261004/mixkit-40017/mixkit-40017.mp4",
+          "target": "edit/downloads/mixkit-40017.mp4",
+          "sha256": "b5b488b166cb2390cb552a76f455113f58eadc7b900c998bef177b9ce5297310",
+          "bytes": 18957237
+        },
+        {
+          "source": "prepared-assets/social-20261004/music-boogie/boogie-til-you-drop.mp3",
+          "target": "edit/downloads/boogie-til-you-drop.mp3",
+          "sha256": "d71a66c54c71902781c5a9e1b8007ed8ebe8b2aa9717b4c85844d3fc348794a6",
+          "bytes": 4503142
+        }
+      ],
+      "assetPlan": "Use exact prepared sources 40026 (native 1080\u00d71920, 8.675s) and 40017 (1920\u00d71080, 6.13s). Actual frames show two people shaping the same wet grey vessel with their hands on a wheel; the later selfie shows different, finished dark mugs. This is an editorial workshop memory, not a firing or glazing tutorial and not a claim those mugs are the freshly formed pot. A feasible 18s cut map is: output 0\u20131.5 = 40017 source 4.5\u20136.0 (a flash-forward glimpse of the selfie); output 1.5\u201310.0 = 40026 source 0.05\u20138.55; output 10.0\u201316.0 = 40017 source 0\u20136.0; output 16.0\u201318.0 = a photo-like hold of the last selfie frame with only a restrained 1\u20132% original-image drift. The reuse of the selfie is a deliberate cold open and return, not a second event. Keep the source motion at normal speed. Native portrait clay footage should retain the vessel and both sets of hands; do not crop them away for faces. The wide selfie requires a measured large two-person crop, potentially a generous near-square picture region, preserving faces, phone and mugs where visible. Do not add a second crop of a person as if it were another attendee. A compact hook such as Made a memory is enough. The source item titles describe the couple, but visible copy should describe the activity without inferring identity or a relationship beyond what is shown. Keep both item credits and their exact Free License evidence in provenance; footage remains stock footage in the gallery description. Optional music: audition the prepared boogie-til-you-drop.mp3 and use it only if the pace suits this edit. It is a licensed music bed, not captured location sound. Preserve the exact receipt credit: Boogie Til You Drop by John Bartmann \u2014 https://johnbartmann.com/music \u2014 CC BY 4.0 https://creativecommons.org/licenses/by/4.0/ \u2014 excerpt with volume normalization and fades. Record the chosen range, gain, fades and SHA256 d71a66c54c71902781c5a9e1b8007ed8ebe8b2aa9717b4c85844d3fc348794a6. Keep the source page and reacquisition instructions; exclude raw MP3 from the source ZIP. If unused, do not list it as an audible soundtrack or a used asset.",
+      "qualityChecks": [
+        "Wet clay vessel and finished mugs are visibly different; copy, ordering and description do not imply the same piece was instantly completed",
+        "Both sets of hands and the vessel remain visible in the clay action; the selfie keeps both faces and the relevant phone/mug action in a large readable picture",
+        "The opening selfie is transparently a memory flash-forward; no invented attendee, venue or workshop booking offer",
+        "The final two-second photographic hold is purposeful and clearly derived from the real final selfie frame; no AI continuation",
+        "Any optional licensed bed has the exact music credit and actual selected range/gain/fades, with no claim of captured workshop sound",
+        "Exactly 540 decoded output frames at 1080\u00d71920, 30 fps; source 24/23.976 fps is deliberately conformed without pretending it is high-frame-rate footage",
+        "Inspect the actual final encoded opening, every edit boundary and the ending; no black flash, missing frame, unintended overlap or clipped last action",
+        "Real footage dominates the phone screen; no tiny landscape rectangle in a mostly empty matte, no stretched image and no unreadable production or licensing prose in the picture",
+        "Essential captions and hooks remain outside the top 150px, bottom 300px and rightmost 120px social controls; action remains understandable behind normal social UI",
+        "All prepared-input SHA256 values and byte counts match their acquisition receipts; preserve the exact prompt and actual used source list",
+        "The editable package includes the actual EDL/config, caption timings if used, source URLs and hashes, credited license evidence, pinned dependencies and tested fresh-extraction replay instructions",
+        "Do not redistribute raw third-party movies or the music MP3 in the public source ZIP; document exact reacquisition and hash verification instead",
+        "Separate visual inspection, transcript evidence and any real listening in the review; do not claim a live audio audition or perfect sync from metadata alone"
+      ],
+      "toolNeeds": [
+        "Existing crop and subtle still-image transform helpers; no generated people or replacement objects",
+        "Video Use normal per-segment EDL render and video-copy concat pipeline",
+        "Existing crop, overlay, caption and audio helpers; record any concrete missing capability before adding a bounded helper"
+      ],
+      "productionBatch": "social-03"
+    },
+    {
+      "category": "Video Edits",
+      "technique": "video-editing",
+      "orientation": "portrait",
+      "aspect": "9:16",
+      "fps": 30,
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/browser-use/video-use",
+      "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+      "license": "MIT for original editing code and documentation; source media retains its own credited terms",
+      "licenseUrl": "https://github.com/browser-use/video-use/blob/main/LICENSE",
+      "useCases": [
+        "Social content",
+        "Short-form edits"
+      ],
+      "id": "social-10-forest-ride",
+      "title": "Cut a forest ride",
+      "description": "A ride-day social edit connecting a pedal push with two riders on a forest ramp, using honest montage continuity.",
+      "duration": 18,
+      "audiences": [
+        "Content creators",
+        "Marketers"
+      ],
+      "prompt": "Use Video Use to make an 18-second vertical ride-day post from real bike-detail and forest-action footage. Lead with a short action glimpse, return to the foot finding the pedal, then pay it off with the riders moving through the forest. Cut around actual movement and keep the pedal, wheels, helmets and landing area readable. Keep different riders or bikes honest as a montage rather than pretending the sources are one uninterrupted ride. Use no more than a compact hook and let the footage supply the energy. Do not reverse movement, invent a stunt or add speed statistics. Finish after the visible landings and ride-away, with a brief quiet breath of the trail. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the current query. Deliver 1080\u00d71920 at 30 fps. Make the footage large and keep words few; use a compact first-second hook, not a title card followed by a small landscape rectangle. Keep essential text out of the top 150px, bottom 300px and rightmost 120px social controls. Use a deliberate wider picture window only when an essential action cannot fit a portrait crop. Keep honest credits, an editable cut map, source-to-output timing and complete replay instructions. In normal interactive use, show a short preview for approval before the full edit.",
+      "sourceAssets": [
+        {
+          "id": "mixkit-40891",
+          "url": "https://assets.mixkit.co/videos/40891/40891-1080.mp4",
+          "sourcePage": "https://mixkit.co/free-stock-video/cyclist-places-his-foot-on-the-pedal-and-starts-to-40891/",
+          "license": "Mixkit Stock Video Free License",
+          "licenseUrl": "https://mixkit.co/license/",
+          "licenseEvidence": "The exact item page explicitly identifies the Stock Video Free License and permits commercial or personal use.",
+          "credit": "Footage: Mixkit item 40891, Cyclist places his foot on the pedal and starts to ride. Edited for an educational Video Use example.",
+          "actualContent": "Close view of a foot reaching a pedal beside a mountain-bike crank and rear wheel, with an action shift in the sampled later frame.",
+          "limitations": "The complete direction of movement must be checked before selecting a start sequence; do not reverse motion to manufacture a mount. Bike brand lettering is visible, without endorsement.",
+          "transcribe": false,
+          "remote": "prepared-assets/social-20261004/mixkit-40891/mixkit-40891.mp4",
+          "sha256": "cc9bf05d0b10ab770f3ac883bd20d31f786b0113c7938dab157d5db5e5b69e4c",
+          "bytes": 39272400,
+          "duration": 11.301667,
+          "width": 1920,
+          "height": 1080,
+          "fps": "24000/1001",
+          "reviewMoments": [
+            0.0,
+            1.014,
+            2.028,
+            3.041,
+            4.055,
+            5.069,
+            6.083,
+            7.097,
+            8.11,
+            9.124,
+            10.138,
+            11.152
+          ],
+          "actualAcquisition": "yt-dlp direct public rendition in cloud; actual source probed and hashed"
+        },
+        {
+          "id": "mixkit-44340",
+          "url": "https://assets.mixkit.co/videos/44340/44340-1080.mp4",
+          "sourcePage": "https://mixkit.co/free-stock-video/pair-of-cyclists-speeding-through-a-forest-44340/",
+          "license": "Mixkit Stock Video Free License",
+          "licenseUrl": "https://mixkit.co/license/",
+          "licenseEvidence": "The exact item page explicitly identifies the Stock Video Free License and permits commercial or personal use.",
+          "credit": "Footage: Mixkit item 44340, Pair of cyclists speeding through a forest. Edited for an educational Video Use example.",
+          "actualContent": "Two riders traverse a wooded path and a wooden ramp in a wide forest shot, moving through then out of the scene.",
+          "limitations": "Keep bikes and helmets in frame; the source is wide1080. Do not imply these are the same rider/bike as the close pedal shot. Use a ride-day montage, not a literal continuous ride.",
+          "transcribe": false,
+          "remote": "prepared-assets/social-20261004/mixkit-44340/mixkit-44340.mp4",
+          "sha256": "99c6b301ee7373ad5c2b5c72032687cdd4bb534fb4277562ccb62ffa4fcb447d",
+          "bytes": 31168000,
+          "duration": 10.135,
+          "width": 1920,
+          "height": 1080,
+          "fps": "24000/1001",
+          "reviewMoments": [
+            0.0,
+            0.908,
+            1.815,
+            2.723,
+            3.631,
+            4.539,
+            5.446,
+            6.354,
+            7.262,
+            8.17,
+            9.077,
+            9.985
+          ],
+          "actualAcquisition": "yt-dlp direct public rendition in cloud; actual source probed and hashed"
+        },
+        {
+          "id": "music-boogie",
+          "url": "https://freemusicarchive.org/music/John_Bartmann/retro-boogie/boogie-til-you-drop/",
+          "license": "CC BY4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "credit": "Boogie Til You Drop by John Bartmann \u2014 https://johnbartmann.com/music \u2014 CC BY 4.0 https://creativecommons.org/licenses/by/4.0/ \u2014 excerpt with volume normalization and fades",
+          "sha256": "d71a66c54c71902781c5a9e1b8007ed8ebe8b2aa9717b4c85844d3fc348794a6",
+          "duration": 84.264,
+          "acquisition": "Existing licensed project soundtrack; original hash verified locally and in cloud"
+        }
+      ],
+      "preparedInputs": [
+        {
+          "source": "prepared-assets/social-20261004/mixkit-40891/mixkit-40891.mp4",
+          "target": "edit/downloads/mixkit-40891.mp4",
+          "sha256": "cc9bf05d0b10ab770f3ac883bd20d31f786b0113c7938dab157d5db5e5b69e4c",
+          "bytes": 39272400
+        },
+        {
+          "source": "prepared-assets/social-20261004/mixkit-44340/mixkit-44340.mp4",
+          "target": "edit/downloads/mixkit-44340.mp4",
+          "sha256": "99c6b301ee7373ad5c2b5c72032687cdd4bb534fb4277562ccb62ffa4fcb447d",
+          "bytes": 31168000
+        },
+        {
+          "source": "prepared-assets/social-20261004/music-boogie/boogie-til-you-drop.mp3",
+          "target": "edit/downloads/boogie-til-you-drop.mp3",
+          "sha256": "d71a66c54c71902781c5a9e1b8007ed8ebe8b2aa9717b4c85844d3fc348794a6",
+          "bytes": 4503142
+        }
+      ],
+      "assetPlan": "Use prepared Mixkit 40891 and 44340 at their recorded 23.976 fps, not invented high-speed capture. Actual 40891 frames show a shoe descending onto the pedal around 1\u20133s, a crank/weight shift and the bike rolling away through about 10s. Actual 44340 frames show the first rider airborne near 0.9s, the second entering near 1.8s and airborne near 2.7s; both move away by 4\u20135.5s and the scene is nearly empty after 6s. A feasible 18s map is: output 0\u20131 = 44340 source 0.6\u20131.6 as a cold-open action glimpse; output 1\u201311 = 40891 source 0\u201310.0; output 11\u201317.5 = 44340 source 0\u20136.5; output 17.5\u201318 = a short hold of the exit-trail frame. Within the pedal section, use two or three purposeful changes of crop at actual shoe contact and roll-away to avoid a static ten-second setup; preserve forward source time. The brief return to the forest pass pays off the cold open; do not sell the repeated glimpse as a second jump. A crop following the active rider must include both wheels and helmet through approach, airborne movement and landing. Where a single portrait crop cannot show both separated riders, use a large wider action window or a deliberate focus handoff after the first rider lands; never manufacture a second camera angle. Avoid retaining a long empty forest tail. Suggested hook: To the trees. The pedal bike and distant pair are different sources; no brand sponsorship, named route, speed or safety demonstration claim. Keep real source audio if useful and licensed; otherwise a restrained music bed is editorial sound, not proof of recorded tire noise. Optional music: audition the prepared boogie-til-you-drop.mp3 and use it only if the pace suits this edit. It is a licensed music bed, not captured location sound. Preserve the exact receipt credit: Boogie Til You Drop by John Bartmann \u2014 https://johnbartmann.com/music \u2014 CC BY 4.0 https://creativecommons.org/licenses/by/4.0/ \u2014 excerpt with volume normalization and fades. Record the chosen range, gain, fades and SHA256 d71a66c54c71902781c5a9e1b8007ed8ebe8b2aa9717b4c85844d3fc348794a6. Keep the source page and reacquisition instructions; exclude raw MP3 from the source ZIP. If unused, do not list it as an audible soundtrack or a used asset.",
+      "qualityChecks": [
+        "Shoe-to-pedal movement runs forward and contact precedes roll-away; no reverse fabrication",
+        "Both rider passes preserve a visible approach, wheels/helmet while airborne, and landing before the edit leaves the action",
+        "Dynamic crops or handoffs are measured on actual source frames and do not cut off a bicycle or pretend separate crops are distinct cameras",
+        "The result reads as a ride-day montage, without claiming the detail bike and the forest pair are the same rider or continuous take",
+        "No long empty-forest tail or padded empty matte; the cold-open repeat is clearly part of the edit structure",
+        "Any optional licensed bed is fully credited and its fades do not cut a musical phrase abruptly",
+        "Exactly 540 decoded output frames at 1080\u00d71920, 30 fps; source 24/23.976 fps is deliberately conformed without pretending it is high-frame-rate footage",
+        "Inspect the actual final encoded opening, every edit boundary and the ending; no black flash, missing frame, unintended overlap or clipped last action",
+        "Real footage dominates the phone screen; no tiny landscape rectangle in a mostly empty matte, no stretched image and no unreadable production or licensing prose in the picture",
+        "Essential captions and hooks remain outside the top 150px, bottom 300px and rightmost 120px social controls; action remains understandable behind normal social UI",
+        "All prepared-input SHA256 values and byte counts match their acquisition receipts; preserve the exact prompt and actual used source list",
+        "The editable package includes the actual EDL/config, caption timings if used, source URLs and hashes, credited license evidence, pinned dependencies and tested fresh-extraction replay instructions",
+        "Do not redistribute raw third-party movies or the music MP3 in the public source ZIP; document exact reacquisition and hash verification instead",
+        "Separate visual inspection, transcript evidence and any real listening in the review; do not claim a live audio audition or perfect sync from metadata alone"
+      ],
+      "toolNeeds": [
+        "Existing keyframed crop or tracking controls with explicit rider selection; source-pixel framing proof through both landings",
+        "Video Use normal per-segment EDL render and video-copy concat pipeline",
+        "Existing crop, overlay, caption and audio helpers; record any concrete missing capability before adding a bounded helper"
+      ],
+      "productionBatch": "social-03"
+    },
+    {
+      "category": "Video Edits",
+      "technique": "video-editing",
+      "orientation": "portrait",
+      "aspect": "9:16",
+      "fps": 30,
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/browser-use/video-use",
+      "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+      "license": "MIT for original editing code and documentation; source media retains its own credited terms",
+      "licenseUrl": "https://github.com/browser-use/video-use/blob/main/LICENSE",
+      "useCases": [
+        "Social content",
+        "Short-form edits"
+      ],
+      "id": "social-11-dog-payoff",
+      "title": "Replay the dog payoff",
+      "description": "A dog leap, landing and disc-carry payoff with one clearly labeled replay; no unsupported claim about the exact catch.",
+      "duration": 18,
+      "audiences": [
+        "Content creators"
+      ],
+      "prompt": "Use Video Use to turn a real pet-action clip into an 18-second vertical setup, payoff and replay. Let the original action establish what happened before repeating one satisfying, clearly visible part with a small Replay label. Follow the animal smoothly while preserving paws, landing space and the object it carries. Keep the footage large, the hook short and the timing playful. Only describe a catch, trick or reaction if the actual frames show it; a result does not prove an unseen moment. Keep the source\u2019s natural recorded playback character rather than piling extra slow motion onto footage that is already slowed. Finish on the visible result, with no invented voiceover, repeated action presented as a new event or generic subscribe card. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the current query. Deliver 1080\u00d71920 at 30 fps. Make the footage large and keep words few; use a compact first-second hook, not a title card followed by a small landscape rectangle. Keep essential text out of the top 150px, bottom 300px and rightmost 120px social controls. Use a deliberate wider picture window only when an essential action cannot fit a portrait crop. Keep honest credits, an editable cut map, source-to-output timing and complete replay instructions. In normal interactive use, show a short preview for approval before the full edit.",
+      "sourceAssets": [
+        {
+          "id": "mixkit-1557",
+          "url": "https://assets.mixkit.co/videos/1557/1557-1080.mp4",
+          "sourcePage": "https://mixkit.co/free-stock-video/dog-catches-a-frisbee-in-mid-air-1557/",
+          "license": "Mixkit Stock Video Free License",
+          "licenseUrl": "https://mixkit.co/license/",
+          "licenseEvidence": "The exact item page explicitly identifies the Stock Video Free License and permits commercial or personal use.",
+          "credit": "Footage: Mixkit item 1557, Dog catches a frisbee in mid-air. Edited for an educational Video Use example.",
+          "actualContent": "A black-and-white dog looks upward near the camera, appears farther away later, then is seen carrying a blue flying disc. The sampled frames establish a result but do not locate the exact catch.",
+          "limitations": "Actual catch and landing should be checked continuously before setting a payoff or replay; keep the dog and disc inside the crop.",
+          "transcribe": false,
+          "remote": "prepared-assets/social-20261004/mixkit-1557/mixkit-1557.mp4",
+          "sha256": "b0b52188b504519fb31c0b7e43fea51a5760b0a8c162b8f174c66fbf7b5aaca4",
+          "bytes": 42745945,
+          "duration": 13.875,
+          "width": 1920,
+          "height": 1080,
+          "fps": "24/1",
+          "reviewMoments": [
+            0.0,
+            1.248,
+            2.495,
+            3.743,
+            4.991,
+            6.239,
+            7.486,
+            8.734,
+            9.982,
+            11.23,
+            12.477,
+            13.725
+          ],
+          "actualAcquisition": "yt-dlp direct public rendition in cloud; actual source probed and hashed"
+        },
+        {
+          "id": "music-boogie",
+          "url": "https://freemusicarchive.org/music/John_Bartmann/retro-boogie/boogie-til-you-drop/",
+          "license": "CC BY4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "credit": "Boogie Til You Drop by John Bartmann \u2014 https://johnbartmann.com/music \u2014 CC BY 4.0 https://creativecommons.org/licenses/by/4.0/ \u2014 excerpt with volume normalization and fades",
+          "sha256": "d71a66c54c71902781c5a9e1b8007ed8ebe8b2aa9717b4c85844d3fc348794a6",
+          "duration": 84.264,
+          "acquisition": "Existing licensed project soundtrack; original hash verified locally and in cloud"
+        }
+      ],
+      "preparedInputs": [
+        {
+          "source": "prepared-assets/social-20261004/mixkit-1557/mixkit-1557.mp4",
+          "target": "edit/downloads/mixkit-1557.mp4",
+          "sha256": "b0b52188b504519fb31c0b7e43fea51a5760b0a8c162b8f174c66fbf7b5aaca4",
+          "bytes": 42745945
+        },
+        {
+          "source": "prepared-assets/social-20261004/music-boogie/boogie-til-you-drop.mp3",
+          "target": "edit/downloads/boogie-til-you-drop.mp3",
+          "sha256": "d71a66c54c71902781c5a9e1b8007ed8ebe8b2aa9717b4c85844d3fc348794a6",
+          "bytes": 4503142
+        }
+      ],
+      "assetPlan": "Use hash-bound Mixkit 1557 (13.875s, 1920\u00d71080, 24 fps). The prepared item title says catch, but the inspected frames establish a narrower claim: the dog leaps, a blue disc is visible beside/in its mouth by about 5.5s, it descends and lands by about 7.5s, then carries the disc at 9\u201313.7s. The exact bite/contact is not established by the sampled evidence; the head briefly reaches the original source top edge around 3\u20134s. Do not claim a fully visible airborne catch or digitally invent the missing head/disc area. A feasible exact 18s map is output 0\u201311 = source 0\u201311; output 11\u201314 = source 5.25\u20138.25 labeled Replay; output 14\u201316.875 = source 11\u201313.875; output 16.875\u201318 = hold the final real carrying frame. Keep the replay at recorded playback speed and label the replay for its whole duration. Before finalizing, inspect the selected landing continuously and frame the blue disc clearly where the source actually shows it. Use a measured crop following the dog, widening if necessary for feet/landing; do not make the pre-existing top-edge limitation worse. A hook such as Wait for the landing is supported. Avoid the claims perfect catch, caught on camera or first try. Do not insert a fake thrower or reaction. Optional music can support the playful rhythm; any authored effect is an editorial accent, not captured source sound. Optional music: audition the prepared boogie-til-you-drop.mp3 and use it only if the pace suits this edit. It is a licensed music bed, not captured location sound. Preserve the exact receipt credit: Boogie Til You Drop by John Bartmann \u2014 https://johnbartmann.com/music \u2014 CC BY 4.0 https://creativecommons.org/licenses/by/4.0/ \u2014 excerpt with volume normalization and fades. Record the chosen range, gain, fades and SHA256 d71a66c54c71902781c5a9e1b8007ed8ebe8b2aa9717b4c85844d3fc348794a6. Keep the source page and reacquisition instructions; exclude raw MP3 from the source ZIP. If unused, do not list it as an audible soundtrack or a used asset.",
+      "qualityChecks": [
+        "Copy describes only a leap, landing and visible disc-carry result unless continuous source inspection separately establishes the contact itself",
+        "Blue disc, paws and landing remain readable in the actual encoded crop; pre-existing source-edge clipping is documented rather than concealed by invented pixels",
+        "Exactly one replay is clearly labeled throughout, and the later carrying shot is not presented as another catch",
+        "Playback speed is faithful to the already slow-looking source; no synthetic motion interpolation or extra extreme slow motion",
+        "The final hold contains the dog carrying the real blue disc, with no abrupt unfinished landing or empty end card",
+        "Any licensed music credit and source/audio modifications are recorded, and synthetic accents are identified as editorial sound",
+        "Exactly 540 decoded output frames at 1080\u00d71920, 30 fps; source 24/23.976 fps is deliberately conformed without pretending it is high-frame-rate footage",
+        "Inspect the actual final encoded opening, every edit boundary and the ending; no black flash, missing frame, unintended overlap or clipped last action",
+        "Real footage dominates the phone screen; no tiny landscape rectangle in a mostly empty matte, no stretched image and no unreadable production or licensing prose in the picture",
+        "Essential captions and hooks remain outside the top 150px, bottom 300px and rightmost 120px social controls; action remains understandable behind normal social UI",
+        "All prepared-input SHA256 values and byte counts match their acquisition receipts; preserve the exact prompt and actual used source list",
+        "The editable package includes the actual EDL/config, caption timings if used, source URLs and hashes, credited license evidence, pinned dependencies and tested fresh-extraction replay instructions",
+        "Do not redistribute raw third-party movies or the music MP3 in the public source ZIP; document exact reacquisition and hash verification instead",
+        "Separate visual inspection, transcript evidence and any real listening in the review; do not claim a live audio audition or perfect sync from metadata alone"
+      ],
+      "toolNeeds": [
+        "Existing subject crop/keyframe tools with actual dog and disc framing proof; face-follow is not a substitute for animal/body tracking",
+        "Video Use normal per-segment EDL render and video-copy concat pipeline",
+        "Existing crop, overlay, caption and audio helpers; record any concrete missing capability before adding a bounded helper"
+      ],
+      "productionBatch": "social-03"
+    },
+    {
+      "category": "Video Edits",
+      "technique": "video-editing",
+      "orientation": "portrait",
+      "aspect": "9:16",
+      "fps": 30,
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/browser-use/video-use",
+      "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+      "license": "MIT for original editing code and documentation; source media retains its own credited terms",
+      "licenseUrl": "https://github.com/browser-use/video-use/blob/main/LICENSE",
+      "useCases": [
+        "Social content",
+        "Short-form edits"
+      ],
+      "id": "social-12-spring-story",
+      "title": "Tease a nonverbal story",
+      "description": "A vertical story teaser from Blender\u2019s Spring, connecting apprehension, a giant encounter and a warmer final image.",
+      "duration": 24,
+      "audiences": [
+        "Content creators",
+        "Designers"
+      ],
+      "prompt": "Use Video Use to turn a licensed nonverbal animated short into a 24-second vertical story teaser. Choose a clear emotional progression: a character notices something, encounters a larger presence and reaches a visually satisfying change. Let eyelines, scale, light and the original sound carry meaning. Keep source order where it supports the story, and do not fabricate a cause, ending or new character action. Use close framing for readable emotion and a wider picture only when the size relationship is essential. Use at most one compact editorial hook and a short film-title credit over the final real image. Build deliberate tension and release through shot duration rather than fast random cuts or generic narration. Keep the original score and effects where licensed and shape clean audio joins. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the current query. Deliver 1080\u00d71920 at 30 fps. Make the footage large and keep words few; use a compact first-second hook, not a title card followed by a small landscape rectangle. Keep essential text out of the top 150px, bottom 300px and rightmost 120px social controls. Use a deliberate wider picture window only when an essential action cannot fit a portrait crop. Keep honest credits, an editable cut map, source-to-output timing and complete replay instructions. In normal interactive use, show a short preview for approval before the full edit.",
+      "sourceAssets": [
+        {
+          "id": "spring",
+          "url": "https://video.blender.org/object-storage/web_videos/3d95fb3d-c866-42c8-9db1-fe82f48ccb95-804.mp4",
+          "sourcePage": "https://video.blender.org/videos/watch/3d95fb3d-c866-42c8-9db1-fe82f48ccb95",
+          "license": "CC BY 4.0",
+          "licenseUrl": "https://studio.blender.org/projects/spring/pages/about/",
+          "licenseEvidence": "Official project licensing page explicitly permits attributed remixing. Film source acquired from official Blender video server; retain credit and license link. Logos and unrelated third-party material retain their own rights.",
+          "credit": "\u00a9 Blender Foundation | cloud.blender.org/spring \u2014 Spring; edited excerpt",
+          "transcribe": false,
+          "remote": "prepared-assets/social-20261004/spring/spring.mp4",
+          "sha256": "9d11691b30a9fd192205224e9b0b59f918f33043ae600a791c9c6c1909d42309",
+          "bytes": 110388897,
+          "duration": 464.168,
+          "width": 1920,
+          "height": 804,
+          "fps": "24/1",
+          "reviewMoments": [
+            0.0,
+            42.183,
+            84.367,
+            126.55,
+            168.734,
+            210.917,
+            253.101,
+            295.284,
+            337.468,
+            379.651,
+            421.835,
+            464.018
+          ],
+          "actualAcquisition": "yt-dlp direct public rendition in cloud; actual source probed and hashed"
+        }
+      ],
+      "preparedInputs": [
+        {
+          "source": "prepared-assets/social-20261004/spring/spring.mp4",
+          "target": "edit/downloads/spring.mp4",
+          "sha256": "9d11691b30a9fd192205224e9b0b59f918f33043ae600a791c9c6c1909d42309",
+          "bytes": 110388897
+        }
+      ],
+      "assetPlan": "Use the exact prepared Spring film from the official Blender video server, SHA256 9d11691b30a9fd192205224e9b0b59f918f33043ae600a791c9c6c1909d42309, 1920\u00d7804 at 24 fps. The film and its original score are covered by the project\u2019s recorded CC BY 4.0 terms; retain \u00a9 Blender Foundation | cloud.blender.org/spring \u2014 Spring; edited excerpt, the project license page and the CC BY 4.0 link. Actual reviewed source frames: 148s shows the small girl among rocks, 152\u2013154s her apprehensive face; 194s she turns/cowers and 198\u2013200s show her opposite the large creature; 216\u2013218s show the luminous creature\u2019s large mouth-like forms and 220s her face; 236\u2013239s show the staff/character in an orange glow; 250s shows a warm smiling close-up and 252s the raised glowing staff. A feasible 24s starting map in source order is 148\u2013154 (6s), 194\u2013200 (6s), 216\u2013220 (4s), 236\u2013239 (3s), and 249\u2013254 (5s). These spans contain the film\u2019s own shot changes. Inspect the exact edit endpoints and all internal cuts before choosing crop changes; refine boundaries if needed while retaining 24s and the emotional progression. Do not call the creature friendly or claim the staff definitively causes an event not shown in these excerpts. This is an edited teaser, not the complete plot. The 2.39:1 source requires shot-specific framing: keep the girl\u2019s face and staff in close views, and preserve the creature/child scale relationship in the wide encounter using a generous taller picture region when necessary. Avoid a tiny full-width cinema strip. Never stretch the film or generate extra edges. Suggested tiny hook: Follow the light. Finish on the actual warm character/staff imagery, retaining at least a readable final beat rather than jumping to an unrelated black card. Use the film\u2019s own score/effects with documented cuts and short appropriate crossfades; do not add the boogie stock bed or pretend film sound design is field-recorded audio. Raw film stays out of the source ZIP; retain exact URL/hash and attribution plus modification note for the edited excerpt.",
+      "qualityChecks": [
+        "The actual edit has an understandable emotional sequence and payoff; no invented plot explanation, character action or cause-and-effect assertion",
+        "Every internal source cut receives a suitable crop; the child/staff and creature scale remain legible without a mostly empty portrait canvas",
+        "The final warm image and title credit are held long enough to read; no unrelated title-only filler",
+        "Original film audio transitions are inspected for clipped effects, discontinuous music and excessive peaks; any listening claim is supported separately",
+        "Spring, Blender Foundation, CC BY 4.0, source URL and edited-excerpt modification notice are preserved in visible/detail-page credit and provenance",
+        "Exactly 720 decoded output frames at 1080\u00d71920, 30 fps; source 24/23.976 fps is deliberately conformed without pretending it is high-frame-rate footage",
+        "Inspect the actual final encoded opening, every edit boundary and the ending; no black flash, missing frame, unintended overlap or clipped last action",
+        "Real footage dominates the phone screen; no tiny landscape rectangle in a mostly empty matte, no stretched image and no unreadable production or licensing prose in the picture",
+        "Essential captions and hooks remain outside the top 150px, bottom 300px and rightmost 120px social controls; action remains understandable behind normal social UI",
+        "All prepared-input SHA256 values and byte counts match their acquisition receipts; preserve the exact prompt and actual used source list",
+        "The editable package includes the actual EDL/config, caption timings if used, source URLs and hashes, credited license evidence, pinned dependencies and tested fresh-extraction replay instructions",
+        "Do not redistribute raw third-party movies or the music MP3 in the public source ZIP; document exact reacquisition and hash verification instead",
+        "Separate visual inspection, transcript evidence and any real listening in the review; do not claim a live audio audition or perfect sync from metadata alone"
+      ],
+      "toolNeeds": [
+        "Existing source scene-boundary inspection and per-shot crops; existing audio crossfade helpers for the original film mix",
+        "Video Use normal per-segment EDL render and video-copy concat pipeline",
+        "Existing crop, overlay, caption and audio helpers; record any concrete missing capability before adding a bounded helper"
+      ],
+      "productionBatch": "social-03"
+    },
+    {
+      "category": "Video Edits",
+      "technique": "video-editing",
+      "orientation": "portrait",
+      "aspect": "9:16",
+      "fps": 30,
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/browser-use/video-use",
+      "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+      "license": "MIT for original editing code and documentation; source media retains its own credited terms",
+      "licenseUrl": "https://github.com/browser-use/video-use/blob/main/LICENSE",
+      "useCases": [
+        "Social content",
+        "Short-form edits"
+      ],
+      "id": "social-13-robot-hand-dialogue",
+      "title": "Reframe a film conversation",
+      "description": "The complete opening robot-hand exchange from Tears of Steel, with readable captions and framing that keeps the reveal visible.",
+      "duration": 24,
+      "audiences": [
+        "Content creators",
+        "Educators"
+      ],
+      "prompt": "Use Video Use to make a 24-second vertical film-dialogue post from one complete, self-contained exchange. Preserve the setup, answer and final response in order with the original voices and meaning. Reframe toward the actual speaker, then widen or change the crop when a gesture or revealed object explains the line. Keep human expressions large and subtitle the real speech in short readable groups, not a paraphrased voiceover or a wall of text. Retain meaningful pauses and the film\u2019s own audio bridges. Use a short editorial hook only if it does not duplicate or cover the captions. Do not manufacture a reaction, make a person say something from another moment, or split a sentence to fit the length. End after the final thought and let its reaction breathe. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the current query. Deliver 1080\u00d71920 at 30 fps. Make the footage large and keep words few; use a compact first-second hook, not a title card followed by a small landscape rectangle. Keep essential text out of the top 150px, bottom 300px and rightmost 120px social controls. Use a deliberate wider picture window only when an essential action cannot fit a portrait crop. Keep honest credits, an editable cut map, source-to-output timing and complete replay instructions. In normal interactive use, show a short preview for approval before the full edit.",
+      "sourceAssets": [
+        {
+          "id": "tears-of-steel",
+          "url": "https://video.blender.org/object-storage/web_videos/8533ea43-4271-4a57-9694-e9d0b35e1aa1-800.mp4",
+          "sourcePage": "https://video.blender.org/videos/watch/8533ea43-4271-4a57-9694-e9d0b35e1aa1",
+          "license": "CC BY 3.0",
+          "licenseUrl": "https://mango.blender.org/sharing/",
+          "licenseEvidence": "Official project licensing page explicitly permits attributed remixing. Film source acquired from official Blender video server; retain credit and license link. Logos and unrelated third-party material retain their own rights.",
+          "credit": "(CC) Blender Foundation | mango.blender.org \u2014 Tears of Steel; edited excerpt",
+          "transcribe": true,
+          "remote": "prepared-assets/social-20261004/tears-of-steel/tears-of-steel.mp4",
+          "sha256": "727f3af5a80ae9763426eb8ae9b5559b0a266cf5dc20b9442dd1973f90e26193",
+          "bytes": 247686928,
+          "duration": 734.216,
+          "width": 1920,
+          "height": 800,
+          "fps": "24/1",
+          "reviewMoments": [
+            0.0,
+            66.733,
+            133.467,
+            200.2,
+            266.933,
+            333.666,
+            400.4,
+            467.133,
+            533.866,
+            600.599,
+            667.333,
+            734.066
+          ],
+          "actualAcquisition": "yt-dlp direct public rendition in cloud; actual source probed and hashed"
+        }
+      ],
+      "preparedInputs": [
+        {
+          "source": "prepared-assets/social-20261004/tears-of-steel/tears-of-steel.mp4",
+          "target": "edit/downloads/tears-of-steel.mp4",
+          "sha256": "727f3af5a80ae9763426eb8ae9b5559b0a266cf5dc20b9442dd1973f90e26193",
+          "bytes": 247686928
+        },
+        {
+          "source": "prepared-assets/social-20261004/tears-of-steel/transcripts/tears-of-steel.json",
+          "target": "edit/transcripts/tears-of-steel.json",
+          "sha256": "e58d3e33af6707b85b80d91fe96b08ce1b7595efaeb0188995db6b2179a4c7d0",
+          "bytes": 146785
+        }
+      ],
+      "assetPlan": "Use the exact Tears of Steel movie and source-hash-bound Scribe v2 word cache supplied in preparedInputs. The 24s starting source window is 23.10\u201347.10, mapping source t to output t\u221223.10 at native playback speed before 30 fps conform. ASR anchors: first actual sentence You\u2019re a jerk, Thom at 23.28\u201324.38; the passions/robotics/space answer at 24.56\u201330.12; the robot-hand question at 30.74\u201334.40; hesitant denial at 34.70\u201336.08; admission and robotic-claws explanation at 37.68\u201342.88; the final reply at 42.88\u201343.52 and We\u2019re done at 44.40\u201345.16. Preserve that complete order. The cache also has a zero-duration Go token at 23.26; this is suspect automated evidence, so check it against the original audio and do not burn it in merely because it is in the JSON. Diarization is a timing aid, not ground truth; verify the on-screen speaker with pixels and voices. Actual source frames at 23.1\u201324.5 still show the launch, then a bridge two-shot by 27.5; the raised robot hand is clearly visible at 33s, and the existing 40 YEARS LATER transition appears by 43s while the final lines continue over it. Preserve these intentional audio bridges rather than inventing continuous lip-synced footage or cutting off the closing words. The 1920\u00d7800 two-shot can use measured speaker crops at actual turn boundaries: man during his answer, woman and her raised hand during the question, man during the admission; keep the existing transition text readable at the end. Use about 60\u201372px caption type at 1080 width with one or two short lines and timings checked against retained words. Captions must avoid mouths and the raised robot hand. Do not add the montage music bed over this film\u2019s existing mix. Preserve original voices, sync and pauses with clean handles. Credit (CC) Blender Foundation | mango.blender.org \u2014 Tears of Steel; edited excerpt, CC BY 3.0 and https://mango.blender.org/sharing/. Include actual caption text/timing and source mapping in the source ZIP, but reacquire the full film by its recorded URL and SHA256 instead of redistributing it.",
+      "qualityChecks": [
+        "The first accusation, explanation, robot-hand question, admission and final reply remain complete and in order; no cut-off word or missing turn",
+        "The suspect zero-duration Go token is resolved using the real audio rather than treated as verified dialogue",
+        "Actual speaker identity is checked independently of ASR labels; face/head crops follow the right person and do not clip the raised robot hand",
+        "Source launch and 40 YEARS LATER audio bridges are retained honestly, without fake lip sync or invented reaction shots",
+        "Caption groups use verified retained words and readable 60\u201372px scale, with no cue disappearing before its last word or hiding the key gesture",
+        "The final We\u2019re done phrase ends before the cut and has breathing room; original voice/score sync and measured audio levels are preserved",
+        "Blender Foundation, Tears of Steel, CC BY 3.0, source URL and modification credit are included; no endorsement or original-authorship claim for the film",
+        "Exactly 720 decoded output frames at 1080\u00d71920, 30 fps; source 24/23.976 fps is deliberately conformed without pretending it is high-frame-rate footage",
+        "Inspect the actual final encoded opening, every edit boundary and the ending; no black flash, missing frame, unintended overlap or clipped last action",
+        "Real footage dominates the phone screen; no tiny landscape rectangle in a mostly empty matte, no stretched image and no unreadable production or licensing prose in the picture",
+        "Essential captions and hooks remain outside the top 150px, bottom 300px and rightmost 120px social controls; action remains understandable behind normal social UI",
+        "All prepared-input SHA256 values and byte counts match their acquisition receipts; preserve the exact prompt and actual used source list",
+        "The editable package includes the actual EDL/config, caption timings if used, source URLs and hashes, credited license evidence, pinned dependencies and tested fresh-extraction replay instructions",
+        "Do not redistribute raw third-party movies or the music MP3 in the public source ZIP; document exact reacquisition and hash verification instead",
+        "Separate visual inspection, transcript evidence and any real listening in the review; do not claim a live audio audition or perfect sync from metadata alone"
+      ],
+      "toolNeeds": [
+        "Video Use face-follow workflow or measured speaker-specific crop paths, with source-frame target proof and manual speaker checks",
+        "Existing word-cache and caption-alignment helpers; preserve source-to-output word timing and inspect actual encoded cue changes",
+        "Video Use normal per-segment EDL render and video-copy concat pipeline",
+        "Existing crop, overlay, caption and audio helpers; record any concrete missing capability before adding a bounded helper"
+      ],
+      "productionBatch": "social-04"
+    },
+    {
+      "category": "Video Edits",
+      "technique": "video-editing",
+      "orientation": "portrait",
+      "aspect": "9:16",
+      "fps": 30,
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/browser-use/video-use",
+      "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+      "license": "MIT for original editing code and documentation; source media retains its own credited terms",
+      "licenseUrl": "https://github.com/browser-use/video-use/blob/main/LICENSE",
+      "useCases": [
+        "Social content",
+        "Short-form edits"
+      ],
+      "id": "social-14-robot-action",
+      "title": "Build an action trailer",
+      "description": "A short Tears of Steel battle teaser: a defender, a growing robot threat and an unresolved breach, cut from the real film.",
+      "duration": 24,
+      "audiences": [
+        "Content creators",
+        "Designers"
+      ],
+      "prompt": "Use Video Use to cut a 24-second vertical action trailer from licensed film footage. Build one clear escalation: establish who is under pressure, reveal the approaching threat, show the encounter and leave a strong unresolved final image. Use actual action and source order to carry the story, with deliberate changes of scale and shot duration. Keep the main subject, weapon or moving limb and the direction of movement readable on a phone. Use the film\u2019s original sound and music where licensed, shape clean joins, and avoid constant extra impacts. A compact hook and a film-title credit are enough; do not add fake dialogue, invented explosions, a made-up release date or unrelated stock shots. End on a real suspenseful image rather than spoiling a resolution or cutting to an empty card. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the current query. Deliver 1080\u00d71920 at 30 fps. Make the footage large and keep words few; use a compact first-second hook, not a title card followed by a small landscape rectangle. Keep essential text out of the top 150px, bottom 300px and rightmost 120px social controls. Use a deliberate wider picture window only when an essential action cannot fit a portrait crop. Keep honest credits, an editable cut map, source-to-output timing and complete replay instructions. In normal interactive use, show a short preview for approval before the full edit.",
+      "sourceAssets": [
+        {
+          "id": "tears-of-steel",
+          "url": "https://video.blender.org/object-storage/web_videos/8533ea43-4271-4a57-9694-e9d0b35e1aa1-800.mp4",
+          "sourcePage": "https://video.blender.org/videos/watch/8533ea43-4271-4a57-9694-e9d0b35e1aa1",
+          "license": "CC BY 3.0",
+          "licenseUrl": "https://mango.blender.org/sharing/",
+          "licenseEvidence": "Official project licensing page explicitly permits attributed remixing. Film source acquired from official Blender video server; retain credit and license link. Logos and unrelated third-party material retain their own rights.",
+          "credit": "(CC) Blender Foundation | mango.blender.org \u2014 Tears of Steel; edited excerpt",
+          "transcribe": true,
+          "remote": "prepared-assets/social-20261004/tears-of-steel/tears-of-steel.mp4",
+          "sha256": "727f3af5a80ae9763426eb8ae9b5559b0a266cf5dc20b9442dd1973f90e26193",
+          "bytes": 247686928,
+          "duration": 734.216,
+          "width": 1920,
+          "height": 800,
+          "fps": "24/1",
+          "reviewMoments": [
+            0.0,
+            66.733,
+            133.467,
+            200.2,
+            266.933,
+            333.666,
+            400.4,
+            467.133,
+            533.866,
+            600.599,
+            667.333,
+            734.066
+          ],
+          "actualAcquisition": "yt-dlp direct public rendition in cloud; actual source probed and hashed"
+        }
+      ],
+      "preparedInputs": [
+        {
+          "source": "prepared-assets/social-20261004/tears-of-steel/tears-of-steel.mp4",
+          "target": "edit/downloads/tears-of-steel.mp4",
+          "sha256": "727f3af5a80ae9763426eb8ae9b5559b0a266cf5dc20b9442dd1973f90e26193",
+          "bytes": 247686928
+        },
+        {
+          "source": "prepared-assets/social-20261004/tears-of-steel/transcripts/tears-of-steel.json",
+          "target": "edit/transcripts/tears-of-steel.json",
+          "sha256": "e58d3e33af6707b85b80d91fe96b08ce1b7595efaeb0188995db6b2179a4c7d0",
+          "bytes": 146785
+        }
+      ],
+      "assetPlan": "Use the same receipt-bound Tears of Steel 1920\u00d7800 film, with its recorded CC BY 3.0 terms and original score/effects. This example is separate from the opening-dialogue recut. Actual decoded battle frames show an armed defender around 431.8\u2013432s, a robot in the opening around 436s, a fallen defender at 437.8s, an apparatus/foot detail at 441.75s, people in a large interior with a machine threat at 464s, a large robot between columns around 468\u2013472s, the interior group again around 473.95s, a dark mechanical space at 487s, a hanging/reaching machine around 490.95s, and robots at a colonnade/window around 497\u2013500s. A feasible exact 24s starting map in source order is 431.80\u2013436.80 (5s), 437.80\u2013441.80 (4s), 464.00\u2013468.00 (4s), 470.00\u2013474.00 (4s), 487.00\u2013491.00 (4s), and 497.00\u2013500.00 (3s). These spans contain original film cuts: inspect them and place crop resets at the real shot changes. Refine the boundary frames if a cut bisects a physical beat, keeping the 24s total and escalation. The prepared transcript has no retained dialogue in these ranges; still check the real audio for voices or effects before removing or crossfading anything. Do not borrow We\u2019re out of time from 430.34\u2013431.52 unless you deliberately include that complete earlier phrase with its real source mapping and rebalance the 24s plan. A tiny editorial hook such as Hold the line is sufficient and must not be presented as quoted film dialogue. Use large per-shot portraits of the defender and machines, and a generous wider action window only for essential spatial relationships. The final shot should leave the mechanical threat unresolved; do not add a victory, rescue or character-death claim. Preserve (CC) Blender Foundation | mango.blender.org \u2014 Tears of Steel; edited excerpt, the CC BY 3.0 license and https://mango.blender.org/sharing/. Use the original film mix with documented source audio cuts/crossfades and intentional peaks; do not replace it with the boogie montage bed. Public source contains the reproducible edit and credits, not the raw film, and documents exact URL/hash reacquisition.",
+      "qualityChecks": [
+        "The visible sequence has a readable defender \u2192 threat \u2192 encounter \u2192 unresolved ending, without asserting an invented result or cause",
+        "Every internal source cut has an appropriate measured crop and preserves essential bodies, moving limbs and action direction",
+        "The footage is prominent throughout; no cinema strip surrounded by unused portrait canvas and no synthetic extended background",
+        "No truncated borrowed dialogue, fake quote, fabricated explosion, added unrelated character reaction or false release/promotion claim",
+        "Audio retains the licensed film mix with documented joins; no clipped action effect, abrupt music discontinuity or unreviewed excessive peak",
+        "Tears of Steel, Blender Foundation, CC BY 3.0, source URL and edited-excerpt modification credit remain present in the delivery metadata and source records",
+        "Exactly 720 decoded output frames at 1080\u00d71920, 30 fps; source 24/23.976 fps is deliberately conformed without pretending it is high-frame-rate footage",
+        "Inspect the actual final encoded opening, every edit boundary and the ending; no black flash, missing frame, unintended overlap or clipped last action",
+        "Real footage dominates the phone screen; no tiny landscape rectangle in a mostly empty matte, no stretched image and no unreadable production or licensing prose in the picture",
+        "Essential captions and hooks remain outside the top 150px, bottom 300px and rightmost 120px social controls; action remains understandable behind normal social UI",
+        "All prepared-input SHA256 values and byte counts match their acquisition receipts; preserve the exact prompt and actual used source list",
+        "The editable package includes the actual EDL/config, caption timings if used, source URLs and hashes, credited license evidence, pinned dependencies and tested fresh-extraction replay instructions",
+        "Do not redistribute raw third-party movies or the music MP3 in the public source ZIP; document exact reacquisition and hash verification instead",
+        "Separate visual inspection, transcript evidence and any real listening in the review; do not claim a live audio audition or perfect sync from metadata alone"
+      ],
+      "toolNeeds": [
+        "Existing scene-boundary inspection and per-shot EDL crop controls",
+        "Existing source-audio crossfade and loudness/peak checks for a film mix",
+        "Video Use normal per-segment EDL render and video-copy concat pipeline",
+        "Existing crop, overlay, caption and audio helpers; record any concrete missing capability before adding a bounded helper"
+      ],
+      "productionBatch": "social-04"
+    },
+    {
+      "id": "social-15-expert-explainer",
+      "title": "Make one answer click",
+      "category": "Video Edits",
+      "description": "A science answer reframed around the speaker\u2019s face, hands and a single clear question.",
+      "technique": "video-editing",
+      "orientation": "portrait",
+      "aspect": "9:16",
+      "duration": 30,
+      "fps": 30,
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/browser-use/video-use",
+      "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+      "license": "MIT for original editing code and documentation; source media retains its own credited terms",
+      "licenseUrl": "https://github.com/browser-use/video-use/blob/main/LICENSE",
+      "audiences": [
+        "Content creators",
+        "Marketers"
+      ],
+      "useCases": [
+        "Social content",
+        "Short-form edits"
+      ],
+      "prompt": "Use Video Use to turn one complete expert answer into a 30-second social explainer. Begin with a short editorial question, then let the original speaker answer in their own words. Keep the face and useful hand gestures large enough to follow; use measured face tracking within real continuous shots. Use precise phrase captions with one restrained key-word accent. Let a physical object or gesture shown by the expert provide the visual explanation rather than covering it with invented B-roll. Keep qualifications and uncertainty. Original speech only, no stock music or generated narration. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the query. Deliver a polished 1080\u00d71920 vertical MP4 at 30 fps. Put the real footage first: a generous picture, a compact hook, captions readable on a phone, and very little unused matte. Keep important text away from the top 150px, bottom 300px and rightmost 120px used by social app controls. Keep source credits quiet and truthful. Preserve original voices, meaning and real reactions. Do not fabricate missing actions or quotes. Save editable cuts, caption timings, source URLs and replay instructions. In normal interactive use, show a short preview for approval before finishing the full edit.",
+      "sourceAssets": [
+        {
+          "id": "starshade-materials",
+          "url": "https://www.youtube.com/watch?v=exiT7BsJhH0",
+          "sourceStart": 175,
+          "sourceEnd": 216,
+          "license": "CC BY 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "licenseEvidence": "Creator-written YouTube description explicitly grants CC BY 4.0 with credit and backlink",
+          "credit": "Fraser Cain / Universe Today and Christine Gregg \u2014 Using Metamaterials to Build A Starshade in Space (2025), CC BY 4.0; excerpted, captioned and reformatted by Video Use",
+          "transcribe": true,
+          "remote": "prepared-assets/social-20261004/starshade-materials/starshade-materials.mp4",
+          "sha256": "ecfa5522fdd93740560f046d0bb2635241cbe9233513335ce605ee8ab05bdca6",
+          "bytes": 11941705,
+          "duration": 41.008,
+          "width": 1920,
+          "height": 1080,
+          "fps": "60000/1001",
+          "reviewMoments": [
+            0.0,
+            3.714,
+            7.429,
+            11.143,
+            14.857,
+            18.572,
+            22.286,
+            26.001,
+            29.715,
+            33.429,
+            37.144,
+            40.858
+          ],
+          "actualAcquisition": "yt-dlp on local user machine, bounded excerpt; uploaded and SHA256 verified in cloud; no browser cookies used"
+        }
+      ],
+      "preparedInputs": [
+        {
+          "source": "prepared-assets/social-20261004/starshade-materials/starshade-materials.mp4",
+          "target": "edit/downloads/starshade-materials.mp4",
+          "sha256": "ecfa5522fdd93740560f046d0bb2635241cbe9233513335ce605ee8ab05bdca6",
+          "bytes": 11941705
+        },
+        {
+          "source": "prepared-assets/social-20261004/starshade-materials/transcripts/starshade-materials.json",
+          "target": "edit/transcripts/starshade-materials.json",
+          "sha256": "0f4050c01ac5cca6d3197d99f961241524e62ef617e8e5e489117c965bc40fa5",
+          "bytes": 39932
+        }
+      ],
+      "assetPlan": "Use starshade-materials.mp4, original source 175\u2013216s. Christine Gregg gives a complete definition at local 8.16\u201335.42: carefully designed substructures enable different material properties. Suggested hook: What are metamaterials? Preserve the broad definition and her scale qualifications. She shows a real geometric object around local26s: keep it and her hand visible. A simple tight face-only crop would lose that useful explanation. Read face-follow.md, review her target and use a sufficiently wide source crop/picture window. The entire shot is continuous in sampled evidence; inspect exact boundaries. Use source-word handles and at most roughly2.5s authored opening/tail hold to reach30s. End after nature and before the next And so. No claim of an operational starshade or proven performance beyond her words. Small Christine Gregg / Fraser Cain / 2025 credit. Visual direction: footage should occupy most of the useful portrait canvas. Avoid the small landscape rectangle with a giant empty header/footer seen in generic templates. Use a large square or tall picture region, complementary stacked views if needed, and captions around 60\u201372px at 1080 width. Keep the visible video free of tool names, specs, license paragraphs and production instructions. A brief source/date credit is sufficient; detailed provenance belongs in the package.",
+      "qualityChecks": [
+        "Actual encoded frames show the intended action or complete thought, with a clear opening and ending",
+        "Portrait reframing preserves heads, useful gestures and the main action; text is readable at phone size",
+        "Supplied source and transcript hashes match; raw speech caches remain unchanged and corrections are separate",
+        "Original media is reacquired through documented URLs rather than redistributed raw inside source.zip",
+        "All captions map from source words through final cuts and burn after compositing; phonetic handles and fades are checked",
+        "Exact frame count, 30 fps, H.264 yuv420p, faststart, full decode and measured audio levels pass",
+        "The geometric sample and meaningful hand gestures remain visible",
+        "The final complete word nature is retained and the next unfinished topic is excluded"
+      ],
+      "toolNeeds": [
+        "Video Use normal EDL render and caption pipeline",
+        "yt-dlp acquisition with native source metadata",
+        "Existing motion/audio helpers where appropriate"
+      ],
+      "productionBatch": "social-04"
+    },
+    {
+      "id": "social-16-question-answer-cut",
+      "title": "Turn a question into a short",
+      "category": "Video Edits",
+      "description": "A complete question and answer with broadcast delay removed and captions rebuilt around the cuts.",
+      "technique": "video-editing",
+      "orientation": "portrait",
+      "aspect": "9:16",
+      "duration": 35,
+      "fps": 30,
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/browser-use/video-use",
+      "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+      "license": "MIT for original editing code and documentation; source media retains its own credited terms",
+      "licenseUrl": "https://github.com/browser-use/video-use/blob/main/LICENSE",
+      "audiences": [
+        "Content creators",
+        "Marketers"
+      ],
+      "useCases": [
+        "Social content",
+        "Short-form edits"
+      ],
+      "prompt": "Use Video Use to make a 35-second vertical Q&A from a longer recorded interview. Keep a concise original question and the complete answer immediately following it. Remove broadcast delay and long empty pauses while preserving the actual order and speaker meaning. Adapt the portrait layout when the source camera changes, keeping the questioner and respondent visible when needed. Use a short editorial question as the opening hook, large phrase captions and clean speech. Avoid background music, unrelated reaction shots and a generic outro. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the query. Deliver a polished 1080\u00d71920 vertical MP4 at 30 fps. Put the real footage first: a generous picture, a compact hook, captions readable on a phone, and very little unused matte. Keep important text away from the top 150px, bottom 300px and rightmost 120px used by social app controls. Keep source credits quiet and truthful. Preserve original voices, meaning and real reactions. Do not fabricate missing actions or quotes. Save editable cuts, caption timings, source URLs and replay instructions. In normal interactive use, show a short preview for approval before finishing the full edit.",
+      "sourceAssets": [
+        {
+          "id": "nasa-orientation",
+          "url": "https://www.youtube.com/watch?v=2cY6wsW8vdc",
+          "sourceStart": 640,
+          "sourceEnd": 715,
+          "license": "NASA media guidelines for factual educational excerpts",
+          "licenseUrl": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+          "licenseEvidence": "Official NASA episode and footage; informational educational excerpt with source credit, no endorsement",
+          "credit": "NASA \u2014 Houston We Have a Podcast, The Most Awesome Podcast from Space (2017); edited excerpt",
+          "transcribe": true,
+          "remote": "prepared-assets/social-20261004/nasa-orientation/nasa-orientation.mp4",
+          "sha256": "9e59579c3219b5ee893ef5fba82c2476661acceed371ccfd78747f055ab67ccc",
+          "bytes": 13284663,
+          "duration": 75.009,
+          "width": 1280,
+          "height": 720,
+          "fps": "60000/1001",
+          "reviewMoments": [
+            0.0,
+            6.805,
+            13.611,
+            20.416,
+            27.221,
+            34.027,
+            40.832,
+            47.638,
+            54.443,
+            61.248,
+            68.054,
+            74.859
+          ],
+          "actualAcquisition": "yt-dlp on local user machine, bounded excerpt; uploaded and SHA256 verified in cloud; no browser cookies used"
+        }
+      ],
+      "preparedInputs": [
+        {
+          "source": "prepared-assets/social-20261004/nasa-orientation/nasa-orientation.mp4",
+          "target": "edit/downloads/nasa-orientation.mp4",
+          "sha256": "9e59579c3219b5ee893ef5fba82c2476661acceed371ccfd78747f055ab67ccc",
+          "bytes": 13284663
+        },
+        {
+          "source": "prepared-assets/social-20261004/nasa-orientation/transcripts/nasa-orientation.json",
+          "target": "edit/transcripts/nasa-orientation.json",
+          "sha256": "f46f215bab6b67f459435c03024c2eff2b40f7eb38258eaa1060ac0fc0cb333a",
+          "bytes": 78891
+        }
+      ],
+      "assetPlan": "Use nasa-orientation.mp4 from the official2017 NASA podcast. Local38.20\u201344.70 is Gary Jordan\u2019s question about becoming disoriented when changing walls. Local47.40\u201373.76 is Jack Fischer\u2019s complete response about adapting to an unfamiliar environment. Keep the question before the answer, remove most transmission delay, and use natural handles to fill35s without stretching speech. Exclude the partial So you start looking after73.8. Suggested hook: Which way is up? This is an astronaut\u2019s2017 personal account, not health guidance or a quantified scientific claim. Source is1280\u00d7720; preserve natural detail. The broadcast split should become two large complementary stacked picture windows where feasible, not tiny faces inside a second tiny split. When source switches to full astronaut, use a measured crop that keeps his head and hands. Do not use the static whole landscape broadcast in a small mid-screen box for the entire clip. All names require the original lower-third/context; no automatic identity inference. Visual direction: footage should occupy most of the useful portrait canvas. Avoid the small landscape rectangle with a giant empty header/footer seen in generic templates. Use a large square or tall picture region, complementary stacked views if needed, and captions around 60\u201372px at 1080 width. Keep the visible video free of tool names, specs, license paragraphs and production instructions. A brief source/date credit is sufficient; detailed provenance belongs in the package.",
+      "qualityChecks": [
+        "Actual encoded frames show the intended action or complete thought, with a clear opening and ending",
+        "Portrait reframing preserves heads, useful gestures and the main action; text is readable at phone size",
+        "Supplied source and transcript hashes match; raw speech caches remain unchanged and corrections are separate",
+        "Original media is reacquired through documented URLs rather than redistributed raw inside source.zip",
+        "All captions map from source words through final cuts and burn after compositing; phonetic handles and fades are checked",
+        "Exact frame count, 30 fps, H.264 yuv420p, faststart, full decode and measured audio levels pass",
+        "Question and answer retain their real adjacency; transmission delay is the only removed gap",
+        "No next-question fragment after local73.76 and no time-stretched speech"
+      ],
+      "toolNeeds": [
+        "Video Use normal EDL render and caption pipeline",
+        "yt-dlp acquisition with native source metadata",
+        "Existing motion/audio helpers where appropriate"
+      ],
+      "productionBatch": "social-04"
+    },
+    {
+      "id": "social-17-developer-insight",
+      "title": "Keep the useful takeaway",
+      "category": "Video Edits",
+      "description": "A developer conversation condensed into one complete, qualified idea with measured speaker framing.",
+      "technique": "video-editing",
+      "orientation": "portrait",
+      "aspect": "9:16",
+      "duration": 28,
+      "fps": 30,
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/browser-use/video-use",
+      "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+      "license": "MIT for original editing code and documentation; source media retains its own credited terms",
+      "licenseUrl": "https://github.com/browser-use/video-use/blob/main/LICENSE",
+      "audiences": [
+        "Content creators",
+        "Marketers"
+      ],
+      "useCases": [
+        "Social content",
+        "Short-form edits"
+      ],
+      "prompt": "Use Video Use to extract a 28-second useful insight from a filmed technical conversation. Pick one complete idea with its qualification, begin directly on the speaker and add a compact editorial hook. Track the actual speaking person only after reviewing the face and shot map. Keep natural gestures and authentic listening reactions. Use large, accurate phrase captions with restrained emphasis on the central idea. Preserve the source date when technical context could otherwise be mistaken for current instructions. Keep original speech only. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the query. Deliver a polished 1080\u00d71920 vertical MP4 at 30 fps. Put the real footage first: a generous picture, a compact hook, captions readable on a phone, and very little unused matte. Keep important text away from the top 150px, bottom 300px and rightmost 120px used by social app controls. Keep source credits quiet and truthful. Preserve original voices, meaning and real reactions. Do not fabricate missing actions or quotes. Save editable cuts, caption timings, source URLs and replay instructions. In normal interactive use, show a short preview for approval before finishing the full edit.",
+      "sourceAssets": [
+        {
+          "id": "http203-approaches",
+          "url": "https://www.youtube.com/watch?v=SYkzk_j3yb0",
+          "sourceStart": 1263,
+          "sourceEnd": 1297,
+          "license": "Creative Commons Attribution license (reuse allowed)",
+          "licenseUrl": "https://www.youtube.com/watch?v=SYkzk_j3yb0",
+          "licenseEvidence": "Explicit Creative Commons Attribution reuse license displayed on original YouTube page",
+          "credit": "Chrome for Developers \u2014 Deno, HTTP 203 (17 August 2021); excerpted, captioned and reformatted by Video Use",
+          "transcribe": true,
+          "remote": "prepared-assets/social-20261004/http203-approaches/http203-approaches.mp4",
+          "sha256": "08e550664a1bbe8dd3060703a12115814a1dd6ba5281e832103f18e486d0084c",
+          "bytes": 6457037,
+          "duration": 34.0,
+          "width": 1920,
+          "height": 1080,
+          "fps": "25/1",
+          "reviewMoments": [
+            0.0,
+            3.077,
+            6.155,
+            9.232,
+            12.309,
+            15.386,
+            18.464,
+            21.541,
+            24.618,
+            27.695,
+            30.773,
+            33.85
+          ],
+          "actualAcquisition": "yt-dlp on local user machine, bounded excerpt; uploaded and SHA256 verified in cloud; no browser cookies used"
+        }
+      ],
+      "preparedInputs": [
+        {
+          "source": "prepared-assets/social-20261004/http203-approaches/http203-approaches.mp4",
+          "target": "edit/downloads/http203-approaches.mp4",
+          "sha256": "08e550664a1bbe8dd3060703a12115814a1dd6ba5281e832103f18e486d0084c",
+          "bytes": 6457037
+        },
+        {
+          "source": "prepared-assets/social-20261004/http203-approaches/transcripts/http203-approaches.json",
+          "target": "edit/transcripts/http203-approaches.json",
+          "sha256": "056118e2f74a64871ec6da6a046be84426c2006b3cc4874efa55ae62485b2d90",
+          "bytes": 44460
+        },
+        {
+          "source": "prepared-assets/social-20261004/caption-evidence/http203-uploaded.vtt",
+          "target": "edit/references/http203-uploaded.vtt",
+          "sha256": "1a5bb39e2457a4f17294fbac640811eebec68dfe4702857afeb83ef7a4b6aad1",
+          "bytes": 53507
+        }
+      ],
+      "assetPlan": "Use http203-approaches.mp4 from source1263\u20131297s. Local4.58\u201330.10 contains Surma\u2019s complete thought about Node and Deno being different approaches that can learn from each other, ending with backward compatibility and all these things. Retain I think and maybe. Suggested hook: Different tools. Shared lessons. Small HTTP203 / August2021 archive context. Source changes from Jake in the pink short-sleeved shirt to Surma in the red long-sleeved top around local5s and back near30.2s; inspect exact transition and only track within continuous shots. A foreground head belongs to the listener and must not capture the tracker. Preserve Surma\u2019s outward hand gesture using a wide enough crop. Original uploaded VTT evidence is staged as edit/references/http203-uploaded.vtt; it supports speaker context but not exact word timing. Keep raw ASR unchanged and any overlap/name corrections separate. No claim that this is current Node/Deno API guidance. Visual direction: footage should occupy most of the useful portrait canvas. Avoid the small landscape rectangle with a giant empty header/footer seen in generic templates. Use a large square or tall picture region, complementary stacked views if needed, and captions around 60\u201372px at 1080 width. Keep the visible video free of tool names, specs, license paragraphs and production instructions. A brief source/date credit is sufficient; detailed provenance belongs in the package.",
+      "qualityChecks": [
+        "Actual encoded frames show the intended action or complete thought, with a clear opening and ending",
+        "Portrait reframing preserves heads, useful gestures and the main action; text is readable at phone size",
+        "Supplied source and transcript hashes match; raw speech caches remain unchanged and corrections are separate",
+        "Original media is reacquired through documented URLs rather than redistributed raw inside source.zip",
+        "All captions map from source words through final cuts and burn after compositing; phonetic handles and fades are checked",
+        "Exact frame count, 30 fps, H.264 yuv420p, faststart, full decode and measured audio levels pass",
+        "Foreground listener never becomes the selected face target",
+        "Maybe and I think remain audible and captioned; source year is visible"
+      ],
+      "toolNeeds": [
+        "Video Use normal EDL render and caption pipeline",
+        "yt-dlp acquisition with native source metadata",
+        "Existing motion/audio helpers where appropriate"
+      ],
+      "productionBatch": "social-05"
+    },
+    {
+      "id": "social-18-two-takeaway-edit",
+      "title": "Give a longer answer structure",
+      "category": "Video Edits",
+      "description": "One interview answer becomes a concise two-part social clip with restrained editorial signposts.",
+      "technique": "video-editing",
+      "orientation": "portrait",
+      "aspect": "9:16",
+      "duration": 35,
+      "fps": 30,
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/browser-use/video-use",
+      "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+      "license": "MIT for original editing code and documentation; source media retains its own credited terms",
+      "licenseUrl": "https://github.com/browser-use/video-use/blob/main/LICENSE",
+      "audiences": [
+        "Content creators",
+        "Marketers"
+      ],
+      "useCases": [
+        "Social content",
+        "Short-form edits"
+      ],
+      "prompt": "Use Video Use to turn a longer interview answer into a 35-second social clip with two useful takeaways. Keep the original voice and chronological explanation. Add a compact opening question and two short editorial signposts at the exact moments the speaker changes topic. Use a generous view of the speaker, measured face framing and clear phrase captions. A tiny original diagram may clarify the relationship, but label it as editorial and do not present generated footage as evidence. Keep qualifications and future tense. No music, new narration, invented quote or generic CTA. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the query. Deliver a polished 1080\u00d71920 vertical MP4 at 30 fps. Put the real footage first: a generous picture, a compact hook, captions readable on a phone, and very little unused matte. Keep important text away from the top 150px, bottom 300px and rightmost 120px used by social app controls. Keep source credits quiet and truthful. Preserve original voices, meaning and real reactions. Do not fabricate missing actions or quotes. Save editable cuts, caption timings, source URLs and replay instructions. In normal interactive use, show a short preview for approval before finishing the full edit.",
+      "sourceAssets": [
+        {
+          "id": "moon-robots",
+          "url": "https://www.youtube.com/watch?v=j4K75MIlRz0",
+          "sourceStart": 165,
+          "sourceEnd": 255,
+          "license": "CC BY 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "licenseEvidence": "The creator-written YouTube episode description explicitly grants CC BY 4.0 and requests credit and a backlink",
+          "credit": "Fraser Cain and Prof Yang Gao \u2014 Moon Robots interview (2024), CC BY 4.0; excerpted and reformatted by Video Use",
+          "transcribe": true,
+          "sha256": "f6620041f4adb9885f9474d5752af865174506c33a8797f0bc1ff6b0335f9ea8",
+          "bytes": 32197464,
+          "remote": "prepared-assets/social-20261004/moon-robots/moon-robots.mp4",
+          "duration": 90.024,
+          "width": 1920,
+          "height": 1080,
+          "fps": "60000/1001",
+          "reviewMoments": [
+            0.0,
+            8.17,
+            16.341,
+            24.511,
+            32.681,
+            40.852,
+            49.022,
+            57.193,
+            65.363,
+            73.533,
+            81.704,
+            89.874
+          ],
+          "actualAcquisition": "yt-dlp on local user machine, bounded excerpt; uploaded and SHA256 verified in cloud; no browser cookies used"
+        }
+      ],
+      "preparedInputs": [
+        {
+          "source": "prepared-assets/social-20261004/moon-robots/moon-robots.mp4",
+          "target": "edit/downloads/moon-robots.mp4",
+          "sha256": "f6620041f4adb9885f9474d5752af865174506c33a8797f0bc1ff6b0335f9ea8",
+          "bytes": 32197464
+        },
+        {
+          "source": "prepared-assets/social-20261004/moon-robots/transcripts/moon-robots.json",
+          "target": "edit/transcripts/moon-robots.json",
+          "sha256": "d51e179c79b4f263c780a245dd4386156918926920fd920155717171936e8d96",
+          "bytes": 61112
+        }
+      ],
+      "assetPlan": "Use moon-robots.mp4. Local50.76\u201369.60 discusses surveying with robotic tools and astronauts; local70.34\u201385.42 discusses construction/maintenance mainly by robots under human supervision. This is a35s future-facing excerpt from Prof Yang Gao\u2019s2024 interview, not a present lunar base. Suggested hook: What could robots do on the Moon? Two authored signposts: Survey together; Build under supervision. Keep the important could and human supervision. Shorten only excess pause if needed to fit1050frames, never weld words into a stronger claim. The source is a continuous full-guest shot here; track her reviewed face with hair and gesture room. Any small two-role diagram is editorial, not lunar B-roll. Avoid repeating the first clip\u2019s earlier29\u201350s answer. Visual direction: footage should occupy most of the useful portrait canvas. Avoid the small landscape rectangle with a giant empty header/footer seen in generic templates. Use a large square or tall picture region, complementary stacked views if needed, and captions around 60\u201372px at 1080 width. Keep the visible video free of tool names, specs, license paragraphs and production instructions. A brief source/date credit is sufficient; detailed provenance belongs in the package.",
+      "qualityChecks": [
+        "Actual encoded frames show the intended action or complete thought, with a clear opening and ending",
+        "Portrait reframing preserves heads, useful gestures and the main action; text is readable at phone size",
+        "Supplied source and transcript hashes match; raw speech caches remain unchanged and corrections are separate",
+        "Original media is reacquired through documented URLs rather than redistributed raw inside source.zip",
+        "All captions map from source words through final cuts and burn after compositing; phonetic handles and fades are checked",
+        "Exact frame count, 30 fps, H.264 yuv420p, faststart, full decode and measured audio levels pass",
+        "Two ideas retain their original ordering and conditional future tense",
+        "Human supervision remains in the complete ending and any diagram agrees with the words"
+      ],
+      "toolNeeds": [
+        "Video Use normal EDL render and caption pipeline",
+        "yt-dlp acquisition with native source metadata",
+        "Existing motion/audio helpers where appropriate"
+      ],
+      "productionBatch": "social-05"
+    },
+    {
+      "id": "social-19-weekend-roundup",
+      "title": "Make a weekend worth saving",
+      "category": "Video Edits",
+      "description": "A short inspiration reel connects outdoor movement, coffee and food with a consistent visual rhythm.",
+      "technique": "video-editing",
+      "orientation": "portrait",
+      "aspect": "9:16",
+      "duration": 20,
+      "fps": 30,
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/browser-use/video-use",
+      "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+      "license": "MIT for original editing code and documentation; source media retains its own credited terms",
+      "licenseUrl": "https://github.com/browser-use/video-use/blob/main/LICENSE",
+      "audiences": [
+        "Content creators",
+        "Marketers"
+      ],
+      "useCases": [
+        "Social content",
+        "Short-form edits"
+      ],
+      "prompt": "Use Video Use to make a 20-second weekend inspiration reel from four real clips: an outdoor view, movement, a coffee moment and food. Open with the strongest moving image, cut on recognizable actions, and let the final image settle. Give the clips one considered color treatment without crushing detail. Use a licensed rhythmic bed and a few simple text cues that read with sound off. It is a moodboard of possibilities, not a claim that different people or places belong to one documented trip. Keep transitions clean and avoid travel facts, venue names or sponsored endorsements not supported by the footage. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the query. Deliver a polished 1080\u00d71920 vertical MP4 at 30 fps. Put the real footage first: a generous picture, a compact hook, captions readable on a phone, and very little unused matte. Keep important text away from the top 150px, bottom 300px and rightmost 120px used by social app controls. Keep source credits quiet and truthful. Preserve original voices, meaning and real reactions. Do not fabricate missing actions or quotes. Save editable cuts, caption timings, source URLs and replay instructions. In normal interactive use, show a short preview for approval before finishing the full edit.",
+      "sourceAssets": [
+        {
+          "id": "waterfall-walk",
+          "url": "https://assets.mixkit.co/videos/50561/50561-1080.mp4",
+          "sourceItem": "50561",
+          "license": "Mixkit Stock Video Free License",
+          "licenseUrl": "https://mixkit.co/license/#videoFree",
+          "licenseEvidence": "Exact item page explicitly labels Stock Video Free License; source footage and sampled action inspected by research agent",
+          "credit": "Mixkit clip 50561; edited excerpt",
+          "transcribe": false,
+          "remote": "prepared-assets/social-20261004/waterfall-walk/waterfall-walk.mp4",
+          "sha256": "1bd79474b461aa7e6ad535299943486e9d0c59f7cd1bd35f845f7665b8c0c415",
+          "bytes": 55119584,
+          "duration": 17.766667,
+          "width": 1920,
+          "height": 1080,
+          "fps": "24000/1001",
+          "reviewMoments": [
+            0.0,
+            1.602,
+            3.203,
+            4.805,
+            6.406,
+            8.008,
+            9.609,
+            11.211,
+            12.812,
+            14.414,
+            16.015,
+            17.617
+          ],
+          "actualAcquisition": "yt-dlp direct public rendition in cloud; actual source probed and hashed"
+        },
+        {
+          "id": "mixkit-44340",
+          "url": "https://assets.mixkit.co/videos/44340/44340-1080.mp4",
+          "sourcePage": "https://mixkit.co/free-stock-video/pair-of-cyclists-speeding-through-a-forest-44340/",
+          "license": "Mixkit Stock Video Free License",
+          "licenseUrl": "https://mixkit.co/license/",
+          "licenseEvidence": "The exact item page explicitly identifies the Stock Video Free License and permits commercial or personal use.",
+          "credit": "Footage: Mixkit item 44340, Pair of cyclists speeding through a forest. Edited for an educational Video Use example.",
+          "actualContent": "Two riders traverse a wooded path and a wooden ramp in a wide forest shot, moving through then out of the scene.",
+          "limitations": "Keep bikes and helmets in frame; the source is wide1080. Do not imply these are the same rider/bike as the close pedal shot. Use a ride-day montage, not a literal continuous ride.",
+          "transcribe": false,
+          "remote": "prepared-assets/social-20261004/mixkit-44340/mixkit-44340.mp4",
+          "sha256": "99c6b301ee7373ad5c2b5c72032687cdd4bb534fb4277562ccb62ffa4fcb447d",
+          "bytes": 31168000,
+          "duration": 10.135,
+          "width": 1920,
+          "height": 1080,
+          "fps": "24000/1001",
+          "reviewMoments": [
+            0.0,
+            0.908,
+            1.815,
+            2.723,
+            3.631,
+            4.539,
+            5.446,
+            6.354,
+            7.262,
+            8.17,
+            9.077,
+            9.985
+          ],
+          "actualAcquisition": "yt-dlp direct public rendition in cloud; actual source probed and hashed"
+        },
+        {
+          "id": "mixkit-236",
+          "url": "https://assets.mixkit.co/videos/236/236-2160.mp4",
+          "sourcePage": "https://mixkit.co/free-stock-video/filling-a-white-cup-of-coffee-236/",
+          "license": "Mixkit Stock Video Free License",
+          "licenseUrl": "https://mixkit.co/license/",
+          "licenseEvidence": "The exact item page explicitly identifies the Stock Video Free License and permits commercial or personal use.",
+          "credit": "Footage: Mixkit item 236, Filling a white cup of coffee. Edited for an educational Video Use example.",
+          "actualContent": "A dark coffee stream fills a white cup; foam rises and the stream tapers near the end.",
+          "limitations": "Verified UHD rendition should be used. The cup and tabletop differ from other coffee sources; present an editorial coffee ritual montage, not proof of one continuous brew.",
+          "transcribe": false,
+          "remote": "prepared-assets/social-20261004/mixkit-236/mixkit-236.mp4",
+          "sha256": "72aaaccfcc32a49667b65136aa17b9cad94650f4eff2850f9d255ab82d49978b",
+          "bytes": 97136028,
+          "duration": 20.061667,
+          "width": 3840,
+          "height": 2160,
+          "fps": "24000/1001",
+          "reviewMoments": [
+            0.0,
+            1.81,
+            3.62,
+            5.43,
+            7.241,
+            9.051,
+            10.861,
+            12.671,
+            14.481,
+            16.291,
+            18.102,
+            19.912
+          ],
+          "actualAcquisition": "yt-dlp direct public rendition in cloud; actual source probed and hashed"
+        },
+        {
+          "id": "mixkit-42484",
+          "url": "https://assets.mixkit.co/videos/42484/42484-2160.mp4",
+          "sourcePage": "https://mixkit.co/free-stock-video/close-up-shot-of-a-freshly-made-hot-pizza-42484/",
+          "license": "Mixkit Stock Video Free License",
+          "licenseUrl": "https://mixkit.co/license/",
+          "licenseEvidence": "The exact item page explicitly identifies the Stock Video Free License and permits commercial or personal use.",
+          "credit": "Footage: Mixkit item 42484, Close up shot of a freshly made hot pizza. Edited for an educational Video Use example.",
+          "actualContent": "A cooked pepperoni pizza settles inside an open cardboard box, providing a clear finished-food result.",
+          "limitations": "UHD source. Use the sharp settled portion for a meaningful ending hold; the opening is closer and softer.",
+          "transcribe": false,
+          "remote": "prepared-assets/social-20261004/mixkit-42484/mixkit-42484.mp4",
+          "sha256": "48528c2baa29a5abd9205488a5d69279fb0074ba19a470850d8d1241c387aec2",
+          "bytes": 36373228,
+          "duration": 6.965,
+          "width": 3840,
+          "height": 2160,
+          "fps": "24000/1001",
+          "reviewMoments": [
+            0.0,
+            0.62,
+            1.239,
+            1.859,
+            2.478,
+            3.098,
+            3.717,
+            4.337,
+            4.956,
+            5.576,
+            6.195,
+            6.815
+          ],
+          "actualAcquisition": "yt-dlp direct public rendition in cloud; actual source probed and hashed"
+        },
+        {
+          "id": "music-boogie",
+          "url": "https://freemusicarchive.org/music/John_Bartmann/retro-boogie/boogie-til-you-drop/",
+          "license": "CC BY4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "credit": "Boogie Til You Drop by John Bartmann \u2014 https://johnbartmann.com/music \u2014 CC BY 4.0 https://creativecommons.org/licenses/by/4.0/ \u2014 excerpt with volume normalization and fades",
+          "sha256": "d71a66c54c71902781c5a9e1b8007ed8ebe8b2aa9717b4c85844d3fc348794a6",
+          "duration": 84.264,
+          "acquisition": "Existing licensed project soundtrack; original hash verified locally and in cloud"
+        }
+      ],
+      "preparedInputs": [
+        {
+          "source": "prepared-assets/social-20261004/waterfall-walk/waterfall-walk.mp4",
+          "target": "edit/downloads/waterfall-walk.mp4",
+          "sha256": "1bd79474b461aa7e6ad535299943486e9d0c59f7cd1bd35f845f7665b8c0c415",
+          "bytes": 55119584
+        },
+        {
+          "source": "prepared-assets/social-20261004/mixkit-44340/mixkit-44340.mp4",
+          "target": "edit/downloads/mixkit-44340.mp4",
+          "sha256": "99c6b301ee7373ad5c2b5c72032687cdd4bb534fb4277562ccb62ffa4fcb447d",
+          "bytes": 31168000
+        },
+        {
+          "source": "prepared-assets/social-20261004/mixkit-236/mixkit-236.mp4",
+          "target": "edit/downloads/mixkit-236.mp4",
+          "sha256": "72aaaccfcc32a49667b65136aa17b9cad94650f4eff2850f9d255ab82d49978b",
+          "bytes": 97136028
+        },
+        {
+          "source": "prepared-assets/social-20261004/mixkit-42484/mixkit-42484.mp4",
+          "target": "edit/downloads/mixkit-42484.mp4",
+          "sha256": "48528c2baa29a5abd9205488a5d69279fb0074ba19a470850d8d1241c387aec2",
+          "bytes": 36373228
+        },
+        {
+          "source": "prepared-assets/social-20261004/music-boogie/boogie-til-you-drop.mp3",
+          "target": "edit/downloads/boogie-til-you-drop.mp3",
+          "sha256": "d71a66c54c71902781c5a9e1b8007ed8ebe8b2aa9717b4c85844d3fc348794a6",
+          "bytes": 4503142
+        }
+      ],
+      "assetPlan": "Use four verified stock sources: waterfall-walk, forest riders44340, ready cup236 and cooked pizza42484. Keep the sequence an explicitly editorial weekend moodboard. Suggested tiny hook: A little weekend inspiration. Optional two-word stage cues such as Get outside / Slow down are editorial invitations, not factual location claims. Retain complete short actions and sharp settled food/cup moments; inspect actual selected frames. Different people and settings must not be described as the same itinerary, person or day. Use the prepared licensed Boogie Til You Drop by John Bartmann only if its tempo fits the edit; otherwise write a restrained original bed. If used credit title, artist, https://johnbartmann.com/music and CC BY4.0 https://creativecommons.org/licenses/by/4.0/ with excerpt/gain/fade note, exact source hash and reacquisition link from the source receipt. No raw MP3 or stock MP4 in public source ZIP. Do not label added audio as captured forest, coffee or kitchen sound. Visual direction: footage should occupy most of the useful portrait canvas. Avoid the small landscape rectangle with a giant empty header/footer seen in generic templates. Use a large square or tall picture region, complementary stacked views if needed, and captions around 60\u201372px at 1080 width. Keep the visible video free of tool names, specs, license paragraphs and production instructions. A brief source/date credit is sufficient; detailed provenance belongs in the package.",
+      "qualityChecks": [
+        "Actual encoded frames show the intended action or complete thought, with a clear opening and ending",
+        "Portrait reframing preserves heads, useful gestures and the main action; text is readable at phone size",
+        "Supplied source and transcript hashes match; raw speech caches remain unchanged and corrections are separate",
+        "Original media is reacquired through documented URLs rather than redistributed raw inside source.zip",
+        "All captions map from source words through final cuts and burn after compositing; phonetic handles and fades are checked",
+        "Exact frame count, 30 fps, H.264 yuv420p, faststart, full decode and measured audio levels pass",
+        "Every depicted action is visible in its actual source; no continuity claim connects unrelated clips",
+        "Music source, excerpt, gain and fades are documented; last shot has a real settled payoff"
+      ],
+      "toolNeeds": [
+        "Video Use normal EDL render and caption pipeline",
+        "yt-dlp acquisition with native source metadata",
+        "Existing motion/audio helpers where appropriate"
+      ],
+      "productionBatch": "social-05"
+    },
+    {
+      "id": "social-20-tutorial-to-short",
+      "title": "Make the detail readable",
+      "category": "Video Edits",
+      "description": "A recorded code explanation becomes a vertical tutorial with a readable version highlight and timed captions.",
+      "technique": "video-editing",
+      "orientation": "portrait",
+      "aspect": "9:16",
+      "duration": 26,
+      "fps": 30,
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/browser-use/video-use",
+      "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+      "license": "MIT for original editing code and documentation; source media retains its own credited terms",
+      "licenseUrl": "https://github.com/browser-use/video-use/blob/main/LICENSE",
+      "audiences": [
+        "Content creators",
+        "Marketers"
+      ],
+      "useCases": [
+        "Social content",
+        "Short-form edits"
+      ],
+      "prompt": "Use Video Use to turn a recorded software explanation into a 26-second vertical tutorial. Choose one complete useful idea. Keep the original narration and show the exact interface or code detail being discussed, using a deliberate magnified inset or editorial highlight when the original screen would be unreadable on a phone. Preserve the source screen as evidence; do not invent typing, cursor actions, execution output or a live demonstration. Use precise phrase captions below the focused detail and a compact opening question. Keep historical versions and qualifications explicit, with no background music. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the query. Deliver a polished 1080\u00d71920 vertical MP4 at 30 fps. Put the real footage first: a generous picture, a compact hook, captions readable on a phone, and very little unused matte. Keep important text away from the top 150px, bottom 300px and rightmost 120px used by social app controls. Keep source credits quiet and truthful. Preserve original voices, meaning and real reactions. Do not fabricate missing actions or quotes. Save editable cuts, caption timings, source URLs and replay instructions. In normal interactive use, show a short preview for approval before finishing the full edit.",
+      "sourceAssets": [
+        {
+          "id": "http203-version-pinning",
+          "url": "https://www.youtube.com/watch?v=SYkzk_j3yb0",
+          "sourceStart": 425,
+          "sourceEnd": 460,
+          "license": "Creative Commons Attribution license (reuse allowed)",
+          "licenseUrl": "https://www.youtube.com/watch?v=SYkzk_j3yb0",
+          "licenseEvidence": "Explicit Creative Commons Attribution reuse license displayed on original YouTube page",
+          "credit": "Chrome for Developers \u2014 Deno, HTTP 203 (17 August 2021); excerpted, captioned and reformatted by Video Use",
+          "transcribe": true,
+          "remote": "prepared-assets/social-20261004/http203-version-pinning/http203-version-pinning.mp4",
+          "sha256": "b039d7cc0f8926f8cfe33542c8bdff8cdbdb95b90e6e462ac6cc32a6466b7955",
+          "bytes": 1919107,
+          "duration": 35.0,
+          "width": 1920,
+          "height": 1080,
+          "fps": "25/1",
+          "reviewMoments": [
+            0.0,
+            3.168,
+            6.336,
+            9.505,
+            12.673,
+            15.841,
+            19.009,
+            22.177,
+            25.345,
+            28.514,
+            31.682,
+            34.85
+          ],
+          "actualAcquisition": "yt-dlp on local user machine, bounded excerpt; uploaded and SHA256 verified in cloud; no browser cookies used"
+        }
+      ],
+      "preparedInputs": [
+        {
+          "source": "prepared-assets/social-20261004/http203-version-pinning/http203-version-pinning.mp4",
+          "target": "edit/downloads/http203-version-pinning.mp4",
+          "sha256": "b039d7cc0f8926f8cfe33542c8bdff8cdbdb95b90e6e462ac6cc32a6466b7955",
+          "bytes": 1919107
+        },
+        {
+          "source": "prepared-assets/social-20261004/http203-version-pinning/transcripts/http203-version-pinning.json",
+          "target": "edit/transcripts/http203-version-pinning.json",
+          "sha256": "c7ef3052e888dfaca86686492a541dd2134fb1934d422f928e9f6e0febdf23ff",
+          "bytes": 39576
+        },
+        {
+          "source": "prepared-assets/social-20261004/caption-evidence/http203-uploaded.vtt",
+          "target": "edit/references/http203-uploaded.vtt",
+          "sha256": "1a5bb39e2457a4f17294fbac640811eebec68dfe4702857afeb83ef7a4b6aad1",
+          "bytes": 53507
+        }
+      ],
+      "assetPlan": "Use http203-version-pinning.mp4, original425\u2013460s. Local5.32\u201329.40 contains the complete explanation of selecting a version in an import URL and decoupling standard-library updates from the engine. Preserve I think. Suggested hook: Why pin a library version? The picture becomes a static code slide around local5s. The displayed import is an archival2021 deno.land/std@0.99.0 example, not a current API recommendation. Source code is tiny in a tablet frame, so make an accurate larger editorial transcription of that exact import line, label it Source example, highlight only @0.99.0 when mentioned, and retain a readable crop of the original slide nearby. Do not create terminal results or moving cursor activity. End before the next But also at29.94. Original uploaded VTT evidence is staged as edit/references/http203-uploaded.vtt, with reviewed word timing from Scribe. Conform to780frames with short honest opening/tail handles and natural speech. Visual direction: footage should occupy most of the useful portrait canvas. Avoid the small landscape rectangle with a giant empty header/footer seen in generic templates. Use a large square or tall picture region, complementary stacked views if needed, and captions around 60\u201372px at 1080 width. Keep the visible video free of tool names, specs, license paragraphs and production instructions. A brief source/date credit is sufficient; detailed provenance belongs in the package.",
+      "qualityChecks": [
+        "Actual encoded frames show the intended action or complete thought, with a clear opening and ending",
+        "Portrait reframing preserves heads, useful gestures and the main action; text is readable at phone size",
+        "Supplied source and transcript hashes match; raw speech caches remain unchanged and corrections are separate",
+        "Original media is reacquired through documented URLs rather than redistributed raw inside source.zip",
+        "All captions map from source words through final cuts and burn after compositing; phonetic handles and fades are checked",
+        "Exact frame count, 30 fps, H.264 yuv420p, faststart, full decode and measured audio levels pass",
+        "Highlighted version matches the original displayed code exactly",
+        "No claimed execution, fake pointer movement or current API compatibility guarantee"
+      ],
+      "toolNeeds": [
+        "Video Use normal EDL render and caption pipeline",
+        "yt-dlp acquisition with native source metadata",
+        "Existing motion/audio helpers where appropriate"
+      ],
+      "productionBatch": "social-05"
     }
   ]
 }
