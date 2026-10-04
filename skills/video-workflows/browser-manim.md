@@ -17,11 +17,14 @@ Usually three useful choices, maximum five. Finish with one native choice:
 references, **Find another batch**, **Give my input**. Keep feedback across batches.
 Show source thumbnails and links; do not invent popularity, motion inspection or
 source playback. Stop research when the user selects a direction.
-Plan the full arc from the brief and chosen visual treatment, make one representative
-snippet, and use `show_video_checkpoint` for native Continue/Refine about its plain
-player. Wait for acceptance, then finish in that same player. After selection, call `prepare_video_reference` to download each chosen video.
+Plan the full arc and a representative snippet from the brief and chosen treatment.
+Use `show_video_checkpoint` for native Continue/Refine about its player. Wait for explicit acceptance, then create and review the full video.
+Write a short plain chat transition before calling `show_video_preview` to open a
+new final player; keep the snippet player unchanged. A sample is not completion.
+After selection, call `prepare_video_reference` to download each chosen video.
 Read `video_use_guidance(topic="reference-cloning")`; inspect the saved source,
-measure its treatment and adapt it to the query before making the snippet. Use the overview for the complete flow.
+measure its treatment and adapt it to the query before making the snippet.
+Use the overview for the complete flow.
 
 ## Author less before the first useful preview
 
@@ -88,8 +91,8 @@ Save actual ordered scene durations in the assembled step's `production_timing`;
 rough story estimates are not evidence of narration alignment.
 
 Use `--quality final` only after the draft communicates clearly. Inspect the
-encoded MP4 through `review_path`, fix observed issues, export, and call
-`show_video_preview`. Intermediate review sheets are for inspection; the user
+encoded MP4 through `review_path`, fix observed issues, export, and deliver the
+full video as above. Intermediate review sheets are for inspection; the user
 should see actual media according to their mode, never a grid of tiny QA frames.
 In interactive modes accompany a substantial draft with a brief sentence about what the user can judge
 and what comes next. Sampled frames and measured audio do not establish motion

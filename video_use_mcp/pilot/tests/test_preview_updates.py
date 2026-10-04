@@ -1,7 +1,8 @@
-"""An open player may refresh real media without exposing task or workspace UI."""
+"""New players select authored media; old polling cannot replace a shown sample."""
 
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 import hashlib
+import json
 from pathlib import Path
 
 from video_use_mcp.pilot.interaction import UI_URI
@@ -45,6 +46,14 @@ def refresh(pilot):
     )
 
 
+def show(pilot):
+    return rpc(
+        pilot,
+        "tools/call",
+        {"name": "show_video_preview", "arguments": {"project_id": PID}},
+    )
+
+
 def test_refresh_is_app_only_read_only_without_its_own_visual_resource(pilot):
     tool = next(
         tool
@@ -72,13 +81,14 @@ def test_cached_versions_resolve_to_current_document_with_the_same_policy(pilot)
         assert previous["_meta"] == current["_meta"]
 
 
-def test_refresh_returns_only_actual_media_and_preserves_excerpt_metadata(pilot):
+def test_new_player_selects_actual_media_and_preserves_excerpt_metadata(pilot):
     _, app = pilot
     progress(app)
-    result = refresh(pilot)
+    result = show(pilot)
     assert not result.get("isError"), result
     data = result["structuredContent"]
-    assert set(data) == {"project_id", "media"}
+    assert data["project_id"] == PID
+    assert data["follow_project"] is False
     assert data["media"]["object_id"] == "draft"
     assert data["media"]["truncated"] is True
     assert data["media"]["duration"] == 120
@@ -101,8 +111,8 @@ def test_refresh_cannot_read_another_owners_project(pilot):
     app.state.store.sql.assert_not_called()
 
 
-def test_refresh_never_manufactures_a_placeholder(pilot):
-    result = refresh(pilot)
+def test_new_player_never_manufactures_a_placeholder(pilot):
+    result = show(pilot)
     assert result["isError"]
     assert "structuredContent" not in result
 
@@ -115,14 +125,44 @@ def test_final_marker_requires_exported_revision_and_completed_progress(pilot):
             {"id": "revision", "video": "export", "created": "2026-10-01T03:57:00Z"}
         ]
     )
-    result = refresh(pilot)
+    result = show(pilot)
     assert result["structuredContent"]["media"]["object_id"] == "export"
     assert result["structuredContent"]["media"]["final"] is True
     assert result["structuredContent"]["media"]["draft"] is False
-    # A reopened edit may still show the old export, but the player must keep
-    # refreshing until a newer draft or completed revision arrives.
+    # Opening an older export during new work must not call it the finished edit.
     progress(app, stage="working")
-    assert refresh(pilot)["structuredContent"]["media"]["final"] is False
+    assert show(pilot)["structuredContent"]["media"]["final"] is False
+
+
+def test_legacy_polling_freezes_without_selecting_or_signing_new_media(pilot):
+    _, app = pilot
+    store = app.state.store
+    progress(app, stage="complete")
+    store.sql.return_value = [
+        {"id": "revision", "video": "export", "created": "2026-10-01T03:57:00Z"}
+    ]
+    store.sql.reset_mock()
+    with patch.object(store, "get", wraps=store.get) as get:
+        with patch.object(store.vault, "encrypt", wraps=store.vault.encrypt) as encrypt:
+            for _ in range(3):
+                result = refresh(pilot)
+                assert not result.get("isError"), result
+                assert result["structuredContent"] == {
+                    "project_id": PID,
+                    "media": None,
+                    "refresh": "pinned_player",
+                }
+    store.project.assert_called_with("tester", PID)
+    store.sql.assert_not_called()
+    assert not any(call.args[0] in {"progress", "creative"} for call in get.call_args_list)
+    assert not any("object" in json.loads(call.args[0]) for call in encrypt.call_args_list)
+
+
+def test_legacy_polling_is_frozen_even_before_a_preview_exists(pilot):
+    result = refresh(pilot)
+    assert not result.get("isError"), result
+    assert result["structuredContent"]["media"] is None
+    assert result["structuredContent"]["refresh"] == "pinned_player"
 
 
 def test_refresh_trace_is_card_activity_not_model_work(pilot):

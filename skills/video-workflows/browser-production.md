@@ -67,7 +67,8 @@ After selection, call `prepare_video_reference` for the selected videos. Read
 `video_use_guidance(topic="reference-cloning")`, inspect the downloaded sources,
 and measure their treatment before planning the adapted snippet.
 Plan the complete arc internally, then sample the chosen treatment and original
-content. Reuse the sample player through final delivery while it remains mounted.
+content. Keep the sample player on that snippet; deliver the reviewed full video
+in a new final player after a short plain chat transition.
 
 ## Start from the material and the outcome
 
@@ -117,10 +118,11 @@ save `evidence_ids` and close when done. Stills do not prove motion or sound.
 Present source thumbnails and links without embed attempts or embed warnings.
 No custom controls, copied videos or generated stand-ins. Counts require post-bound
 evidence, not oEmbed or guessed popularity.
-Plan the full arc from the brief and chosen visual treatment, make one representative
-snippet, and use `show_video_checkpoint` for native Continue/Refine about its plain
-player. Wait for acceptance, then finish in that same player. Choosing inspiration
-does not import source media. Use the overview for the complete flow.
+Plan the full arc and a representative snippet from the brief and chosen treatment.
+Use `show_video_checkpoint` for native Continue/Refine about its player. Wait for explicit acceptance, then create and review the full video.
+Write a short plain chat transition before calling `show_video_preview` to open a
+new final player; keep the snippet player unchanged. A sample is not completion.
+Choosing inspiration does not import source media. Use the overview for the complete flow.
 
 Use topic + medium + audience queries on the three primary platforms. Favor an
 approachable treatment the user could plausibly want; a highly viewed niche studio

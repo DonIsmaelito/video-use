@@ -43,7 +43,9 @@ function host({tool,capabilities={serverTools:{},openLinks:{}},widgets,context}=
   h.app.ontoolresult(result());const old=h.document.querySelector('video');const downloading=h.document.getElementById('download').onclick();
   h.app.ontoolresult(result('new-version','new-project'));
   finish(result('video-one','project'));await downloading;
-  assert.equal(h.links.length,0,'late renewals never open a different project');assert.notEqual(h.document.querySelector('video'),old);
+  assert.equal(h.links.length,1,'the original pinned download completes despite an unrelated notification');
+  assert(h.links[0].url.includes('/video-one?'),'late renewals never open a different project');
+  assert.equal(h.document.querySelector('video'),old,'unrelated project results cannot replace a pinned card');
 }
 {
   const h=host({tool:async()=>({isError:true,content:[{type:'text',text:'Video not found'}]})});h.app.ontoolresult(result());
@@ -137,10 +139,10 @@ for(const provider of ['youtube','tiktok','vimeo']){
   h.emit('message',{...event,data:{'x-tiktok-player':true,type:'onStateChange',value:1}});assert(hint.hidden);
   h.app.ontoolresult(result('final','p'));
   h.emit('message',event);assert(hint.hidden);assert.equal(hint.textContent,'','old frame messages cannot affect a new player');
-  h.app.ontoolresult({structuredContent:{project_id:'p',follow_project:false,media}});
-  const latest=h.document.querySelector('iframe');latest.contentWindow={};
-  await h.app.onteardown();h.emit('message',{...event,source:latest.contentWindow});
-  assert(hint.textContent.includes('If playback'),'teardown ignores provider messages');
+  const nextHost=host();nextHost.app.ontoolresult({structuredContent:{project_id:'p',follow_project:false,media}});
+  const latest=nextHost.document.querySelector('iframe');latest.contentWindow={};
+  await nextHost.app.onteardown();nextHost.emit('message',{...event,source:latest.contentWindow});
+  assert(nextHost.document.getElementById('source-playback-hint').textContent.includes('If playback'),'teardown ignores provider messages');
 }
 console.log('PASS every reference has safe plain descriptions with stale-text clearing and authenticated TikTok playback failures');
 
@@ -346,7 +348,7 @@ for(const type of ['jpeg','webp']){
   assert(h.document.getElementById('reference-poster-status').textContent.includes('blocked the source thumbnail'));
   failed();assert(h.document.getElementById('reference-poster-status').textContent.includes('blocked the source thumbnail'),'a later generic load error preserves the known CSP cause');
   const reports=h.messages.filter(message=>message.content?.[0]?.text.startsWith('Reference thumbnail display:'));
-  assert.equal(reports.length,1);assert(reports[0].content[0].text.includes('UI version 3.2.0'));
+  assert.equal(reports.length,1);assert(reports[0].content[0].text.includes('UI version 3.3.0'));
   assert(!JSON.stringify(reports).includes('base64'));
   h.app.ontoolresult(result());assert.equal(h.document.getElementById('reference-poster-status').textContent,'');
 }
@@ -433,7 +435,10 @@ for(const media of [
   assert.equal(h.document.getElementById('media').hidden,false);assert(h.document.getElementById('reference-poster').hidden);
   assert.equal(h.document.getElementById('reference-poster-status').textContent,'');
   assert.equal(h.document.getElementById('media-status').textContent,'Sample');
-  h.app.ontoolresult(result('final','p'));assert(h.document.querySelector('#media video')?.controls);
-  assert.equal(h.document.getElementById('media-status').textContent,'Final video');
+  h.app.ontoolresult(result('final','p'));assert.equal(h.document.querySelector('#media video'),sample);
+  assert.equal(h.document.getElementById('media-status').textContent,'Sample');
+  const finalHost=host();finalHost.app.ontoolresult(result('final','p'));
+  assert(finalHost.document.querySelector('#media video')?.controls);
+  assert.equal(finalHost.document.getElementById('media-status').textContent,'Final video');
 }
 console.log('PASS explicit thumbnail references skip every source player and preserve generated sample and final playback');

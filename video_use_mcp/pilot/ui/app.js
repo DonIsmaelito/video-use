@@ -1,13 +1,12 @@
 import { App, applyDocumentTheme } from "@modelcontextprotocol/ext-apps";
-const UI_VERSION='3.2.0';
+const UI_VERSION='3.3.0';
 const app = new App({ name: "Video preview", version: UI_VERSION });
 const $ = (id) => document.getElementById(id);
-let media, shown, mediaProject, pendingMedia, refreshState, refreshInFlight=false;
-let followProject=true, mediaRenewal=null, tornDown=false, blockedEmbedKey;
+let media, shown, mediaProject, pinnedMedia;
+let mediaRenewal=null, tornDown=false, blockedEmbedKey;
 let referencePoster;
 const reportedEmbedFailures=new Set();
 const reportedPosterFailures=new Set();
-const REFRESH_INTERVAL_MS=5000,IDLE_REFRESH_INTERVAL_MS=30000;
 function unpack(result) {
   if (result.isError) throw Error("This preview could not be loaded.");
   const data = result.structuredContent;
@@ -22,78 +21,35 @@ function unpack(result) {
   }
   return null;
 }
-function playing(){
-  const element=$('media').firstElementChild;
-  return element?.tagName==='VIDEO' && element.paused===false && !element.ended;
-}
-function stopRefresh(keepPending=false){
-  const state=refreshState;refreshState=null;
-  if(state)clearTimeout(state.timer);
-  if(!keepPending)pendingMedia=null;
-}
-function settlePlayback(element){
-  if(element!==$('media').firstElementChild || playing() || !pendingMedia)return;
-  const next=pendingMedia;pendingMedia=null;render(next);
-}
 function thumbnailReference(next){return next?.reference_display==='thumbnail' && Boolean(next.source_url);}
 function mediaKey(next){
   const key=next.object_id || next.embed_url || next.url || next.source_url;
   return thumbnailReference(next)?'thumbnail:'+key:key;
 }
-function present(next){
-  if(!next)return;
-  const key=mediaKey(next);
-  if(shown!==key && playing() && !(thumbnailReference(next) && media?.source_url)){
-    pendingMedia=next;
-    $('media-status').textContent=next.final===true?'Final video ready · updates after playback.':'New sample ready · updates after playback.';
-  }else{pendingMedia=null;render(next);}
+function resultProject(result){
+  const data=result.structuredContent;
+  return data?.project_id || data?.project_card?.id || data?.id;
 }
-function scheduleRefresh(state){
-  if(refreshState!==state || state.timer || document.hidden===true)return;
-  const delay=Date.now()-state.started<60000?REFRESH_INTERVAL_MS:IDLE_REFRESH_INTERVAL_MS;
-  state.timer=setTimeout(()=>pollPreview(state),delay);
-}
-async function pollPreview(state){
-  state.timer=null;
-  if(refreshState!==state || document.hidden===true)return;
-  if(!app.getHostCapabilities?.()?.serverTools){stopRefresh(true);return;}
-  // Calls are read-only and app-initiated. Keep following while the host mounts
-  // this player, including after a user spends more than ten minutes choosing.
-  if(refreshInFlight){scheduleRefresh(state);return;}
-  refreshInFlight=true;
+function matchesPinnedMedia(result){
+  if(!pinnedMedia)return true;
   try{
-    const result=await app.callServerTool({name:'video_preview_updates',arguments:{project_id:state.projectId}});
-    if(refreshState!==state)return;
-    const data=readData(result);
-    if(data.project_id!==state.projectId || !data.media)throw Error('No matching preview');
-    state.failures=0;present(data.media);
-    if(data.media.final===true){stopRefresh(true);return;}
-  }catch{
-    if(refreshState===state && ++state.failures>=3){
-      stopRefresh(true);
-      $('notice').textContent='Live updates paused. Return to this chat to retry, or ask to show the video again.';
-      return;
-    }
-  }finally{refreshInFlight=false;}
-  scheduleRefresh(state);
-}
-function startRefresh(){
-  if(tornDown || !followProject || !mediaProject || media?.final===true || !app.getHostCapabilities?.()?.serverTools || refreshState)return;
-  const state={projectId:mediaProject,started:Date.now(),failures:0,timer:null};
-  refreshState=state;scheduleRefresh(state);
+    const next=unpack(result);
+    return !next?.source_url && resultProject(result)===pinnedMedia.projectId && next?.object_id===pinnedMedia.objectId;
+  }catch{return false;}
 }
 function receiveMediaResult(result){
   const supplied=unpack(result);
-  if(!supplied){stopRefresh();return;}
-  const next={...supplied,inline_poster_data_uri:validatedInlinePoster(result._meta?.reference_poster,supplied)};
+  if(!supplied)return;
+  const next={...(pinnedMedia?media:{}),...supplied,inline_poster_data_uri:validatedInlinePoster(result._meta?.reference_poster,supplied)};
+  if(tornDown)shown=undefined;
   tornDown=false;
-  const data=result.structuredContent;
-  const projectId=data?.project_id || data?.project_card?.id || data?.id;
-  followProject=data?.follow_project!==false && !next.source_url;
-  if(projectId!==mediaProject){stopRefresh();mediaProject=projectId;render(next);}
-  else present(next);
-  if(!followProject || next.final===true){stopRefresh(true);return;}
-  startRefresh();
+  const projectId=resultProject(result);
+  // A card represents this exact authored asset, not the project's newest file.
+  // Later samples and the completed video belong in separate tool-call cards.
+  if(!pinnedMedia && projectId && next.object_id && !next.source_url){
+    pinnedMedia={projectId,objectId:next.object_id};
+  }
+  mediaProject=projectId;render(next);
 }
 function loadSource(element,next,keepPosition=false){
   const seconds=keepPosition && Number.isFinite(element.currentTime)?element.currentTime:0;
@@ -105,7 +61,7 @@ function loadSource(element,next,keepPosition=false){
 }
 async function renewMedia(element,{reload=false}={}){
   const projectId=mediaProject,objectId=media?.object_id;
-  if(tornDown || !followProject || !projectId || !objectId || !app.getHostCapabilities?.()?.serverTools)return false;
+  if(tornDown || media?.source_url || !projectId || !objectId || !app.getHostCapabilities?.()?.serverTools)return false;
   if(mediaRenewal)return mediaRenewal;
   const promise=(async()=>{
     try{
@@ -336,14 +292,13 @@ function render(next) {
       element.setAttribute('sandbox','allow-scripts allow-same-origin allow-presentation');
     }else if(video){
       element.controls=true;element.playsInline=true;element.preload='metadata';
-      element.onpause=()=>settlePlayback(element);element.onended=()=>settlePlayback(element);
       let attemptedRepair=false;
       element.onerror=async()=>{
-        if(element!==$('media').firstElementChild)return;
-        if(!attemptedRepair && followProject){attemptedRepair=true;if(await renewMedia(element,{reload:true}))return;}
+        if(tornDown || element!==$('media').firstElementChild)return;
+        if(!attemptedRepair && !next.source_url){attemptedRepair=true;if(await renewMedia(element,{reload:true}))return;}
         $('notice').textContent=next.source_url?'This source does not allow playback here. Open the reference below.':'This video could not be loaded. Ask to show it again.';
       };
-      element.onplay=()=>{attemptedRepair=false;startRefresh();};
+      element.onplay=()=>{attemptedRepair=false;};
       loadSource(element,next);
     }else if(!sourceOnly){element.src=next.url;element.alt=next.caption || 'Proposed video frame';}
     $('media').replaceChildren(element);shown=key;
@@ -368,7 +323,9 @@ function render(next) {
   const downloadable=next.media_type==='video/mp4' && !source && Boolean(next.download_url || next.object_id);
   $('download').hidden=!downloadable;
   $('download').href=next.download_url || next.url || '';
-  $('media-status').textContent=source?(referencePoster?.status==='loaded'?'Video thumbnail':thumbnail?'Source reference':next.caption || 'Source video'):next.final===true?'Final video':next.media_type==='video/mp4'?'Sample':'';
+  const label=next.final===true?'Final video':next.media_type==='video/mp4'?'Sample':'';
+  const duration=Number(next.duration);
+  $('media-status').textContent=source?(referencePoster?.status==='loaded'?'Video thumbnail':thumbnail?'Source reference':next.caption || 'Source video'):label+(label && Number.isFinite(duration) && duration>0?` · ${Math.round(duration*10)/10}s`:'');
   $('excerpt').hidden=thumbnail || next.truncated!==true;
   if(!thumbnail && next.truncated===true){
     const seconds=Number(next.duration),total=Number(next.source_duration);
@@ -395,7 +352,7 @@ $('download').onclick=async(event)=>{
   if(!active)return;
   // Signed downloads expire. Refresh this exact watched version, not whichever
   // draft happens to be newest while a sample review is waiting in chat.
-  if(mediaProject && active.object_id && followProject && app.getHostCapabilities?.()?.serverTools && !await renewMedia(element))return;
+  if(mediaProject && active.object_id && !active.source_url && app.getHostCapabilities?.()?.serverTools && !await renewMedia(element))return;
   if(active.object_id!==media?.object_id || element!==$('media').firstElementChild)return;
   await app.openLink({url:media.download_url || media.url});
 };
@@ -407,12 +364,8 @@ function openReference(event){
 }
 $('source-reference').onclick=openReference;
 $('reference-poster').onclick=openReference;
-document.addEventListener('visibilitychange',()=>{
-  if(document.hidden===true){if(refreshState){clearTimeout(refreshState.timer);refreshState.timer=null;}return;}
-  startRefresh();if(refreshState && !refreshState.timer)pollPreview(refreshState);
-});
 app.ontoolresult=(result)=>{
-  try {receiveMediaResult(result);} catch(e){stopRefresh();$("notice").textContent=e.message;}
+  try {receiveMediaResult(result);} catch(e){$("notice").textContent=e.message;}
 };
 app.onhostcontextchanged=(context)=>{
   if(context.theme)applyDocumentTheme(context.theme);syncDisplayMode(context);
@@ -420,10 +373,10 @@ app.onhostcontextchanged=(context)=>{
     || currentReferenceFrames().some(frame=>hostAllowsFrame(frame.src,context)===false))blockedReference($('media').firstElementChild);
 };
 app.onteardown=async()=>{
-  tornDown=true;stopRefresh();
+  tornDown=true;
   clearReferencePoster();
   const element=$('media').firstElementChild;
-  if(element){element.onpause=null;element.onended=null;}
+  if(element){element.onerror=null;element.onplay=null;}
   return {};
 };
 
@@ -435,7 +388,6 @@ function readData(result){
   return result.structuredContent || JSON.parse(result.content.find(c=>c.type==='text').text);
 }
 function renderChoices(data){
-  stopRefresh();
   choiceData=data.choices;choiceProject=data.project_id;
   $('visual').hidden=true;$('choices').hidden=false;
   $('question').textContent=choiceData.question;
@@ -468,6 +420,7 @@ async function choose(option){
 }
 const receiveMedia=app.ontoolresult;
 app.ontoolresult=result=>{
+  if(!matchesPinnedMedia(result))return;
   if(result.structuredContent?.widget){try{receiveWidget(readData(result));}catch(e){$('notice').textContent=e.message;}return;}
   $('widget').hidden=true;
   if(result.structuredContent?.source_picker){renderSourcePicker(result);return;}
@@ -480,7 +433,6 @@ app.ontoolresult=result=>{
 
 let sourceState,sourceMeta,uploading=false;
 function renderSourcePicker(result){
-  stopRefresh();
   sourceState=result.structuredContent;sourceMeta=result._meta || {};
   $('choices').hidden=true;$('visual').hidden=true;$('sources').hidden=false;
   $('source-files').accept=sourceState.source_picker.accept;
@@ -578,7 +530,7 @@ function widgetEdited(state){
 function receiveWidget(data,replace=false){
   const widget=data.widget;
   if(!data.project_id || !widget?.id || !['brief','story'].includes(widget.kind))throw Error('This editor could not be loaded.');
-  stopRefresh();$('visual').hidden=true;$('choices').hidden=true;$('sources').hidden=true;$('widget').hidden=false;$('notice').textContent='';
+  $('visual').hidden=true;$('choices').hidden=true;$('sources').hidden=true;$('widget').hidden=false;$('notice').textContent='';
   const same=widgetState?.projectId===data.project_id && widgetState.widget.id===widget.id;
   if(same && !replace){
     if(widget.revision<=widgetState.widget.revision)return;

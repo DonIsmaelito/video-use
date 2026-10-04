@@ -68,9 +68,10 @@ def test_saved_narration_advances_to_real_excerpt_without_resynthesis(pilot, cac
     assert "at most 20 seconds" in instruction
     assert "render_video_scene" in instruction and "run_video_step" in instruction
     assert "If no meaningful draft exists yet" in instruction
-    assert "After a new render succeeds" in instruction
-    assert "show_video_preview" in instruction
-    assert "without an approval pause" in instruction
+    assert "After a meaningful new render succeeds" in instruction
+    assert "preview_delivery" in instruction
+    assert "Preserve hands-on sample approval" in instruction
+    assert "final export must open in a separate player" in instruction
     assert "poll this completed task" in instruction
     assert "rerun completed speech merely to resume" in instruction
     assert "never silently trim" in instruction

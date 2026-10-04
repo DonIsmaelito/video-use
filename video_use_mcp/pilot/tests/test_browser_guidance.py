@@ -128,3 +128,18 @@ def test_served_runtime_guidance_distinguishes_hosted_and_optional_local_tools(p
     )
     assert "GSAP, Remotion and Blender are not bundled" in skill
     assert "Local-machine projects can use separately installed frameworks" in skill
+
+
+@pytest.mark.parametrize("topic", ["overview", "workflows", "scenes", "motion", "manim"])
+def test_final_delivery_preserves_snippet_and_opens_new_player_after_chat(pilot, topic):
+    text = " ".join(guidance(pilot, topic)["content"][0]["text"].split())
+    assert "Wait for explicit acceptance, then create and review the full video" in text
+    assert "short plain chat transition before calling `show_video_preview`" in text
+    assert "new final player; keep the snippet player unchanged" in text
+    assert "A sample is not completion" in text
+    for obsolete_delivery in (
+        "finish in that same player",
+        "Reuse the sample player through final delivery",
+        "refreshes through final delivery",
+    ):
+        assert obsolete_delivery not in text

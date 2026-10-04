@@ -8,7 +8,7 @@ const template=fs.readFileSync('template.html','utf8');
 const flush=async()=>{for(let i=0;i<8;i++)await Promise.resolve();};
 function deferred(){let resolve;const promise=new Promise(done=>{resolve=done});return {promise,resolve};}
 function result(id='draft',project='project',extra={}){
-  return {structuredContent:{project_id:project,media:{object_id:id,media_type:'video/mp4',url:`https://media.test/${id}.mp4`,download_url:`https://media.test/${id}.mp4?download=true`,final:false,...extra}}};
+  return {structuredContent:{project_id:project,follow_project:false,media:{object_id:id,media_type:'video/mp4',url:`https://media.test/${id}.mp4`,download_url:`https://media.test/${id}.mp4?download=true`,final:false,...extra}}};
 }
 function host({serverTool,capabilities={serverTools:{}}}={}){
   const {document,window}=parseHTML(template);
@@ -19,7 +19,7 @@ function host({serverTool,capabilities={serverTools:{}}}={}){
     constructor(){app=this;}
     async connect(){}
     getHostCapabilities(){return capabilities;}
-    async callServerTool(input){calls.push(input);return serverTool?serverTool(input):result();}
+    async callServerTool(input){calls.push(input);return serverTool?serverTool(input):result(input.arguments.object_id,input.arguments.project_id,{url:`https://media.test/${input.arguments.object_id}.mp4?renewed=true`,download_url:`https://media.test/${input.arguments.object_id}.mp4?renewed=true&download=true`});}
     async openLink(input){calls.push({open:input});}
     async sendMessage(input){messages.push(input);return {};}
     async updateModelContext(input){messages.push(input);}
@@ -43,109 +43,107 @@ function host({serverTool,capabilities={serverTools:{}}}={}){
 }
 
 {
-  const h=host({serverTool:async()=>result('new-draft')});
-  assert.equal(h.document.getElementById('visual').hidden,true);
-  await h.advance(10000);assert.equal(h.calls.length,0,'no polling without actual media');
-  h.app.ontoolresult(result());
-  await h.advance(4999);assert.equal(h.calls.length,0);
-  await h.advance(1);assert.equal(h.calls.length,1);
-  assert.equal(h.calls[0].name,'video_preview_updates');
-  assert.equal(h.calls[0].arguments.project_id,'project');
-  assert(h.document.querySelector('video').src.includes('new-draft.mp4'));
-  assert.equal(h.messages.length,0,'refresh never submits host messages or model context');
-  const same=h.document.querySelector('video');
-  await h.advance(5000);assert.equal(h.document.querySelector('video'),same,'unchanged media preserves playback element');
-  await h.app.onteardown();assert.equal(h.timers.size,0);
-  await h.advance(20000);assert.equal(h.calls.length,2,'teardown cancels refresh');
-}
-
-for(const event of ['onpause','onended']){
-  let sequence=0;
-  const h=host({serverTool:async()=>++sequence===1?result('new-draft'):result('final','project',{final:true})});
-  h.app.ontoolresult(result());
-  const playing=h.document.querySelector('video');playing.paused=false;playing.ended=false;
-  await h.advance(5000);
-  assert.equal(h.document.querySelector('video'),playing,'draft refresh must not interrupt playback');
-  await h.advance(5000);
-  assert.equal(h.document.querySelector('video'),playing,'final refresh must wait for playback');
-  assert.equal(h.timers.size,0,'final media stops polling even while queued');
-  if(event==='onended')playing.ended=true;else playing.paused=true;
-  playing[event]();
-  assert(h.document.querySelector('video').src.includes('final.mp4'),'only latest queued media is displayed');
-  await h.document.getElementById('download').onclick();
-  assert(h.calls.at(-1).open.url.includes('final.mp4'));
+  const h=host();
+  await h.advance(10000);assert.equal(h.calls.length,0);
+  const legacy=result('snippet');legacy.structuredContent.follow_project=true;
+  h.app.ontoolresult(legacy);
+  const player=h.document.querySelector('video');
+  await h.advance(60*60000);await h.visible(false);await h.advance(60*60000);await h.visible(true);
+  assert.equal(h.calls.length,0,'even legacy follow_project flags never poll for another asset');
+  assert.equal(h.timers.size,0);assert.equal(h.document.querySelector('video'),player);
   assert.equal(h.messages.length,0);
 }
-
-for(const mode of ['final','unsupported','choices','sources','empty','reference']){
-  const h=host({capabilities:mode==='unsupported'?{}:{serverTools:{}}});
-  if(mode==='final')h.app.ontoolresult(result('final','project',{final:true}));
-  else if(mode==='choices')h.app.ontoolresult({structuredContent:{project_id:'project',choices:{question:'Style?',revision:1,options:[]}}});
-  else if(mode==='sources')h.app.ontoolresult({structuredContent:{project_id:'project',source_picker:{accept:'.mp4'}}});
-  else if(mode==='empty')h.app.ontoolresult({structuredContent:{project_id:'project'}});
-  else if(mode==='reference'){const r=result();r.structuredContent.follow_project=false;h.app.ontoolresult(r);}
-  else h.app.ontoolresult(result());
-  assert.equal(h.timers.size,0,`${mode} must not poll`);
-  await h.advance(600000);assert.equal(h.calls.length,0);
+for(const isPlaying of [false,true]){
+  const h=host();h.app.ontoolresult(result('snippet','project',{duration:6}));
+  const player=h.document.querySelector('video');player.paused=!isPlaying;player.ended=false;
+  h.app.ontoolresult(result('final','project',{final:true,duration:30}));
+  h.app.ontoolresult(result('other','other-project',{final:true}));
+  h.app.ontoolresult({structuredContent:{project_id:'project',choices:{question:'Wrong card',options:[]}}});
+  h.app.ontoolresult({structuredContent:{project_id:'project',media:{object_id:'snippet',media_type:'text/html',source_url:'https://example.test/other'}}});
+  assert.equal(h.document.querySelector('video'),player,'late final, foreign project and other widget results cannot replace the sample');
+  assert.equal(h.document.getElementById('visual').hidden,false);
+  assert.equal(h.document.getElementById('choices').hidden,true);
+  assert(player.src.includes('/snippet.mp4'));
+  assert.equal(h.document.getElementById('media-status').textContent,'Sample · 6s');
+  player.paused=true;player.ended=true;await h.visible(false);await h.visible(true);
+  assert.equal(h.document.querySelector('video'),player,'ending playback or revisiting never promotes the sample to final');
+  await h.document.getElementById('download').onclick();
+  assert.equal(h.calls[0].arguments.object_id,'snippet');
+  assert.equal(h.calls[0].arguments.project_id,'project');
+  assert(h.calls.at(-1).open.url.includes('/snippet.mp4'));
+  assert.equal(h.messages.length,0);
 }
-
+{
+  const sample=host(),final=host(),other=host();
+  sample.app.ontoolresult(result('snippet','project',{duration:6}));
+  final.app.ontoolresult(result('final','project',{duration:30,final:true}));
+  other.app.ontoolresult(result('other-video','other-project',{final:true}));
+  const old=sample.document.querySelector('video');
+  final.app.ontoolresult(result('final','project',{duration:30,final:true,url:'https://media.test/final.mp4?fresh=true'}));
+  assert.equal(sample.document.querySelector('video'),old);
+  assert(old.src.includes('/snippet.mp4'));
+  assert.equal(final.document.getElementById('media-status').textContent,'Final video · 30s');
+  for(const [h,object,project] of [[sample,'snippet','project'],[final,'final','project'],[other,'other-video','other-project']]){
+    await h.document.getElementById('download').onclick();
+    assert.equal(h.calls[0].arguments.object_id,object);
+    assert.equal(h.calls[0].arguments.project_id,project);
+    assert(h.calls.at(-1).open.url.includes(`/${object}.mp4`));
+    assert.equal(h.messages.length,0);
+  }
+}
+{
+  const h=host();h.app.ontoolresult(result('snippet','project',{duration:6}));
+  const player=h.document.querySelector('video');player.currentTime=3.2;player.duration=6;
+  await player.onerror();
+  assert.equal(h.calls[0].arguments.object_id,'snippet');
+  assert.equal(h.document.querySelector('video'),player);
+  assert(player.src.includes('?renewed=true'));
+  player.onloadedmetadata();assert.equal(player.currentTime,3.2,'exact-object playback repair preserves position');
+  assert.equal(h.document.getElementById('media-status').textContent,'Sample · 6s');
+  h.app.ontoolresult({structuredContent:{project_id:'project',media:{object_id:'snippet',media_type:'video/mp4',url:'https://media.test/snippet.mp4?ticket=new',download_url:'https://media.test/snippet.mp4?ticket=new&download=true'}}});
+  assert.equal(h.document.querySelector('video'),player,'same-object updates preserve the playback element');
+  assert.equal(h.document.getElementById('media-status').textContent,'Sample · 6s','URL-only updates retain media metadata');
+  assert(h.document.getElementById('download').href.includes('ticket=new'));
+}
+for(const wrong of [result('final','project'),result('snippet','other-project')]){
+  const h=host({serverTool:async()=>wrong});h.app.ontoolresult(result('snippet'));
+  const player=h.document.querySelector('video');
+  await h.document.getElementById('download').onclick();
+  assert.equal(h.calls.filter(call=>call.open).length,0,'a mismatched renewal never opens another file');
+  assert.equal(h.document.querySelector('video'),player);assert(player.src.includes('/snippet.mp4'));
+  assert(h.document.getElementById('notice').textContent.includes('could not be refreshed'));
+}
 {
   const pending=deferred(),h=host({serverTool:()=>pending.promise});
-  h.app.ontoolresult(result());
-  await h.advance(5000);await h.advance(20000);
-  assert.equal(h.calls.length,1,'slow requests never overlap');
-  await h.app.onteardown();
-  pending.resolve(result('late'));await flush();
-  assert(h.document.querySelector('video').src.includes('draft.mp4'),'late response after teardown is ignored');
-  assert.equal(h.timers.size,0);
-}
-
-{
-  let final=false;
-  const h=host({serverTool:async()=>final?result('final','project',{final:true}):result()});
-  h.app.ontoolresult(result());await h.advance(41*60000);
-  assert(h.timers.size>0,'long decisions do not permanently expire the player');
-  assert(h.calls.length<=93,'older players poll only twice per minute');
-  final=true;await h.advance(30000);
-  assert(h.document.querySelector('video').src.includes('final.mp4'));
-  assert.equal(h.timers.size,0,'the initial sample becomes final and stops polling');
-  assert.equal(h.messages.length,0);
+  h.app.ontoolresult(result('snippet'));
+  const player=h.document.querySelector('video'),repair=player.onerror();
+  const download=h.document.getElementById('download').onclick();
+  assert.equal(h.calls.length,1,'simultaneous repair and download share one exact-object renewal');
+  await h.app.onteardown();pending.resolve(result('snippet','project',{url:'https://media.test/late.mp4'}));await repair;await download;
+  assert(player.src.includes('/snippet.mp4'),'late URL responses after teardown are ignored');
+  assert.equal(h.calls.filter(call=>call.open).length,0);
+  await h.visible(false);await h.visible(true);await h.advance(60000);assert.equal(h.calls.length,1);
 }
 {
-  const h=host();h.app.ontoolresult(result());await h.advance(5000);
-  await h.visible(false);assert.equal(h.timers.size,0);
-  await h.advance(60*60000);assert.equal(h.calls.length,1,'hidden hosts do no background work');
-  await h.visible(true);assert.equal(h.calls.length,2,'returning immediately checks for final');assert(h.timers.size>0);
-  await h.app.onteardown();await h.visible(false);await h.visible(true);assert.equal(h.calls.length,2,'teardown is permanent until a new result');
+  const h=host({capabilities:{}});h.app.ontoolresult(result('snippet'));
+  await h.document.getElementById('download').onclick();
+  assert.equal(h.calls.length,1);assert(h.calls[0].open.url.includes('/snippet.mp4'),'hosts without tool calls retain the supplied download link');
 }
-
 {
-  const pending=deferred();let count=0;
-  const h=host({serverTool:async input=>++count===1?pending.promise:result('newer',input.arguments.project_id)});
-  h.app.ontoolresult(result('old','old-project'));await h.advance(5000);
-  h.app.ontoolresult(result('new','new-project'));await h.advance(5000);
-  assert.equal(h.calls.length,1,'changing projects never overlaps a pending host request');
-  pending.resolve(result('old-late','old-project'));await flush();
-  assert(h.document.querySelector('video').src.includes('/new.mp4'));
-  await h.advance(5000);
-  assert.equal(h.calls.length,2);assert.equal(h.calls[1].arguments.project_id,'new-project');
-  assert(h.document.querySelector('video').src.includes('/newer.mp4'));
-}
-
-{
-  const h=host({serverTool:async()=>{throw Error('disconnected');}});
-  h.app.ontoolresult(result());await h.advance(15000);
-  assert.equal(h.calls.length,3);assert.equal(h.timers.size,0,'three failures stop silent refresh retries');
-  assert.equal(h.document.getElementById('visual').hidden,false,'existing playable media stays visible');
-}
-
-{
-  const h=host();h.app.ontoolresult(result('excerpt','project',{truncated:true,duration:120,source_duration:245}));
-  assert.equal(h.document.getElementById('excerpt').hidden,false);
-  assert.equal(h.document.getElementById('excerpt').textContent,'Preview excerpt · 120s of 245s');
+  const h=host();h.app.ontoolresult(result('snippet'));
+  const first=h.document.querySelector('video');await h.app.onteardown();
   h.app.ontoolresult(result('final','project',{final:true}));
-  assert.equal(h.document.getElementById('excerpt').hidden,true);
-  assert.equal(h.timers.size,0);
+  assert.equal(h.document.querySelector('video'),first,'teardown does not release the pinned identity');
+  h.app.ontoolresult(result('snippet'));
+  const restored=h.document.querySelector('video');
+  assert.notEqual(restored,first,'remounting the same asset restores playback callbacks');
+  await restored.onerror();assert.equal(h.calls[0].arguments.object_id,'snippet');
+  assert(restored.src.includes('renewed=true'));
 }
-
-console.log('PASS adaptive visible-player refresh survives long decisions and updates the original sample to final without interrupting playback');
+{
+  const h=host();h.app.ontoolresult(result('snippet','project',{truncated:true,duration:6,source_duration:30}));
+  assert.equal(h.document.getElementById('excerpt').textContent,'Preview excerpt · 6s of 30s');
+  h.app.ontoolresult(result('final','project',{final:true}));
+  assert.equal(h.document.getElementById('excerpt').hidden,false,'the original sample keeps its own excerpt label');
+}
+console.log('PASS pinned sample and final cards stay separate across playback, host updates, visibility, exact URL renewal and independent projects');

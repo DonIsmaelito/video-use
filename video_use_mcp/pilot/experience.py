@@ -187,7 +187,7 @@ def experience_context(
             update="brief",
             widgets=["show_video_preview"],
             continuation="deliver_requested_result",
-            hint="Deliver the playable video and download. Reuse the existing player or open it if needed. Do not request another routine approval or claim review you did not perform.",
+            hint="Introduce the completed cut in one short chat sentence, then open a NEW final player for the exported object with download. Keep the earlier sample player unchanged. Do not request another routine approval or claim review you did not perform.",
         )
     elif awaiting_excerpt:
         review = intake.get("excerpt_review") or {}
@@ -215,7 +215,7 @@ def experience_context(
                 question="review_representative_excerpt",
                 widgets=["show_video_preview"],
                 continuation="wait_for_excerpt_feedback",
-                hint="Use the existing snippet player, opening it only if missing. Ask for the requested early review and wait before making the rest of the video. Cheap independent work can continue, but an unanswered review is not approval. Show actual media only; do not substitute an inspection sheet or a status card.",
+                hint="Show this exact snippet once in its own player, opening it only if this object has not been shown. Ask for the requested early review and wait before making the rest of the video. Cheap independent work can continue, but an unanswered review is not approval. Show actual media only; do not substitute an inspection sheet or a status card.",
             )
     elif media and media.get("object_id"):
         key = f"media:{media['object_id']}:creative:{revision}"
@@ -224,7 +224,7 @@ def experience_context(
             update="none" if mode == "delegate" else "brief",
             question="optional_if_consequential" if mode != "delegate" else "none",
             widgets=[] if mode == "delegate" else ["show_video_preview"],
-            hint="Show or refresh this real media once in the conversation with a short update. Invite useful redirection where a consequential choice remains; keep working without requiring a reply.",
+            hint="Show this exact media once in the conversation in its own player with a short update; preserve earlier sample players. Invite useful redirection where a consequential choice remains; keep working without requiring a reply.",
         )
         if mode == "delegate":
             check["hint"] = (

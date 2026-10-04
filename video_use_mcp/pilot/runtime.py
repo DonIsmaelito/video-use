@@ -64,7 +64,13 @@ def require_production_intake(creative, operation, payload):
     context = intake_context(creative)
     if context is None:
         return
-    if context["phase"] in {"mode", "basics", "approach", "personalization", "references"}:
+    if context["phase"] in {
+        "mode",
+        "basics",
+        "approach",
+        "personalization",
+        "references",
+    }:
         raise ValueError(
             "Production is waiting for the user's intake choices. "
             + context["next_action"]
@@ -513,6 +519,7 @@ class Manager:
                 if task.get("operation") not in ("review", "export", "preview"):
                     await self.checkpoint(uid, pid, sb)
                 pending_timing = result.pop("_production_timing", None)
+                pending_output = result.pop("_production_output", None)
                 if result.get("exit_code", 0):
                     self.store.sql(
                         "UPDATE public.vp_tasks SET status='failed',result=$2::jsonb,error=$3,updated=now() WHERE id=$1",
@@ -536,6 +543,18 @@ class Manager:
                         ):
                             self.store.put("production_timing", pid, pending_timing)
                             result["production_timing"] = pending_timing
+                    if pending_output:
+                        latest = self.store.get("creative", pid) or {}
+                        if (
+                            latest.get("revision", 0)
+                            == pending_output["creative_revision"]
+                        ):
+                            self.store.put(
+                                "production_output",
+                                pid + ":" + pending_output["sha256"],
+                                pending_output,
+                            )
+                            result["production_output"] = pending_output
                     self.store.sql(
                         "UPDATE public.vp_tasks SET status='succeeded',result=$2::jsonb,updated=now() WHERE id=$1",
                         tid,
@@ -734,6 +753,28 @@ class Manager:
                         sb,
                     )
                 )
+            output_path = a.get("review_path") or preview_path
+            if output_path and Path(output_path).suffix.lower() in {
+                ".mp4",
+                ".mov",
+                ".mkv",
+                ".webm",
+            }:
+                digest = result.get("sha256") or (pending_timing or {}).get("sha256")
+                if not digest:
+                    path = await sb.safe_path(output_path)
+                    hashed = await sb.run("sha256sum " + shlex.quote(path), 30)
+                    if hashed["exit_code"] or not hashed["stdout"].split():
+                        raise ValueError("Could not identify the rendered video")
+                    digest = hashed["stdout"].split()[0]
+                result["_production_output"] = {
+                    "project": pid,
+                    "sha256": digest,
+                    "video_path": output_path,
+                    "production_stage": a.get("production_stage", "full_video"),
+                    "creative_revision": (creative or {}).get("revision", 0),
+                    "task_id": tid,
+                }
             if creative:
                 result["creative_revision"] = creative["revision"]
                 if a.get("command") or a.get("components"):
@@ -948,7 +989,15 @@ class Manager:
             # omitted list must not silently erase an acknowledged defect.
             self.store.put("review_findings", pid, findings)
             require_resolved_review_findings(findings)
+            output = self.store.get("production_output", pid + ":" + digest)
+            if isinstance(output, dict) and output.get("production_stage") == "excerpt":
+                raise ValueError(
+                    "Final export is blocked: this encoded video was produced as a sample. "
+                    "Complete and review the full video with production_stage='full_video' before exporting."
+                )
+            duration_check = await self.final_duration_metadata(sb, path, creative)
             meta = await sb.inspect_video(path)
+            meta.update(duration_check)
             with tempfile.TemporaryDirectory() as tmp:
                 local = Path(tmp) / "video.mp4"
                 await sb.download(path, local, 200000000)
@@ -989,6 +1038,82 @@ class Manager:
                 **meta,
             }
         raise ValueError("Unknown operation")
+
+    async def final_duration_metadata(self, sb, path, creative):
+        """Compare the encoded video track with the user's current duration."""
+        requested = (
+            (creative or {})
+            .get("intake", {})
+            .get("output_profile", {})
+            .get("duration_seconds")
+        )
+        if requested is None:
+            return {}  # Legacy and explicitly delegated duration remain unconstrained.
+        if (
+            isinstance(requested, bool)
+            or not isinstance(requested, (int, float))
+            or not math.isfinite(requested)
+            or requested <= 0
+        ):
+            raise ValueError(
+                "The saved output duration must be a positive number of seconds"
+            )
+        probe = await sb.run(
+            "ffprobe -v error -select_streams v:0 "
+            "-show_entries stream=duration,duration_ts,time_base,avg_frame_rate -of json "
+            + shlex.quote(path),
+            30,
+        )
+        try:
+            if probe["exit_code"]:
+                raise ValueError
+            video = json.loads(probe["stdout"])["streams"][0]
+            try:
+                tick = float(Fraction(video.get("time_base", "0/1")))
+            except (ValueError, ZeroDivisionError):
+                tick = 0.0
+            duration = (
+                float(video["duration_ts"]) * tick
+                if tick > 0 and video.get("duration_ts") is not None
+                else float(video["duration"])
+            )
+            if not math.isfinite(duration) or duration <= 0:
+                raise ValueError
+        except (ValueError, TypeError, KeyError, IndexError):
+            raise ValueError(
+                "Could not verify the encoded video-track duration for final export. "
+                "Render a video with measurable track timing and review it before exporting."
+            ) from None
+        try:
+            fps = float(Fraction(video.get("avg_frame_rate", "0/1")))
+        except (ValueError, ZeroDivisionError):
+            fps = 0.0
+        # The saved length is an approximate target, not a frame-exact contract.
+        # Allow normal narration/encoding variation while rejecting short samples.
+        tolerance = (
+            max(
+                0.5,
+                requested * 0.02,
+                1 / fps if math.isfinite(fps) and fps > 0 else 0,
+                tick,
+            )
+            + 0.000001
+        )
+        if abs(duration - requested) > tolerance:
+            raise ValueError(
+                f"Final export is blocked: the encoded video is {duration:.3f}s, "
+                f"but the current requested duration is {requested:g}s. "
+                "Finish and review the requested full video, or save an explicitly changed "
+                "user duration in output_profile before exporting."
+            )
+        return {
+            "final_duration_check": {
+                "requested_seconds": requested,
+                "video_seconds": duration,
+                "tolerance_seconds": tolerance,
+                "source": "encoded_video_stream",
+            }
+        }
 
     async def production_timing_metadata(self, task, sb, creative):
         """Bind reported scene boundaries to a measured, exact encoded video."""

@@ -1,4 +1,4 @@
-"""An existing player must not lose its only draft during lengthy internal work."""
+"""A newly opened player can still find the draft after lengthy internal work."""
 
 from video_use_mcp.pilot.interaction import record_progress
 from video_use_mcp.pilot.tests.test_cards import PID, rpc
@@ -33,7 +33,7 @@ def test_long_nonvisual_work_keeps_last_playable_media(pilot):
     result = rpc(
         pilot,
         "tools/call",
-        {"name": "video_preview_updates", "arguments": {"project_id": PID}},
+        {"name": "show_video_preview", "arguments": {"project_id": PID}},
     )
     assert not result.get("isError"), result
     assert result["structuredContent"]["media"]["object_id"] == "real-draft"

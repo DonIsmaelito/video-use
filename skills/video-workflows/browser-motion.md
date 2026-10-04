@@ -28,11 +28,14 @@ save `evidence_ids` and close when done. Stills do not prove motion or sound.
 Present source thumbnails and links without embed attempts or embed warnings.
 No custom controls, copied videos or generated stand-ins. Counts require post-bound
 evidence, not oEmbed or guessed popularity.
-Plan the full arc from the brief and chosen visual treatment, make one representative
-snippet, and use `show_video_checkpoint` for native Continue/Refine about its plain
-player. Wait for acceptance, then finish in that same player. After selection, call `prepare_video_reference` to download each chosen video.
+Plan the full arc and a representative snippet from the brief and chosen treatment.
+Use `show_video_checkpoint` for native Continue/Refine about its player. Wait for explicit acceptance, then create and review the full video.
+Write a short plain chat transition before calling `show_video_preview` to open a
+new final player; keep the snippet player unchanged. A sample is not completion.
+After selection, call `prepare_video_reference` to download each chosen video.
 Read `video_use_guidance(topic="reference-cloning")`; inspect the saved source,
-measure its treatment and adapt it to the query before making the snippet. Use the overview for the complete flow.
+measure its treatment and adapt it to the query before making the snippet.
+Use the overview for the complete flow.
 
 Build one meaningful short motion excerpt before authoring the entire film;
 declare `production_stage="excerpt"` in its `run_video_step`. Hands off keeps it
@@ -93,7 +96,8 @@ tasks. Display useful drafts according to the mode; keep hands-off checks intern
 and honor the hands-on sample decision before rendering the rest.
 
 Use `review_path` for final encoded inspection, repair concrete visible defects,
-export the exact reviewed MP4, then display its player. Keep editable source,
+export the exact reviewed MP4, then write a short plain chat transition and call
+`show_video_preview` to open a new final player. Keep editable source,
 assets, timings and render instructions. Successful encoding alone is not a
 visual-quality judgment.
 Only claim motion playback or listening when you actually had that evidence.

@@ -30,19 +30,22 @@ save `evidence_ids` and close when done. Stills do not prove motion or sound.
 Present source thumbnails and links without embed attempts or embed warnings.
 No custom controls, copied videos or generated stand-ins. Counts require post-bound
 evidence, not oEmbed or guessed popularity.
-Plan the full arc from the brief and chosen visual treatment, make one representative
-snippet, and use `show_video_checkpoint` for native Continue/Refine about its plain
-player. Wait for acceptance, then finish in that same player. After selection, call `prepare_video_reference` to download each chosen video.
+Plan the full arc and a representative snippet from the brief and chosen treatment.
+Use `show_video_checkpoint` for native Continue/Refine about its player. Wait for explicit acceptance, then create and review the full video.
+Write a short plain chat transition before calling `show_video_preview` to open a
+new final player; keep the snippet player unchanged. A sample is not completion.
+After selection, call `prepare_video_reference` to download each chosen video.
 Read `video_use_guidance(topic="reference-cloning")`; inspect the saved source,
-measure its treatment and adapt it to the query before making the snippet. Use the overview for the complete flow.
+measure its treatment and adapt it to the query before making the snippet.
+Use the overview for the complete flow.
 
 Pass `project_id`, a new `request_id`, stable `scene_id`, `note`, the current
 `creative_revision`, and `scene`. For the first sample, explicitly pass
 `production_stage="excerpt"`; the default `full_video` is remaining production,
 which hands-on mode waits to start until sample acceptance. The same scene ID with changed data and a new
 request ID updates the saved composition. It returns an editable JSON path and
-MP4 path. In interactive modes use `preview_delivery.open_if_missing` when a real
-player is needed. Hands on asks the `show_video_checkpoint` question through native
+MP4 path. In interactive modes use `preview_delivery.open` to show that exact clip
+once. Hands on asks the `show_video_checkpoint` question through native
 questions or normal chat about that player; no second card. Wait for explicit
 continue/refine before the rest; Key moments continues with selective updates.
 Hands off keeps samples internal. Read current choices/feedback before later
@@ -128,7 +131,7 @@ current `creative_revision`, and ordered `scene_ids`. To author remaining scenes
 in that call, pass `scenes={scene_id:scene_data,...}`; omitted IDs reuse saved JSON
 under `edit/scenes/`. No separate scene registry or handwritten concat is required.
 The whole batch is validated before rendering. Compatible renders are reused,
-actual `production_timing` is recorded, and the assembled draft reaches the player.
+actual `production_timing` is recorded, and the assembled draft is available for review.
 
 Add `narration_path` and `narration_offset` for the continuous mix. Quality `draft`
 defaults to 960×540 at 15 fps for a landscape 16:9 composition; `final` defaults to

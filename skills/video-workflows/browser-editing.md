@@ -49,7 +49,9 @@ After selection, `prepare_video_reference` downloads the chosen videos. Read
 `video_use_guidance(topic="reference-cloning")`, inspect the saved media and adapt
 its treatment to the brief. Plan the full arc internally, make a representative
 snippet and ask `show_video_checkpoint` for native Continue/Refine about its plain
-player. Wait for acceptance, then finish in that same player.
+player. Wait for explicit acceptance, then create and review the full video.
+Write a short plain chat transition before calling `show_video_preview` to open a
+new final player; keep the snippet player unchanged. A sample is not completion.
 
 Keep factual research separate. User references, exact edits or explicit skips
 can delegate search; save the actual words. Missing access needs a supplied
@@ -79,14 +81,13 @@ Unknown capacity is not zero; cached audio may remain usable. Never silently cha
 
 ## Show useful increments and keep context
 
-Plan the full arc internally; render a representative short sample in the chosen
-technique, adapting composition/type/motion as well as palette. Reuse accepted work. Hands off keeps this internal; Key moments shows useful drafts selectively.
-Hands on uses `show_video_preview`, then `show_video_checkpoint` returns a native
-or normal chat question about that player, not a second card: continue, or refine
-with the user’s actual feedback. Wait for explicit acceptance before the full video;
-a refine answer changes only the sample and returns to this same checkpoint. Tool traces and private QA sheets are not previews.
-Reuse the player: while mounted on compatible hosts it refreshes through final
-delivery and resumes on visibility. Use plain media controls; edits stay in chat.
+Adapt composition/type/motion as well as palette and reuse accepted work.
+Hands off keeps samples internal; Key moments shows useful drafts selectively.
+Hands on shows the snippet with `show_video_preview`; `show_video_checkpoint`
+returns a native or normal chat continue/refine question about it, not a second card.
+Wait for explicit acceptance before the full video. Apply actual feedback to the
+sample and return to its checkpoint. Tool traces and private QA sheets are not previews.
+Use plain media controls; edits stay in chat.
 
 Read `creative`, `latest_feedback`, revision and user edits in task results; refresh
 `get_video_project` after a long gap. Unknown `creative_handoff.preferences_changed`

@@ -115,13 +115,21 @@ def register_cards(
             structuredContent=data,
         )
 
-    def current_media(uid, pid):
+    def current_media(uid, pid, object_id=None):
         """Only return authored media, never task state or internal QA sheets."""
         store.project(uid, pid)
         state = store.get("progress", pid) or {}
-        revisions = store.sql(
-            "SELECT id,video,created FROM public.vp_revisions WHERE project=$1 ORDER BY created DESC LIMIT 3",
-            pid,
+        revisions = (
+            store.sql(
+                "SELECT id,video,created,metadata FROM public.vp_revisions WHERE project=$1 AND video=$2 ORDER BY created DESC LIMIT 1",
+                pid,
+                object_id,
+            )
+            if object_id
+            else store.sql(
+                "SELECT id,video,created,metadata FROM public.vp_revisions WHERE project=$1 ORDER BY created DESC LIMIT 3",
+                pid,
+            )
         )
         updates = state.get("updates", [])
         if state.get("latest_preview"):
@@ -138,10 +146,37 @@ def register_cards(
                 at=r["created"],
                 caption="Finished video",
                 draft=False,
-                final=state.get("stage") == "complete",
+                final=bool(object_id) or state.get("stage") == "complete",
+                duration=(
+                    (r.get("metadata") or {}).get("final_duration_check") or {}
+                ).get("video_seconds")
+                or (r.get("metadata") or {}).get("duration"),
             )
             for r in revisions
         ]
+        if object_id:
+            items = [item for item in items if item["object_id"] == object_id]
+            if not items:
+                # An older sample may have aged out of the bounded progress log.
+                # Recover that exact owned clip, never silently select a new edit.
+                rows = store.sql(
+                    "SELECT id,created FROM public.vp_objects WHERE id=$1 AND owner=$2 AND project=$3 AND kind='video'",
+                    object_id,
+                    uid,
+                    pid,
+                )
+                if not rows:
+                    raise PermissionError("Video not found in this project")
+                items = [
+                    dict(
+                        object_id=object_id,
+                        media_type="video/mp4",
+                        at=rows[0]["created"],
+                        caption="Video draft",
+                        draft=True,
+                        final=False,
+                    )
+                ]
         # Older view_video_frame calls published internal inspection sheets as
         # generic "Preview frame" updates. Keep an actual playable draft visible
         # instead of allowing those legacy QA images to replace it.
@@ -171,8 +206,8 @@ def register_cards(
             media["download_url"] = media["url"] + "&download=true"
         return media
 
-    def media_result(uid, pid):
-        media = current_media(uid, pid)
+    def media_result(uid, pid, object_id=None):
+        media = current_media(uid, pid, object_id)
         creative = store.get("creative", pid)
         intake = intake_context(creative, pid)
         if intake and intake["mode"] == "delegate" and not media.get("final"):
@@ -181,7 +216,7 @@ def register_cards(
             )
         data = {
             "project_id": pid,
-            "follow_project": True,
+            "follow_project": False,
             "media": media,
             "creative": creative_public(creative),
             "intake": intake,
@@ -195,8 +230,9 @@ def register_cards(
                 "and the next useful improvement, then continue working. Invite "
                 "redirection only where it matters; do not require a reply. "
                 "Use current creative choices before the next render. "
-                "This player refreshes later drafts and the final export; reuse it "
-                "rather than opening another player for each milestone. "
+                "This player stays on this exact draft. After the full video is "
+                "rendered, reviewed and exported, introduce it in one short chat "
+                "sentence and open a new player for that export. Keep this sample visible. "
                 "Do not describe workspace setup or terminal commands."
             ),
         }
@@ -207,7 +243,7 @@ def register_cards(
             and intake["excerpt_review"].get("status") != "approved"
         ):
             data["next_action"] = (
-                "This is the short sample for the user's review. Explain the proposed direction in one sentence, call show_video_checkpoint, and wait for continue or refine before making the rest. Reuse this player for later media."
+                "This is the short sample, not the complete video. Explain the proposed direction in one sentence, call show_video_checkpoint, and wait for continue or refine before making the rest. Keep this player on the sample; the final export gets a new player."
             )
             data["next_tool"] = {
                 "name": "show_video_checkpoint",
@@ -259,6 +295,12 @@ def register_cards(
                     "url": out["video_url"],
                     "download_url": out["download_url"],
                     "caption": "Finished video",
+                    "final": True,
+                    "draft": False,
+                    "duration": (result.get("final_duration_check") or {}).get(
+                        "video_seconds"
+                    )
+                    or result.get("duration"),
                 }
             elif preview.get("object_id"):
                 out["media"] = preview | {
@@ -383,9 +425,9 @@ def register_cards(
                 "run_video_step with preview_path. If a draft or finished video "
                 "already exists, continue from it only as needed for the current "
                 "request; rereading this narration is not a reason to restart work. "
-                "After a new render succeeds, open show_video_preview only if no "
-                "working player exists in this conversation; otherwise let the existing "
-                "player refresh. Keep working without an approval pause. "
+                "After a meaningful new render succeeds, follow preview_delivery "
+                "to show that exact clip once. Preserve hands-on sample approval; "
+                "the final export must open in a separate player. "
                 "Do not display a placeholder, poll this completed task, or rerun "
                 "completed speech merely to resume. Align the full "
                 "video to the measured narration duration. If speech exceeds the "
@@ -394,23 +436,33 @@ def register_cards(
             )
         elif out.get("media"):
             out["next_action"] = (
-                "Actual media is ready at media.url. If no player for this project is "
-                "already open in THIS conversation, use preview_delivery.open_if_missing. An existing "
-                "player follows new media while mounted and visible when the host supports "
-                "app tools; let it update instead of opening duplicate players. Reopen for "
-                "a substantial new draft or final export if the host has unmounted the player or cannot refresh it. "
-                "Accompany a new draft with one short chat sentence about what is "
-                "visible and what comes next. Then continue without an approval "
-                "pause. Do not poll this completed task."
+                "Actual media is ready at media.url. For a meaningful new draft, "
+                "write one short chat sentence about what it shows, then use "
+                "preview_delivery.open to display this exact clip once. Do not reopen "
+                "the same object already shown in this conversation. Each player "
+                "keeps its own clip; a later final export needs a separate player. "
+                "Do not poll this completed task."
             )
             out["preview_delivery"] = {
-                "reuse_existing_player": True,
-                "open_only_when": "No player exists in this conversation, or the host has unmounted it or cannot refresh.",
-                "open_if_missing": {
+                "reuse_existing_player": False,
+                "stage": "final" if out["media"].get("final") else "draft",
+                "open_only_when": "This exact media object has not been shown in this conversation. The final export always gets its own player after a short chat introduction.",
+                "open": {
                     "name": "show_video_preview",
-                    "arguments": {"project_id": out["project"]},
+                    "arguments": {
+                        "project_id": out["project"],
+                        "object_id": out["media"]["object_id"],
+                    },
                 },
             }
+            if out["media"].get("final"):
+                out["next_action"] = (
+                    "The full video is exported. Write one short chat sentence "
+                    "introducing the completed cut and its verified duration, then "
+                    "call preview_delivery.open to show it in a NEW player with download. "
+                    "Leave the earlier sample player unchanged. Do not merely link "
+                    "to or replace the sample, and do not reopen this same export twice."
+                )
             if result.get("review_object"):
                 out["next_action"] += (
                     " Also inspect the returned encoded review image before exporting."
@@ -418,9 +470,9 @@ def register_cards(
         elif result.get("review_object"):
             out["next_action"] = (
                 "Inspect the returned encoded review image. If it passes, export this "
-                "exact video with an honest review summary. Reuse the player already "
-                "open in this conversation; use show_video_preview only if absent, "
-                "expired or unable to refresh. "
+                "exact video with an honest review summary. After export, introduce "
+                "the full cut in one short chat sentence and open its NEW player. "
+                "Keep the sample player unchanged. "
                 "This inspection sheet is not a user-facing video preview. Do not poll again."
             )
         elif task.get("payload", {}).get("preview_pending"):
@@ -486,7 +538,7 @@ def register_cards(
                 and intake["excerpt_review"].get("status") != "approved"
             ):
                 out["next_action"] = (
-                    "The sample is ready. Show or refresh its actual player, then call show_video_checkpoint for continue/refine and wait before producing the complete film. Do not poll this completed task or silently complete the rest."
+                    "The short sample is ready, not the complete film. Explain it in one sentence and use preview_delivery.open to show this exact clip once, then call show_video_checkpoint for continue/refine and wait before producing the complete film. Keep the sample player unchanged; the final export gets a new player. Do not poll this completed task or silently complete the rest."
                 )
                 out["next_tool"] = {
                     "name": "show_video_checkpoint",
@@ -578,9 +630,11 @@ def register_cards(
         return project_card()
 
     @mcp.tool(annotations=read, meta=UI_META, title="Video preview")
-    def show_video_preview(project_id: str) -> CallToolResult:
-        """Show real media with playback/download. Hands off shows only the finished export. Hands on shows its short excerpt, then show_video_checkpoint waits for the user's direction before completing the rest. Key moments uses selective previews. Reuse the open player, which follows the project while mounted on supported hosts; reopen only when needed. No placeholders."""
-        return media_result(muser(), project_id)
+    def show_video_preview(
+        project_id: str, object_id: str | None = None
+    ) -> CallToolResult:
+        """Show one exact clip with playback/download. Pass preview_delivery.open's object_id to bind the player to that version. Hands off shows only the final export. Hands on shows a snippet once, then show_video_checkpoint waits for acceptance. After rendering, reviewing and exporting the full video, write a short chat introduction and call this tool again for a NEW final player. The sample stays unchanged. No duplicate displays of the same object or placeholders."""
+        return media_result(muser(), project_id, object_id)
 
     @mcp.tool(annotations=execute, title="Review the sample")
     @creative_edit
@@ -595,7 +649,8 @@ def register_cards(
         if (
             not intake
             or intake["mode"] != "hands_on"
-            or intake["phase"] in ("mode", "basics", "personalization", "approach", "references")
+            or intake["phase"]
+            in ("mode", "basics", "personalization", "approach", "references")
         ):
             raise ValueError(
                 "Complete hands-on intake and choose a reference direction before sample review"
@@ -683,12 +738,11 @@ def register_cards(
     def video_preview_updates(
         project_id: str, object_id: str | None = None
     ) -> CallToolResult:
-        """Refresh current media in an open player, or renew a specific watched video's expiring URL. App-only and read-only; never starts work or sends chat messages."""
+        """Renew one watched video's expiring URL by object_id. Legacy requests without an object_id are frozen so an open sample cannot become the final video. App-only and read-only; never starts work or sends chat messages."""
         uid = muser()
+        store.project(uid, project_id)
         if object_id is not None:
-            # A final player stops polling. A later play/download still needs a
-            # fresh ticket for its exact version, without selecting another edit.
-            store.project(uid, project_id)
+            # A sample and final player each renew only their exact version.
             rows = store.sql(
                 "SELECT id FROM public.vp_objects WHERE id=$1 AND owner=$2 AND project=$3 AND kind='video'",
                 object_id,
@@ -704,17 +758,12 @@ def register_cards(
                 "url": url,
                 "download_url": url + "&download=true",
             }
+            data = {"project_id": project_id, "media": media}
         else:
-            media = current_media(uid, project_id)
-        intake = intake_context(store.get("creative", project_id))
-        data = {"project_id": project_id, "media": media}
-        if (
-            object_id is None
-            and intake
-            and intake["mode"] == "delegate"
-            and not media.get("final")
-        ):
-            data.update(media=None, refresh="paused_by_involvement")
+            # Already-mounted older cards still request the project's latest
+            # media. They cannot identify which sample they display, so return
+            # no replacement. Their existing player survives while polling stops.
+            data = {"project_id": project_id, "media": None, "refresh": "pinned_player"}
         return CallToolResult(
             content=[TextContent(type="text", text=json.dumps(data))],
             structuredContent=data,
@@ -722,7 +771,7 @@ def register_cards(
 
     @mcp.tool(annotations=read, meta=UI_META)
     def show_video_project(project_id: str) -> CallToolResult:
-        """Show the live in-chat project card with style frames, draft clips, progress, final videos and saved continuation context. Open once near the start; it updates itself."""
+        """Return a project snapshot with saved continuation context. For user-facing media use show_video_preview: each player stays on its exact clip, and the finished export opens in a separate player."""
         return card_result(muser(), project_id)
 
     @mcp.tool(
