@@ -286,16 +286,11 @@ summary {
 .header-connect > svg:first-child {
   display: none;
 }
-/* One hero row. Its videos use their original wide frame. */
+/* Featured films retain their wide frames inside the horizontal carousel. */
 .homepage-featured {
   padding: 8px var(--page-gutter) 0;
   max-width: 2400px;
   margin: auto;
-}
-.homepage-featured-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
 }
 .featured-card {
   min-width: 0;
@@ -1510,22 +1505,6 @@ summary {
   }
   .homepage-featured {
     padding-top: 0;
-    overflow: hidden;
-  }
-  .homepage-featured-grid {
-    display: flex;
-    overflow: auto;
-    gap: 12px;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-    padding-bottom: 4px;
-  }
-  .homepage-featured-grid::-webkit-scrollbar {
-    display: none;
-  }
-  .featured-card {
-    flex: 0 0 83%;
-    scroll-snap-align: start;
   }
   .featured-frame {
     border-radius: 14px;

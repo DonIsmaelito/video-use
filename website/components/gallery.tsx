@@ -25,6 +25,7 @@ import {
 import { ConnectMcp } from '@/components/connect-mcp';
 import { McpFeature } from '@/components/mcp-feature';
 import { FeaturedFilm } from '@/components/featured-film';
+import { FeaturedCarousel } from '@/components/featured-carousel';
 import productLaunch from '@/data/product-launch.json';
 import {
   useGalleryLikes,
@@ -271,53 +272,48 @@ export function Gallery() {
 
   return (
     <>
-      <section
-        className="homepage-featured"
-        aria-label="Featured Video Use workflows"
-      >
-        <div className="homepage-featured-grid">
-          <McpFeature suspended={selected !== null || !!manualCopy} />
-          <FeaturedFilm
-            media={productLaunch}
-            title="Product Launches"
-            subtitle="Introduce what's next"
-            suspended={selected !== null || !!manualCopy}
-          />
-          {featuredExamples.map((example) => (
-            <article className="featured-card" key={example.id}>
-              <button
-                type="button"
-                className={
-                  'featured-frame' +
-                  (example.id === 'whiplash-cinematic-story-edit'
-                    ? ' featured-frame-fill'
-                    : '')
-                }
-                onClick={() => openExample(example)}
-                aria-label={`Watch ${example.title}`}
-              >
-                <PreviewMedia
-                  src={example.video}
-                  poster={example.poster}
-                  orientation={example.orientation}
-                  suspended={selected !== null || !!manualCopy}
-                />
-                <span className="featured-watch">
-                  <Maximize2 size={18} />
-                </span>
+      <FeaturedCarousel>
+        <McpFeature suspended={selected !== null || !!manualCopy} />
+        <FeaturedFilm
+          media={productLaunch}
+          title="Product Launches"
+          subtitle="Introduce what's next"
+          suspended={selected !== null || !!manualCopy}
+        />
+        {featuredExamples.map((example) => (
+          <article className="featured-card" key={example.id}>
+            <button
+              type="button"
+              className={
+                'featured-frame' +
+                (example.id === 'whiplash-cinematic-story-edit'
+                  ? ' featured-frame-fill'
+                  : '')
+              }
+              onClick={() => openExample(example)}
+              aria-label={`Watch ${example.title}`}
+            >
+              <PreviewMedia
+                src={example.video}
+                poster={example.poster}
+                orientation={example.orientation}
+                suspended={selected !== null || !!manualCopy}
+              />
+              <span className="featured-watch">
+                <Maximize2 size={18} />
+              </span>
+            </button>
+            <div className="featured-caption">
+              <button type="button" onClick={() => openExample(example)}>
+                Cinematic edits
               </button>
-              <div className="featured-caption">
-                <button type="button" onClick={() => openExample(example)}>
-                  Cinematic edits
-                </button>
-                <span>
-                  Find your rhythm <ArrowUpRight size={14} />
-                </span>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
+              <span>
+                Find your rhythm <ArrowUpRight size={14} />
+              </span>
+            </div>
+          </article>
+        ))}
+      </FeaturedCarousel>
       <section
         id="examples"
         className="gallery-section"

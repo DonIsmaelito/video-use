@@ -1,0 +1,125 @@
+.carousel {
+  --slide-width: 36.5%;
+  --slide-gap: clamp(16px, 1.2vw, 24px);
+}
+
+.viewport {
+  position: relative;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: var(--slide-width);
+  gap: var(--slide-gap);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  cursor: grab;
+  user-select: none;
+  padding-bottom: 4px;
+}
+
+.viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.viewport:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 5px;
+  border-radius: 16px;
+}
+
+.viewport[data-dragging] {
+  scroll-snap-type: none;
+  cursor: grabbing;
+}
+
+.viewport[data-dragging] * {
+  cursor: grabbing;
+}
+
+.slide {
+  min-width: 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.slide :global(.featured-caption) {
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 12px;
+}
+
+.slide :global(.featured-caption) > a,
+.slide :global(.featured-caption) > button {
+  font-size: clamp(16px, 1.3vw, 20px);
+}
+
+.slide :global(.featured-caption) > span {
+  font-size: 12px;
+}
+
+.placeholder:global(.featured-frame) {
+  background: #111;
+  border: 1px solid #232323;
+}
+
+.controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.controls button {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #303030;
+  border-radius: 50%;
+  color: #ddd;
+  background: #171717;
+  transition:
+    background 160ms,
+    border-color 160ms,
+    opacity 160ms;
+}
+
+.controls button:hover:not(:disabled) {
+  background: #282828;
+  border-color: #555;
+}
+
+.controls button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+@media (max-width: 1000px) {
+  .carousel {
+    --slide-width: 58%;
+  }
+}
+
+@media (max-width: 700px) {
+  .carousel {
+    --slide-width: 88%;
+    --slide-gap: 12px;
+  }
+
+  .slide :global(.featured-caption) > span {
+    font-size: 11px;
+  }
+
+  .controls button {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .controls button {
+    transition: none;
+  }
+}
