@@ -17,6 +17,7 @@ export type Example = {
   video: string;
   poster: string;
   duration: number;
+  loop?: boolean;
   promptKind: string;
   orientation: string;
   audiences?: string[];

@@ -215,6 +215,10 @@ for (const example of examples) {
   assert.ok(['Original prompt', 'Starter prompt'].includes(example.promptKind));
   assert.ok(Number.isFinite(example.duration) && example.duration > 0);
   assert.ok(
+    example.loop === undefined || typeof example.loop === 'boolean',
+    'Optional full-player loop metadata must be a boolean',
+  );
+  assert.ok(
     example.audiences.length > 0 &&
       example.audiences.every(
         (item) => typeof item === 'string' && item.trim(),

@@ -510,7 +510,7 @@ export function Gallery() {
                     playsInline
                     autoPlay
                     muted={selected.category === 'Motion Design'}
-                    loop={selected.category === 'Motion Design'}
+                    loop={selected.loop ?? selected.category === 'Motion Design'}
                     preload="metadata"
                     onError={() => setVideoError(true)}
                   />

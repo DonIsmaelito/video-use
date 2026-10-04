@@ -114,7 +114,7 @@ Replace these only after publication with the lighter muted autoplay URL, full M
 
 ## Playback and accessibility
 
-Cards use tall preview windows with a blurred poster behind the complete original frame; featured films use wide windows. Full players also preserve the entire frame, including portrait edits. Motion Design remains silent and loops in detail. Video Edits, Video Creation, and Explainers preserve the source audio in the full player. The MCP launch preview is muted; the full film has native controls.
+Cards use tall preview windows with a blurred poster behind the complete original frame; featured films use wide windows. Full players also preserve the entire frame, including portrait edits. Motion Design remains silent and loops in detail. An optional boolean `loop` on an example overrides whether its full player repeats, without changing audio behavior. Video Edits, Video Creation, and Explainers preserve the source audio in the full player. The MCP launch preview is muted; the full film has native controls.
 
 Dialogs support keyboard focus, dismissal, and focus restoration. Every copy action has visible feedback and a manual-selection fallback. Browsing controls stay visible in a left sidebar on desktop and stack above the gallery on mobile, without a global Filters button. Audience, use-case, installation, and provenance sections use keyboard-accessible disclosures; the complete copied prompt stays visible. Reduced motion disables automatic previews and decorative transitions. Fonts are local, with OFL licenses in `public/fonts`.
 
