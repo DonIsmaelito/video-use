@@ -55,8 +55,8 @@ const openingIds = [
   'useful-08-refill-product',
   'cloud-edit-podcast',
   'useful-07-workshop-invite',
-  'cloud-edit-food',
-  '11-rotary-telephone',
+  'useful-09-cafe-promo',
+  'useful-19-fulfilment-flow',
 ];
 const galleryExamples = [
   ...openingIds.flatMap((id) =>
