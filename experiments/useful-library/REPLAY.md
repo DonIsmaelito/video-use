@@ -28,7 +28,9 @@ If the recorded commit remains unavailable, obtain the matching published framew
 
 ## 2. Install tools and locked dependencies
 
-Install Python 3.10+, `uv`, Node.js 22.12+, npm, Chrome or Chromium, and FFmpeg with `ffprobe`. These are external system requirements; `puppeteer-core` does not install a browser. See the checked-out repository's `install.md` for platform setup. Pure browser motion replay needs no transcription API key. A project that actually reruns transcription or another hosted tool has additional requirements in its own README.
+Install Python, `uv`, and FFmpeg with `ffprobe`, then follow the setup for the engine in `edit/README.md`. Browser examples additionally need Node.js 22.12+, npm and Chrome or Chromium; `puppeteer-core` does not install a browser. Manim examples use Python and native graphics libraries, and may have no browser or npm project. See the checked-out repository's `install.md` for platform setup. Local rendering needs no transcription API key unless the project actually reruns transcription or another hosted tool.
+
+For browser compositions, install the framework Python dependencies and the packaged Node lock:
 
 ```sh
 uv sync --project "$VIDEO_USE_ROOT" --locked
@@ -40,7 +42,23 @@ ffprobe -version
 node --version
 ```
 
-Use the dependency directory named in the example's README if it differs from `edit/runtime`. Keep `package.json`, `package-lock.json`, and the framework's `uv.lock` together with their matching revisions. Use `npm ci`, not an update that replaces the recorded dependency versions. `dependencies.json` and render manifests record observed production versions; they are useful comparisons, not installers for every external tool. Install any project-specific dependencies documented by its build scripts as well.
+Use the dependency directory named in the example's README if it differs from `edit/runtime`; run `npm ci` only when that directory contains a packaged `package-lock.json`. Keep package manifests and locks together with their matching revisions. `dependencies.json` and render manifests record observed production versions; they are useful comparisons, not installers for every external tool.
+
+For **Manim scenes**, install Cairo, Pango, `pkg-config`, and the build prerequisites for your platform using the [official Manim installation instructions](https://docs.manim.community/en/stable/installation/uv.html). Linux builds may need a C compiler and Python development headers. Install LaTeX and `dvisvgm` only if the scene uses `Tex`/`MathTex`. The fractions example uses ordinary text and vector bars, so it does not require LaTeX or a browser.
+
+The framework's `animations` extra installs Manim (`uv sync --project "$VIDEO_USE_ROOT" --locked --extra animations`), but its lock may differ from the recorded production version. For **the fractions example**, a separate Python 3.12 environment can install its actual recorded versions without changing that lock:
+
+```sh
+uv venv --python 3.12 "$VIDEO_PROJECT_ROOT/.venv-replay"
+uv pip install --python "$VIDEO_PROJECT_ROOT/.venv-replay/bin/python" \
+  'manim==0.19.2' 'numpy==2.5.3' 'Pillow==12.3.0' \
+  'av==19.0.0' 'manimpango==0.6.1' 'pycairo==1.29.1'
+source "$VIDEO_PROJECT_ROOT/.venv-replay/bin/activate"
+cd "$VIDEO_PROJECT_ROOT"
+python -m manim --version
+```
+
+Ensure **DejaVu Sans** is installed and available to Pango before rendering that example. Its font is included at `edit/assets/DejaVuSans.ttf` with a license in `edit/licenses/DejaVu.txt`; install it through your operating system's font manager if missing. On Linux, `fc-match 'DejaVu Sans'` should resolve that family rather than a substitute. Then run the Manim and FFmpeg commands in `edit/README.md` from the extracted project folder. Other Manim examples should use their own recorded dependencies and font requirements. These commands specify setup inputs; they do not claim a fresh installation was tested on every operating system.
 
 ## 3. Translate the container commands
 
