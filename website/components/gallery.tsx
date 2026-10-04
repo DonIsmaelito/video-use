@@ -12,7 +12,6 @@ import {
   Heart,
   Maximize2,
   Search,
-  SlidersHorizontal,
   X,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -145,7 +144,6 @@ export function Gallery() {
   const [message, setMessage] = useState('');
   const [manualCopy, setManualCopy] = useState('');
   const [videoError, setVideoError] = useState(false);
-  const [showFilters, setShowFilters] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const manualText = useRef<HTMLTextAreaElement>(null);
   const visible = filterExamples(filters, galleryExamples);
@@ -343,26 +341,15 @@ export function Gallery() {
               onChange={(event) => updateFilters({ query: event.target.value })}
             />
           </label>
-          <button
-            type="button"
-            className={'mobile-filters ' + (showFilters ? 'active' : '')}
-            aria-expanded={showFilters}
-            aria-controls="library-filters"
-            onClick={() => setShowFilters(!showFilters)}
-          >
-            <SlidersHorizontal size={15} /> Filters{' '}
-            {filterCount ? '(' + filterCount + ')' : ''}
-          </button>
         </div>
         <div className="library-layout">
           <aside
             id="library-filters"
-            className={'library-sidebar ' + (showFilters ? 'is-open' : '')}
+            className="library-sidebar"
             aria-label="Refine examples"
-            hidden={!showFilters}
           >
             <div className="sidebar-title">
-              <span>Find your fit</span>
+              <span>Browse</span>
               {hasFilters && (
                 <button
                   type="button"

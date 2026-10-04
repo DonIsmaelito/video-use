@@ -35,3 +35,25 @@ Deployment `553b826f-e9ce-4e1c-966c-6338be5f61ff` is READY on the existing Video
 The verified refresh was selectively integrated into `feature/useful-video-library`, preserving that branch’s newer example and media manifests. The source migration is retained for reproducibility; integration does not reapply backend changes. The library copy restores the visible Original prompt / Starter prompt label and exposes the example description inside Details & sources.
 
 Independent live checks of deployment `553b826f-e9ce-4e1c-966c-6338be5f61ff` passed for 85 examples and the 28-second MCP film: fully painted desktop/mobile previews, complete video frames, clipboard content, like/reload/unlike with the test vote removed, keyboard focus restoration, background pause, reduced motion, source/review links, Video type filtering and no page errors or horizontal overflow. Evidence: `/private/tmp/video-use-library-ui-integration-live-qa/result.json`.
+
+
+## Sidebar and header follow-up — 2026-10-04
+
+The user explicitly requested the left category/facet sidebar back, integrated with the refreshed gallery, without a Filters button. They also requested removal of the Library and MCP links from the top navigation. This pass owns `components/gallery.tsx`, `components/site-header.tsx`, its MCP page call site, and `app/globals.css` in the main checkout. Preserve the library branch’s prompt labels, source descriptions, and newest media manifests when deploying. The completion receipt is recorded below in both checkouts.
+
+
+### Implementation ready — deployment running
+
+The sidebar/header follow-up is implemented in the main checkout. `gallery.tsx` removes `showFilters` and the global Filters button, with the Video type / Audience / Use case sidebar always present. `globals.css` restores a slim sticky left column on desktop and visible stacked controls on phones, retaining the existing white/gray/purple design. The responsive grid now accounts for the sidebar width. `site-header.tsx` removes the Library and MCP navigation links and unused props; `app/mcp/page.tsx` uses the simplified header. `README.md` documents this behavior. The original/starter prompt labels and source descriptions from the library integration are retained.
+
+Production build, TypeScript, gallery checks (93 examples), lint, and browser checks at 320 / 390 / 768 / 1024 / 1440 pixels passed. Browser checks cover the visible sidebar, absence of a Filters button, header removal, filters, search, reset, URL reload, MCP connection, and zero overflow or page errors. Evidence: `/tmp/video-use-ui-qa/sidebar-local-result.json`. The deployed catalog is the committed `f59f7db` checkpoint; newer uncommitted data in the library checkout remains untouched. Before another library-branch deployment, integrate this follow-up’s five changed source/documentation files from the main checkout. Do not overwrite either checkout’s newer catalog.
+
+
+### Deployment verified
+
+Deployment `7ba26090-203a-49b6-b6e8-bfbc205bc617` is READY on the existing Video-use site project. Live at https://video-use.insforge.site with the committed 93-example catalog. Live browser checks passed at 320, 390, 768, 1024, and 1440 pixels: sidebar placement, no Filters button, no Library/MCP header links, filter/reset/search/deep-link behavior, MCP connection, mobile touch selection and scrolling, zero horizontal overflow, and zero page errors. Evidence: `/tmp/video-use-ui-qa/sidebar-live-result.json`. No backend/schema changes were needed in this follow-up.
+
+
+### Library branch sidebar integration
+
+The verified sidebar/header follow-up is now copied into `feature/useful-video-library`: `components/gallery.tsx`, `components/site-header.tsx`, `app/mcp/page.tsx`, `app/globals.css`, and `README.md`. The newer catalog at `002c41c` (98 examples) and all media/provenance manifests remain authoritative and were not copied from the original checkout. Original/Starter prompt labels, source descriptions, and the visible Video type label are preserved. This integration changes no backend schema or environment configuration. Production build and release verification are recorded separately in the campaign deployment receipt.

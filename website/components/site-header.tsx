@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { repository } from '@/lib/gallery';
 import { ConnectMcp } from '@/components/connect-mcp';
 
-export function SiteHeader({ mcp = false }: { mcp?: boolean }) {
+export function SiteHeader() {
   return (
     <header className="site-header">
       <Link href="/" aria-label="Video Use home" className="brand">
@@ -13,12 +13,6 @@ export function SiteHeader({ mcp = false }: { mcp?: boolean }) {
           video-use<span className="brand-dot">.</span>
         </span>
       </Link>
-      <nav aria-label="Main navigation">
-        <Link href={mcp ? '/#examples' : '#examples'}>Library</Link>
-        <Link href="/mcp" aria-current={mcp ? 'page' : undefined}>
-          MCP <span className="nav-new">Pilot</span>
-        </Link>
-      </nav>
       <div className="header-actions">
         <a
           className="header-repo"

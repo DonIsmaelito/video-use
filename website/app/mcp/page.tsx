@@ -48,7 +48,7 @@ export default function McpPage() {
       <a className="skip-link" href="#mcp-how">
         Skip to how Video Use MCP works
       </a>
-      <SiteHeader mcp />
+      <SiteHeader />
       <section className="mcp-hero">
         <div className="mcp-hero-copy">
           <span className="eyebrow">
