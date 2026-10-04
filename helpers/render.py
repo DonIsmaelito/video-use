@@ -22,6 +22,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+from contextlib import ExitStack
 import json
 import math
 import re
@@ -48,6 +49,7 @@ from visuals import (  # noqa: E402
     scale_visual_specs,
 )
 from shot_layout import build_shot_layout_filters, layout_dimensions  # noqa: E402
+from face_follow import prepared_crop  # noqa: E402
 
 try:
     from grade import get_preset, auto_grade_for_clip  # same directory
@@ -237,6 +239,7 @@ def extract_segment(
     rate: str | None = None,
     reframe: dict | None = None,
     layout: dict | None = None,
+    face_follow: dict | None = None,
 ) -> None:
     """Extract a cut range as its own MP4 with grade + 30ms audio fades baked in.
 
@@ -256,6 +259,9 @@ def extract_segment(
         scale = "scale=-2:1280" if portrait else "scale=1280:-2"
     else:
         scale = "scale=-2:1920" if portrait else "scale=1920:-2"
+
+    if face_follow is not None and (layout is None or reframe):
+        raise ValueError("face_follow requires an output layout and cannot combine with range.reframe")
 
     crop_filter, layout_filter = "", ""
     if layout is not None:
@@ -316,7 +322,24 @@ def extract_segment(
         "-movflags", "+faststart",
         str(out_path),
     ]
-    subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
+    with ExitStack() as resources:
+        if face_follow is not None:
+            # Apply the measured crop before scale/grade/window placement inside
+            # this same encode. Input -ss still owns both video and audio clocks.
+            # Match FFmpeg's microsecond seek precision when compiling commands.
+            exact_start, exact_duration = round(seg_start, 6), round(duration, 6)
+            dynamic_crop, crop_plan = resources.enter_context(prepared_crop(
+                face_follow, source, exact_start, exact_duration, layout, out_path))
+            crop_plan["output_frame_rate"] = out_rate
+            crop_plan["preview"] = bool(preview or draft)
+            cmd[cmd.index("-ss") + 1] = f"{exact_start:.6f}"
+            cmd[cmd.index("-t") + 1] = f"{exact_duration:.6f}"
+            # HDR tone mapping changes pixels but not geometry. Face cropping
+            # must precede the static source-independent scale/window filters.
+            cmd[cmd.index("-vf") + 1] = dynamic_crop + "," + vf
+        subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
+    if face_follow is not None:
+        out_path.with_suffix(".face-follow.json").write_text(json.dumps(crop_plan, indent=2, allow_nan=False) + "\n")
 
 
 def extract_all_segments(
@@ -343,6 +366,15 @@ def extract_all_segments(
     ranges = edl["ranges"]
     sources = edl["sources"]
     layouts = [item.get("layout") for item in ranges]
+    has_face_follow = any(item.get("face_follow") is not None for item in ranges)
+    if has_face_follow and ((edl.get("treatment") or {}).get("reframe")):
+        raise ValueError("Face-follow cuts cannot combine with an additional global reframing transform")
+    if has_face_follow and ((edl.get("treatment") or {}).get("canvas")):
+        raise ValueError("Face-follow range layouts already define the canvas; omit the additional global canvas treatment")
+    for item in ranges:
+        follow = item.get("face_follow")
+        if follow is not None and (not isinstance(follow, dict) or not isinstance(follow.get("track"), str)):
+            raise ValueError("Each face_follow needs a track JSON path relative to the EDL")
     if any(layout is not None for layout in layouts):
         if any(layout is None for layout in layouts):
             raise ValueError("Every range needs a layout when per-shot canvas placement is used")
@@ -395,6 +427,8 @@ def extract_all_segments(
             rate=out_rate,
             reframe=r.get("reframe"),
             layout=r.get("layout"),
+            face_follow={**r["face_follow"], "track": str(resolve_path(r["face_follow"]["track"], edit_dir))}
+            if r.get("face_follow") is not None else None,
         )
         seg_paths.append(out_path)
 

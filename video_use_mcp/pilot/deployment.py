@@ -41,6 +41,10 @@ image = (
         "/opt/video-use/skills",
         ignore=["node_modules", "__pycache__", "*.pyc"],
     )
+    .add_local_dir(
+        ROOT / "assets" / "models" / "yunet",
+        "/opt/video-use/assets/models/yunet",
+    )
     .add_local_file(ROOT / "SKILL.md", "/opt/video-use/SKILL.md")
 )
 

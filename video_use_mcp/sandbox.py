@@ -36,6 +36,7 @@ def worker_image():
         .env({"CC": "gcc", "CXX": "g++"})
         .pip_install(
             "requests",
+            "python-dotenv>=1,<2",
             "librosa",
             "matplotlib",
             "pillow",
@@ -63,6 +64,11 @@ def worker_image():
             "/opt/video-use/skills",
             copy=True,
             ignore=["node_modules", "__pycache__", "*.pyc"],
+        )
+        .add_local_dir(
+            ROOT / "assets" / "models" / "yunet",
+            "/opt/video-use/assets/models/yunet",
+            copy=True,
         )
         .add_local_file(ROOT / "SKILL.md", "/opt/video-use/SKILL.md", copy=True)
         .run_commands(

@@ -80,6 +80,7 @@ Helpers (`helpers/transcribe.py`, `helpers/render.py`, etc.) live alongside this
 - **`captions.py`** — configurable word-level caption chunking plus libass/PIL renderer selection. PIL is the fallback when ffmpeg lacks the subtitles filter and the path for pixel-specific caption styling.
 - **`visuals.py`** — reusable canvas treatments, per-range reframing, and style-neutral text/line/box/image graphic layers.
 - **[Continuous reframing](skills/video-workflows/continuous-reframing.md)** — bounded output-time zoom/focus keyframes under `treatment.reframe`, preserving motion across cuts before graphics and captions.
+- **[Measured face following](skills/video-workflows/face-follow.md)** — reviewed face seeds, real per-frame YuNet observations and target-aspect crops through the normal renderer, with explicit loss and ambiguity handling.
 - **[Color comparisons](skills/video-workflows/grade-comparison.md)** — a silent original/corrected wipe using one decoded frame clock, matching geometry and bounded RGB curves.
 - **[Moving privacy masks](skills/video-workflows/tracked-masks.md)** — explicit opaque rectangle tracks mapped through source cuts, with fixed-clock and encoded-frame coverage checks.
 - **`grade.py <in> -o <out>`** — ffmpeg filter chain grade. Presets + `--filter '<raw>'` for custom.

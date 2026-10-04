@@ -43,3 +43,16 @@ The runner supplies its exact public producer manifest before authoring, retains
 shell replay scripts, and excludes generated Manim text/TeX caches and research
 pages. Additional regenerated assets can declare bounded project-relative
 exclusions in `edit/source-exclusions.json`; required legal notices must remain.
+
+The follow-on social-edit campaign found that authored zoom keys, planar motion
+tracking and explicit privacy rectangles did not implement face following.
+`helpers/face_track.py` now records actual per-frame detections from a pinned MIT
+YuNet model and associates only an explicitly reviewed seed within a verified
+shot. Missing or ambiguous measurements stop the track; it does not recognize
+people or infer active speakers. `helpers/face_follow.py` compiles a verified
+track into bounded numeric FFmpeg crop commands in the existing segment encode.
+Source hashes, integer PTS, target-aspect geometry and head margins are checked;
+audio and concatenation keep the established pipeline. Local encoded fixtures
+cover moving positions, VFR, nonzero container starts, previews, audio events at
+44.1/48 kHz and explicit failure conditions. A real acquired-source detector and
+encoded-crop review is required before using it for the new campaign's films.
