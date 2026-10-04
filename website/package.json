@@ -10,7 +10,8 @@
     "build": "next build --webpack",
     "start": "next start",
     "lint": "oxlint",
-    "check": "tsc --noEmit && node scripts/check-gallery.mjs",
+    "check": "tsc --noEmit && node scripts/check-gallery.mjs && node --test scripts/import-reviewed-examples.test.mjs",
+    "check:imports": "node --test scripts/import-reviewed-examples.test.mjs",
     "format": "oxfmt"
   },
   "dependencies": {

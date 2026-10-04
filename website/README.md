@@ -85,6 +85,18 @@ Legacy examples retain their original content. Conservative fallback tags classi
 
 The earlier library includes unboxing and Tears of Steel edits, footage-based montages, original motion studies, and technical explainers. Film excerpts retain attribution in the detail view. Existing batch history and review artifacts are recorded in the provenance ledger.
 
+### Importing reviewed receipts
+
+Run `node scripts/import-reviewed-examples.mjs /path/to/receipt.json [...]` only after publication verifies the reviewed media bytes. All input receipts are validated before any manifest is written. The established `useful-*` and MCP receipt formats remain supported.
+
+New `social-XX-slug` receipts contain the public `approval` subset (`id`, `approved`, `sha256`, `sourceReviewed`, `sourceSha256`, and a review of at least 80 characters). Movie and source hashes must agree with the published `hashes`, `publicCheck`, and source ledger. The exact executed text stays an **Original prompt**. The displayed prompt plus one newline must match the SHA256 of `creative-prompt.txt`, and its public URL must match `source.promptUrl`.
+
+Initial `screen-demo-slug` archive receipts require explicit movie approval and use a **Starter prompt** reconstructed from historical creation evidence. They omit source ZIPs and editable-source hashes; an archived film is not relabeled as a new generation. `source.kind` is `archived screen demo created with Video Use`, and `source.sourceArchiveScope` is `Published film and reconstructed starter prompt; editable project not included`. Record the actual `sourceRun`, describe creation evidence in `production`, and match the example/source `promptSource` credits. The displayed starter plus one newline must match the published `prompt.txt` hash and URL. No-source archives cannot claim editable-source review.
+
+Both new receipt kinds require `assets` and `hashes`, matching movie/poster/review URLs, a public movie SHA256 and successful byte-range playback. Campaign imports group social edits and screen demos ahead of earlier examples; the existing six opening cards remain curated separately. Use explicit audience/use-case metadata, reusing Product demos, Tutorials, Podcast clips, Interview clips, Social content and Social reframing where appropriate. The current player already preserves full frames and source audio for Video Edits.
+
+`npm run check:imports` exercises the real importer in temporary directories, including approved imports, legacy compatibility, loop preservation, and rejection of changed hashes/prompts or unreviewed records without partial catalog writes. It never imports fixture data into this website.
+
 ## Links from a conversation
 
 - `/?technique=motion-design#examples`
