@@ -10,7 +10,8 @@ from pathlib import Path, PurePosixPath
 from .config import ROOT
 
 
-def worker_image():
+def worker_dependency_image():
+    """Cache system and package installs independently of authored helper changes."""
     import modal
 
     return (
@@ -53,6 +54,20 @@ def worker_image():
             "texlive-fonts-recommended",
             "dvisvgm",
         )
+    )
+
+
+def worker_image(*, dependency_image=None):
+    image = dependency_image if dependency_image is not None else worker_dependency_image()
+    runtime = ROOT / "skills" / "motion-design" / "runtime"
+    return (
+        image
+        .add_local_file(runtime / "package.json", "/opt/video-use/skills/motion-design/runtime/package.json", copy=True)
+        .add_local_file(runtime / "package-lock.json", "/opt/video-use/skills/motion-design/runtime/package-lock.json", copy=True)
+        .run_commands(
+            "npm ci --prefix /opt/video-use/skills/motion-design/runtime",
+            "mkdir -p /workspace/sources /workspace/edit",
+        )
         .add_local_dir(
             ROOT / "helpers",
             "/opt/video-use/helpers",
@@ -71,10 +86,6 @@ def worker_image():
             copy=True,
         )
         .add_local_file(ROOT / "SKILL.md", "/opt/video-use/SKILL.md", copy=True)
-        .run_commands(
-            "npm ci --prefix /opt/video-use/skills/motion-design/runtime",
-            "mkdir -p /workspace/sources /workspace/edit",
-        )
         .env(
             {
                 "CHROME_PATH": "/usr/bin/chromium",

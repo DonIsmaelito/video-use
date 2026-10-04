@@ -372,15 +372,16 @@ def updated_audit_record(metadata: dict, audit: dict, source: dict, audited_at: 
 
 def runtime_app():
     import modal
-    from video_use_mcp.sandbox import worker_image
+    from video_use_mcp.sandbox import worker_dependency_image, worker_image
 
     app = modal.App(APP_NAME)
     volume = modal.Volume.from_name(VOLUME_NAME, create_if_missing=True)
-    image = (worker_image().apt_install("git", "blender")
+    dependencies = (worker_dependency_image().apt_install("git", "blender")
              .pip_install("boto3", "yt-dlp[default,curl-cffi]==2026.8.19")
              .run_commands(f"npm install -g @openai/codex@{CODEX_VERSION}",
                            "mkdir -p /opt/video-use-extra && npm install --prefix /opt/video-use-extra --save-exact gsap@3.15.0")
              .apt_install("curl", "ripgrep"))
+    image = worker_image(dependency_image=dependencies)
     for name in ("references", "assets"):
         if (ROOT / name).is_dir():
             image = image.add_local_dir(ROOT / name, str(REMOTE / name), copy=True, ignore=list(SKIP_PARTS))
