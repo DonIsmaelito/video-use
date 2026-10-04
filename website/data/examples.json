@@ -25,6 +25,82 @@
     "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-04-destination-reveal-03028bf61210-f0387f97/review.md"
   },
   {
+    "id": "social-06-podcast-audiogram",
+    "title": "Give an audio clip a pulse",
+    "category": "Video Edits",
+    "description": "A static podcast portrait, a waveform from real speech and a complete captioned exchange.",
+    "prompt": "Use Video Use to turn a complete 26-second podcast exchange into a vertical audiogram. Use the supplied still portrait or cover image as an intentional static picture. Put the interest in the real conversation, accurate phrase captions and a restrained waveform computed from the actual edited audio. Keep the setup, response and payoff together. Show no more than two caption lines and a tiny editorial hook; use speaker labels only after checking attribution. Keep the original voices and natural pauses with clean cut fades. Do not animate the hosts into fake speech, claim face tracking or invent a reaction from a photograph. Let the waveform settle with the final sound and end on the last completed thought, with no generic CTA. Use the footage or source URLs supplied in this chat and preserve its subject and intent. Deliver 1080×1920 at 30 fps, with the top 150px, bottom 300px and rightmost 120px clear of important text. Keep honest credits and an editable cut map, caption timing and replay instructions. In normal interactive use, show a short preview for approval before the full edit.",
+    "duration": 26,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": [
+      "Content creators",
+      "Marketers"
+    ],
+    "useCases": [
+      "Podcast clips",
+      "Social content",
+      "Short-form edits"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/browser-use/video-use",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-06-podcast-audiogram-2f3ec9ac7dce-656418de/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-06-podcast-audiogram-2f3ec9ac7dce-656418de/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-06-podcast-audiogram-2f3ec9ac7dce-656418de/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-06-podcast-audiogram-2f3ec9ac7dce-656418de/review.md"
+  },
+  {
+    "id": "social-07-pizza-process",
+    "title": "From dough to dinner",
+    "category": "Video Edits",
+    "description": "A compact pizza montage with real preparation, oven action and a finished result.",
+    "prompt": "Use Video Use to make a 20-second vertical food montage from real pizza footage: dough, sauce, the oven and a cooked result. Start on hands doing something useful, cut on completed actions and give the finished food room to land. Use close detail where it works and a wider picture window where a tall crop would hide the action. Build appetite with warm, natural color and a quiet, licensed or original rhythmic bed; preserve any usable source sound and identify added sound as authored. Use only a few editorial words, with no narration, invented recipe quantities or generic CTA. Make the sequence easy to understand with the sound off. Preserve the chronological process while being honest about separate source shots and missing steps. Use the footage or source URLs supplied in this chat and preserve its subject and intent. Deliver 1080×1920 at 30 fps, with the top 150px, bottom 300px and rightmost 120px clear of important text. Keep honest credits and an editable cut map, caption timing and replay instructions. In normal interactive use, show a short preview for approval before the full edit.",
+    "duration": 20,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": [
+      "Content creators",
+      "Marketers"
+    ],
+    "useCases": [
+      "Social content",
+      "Short-form edits"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/browser-use/video-use",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-07-pizza-process-14e14655f509-b6c2bf64/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-07-pizza-process-14e14655f509-b6c2bf64/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-07-pizza-process-14e14655f509-b6c2bf64/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-07-pizza-process-14e14655f509-b6c2bf64/review.md"
+  },
+  {
+    "id": "social-08-coffee-ritual",
+    "title": "Make a coffee moment",
+    "category": "Video Edits",
+    "description": "An honest three-source ritual: beans into a grinder, a pour-over and a finished cup.",
+    "prompt": "Use Video Use to make an 18-second vertical coffee ritual from real footage: beans entering a grinder, a pour-over and a ready cup. Keep the pace tactile and calm, with deliberate cuts that connect pouring shapes and movement. Preserve the tool, stream and vessel whenever they explain the action; use a wider picture window instead of cropping them away. Keep natural warm tones and use restrained licensed music or original sound if the source lacks usable audio. Use at most a tiny editorial hook, no voiceover, recipe measurements or generic CTA. End after the visible pour finishes and let the cup settle. Treat different settings as a considered montage, not a claim that every shot follows the same brew. Use the footage or source URLs supplied in this chat and preserve its subject and intent. Deliver 1080×1920 at 30 fps, with the top 150px, bottom 300px and rightmost 120px clear of important text. Keep honest credits and an editable cut map, caption timing and replay instructions. In normal interactive use, show a short preview for approval before the full edit.",
+    "duration": 18,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": [
+      "Content creators",
+      "Marketers"
+    ],
+    "useCases": [
+      "Social content",
+      "Short-form edits"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/browser-use/video-use",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-08-coffee-ritual-4cabb6150af8-cc206448/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-08-coffee-ritual-4cabb6150af8-cc206448/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-08-coffee-ritual-4cabb6150af8-cc206448/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-08-coffee-ritual-4cabb6150af8-cc206448/review.md"
+  },
+  {
     "title": "A calm browser tour",
     "duration": 27.6,
     "orientation": "landscape",

@@ -4098,5 +4098,107 @@
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-04-destination-reveal-03028bf61210-f0387f97/poster.jpg"
       }
     ]
+  },
+  {
+    "id": "social-07-pizza-process",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "social-02",
+    "sourceRun": "social-07-pizza-process",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "e0c7ea893d342bfdfc313aaae5f8b807591884ce",
+    "frameworkArchiveSha256": "e3891721c1ade1e90d24f513cd1ca3b6dba0d07f89b23e78d71e174f566e6ea2",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "14e14655f509f0862eed4b5105584980286b481b40a70ee882be4d7709740c20",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-07-pizza-process-14e14655f509-b6c2bf64/source.zip",
+    "editableSourceSha256": "9bd4f4a18fe1a0d5e15822b6e4380073d5314e740495842052311282e1211064",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/social-02/social-07-pizza-process/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-07-pizza-process-14e14655f509-b6c2bf64/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-07-pizza-process-14e14655f509-b6c2bf64/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-07-pizza-process-14e14655f509-b6c2bf64/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-07-pizza-process-14e14655f509-b6c2bf64/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-07-pizza-process-14e14655f509-b6c2bf64/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-07-pizza-process-14e14655f509-b6c2bf64/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-07-pizza-process-14e14655f509-b6c2bf64/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "social-08-coffee-ritual",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "social-02",
+    "sourceRun": "social-08-coffee-ritual",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "e0c7ea893d342bfdfc313aaae5f8b807591884ce",
+    "frameworkArchiveSha256": "e3891721c1ade1e90d24f513cd1ca3b6dba0d07f89b23e78d71e174f566e6ea2",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "4cabb6150af8fb4014f90767bebe6a050e59b68568657306a8fa763a723e90c2",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-08-coffee-ritual-4cabb6150af8-cc206448/source.zip",
+    "editableSourceSha256": "19aef7d20d33e8ad299b9f2d0ae16f7f1048b5edf6da3a125b0929438879749c",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/social-02/social-08-coffee-ritual/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-08-coffee-ritual-4cabb6150af8-cc206448/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-08-coffee-ritual-4cabb6150af8-cc206448/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-08-coffee-ritual-4cabb6150af8-cc206448/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-08-coffee-ritual-4cabb6150af8-cc206448/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-08-coffee-ritual-4cabb6150af8-cc206448/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-08-coffee-ritual-4cabb6150af8-cc206448/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-08-coffee-ritual-4cabb6150af8-cc206448/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "social-06-podcast-audiogram",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "social-02",
+    "sourceRun": "social-06-podcast-audiogram",
+    "model": null,
+    "reasoningEffort": null,
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "e0c7ea893d342bfdfc313aaae5f8b807591884ce",
+    "frameworkArchiveSha256": "e3891721c1ade1e90d24f513cd1ca3b6dba0d07f89b23e78d71e174f566e6ea2",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "2f3ec9ac7dcefa55b1bffff47acda3134572e408ec769d7505beff973f8618b1",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-06-podcast-audiogram-2f3ec9ac7dce-656418de/source.zip",
+    "editableSourceSha256": "a7d73883a35d62e3272e874f3d00b56538bc4d2837fdcf675b0229809ad14c17",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/social-02/social-06-podcast-audiogram/repairs/repair-caption-hold-20261004/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-06-podcast-audiogram-2f3ec9ac7dce-656418de/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-06-podcast-audiogram-2f3ec9ac7dce-656418de/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-06-podcast-audiogram-2f3ec9ac7dce-656418de/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-06-podcast-audiogram-2f3ec9ac7dce-656418de/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-06-podcast-audiogram-2f3ec9ac7dce-656418de/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-06-podcast-audiogram-2f3ec9ac7dce-656418de/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-06-podcast-audiogram-2f3ec9ac7dce-656418de/poster.jpg"
+      }
+    ]
   }
 ]
