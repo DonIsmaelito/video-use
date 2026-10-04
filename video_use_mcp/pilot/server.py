@@ -7,7 +7,7 @@ import secrets
 import tempfile
 import time
 from pathlib import Path
-from typing import Annotated
+from typing import Annotated, Literal
 from urllib.parse import urlsplit
 
 from fastapi import FastAPI, Request, UploadFile, File, HTTPException
@@ -551,15 +551,17 @@ def create_app(config=None, store=None, manager=None, reference_manager=None):
 
     @mcp.tool(annotations=execute)
     async def transcribe_video(
-        project_id: str, path: str, request_id: str
+        project_id: str, path: str, request_id: str,
+        cache_mode: Literal["reuse", "new_clock"] = "reuse",
     ) -> CallToolResult:
-        """Transcribe uploaded speech with word timing using the owner's speech allowance."""
+        """Transcribe uploaded speech with source-clock word timing. Default reuse prefers a verified corrected cache without a provider call. If a historical cache fails clock verification, explicitly use cache_mode='new_clock' to create a separate corrected transcript using the owner's normal speech allowance; the original cache stays unchanged. Repeated new_clock requests reuse the corrected cache."""
         return await submitted(
             manager.submit(
                 muser(True),
                 project_id,
                 "transcribe",
-                {"path": path, "timeout": 300},
+                {"path": path, "timeout": 300}
+                | ({"cache_mode": cache_mode} if cache_mode != "reuse" else {}),
                 request_id,
             )
         )

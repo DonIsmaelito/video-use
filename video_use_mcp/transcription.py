@@ -7,6 +7,13 @@ clock proof as the standalone helper instead of a second FFmpeg timing policy.
 import json
 import shlex
 
+NEW_CLOCK_SUFFIX = "-clock-v2"
+RECOVERY_HINT = (
+    "Call transcribe_video with cache_mode='new_clock' to create a separate "
+    "corrected transcript using the normal speech allowance. The original "
+    "transcript is preserved, and a verified corrected cache is reused."
+)
+
 
 async def worker_python(sandbox, code, *arguments, timeout=180):
     result = await sandbox.run(
@@ -93,3 +100,27 @@ async def extract_audio(sandbox, path, output):
         "extract_audio(Path(sys.argv[1]),Path(sys.argv[2]))",
         path, output,
     )
+
+
+async def pack_transcripts(sandbox):
+    """Keep original JSONs, but prefer their verified hosted clock-v2 siblings."""
+    await worker_python(sandbox, """
+import json,re
+from pathlib import Path
+from helpers.transcribe import AUDIO_EXTRACTION
+from helpers.pack_transcripts import pack_one_file, render_markdown
+root=Path('/workspace/edit')
+files=sorted((root/'transcripts').glob('*.json'))
+superseded=set()
+for path in files:
+    match=re.fullmatch(r'([0-9a-f]{64})-clock-v2.json',path.name)
+    if not match or path.is_symlink():
+        continue
+    identity=json.loads(path.read_text()).get('_video_use',{})
+    if (isinstance(identity,dict) and identity.get('version')==2 and identity.get('adapter')=='hosted'
+        and identity.get('source_sha256')==match[1]
+        and identity.get('audio_extraction')==AUDIO_EXTRACTION):
+        superseded.add(match[1]+'.json')
+entries=[pack_one_file(p,0.5) for p in files if p.name not in superseded]
+(root/'takes_packed.md').write_text(render_markdown(entries,0.5),encoding='utf-8')
+""", timeout=30)

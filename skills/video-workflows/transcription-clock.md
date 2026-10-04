@@ -46,3 +46,13 @@ delayed/gapped legacy audio fail closed without overwriting the old transcript o
 making a paid request. Compatible old bytes remain unchanged. The hosted bridge
 retains its existing Scribe v1 / optional Whisper provider selection; the standalone
 helper defaults to Scribe v2. Neither path claims a human listening review.
+
+For a rejected historical hosted cache, explicitly call `transcribe_video` with
+`cache_mode="new_clock"`. This uses the normal speech allowance only when a new
+provider request is necessary. It saves a separate owner/source `:clock-v2` cache
+and `edit/transcripts/<source-sha256>-clock-v2.json`; the old cache and JSON remain
+unchanged. Both default `reuse` and repeated `new_clock` prefer the compatible
+corrected cache, including a local success whose database save was interrupted.
+Corrected files require full modern identity metadata, never a legacy clock guess.
+Hosted packed text omits the old digest-named sibling when its valid corrected
+transcript exists, so preserved historical word times are not mixed into the edit.

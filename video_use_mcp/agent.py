@@ -250,20 +250,27 @@ class ProductionAgent:
             return {"text": "Video verified"}
         raise ValueError("Unknown tool")
 
-    async def transcribe(self, path, *, legacy_source_sha256="", before_provider=None):
+    async def transcribe(self, path, *, legacy_source_sha256="", before_provider=None, cache_suffix=""):
         import hashlib
 
         path = await self.sandbox.safe_path(path)
         stem = re.sub(r"[^a-zA-Z0-9_-]", "_", Path(path).stem)
-        output = f"/workspace/edit/transcripts/{stem}.json"
+        if cache_suffix not in ("", transcription.NEW_CLOCK_SUFFIX):
+            raise ValueError("Invalid transcript cache suffix")
+        if cache_suffix and stem != legacy_source_sha256:
+            raise ValueError("A corrected transcript requires a source hash filename")
+        output = f"/workspace/edit/transcripts/{stem}{cache_suffix}.json"
         key = self.credentials.get("elevenlabs_key")
         identity = await transcription.source_identity(self.sandbox, path, elevenlabs=bool(key))
         if legacy_source_sha256 and identity["source_sha256"] != legacy_source_sha256:
             raise ValueError("Speech source does not match its recorded hash")
         existing = await transcription.read_cache(
-            self.sandbox, path, output, identity, legacy_source_sha256=legacy_source_sha256,
+            self.sandbox, path, output, identity,
+            legacy_source_sha256=legacy_source_sha256 if not cache_suffix else "",
         )
         if existing is not None:
+            if cache_suffix:
+                await transcription.pack_transcripts(self.sandbox)
             return {
                 "text": f"Cached transcript at {output}\n" + existing.decode()[:20000]
             }
@@ -318,10 +325,7 @@ class ProductionAgent:
                 word.setdefault("type", "word")
             payload["_video_use"] = identity
             await self.sandbox.write(output, json.dumps(payload).encode())
-            await self.sandbox.run(
-                "python /opt/video-use/helpers/pack_transcripts.py --edit-dir /workspace/edit",
-                30,
-            )
+            await transcription.pack_transcripts(self.sandbox)
             return {
                 "text": f"Saved word-level transcript at {output} and packed text in edit/takes_packed.md.\n"
                 + json.dumps(payload)[:20000]

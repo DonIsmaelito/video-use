@@ -16,6 +16,7 @@ import pytest
 from helpers import transcribe
 from tests.test_transcribe_clock import pulse_source, source_events, wav_events
 from video_use_mcp.agent import ProductionAgent
+from video_use_mcp import transcription
 from video_use_mcp.pilot.runtime import Manager
 
 
@@ -74,7 +75,7 @@ def agent(sandbox, *, elevenlabs=True):
     return speech
 
 
-def provider(monkeypatch, payload):
+def provider(monkeypatch, payload, *, status=200, before_post=None):
     calls = []
     class Client:
         def __init__(self, **_kwargs):
@@ -87,8 +88,10 @@ def provider(monkeypatch, payload):
             pass
 
         async def post(self, url, **kwargs):
+            if before_post is not None:
+                before_post()
             calls.append((url, kwargs))
-            return SimpleNamespace(status_code=200, json=lambda: json.loads(json.dumps(payload)))
+            return SimpleNamespace(status_code=status, json=lambda: json.loads(json.dumps(payload)))
     monkeypatch.setattr("video_use_mcp.agent.httpx.AsyncClient", Client)
     return calls
 
@@ -196,7 +199,9 @@ def test_unverified_local_cache_is_preserved_and_never_uploaded(sandbox, monkeyp
 
 def pilot(sandbox, cache):
     store = Mock()
-    store.get.side_effect = lambda kind, _key: cache if kind == "transcript" else None
+    records = {}
+    store.get.side_effect = lambda kind, key: records.get((kind,key), cache if kind == "transcript" and not key.endswith(":clock-v2") else None)
+    store.put.side_effect = lambda kind, key, value: records.__setitem__((kind,key), value)
     manager = Manager(store, SimpleNamespace(speech_key="dummy-provider-key", voice="fixture"))
     task = {"owner":"fixture-owner","project":"fixture-project","id":"fixture-task",
             "operation":"transcribe","payload":{"path":"sources/clip.mp4"}}
@@ -252,4 +257,153 @@ def test_pilot_rejects_unsafe_restored_local_cache_before_reserving_speech(sandb
         asyncio.run(manager.perform(task, sandbox))
     assert not calls and output.read_bytes() == original
     store.reserve.assert_not_called()
+    store.put.assert_not_called()
+
+
+@pytest.mark.parametrize("gap", [False, True])
+def test_explicit_recovery_preserves_old_bytes_and_charges_only_once(sandbox, monkeypatch, gap):
+    path, relative, digest = source(sandbox, delay=0. if gap else .2, gap=gap)
+    old_payload = legacy_payload()
+    old_payload["words"][0]["text"] = "UNSAFE_OLD_CLOCK"
+    old = sandbox.root / ("edit/transcripts/"+digest+".json")
+    old.write_text(json.dumps(old_payload,indent=4))
+    original = old.read_bytes()
+    manager, store, task = pilot(sandbox, old_payload)
+    task["payload"]["path"] = relative
+    corrected = legacy_payload()
+    corrected["words"][0]["text"] = "CORRECTED_CLOCK"
+    calls = provider(monkeypatch, corrected)
+    with pytest.raises(ValueError, match="cache_mode='new_clock'"):
+        asyncio.run(manager.perform(task, sandbox))
+    assert not calls
+    store.reserve.assert_not_called()
+    task["payload"]["cache_mode"] = "new_clock"
+    events = []
+    store.reserve.side_effect = lambda *_: events.append("reserve")
+    original_read = sandbox.read
+    async def read(path, max_bytes=8*1024*1024):
+        if path.endswith(".wav"):
+            assert not events and not calls, "Prepare and validate before reserving"
+        return await original_read(path,max_bytes)
+    sandbox.read = read
+    asyncio.run(manager.perform(task,sandbox))
+    assert len(calls)==1 and events==["reserve"]
+    new_path = "edit/transcripts/"+digest+"-clock-v2.json"
+    new_bytes = sandbox.local(new_path).read_bytes()
+    assert old.read_bytes()==original and old_payload["words"][0]["text"]=="UNSAFE_OLD_CLOCK"
+    assert hashlib.sha256(path.read_bytes()).hexdigest()==digest
+    assert store.put.call_args.args[:2]==("transcript","fixture-owner:"+digest+":clock-v2")
+    packed = (sandbox.root/"edit/takes_packed.md").read_text()
+    assert "CORRECTED_CLOCK" in packed and "UNSAFE_OLD_CLOCK" not in packed
+    # Repeated explicit and default requests both prefer the corrected cache.
+    for mode in ("new_clock","reuse"):
+        task["payload"]["cache_mode"] = mode
+        assert asyncio.run(manager.perform(task,sandbox))=={"path":new_path,"cached":True}
+    assert len(calls)==1 and store.reserve.call_count==1
+    assert old.read_bytes()==original and json.loads(new_bytes)==json.loads(sandbox.local(new_path).read_bytes())
+    # A fresh project for the same owner/source also reuses the corrected DB key.
+    other=sandbox.root/"other-project"
+    other.mkdir()
+    fresh=LocalSandbox(other)
+    fresh.local(relative).write_bytes(path.read_bytes())
+    assert asyncio.run(manager.perform(task,fresh))=={"path":new_path,"cached":True}
+    assert len(calls)==1 and store.reserve.call_count==1
+
+
+def test_recovery_reuses_local_success_after_database_write_failure(sandbox,monkeypatch):
+    _, _, digest = source(sandbox,delay=.2)
+    manager,store,task=pilot(sandbox,legacy_payload())
+    task["payload"]["cache_mode"]="new_clock"
+    calls=provider(monkeypatch,legacy_payload())
+    normal_put=store.put.side_effect
+    store.put.side_effect=RuntimeError("fixture database unavailable")
+    with pytest.raises(RuntimeError,match="database unavailable"):
+        asyncio.run(manager.perform(task,sandbox))
+    assert len(calls)==1 and store.reserve.call_count==1
+    store.put.side_effect=normal_put
+    task["payload"].pop("cache_mode")
+    result=asyncio.run(manager.perform(task,sandbox))
+    assert result=={"path":"edit/transcripts/"+digest+"-clock-v2.json","cached":True}
+    assert len(calls)==1 and store.reserve.call_count==1
+
+
+@pytest.mark.parametrize("case",["source","settings","legacy"])
+def test_corrected_storage_never_bypasses_identity(sandbox,monkeypatch,case):
+    _,relative,digest=source(sandbox,delay=.2)
+    payload=legacy_payload()
+    payload["_video_use"]=asyncio.run(transcription.source_identity(sandbox,relative,elevenlabs=True))
+    if case=="source":
+        payload["_video_use"]["source_sha256"]="0"*64
+    elif case=="settings":
+        payload["_video_use"]["model_id"]="another-model"
+    else:
+        payload.pop("_video_use")
+    manager,store,task=pilot(sandbox,None)
+    store.put("transcript","fixture-owner:"+digest+":clock-v2",payload)
+    store.put.reset_mock()
+    calls=provider(monkeypatch,legacy_payload())
+    for mode in ("reuse","new_clock"):
+        task["payload"]["cache_mode"]=mode
+        with pytest.raises(ValueError,match="does not match"):
+            asyncio.run(manager.perform(task,sandbox))
+    assert not calls
+    store.reserve.assert_not_called()
+    store.put.assert_not_called()
+
+
+def test_corrected_local_file_cannot_be_unversioned_legacy(sandbox,monkeypatch):
+    _,_,digest=source(sandbox)
+    output=sandbox.root/("edit/transcripts/"+digest+"-clock-v2.json")
+    original=json.dumps(legacy_payload(),indent=4).encode()
+    output.write_bytes(original)
+    manager,store,task=pilot(sandbox,None)
+    task["payload"]["cache_mode"]="new_clock"
+    calls=provider(monkeypatch,legacy_payload())
+    with pytest.raises(ValueError,match="does not match"):
+        asyncio.run(manager.perform(task,sandbox))
+    assert not calls and output.read_bytes()==original
+    store.reserve.assert_not_called()
+
+
+def test_recovery_reserves_before_provider_and_preserves_old_cache_on_denial(sandbox,monkeypatch):
+    _,_,digest=source(sandbox,delay=.2)
+    old=sandbox.root/("edit/transcripts/"+digest+".json")
+    original=json.dumps(legacy_payload()).encode()
+    old.write_bytes(original)
+    manager,store,task=pilot(sandbox,legacy_payload())
+    task["payload"]["cache_mode"]="new_clock"
+    store.reserve.side_effect=ValueError("allowance exceeded")
+    calls=provider(monkeypatch,legacy_payload())
+    with pytest.raises(ValueError,match="allowance exceeded"):
+        asyncio.run(manager.perform(task,sandbox))
+    assert not calls and old.read_bytes()==original
+    assert not old.with_name(digest+"-clock-v2.json").exists()
+    store.put.assert_not_called()
+
+
+def test_invalid_recovery_mode_is_rejected_before_source_or_quota(sandbox,monkeypatch):
+    manager,store,task=pilot(sandbox,None)
+    task["payload"]["cache_mode"]="overwrite"
+    calls=provider(monkeypatch,legacy_payload())
+    with pytest.raises(ValueError,match="cache_mode must be"):
+        asyncio.run(manager.perform(task,sandbox))
+    assert not calls and not sandbox.commands
+    store.reserve.assert_not_called()
+
+
+def test_provider_failure_follows_reservation_without_replacing_old_cache(sandbox,monkeypatch):
+    from video_use_mcp.agent import ProviderError
+    _,_,digest=source(sandbox,delay=.2)
+    old=sandbox.root/("edit/transcripts/"+digest+".json")
+    original=json.dumps(legacy_payload(),indent=3).encode()
+    old.write_bytes(original)
+    manager,store,task=pilot(sandbox,legacy_payload())
+    task["payload"]["cache_mode"]="new_clock"
+    def reserved():
+        store.reserve.assert_called_once_with("fixture-owner","transcribe",2,"fixture-task")
+    calls=provider(monkeypatch,legacy_payload(),status=503,before_post=reserved)
+    with pytest.raises(ProviderError,match="HTTP 503"):
+        asyncio.run(manager.perform(task,sandbox))
+    assert len(calls)==1 and old.read_bytes()==original
+    assert not old.with_name(digest+"-clock-v2.json").exists()
     store.put.assert_not_called()

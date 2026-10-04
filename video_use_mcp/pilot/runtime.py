@@ -825,53 +825,74 @@ class Manager:
                 "elevenlabs_voice": voice,
             }
             if op == "transcribe":
+                cache_mode = a.get("cache_mode", "reuse")
+                if cache_mode not in ("reuse", "new_clock"):
+                    raise ValueError("cache_mode must be reuse or new_clock")
                 path = await sb.safe_path(a["path"])
                 r = await sb.run("sha256sum " + shlex.quote(path), 30)
                 if r["exit_code"]:
                     raise ValueError("Media not found")
                 digest = r["stdout"].split()[0]
-                cache = self.store.get("transcript", uid + ":" + digest)
+                identity = await transcription.source_identity(sb, path, elevenlabs=True)
+                if identity["source_sha256"] != digest:
+                    raise ValueError("Speech source changed during transcript lookup")
+                legacy_key = uid + ":" + digest
+                corrected_key = legacy_key + ":clock-v2"
+                corrected_path = "edit/transcripts/" + digest + transcription.NEW_CLOCK_SUFFIX + ".json"
+                # Reuse corrected caches regardless of mode. A failed database
+                # write after successful ASR can also recover its local cache
+                # without charging again. V2 filenames never bless legacy data.
+                cache = self.store.get("transcript", corrected_key)
                 if cache is not None:
-                    identity = await transcription.source_identity(sb, path, elevenlabs=True)
-                    if identity["source_sha256"] != digest:
-                        raise ValueError("Speech source changed during transcript lookup")
-                    await transcription.validate_cache(
-                        sb, path, cache, identity, legacy_source_sha256=digest,
-                    )
-                    await sb.write(
-                        "edit/transcripts/" + digest + ".json",
-                        json.dumps(cache).encode(),
-                    )
-                    return {
-                        "path": "edit/transcripts/" + digest + ".json",
-                        "cached": True,
-                    }
+                    await transcription.validate_cache(sb, path, cache, identity)
+                    await sb.write(corrected_path, json.dumps(cache).encode())
+                    await transcription.pack_transcripts(sb)
+                    return {"path": corrected_path, "cached": True}
+                local = await transcription.read_cache(sb, path, corrected_path, identity)
+                if local is not None:
+                    self.store.put("transcript", corrected_key, json.loads(local))
+                    await transcription.pack_transcripts(sb)
+                    return {"path": corrected_path, "cached": True}
+                cache = self.store.get("transcript", legacy_key) if cache_mode == "reuse" else None
+                if cache is not None:
+                    try:
+                        await transcription.validate_cache(
+                            sb, path, cache, identity, legacy_source_sha256=digest,
+                        )
+                    except ValueError as exc:
+                        raise ValueError(str(exc) + ". " + transcription.RECOVERY_HINT) from None
+                    await sb.write("edit/transcripts/" + digest + ".json", json.dumps(cache).encode())
+                    return {"path": "edit/transcripts/" + digest + ".json", "cached": True}
+                suffix = transcription.NEW_CLOCK_SUFFIX if cache_mode == "new_clock" else ""
+                output = "edit/transcripts/" + digest + suffix + ".json"
+                # The current source hash must agree with both storage keys and
+                # the isolated source copy before any allowance is reserved.
                 r = await sb.run(
                     "ffprobe -v error -show_format -of json " + shlex.quote(path), 30
                 )
                 duration = float(json.loads(r["stdout"])["format"]["duration"])
                 if not math.isfinite(duration) or duration <= 0:
                     raise ValueError("Invalid media duration")
-                # Hash-based path prevents the legacy basename cache from returning stale words.
-                await sb.run(
-                    "cp "
-                    + shlex.quote(path)
-                    + " /workspace/sources/"
-                    + digest
-                    + Path(path).suffix,
-                    60,
-                )
-                result = await speech.transcribe(
-                    "sources/" + digest + Path(path).suffix,
-                    legacy_source_sha256=digest,
-                    # Cache rejection/reuse and failed extraction do not spend
-                    # speech allowance. Reserve immediately before the API call.
-                    before_provider=lambda: self.store.reserve(uid, "transcribe", math.ceil(duration), tid),
-                )
-                payload = json.loads(
-                    await sb.read("edit/transcripts/" + digest + ".json", 2000000)
-                )
-                self.store.put("transcript", uid + ":" + digest, payload)
+                copied = "/workspace/sources/" + digest + Path(path).suffix
+                if copied != path:
+                    r = await sb.run("cp " + shlex.quote(path) + " " + shlex.quote(copied), 60)
+                    if r["exit_code"]:
+                        raise ValueError("Could not prepare the speech source")
+                try:
+                    result = await speech.transcribe(
+                        copied,
+                        legacy_source_sha256=digest,
+                        cache_suffix=suffix,
+                        # Cache rejection/reuse and failed extraction do not
+                        # spend allowance. Reserve immediately before the API.
+                        before_provider=lambda: self.store.reserve(uid, "transcribe", math.ceil(duration), tid),
+                    )
+                except ValueError as exc:
+                    if cache_mode == "reuse" and ("Transcript cache" in str(exc) or "Legacy transcript" in str(exc)):
+                        raise ValueError(str(exc) + ". " + transcription.RECOVERY_HINT) from None
+                    raise
+                payload = json.loads(await sb.read(output, 2000000))
+                self.store.put("transcript", corrected_key if suffix else legacy_key, payload)
                 return result
             text = a["text"]
             cachekey = uid + ":" + hashlib.sha256((voice + text).encode()).hexdigest()
