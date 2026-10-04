@@ -110,6 +110,30 @@ self.play(LaggedStart(*[Write(l) for l in lines], lag_ratio=0.3, run_time=3))
 self.play(Succession(FadeIn(title), Wait(0.5), Write(subtitle)))
 ```
 
+For staged movement of **one object**, construct its next `.animate` only after
+the previous stage finishes. In Manim CE 0.19.2, multiple prebuilt builders for
+the same object can share its replaced `target`, even inside `Succession`.
+A planned lift-then-slide can become a diagonal move across nearby labels.
+
+```python
+self.play(ticket.animate.shift(UP), run_time=0.5)
+self.play(ticket.animate.shift(RIGHT * 2), run_time=1.0)
+```
+
+When one composite animation is required, use independent `Transform` target
+copies or an explicit `MoveAlongPath` through the intended corner. Chaining
+`.shift(UP).shift(RIGHT)` describes the final state, not two movement stages.
+Inspect encoded frames around the turn and check the object's full footprint
+against labels; clear start/end positions do not prove a clear path.
+Budget the stages in whole output frames and verify their encoded total;
+independently rounded fractional frames can extend the film.
+
+Version-specific basis: Manim's
+[`_AnimationBuilder`](https://github.com/ManimCommunity/manim/blob/v0.19.2/manim/mobject/mobject.py)
+generates the object's target when constructed, and
+[`_MethodAnimation` / `MoveToTarget`](https://github.com/ManimCommunity/manim/blob/v0.19.2/manim/animation/transform.py)
+use that target when the builder is converted to an animation.
+
 ## Updaters
 
 ```python
