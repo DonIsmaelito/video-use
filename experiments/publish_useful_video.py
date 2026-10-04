@@ -196,7 +196,8 @@ def publish(approval: dict) -> dict:
               "reviewUrl": base + "/review.md", "verificationUrl": base + "/verification.json", "storyboardUrl": base + "/storyboard.jpg",
               "promptUrl": base + "/creative-prompt.txt", "provenanceUrl": base + "/provenance.json",
               "websiteAssets": [{"field": name, "url": example[name]} for name in ("video", "poster")]}
-    return {"example": example, "source": source, "publicCheck": public_check, "assets": {name: base + "/" + name for name in hashes}, "hashes": hashes}
+    public_approval = {key: approval[key] for key in ("id", "approved", "sourceReviewed", "sha256", "sourceSha256", "review")}
+    return {"example": example, "source": source, "publicCheck": public_check, "assets": {name: base + "/" + name for name in hashes}, "hashes": hashes, "approval": public_approval}
 
 
 def main() -> None:

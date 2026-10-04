@@ -4,7 +4,8 @@ Extracts mono 16kHz audio via ffmpeg, uploads to Scribe with verbatim +
 diarize + audio events + word-level timestamps, writes the full response
 to <edit_dir>/transcripts/<video_stem>.json.
 
-Cached: if the output file already exists, the upload is skipped.
+Cached by source bytes and transcription settings. A conflicting or unverified
+existing transcript is preserved and rejected instead of silently reused.
 
 Usage:
     python helpers/transcribe.py <video_path>
@@ -16,6 +17,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import subprocess
@@ -25,25 +27,55 @@ import time
 from pathlib import Path
 
 import requests
+from dotenv import dotenv_values
 
 
 SCRIBE_URL = "https://api.elevenlabs.io/v1/speech-to-text"
+DEFAULT_MODEL = "scribe_v2"
+MODELS = ("scribe_v2", "scribe_v1")
 
 
 def load_api_key() -> str:
+    value = os.environ.get("ELEVENLABS_API_KEY", "")
+    if value:
+        return value
     for candidate in [Path(__file__).resolve().parent.parent / ".env", Path(".env")]:
         if candidate.exists():
-            for line in candidate.read_text().splitlines():
-                line = line.strip()
-                if not line or line.startswith("#") or "=" not in line:
-                    continue
-                k, v = line.split("=", 1)
-                if k.strip() == "ELEVENLABS_API_KEY":
-                    return v.strip().strip('"').strip("'")
-    v = os.environ.get("ELEVENLABS_API_KEY", "")
-    if not v:
-        sys.exit("ELEVENLABS_API_KEY not found in .env or environment")
-    return v
+            value = dotenv_values(candidate, interpolate=False).get("ELEVENLABS_API_KEY")
+            if value:
+                return value
+    sys.exit("ELEVENLABS_API_KEY not found in .env or environment")
+
+
+def source_identity(video: Path, language: str | None, num_speakers: int | None, model: str) -> dict:
+    if model not in MODELS:
+        raise ValueError("Unsupported Scribe model")
+    if num_speakers is not None and (isinstance(num_speakers, bool) or not isinstance(num_speakers, int) or not 1 <= num_speakers <= 32):
+        raise ValueError("num_speakers must be an integer from 1 through 32")
+    digest = hashlib.sha256()
+    with video.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return {"version": 1, "source_sha256": digest.hexdigest(),
+            "model_id": model, "language_code": language, "num_speakers": num_speakers,
+            "diarize": True, "tag_audio_events": True, "timestamps_granularity": "word"}
+
+
+def cached_transcript(video: Path, edit_dir: Path, language: str | None = None,
+                      num_speakers: int | None = None, model: str = DEFAULT_MODEL) -> Path | None:
+    identity = source_identity(video, language, num_speakers, model)
+    out_path = edit_dir / "transcripts" / f"{video.stem}.json"
+    if not out_path.exists():
+        return None
+    if out_path.is_symlink():
+        raise ValueError("Transcript output must not be a symlink")
+    try:
+        payload = json.loads(out_path.read_text())
+    except (ValueError, UnicodeError):
+        raise ValueError("Existing transcript is not valid JSON; preserve it and use a separate edit directory") from None
+    if not isinstance(payload, dict) or payload.get("_video_use") != identity or not isinstance(payload.get("words"), list):
+        raise ValueError("Existing transcript does not match these source bytes and settings; preserve it and use a separate edit directory")
+    return out_path
 
 
 def extract_audio(video_path: Path, dest: Path) -> None:
@@ -60,9 +92,12 @@ def call_scribe(
     api_key: str,
     language: str | None = None,
     num_speakers: int | None = None,
+    model: str = DEFAULT_MODEL,
 ) -> dict:
+    if model not in MODELS:
+        raise ValueError("Unsupported Scribe model")
     data: dict[str, str] = {
-        "model_id": "scribe_v1",
+        "model_id": model,
         "diarize": "true",
         "tag_audio_events": "true",
         "timestamps_granularity": "word",
@@ -82,9 +117,12 @@ def call_scribe(
         )
 
     if resp.status_code != 200:
-        raise RuntimeError(f"Scribe returned {resp.status_code}: {resp.text[:500]}")
+        raise RuntimeError(f"Scribe returned HTTP {resp.status_code}")
 
-    return resp.json()
+    payload = resp.json()
+    if not isinstance(payload, dict) or not isinstance(payload.get("words"), list):
+        raise ValueError("Scribe did not return a word-level transcript")
+    return payload
 
 
 def transcribe_one(
@@ -94,19 +132,23 @@ def transcribe_one(
     language: str | None = None,
     num_speakers: int | None = None,
     verbose: bool = True,
+    model: str = DEFAULT_MODEL,
 ) -> Path:
     """Transcribe a single video. Returns path to transcript JSON.
 
-    Cached: returns existing path immediately if the transcript already exists.
+    An unchanged source/settings pair is reused without another API request.
     """
     transcripts_dir = edit_dir / "transcripts"
     transcripts_dir.mkdir(parents=True, exist_ok=True)
     out_path = transcripts_dir / f"{video.stem}.json"
 
-    if out_path.exists():
+    cached = cached_transcript(video, edit_dir, language, num_speakers, model)
+    if cached is not None:
         if verbose:
             print(f"cached: {out_path.name}")
         return out_path
+
+    identity = source_identity(video, language, num_speakers, model)
 
     if verbose:
         print(f"  extracting audio from {video.name}", flush=True)
@@ -118,9 +160,22 @@ def transcribe_one(
         size_mb = audio.stat().st_size / (1024 * 1024)
         if verbose:
             print(f"  uploading {video.stem}.wav ({size_mb:.1f} MB)", flush=True)
-        payload = call_scribe(audio, api_key, language, num_speakers)
+        payload = call_scribe(audio, api_key, language, num_speakers, model)
 
-    out_path.write_text(json.dumps(payload, indent=2))
+    if source_identity(video, language, num_speakers, model) != identity:
+        raise ValueError("Source changed during transcription; no transcript was installed")
+    payload["_video_use"] = identity
+    temporary = None
+    try:
+        with tempfile.NamedTemporaryFile(mode="w", dir=transcripts_dir, suffix=".tmp", delete=False) as stream:
+            temporary = Path(stream.name)
+            json.dump(payload, stream, indent=2)
+            stream.write("\n")
+        # Never overwrite a transcript created by another process while uploading.
+        os.link(temporary, out_path)
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
     dt = time.time() - t0
 
     if verbose:
@@ -135,6 +190,8 @@ def transcribe_one(
 def main() -> None:
     ap = argparse.ArgumentParser(description="Transcribe a video with ElevenLabs Scribe")
     ap.add_argument("video", type=Path, help="Path to video file")
+    ap.add_argument("--model", choices=MODELS, default=DEFAULT_MODEL,
+                    help="Scribe model (default: scribe_v2; v1 only for explicit legacy use)")
     ap.add_argument(
         "--edit-dir",
         type=Path,
@@ -168,6 +225,7 @@ def main() -> None:
         api_key=api_key,
         language=args.language,
         num_speakers=args.num_speakers,
+        model=args.model,
     )
 
 

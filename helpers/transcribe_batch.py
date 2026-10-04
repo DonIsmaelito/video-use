@@ -3,7 +3,7 @@
 Walks <videos_dir> for common video extensions, runs ElevenLabs Scribe on
 each, writes transcripts to <videos_dir>/edit/transcripts/<name>.json.
 
-Cached per-file: any source that already has a transcript is skipped.
+Cached by source bytes and transcription settings, never just by filename.
 
 Usage:
     python helpers/transcribe_batch.py <videos_dir>
@@ -20,7 +20,7 @@ import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
-from transcribe import load_api_key, transcribe_one
+from transcribe import DEFAULT_MODEL, MODELS, cached_transcript, load_api_key, transcribe_one
 
 
 VIDEO_EXTS = {".mp4", ".MP4", ".mov", ".MOV", ".mkv", ".MKV", ".avi", ".AVI", ".m4v"}
@@ -37,6 +37,7 @@ def find_videos(videos_dir: Path) -> list[Path]:
 def main() -> None:
     ap = argparse.ArgumentParser(description="Parallel batch transcription of a videos directory")
     ap.add_argument("videos_dir", type=Path, help="Directory containing source videos")
+    ap.add_argument("--model", choices=MODELS, default=DEFAULT_MODEL)
     ap.add_argument(
         "--edit-dir",
         type=Path,
@@ -69,7 +70,9 @@ def main() -> None:
     if not videos:
         sys.exit(f"no videos found in {videos_dir}")
 
-    already_cached = [v for v in videos if (edit_dir / "transcripts" / f"{v.stem}.json").exists()]
+    if len({v.stem for v in videos}) != len(videos):
+        sys.exit("Source basenames must be unique; use separate edit directories for colliding names")
+    already_cached = [v for v in videos if cached_transcript(v, edit_dir, args.language, args.num_speakers, args.model)]
     pending = [v for v in videos if v not in already_cached]
 
     print(f"found {len(videos)} videos ({len(already_cached)} cached, {len(pending)} to transcribe)")
@@ -93,6 +96,7 @@ def main() -> None:
                 language=args.language,
                 num_speakers=args.num_speakers,
                 verbose=False,
+                model=args.model,
             ): v
             for v in pending
         }
