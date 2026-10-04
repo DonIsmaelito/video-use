@@ -316,6 +316,7 @@ def test_sampling_waits_for_lazy_metadata_and_first_decoded_frame_within_budget(
             if expression == worker.PAGE_CONTENT_JS:
                 return super().js(expression)
             setup = """
+              global.location=new URL('https://example.com/');
               const listeners=new Map(); let loadCalls=0;
               const emit=name=>[...(listeners.get(name)||[])].forEach(f=>f());
               const video={duration:NaN,readyState:0,currentTime:0,
@@ -369,6 +370,7 @@ def test_video_sampling_checks_css_visibility_before_emitting_frame(isolated, vi
             if expression == worker.PAGE_CONTENT_JS:
                 return super().js(expression)
             setup = """
+              global.location=new URL('https://example.com/');
               const video={duration:12,readyState:4,currentTime:2,
                 pause(){},scrollIntoView(){},addEventListener(){},removeEventListener(){},
                 getBoundingClientRect(){return {width:200,height:100,bottom:200,right:300,top:100,left:100};},
@@ -406,6 +408,7 @@ def test_youtube_ad_frames_never_become_source_video_evidence(isolated, ad_phase
             if expression == worker.PAGE_CONTENT_JS:
                 return super().js(expression)
             setup = r"""
+              global.location=new URL('https://www.youtube.com/watch?v=fixture');
               const phase=AD_PHASE,listeners=new Map();
               let activeAd=phase.startsWith('ad-'),pauses=0,seeks=0,frames=0,stamp=0;
               const player={classList:{contains(name){return activeAd&&name===(phase==='ad-interrupting'?'ad-interrupting':'ad-showing');}}};
@@ -483,6 +486,7 @@ def test_sampling_scrolls_only_selected_video_and_never_substitutes_related_clip
             if expression == worker.PAGE_CONTENT_JS:
                 return super().js(expression)
             setup = """
+              global.location=new URL('https://example.com/');
               let scrolled=0;
               const related={checkVisibility(){throw Error('Wrong video selected');}};
               const selected={duration:12,readyState:4,currentTime:2,currentSrc:'https://cdn.example/chosen.webm',
