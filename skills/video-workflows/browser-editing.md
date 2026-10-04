@@ -5,7 +5,7 @@ Edit in the user's chat; preserve sources and explicit preferences.
 ## Begin with involvement and output basics
 
 For a new version-1 request, ask `start_video`'s **Hands off**, **Key moments** or
-**Hands on** question using the native question tool if available, otherwise normal chat.
+**Hands on** question according to `question.presentation` (see below).
 Do not repeat it through `show_video_brief`. Wait for an explicit answer, then ask
 only missing duration/destination. Legacy projects retain their saved mode or
 labeled key-moments default. Do not restart intake for an existing request.
@@ -31,25 +31,27 @@ duration and destination. The link is optional. An explicit pasted-workflow choi
 that skips other references uses `record_video_references action=delegate` with
 the actual words; hands-on snippet acceptance still applies. Otherwise research.
 
-Before hands-on research, read `video_use_guidance(topic="workflows")` for the
-full evidence protocol. Search YouTube, TikTok and X sequentially; inspect actual
-media, not just metadata, and prefer useful treatments with observed traction.
-Use `inspect_social_reference`, retain `social_receipt_id` and `evidence_ids`, then
-`record_video_references offer(more_expected=true)`. Immediately show its
-`new_link_cards` through `show_video_reference`: source thumbnail/link, short fit
-explanation and verified creator/views/likes/date. Unknown counts stay unavailable.
-Append candidates to the same round, usually three and at most five, then `finish`.
-Ask one native question: references, **Find another batch**, **Give my input**;
-normal chat is the fallback. Another batch preserves preferences and avoids repeats.
-Use source links without embed attempts, copied previews or generated stand-ins.
-Close the serial public Browser Harness when done; sampled stills prove neither
-continuous motion nor sound, and metadata alone cannot qualify a recommendation.
+Aim for four distinct, feasible short references from YouTube, TikTok and X,
+shown consecutively; maximum five, no filler. Search quickly; use `inspect_social_reference` for attribution. Save its receipt
+with `record_video_references offer(more_expected=true)`, then append to that round.
+Show each `new_link_cards` with `show_video_reference` immediately: thumbnail,
+original link, brief fit explanation and sourced engagement only.
+Inspect relevant media frames; metadata is only a discovery lead. Neither stills nor metadata prove motion or sound. One brief browser attempt per candidate: stop at
+blocked playback or login; no repeated scrolling, studio detours or frame sampling.
+Use `research_budget`; finish at four, or give a concrete `partial_reason` for fewer.
+Ask ONE reference question with every choice, **Find another batch**, and
+**Give my input** using native questions or normal chat. Respect an early selection.
+New batches exclude prior works. Save evidence, close the browser; inspect the
+chosen treatment before creation.
+For involvement, basics, approach and sample review, follow `question.presentation`:
+`inline_choices` displays and saves clicks; never repeat it. Otherwise use the
+native question tool if available or normal chat. Use supplied reference choices.
 
-After selection, `prepare_video_reference` downloads the chosen videos. Read
+Plan the full arc and a representative snippet from the brief and chosen treatment.
+Use `show_video_checkpoint` for Continue/Refine about its player. Wait for explicit acceptance, then create and review the full video.
+After selection, call `prepare_video_reference` for each chosen video. Read
 `video_use_guidance(topic="reference-cloning")`, inspect the saved media and adapt
-its treatment to the brief. Plan the full arc internally, make a representative
-snippet and ask `show_video_checkpoint` for native Continue/Refine about its plain
-player. Wait for explicit acceptance, then create and review the full video.
+its measured treatment to the query before creating the representative snippet.
 Write a short plain chat transition before calling `show_video_preview` to open a
 new final player; keep the snippet player unchanged. A sample is not completion.
 
@@ -64,8 +66,7 @@ style and format in `assumptions` and the plan. `brief_provenance=assistant_summ
 and `plan_provenance=assistant_plan` are interpretation, not user approval.
 In interactive modes, briefly explain consequential proposals; tool notes are not chat.
 
-- `show_video_brief`: saves one stable question for native questions or normal chat,
-  without a form. Recommendations are unselected; reuse an unanswered question.
+- `show_video_brief`: saves one stable question; follow `question.presentation`. Recommendations are unselected; reuse an unanswered question.
 - `show_video_choices`: optional cached examples in Key moments, not a substitute
   for hands-on online research or the user's draft.
 - `show_video_story`: saves the story and script internally, replacing `plan_video`.
@@ -84,7 +85,7 @@ Unknown capacity is not zero; cached audio may remain usable. Never silently cha
 Adapt composition/type/motion as well as palette and reuse accepted work.
 Hands off keeps samples internal; Key moments shows useful drafts selectively.
 Hands on shows the snippet with `show_video_preview`; `show_video_checkpoint`
-returns a native or normal chat continue/refine question about it, not a second card.
+returns Continue/Refine via `question.presentation`; do not create a second card yourself.
 Wait for explicit acceptance before the full video. Apply actual feedback to the
 sample and return to its checkpoint. Tool traces and private QA sheets are not previews.
 Use plain media controls; edits stay in chat.

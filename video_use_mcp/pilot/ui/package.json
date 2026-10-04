@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "node build.mjs",
-    "test": "node test.mjs && node test-refresh.mjs && node test-feedback.mjs && node test-widgets.mjs"
+    "build": "node build.mjs && node build-question.mjs",
+    "test": "node test.mjs && node test-refresh.mjs && node test-feedback.mjs && node test-widgets.mjs && node test-question.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/ext-apps": "^1.1.2"

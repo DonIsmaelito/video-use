@@ -44,6 +44,7 @@ APP_TOOLS = {
     "choose_video_style",
     "add_video_feedback",
     "save_video_widget",
+    "submit_video_choice",
 }
 
 
@@ -133,6 +134,35 @@ def uuid_or_none(value):
         return None
 
 
+def question_delivery(payload):
+    """Record the question handoff, without claiming a host displayed controls.
+
+    This descriptor asks the host to present a question. It is neither an MCP
+    elicitation request nor evidence of a rendered form. Do not log question
+    text, choices, answers, or the user's message.
+    """
+    question = payload.get("question")
+    if not isinstance(question, dict):
+        intake = payload.get("intake")
+        question = intake.get("question") if isinstance(intake, dict) else None
+    if not isinstance(question, dict) or question.get("presentation") not in (
+        "native_question_tool_if_available_else_short_chat",
+        "inline_choices",
+    ):
+        return None
+    return {
+        "question_id": uuid_or_none(question.get("id")),
+        "status": question.get("status")
+        if question.get("status") in ("answered", "awaiting_user")
+        else "unknown",
+        "mechanism": "mcp_app_choices"
+        if question["presentation"] == "inline_choices"
+        else "host_instruction",
+        "server_form_requested": False,
+        "host_presentation": "unobserved",
+    }
+
+
 class TracedMCP(FastMCP):
     async def list_tools(self):
         # Old handlers remain callable by existing chats; new discovery presents
@@ -170,13 +200,19 @@ class TracedMCP(FastMCP):
                         "tool": "resources/read",
                         "surface": "card",
                         "owner": token.subject,
-                        "client": hashlib.sha256(token.client_id.encode()).hexdigest()[:12],
+                        "client": hashlib.sha256(token.client_id.encode()).hexdigest()[
+                            :12
+                        ],
                         "project": None,
                         "task": None,
                         "requested_uri": requested,
                         "current_resource_uri": REFERENCE_UI_URI,
-                        "current_resource_digest": REFERENCE_UI_URI.removeprefix("ui://video-use/reference-").removesuffix(".html"),
-                        "harness_version": os.getenv("PILOT_HARNESS_VERSION", "development"),
+                        "current_resource_digest": REFERENCE_UI_URI.removeprefix(
+                            "ui://video-use/reference-"
+                        ).removesuffix(".html"),
+                        "harness_version": os.getenv(
+                            "PILOT_HARNESS_VERSION", "development"
+                        ),
                         "outcome": outcome,
                         "elapsed_ms": round((time.monotonic() - started) * 1000),
                     }
@@ -184,10 +220,14 @@ class TracedMCP(FastMCP):
                     with contextlib.suppress(Exception):
                         logger.info("video_use_resource %s", json.dumps(record))
                     try:
-                        await asyncio.to_thread(self.trace_store.put, "trace", ident(), record, ttl=2592000)
+                        await asyncio.to_thread(
+                            self.trace_store.put, "trace", ident(), record, ttl=2592000
+                        )
                     except Exception as exc:
                         with contextlib.suppress(Exception):
-                            logger.warning("video_use_trace_persist_failed %s", type(exc).__name__)
+                            logger.warning(
+                                "video_use_trace_persist_failed %s", type(exc).__name__
+                            )
 
     async def call_tool(self, name, arguments):
         started = time.monotonic()
@@ -273,6 +313,9 @@ class TracedMCP(FastMCP):
                             "PILOT_HARNESS_VERSION", "development"
                         ),
                     }
+                    delivery = question_delivery(payload)
+                    if delivery:
+                        record["question_delivery"] = delivery
                     # Known guide names help distinguish setup/reading from
                     # production without retaining prompts, code or source paths.
                     topic = inputs.get("topic", "overview")

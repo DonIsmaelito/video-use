@@ -6,32 +6,31 @@ transformation, diagram, chart or typographic moment. You supply the design. Thi
 is not a text-to-video model or a replacement for custom Manim, footage or 3D.
 
 Version-1 interaction takes priority: `start_video` returns the involvement question.
-Use the native question tool if available, otherwise normal chat; do not repeat it
-through `show_video_brief` or open a form. Then ask only missing duration/destination
+Follow `question.presentation` below; do not repeat it
+through `show_video_brief`. Then ask only missing duration/destination
 and wait for explicit answers. Hands off shows
 only the final video, Key moments uses selective updates, and Hands on researches
 real online references before creation and short sample review. Legacy projects keep
 their saved mode or labeled default. Real blockers still need resolution.
 
-Search YouTube, TikTok and X sequentially for accessible examples that fit the
-brief and creation approach, preferring observed traction over niche studio reels.
-Inspect one candidate, use `inspect_social_reference` for attribution and available
-engagement, save `social_receipt_id` with `record_video_references` using
-`offer(more_expected=true)`, and show `new_link_cards` immediately through
-`show_video_reference` for a source thumbnail when available and an original source
-link. After each card, write one short explanation plus observed creator/views/likes/date;
-unknown counts stay unavailable. Then find and `append`
-the next candidate on the same round. Usually three useful choices, at most five.
-Finish with `more_expected=false` or `finish`, then ask ONE native question listing
-references, **Find another batch**, and **Give my input**; normal chat is the fallback.
-Another batch preserves preferences and avoids prior works; it needs no critique.
-Browser Harness supports public inspection in serial batches; inspect its captures,
-save `evidence_ids` and close when done. Stills do not prove motion or sound.
-Present source thumbnails and links without embed attempts or embed warnings.
-No custom controls, copied videos or generated stand-ins. Counts require post-bound
-evidence, not oEmbed or guessed popularity.
+Aim for four distinct, feasible short references from YouTube, TikTok and X,
+shown consecutively; maximum five, no filler. Search quickly; use `inspect_social_reference` for attribution. Save its receipt
+with `record_video_references offer(more_expected=true)`, then append to that round.
+Show each `new_link_cards` with `show_video_reference` immediately: thumbnail,
+original link, brief fit explanation and sourced engagement only.
+Inspect a thumbnail/still; metadata is provisional. Neither proves motion or sound. One brief browser attempt per candidate: stop at
+blocked playback or login; no repeated scrolling, studio detours or frame sampling.
+Use `research_budget`; finish at four, or give a concrete `partial_reason` for fewer.
+Ask ONE reference question with every choice, **Find another batch**, and
+**Give my input** using native questions or normal chat. Respect an early selection.
+New batches exclude prior works. Save evidence, close the browser; inspect the
+chosen treatment before creation.
+For involvement, basics, approach and sample review, follow `question.presentation`:
+`inline_choices` displays and saves clicks; never repeat it. Otherwise use the
+native question tool if available or normal chat. Use supplied reference choices.
+
 Plan the full arc and a representative snippet from the brief and chosen treatment.
-Use `show_video_checkpoint` for native Continue/Refine about its player. Wait for explicit acceptance, then create and review the full video.
+Use `show_video_checkpoint` for Continue/Refine about its player. Wait for explicit acceptance, then create and review the full video.
 Write a short plain chat transition before calling `show_video_preview` to open a
 new final player; keep the snippet player unchanged. A sample is not completion.
 After selection, call `prepare_video_reference` to download each chosen video.

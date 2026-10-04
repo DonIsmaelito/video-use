@@ -9,6 +9,7 @@ from mcp.types import CallToolResult, TextContent
 
 from video_use_mcp.pilot.tests.test_cards import rpc
 from video_use_mcp.pilot.tests.test_preview_delivery import TID
+from video_use_mcp.pilot.interaction import question_delivery
 
 pytest_plugins = ["video_use_mcp.pilot.tests.test_oauth_discovery"]
 
@@ -17,6 +18,50 @@ def traces(app):
     with app.state.store.db() as db:
         rows = db.execute("SELECT key FROM kv WHERE kind='trace'").fetchall()
     return [app.state.store.get("trace", row["key"]) for row in rows]
+
+
+def test_question_trace_does_not_claim_native_ui_or_capture_answers(pilot):
+    _, app = pilot
+    result = rpc(
+        pilot,
+        "tools/call",
+        {
+            "name": "start_video",
+            "arguments": {
+                "title": "Private project title",
+                "brief": "Private creative brief",
+                "category": "custom",
+            },
+        },
+    )
+    assert not result.get("isError")
+    delivery = traces(app)[-1]["question_delivery"]
+    assert delivery == {
+        "question_id": result["structuredContent"]["question"]["id"],
+        "status": "awaiting_user",
+        "mechanism": "host_instruction",
+        "server_form_requested": False,
+        "host_presentation": "unobserved",
+    }
+    assert "Private" not in json.dumps(traces(app)[-1])
+
+
+def test_question_trace_ignores_unrecognized_delivery_and_private_content():
+    question = {
+        "id": TID,
+        "presentation": "native_question_tool_if_available_else_short_chat",
+        "status": "answered",
+        "recorded_answers": {"sensitive": "private answer"},
+        "questions": [{"prompt": "private question"}],
+    }
+    delivery = question_delivery({"intake": {"question": question}})
+    assert delivery["status"] == "answered"
+    assert "private" not in json.dumps(delivery)
+    assert (
+        question_delivery({"question": question | {"presentation": "new_protocol"}})
+        is None
+    )
+    assert question_delivery({"question": None, "intake": []}) is None
 
 
 def test_omitted_arguments_and_known_guide_topic_are_traced(pilot, monkeypatch):

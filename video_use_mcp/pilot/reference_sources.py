@@ -132,7 +132,12 @@ def reference_source_catalog(category=None, *, compact=False):
             if source["id"] == source_id
         ]
     elif data.get("default_primary") and (category or compact):
-        selected = [source for key in data["default_primary"] for source in approved if source["id"] == key]
+        selected = [
+            source
+            for key in data["default_primary"]
+            for source in approved
+            if source["id"] == key
+        ]
     elif category:
         selected = [source for source in approved if category in source["categories"]]
     else:
@@ -145,11 +150,7 @@ def reference_source_catalog(category=None, *, compact=False):
             "categories",
             "discovery_roots",
             "discovery_patterns",
-            "verification",
             "search_notes",
-            "inspection_notes",
-            "access_notes",
-            "biases",
             "role",
         }
         base = {
@@ -158,7 +159,10 @@ def reference_source_catalog(category=None, *, compact=False):
             "sources": [
                 {k: v for k, v in source.items() if k in keys} for source in selected
             ],
-            "evidence_policy": data.get("evidence_policy", []),
+            "evidence_policy": [
+                "Inspect thumbnails/stills before naming visible traits; attributed metadata alone is provisional, not observed motion or sound.",
+                "Use verified source identity and only sourced engagement. A blocked player does not require repeated playback attempts.",
+            ],
             "selection_policy": data.get("selection_policy", ""),
             "feedback_policy": data.get("feedback_policy", []),
         }
@@ -167,22 +171,31 @@ def reference_source_catalog(category=None, *, compact=False):
     if category:
         base.update(
             category=category,
-            coverage=route or (
+            coverage=route
+            or (
                 {
                     "primary": data["default_primary"],
                     "coverage": "live_search",
                     "notes": "Use the primary social platforms for this brief; candidate access and fit still need live inspection.",
                 }
-                if data.get("default_primary") else {
+                if data.get("default_primary")
+                else {
                     "coverage": "unmapped",
                     "notes": "No researched route for this category. Explain the gap; use a relevant approved neighbor or ask for a user reference.",
                 }
             ),
         )
-        base["available_sources"] = [
-            {key: source[key] for key in ("id", "name", "url", "categories")}
-            for source in approved
-        ]
+        if compact:
+            base["coverage"] = {
+                key: value
+                for key, value in base["coverage"].items()
+                if key != "supplemental"
+            }
+        else:
+            base["available_sources"] = [
+                {key: source[key] for key in ("id", "name", "url", "categories")}
+                for source in approved
+            ]
     return base | dict(
         status="ready" if data["sources"] else "awaiting_curation",
         source_count=len(approved),

@@ -1,7 +1,7 @@
 # Manim in the browser worker
 
-Version-1 interaction takes priority: ask `start_video`'s involvement question with
-the native question tool if available, otherwise normal chat. Do not repeat it
+Version-1 interaction takes priority: follow `question.presentation` for
+`start_video`'s involvement question. Do not repeat it
 through `show_video_brief`. Ask only missing duration/destination and wait for answers.
 Hands off shows only the final video; Key moments uses selective updates;
 Hands on researches online references, then reviews a short sample before the rest.
@@ -10,15 +10,24 @@ ordinary rendering needs no extra approval.
 
 Use Manim for geometry, mechanisms, equations and data relationships. Palette,
 scene count and visual premise follow the subject and user's direction.
-Follow the overview's sequential reference search on YouTube, TikTok and X.
-Inspect and show each candidate immediately with `show_video_reference`, saving
-its evidence and observed attribution through `record_video_references`.
-Usually three useful choices, maximum five. Finish with one native choice:
-references, **Find another batch**, **Give my input**. Keep feedback across batches.
-Show source thumbnails and links; do not invent popularity, motion inspection or
-source playback. Stop research when the user selects a direction.
+Aim for four distinct, feasible short references from YouTube, TikTok and X,
+shown consecutively; maximum five, no filler. Search quickly; use `inspect_social_reference` for attribution. Save its receipt
+with `record_video_references offer(more_expected=true)`, then append to that round.
+Show each `new_link_cards` with `show_video_reference` immediately: thumbnail,
+original link, brief fit explanation and sourced engagement only.
+Inspect relevant media frames; metadata is only a discovery lead. Neither stills nor metadata prove motion or sound. One brief browser attempt per candidate: stop at
+blocked playback or login; no repeated scrolling, studio detours or frame sampling.
+Use `research_budget`; finish at four, or give a concrete `partial_reason` for fewer.
+Ask ONE reference question with every choice, **Find another batch**, and
+**Give my input** using native questions or normal chat. Respect an early selection.
+New batches exclude prior works. Save evidence, close the browser; inspect the
+chosen treatment before creation.
+For involvement, basics, approach and sample review, follow `question.presentation`:
+`inline_choices` displays and saves clicks; never repeat it. Otherwise use the
+native question tool if available or normal chat. Use supplied reference choices.
+
 Plan the full arc and a representative snippet from the brief and chosen treatment.
-Use `show_video_checkpoint` for native Continue/Refine about its player. Wait for explicit acceptance, then create and review the full video.
+Use `show_video_checkpoint` for Continue/Refine about its player. Wait for explicit acceptance, then create and review the full video.
 Write a short plain chat transition before calling `show_video_preview` to open a
 new final player; keep the snippet player unchanged. A sample is not completion.
 After selection, call `prepare_video_reference` to download each chosen video.
@@ -32,8 +41,8 @@ Outline the takeaway and narrative arc, then implement one meaningful excerpt
 that reveals the central relationship. It can be an interior scene, not necessarily
 the opening. Hands off keeps this check internal. Key moments shows useful samples
 selectively. Hands on uses `show_video_preview`, then asks the `show_video_checkpoint`
-question in native questions or normal chat about that player, without a second
-card. Wait for explicit continue/refine before making the rest. Avoid writing the full
+question about that player following `question.presentation`, without a second card
+unless the returned inline choices provide the review controls. Wait for explicit continue/refine before making the rest. Avoid writing the full
 film before that review. Simple edits need no creative questionnaire after setup.
 
 For a short idea made of simple 2D geometry and type, `render_video_scene` can

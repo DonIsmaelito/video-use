@@ -174,6 +174,14 @@ def test_later_video_can_be_selected_from_snapshot(catalog):
         op("sample_video", timestamps=[2], video_index=20)
 
 
+@pytest.mark.parametrize("delta_y", [-3000, 1900, 3000])
+def test_scroll_schema_matches_worker_limits(delta_y):
+    operations = prepare_operations([op("scroll", delta_y=delta_y)])
+    assert validate_request({"operations": operations})["operations"] == operations
+    with pytest.raises(ValueError):
+        op("scroll", delta_y=3001)
+
+
 @pytest.mark.parametrize("mode", [None, "hands_on"])
 def test_reference_browsing_waits_for_involvement_and_missing_basics(manager, mode):
     creative = initialize_intake({"revision": 1})
@@ -188,7 +196,9 @@ def test_reference_browsing_waits_for_involvement_and_missing_basics(manager, mo
 
 
 def test_reference_browsing_waits_for_creation_approach(manager):
-    creative = initialize_intake({"revision": 1}, {"duration_seconds": 30, "viewing_destination": "web"})
+    creative = initialize_intake(
+        {"revision": 1}, {"duration_seconds": 30, "viewing_destination": "web"}
+    )
     creative["intake"]["mode"] = "hands_on"
     manager.store.put("creative", PID, creative)
     with pytest.raises(ValueError, match="creation approach"):
@@ -271,20 +281,35 @@ def test_open_requires_curated_provenance_or_the_actual_supplied_url(catalog):
 
 def test_known_source_id_does_not_reject_an_exact_discovered_creator_link(catalog):
     action = op("open", url=CREATOR, source_id="example")
-    assert prepare_operations([action], discovered_links={CREATOR}) == [{"action": "open", "url": CREATOR}]
+    assert prepare_operations([action], discovered_links={CREATOR}) == [
+        {"action": "open", "url": CREATOR}
+    ]
     with pytest.raises(ValueError):
-        prepare_operations([op("open", url=CREATOR + "-unrelated", source_id="example")], discovered_links={CREATOR})
+        prepare_operations(
+            [op("open", url=CREATOR + "-unrelated", source_id="example")],
+            discovered_links={CREATOR},
+        )
     with pytest.raises(ValueError, match="known curated"):
-        prepare_operations([op("open", url=CREATOR, source_id="invented")], discovered_links={CREATOR})
+        prepare_operations(
+            [op("open", url=CREATOR, source_id="invented")], discovered_links={CREATOR}
+        )
 
 
-def test_failed_sampling_with_requested_close_reports_destroyed_session_and_recovery(manager):
+def test_failed_sampling_with_requested_close_reports_destroyed_session_and_recovery(
+    manager,
+):
     sandbox = manager.sessions[PID]["sandbox"]
-    manager.execute.return_value = {"results": [
-        {"action": "sample_video", "ok": False, "error": "No frames"},
-        {"action": "close", "ok": True, "closed": True},
-    ], "evidence": [], "limitations": ["Hidden video"]}
-    result, _ = run(manager, "failed-then-close", [op("sample_video", timestamps=[1]), op("close")])
+    manager.execute.return_value = {
+        "results": [
+            {"action": "sample_video", "ok": False, "error": "No frames"},
+            {"action": "close", "ok": True, "closed": True},
+        ],
+        "evidence": [],
+        "limitations": ["Hidden video"],
+    }
+    result, _ = run(
+        manager, "failed-then-close", [op("sample_video", timestamps=[1]), op("close")]
+    )
     sandbox.terminate.aio.assert_awaited_once()
     assert result["session_closed"] is True
     assert "open(url)" in result["recovery_hint"]
@@ -293,16 +318,23 @@ def test_failed_sampling_with_requested_close_reports_destroyed_session_and_reco
 
 
 def test_close_budget_fallback_still_reports_coordinator_session_cleanup(manager):
-    manager.execute.return_value = {"results": [{"action": "read", "ok": True}],
-                                    "evidence": [], "limitations": ["Time budget"], "incomplete_operations": 1}
+    manager.execute.return_value = {
+        "results": [{"action": "read", "ok": True}],
+        "evidence": [],
+        "limitations": ["Time budget"],
+        "incomplete_operations": 1,
+    }
     result, _ = run(manager, "budget-close", [op("read"), op("close")])
     assert result["session_closed"] is True and PID not in manager.sessions
     assert "open(url)" in result["next_action"]
 
 
 def test_new_browser_without_page_reports_open_recovery_instead_of_read(manager):
-    manager.execute.return_value = {"results": [{"action": "sample_video", "ok": False, "requires_open": True}],
-                                    "evidence": [], "limitations": []}
+    manager.execute.return_value = {
+        "results": [{"action": "sample_video", "ok": False, "requires_open": True}],
+        "evidence": [],
+        "limitations": [],
+    }
     result, _ = run(manager, "fresh-sample", [op("sample_video", timestamps=[0])])
     assert result["session_closed"] is False
     assert "no open reference page" in result["recovery_hint"]

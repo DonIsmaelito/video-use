@@ -26,6 +26,7 @@ from .experience import experience_context
 from .intake import intake_context, question_context
 from .creative_state import creative_edit
 from .store import ident
+from .question_card import choice_presentation
 
 Stage = Literal[
     "planning", "style", "motion", "draft", "review", "complete", "needs_attention"
@@ -729,6 +730,7 @@ def register_cards(
                 else "Wait for the user's sample decision. Continue with this unlocks completing the film; Refine the sample means use their feedback or ask what should change, then present a revised excerpt. A recommendation or silence is not acceptance."
             ),
         )
+        data = choice_presentation(data, store)
         return CallToolResult(
             content=[TextContent(type="text", text=json.dumps(data))],
             structuredContent=data,

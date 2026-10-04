@@ -211,7 +211,12 @@ def test_category_routing_is_compact_advice_not_an_allowlist():
     ]
     assert catalog["coverage"]["coverage"] == "live_search"
     assert catalog["matched_source_count"] == 3
-    assert len(catalog["available_sources"]) == 14
+    assert "available_sources" not in catalog
+    assert "supplemental" not in catalog["coverage"]
+    assert "ordinary_folk" not in json.dumps(catalog)
+    full = sources.reference_source_catalog("explainer")
+    assert len(full["available_sources"]) == 14
+    assert any(source["id"] == "ordinary_folk" for source in full["available_sources"])
     assert "not a browsing whitelist" in catalog["routing_policy"]
     assert "reserves" not in catalog
     assert all(
@@ -230,7 +235,7 @@ def test_social_primary_routes_cover_unknown_and_audio_topics_without_claiming_i
     unknown = sources.reference_source_catalog("unusual_user_request", compact=True)
     assert [s["id"] for s in unknown["sources"]] == ["youtube", "tiktok", "x"]
     assert unknown["coverage"]["coverage"] == "live_search"
-    assert len(unknown["available_sources"]) == 14
+    assert "available_sources" not in unknown
     gap = sources.reference_source_catalog("audio_first", compact=True)
     assert [s["id"] for s in gap["sources"]] == ["tiktok", "youtube", "x"]
     assert gap["coverage"]["coverage"] == "live_search"
@@ -266,27 +271,33 @@ def test_invalid_curator_rules_fail_closed(registry, change):
         sources.reference_source_catalog()
 
 
-@pytest.mark.parametrize("source_id,url", [
-    ("youtube", "https://www.youtube.com/results?search_query=solar+animation"),
-    ("youtube", "https://www.youtube.com/watch?v=AbCdEfGhI12"),
-    ("youtube", "https://youtu.be/AbCdEfGhI12"),
-    ("youtube", "https://www.youtube.com/shorts/AbCdEfGhI12"),
-    ("tiktok", "https://www.tiktok.com/search?q=motion"),
-    ("tiktok", "https://www.tiktok.com/@creator/video/6718335390845095173"),
-    ("x", "https://x.com/search?q=animation"),
-    ("x", "https://x.com/creator/status/1234567890123456789"),
-    ("x", "https://twitter.com/creator/status/1234567890123456789/video/1"),
-])
+@pytest.mark.parametrize(
+    "source_id,url",
+    [
+        ("youtube", "https://www.youtube.com/results?search_query=solar+animation"),
+        ("youtube", "https://www.youtube.com/watch?v=AbCdEfGhI12"),
+        ("youtube", "https://youtu.be/AbCdEfGhI12"),
+        ("youtube", "https://www.youtube.com/shorts/AbCdEfGhI12"),
+        ("tiktok", "https://www.tiktok.com/search?q=motion"),
+        ("tiktok", "https://www.tiktok.com/@creator/video/6718335390845095173"),
+        ("x", "https://x.com/search?q=animation"),
+        ("x", "https://x.com/creator/status/1234567890123456789"),
+        ("x", "https://twitter.com/creator/status/1234567890123456789/video/1"),
+    ],
+)
 def test_primary_platform_search_and_post_routes(source_id, url):
     sources.validate_reference_source(reference(url) | {"source_id": source_id})
 
 
-@pytest.mark.parametrize("source_id,url", [
-    ("youtube", "https://www.youtube.com.evil.test/watch?v=AbCdEfGhI12"),
-    ("tiktok", "https://www.tiktok.com/login"),
-    ("x", "https://x.com/settings/account"),
-    ("x", "https://x.com/creator/status/not-an-id"),
-])
+@pytest.mark.parametrize(
+    "source_id,url",
+    [
+        ("youtube", "https://www.youtube.com.evil.test/watch?v=AbCdEfGhI12"),
+        ("tiktok", "https://www.tiktok.com/login"),
+        ("x", "https://x.com/settings/account"),
+        ("x", "https://x.com/creator/status/not-an-id"),
+    ],
+)
 def test_social_discovery_does_not_allow_private_or_spoofed_routes(source_id, url):
     with pytest.raises(ValueError, match="discovery_url"):
         sources.validate_reference_source(reference(url) | {"source_id": source_id})

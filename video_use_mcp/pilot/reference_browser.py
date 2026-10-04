@@ -75,7 +75,7 @@ class BrowserOperation(BaseModel):
         "ArrowLeft",
         "ArrowRight",
     ] = "Enter"
-    delta_y: int = Field(default=600, ge=-1600, le=1600)
+    delta_y: int = Field(default=600, ge=-3000, le=3000)
     timestamps: list[float] = Field(default_factory=list, max_length=3)
     video_index: int = Field(default=0, ge=0, le=19)
     capture_mode: Literal["page", "decoded"] = "page"

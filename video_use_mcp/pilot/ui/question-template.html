@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Choose an option</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;padding:0;background:transparent;color:var(--color-text-primary,#202123);font-family:var(--font-sans,ui-sans-serif,system-ui,sans-serif);color-scheme:light dark}
+html[data-theme=dark]{--choice-text:#ececec;--choice-border:#555;--choice-hover:#303030;--choice-selected:#ececec;--choice-inverse:#171717}html[data-theme=light]{--choice-text:#202123;--choice-border:#d5d5d5;--choice-hover:#f5f5f5;--choice-selected:#202123;--choice-inverse:#fff}
+body{color:var(--color-text-primary,var(--choice-text,#202123))}#question-card{padding:2px 0}fieldset{border:0;margin:0 0 16px;padding:0;min-width:0}fieldset:last-child{margin-bottom:0}legend{font-size:15px;font-weight:550;line-height:1.45;padding:0;margin-bottom:10px}.choice-options{display:flex;flex-wrap:wrap;gap:8px}button{font:inherit;font-size:14px;line-height:1.35;color:inherit;background:transparent;border:1px solid var(--color-border-primary,var(--choice-border,#d5d5d5));border-radius:12px;padding:10px 15px;cursor:pointer;max-width:100%;overflow-wrap:anywhere}button:hover:not(:disabled){background:var(--color-background-secondary,var(--choice-hover,#f5f5f5))}button[aria-pressed=true]{background:var(--color-background-inverse,var(--choice-selected,#202123));color:var(--color-text-inverse,var(--choice-inverse,#fff));border-color:transparent}button:focus-visible{outline:2px solid currentColor;outline-offset:3px}button:disabled{cursor:default;opacity:.55}button[aria-pressed=true]:disabled{opacity:1}.choice-actions{display:flex;gap:8px;margin-top:12px}.choice-actions:has(button:not([hidden])){margin-bottom:8px}#choice-status,#choice-reply-text,#chat-fallback{font-size:12px;line-height:1.45;margin:8px 0 0}#choice-status:empty,.choice-actions:not(:has(button:not([hidden]))),[hidden]{display:none!important}#chat-fallback{color:var(--color-text-secondary,inherit);opacity:.75}#choice-reply-text{overflow-wrap:anywhere}
+@media(prefers-color-scheme:dark){html:not([data-theme=light]){--choice-text:#ececec;--choice-border:#555;--choice-hover:#303030;--choice-selected:#ececec;--choice-inverse:#171717}}
+@media(prefers-reduced-motion:no-preference){button{transition:background .12s,border-color .12s}}
+</style>
+</head>
+<body>
+<section id="question-card" hidden aria-label="Choose your answer">
+  <div id="question-fields"></div>
+  <div class="choice-actions"><button id="choice-continue" type="button" hidden>Continue</button><button id="choice-reply" type="button" hidden>Send reply</button></div>
+  <p id="choice-reply-text" hidden></p>
+</section>
+<p id="choice-status" role="status" aria-live="polite"></p>
+<p id="chat-fallback">Or reply in chat.</p>
+<script>/* QUESTION_APP_BUNDLE */</script>
+</body>
+</html>

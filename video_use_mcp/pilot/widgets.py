@@ -11,11 +11,13 @@ from .creative_state import creative_edit
 from .allowance import narration_allowance
 from .experience import experience_context
 from .store import ident
+from .question_card import choice_presentation
 from .intake import (
     intake_context,
     apply_intake_answers,
     initialize_intake,
     basics_snapshot,
+    pending_widget,
     INVOLVEMENT_QUESTION,
     question_context,
     record_answered,
@@ -207,7 +209,7 @@ def register_widgets(mcp, store, muser, read, write):
                 presentation="short_chat_summary",
                 instructions="Summarize the proposed story in a few natural sentences. Do not show an editable form, field-by-field script, JSON or an app. These durations are proposed, not measured. Invite ordinary conversational corrections without a routine approval stop.",
             )
-        return data
+        return choice_presentation(data, store)
 
     def present(project_id, state, widget):
         # Keep at most the current brief and current story. One atomic KV write
@@ -258,6 +260,11 @@ def register_widgets(mcp, store, muser, read, write):
             raise ValueError(
                 "Creative preferences changed; read get_video_project before proposing choices"
             )
+        intake = intake_context(state, project_id)
+        if intake and intake["phase"] in ("mode", "basics"):
+            # These questions belong to saved intake, not a host reconstruction.
+            # Reuse their identity and ask only what is still unanswered.
+            return present(project_id, state, pending_widget(state))
         if not title.strip() or len(title) > 120 or not 1 <= len(questions) <= 3:
             raise ValueError("Use a short title and 1–3 focused questions")
         if len({q.id for q in questions}) != len(questions):
@@ -270,19 +277,9 @@ def register_widgets(mcp, store, muser, read, write):
                 raise ValueError(
                     "Options must be distinct and recommendations must name an offered option"
                 )
-        intake = intake_context(state, project_id)
         purpose, required = None, []
         if intake:
-            if intake["phase"] in ("mode", "basics"):
-                expected = [Question(**q).model_dump() for q in intake["questions"]]
-                if [q.model_dump() for q in questions] != expected:
-                    raise ValueError(
-                        intake["next_action"]
-                        + " Use the supplied intake questions exactly."
-                    )
-                purpose = intake["phase"]
-                required = [q.id for q in questions]
-            elif intake["phase"] == "approach":
+            if intake["phase"] == "approach":
                 if (
                     len(questions) != 1
                     or questions[0].id != "creation_approach"
@@ -755,6 +752,53 @@ def register_widgets(mcp, store, muser, read, write):
     ) -> dict:
         """Save an explicit user submission from an in-chat editor."""
         return save_widget(project_id, widget_id, revision, request_id, answers, beats)
+
+    @mcp.tool(
+        annotations=write,
+        meta={"ui": {"visibility": ["app"]}},
+        title="Save your choice",
+    )
+    @creative_edit
+    def submit_video_choice(
+        project_id: str,
+        widget_id: str,
+        revision: int,
+        request_id: str,
+        answers: dict[str, str],
+    ) -> dict:
+        """Save a choice card click and return a short conversational reply."""
+        state = context(project_id)
+        widget = next(
+            (w for w in state.get("widgets", {}).values() if w["id"] == widget_id),
+            None,
+        )
+        if not widget or widget["kind"] != "brief":
+            raise ValueError(
+                "This question has changed; ask to see the current choices"
+            )
+        if not answers:
+            raise ValueError("Choose an option before submitting")
+        labels = [
+            option["label"]
+            for q in widget["questions"]
+            for option in q["options"]
+            if answers.get(q["id"]) == option["id"]
+        ]
+        saved = save_widget(project_id, widget_id, revision, request_id, answers)
+        state = context(project_id)
+        record = next(w for w in state["widgets"].values() if w["id"] == widget_id)
+        data = native_output(
+            project_id, state, record, saved=True, repeated=saved["repeated"]
+        )
+        return {
+            "saved": True,
+            "message": "; ".join(labels),
+            "context": data
+            | {
+                "answer_already_saved": True,
+                "handoff": "These explicit choices are already saved. Continue from this project's intake; do not record the same answer again.",
+            },
+        }
 
     @mcp.tool(annotations=write, title="Record your answer")
     @creative_edit

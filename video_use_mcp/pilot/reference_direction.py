@@ -9,7 +9,7 @@ import ipaddress
 import json
 import re
 from copy import deepcopy
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from textwrap import shorten
 from typing import Literal
 from urllib.parse import parse_qsl, urlsplit
@@ -25,6 +25,19 @@ from pydantic import (
 
 from .creative_state import creative_edit
 from .store import ident
+
+REFERENCE_TARGET = 4
+RESEARCH_BUDGET_SECONDS = 120
+RESEARCH_POLICY = (
+    "Aim for four distinct, feasible short examples, shown consecutively as found; five is the maximum, never pad a batch. "
+    "Use YouTube, TikTok and X by default. Do not detour into studio collections unless requested; if social sources are unavailable, explain the gap and offer a choice. "
+    "Use quick host search and verified post attribution, inspecting one available thumbnail or still for visible traits. "
+    "Metadata-only candidates remain reserve leads until relevant image/video evidence is inspected; never invent observed traits, metrics or playback. "
+    "Spend at most one brief browser attempt per candidate (about 20 seconds). On a bot wall, login barrier, ad or failed player, stop trying playback; retain useful thumbnail/metadata evidence or move to another social post. "
+    "Do not spend the batch opening players, scrolling studio pages or sampling multiple frames. Detailed motion analysis belongs after the user chooses. "
+    "Use research_budget as an internal search budget, not a delivery promise. At four useful choices or the budget limit, finish and ask the supplied choice question. "
+    "If fewer than four are available, record a concrete partial_reason and explain it briefly; always offer each found reference, Find another batch and Give my input. An explicit early selection ends collection."
+)
 
 
 def public_reference_url(value: str) -> str:
@@ -337,6 +350,7 @@ def reference_question(state, current, project_id=None):
         "presenter": "host",
         "presentation": "native_question_tool_if_available_else_short_chat",
         "status": "awaiting_user",
+        "partial_reason": current.get("partial_reason", ""),
         "questions": [
             {
                 "id": "reference_direction",
@@ -346,7 +360,7 @@ def reference_question(state, current, project_id=None):
         ],
         "required": ["reference_direction"],
         "instructions": (
-            "Show only references not already displayed, using their stable presentation keys and show_video_reference descriptors for source thumbnails when available and original links. After each reference card, add one short conversational sentence about fit, with creator and observed engagement/date from saved social metadata when available. Then ask this question once using native host questions when available. "
+            "Show only references not already displayed, using their stable presentation keys and show_video_reference descriptors for source thumbnails when available and original links. After each reference card, add one short conversational sentence about fit, with creator and observed engagement/date from saved social metadata when available. Briefly explain partial_reason if present, then ask this question once using native host questions when available. "
             "If native controls are unavailable or cannot fit every choice, use a short numbered chat question with each reference, Find another batch and the final Give my input option. "
             "Do not build a custom form or gallery, paste tool arguments, or add an automatic delegation choice. "
             "If this presentation_key was already asked, wait for its answer. Use each choice's record_with arguments, "
@@ -370,6 +384,27 @@ def reference_context(state, project_id=None):
     current = rounds[-1] if rounds else {}
     from .production_evidence import production_context
 
+    collecting_count = (
+        len(current.get("references", []))
+        if status in {"collecting", "offered", "accepted"}
+        else 0
+    )
+    started = reference.get("search_started_at") or current.get("search_started_at")
+    deadline = None
+    remaining = RESEARCH_BUDGET_SECONDS
+    if started:
+        try:
+            deadline = datetime.fromisoformat(
+                started.replace("Z", "+00:00")
+            ) + timedelta(seconds=RESEARCH_BUDGET_SECONDS)
+            measured_at = (
+                datetime.fromisoformat(current["finished_at"])
+                if current.get("finished_at") and status in {"offered", "accepted"}
+                else datetime.now(timezone.utc)
+            )
+            remaining = max(0, round((deadline - measured_at).total_seconds()))
+        except (TypeError, ValueError):
+            deadline = None
     context = {
         "version": 1,
         "status": status,
@@ -408,6 +443,24 @@ def reference_context(state, project_id=None):
         ],
         "selected_references": deepcopy(reference.get("selected_references", [])),
         "record_with": "record_video_references",
+        "collection_progress": {
+            "target": REFERENCE_TARGET,
+            "count": collecting_count,
+            "remaining": max(0, REFERENCE_TARGET - collecting_count),
+            "maximum": 5,
+            "partial_reason": current.get("partial_reason", "")
+            if status in {"offered", "accepted"}
+            else "",
+            "partial_reason_source": current.get("partial_reason_source"),
+        },
+        "research_budget": {
+            "seconds": RESEARCH_BUDGET_SECONDS,
+            "candidate_seconds": 20,
+            "started_at": started,
+            "deadline_at": deadline.isoformat() if deadline else None,
+            "remaining_seconds": remaining,
+            "scope": "Starts on a saved refine/another_batch action or first offer; initial discovery before first offer is not measured.",
+        },
     }
     if reference.get("selected_ids"):
         searches = current.get("search_batches") or [current.get("search") or {}]
@@ -474,7 +527,7 @@ def reference_context(state, project_id=None):
                 "Show the newly found reference immediately with its show_video_reference descriptor for a thumbnail when available and original source link, deduplicating by presentation_key, then one short fit explanation and sourced social attribution/engagement where available. "
                 "Search YouTube, TikTok and X sequentially for the next candidate; inspect it, call inspect_social_reference for its identity and available metrics, and append it with social_receipt_id and its search evidence to this same round. "
                 "Never hold the first reference card until a batch is complete or redisplay already shown references. "
-                "Finish at at most five, without filler: set more_expected=false on the last append, or use finish if no more suitable references are found. "
+                "Aim for four distinct feasible examples, at most five, without filler: set more_expected=false on the last append, or use finish with partial_reason if access, fit or the research budget leaves fewer than four. "
                 "After collection, ask one native question with each reference, Find another batch and Give my input. Do not ask the final choice question while still collecting. An explicit unsolicited choice may be saved with select to stop collection and proceed to the snippet."
             )
             if project_id:
@@ -511,8 +564,8 @@ def reference_context(state, project_id=None):
     else:
         context["next_action"] = (
             "Before creation, derive a visual search intent from this brief and selected approach. Offer only individual YouTube, TikTok or X video posts, with actual visual inspection; metadata-only leads cannot be recommended. "
-            "Search sequentially with host tools: inspect one useful candidate, call inspect_social_reference for available attribution/engagement and save social_receipt_id, offer it immediately with more_expected=true, then show its source thumbnail when available and original link with a short conversational fit explanation before searching for the next. Append later candidates as found. Usually three useful references, at most five, then finish and ask one native question listing references, Find another batch and Give my input. "
-            "One good reference is sufficient; five is a maximum, not a quota. Record search evidence and reasons for the choices. Use only sourced creator/engagement and observation dates after each reference card; unknown counts are unavailable, never zero or evidence of popularity. oEmbed verifies identity, not visual inspection or popularity. "
+            "Search sequentially with host tools: inspect one useful candidate, call inspect_social_reference for available attribution/engagement and save social_receipt_id, offer it immediately with more_expected=true, then show its source thumbnail when available and original link with a short conversational fit explanation before searching for the next. Append later candidates as found. Aim for four useful references, at most five, then finish and ask one native question listing references, Find another batch and Give my input. "
+            "Four is the target, not a reason to pad; finish fewer only with an explicit partial_reason. Record search evidence and reasons for the choices. Use only sourced creator/engagement and observation dates after each reference card; unknown counts are unavailable, never zero or evidence of popularity. oEmbed verifies identity, not visual inspection or popularity. "
             "Collection order and prior research examples are not recommendations. "
             "Never invent candidates to meet a quota or claim video playback from page metadata. "
             "Use browse_video_references for live browser search and visual inspection where host tools fall short; save returned evidence_ids. Save playback.url and playback.browser_request_id from the cited page's actual videos, embedded_players, or YouTube/Vimeo links so the reference card can link to the observed source before choosing. "
@@ -534,6 +587,8 @@ def reference_context(state, project_id=None):
             "Judge the observed treatment, not the software named in its title. Runtime support alone requires_sample; a stored example only demonstrates what that example actually shows. "
             + context["next_action"]
         )
+    if status in {"needed", "refining", "collecting", "offered"}:
+        context["research_policy"] = RESEARCH_POLICY
     return context
 
 
@@ -554,8 +609,9 @@ def register_references(mcp, store, muser, read, write):
         search: ReferenceSearch | None = None,
         more_expected: bool = False,
         round_id: str = "",
+        partial_reason: str = "",
     ) -> dict:
-        """Save live, brief-specific reference research or the user's response without displaying an app. This tool does NOT search or inspect. Search YouTube, TikTok and X sequentially with host tools or browse_video_references. Offer only individual YouTube, TikTok or X video posts. Inspect actual frames first; metadata/page-only leads may be reserve/reject but cannot be recommended. Call inspect_social_reference and save social_receipt_id for attribution and available engagement. Collections are discovery leads, not reference choices. Offer the first inspected candidate with more_expected=true and display its source thumbnail when available and original link immediately followed by one short fit explanation, creator and sourced views/likes/date where available; append each new candidate to the same round_id as found with its own search record. Use more_expected=false on the final append or finish with no new candidates. At five references collection finishes automatically. Legacy offer defaults to a completed batch. Each offer or append requires search: search_intent, actual search_queries (empty for direct browsing), candidates with reference/evidence_note/fit/limitations/disposition, selection_reason, coverage_limitations. Every recommended candidate requires relevant image/video inspection and a production_plan: method, essential treatment, evidence_ids from production_context, asset_requirements, adaptations and confidence. Explain the achievable treatment and concrete substitutions, not just topic or colors; runtime primitives alone require confidence=requires_sample. Compare production feasibility before topic or popularity; no fixed candidate quota or fabricated rejections. Offer 1–5 inspected references, never more than five; their records must match the recommended candidates exactly. Save optional playback:{url,browser_request_id} from a cited page's actual Browser Harness videos, embedded_players or YouTube/Vimeo links. Invoke returned show_video_reference descriptors to show source thumbnails when available and original links, then ask the native reference-choice question including Find another batch and final Give my input. Never invent metrics or interpret missing counts as zero; oEmbed does not prove popularity or visual inspection. No custom choice widget; reference presentation is separate from project creation. Record page/image/video evidence honestly: only actual motion inspection supports pacing claims. web_search entries need curated source_id and discovery_url. The registry supplies search locations, never preapproved example videos. Select current IDs (including an explicit early choice while collecting), refine with actual user feedback, another_batch on the explicit Find another batch request without demanding a critique, or delegate only on explicit user request to skip. Keep saved preferences and exclude previously rejected works in new batches. Selection unlocks a snippet, not the full video. Decisions quote user_message. Visual inspection and user quotes remain assistant-reported; social metadata is hydrated only from the saved server receipt."""
+        """Save live, brief-specific reference research or the user's response without displaying an app. This tool does NOT search or inspect. Search YouTube, TikTok and X sequentially with host tools or browse_video_references. Offer only individual YouTube, TikTok or X video posts. Inspect actual frames first; metadata/page-only leads may be reserve/reject but cannot be recommended. Call inspect_social_reference and save social_receipt_id for attribution and available engagement. Collections are discovery leads, not reference choices. Offer the first inspected candidate with more_expected=true and display its source thumbnail when available and original link immediately followed by one short fit explanation, creator and sourced views/likes/date where available; append each new candidate to the same round_id as found with its own search record. Aim for four useful choices without filler. Use more_expected=false on the fourth append or finish with no new candidates and a concrete partial_reason if fewer are available. Stop at blocked playback rather than repeating attempts. At five references collection finishes automatically. Legacy offer defaults to a completed batch. Each offer or append requires search: search_intent, actual search_queries (empty for direct browsing), candidates with reference/evidence_note/fit/limitations/disposition, selection_reason, coverage_limitations. Every recommended candidate requires relevant image/video inspection and a production_plan: method, essential treatment, evidence_ids from production_context, asset_requirements, adaptations and confidence. Explain the achievable treatment and concrete substitutions, not just topic or colors; runtime primitives alone require confidence=requires_sample. Compare production feasibility before topic or popularity; no fixed candidate quota or fabricated rejections. Offer 1–5 inspected references, never more than five; their records must match the recommended candidates exactly. Save optional playback:{url,browser_request_id} from a cited page's actual Browser Harness videos, embedded_players or YouTube/Vimeo links. Invoke returned show_video_reference descriptors to show source thumbnails when available and original links, then ask the native reference-choice question including Find another batch and final Give my input. Never invent metrics or interpret missing counts as zero; oEmbed does not prove popularity or visual inspection. No custom choice widget; reference presentation is separate from project creation. Record page/image/video evidence honestly: only actual motion inspection supports pacing claims. web_search entries need curated source_id and discovery_url. The registry supplies search locations, never preapproved example videos. Select current IDs (including an explicit early choice while collecting), refine with actual user feedback, another_batch on the explicit Find another batch request without demanding a critique, or delegate only on explicit user request to skip. Keep saved preferences and exclude previously rejected works in new batches. Selection unlocks a snippet, not the full video. Decisions quote user_message. Visual inspection and user quotes remain assistant-reported; social metadata is hydrated only from the saved server receipt."""
         uid = muser(True)
         store.project(uid, project_id)
         if (
@@ -582,6 +638,13 @@ def register_references(mcp, store, muser, read, write):
             )
         if len(round_id) > 120:
             raise ValueError("Keep the round ID within 120 characters")
+        partial_reason = partial_reason.strip()
+        if len(partial_reason) > 800:
+            raise ValueError("Keep the partial batch reason within 800 characters")
+        if partial_reason and action not in {"offer", "append", "finish"}:
+            raise ValueError(
+                "A partial batch reason belongs to offer, append or finish"
+            )
         if more_expected and action not in {"offer", "append"}:
             raise ValueError("more_expected is only for offer or append")
         references = [
@@ -605,6 +668,8 @@ def register_references(mcp, store, muser, read, write):
             payload["more_expected"] = True
         if round_id:
             payload["round_id"] = round_id
+        if partial_reason:
+            payload["partial_reason"] = partial_reason
         # Omit absent search to preserve exact retry hashes from earlier clients.
         if search is not None:
             payload["search"] = search.model_dump()
@@ -828,6 +893,7 @@ def register_references(mcp, store, muser, read, write):
                 rounds[-1]["status"] = next_status
                 reference["status"] = next_status
             else:
+                reference.setdefault("search_started_at", comparison["recorded_at"])
                 reference["rounds"] = (
                     rounds
                     + [
@@ -837,6 +903,7 @@ def register_references(mcp, store, muser, read, write):
                             search=comparison,
                             search_batches=[comparison],
                             status=next_status,
+                            search_started_at=reference["search_started_at"],
                         )
                     ]
                 )[-6:]
@@ -848,6 +915,24 @@ def register_references(mcp, store, muser, read, write):
                     user_message="",
                 )
                 reference.pop("search_request", None)
+            current = reference["rounds"][-1]
+            if next_status == "offered":
+                current["finished_at"] = comparison["recorded_at"]
+                if len(current["references"]) < REFERENCE_TARGET:
+                    if (
+                        action == "append"
+                        and current.get("search_started_at")
+                        and not partial_reason
+                    ):
+                        raise ValueError(
+                            "Explain why fewer than four references are available in partial_reason"
+                        )
+                    current["partial_reason"] = (
+                        partial_reason or search.coverage_limitations
+                    )
+                    current["partial_reason_source"] = (
+                        "explicit" if partial_reason else "legacy_search_coverage"
+                    )
         elif action == "finish":
             if status != "collecting" or not rounds:
                 raise ValueError("Finish only the current collecting reference round")
@@ -862,6 +947,24 @@ def register_references(mcp, store, muser, read, write):
                     "Finish closes the current batch without new references, research, or user choices"
                 )
             reference["status"] = rounds[-1]["status"] = "offered"
+            rounds[-1]["finished_at"] = datetime.now(timezone.utc).isoformat()
+            if len(rounds[-1]["references"]) < REFERENCE_TARGET:
+                if rounds[-1].get("search_started_at") and not partial_reason:
+                    raise ValueError(
+                        "Explain why fewer than four references are available in partial_reason"
+                    )
+                searches = rounds[-1].get("search_batches") or [
+                    rounds[-1].get("search") or {}
+                ]
+                reason = partial_reason or searches[-1].get("coverage_limitations", "")
+                if not reason:
+                    raise ValueError(
+                        "Explain why fewer than four references are available in partial_reason"
+                    )
+                rounds[-1]["partial_reason"] = reason
+                rounds[-1]["partial_reason_source"] = (
+                    "explicit" if partial_reason else "legacy_search_coverage"
+                )
             new_reference_ids = []
         else:
             if search is not None:
@@ -974,6 +1077,7 @@ def register_references(mcp, store, muser, read, write):
                     reference.update(
                         status="refining",
                         selected_ids=[],
+                        search_started_at=datetime.now(timezone.utc).isoformat(),
                         search_request="another_batch"
                         if action == "another_batch"
                         else "refine",

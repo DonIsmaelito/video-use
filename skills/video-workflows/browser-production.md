@@ -11,8 +11,8 @@ choices and feedback from task responses before work that depends on them.
 ## Begin with the user's preferred level of involvement
 
 For a new version-1 request, `start_video` returns the involvement question first:
-**Hands off**, **Key moments**, or **Hands on**. Ask it with the host's native
-question tool if available, otherwise in short normal chat. Do not call
+**Hands off**, **Key moments**, or **Hands on**. Follow `question.presentation`
+for its inline choices or native/chat question (see below). Do not call
 `show_video_brief` to repeat a question already returned by `start_video`.
 Use the returned intake state and the explicit
 mode choice; a suggested option is not an answer. Wait for this choice before
@@ -35,7 +35,7 @@ If the basics are already present, proceed directly to the selected mode.
   useful choices or meaningful drafts when an answer could change the result.
   Avoid routine approval stops; preserve what the user has already specified.
 - **Hands on:** after output basics, choose a creation approach when unspecified
-  through the native question (e.g. Motion design, procedural 3D or diagrams).
+  through its returned question presentation (e.g. Motion design, procedural 3D or diagrams).
   Offer `intake.example_library.url` once after that choice so the user can browse
   useful Video Use examples, copy a prompt and paste it back into this chat.
   Preserve the original subject, brand, duration and destination while adapting
@@ -53,8 +53,8 @@ If the basics are already present, proceed directly to the selected mode.
 Hands-on collaboration is not a fixed list of topic questions. A supplied script,
 known reference or exact edit can already settle a decision. Ask only what is
 still open, acknowledge the answer and move on. `show_video_brief` saves and returns
-one stable pending question; ask it through native questions or normal chat, not
-a custom form. Record the actual answer with `record_video_answers`. Do not invent
+one stable pending question; follow its `presentation`. Inline choices save clicks;
+record actual chat answers with `record_video_answers`. Do not invent
 a native Claude or ChatGPT capability. `show_video_story` saves the plan internally
 without opening an editor; share only a useful short outline, not the technical
 EDL, internal IDs, revisions or JSON. Present online references through normal
@@ -62,7 +62,7 @@ chat and `show_video_reference`: a source thumbnail when available and a clickab
 original source link. Save observed `playback.url` and `playback.browser_request_id`
 as source evidence. Sources without thumbnails retain their links; hero loops are
 labeled clips, not full videos. Do not download or generate a video copy just to
-preview. Questions/edits stay native; no purple controls.
+preview. Follow the returned question presentation; no unrequested custom forms.
 After selection, call `prepare_video_reference` for the selected videos. Read
 `video_use_guidance(topic="reference-cloning")`, inspect the downloaded sources,
 and measure their treatment before planning the adapted snippet.
@@ -101,25 +101,24 @@ use the brief to research alternatives and let the reference choice carry direct
 Do not repeat information already in the prompt or ask the user to choose a
 renderer. Explain creative choices in terms of the result the viewer sees.
 
-Search YouTube, TikTok and X sequentially for accessible examples that fit the
-brief and creation approach, preferring observed traction over niche studio reels.
-Inspect one candidate, use `inspect_social_reference` for attribution and available
-engagement, save `social_receipt_id` with `record_video_references` using
-`offer(more_expected=true)`, and show `new_link_cards` immediately through
-`show_video_reference` for a source thumbnail when available and an original source
-link. After each card, write one short explanation plus observed creator/views/likes/date;
-unknown counts stay unavailable. Then find and `append`
-the next candidate on the same round. Usually three useful choices, at most five.
-Finish with `more_expected=false` or `finish`, then ask ONE native question listing
-references, **Find another batch**, and **Give my input**; normal chat is the fallback.
-Another batch preserves preferences and avoids prior works; it needs no critique.
-Browser Harness supports public inspection in serial batches; inspect its captures,
-save `evidence_ids` and close when done. Stills do not prove motion or sound.
-Present source thumbnails and links without embed attempts or embed warnings.
-No custom controls, copied videos or generated stand-ins. Counts require post-bound
-evidence, not oEmbed or guessed popularity.
+Aim for four distinct, feasible short references from YouTube, TikTok and X,
+shown consecutively; maximum five, no filler. Search quickly; use `inspect_social_reference` for attribution. Save its receipt
+with `record_video_references offer(more_expected=true)`, then append to that round.
+Show each `new_link_cards` with `show_video_reference` immediately: thumbnail,
+original link, brief fit explanation and sourced engagement only.
+Inspect relevant media frames; metadata is only a discovery lead. Neither stills nor metadata prove motion or sound. One brief browser attempt per candidate: stop at
+blocked playback or login; no repeated scrolling, studio detours or frame sampling.
+Use `research_budget`; finish at four, or give a concrete `partial_reason` for fewer.
+Ask ONE reference question with every choice, **Find another batch**, and
+**Give my input** using native questions or normal chat. Respect an early selection.
+New batches exclude prior works. Save evidence, close the browser; inspect the
+chosen treatment before creation.
+For involvement, basics, approach and sample review, follow `question.presentation`:
+`inline_choices` displays and saves clicks; never repeat it. Otherwise use the
+native question tool if available or normal chat. Use supplied reference choices.
+
 Plan the full arc and a representative snippet from the brief and chosen treatment.
-Use `show_video_checkpoint` for native Continue/Refine about its player. Wait for explicit acceptance, then create and review the full video.
+Use `show_video_checkpoint` for Continue/Refine about its player. Wait for explicit acceptance, then create and review the full video.
 Write a short plain chat transition before calling `show_video_preview` to open a
 new final player; keep the snippet player unchanged. A sample is not completion.
 Choosing inspiration does not import source media. Use the overview for the complete flow.
@@ -178,8 +177,8 @@ browser has no user account cookies; do not cross login or access barriers.
 Inspect returned image captures before describing traits, and preserve evidence
 IDs. Sampled states do not prove continuous pacing, motion quality or sound.
 
-Use native questions; no script editor, repeated content questionnaire or custom
-gallery. Refine from actual feedback, retaining likes and changing rejected traits.
+Follow returned question presentation; no script editor, repeated questionnaire or
+custom gallery. Refine from actual feedback, retaining likes and changing rejected traits.
 Find another batch itself is enough direction. Keep the original brief alongside
 reference traits when building the snippet, and use available custom rendering,
 assets or other capabilities where simple shapes cannot express that treatment.
@@ -396,7 +395,7 @@ every tool response.
 
 In hands-on mode, show a coherent short excerpt with `show_video_preview`, then
 use `show_video_checkpoint` to obtain the continue/refine question. Ask it through
-native questions or normal chat about the already visible player; no second card
+its returned presentation about the already visible player; no second card created by you
 is needed. Wait for the decision before building the rest. Bind the review to that preview's actual object ID and
 the current creative revision. An internal quality review does not answer the
 user's direction question. In key-moments mode, show an excerpt or comparison when it

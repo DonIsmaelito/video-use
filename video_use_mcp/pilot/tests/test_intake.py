@@ -6,6 +6,7 @@ from unittest.mock import Mock
 import pytest
 
 from video_use_mcp.pilot.intake import (
+    BASIC_QUESTIONS,
     initialize_intake,
     intake_context,
     pending_widget,
@@ -315,26 +316,109 @@ def test_chat_mode_requires_message_and_offered_answer_and_records_source(pilot)
     assert saved["intake"]["source"] == "assistant_reported_user"
 
 
-def test_cannot_bypass_mode_or_basics_with_generic_questions_or_story(pilot):
-    initial = start(pilot)
-    for shown in [initial, save(pilot, initial, {"involvement": "key_moments"})]:
-        for tool, args in [
-            ("show_video_brief", {"questions": QUESTIONS}),
-            ("show_video_story", {"beats": BEATS}),
-        ]:
-            result = rpc(
-                pilot,
-                "tools/call",
-                dict(
-                    name=tool,
-                    arguments=dict(
-                        project_id=shown["project_id"],
-                        creative_revision=shown["creative"]["revision"],
-                    )
-                    | args,
-                ),
-            )
-            assert result["isError"]
+@pytest.mark.parametrize("phase", ["mode", "basics"])
+def test_reworded_required_questions_reuse_canonical_unanswered_record(pilot, phase):
+    shown = start(pilot)
+    if phase == "basics":
+        shown = basics(pilot, shown, "hands_on")
+    original = deepcopy(shown["widget"])
+    questions = deepcopy(original["questions"])
+    for question in questions:
+        question["prompt"] = "Which choice would you prefer?"
+        question["recommended"] = question["options"][-1]["id"]
+        for index, option in enumerate(question["options"]):
+            option["label"] = f"Reworded choice {index + 1}"
+        question["options"].reverse()
+    questions.reverse()
+    repeated = call(
+        pilot,
+        "show_video_brief",
+        dict(
+            project_id=shown["project_id"],
+            creative_revision=shown["creative"]["revision"],
+            questions=questions,
+        ),
+    )
+    assert repeated["widget"] == original
+    assert (
+        repeated["question"]["presentation_key"]
+        == shown["question"]["presentation_key"]
+    )
+    assert repeated["question"]["status"] == "awaiting_user"
+    assert repeated["question"]["recorded_answers"] == {}
+    assert repeated["intake"]["phase"] == phase
+    assert repeated["creative"] == shown["creative"]
+    fail_save(pilot, repeated, {})
+
+
+@pytest.mark.parametrize("phase", ["mode", "basics"])
+def test_generic_questions_return_required_intake_without_bypassing_it(pilot, phase):
+    shown = start(pilot)
+    if phase == "basics":
+        shown = basics(pilot, shown)
+    args = dict(
+        project_id=shown["project_id"],
+        creative_revision=shown["creative"]["revision"],
+    )
+    result = call(pilot, "show_video_brief", args | {"questions": QUESTIONS})
+    assert result["widget"] == shown["widget"]
+    assert result["intake"]["phase"] == phase
+    assert result["creative"] == shown["creative"]
+    fail_save(pilot, result, {"audience": "kids", "tone": "warm"})
+    story = rpc(
+        pilot,
+        "tools/call",
+        dict(name="show_video_story", arguments=args | {"beats": BEATS}),
+    )
+    assert story["isError"]
+
+
+def test_required_question_retry_drops_already_known_basics(pilot):
+    shown = basics(
+        pilot, start(pilot, output_profile={"duration_seconds": 45}), "hands_on"
+    )
+    repeated = call(
+        pilot,
+        "show_video_brief",
+        dict(
+            project_id=shown["project_id"],
+            creative_revision=shown["creative"]["revision"],
+            questions=list(BASIC_QUESTIONS.values()),
+        ),
+    )
+    assert repeated["widget"] == shown["widget"]
+    assert repeated["question"]["required"] == ["viewing_destination"]
+    assert [q["id"] for q in repeated["question"]["questions"]] == [
+        "viewing_destination"
+    ]
+    assert repeated["intake"]["output_profile"] == {"duration_seconds": 45}
+    saved = save(pilot, repeated, {"viewing_destination": "vertical"}, chat="Vertical")
+    assert saved["intake"]["output_profile"] == {
+        "duration_seconds": 45,
+        "viewing_destination": "vertical",
+    }
+    assert saved["intake"]["phase"] == "approach"
+
+
+@pytest.mark.parametrize("phase", ["mode", "basics"])
+def test_required_question_retry_still_rejects_stale_creative_revision(pilot, phase):
+    shown = start(pilot)
+    if phase == "basics":
+        shown = basics(pilot, shown)
+    result = rpc(
+        pilot,
+        "tools/call",
+        dict(
+            name="show_video_brief",
+            arguments=dict(
+                project_id=shown["project_id"],
+                creative_revision=shown["creative"]["revision"] - 1,
+                questions=shown["widget"]["questions"],
+            ),
+        ),
+    )
+    assert result["isError"]
+    assert "Creative preferences changed" in result["content"][0]["text"]
 
 
 def test_hands_on_content_answers_do_not_skip_reference_direction(pilot):

@@ -1,6 +1,7 @@
 """Real MCP reference choices persist explicit direction without an app or spend."""
 
 from copy import deepcopy
+from datetime import datetime, timedelta, timezone
 import hashlib
 import json
 
@@ -979,6 +980,9 @@ def test_sequential_candidates_show_immediately_then_form_one_final_question(
     assert first_context["status"] == "collecting"
     assert "question" not in first_context
     assert first_context["new_reference_ids"] == ["reference-0"]
+    assert first_context["collection_progress"]["target"] == 4
+    assert first_context["collection_progress"]["count"] == 1
+    assert first_context["collection_progress"]["remaining"] == 3
     assert len(first_context["new_link_cards"]) == 1
     assert (
         first_context["new_link_cards"][0]["show_video_reference"]["arguments"][
@@ -1012,20 +1016,40 @@ def test_sequential_candidates_show_immediately_then_form_one_final_question(
     assert repeated["repeated"]
     assert repeated["creative_revision"] == second["creative_revision"]
     assert repeated["reference_direction"]["new_reference_ids"] == ["reference-1"]
-    final = invoke(
+    third = invoke(
         pilot,
         project,
         "append",
         references=many_refs(1, 2),
         round_id=round_id,
+        request_id="third-append",
+        more_expected=True,
+    )
+    assert third["reference_direction"]["collection_progress"]["remaining"] == 1
+    final = invoke(
+        pilot,
+        project,
+        "append",
+        references=many_refs(1, 3),
+        round_id=round_id,
         request_id="last-append",
     )
     context = final["reference_direction"]
     assert context["round_id"] == round_id and context["status"] == "offered"
-    assert context["new_reference_ids"] == ["reference-2"]
-    assert len(context["question"]["questions"][0]["options"]) == 5
-    assert len(context["search_batches"]) == 3
+    assert context["new_reference_ids"] == ["reference-3"]
+    assert context["collection_progress"]["remaining"] == 0
+    options = context["question"]["questions"][0]["options"]
+    assert [option["id"] for option in options] == [
+        "reference-0",
+        "reference-1",
+        "reference-2",
+        "reference-3",
+        "__another_batch__",
+        "__input__",
+    ]
+    assert len(context["search_batches"]) == 4
     assert [batch["candidate_count"] for batch in context["search_batches"]] == [
+        1,
         1,
         1,
         1,
@@ -1036,12 +1060,115 @@ def test_sequential_candidates_show_immediately_then_form_one_final_question(
 def test_collection_can_finish_without_filler_and_finish_retry_is_exact(pilot, project):
     first = invoke(pilot, project, references=many_refs(1), more_expected=True)
     finish = first["reference_direction"]["finish_with"]
-    parameters = finish["arguments"] | {"request_id": "finish-one"}
+    parameters = finish["arguments"] | {
+        "request_id": "finish-one",
+        "partial_reason": "Other social posts required login; this was the only fitting accessible example.",
+    }
     complete = call(pilot, finish["name"], parameters)
     assert complete["reference_direction"]["status"] == "offered"
     assert complete["reference_direction"]["new_link_cards"] == []
     assert len(complete["reference_direction"]["references"]) == 1
+    assert (
+        complete["reference_direction"]["collection_progress"]["partial_reason"]
+        == parameters["partial_reason"]
+    )
+    assert (
+        complete["reference_direction"]["question"]["partial_reason"]
+        == parameters["partial_reason"]
+    )
+    assert (
+        complete["reference_direction"]["collection_progress"]["partial_reason_source"]
+        == "explicit"
+    )
     assert call(pilot, finish["name"], parameters)["repeated"]
+
+
+@pytest.mark.parametrize("action", ["append", "finish"])
+def test_new_partial_batch_requires_reason_without_mutating_state(
+    pilot, project, action
+):
+    first = invoke(pilot, project, references=many_refs(1), more_expected=True)
+    parameters = args(
+        pilot,
+        project,
+        action,
+        round_id=first["reference_direction"]["round_id"],
+        **({"references": many_refs(1, 1)} if action == "append" else {}),
+    )
+    before = saved(pilot, project)
+    assert "partial_reason" in failure(pilot, parameters)
+    assert saved(pilot, project) == before
+
+
+def test_legacy_partial_offer_and_historic_collection_preserve_coverage_reason(
+    pilot, project
+):
+    offered = invoke(pilot, project, references=many_refs(1))
+    progress = offered["reference_direction"]["collection_progress"]
+    assert progress["partial_reason"] == research(many_refs(1))["coverage_limitations"]
+    assert progress["partial_reason_source"] == "legacy_search_coverage"
+    state = saved(pilot, project)
+    reference = state["intake"]["reference_direction"]
+    reference["status"] = reference["rounds"][-1]["status"] = "collecting"
+    reference["rounds"][-1].pop("search_started_at")
+    pilot[1].state.store.put("creative", project, state)
+    finished = invoke(pilot, project, "finish", round_id=reference["rounds"][-1]["id"])
+    assert (
+        finished["reference_direction"]["collection_progress"]["partial_reason_source"]
+        == "legacy_search_coverage"
+    )
+
+
+def test_budget_tracks_saved_search_time_expires_and_resets_after_user_request(
+    pilot, project
+):
+    initial = reference_context(saved(pilot, project))
+    assert initial["research_budget"]["started_at"] is None
+    assert (
+        "initial discovery before first offer is not measured"
+        in initial["research_budget"]["scope"]
+    )
+    offered = invoke(pilot, project, references=many_refs(1), more_expected=True)
+    budget = offered["reference_direction"]["research_budget"]
+    assert datetime.fromisoformat(budget["deadline_at"]) - datetime.fromisoformat(
+        budget["started_at"]
+    ) == timedelta(seconds=120)
+    state = saved(pilot, project)
+    expired = (datetime.now(timezone.utc) - timedelta(minutes=5)).isoformat()
+    state["intake"]["reference_direction"]["search_started_at"] = expired
+    pilot[1].state.store.put("creative", project, state)
+    assert reference_context(state)["research_budget"]["remaining_seconds"] == 0
+    refreshed = invoke(
+        pilot, project, "another_batch", user_message="Find another batch"
+    )
+    context = refreshed["reference_direction"]
+    assert context["research_budget"]["started_at"] != expired
+    assert 118 <= context["research_budget"]["remaining_seconds"] <= 120
+    assert context["collection_progress"]["count"] == 0
+
+
+def test_attributed_metadata_can_be_offered_with_explicit_inspection_limits(
+    pilot, project
+):
+    candidate = refs()[0] | {
+        "inspection": "metadata",
+        "observed_traits": "Creator describes an orbital explainer; visuals and motion unverified.",
+    }
+    search = research([candidate])
+    search["candidates"][0].update(
+        evidence_note="Read the attributed project title and synopsis; player blocked.",
+        limitations="Provisional direction only; no image, motion or sound inspected.",
+    )
+    offered = invoke(
+        pilot, project, references=[candidate], search=search, more_expected=True
+    )
+    assert offered["reference_direction"]["references"][0]["inspection"] == "metadata"
+    assert (
+        "Provisional"
+        in offered["reference_direction"]["search_summary"]["recommended_evidence"][0][
+            "limitations"
+        ]
+    )
 
 
 @pytest.mark.parametrize(
