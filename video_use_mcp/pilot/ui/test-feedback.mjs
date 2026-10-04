@@ -297,3 +297,73 @@ for(const extra of [
   assert(h.document.getElementById('reference-poster').hidden);
 }
 console.log('PASS blocked YouTube embeds retain exact-source clickable thumbnails with honest labels and image failure race guards');
+
+const imageBytes='data:image/jpeg;base64,/9j/4A==';
+function withInlinePoster(changes={}){
+  const result=withPoster();
+  result._meta={reference_poster:{source_url:result.structuredContent.media.poster_url,post_id:'9O7Az0qgtuQ',data_uri:imageBytes,...changes}};
+  return result;
+}
+{
+  const h=host(),payload=withInlinePoster();h.app.ontoolresult(payload);
+  assert.equal(h.document.querySelector('#reference-poster img'),null,'inline thumbnail bytes do not replace an allowed or untested iframe');
+  cspViolation(h);
+  const image=h.document.querySelector('#reference-poster img');assert.equal(image.src,imageBytes);
+  assert(h.document.getElementById('reference-poster-status').textContent.includes('Loading'));
+  image.onload();assert.equal(h.document.getElementById('reference-poster').hidden,false);
+  assert.equal(h.document.getElementById('reference-poster-status').textContent,'');
+  assert.equal(payload.structuredContent.media.inline_poster_data_uri,undefined,'private image data never enters the original structured content');
+  await h.document.getElementById('reference-poster').onclick();assert.equal(h.links[0].url,youtubeReference.structuredContent.media.source_url);
+  assert.equal(h.messages.length,0,'displaying an image and opening its source never posts chat messages');
+  h.app.ontoolresult(result());assert(h.document.getElementById('reference-poster').hidden);
+}
+for(const changes of [
+  {post_id:'jk6sz25OZgw'}, {source_url:'https://i.ytimg.com/vi/jk6sz25OZgw/hqdefault.jpg'},
+  {data_uri:'data:image/svg+xml;base64,PHN2Zz4='}, {data_uri:'data:image/png;base64,AAAA'},
+  {data_uri:'data:image/jpeg;base64,A==='}, {data_uri:'data:image/jpeg;base64,AAAA=='},
+  {data_uri:'data:image/jpeg;base64,%%%'}, {data_uri:'https://attacker.test/image'},
+  {data_uri:'data:image/jpeg;base64,'+Buffer.alloc(131073).toString('base64')},
+]){
+  const h=host({context:{csp:{frameDomains:[]}}});h.app.ontoolresult(withInlinePoster(changes));
+  assert.equal(h.document.querySelector('#reference-poster img').src,withPoster().structuredContent.media.poster_url,'invalid private image payload falls back to the validated official image URL');
+}
+for(const type of ['jpeg','webp']){
+  const data_uri=`data:image/${type};base64,`+Buffer.alloc(131072).toString('base64');
+  const h=host({context:{csp:{frameDomains:[]}}});h.app.ontoolresult(withInlinePoster({data_uri}));
+  assert.equal(h.document.querySelector('#reference-poster img').src,data_uri,'exactly 128 KiB remains supported');
+}
+{
+  const h=host({context:{csp:{frameDomains:[]}}});h.app.ontoolresult(withPoster({inline_poster_data_uri:imageBytes}));
+  assert.equal(h.document.querySelector('#reference-poster img').src,withPoster().structuredContent.media.poster_url,'image bytes must arrive in the verified private metadata slot');
+}
+{
+  const h=host({capabilities:{updateModelContext:{text:{}}}});h.app.ontoolresult(withPoster());cspViolation(h);
+  const image=h.document.querySelector('#reference-poster img'),failed=image.onerror;
+  for(const fields of [{effectiveDirective:'img-src',disposition:'report',blockedURI:'https://i.ytimg.com'}, {effectiveDirective:'img-src',blockedURI:'https://unrelated.test'}, {effectiveDirective:'img-src',blockedURI:'https://i.ytimg.com/vi/jk6sz25OZgw/hqdefault.jpg'}]){
+    cspViolation(h,fields);assert(h.document.getElementById('reference-poster-status').textContent.includes('Loading'),'report-only and unrelated image failures are ignored');
+  }
+  cspViolation(h,{effectiveDirective:'img-src',blockedURI:'https://i.ytimg.com'});
+  assert(h.document.getElementById('reference-poster-status').textContent.includes('blocked the source thumbnail'));
+  failed();assert(h.document.getElementById('reference-poster-status').textContent.includes('blocked the source thumbnail'),'a later generic load error preserves the known CSP cause');
+  const reports=h.messages.filter(message=>message.content?.[0]?.text.startsWith('Reference thumbnail display:'));
+  assert.equal(reports.length,1);assert(reports[0].content[0].text.includes('UI version 3.1.0'));
+  assert(!JSON.stringify(reports).includes('base64'));
+  h.app.ontoolresult(result());assert.equal(h.document.getElementById('reference-poster-status').textContent,'');
+}
+{
+  const h=host({context:{csp:{frameDomains:[]}},capabilities:{updateModelContext:{text:{}}}});
+  h.app.ontoolresult(withPoster());h.document.querySelector('#reference-poster img').onerror();
+  assert(h.document.getElementById('reference-poster-status').textContent.includes('could not load'));
+  const reports=h.messages.filter(message=>message.content?.[0]?.text.startsWith('Reference thumbnail display:'));
+  assert.equal(reports.length,1);assert(reports[0].content[0].text.includes('cause is not established'));
+  h.app.ontoolresult(withInlinePoster());const image=h.document.querySelector('#reference-poster img');
+  assert.equal(image.src,imageBytes,'new verified inline bytes can recover a previously failed external poster');image.onload();
+  assert.equal(h.document.getElementById('reference-poster').hidden,false);
+}
+for(const blockedURI of ['data','data:']){
+  const h=host({context:{csp:{frameDomains:[]}}});h.app.ontoolresult(withInlinePoster());
+  cspViolation(h,{effectiveDirective:'img-src',blockedURI});
+  assert(h.document.getElementById('reference-poster-status').textContent.includes('blocked the source thumbnail'));
+  assert(h.document.getElementById('reference-poster').hidden,'data image policy remains authoritative too');
+}
+console.log('PASS verified bounded private thumbnails render under image restrictions and failures report truthful deduplicated diagnostics');

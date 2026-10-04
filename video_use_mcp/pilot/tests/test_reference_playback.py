@@ -3,7 +3,7 @@
 import asyncio
 from copy import deepcopy
 import hashlib
-from unittest.mock import Mock
+from unittest.mock import AsyncMock, Mock
 
 from mcp.server.fastmcp import FastMCP
 from mcp.types import ToolAnnotations
@@ -415,6 +415,38 @@ def test_unknown_social_metadata_keeps_independently_observed_source_playback(st
     assert result["playback_status"] == "available"
     assert result["source_page_url"] == YOUTUBE
     assert result["media"]["attribution"] == ""
+    assert result["media"]["poster_url"] == "https://i.ytimg.com/vi/abcdefghijk/hqdefault.jpg"
+
+
+@pytest.mark.parametrize("observed_url,kind", [
+    (YOUTUBE, "links"),
+    ("https://www.youtube-nocookie.com/embed/abcdefghijk", "embedded_players"),
+])
+def test_exact_browser_youtube_evidence_supplies_poster_without_social_receipt(store, observed_url, kind):
+    ref = reference(url=YOUTUBE, playback={"url": observed_url, "browser_request_id": "inspect-source"})
+    save_reference(store, ref)
+    save_receipt(store, page=YOUTUBE, media=observed_url, kind=kind)
+    result = reference_player(store, UID, PID, ref["id"], "round")
+    assert result["playback_status"] == "available"
+    assert result["media"]["source_url"] == YOUTUBE
+    assert result["media"]["poster_url"] == "https://i.ytimg.com/vi/abcdefghijk/hqdefault.jpg"
+    assert result["media"]["attribution"] == ""
+    store.download.assert_not_called()
+    store.upload.assert_not_called()
+
+
+@pytest.mark.parametrize("page,observed_url,owner", [
+    (YOUTUBE, YOUTUBE, "other"),
+    ("https://www.youtube.com/watch?v=ABCDEFGHIJK", YOUTUBE, UID),
+    (PAGE, "https://www.youtube.com/watch?v=ABCDEFGHIJK", UID),
+])
+def test_browser_poster_cannot_borrow_unowned_or_unrelated_evidence(store, page, observed_url, owner):
+    ref = reference(url=YOUTUBE, playback={"url": observed_url, "browser_request_id": "inspect-source"})
+    save_reference(store, ref)
+    save_receipt(store, page=page, media=observed_url, kind="links", owner=owner)
+    result = reference_player(store, UID, PID, ref["id"], "round")
+    assert result["playback_status"] == "source_link"
+    assert "poster_url" not in result["media"]
 
 
 @pytest.mark.parametrize("post_verified", [False, True])
@@ -502,3 +534,24 @@ def test_only_reference_image_csp_adds_exact_youtube_thumbnail_origin(store):
     assert "https://i.ytimg.com" in csp["resourceDomains"]
     assert "https://i.ytimg.com" not in csp["frameDomains"]
     assert "https://i.ytimg.com" not in csp["connectDomains"]
+
+
+def test_thumbnail_bytes_are_app_metadata_and_never_model_visible(store, monkeypatch):
+    import video_use_mcp.pilot.reference_playback as playback
+    from mcp.types import CallToolResult
+
+    save_reference(store, reference(url=YOUTUBE, playback={"url": YOUTUBE, "browser_request_id": "inspect-source"}))
+    save_receipt(store, page=YOUTUBE, media=YOUTUBE, kind="embedded_players")
+    poster = {"source_url": "https://i.ytimg.com/vi/abcdefghijk/hqdefault.jpg", "post_id": "abcdefghijk",
+              "data_uri": "data:image/jpeg;base64,APP_ONLY_IMAGE_BYTES"}
+    fetch = AsyncMock(return_value={"reference_poster": poster})
+    monkeypatch.setattr(playback, "reference_poster_metadata", fetch)
+    mcp = FastMCP("reference-inline-image-test")
+    register_reference_playback(mcp, store, lambda: UID, ToolAnnotations(readOnlyHint=True))
+    result = asyncio.run(mcp.call_tool("show_video_reference", {"project_id": PID, "reference_id": "source-film", "round_id": "round"}))
+    assert isinstance(result, CallToolResult)
+    assert result.meta == {"reference_poster": poster}
+    assert "APP_ONLY_IMAGE_BYTES" not in str(result.structuredContent)
+    assert "APP_ONLY_IMAGE_BYTES" not in str(result.content)
+    assert result.structuredContent["media"]["embed_url"].endswith("/abcdefghijk")
+    assert fetch.await_args.args[0]["poster_url"] == poster["source_url"]

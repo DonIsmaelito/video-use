@@ -12,6 +12,7 @@ from mcp.types import CallToolResult, TextContent
 
 from .reference_direction import public_reference_url
 from .social_references import social_post, validate_social_receipt, validated_duration, youtube_thumbnail_url
+from .reference_thumbnail import reference_poster_metadata
 
 
 # This list is also enforced in Python: a URL outside the resource CSP never
@@ -313,6 +314,10 @@ def reference_player(store, uid, project_id, reference_id, round_id=""):
             media = ({"media_type": "social/x", "post_id": provider["id"]}
                      if provider["provider"] == "x" else
                      {"media_type": "text/html", "embed_url": provider["embed_url"], "provider": provider["provider"]})
+            if exact and provider["provider"] == "youtube" and observed["observed_as"] != "official_social_metadata":
+                # Exact-post Browser Harness evidence can establish this image's
+                # identity even when social metadata was unavailable or omitted.
+                media["poster_url"] = f"https://i.ytimg.com/vi/{provider['id']}/hqdefault.jpg"
         else:
             parsed = _https(url)
             extension = Path(parsed.path).suffix.lower()
@@ -354,7 +359,8 @@ def register_reference_playback(mcp, store, muser, read):
         return reference_card()
 
     @mcp.tool(annotations=read, meta=REFERENCE_UI_META, title="Play source reference")
-    def show_video_reference(project_id: str, reference_id: str, round_id: str = "") -> CallToolResult:
+    async def show_video_reference(project_id: str, reference_id: str, round_id: str = "") -> CallToolResult:
         """Show an offered source reference in a neutral player, before asking the user's choice. Always pass the round_id from the returned show_video_reference descriptor so an older offer cannot display a different film with a reused ID. Reads only saved references and owned social-metadata or Browser Harness receipts; never downloads, stores or generates source video. For YouTube, TikTok and X attach social_receipt_id from inspect_social_reference; it does not prove visual inspection or popularity. Otherwise save Reference.playback.url and playback.browser_request_id from the cited page's actual videos, embedded_players or provider links when offering references. Short source clips are labeled honestly. Unsupported or unverified media returns the original source link. Showing playback does not select a reference or approve production."""
         data = reference_player(store, muser(), project_id, reference_id, round_id)
-        return CallToolResult(content=[TextContent(type="text", text=json.dumps(data))], structuredContent=data)
+        metadata = await reference_poster_metadata(data["media"])
+        return CallToolResult(content=[TextContent(type="text", text=json.dumps(data))], structuredContent=data, _meta=metadata)

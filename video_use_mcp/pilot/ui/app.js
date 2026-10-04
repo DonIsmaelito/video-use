@@ -1,10 +1,12 @@
 import { App, applyDocumentTheme } from "@modelcontextprotocol/ext-apps";
-const app = new App({ name: "Video preview", version: "3.0.0" });
+const UI_VERSION='3.1.0';
+const app = new App({ name: "Video preview", version: UI_VERSION });
 const $ = (id) => document.getElementById(id);
 let media, shown, mediaProject, pendingMedia, refreshState, refreshInFlight=false;
 let followProject=true, mediaRenewal=null, tornDown=false, blockedEmbedKey;
 let referencePoster;
 const reportedEmbedFailures=new Set();
+const reportedPosterFailures=new Set();
 const REFRESH_INTERVAL_MS=5000,IDLE_REFRESH_INTERVAL_MS=30000;
 function unpack(result) {
   if (result.isError) throw Error("This preview could not be loaded.");
@@ -76,8 +78,9 @@ function startRefresh(){
   refreshState=state;scheduleRefresh(state);
 }
 function receiveMediaResult(result){
-  const next=unpack(result);
-  if(!next){stopRefresh();return;}
+  const supplied=unpack(result);
+  if(!supplied){stopRefresh();return;}
+  const next={...supplied,inline_poster_data_uri:validatedInlinePoster(result._meta?.reference_poster,supplied)};
   tornDown=false;
   const data=result.structuredContent;
   const projectId=data?.project_id || data?.project_card?.id || data?.id;
@@ -197,33 +200,60 @@ function youtubePosterUrl(next){
     return poster.href;
   }catch{return null;}
 }
+function validatedInlinePoster(poster,next){
+  const url=youtubePosterUrl(next);
+  if(!url || !poster || poster.source_url!==next.poster_url || poster.post_id!==new URL(url).pathname.split('/')[2])return null;
+  const value=poster.data_uri;
+  if(typeof value!=='string' || value.length>Math.ceil(131072/3)*4+32)return null;
+  const match=value.match(/^data:image\/(?:jpeg|webp);base64,([A-Za-z0-9+/]+={0,2})$/);
+  if(!match || match[1].length%4!==0)return null;
+  const bytes=match[1].length*3/4-(match[1].endsWith('==')?2:match[1].endsWith('=')?1:0);
+  return bytes>0 && bytes<=131072?value:null;
+}
 function clearReferencePoster(){
   if(referencePoster){referencePoster.image.onload=null;referencePoster.image.onerror=null;}
   referencePoster=null;
   const link=$('reference-poster');link.hidden=true;link.removeAttribute('href');link.replaceChildren();
+  $('reference-poster-status').textContent='';
+}
+function referencePosterFailed(state,policyBlocked=false){
+  if(tornDown || referencePoster!==state || state.status==='loaded')return;
+  state.status='failed';state.policyBlocked=state.policyBlocked || policyBlocked;
+  const link=$('reference-poster');link.hidden=true;link.replaceChildren();
+  $('media-status').textContent=media?.caption || 'Source reference';
+  $('reference-poster-status').textContent=state.policyBlocked
+    ? 'This chat blocked the source thumbnail too. Open the original source.'
+    : 'The source thumbnail could not load here. Open the original source.';
+  const source=media?.source_url;
+  if(source && !reportedPosterFailures.has(source) && app.getHostCapabilities?.()?.updateModelContext?.text){
+    reportedPosterFailures.add(source);
+    const reason=state.policyBlocked?'blocked by the chat image content security policy':'image loading failed; the cause is not established';
+    try{Promise.resolve(app.updateModelContext({content:[{type:'text',text:`Reference thumbnail display: ${reason}. UI version ${UI_VERSION}. Source: ${source}. Original source link remains visible; no thumbnail or playback was shown.`}]})).catch(()=>{});}catch{}
+  }
 }
 function showReferencePoster(next){
   const url=youtubePosterUrl(next),link=$('reference-poster');
-  if(!url){clearReferencePoster();return;}
-  const key=next.source_url+'|'+url;
+  if(!url){clearReferencePoster();if(next.provider==='youtube')$('reference-poster-status').textContent='A thumbnail is not available for this source.';return;}
+  // Verified public image bytes arrive privately with the tool result. They do
+  // not change iframe permissions or make this thumbnail a playable video.
+  const imageSource=next.inline_poster_data_uri || url;
+  const key=next.source_url+'|'+url+'|'+imageSource;
   if(referencePoster?.key===key){link.hidden=referencePoster.status!=='loaded';return;}
   clearReferencePoster();
   const image=document.createElement('img'),label=document.createElement('span');
-  const state={key,image,status:'loading'};referencePoster=state;
+  const state={key,image,url:imageSource,status:'loading'};referencePoster=state;
   image.alt=next.title?`Thumbnail for ${next.title}`:'YouTube source thumbnail';
   image.referrerPolicy='no-referrer';
   label.textContent='Watch on YouTube ↗';
   link.href=next.source_url;link.setAttribute('aria-label','Watch the original source on YouTube · opens YouTube');
   link.append(image,label);
+  $('reference-poster-status').textContent='Loading source thumbnail…';
   image.onload=()=>{
-    if(tornDown || referencePoster!==state)return;
-    state.status='loaded';link.hidden=false;$('media-status').textContent='Video thumbnail';
+    if(tornDown || referencePoster!==state || state.status!=='loading')return;
+    state.status='loaded';link.hidden=false;$('media-status').textContent='Video thumbnail';$('reference-poster-status').textContent='';
   };
-  image.onerror=()=>{
-    if(tornDown || referencePoster!==state)return;
-    state.status='failed';link.hidden=true;link.replaceChildren();$('media-status').textContent=media?.caption || 'Source reference';
-  };
-  image.src=url;
+  image.onerror=()=>referencePosterFailed(state);
+  image.src=imageSource;
 }
 function blockedReference(element){
   if(tornDown || !media?.source_url || element!==$('media').firstElementChild)return;
@@ -234,13 +264,22 @@ function blockedReference(element){
   const source=media.source_url;
   if(!reportedEmbedFailures.has(source) && app.getHostCapabilities?.()?.updateModelContext?.text){
     reportedEmbedFailures.add(source);
-    try{Promise.resolve(app.updateModelContext({content:[{type:'text',text:`Reference embed display: blocked by the chat content security policy. Source: ${source}. Its description and source link remain visible; playback was not verified.`}]})).catch(()=>{});}catch{}
+    try{Promise.resolve(app.updateModelContext({content:[{type:'text',text:`Reference embed display: blocked by the chat content security policy. UI version ${UI_VERSION}. Source: ${source}. Its description and source link remain visible; playback was not verified.`}]})).catch(()=>{});}catch{}
   }
 }
 document.addEventListener('securitypolicyviolation',event=>{
   const element=$('media').firstElementChild;
-  if(tornDown || event.isTrusted===false || event.disposition!=='enforce'
-    || !['frame-src','child-src'].includes(event.effectiveDirective || event.violatedDirective?.split(' ')[0]))return;
+  if(tornDown || event.isTrusted===false || event.disposition!=='enforce')return;
+  const directive=event.effectiveDirective || event.violatedDirective?.split(' ')[0];
+  if(directive==='img-src' && referencePoster){
+    if(referencePoster.url.startsWith('data:') && ['data','data:'].includes(event.blockedURI)){referencePosterFailed(referencePoster,true);return;}
+    try{
+      const current=new URL(referencePoster.url),blocked=new URL(event.blockedURI);
+      if(current.href===blocked.href || (current.protocol!=='data:' && blocked.origin===current.origin && blocked.pathname==='/' && !blocked.search && !blocked.hash))referencePosterFailed(referencePoster,true);
+    }catch{}
+    return;
+  }
+  if(!['frame-src','child-src'].includes(directive))return;
   try{
     const blocked=new URL(event.blockedURI);
     // Browsers may strip a cross-origin blocked URL down to its origin.

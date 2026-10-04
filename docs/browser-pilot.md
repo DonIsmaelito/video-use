@@ -149,6 +149,21 @@ public thumbnail path for that same ID. Only that image origin is added to the
 reference resource policy. Missing or failed images leave the normal source link
 without a blank media box. Hosts that permit the player keep the actual embed.
 
+The reference tool also sends a bounded public JPEG/WebP thumbnail in result
+`_meta.reference_poster`, outside model-visible text and structured content. This
+lets a newly loaded card show its image when external image requests are blocked
+but the host permits data images. Fetches accept only an exact-video `i.ytimg.com`
+thumbnail, no redirects or forwarded credentials, at most 128 KiB and four seconds.
+Only thumbnails are fetched, never the source video. The app checks the source
+identity and byte limit again; provider iframe restrictions remain unchanged.
+
+Hosts may cache UI resources. Reference `resources/read` requests now record the
+requested and current resource versions in owner-only traces, without HTML or a
+guessed project association. An old cached card must be reloaded by the host to
+use new image behavior; deploying server code alone cannot change cached client
+JavaScript. Image failures produce a specific visible note and compact model
+context status, rather than silently losing the visual fallback.
+
 `reference_playback.py` attaches the matching current-round candidate's `fit` to
 each media result. The UI renders it as plain text beneath that specific player,
 so explanations survive a skipped chat sentence or blocked frame. Unavailable

@@ -143,6 +143,52 @@ class TracedMCP(FastMCP):
             if t.name not in getattr(self, "legacy_tools", set())
         ]
 
+    async def read_resource(self, uri):
+        """Observe reference-card cache requests without retaining resource bodies."""
+        requested = str(uri)
+        if not re.fullmatch(r"ui://video-use/reference-[0-9a-f]{16}\.html", requested):
+            return await super().read_resource(uri)
+        started = time.monotonic()
+        started_at = datetime.now(timezone.utc).isoformat()
+        outcome = "ok"
+        try:
+            return await super().read_resource(uri)
+        except BaseException as exc:
+            outcome = type(exc).__name__
+            raise
+        finally:
+            # Resource reads have no project identifier. Never guess a project
+            # from adjacent calls, inspect the HTML, or change read semantics.
+            with contextlib.suppress(Exception):
+                token = get_access_token()
+                if token and token.subject:
+                    from .reference_playback import REFERENCE_UI_URI
+
+                    record = {
+                        "started_at": started_at,
+                        "at": datetime.now(timezone.utc).isoformat(),
+                        "tool": "resources/read",
+                        "surface": "card",
+                        "owner": token.subject,
+                        "client": hashlib.sha256(token.client_id.encode()).hexdigest()[:12],
+                        "project": None,
+                        "task": None,
+                        "requested_uri": requested,
+                        "current_resource_uri": REFERENCE_UI_URI,
+                        "current_resource_digest": REFERENCE_UI_URI.removeprefix("ui://video-use/reference-").removesuffix(".html"),
+                        "harness_version": os.getenv("PILOT_HARNESS_VERSION", "development"),
+                        "outcome": outcome,
+                        "elapsed_ms": round((time.monotonic() - started) * 1000),
+                    }
+                    logger = logging.getLogger(__name__)
+                    with contextlib.suppress(Exception):
+                        logger.info("video_use_resource %s", json.dumps(record))
+                    try:
+                        await asyncio.to_thread(self.trace_store.put, "trace", ident(), record, ttl=2592000)
+                    except Exception as exc:
+                        with contextlib.suppress(Exception):
+                            logger.warning("video_use_trace_persist_failed %s", type(exc).__name__)
+
     async def call_tool(self, name, arguments):
         started = time.monotonic()
         started_at = datetime.now(timezone.utc).isoformat()
