@@ -430,6 +430,33 @@
     "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-16-room-walkthrough-8513d735fe3c-acb8f679/review.md"
   },
   {
+    "id": "useful-17-service-packages",
+    "title": "Explain Two Service Options",
+    "category": "Motion Design",
+    "description": "Help prospective customers choose a service by showing the difference in scope.",
+    "prompt": "Use Video Use to create a 22-second 1080×1080 service comparison for fictional design studio Form & Field. Show two options: “Starter /One landing page” and “Launch /Landing page +email kit +social kit”. Begin with a single page frame for Starter. Duplicate its design language into an email and two small social frames to reveal the Launch package. Keep the page, email and social views concrete, with original fictional content for a plant shop called Fern. Use a restrained editorial layout, parchment white, deep brown and fresh green accents. Ask visually “One page, or the whole launch?” End with both scopes visible and “Choose the support your launch needs”. No prices, discounts, fake ratings or urgency. Make this easy for a freelancer to reuse by swapping the service labels and deliverables. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
+    "duration": 22,
+    "promptKind": "Original prompt",
+    "orientation": "square",
+    "audiences": [
+      "Founders",
+      "Marketers",
+      "Designers"
+    ],
+    "useCases": [
+      "Sales enablement",
+      "Service explainers",
+      "Social content"
+    ],
+    "technique": "motion-design",
+    "sourceRepo": "https://github.com/instavar/remotion-templates",
+    "promptSource": "Original Video Use brief and implementation. Story structure inspired by Instavar Remotion Templates (MIT); fictional content and visual direction are new.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-17-service-packages-881d4c60766b-bb9fda2d/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-17-service-packages-881d4c60766b-bb9fda2d/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-17-service-packages-881d4c60766b-bb9fda2d/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-17-service-packages-881d4c60766b-bb9fda2d/review.md"
+  },
+  {
     "id": "useful-18-code-fix",
     "title": "Explain a Small Code Fix",
     "category": "Explainers",
@@ -455,6 +482,33 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-18-code-fix-0bedcda84b7b-34d742d4/poster.jpg",
     "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-18-code-fix-0bedcda84b7b-34d742d4/source.zip",
     "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-18-code-fix-0bedcda84b7b-34d742d4/review.md"
+  },
+  {
+    "id": "useful-20-science-broll",
+    "title": "Turn B-roll into an Explainer",
+    "category": "Video Edits",
+    "description": "Edit NASA’s ISS tour into a short science explainer with factual labels.",
+    "prompt": "Use Video Use to edit the supplied NASA International Space Station interior tour into a 26-second 1920×1080 educational short titled “A laboratory in orbit”. Inspect the actual footage and choose three clear visual moments that show the station’s connected working spaces, mounted equipment and a window view if present. Use labels only where the image supports them: “Connected modules”, “Equipment within reach”, “A view of Earth” only if Earth is actually visible. Keep any optional narration original and factual; the piece should also work without sound. Use short clean cuts, a subtle navy label band and a small line pointer only when it identifies something specific. End with “Explore the full station tour” and a visible “Footage: NASA /Edited excerpt” credit. Do not invent astronaut quotations, identify hardware without verifying it, add synthetic outside footage, or imply NASA endorses Video Use. Do not spend most of the film on a title card; the real footage is the evidence. Execute the edit with the current Video Use helpers, keep the source media unchanged, and retain the EDL, overlays and editable source. Inspect the rendered cut boundaries, readability and ending before delivery. Use 30 ms audio fades at cut boundaries and composite captions last. Describe the supplied source footage and its credit honestly; do not imply Video Use generated the source footage.",
+    "duration": 26,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Educators",
+      "Content creators",
+      "Marketers"
+    ],
+    "useCases": [
+      "Science communication",
+      "Explainers",
+      "Educational content"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/veedstudio/open-edit",
+    "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-20-science-broll-7fac352b91d0-c341d415/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-20-science-broll-7fac352b91d0-c341d415/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-20-science-broll-7fac352b91d0-c341d415/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-20-science-broll-7fac352b91d0-c341d415/review.md"
   },
   {
     "id": "whiplash-cinematic-story-edit",

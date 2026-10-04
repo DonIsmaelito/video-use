@@ -3210,5 +3210,73 @@
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-16-room-walkthrough-8513d735fe3c-acb8f679/poster.jpg"
       }
     ]
+  },
+  {
+    "id": "useful-20-science-broll",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-06",
+    "sourceRun": "useful-20-science-broll",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "1b678424b3c5f1b22ea634d19aab52f3e6305d20",
+    "frameworkArchiveSha256": "ea2897573a38d730fa73d0d677e961383c2b4f3e5d272e361cd940cf3bd4ebfc",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "7fac352b91d054c773d27caa6820817d6e7b56b83bfd5640c71f9f181846f2a0",
+    "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-20-science-broll-7fac352b91d0-c341d415/source.zip",
+    "editableSourceSha256": "d5ae306074bbbc6a73030571bf5b78135329b1d731bb644e65b117ae84d5a022",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-06/useful-20-science-broll/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-20-science-broll-7fac352b91d0-c341d415/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-20-science-broll-7fac352b91d0-c341d415/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-20-science-broll-7fac352b91d0-c341d415/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-20-science-broll-7fac352b91d0-c341d415/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-20-science-broll-7fac352b91d0-c341d415/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-20-science-broll-7fac352b91d0-c341d415/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-20-science-broll-7fac352b91d0-c341d415/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-17-service-packages",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-05",
+    "sourceRun": "useful-17-service-packages",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "e408a4dba819e75c1dff75b50b4f31c4467cd084",
+    "frameworkArchiveSha256": "ec7bb6765eda72641a3683687671be25462c20ee0c59d28a4e794f780128d6cb",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "881d4c60766bebf6340c00e6f29da98ec3f6a339201a023da6529502eecda492",
+    "promptSource": "Original Video Use brief and implementation. Story structure inspired by Instavar Remotion Templates (MIT); fictional content and visual direction are new.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-17-service-packages-881d4c60766b-bb9fda2d/source.zip",
+    "editableSourceSha256": "7405d3e88f393c7bd16ab59044c259ac69bbd0aa0f429f915097925f7c65be15",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-05/useful-17-service-packages/repairs/repair-text-transition-20261003/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-17-service-packages-881d4c60766b-bb9fda2d/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-17-service-packages-881d4c60766b-bb9fda2d/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-17-service-packages-881d4c60766b-bb9fda2d/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-17-service-packages-881d4c60766b-bb9fda2d/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-17-service-packages-881d4c60766b-bb9fda2d/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-17-service-packages-881d4c60766b-bb9fda2d/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-17-service-packages-881d4c60766b-bb9fda2d/poster.jpg"
+      }
+    ]
   }
 ]
