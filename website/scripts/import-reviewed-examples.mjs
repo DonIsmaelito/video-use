@@ -29,7 +29,11 @@ for (const file of files) {
   } else {
     const index = examples.findIndex((item) => item.id === example.id);
     if (index === -1) additions.push(example);
-    else examples[index] = example;
+    else {
+      // Playback is curated website metadata and may postdate the publication receipt.
+      const loop = example.loop ?? examples[index].loop;
+      examples[index] = { ...example, ...(loop === undefined ? {} : { loop }) };
+    }
   }
   const index = sources.findIndex((item) => item.id === source.id);
   if (index === -1) sources.push(source);
