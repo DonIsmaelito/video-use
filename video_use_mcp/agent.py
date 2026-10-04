@@ -15,6 +15,7 @@ from PIL import Image
 from .config import ROOT
 from .providers import AgentModel, ProviderError
 from .review import REVIEW_CODE, REVIEW_INSTRUCTION
+from . import transcription
 
 
 def tool(name, description, properties):
@@ -249,20 +250,23 @@ class ProductionAgent:
             return {"text": "Video verified"}
         raise ValueError("Unknown tool")
 
-    async def transcribe(self, path):
+    async def transcribe(self, path, *, legacy_source_sha256="", before_provider=None):
         import hashlib
 
         path = await self.sandbox.safe_path(path)
         stem = re.sub(r"[^a-zA-Z0-9_-]", "_", Path(path).stem)
         output = f"/workspace/edit/transcripts/{stem}.json"
-        try:
-            existing = await self.sandbox.read(output, 2 * 1024 * 1024)
+        key = self.credentials.get("elevenlabs_key")
+        identity = await transcription.source_identity(self.sandbox, path, elevenlabs=bool(key))
+        if legacy_source_sha256 and identity["source_sha256"] != legacy_source_sha256:
+            raise ValueError("Speech source does not match its recorded hash")
+        existing = await transcription.read_cache(
+            self.sandbox, path, output, identity, legacy_source_sha256=legacy_source_sha256,
+        )
+        if existing is not None:
             return {
                 "text": f"Cached transcript at {output}\n" + existing.decode()[:20000]
             }
-        except Exception:
-            pass
-        key = self.credentials.get("elevenlabs_key")
         if not key and self.credentials["provider"] != "openai":
             return {
                 "text": "Speech transcription needs an ElevenLabs key in Settings (or an OpenAI provider key). Do not guess speech timestamps. Explain this missing capability if the requested edit depends on speech."
@@ -270,13 +274,12 @@ class ProductionAgent:
         audio = (
             "/workspace/edit/" + hashlib.sha256(path.encode()).hexdigest()[:16] + ".wav"
         )
-        result = await self.sandbox.run(
-            f"ffmpeg -v error -y -i {shlex.quote(path)} -vn -ac 1 -ar 16000 {shlex.quote(audio)}",
-            180,
-        )
-        if result["exit_code"]:
-            raise ValueError("Could not extract speech audio")
+        await transcription.extract_audio(self.sandbox, path, audio)
+        if await transcription.source_identity(self.sandbox, path, elevenlabs=bool(key)) != identity:
+            raise ValueError("Speech source changed during audio extraction")
         data = await self.sandbox.read(audio, 24 * 1024 * 1024)
+        if before_provider is not None:
+            before_provider()
         async with httpx.AsyncClient(timeout=180) as client:
             if key:
                 response = await client.post(
@@ -306,9 +309,14 @@ class ProductionAgent:
                     f"Transcription returned HTTP {response.status_code}. Check your key and provider balance."
                 )
             payload = response.json()
+            if not isinstance(payload, dict) or not isinstance(payload.get("words"), list):
+                raise ValueError("Speech service did not return a word-level transcript")
+            if await transcription.source_identity(self.sandbox, path, elevenlabs=bool(key)) != identity:
+                raise ValueError("Speech source changed during transcription")
             for word in payload.get("words", []):
                 word.setdefault("text", word.get("word", ""))
                 word.setdefault("type", "word")
+            payload["_video_use"] = identity
             await self.sandbox.write(output, json.dumps(payload).encode())
             await self.sandbox.run(
                 "python /opt/video-use/helpers/pack_transcripts.py --edit-dir /workspace/edit",

@@ -17,6 +17,7 @@ from PIL import Image
 
 from video_use_mcp.sandbox import ModalSandbox
 from video_use_mcp.agent import ProductionAgent
+from video_use_mcp import transcription
 from video_use_mcp.review import REVIEW_CODE as REVIEW, REVIEW_INSTRUCTION
 from .store import ident
 from .interaction import record_progress
@@ -830,7 +831,13 @@ class Manager:
                     raise ValueError("Media not found")
                 digest = r["stdout"].split()[0]
                 cache = self.store.get("transcript", uid + ":" + digest)
-                if cache:
+                if cache is not None:
+                    identity = await transcription.source_identity(sb, path, elevenlabs=True)
+                    if identity["source_sha256"] != digest:
+                        raise ValueError("Speech source changed during transcript lookup")
+                    await transcription.validate_cache(
+                        sb, path, cache, identity, legacy_source_sha256=digest,
+                    )
                     await sb.write(
                         "edit/transcripts/" + digest + ".json",
                         json.dumps(cache).encode(),
@@ -845,7 +852,6 @@ class Manager:
                 duration = float(json.loads(r["stdout"])["format"]["duration"])
                 if not math.isfinite(duration) or duration <= 0:
                     raise ValueError("Invalid media duration")
-                self.store.reserve(uid, "transcribe", math.ceil(duration), tid)
                 # Hash-based path prevents the legacy basename cache from returning stale words.
                 await sb.run(
                     "cp "
@@ -856,7 +862,11 @@ class Manager:
                     60,
                 )
                 result = await speech.transcribe(
-                    "sources/" + digest + Path(path).suffix
+                    "sources/" + digest + Path(path).suffix,
+                    legacy_source_sha256=digest,
+                    # Cache rejection/reuse and failed extraction do not spend
+                    # speech allowance. Reserve immediately before the API call.
+                    before_provider=lambda: self.store.reserve(uid, "transcribe", math.ceil(duration), tid),
                 )
                 payload = json.loads(
                     await sb.read("edit/transcripts/" + digest + ".json", 2000000)

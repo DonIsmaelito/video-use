@@ -57,19 +57,24 @@ def load_api_key() -> str:
     sys.exit("ELEVENLABS_API_KEY not found in .env or environment")
 
 
-def source_identity(video: Path, language: str | None, num_speakers: int | None, model: str) -> dict:
-    if model not in MODELS:
-        raise ValueError("Unsupported Scribe model")
-    if num_speakers is not None and (isinstance(num_speakers, bool) or not isinstance(num_speakers, int) or not 1 <= num_speakers <= 32):
-        raise ValueError("num_speakers must be an integer from 1 through 32")
+def audio_source_identity(video: Path) -> dict:
+    """Bind timed extraction to source bytes, independently of the speech provider."""
     digest = hashlib.sha256()
     with video.open("rb") as stream:
         for chunk in iter(lambda: stream.read(1024 * 1024), b""):
             digest.update(chunk)
     return {"version": 2, "source_sha256": digest.hexdigest(),
-            "model_id": model, "language_code": language, "num_speakers": num_speakers,
-            "diarize": True, "tag_audio_events": True, "timestamps_granularity": "word",
             "audio_extraction": dict(AUDIO_EXTRACTION)}
+
+
+def source_identity(video: Path, language: str | None, num_speakers: int | None, model: str) -> dict:
+    if model not in MODELS:
+        raise ValueError("Unsupported Scribe model")
+    if num_speakers is not None and (isinstance(num_speakers, bool) or not isinstance(num_speakers, int) or not 1 <= num_speakers <= 32):
+        raise ValueError("num_speakers must be an integer from 1 through 32")
+    return {**audio_source_identity(video),
+            "model_id": model, "language_code": language, "num_speakers": num_speakers,
+            "diarize": True, "tag_audio_events": True, "timestamps_granularity": "word"}
 
 
 def legacy_audio_clock(video: Path) -> dict:

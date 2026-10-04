@@ -35,3 +35,14 @@ samples. A separate discontinuous PCM source exercises a gap after time zero.
 See `tests/test_transcribe_clock.py` and the official
 [FFmpeg resampler options](https://ffmpeg.org/ffmpeg-resampler.html), especially
 `async`, `first_pts` and compensation thresholds.
+
+The hosted `transcribe_video` tool uses this same extraction and decoded-clock
+proof through `video_use_mcp/transcription.py`; provider requests and keys stay in
+the controller. New hosted caches bind the source bytes, provider/model settings
+and extraction policy in `_video_use`. Historical hosted caches are reusable only
+when the pilot's existing owner/source-hash key proves their source identity and
+the entire audio clock is aligned. Unbound basename caches, changed settings and
+delayed/gapped legacy audio fail closed without overwriting the old transcript or
+making a paid request. Compatible old bytes remain unchanged. The hosted bridge
+retains its existing Scribe v1 / optional Whisper provider selection; the standalone
+helper defaults to Scribe v2. Neither path claims a human listening review.
