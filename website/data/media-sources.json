@@ -4336,5 +4336,141 @@
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-03-action-replay-5911e707f314-a5a18569/poster.jpg"
       }
     ]
+  },
+  {
+    "id": "social-02-podcast-punchline",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "social-01-r1",
+    "sourceRun": "social-02-podcast-punchline",
+    "model": null,
+    "reasoningEffort": null,
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "2d2741f23261d394f1c042978ddd5fd2962bec6f",
+    "frameworkArchiveSha256": "bdb83676c1c31d3647b908c84c4b41a86562962207d19a2b8f8a482665a91594",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "471b14bb74e890c0e51ffb2d6c677032ab979e58439fb03073d07c8d54927125",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-02-podcast-punchline-471b14bb74e8-7cbd72a5/source.zip",
+    "editableSourceSha256": "2a62ac3755315a8d75a23c6588abccbec6ecee10a5f7bf429a1c56d948b14323",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/social-01-r1/social-02-podcast-punchline/repairs/repair-replay-source-20261004/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-02-podcast-punchline-471b14bb74e8-7cbd72a5/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-02-podcast-punchline-471b14bb74e8-7cbd72a5/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-02-podcast-punchline-471b14bb74e8-7cbd72a5/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-02-podcast-punchline-471b14bb74e8-7cbd72a5/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-02-podcast-punchline-471b14bb74e8-7cbd72a5/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-02-podcast-punchline-471b14bb74e8-7cbd72a5/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-02-podcast-punchline-471b14bb74e8-7cbd72a5/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "social-11-dog-payoff",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "social-10-13",
+    "sourceRun": "social-11-dog-payoff",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "b25b3146e943a1019cde95d31189e323a0af9a62",
+    "frameworkArchiveSha256": "929582a78ab3e3cfb1dbea5b6a461fbd5182e0c2b311001e9d07ea235dfe4a1f",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "bad9526ff3d6be2fc5825c6389fd4097da8c0c0210bdec58d2ecf998cad57bbd",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-11-dog-payoff-bad9526ff3d6-b0add950/source.zip",
+    "editableSourceSha256": "1ecf4b12d1be4a8b1f273da21787b08d3663bf47a8408a99ea0ec2dfda1813dd",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/social-10-13/social-11-dog-payoff/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-11-dog-payoff-bad9526ff3d6-b0add950/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-11-dog-payoff-bad9526ff3d6-b0add950/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-11-dog-payoff-bad9526ff3d6-b0add950/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-11-dog-payoff-bad9526ff3d6-b0add950/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-11-dog-payoff-bad9526ff3d6-b0add950/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-11-dog-payoff-bad9526ff3d6-b0add950/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-11-dog-payoff-bad9526ff3d6-b0add950/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "social-12-spring-story",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "social-10-13",
+    "sourceRun": "social-12-spring-story",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "b25b3146e943a1019cde95d31189e323a0af9a62",
+    "frameworkArchiveSha256": "929582a78ab3e3cfb1dbea5b6a461fbd5182e0c2b311001e9d07ea235dfe4a1f",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "45f3a5fdfe39b2711e318daddde23460201c47941c5dd1df30cbb5fa67790b03",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-12-spring-story-45f3a5fdfe39-35b619c8/source.zip",
+    "editableSourceSha256": "6322b8cf9afdf07ab8580187cfc6fc1df3542d0e892976988bbb20c042772c1c",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/social-10-13/social-12-spring-story/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-12-spring-story-45f3a5fdfe39-35b619c8/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-12-spring-story-45f3a5fdfe39-35b619c8/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-12-spring-story-45f3a5fdfe39-35b619c8/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-12-spring-story-45f3a5fdfe39-35b619c8/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-12-spring-story-45f3a5fdfe39-35b619c8/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-12-spring-story-45f3a5fdfe39-35b619c8/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-12-spring-story-45f3a5fdfe39-35b619c8/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "social-13-robot-hand-dialogue",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "social-10-13",
+    "sourceRun": "social-13-robot-hand-dialogue",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "b25b3146e943a1019cde95d31189e323a0af9a62",
+    "frameworkArchiveSha256": "929582a78ab3e3cfb1dbea5b6a461fbd5182e0c2b311001e9d07ea235dfe4a1f",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "1ff9f8870368c4667a5b751e1450eae3307693543f6cc4513169e9f54824951e",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-13-robot-hand-dialogue-1ff9f8870368-1ee5de0d/source.zip",
+    "editableSourceSha256": "da2aa12fa9b3cc50231a44b9db68bf85969b168fdc941593d2a75e952fe0ba28",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/social-10-13/social-13-robot-hand-dialogue/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-13-robot-hand-dialogue-1ff9f8870368-1ee5de0d/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-13-robot-hand-dialogue-1ff9f8870368-1ee5de0d/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-13-robot-hand-dialogue-1ff9f8870368-1ee5de0d/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-13-robot-hand-dialogue-1ff9f8870368-1ee5de0d/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-13-robot-hand-dialogue-1ff9f8870368-1ee5de0d/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-13-robot-hand-dialogue-1ff9f8870368-1ee5de0d/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-13-robot-hand-dialogue-1ff9f8870368-1ee5de0d/poster.jpg"
+      }
+    ]
   }
 ]

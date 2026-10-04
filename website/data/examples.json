@@ -25,6 +25,31 @@
     "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-01-interview-face-follow-195ce76fe448-751e7e80/review.md"
   },
   {
+    "id": "social-02-podcast-punchline",
+    "title": "Cut to the punchline",
+    "category": "Video Edits",
+    "description": "A short NASA podcast moment with clear captions and the hosts’ real reaction.",
+    "prompt": "Use Video Use to make a 24-second podcast highlight built around one amusing, complete exchange. Start with the interesting sentence, keep its setup and payoff, and retain the actual host reaction immediately after it. Remove broadcast delay and dead air using word-level boundaries, without changing the order or implying a different response. Design an expressive portrait edit with large phrase captions, selective word emphasis and a short editorial hook. Adapt the layout at genuine source camera changes: preserve meaningful gestures and show both participants when the reaction needs them. Keep speech natural and foregrounded; no unrelated music, fake laughter or fabricated face motion. This is a short conversational post, not a long interview or a text slideshow. Use the real footage supplied in this chat or acquired from the supplied source URL with yt-dlp. Inspect the actual pixels and audio evidence, not only metadata. Keep the subject and intent of the current query. Deliver a polished 1080×1920 vertical MP4 with a readable first-second hook and a clear payoff. Keep important content away from the top 150px, bottom 300px, and rightmost 120px used by social app controls. Use few words, deliberate typography, clean cuts and intentional sound. Preserve meaning, source credits and honest framing; do not invent actions, reactions, quotes or claims. Give me a short preview for approval before completing the full edit in normal interactive use. Keep the editable cut map, source URLs, caption timing, licenses and complete replay instructions.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": [
+      "Content creators",
+      "Marketers"
+    ],
+    "useCases": [
+      "Social content",
+      "Short-form edits"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/browser-use/video-use",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-02-podcast-punchline-471b14bb74e8-7cbd72a5/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-02-podcast-punchline-471b14bb74e8-7cbd72a5/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-02-podcast-punchline-471b14bb74e8-7cbd72a5/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-02-podcast-punchline-471b14bb74e8-7cbd72a5/review.md"
+  },
+  {
     "id": "social-03-action-replay",
     "title": "Make the movement the hook",
     "category": "Video Edits",
@@ -200,6 +225,80 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-09-pottery-memory-8b37c2265b96-0d410960/poster.jpg",
     "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-09-pottery-memory-8b37c2265b96-0d410960/source.zip",
     "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-09-pottery-memory-8b37c2265b96-0d410960/review.md"
+  },
+  {
+    "id": "social-11-dog-payoff",
+    "title": "Replay the dog payoff",
+    "category": "Video Edits",
+    "description": "A dog leap, landing and disc-carry payoff with one clearly labeled replay; no unsupported claim about the exact catch.",
+    "prompt": "Use Video Use to turn a real pet-action clip into an 18-second vertical setup, payoff and replay. Let the original action establish what happened before repeating one satisfying, clearly visible part with a small Replay label. Follow the animal smoothly while preserving paws, landing space and the object it carries. Keep the footage large, the hook short and the timing playful. Only describe a catch, trick or reaction if the actual frames show it; a result does not prove an unseen moment. Keep the source’s natural recorded playback character rather than piling extra slow motion onto footage that is already slowed. Finish on the visible result, with no invented voiceover, repeated action presented as a new event or generic subscribe card. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the current query. Deliver 1080×1920 at 30 fps. Make the footage large and keep words few; use a compact first-second hook, not a title card followed by a small landscape rectangle. Keep essential text out of the top 150px, bottom 300px and rightmost 120px social controls. Use a deliberate wider picture window only when an essential action cannot fit a portrait crop. Keep honest credits, an editable cut map, source-to-output timing and complete replay instructions. In normal interactive use, show a short preview for approval before the full edit.",
+    "duration": 18,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": [
+      "Content creators"
+    ],
+    "useCases": [
+      "Social content",
+      "Short-form edits"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/browser-use/video-use",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-11-dog-payoff-bad9526ff3d6-b0add950/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-11-dog-payoff-bad9526ff3d6-b0add950/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-11-dog-payoff-bad9526ff3d6-b0add950/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-11-dog-payoff-bad9526ff3d6-b0add950/review.md"
+  },
+  {
+    "id": "social-12-spring-story",
+    "title": "Tease a nonverbal story",
+    "category": "Video Edits",
+    "description": "A vertical story teaser from Blender’s Spring, connecting apprehension, a giant encounter and a warmer final image.",
+    "prompt": "Use Video Use to turn a licensed nonverbal animated short into a 24-second vertical story teaser. Choose a clear emotional progression: a character notices something, encounters a larger presence and reaches a visually satisfying change. Let eyelines, scale, light and the original sound carry meaning. Keep source order where it supports the story, and do not fabricate a cause, ending or new character action. Use close framing for readable emotion and a wider picture only when the size relationship is essential. Use at most one compact editorial hook and a short film-title credit over the final real image. Build deliberate tension and release through shot duration rather than fast random cuts or generic narration. Keep the original score and effects where licensed and shape clean audio joins. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the current query. Deliver 1080×1920 at 30 fps. Make the footage large and keep words few; use a compact first-second hook, not a title card followed by a small landscape rectangle. Keep essential text out of the top 150px, bottom 300px and rightmost 120px social controls. Use a deliberate wider picture window only when an essential action cannot fit a portrait crop. Keep honest credits, an editable cut map, source-to-output timing and complete replay instructions. In normal interactive use, show a short preview for approval before the full edit.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": [
+      "Content creators",
+      "Designers"
+    ],
+    "useCases": [
+      "Social content",
+      "Short-form edits"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/browser-use/video-use",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-12-spring-story-45f3a5fdfe39-35b619c8/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-12-spring-story-45f3a5fdfe39-35b619c8/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-12-spring-story-45f3a5fdfe39-35b619c8/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-12-spring-story-45f3a5fdfe39-35b619c8/review.md"
+  },
+  {
+    "id": "social-13-robot-hand-dialogue",
+    "title": "Reframe a film conversation",
+    "category": "Video Edits",
+    "description": "The complete opening robot-hand exchange from Tears of Steel, with readable captions and framing that keeps the reveal visible.",
+    "prompt": "Use Video Use to make a 24-second vertical film-dialogue post from one complete, self-contained exchange. Preserve the setup, answer and final response in order with the original voices and meaning. Reframe toward the actual speaker, then widen or change the crop when a gesture or revealed object explains the line. Keep human expressions large and subtitle the real speech in short readable groups, not a paraphrased voiceover or a wall of text. Retain meaningful pauses and the film’s own audio bridges. Use a short editorial hook only if it does not duplicate or cover the captions. Do not manufacture a reaction, make a person say something from another moment, or split a sentence to fit the length. End after the final thought and let its reaction breathe. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the current query. Deliver 1080×1920 at 30 fps. Make the footage large and keep words few; use a compact first-second hook, not a title card followed by a small landscape rectangle. Keep essential text out of the top 150px, bottom 300px and rightmost 120px social controls. Use a deliberate wider picture window only when an essential action cannot fit a portrait crop. Keep honest credits, an editable cut map, source-to-output timing and complete replay instructions. In normal interactive use, show a short preview for approval before the full edit.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": [
+      "Content creators",
+      "Educators"
+    ],
+    "useCases": [
+      "Social content",
+      "Short-form edits"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/browser-use/video-use",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-13-robot-hand-dialogue-1ff9f8870368-1ee5de0d/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-13-robot-hand-dialogue-1ff9f8870368-1ee5de0d/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-13-robot-hand-dialogue-1ff9f8870368-1ee5de0d/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-13-robot-hand-dialogue-1ff9f8870368-1ee5de0d/review.md"
   },
   {
     "title": "A calm browser tour",

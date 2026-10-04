@@ -571,6 +571,8 @@ export function Gallery() {
                 'edit-freeze_poster',
                 'edit-triptych',
                 'edit-after_dark',
+                'social-13-robot-hand-dialogue',
+                'social-14-robot-action',
               ].includes(selected.id) && (
                 <p className="media-attribution">
                   Modified excerpt from{' '}
@@ -596,6 +598,34 @@ export function Gallery() {
                     rel="noreferrer"
                   >
                     CC BY 3.0
+                  </a>
+                </p>
+              )}
+              {selected.id === 'social-12-spring-story' && (
+                <p className="media-attribution">
+                  Modified excerpt from{' '}
+                  <a
+                    href="https://studio.blender.org/projects/spring/pages/about/"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Spring
+                  </a>{' '}
+                  ·{' '}
+                  <a
+                    href="https://www.blender.org/foundation/"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Blender Foundation
+                  </a>{' '}
+                  ·{' '}
+                  <a
+                    href="https://creativecommons.org/licenses/by/4.0/"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    CC BY 4.0
                   </a>
                 </p>
               )}
