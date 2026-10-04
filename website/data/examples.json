@@ -994,6 +994,57 @@
     "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-38-filter-replacement-52ff73607d90-e25304d2/review.md"
   },
   {
+    "id": "useful-39-kit-packing",
+    "title": "Explain a Kit Layout",
+    "category": "Motion Design",
+    "description": "Show how three original welcome-kit items fit into a box with readable placement order.",
+    "prompt": "Use Video Use to create a 24-second 3D packing guide for the fictional studio welcome kit First Day. Model an open cardboard box with an inner cavity 30×22×8 cm, a notebook 18×13×1 cm, a pencil sleeve 19×3×1 cm and a small accessory pouch 10×6×3 cm. Use one consistent scale and an original divider layout that truly fits all three items without overlap or protrusion. Begin on the empty divided box, place the notebook, then the pencil sleeve, then the pouch in a clear order. Call out each item once and briefly show enough of the top view to prove the fit. Close the lid only after every item is below its sweep, then settle on First Day / Ready to welcome for 3 seconds. Keep measurements in editable source and label Illustrative kit dimensions in the film. Do not claim tested shipping protection or use real customer names/addresses. Use kraft paper, warm ivory and a cobalt notebook with real shadows. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Marketers",
+      "Designers",
+      "Product teams"
+    ],
+    "useCases": [
+      "Packaging design",
+      "Assembly instructions"
+    ],
+    "technique": "3d",
+    "sourceRepo": "https://github.com/mrdoob/three.js",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from mrdoob/three.js. No upstream prompt, implementation, or media copied.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-39-kit-packing-370a387472dd-278d3398/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-39-kit-packing-370a387472dd-278d3398/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-39-kit-packing-370a387472dd-278d3398/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-39-kit-packing-370a387472dd-278d3398/review.md"
+  },
+  {
+    "id": "useful-40-gear-ratio",
+    "title": "Explain a Gear Ratio in 3D",
+    "category": "Motion Design",
+    "description": "Use two real 3D gear shapes to connect tooth count with rotational speed.",
+    "prompt": "Use Video Use to create a 26-second 3D lesson showing a simple external spur-gear pair with 20 teeth on the small driver and 40 teeth on the large driven gear. Model actual extruded toothed geometry with the same tooth spacing/module and correct center distance, so the gears visibly mesh. Use a fixed, readable three-quarter view that reveals thickness; the teaching must not be a flat illustrated spinning disc. Label the gears 20 teeth and 40 teeth, mark one tooth on each, and rotate the small gear through exactly two complete turns while the large gear makes one turn in the opposite direction. Show turn counters tied to actual angle, then the relationship 40÷20=2 and Small gear turns twice per large gear turn. Finish with the matched marks, labels and Simplified gear model / Not a manufacturing drawing held for 3 seconds. Do not invent efficiency, torque or power gains. Use warm graphite, mint and amber, with slow enough motion to follow the meshing. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+    "duration": 26,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Educators",
+      "Designers"
+    ],
+    "useCases": [
+      "Engineering explainers",
+      "Technical lessons"
+    ],
+    "technique": "3d",
+    "sourceRepo": "https://github.com/mrdoob/three.js",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from mrdoob/three.js. No upstream prompt, implementation, or media copied.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-40-gear-ratio-db55403643e8-29d09420/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-40-gear-ratio-db55403643e8-29d09420/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-40-gear-ratio-db55403643e8-29d09420/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-40-gear-ratio-db55403643e8-29d09420/review.md"
+  },
+  {
     "id": "whiplash-cinematic-story-edit",
     "title": "Whiplash — a Cinematic Story Edit",
     "category": "Video Edits",

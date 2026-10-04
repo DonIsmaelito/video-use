@@ -3924,5 +3924,73 @@
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-38-filter-replacement-52ff73607d90-e25304d2/poster.jpg"
       }
     ]
+  },
+  {
+    "id": "useful-39-kit-packing",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-11",
+    "sourceRun": "useful-39-kit-packing",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "c9aa3d14009cb3068fef06e3a93f0521a95079a7",
+    "frameworkArchiveSha256": "c2c5f8a30060a84d143b4c7bdf715dc490c257b740fd644a8a697dd9cac429b7",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "370a387472ddba146d96196fa378e313a84cdbc6b1a8001d51e1ba8125c59e07",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from mrdoob/three.js. No upstream prompt, implementation, or media copied.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-39-kit-packing-370a387472dd-278d3398/source.zip",
+    "editableSourceSha256": "2ad42f182c477fb884a46d0fe3be98265a38535b99a1b236db20f275ea974e46",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-11/useful-39-kit-packing/repairs/repair-fit-contract-20261004/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-39-kit-packing-370a387472dd-278d3398/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-39-kit-packing-370a387472dd-278d3398/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-39-kit-packing-370a387472dd-278d3398/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-39-kit-packing-370a387472dd-278d3398/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-39-kit-packing-370a387472dd-278d3398/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-39-kit-packing-370a387472dd-278d3398/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-39-kit-packing-370a387472dd-278d3398/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-40-gear-ratio",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-11",
+    "sourceRun": "useful-40-gear-ratio",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "c9aa3d14009cb3068fef06e3a93f0521a95079a7",
+    "frameworkArchiveSha256": "c2c5f8a30060a84d143b4c7bdf715dc490c257b740fd644a8a697dd9cac429b7",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "db55403643e81fefd6e7a6038a3b810b3319d9845a05d45c4234cd6030cb6bb7",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from mrdoob/three.js. No upstream prompt, implementation, or media copied.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-40-gear-ratio-db55403643e8-29d09420/source.zip",
+    "editableSourceSha256": "aba9923acc55ce41c73bc45ade163b890f7b2a166f71a02182e2461522d28e46",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-11/useful-40-gear-ratio/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-40-gear-ratio-db55403643e8-29d09420/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-40-gear-ratio-db55403643e8-29d09420/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-40-gear-ratio-db55403643e8-29d09420/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-40-gear-ratio-db55403643e8-29d09420/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-40-gear-ratio-db55403643e8-29d09420/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-40-gear-ratio-db55403643e8-29d09420/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-40-gear-ratio-db55403643e8-29d09420/poster.jpg"
+      }
+    ]
   }
 ]
