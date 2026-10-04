@@ -388,13 +388,8 @@ export function Gallery() {
                 );
               })}
             </fieldset>
-            {(['audiences', 'useCases'] as const).map((field) => (
-              <Disclosure
-                key={field}
-                label={field === 'audiences' ? 'Audience' : 'Use case'}
-                defaultOpen={field === 'audiences'}
-                className="facet-disclosure"
-              >
+            {(['audiences', 'useCases'] as const).map((field) => {
+              const options = (
                 <fieldset className="facet-group">
                   <legend className="sr-only">
                     {field === 'audiences' ? 'By audience' : 'By use case'}
@@ -418,8 +413,29 @@ export function Gallery() {
                     );
                   })}
                 </fieldset>
-              </Disclosure>
-            ))}
+              );
+
+              // Use cases stay expanded as a primary browsing control.
+              return field === 'useCases' ? (
+                <section
+                  key={field}
+                  className="facet-section"
+                  aria-labelledby="use-case-heading"
+                >
+                  <h3 id="use-case-heading">Use case</h3>
+                  {options}
+                </section>
+              ) : (
+                <Disclosure
+                  key={field}
+                  label="Audience"
+                  defaultOpen
+                  className="facet-disclosure"
+                >
+                  {options}
+                </Disclosure>
+              );
+            })}
           </aside>
           <div className="library-content">
             <p className="sr-only" aria-live="polite">
@@ -510,7 +526,9 @@ export function Gallery() {
                     playsInline
                     autoPlay
                     muted={selected.category === 'Motion Design'}
-                    loop={selected.loop ?? selected.category === 'Motion Design'}
+                    loop={
+                      selected.loop ?? selected.category === 'Motion Design'
+                    }
                     preload="metadata"
                     onError={() => setVideoError(true)}
                   />

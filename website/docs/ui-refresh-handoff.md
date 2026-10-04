@@ -57,3 +57,24 @@ Deployment `7ba26090-203a-49b6-b6e8-bfbc205bc617` is READY on the existing Video
 ### Library branch sidebar integration
 
 The verified sidebar/header follow-up is now copied into `feature/useful-video-library`: `components/gallery.tsx`, `components/site-header.tsx`, `app/mcp/page.tsx`, `app/globals.css`, and `README.md`. The newer catalog at `002c41c` (98 examples) and all media/provenance manifests remain authoritative and were not copied from the original checkout. Original/Starter prompt labels, source descriptions, and the visible Video type label are preserved. This integration changes no backend schema or environment configuration. Production build and release verification are recorded separately in the campaign deployment receipt.
+
+
+### Use case always visible — completed
+
+The user requested that Use case always be shown. This pass in the main checkout makes it a static expanded sidebar section rather than a collapsible disclosure. Audience keeps its current disclosure behavior. The current 108-example catalog and opening-card/loop changes from `8e2c41c` have been brought into the main checkout before deployment. The change owns `components/gallery.tsx`, small shared-stylesheet additions, and the README. The final source changes will also be applied to the library checkout if those files remain unchanged.
+
+
+Use case is now a permanent `<section>` in `gallery.tsx`, with no collapse button. The existing selection counts, URL state, and reset behavior are unchanged. `globals.css` styles the section consistently with Audience, including the existing scrollable option list on phones. The three edited files (`gallery.tsx`, `globals.css`, and README) were copied into the library checkout only after verifying each still matched the committed `8e2c41c` version. Its catalog and unrelated work were untouched. Build, typecheck, lint, and local desktop/mobile verification passed for all 108 examples. Evidence: `/tmp/video-use-ui-qa/use-case-local-result.json`. Deployment is in progress.
+
+
+Use case deployment `84d20679-d3f7-4122-8d29-30aa8d6c6ade` is READY and verified at https://video-use.insforge.site. Desktop and mobile checks confirm the expanded section, absence of a collapse button, all 64 use-case options in the rendered list, selection/reload/reset behavior, independence from the Audience disclosure, and no page errors or horizontal overflow. The complete 108-example catalog is preserved. Evidence: `/tmp/video-use-ui-qa/use-case-live-result.json`.
+
+
+### GitHub star badge — in progress
+
+The user requested a compact dark rounded GitHub badge matching their reference, showing this repository’s real star count. This pass owns `components/site-header.tsx`, the header styles in `app/globals.css`, a new server-only GitHub metadata helper, and README notes. Preserve the expanded Use case section and current 108-example catalog. The helper will use GitHub’s public metadata endpoint with hourly Next.js caching; no credentials or backend schema changes are required.
+
+
+### Library branch Use case integration
+
+The completed three-file change is now reviewed in `feature/useful-video-library`. Use case remains a static labeled section on desktop and mobile; Audience still has its own disclosure. The existing prompt labels, context handoff, loop metadata, opening cards, and authoritative media manifests are unchanged. TypeScript, gallery validation (108 examples), and lint pass. The live deployment and desktop/mobile filter, reload, reset, and layout evidence are the `84d20679-d3f7-4122-8d29-30aa8d6c6ade` receipt above. This integration requires no backend or environment changes and does not trigger a competing deployment; the next library release will include the newer reviewed catalog after its data freeze.

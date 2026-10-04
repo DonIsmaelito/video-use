@@ -471,9 +471,16 @@ summary {
   color: #888;
   font-size: 10px;
 }
-.facet-disclosure {
+.facet-disclosure,
+.facet-section {
   border-top: 1px solid #242424;
   padding-top: 20px;
+}
+.facet-section > h3 {
+  margin-bottom: 12px;
+  color: #eee;
+  font-size: 12px;
+  font-weight: 500;
 }
 .facet-disclosure .disclosure-trigger {
   padding-bottom: 0;
@@ -1764,10 +1771,12 @@ summary {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: 18px;
   }
-  .facet-disclosure {
+  .facet-disclosure,
+  .facet-section {
     padding-top: 16px;
   }
-  .facet-disclosure .facet-group {
+  .facet-disclosure .facet-group,
+  .facet-section .facet-group {
     max-height: 160px;
     overflow-y: auto;
     padding: 4px;
