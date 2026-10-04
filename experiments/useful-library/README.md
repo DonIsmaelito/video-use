@@ -9,6 +9,10 @@ The live library is at https://video-use.insforge.site and the connection page
 is at https://video-use.insforge.site/mcp. The website advertises the Video Use
 repository and provides free prompts and reviewed editable sources.
 
+The completed catalog has 114 entries: 73 existing examples, 40 new practical
+workflows and the archived Whiplash edit. The separate MCP launch film runs for
+28 seconds. The filter previously called **By Technique** is now **Video type**.
+
 ## How the parts connect
 
 - `briefs.json` and the pinned source research define the practical use cases.
@@ -54,3 +58,11 @@ Large campaign outputs and immutable review/publication receipts live outside
 the repository in the campaign's `edit` directory. The public source ledger
 keeps the final media identity and links; deployment receipts record the exact
 catalog release and hosted browser checks.
+
+The final publication audit reconciles all 40 approvals with the catalog and
+exact movie/source identities, rehashes the local source archives, and downloads
+all 40 public source ZIPs and 40 public prompt files to verify their bytes.
+It also checks the Whiplash starter prompt, MCP film and website-loop metadata.
+The shared framework suite passed 1,506 tests and 61 subtests at `1bf8404`
+(26 skipped); the subsequent dependency-lock change passed 38 focused archive
+and publication tests at `c9aa3d1`. Website validation checks all 114 entries.
