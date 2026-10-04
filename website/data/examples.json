@@ -1,5 +1,55 @@
 [
   {
+    "id": "social-01-interview-face-follow",
+    "title": "Keep the speaker in frame",
+    "category": "Video Edits",
+    "description": "A focused interview answer with measured face following and word-timed captions.",
+    "prompt": "Use Video Use to turn a useful answer from a filmed interview into a 22-second social clip. Choose one complete thought that answers a clear question. Put the question on screen immediately as an editorial hook, then let the original speaker deliver the answer with no long intro or generic end card. Follow the visible face with measured tracking and a deliberately reviewed target; use a calm crop, never a jittery zoom on every word. Keep the whole head and natural gesture room. Burn accurate phrase captions after all cuts and framing, with at most two lines and one restrained highlighted key word at a time. Preserve small hesitations when they carry meaning; never splice words into a new claim. Use clean speech with short boundary fades; no music under this example. Keep a quiet attribution footer and let the last thought land. Use the real footage supplied in this chat or acquired from the supplied source URL with yt-dlp. Inspect the actual pixels and audio evidence, not only metadata. Keep the subject and intent of the current query. Deliver a polished 1080×1920 vertical MP4 with a readable first-second hook and a clear payoff. Keep important content away from the top 150px, bottom 300px, and rightmost 120px used by social app controls. Use few words, deliberate typography, clean cuts and intentional sound. Preserve meaning, source credits and honest framing; do not invent actions, reactions, quotes or claims. Give me a short preview for approval before completing the full edit in normal interactive use. Keep the editable cut map, source URLs, caption timing, licenses and complete replay instructions.",
+    "duration": 22,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": [
+      "Content creators",
+      "Marketers"
+    ],
+    "useCases": [
+      "Social content",
+      "Short-form edits"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/browser-use/video-use",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-01-interview-face-follow-195ce76fe448-751e7e80/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-01-interview-face-follow-195ce76fe448-751e7e80/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-01-interview-face-follow-195ce76fe448-751e7e80/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-01-interview-face-follow-195ce76fe448-751e7e80/review.md"
+  },
+  {
+    "id": "social-03-action-replay",
+    "title": "Make the movement the hook",
+    "category": "Video Edits",
+    "description": "An action reel with a brief replay, paced cuts and a crop that follows the board.",
+    "prompt": "Use Video Use to turn a short action recording into an 18-second vertical highlight that makes the movement easy to follow. Open on the strongest visible moment, cut back briefly to its setup, then let the action play through with a clean finish. Include one clearly labeled slow replay of the most useful detail; do not disguise it as a second attempt. Use motivated reframing that keeps the relevant feet, hands or equipment in frame. Change pace around actual movement rather than applying a random effect to every cut. Add only two or three short text cues tied to what the footage visibly shows, plus a subtle original rhythmic sound bed. No invented trick names, performance claims, new action frames or aggressive strobing. Keep it energetic and useful as a creator’s sports highlight. Use the real footage supplied in this chat or acquired from the supplied source URL with yt-dlp. Inspect the actual pixels and audio evidence, not only metadata. Keep the subject and intent of the current query. Deliver a polished 1080×1920 vertical MP4 with a readable first-second hook and a clear payoff. Keep important content away from the top 150px, bottom 300px, and rightmost 120px used by social app controls. Use few words, deliberate typography, clean cuts and intentional sound. Preserve meaning, source credits and honest framing; do not invent actions, reactions, quotes or claims. Give me a short preview for approval before completing the full edit in normal interactive use. Keep the editable cut map, source URLs, caption timing, licenses and complete replay instructions.",
+    "duration": 18,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": [
+      "Content creators",
+      "Marketers"
+    ],
+    "useCases": [
+      "Social content",
+      "Short-form edits"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/browser-use/video-use",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-03-action-replay-5911e707f314-a5a18569/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-03-action-replay-5911e707f314-a5a18569/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-03-action-replay-5911e707f314-a5a18569/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-03-action-replay-5911e707f314-a5a18569/review.md"
+  },
+  {
     "id": "social-04-destination-reveal",
     "title": "Build a destination reveal",
     "category": "Video Edits",

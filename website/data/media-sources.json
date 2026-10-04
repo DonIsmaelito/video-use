@@ -4268,5 +4268,73 @@
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-09-pottery-memory-8b37c2265b96-0d410960/poster.jpg"
       }
     ]
+  },
+  {
+    "id": "social-01-interview-face-follow",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "social-01-r1",
+    "sourceRun": "social-01-interview-face-follow",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "2d2741f23261d394f1c042978ddd5fd2962bec6f",
+    "frameworkArchiveSha256": "bdb83676c1c31d3647b908c84c4b41a86562962207d19a2b8f8a482665a91594",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "195ce76fe4480913d7df277ac9af5d608a9e94c631ffa0f7d45719763d94ce37",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-01-interview-face-follow-195ce76fe448-751e7e80/source.zip",
+    "editableSourceSha256": "5044d14c659945bd50c86710c64d69d2d80ed1335a55369c6f7e669691142b28",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/social-01-r1/social-01-interview-face-follow/repairs/repair-20261004-120119-4ffb28/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-01-interview-face-follow-195ce76fe448-751e7e80/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-01-interview-face-follow-195ce76fe448-751e7e80/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-01-interview-face-follow-195ce76fe448-751e7e80/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-01-interview-face-follow-195ce76fe448-751e7e80/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-01-interview-face-follow-195ce76fe448-751e7e80/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-01-interview-face-follow-195ce76fe448-751e7e80/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-01-interview-face-follow-195ce76fe448-751e7e80/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "social-03-action-replay",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "social-01-r1",
+    "sourceRun": "social-03-action-replay",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "2d2741f23261d394f1c042978ddd5fd2962bec6f",
+    "frameworkArchiveSha256": "bdb83676c1c31d3647b908c84c4b41a86562962207d19a2b8f8a482665a91594",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "5911e707f31420d63226174ccbdf70c20d42ac15b66109df00007d8eb7e06cd9",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-03-action-replay-5911e707f314-a5a18569/source.zip",
+    "editableSourceSha256": "b83b2c635da376e9929c9e2f126505189ab5f64f86fad9fc60cbe9924dc13b8a",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/social-01-r1/social-03-action-replay/repairs/repair-20261004-120120-0c3440/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-03-action-replay-5911e707f314-a5a18569/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-03-action-replay-5911e707f314-a5a18569/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-03-action-replay-5911e707f314-a5a18569/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-03-action-replay-5911e707f314-a5a18569/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-03-action-replay-5911e707f314-a5a18569/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-03-action-replay-5911e707f314-a5a18569/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-03-action-replay-5911e707f314-a5a18569/poster.jpg"
+      }
+    ]
   }
 ]
