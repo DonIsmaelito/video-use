@@ -3074,5 +3074,141 @@
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-14-campaign-announcement-058d104ad32c-ff37a4e2/poster.jpg"
       }
     ]
+  },
+  {
+    "id": "useful-09-cafe-promo",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-03",
+    "sourceRun": "useful-09-cafe-promo",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "eb577c717f93e11b1e13bda94d4c84ae1eea4c8f",
+    "frameworkArchiveSha256": "385016abd05d80dea5b51b4921b9e685b9722a868656648161e3522e1ce7a29b",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "f4983a2b8a9e0b77bd17a632363f9845ed4fd50865df5982b1eb2531d6185ab9",
+    "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-09-cafe-promo-f4983a2b8a9e-f2b0792e/source.zip",
+    "editableSourceSha256": "ff4809b607bf841977cc688a0c4fb97ea0d124eff640ca1009dec4ced73db2b3",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-03/useful-09-cafe-promo/repairs/repair-pour-boundary-20261003/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-09-cafe-promo-f4983a2b8a9e-f2b0792e/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-09-cafe-promo-f4983a2b8a9e-f2b0792e/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-09-cafe-promo-f4983a2b8a9e-f2b0792e/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-09-cafe-promo-f4983a2b8a9e-f2b0792e/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-09-cafe-promo-f4983a2b8a9e-f2b0792e/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-09-cafe-promo-f4983a2b8a9e-f2b0792e/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-09-cafe-promo-f4983a2b8a9e-f2b0792e/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-13-launch-highlights",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-04",
+    "sourceRun": "useful-13-launch-highlights",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "42039fb21af37e5f985c2879ca3ee894218640d9",
+    "frameworkArchiveSha256": "561bc61faaa5876b7b3bbdd1abc233f936974e7b1ecf8d8a7c1e83d5f16275d5",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "cb768bd2bef289286b1010f3cda6578676c31b40d59197ddfc13b448ba753958",
+    "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-13-launch-highlights-cb768bd2bef2-7a16769a/source.zip",
+    "editableSourceSha256": "e60e969e4c5c03ea73120b73e68765c6eb5844c4d8aff9dcc59e00f7d35104a2",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-04/useful-13-launch-highlights/repairs/repair-original-4k-20261003/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-13-launch-highlights-cb768bd2bef2-7a16769a/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-13-launch-highlights-cb768bd2bef2-7a16769a/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-13-launch-highlights-cb768bd2bef2-7a16769a/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-13-launch-highlights-cb768bd2bef2-7a16769a/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-13-launch-highlights-cb768bd2bef2-7a16769a/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-13-launch-highlights-cb768bd2bef2-7a16769a/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-13-launch-highlights-cb768bd2bef2-7a16769a/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-15-venue-wayfinding",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-05",
+    "sourceRun": "useful-15-venue-wayfinding",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "e408a4dba819e75c1dff75b50b4f31c4467cd084",
+    "frameworkArchiveSha256": "ec7bb6765eda72641a3683687671be25462c20ee0c59d28a4e794f780128d6cb",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "eafbcd2d30c6dd7adc3cbf78886e81756a600dab9fdb545ddcdee44affb1e4ac",
+    "promptSource": "Original Video Use brief and 3D scene. Modeling, studio-lighting and isometric-camera ideas inspired by MCP for Blender (MIT); built with Video Use’s selected runtime.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-15-venue-wayfinding-eafbcd2d30c6-669a86e1/source.zip",
+    "editableSourceSha256": "796dbd2babd5bbe62f8ef10e5434e1e96f710934eb36599ef262fea652e8521d",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-05/useful-15-venue-wayfinding/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-15-venue-wayfinding-eafbcd2d30c6-669a86e1/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-15-venue-wayfinding-eafbcd2d30c6-669a86e1/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-15-venue-wayfinding-eafbcd2d30c6-669a86e1/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-15-venue-wayfinding-eafbcd2d30c6-669a86e1/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-15-venue-wayfinding-eafbcd2d30c6-669a86e1/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-15-venue-wayfinding-eafbcd2d30c6-669a86e1/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-15-venue-wayfinding-eafbcd2d30c6-669a86e1/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-16-room-walkthrough",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-05",
+    "sourceRun": "useful-16-room-walkthrough",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "e408a4dba819e75c1dff75b50b4f31c4467cd084",
+    "frameworkArchiveSha256": "ec7bb6765eda72641a3683687671be25462c20ee0c59d28a4e794f780128d6cb",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "8513d735fe3c199aeaef8bc2cc7d195941b0faa62c557ee8eac9eea86c1803cb",
+    "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-16-room-walkthrough-8513d735fe3c-acb8f679/source.zip",
+    "editableSourceSha256": "d392ddf15f0e2e9a43be61c5208db435bd407d7fe9d5fd249518f9e0a636194f",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-05/useful-16-room-walkthrough/repairs/repair-native-1080-20261003/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-16-room-walkthrough-8513d735fe3c-acb8f679/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-16-room-walkthrough-8513d735fe3c-acb8f679/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-16-room-walkthrough-8513d735fe3c-acb8f679/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-16-room-walkthrough-8513d735fe3c-acb8f679/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-16-room-walkthrough-8513d735fe3c-acb8f679/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-16-room-walkthrough-8513d735fe3c-acb8f679/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-16-room-walkthrough-8513d735fe3c-acb8f679/poster.jpg"
+      }
+    ]
   }
 ]

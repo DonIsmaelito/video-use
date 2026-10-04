@@ -214,6 +214,33 @@
     "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-08-refill-product-af980ab60445-07f91453/review.md"
   },
   {
+    "id": "useful-09-cafe-promo",
+    "title": "Edit a Local Business Promo",
+    "category": "Video Edits",
+    "description": "Edit licensed coffee footage into a focused promo for a fictional café.",
+    "prompt": "Use Video Use to edit the supplied licensed coffee footage into a 20-second 1080×1920 social promo for a fictional café called Sunday Coffee. Build a tactile sequence from falling beans, espresso preparation and the finished pour. Choose the most useful moments by watching the actual clips, crop each shot to protect the cup and hands, and cut on the completion of each action. Keep the first two seconds visually immediate. Add restrained cream typography: “A little pause”, “Made properly”, then “Sunday Coffee / Your morning starts here”. Use a subtle warm corrective grade that keeps the coffee natural, quiet café room tone if available and a light original rhythmic bed. Avoid exaggerated speed ramps, fake discount offers or claims about the stock café. Finish with a clean 3-second title card over a real coffee detail. The gallery description must say the business is fictional and the footage is licensed stock. Execute the edit with the current Video Use helpers, keep the source media unchanged, and retain the EDL, overlays and editable source. Inspect the rendered cut boundaries, readability and ending before delivery. Use 30 ms audio fades at cut boundaries and composite captions last. Describe the supplied source footage and its credit honestly; do not imply Video Use generated the source footage.",
+    "duration": 20,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": [
+      "Marketers",
+      "Content creators",
+      "Founders"
+    ],
+    "useCases": [
+      "Social content",
+      "Local business",
+      "Ads"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/veedstudio/open-edit",
+    "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-09-cafe-promo-f4983a2b8a9e-f2b0792e/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-09-cafe-promo-f4983a2b8a9e-f2b0792e/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-09-cafe-promo-f4983a2b8a9e-f2b0792e/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-09-cafe-promo-f4983a2b8a9e-f2b0792e/review.md"
+  },
+  {
     "id": "useful-10-welcome-flow",
     "title": "Create a Customer Onboarding Video",
     "category": "Motion Design",
@@ -295,6 +322,33 @@
     "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-12-research-summary-e809aa823b25-003c95a7/review.md"
   },
   {
+    "id": "useful-13-launch-highlights",
+    "title": "Cut an Event Highlight",
+    "category": "Video Edits",
+    "description": "Shape NASA’s Artemis I launch footage into a concise vertical recap.",
+    "prompt": "Use Video Use to edit NASA’s public Artemis I press-site footage into a 24-second 1080×1920 factual launch recap. Inspect the full source and choose three useful moments: anticipation before ignition, liftoff, and the rocket climbing into the sky. Preserve the chronological order and the real launch sound when it is clean. Reframe each shot to keep the rocket and its plume visible; use a restrained movement only when the subject rises out of frame. The copy is “Artemis I”, “16 November 2022”, “From the launchpad toward the Moon”. Keep overlay text minimal so the event remains the focus. End with a 3-second view of the ascent and the credit “Footage: NASA /Edited excerpt”. Do not add unrelated space imagery, invented radio dialogue, background music with unclear rights, or any suggestion that NASA endorses Video Use. This is an editorial science recap example. Execute the edit with the current Video Use helpers, keep the source media unchanged, and retain the EDL, overlays and editable source. Inspect the rendered cut boundaries, readability and ending before delivery. Use 30 ms audio fades at cut boundaries and composite captions last. Describe the supplied source footage and its credit honestly; do not imply Video Use generated the source footage.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": [
+      "Content creators",
+      "Educators",
+      "Marketers"
+    ],
+    "useCases": [
+      "Event recaps",
+      "Social content",
+      "Science communication"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/veedstudio/open-edit",
+    "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-13-launch-highlights-cb768bd2bef2-7a16769a/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-13-launch-highlights-cb768bd2bef2-7a16769a/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-13-launch-highlights-cb768bd2bef2-7a16769a/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-13-launch-highlights-cb768bd2bef2-7a16769a/review.md"
+  },
+  {
     "id": "useful-14-campaign-announcement",
     "title": "Build a Reusable Campaign Ad",
     "category": "Motion Design",
@@ -320,6 +374,60 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-14-campaign-announcement-058d104ad32c-ff37a4e2/poster.jpg",
     "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-14-campaign-announcement-058d104ad32c-ff37a4e2/source.zip",
     "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-14-campaign-announcement-058d104ad32c-ff37a4e2/review.md"
+  },
+  {
+    "id": "useful-15-venue-wayfinding",
+    "title": "Show Visitors Where to Go",
+    "category": "Motion Design",
+    "description": "Use a simple spatial model to help attendees understand a venue before they arrive.",
+    "prompt": "Use Video Use to create a 24-second 1920×1080 true 3D orientation film for a fictional event venue called The Workshop House. Build an original simplified floor plan in three-dimensional geometry with an entrance, welcome desk, central studio and coffee corner. Use an isometric three-quarter camera and a soft cream floor. Animate one amber route line from the entrance to the welcome desk, then to the studio; briefly point out the coffee corner as an optional stop. Label spaces with crisp post-composited type. Copy: “Start here”, “Check in”, “Make yourself at home”. End with a clear overview of the entire route and “The Workshop House /Find your first stop”. Use pale lavender walls, dark ink furniture and warm amber navigation. Keep walls low or partially transparent so the route is not occluded. This is a conceptual venue example, not directions to a real address or a fire-exit map. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Marketers",
+      "Designers",
+      "Educators"
+    ],
+    "useCases": [
+      "Event promotion",
+      "Onboarding",
+      "Wayfinding"
+    ],
+    "technique": "3d",
+    "sourceRepo": "https://github.com/ahujasid/mcp-for-blender",
+    "promptSource": "Original Video Use brief and 3D scene. Modeling, studio-lighting and isometric-camera ideas inspired by MCP for Blender (MIT); built with Video Use’s selected runtime.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-15-venue-wayfinding-eafbcd2d30c6-669a86e1/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-15-venue-wayfinding-eafbcd2d30c6-669a86e1/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-15-venue-wayfinding-eafbcd2d30c6-669a86e1/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-15-venue-wayfinding-eafbcd2d30c6-669a86e1/review.md"
+  },
+  {
+    "id": "useful-16-room-walkthrough",
+    "title": "Polish a Room Walkthrough",
+    "category": "Video Edits",
+    "description": "Turn licensed room footage into an unbranded walkthrough with useful visual labels.",
+    "prompt": "Use Video Use to turn the supplied licensed 48-second room-and-terrace footage into a 22-second 1920×1080 hospitality walkthrough. Watch the source and choose a purposeful sequence of the visible bedroom, interior details and terrace view. Keep camera direction consistent, remove redundant panning, and use only gentle stabilization or reframing where it helps. Add restrained location labels only to details actually visible: “Rest”, “Room to unwind”, “A view outside”. Use warm neutral type, thin rules and natural daylight color correction. Finish on the terrace view with “A slower kind of stay”. Keep this an unbranded demonstration edit; do not invent an address, nightly price, room size or claims about amenities outside the frame. Credit the stock source in the gallery and project notes. Prefer calm editorial cuts to flashy transitions. Execute the edit with the current Video Use helpers, keep the source media unchanged, and retain the EDL, overlays and editable source. Inspect the rendered cut boundaries, readability and ending before delivery. Use 30 ms audio fades at cut boundaries and composite captions last. Describe the supplied source footage and its credit honestly; do not imply Video Use generated the source footage.",
+    "duration": 22,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Marketers",
+      "Content creators",
+      "Designers"
+    ],
+    "useCases": [
+      "Property tours",
+      "Hospitality",
+      "Social content"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/veedstudio/open-edit",
+    "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-16-room-walkthrough-8513d735fe3c-acb8f679/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-16-room-walkthrough-8513d735fe3c-acb8f679/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-16-room-walkthrough-8513d735fe3c-acb8f679/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-16-room-walkthrough-8513d735fe3c-acb8f679/review.md"
   },
   {
     "id": "useful-18-code-fix",
