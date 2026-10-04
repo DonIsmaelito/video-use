@@ -142,6 +142,18 @@ def test_prompt_is_preserved_and_proposals_stay_project_local():
     assert "actual encoded frames with view_image" in prompt
 
 
+def test_verified_source_assets_reach_the_production_agent_without_substitution():
+    asset = {"url": "https://assets.example.org/4029/4029-1080.mp4", "width": 1920,
+             "height": 1080, "sha256": "b" * 64, "licenseUrl": "https://example.org/license",
+             "credit": "Licensed source credit"}
+    value = normalize_brief(brief(sourceAssets=[asset], productFacts=["Fictional example product"]))
+    prompt = technical_instructions(value)
+    evidence = prompt.split("\nORIGINAL CREATIVE PROMPT:")[0]
+    assert json.dumps([asset], ensure_ascii=False) in evidence
+    assert '"productFacts": ["Fictional example product"]' in evidence
+    assert "Do not silently substitute a lower-resolution preview" in evidence
+
+
 def test_source_replay_manifest_contains_only_public_producer_identity(tmp_path):
     project = tmp_path / "project"
     (project / "edit").mkdir(parents=True)
