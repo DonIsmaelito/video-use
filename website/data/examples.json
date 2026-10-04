@@ -892,6 +892,108 @@
     "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-34-cache-expiry-e5e44379cc31-116b7119/review.md"
   },
   {
+    "id": "useful-35-water-cycle",
+    "title": "Explain a Natural Cycle",
+    "category": "Explainers",
+    "description": "Trace one simplified route through evaporation, condensation, rain and runoff.",
+    "prompt": "Use Video Use to create a 25-second classroom animation following one simplified route through the water cycle. Draw one stable landscape with a lake, hillside, cloud and stream. Show solar energy at the lake and label Evaporation: liquid→vapor; represent vapor as a subtle rising dotted path, not visible smoke. At the cloud show Condensation: vapor→liquid droplets, then Precipitation as rain falling toward the hillside. Follow surface runoff downhill through the stream back to the lake. Keep arrows directional and preserve the diagram instead of replacing it with unrelated slides. Conclude with Water moves and changes state and a small One simplified route; the cycle has no fixed start note for 3 seconds. Do not claim all water follows this path or that clouds are made only of vapor. Use original vector scenery, sky blue, deep green and warm sunlight; no unsupported percentages or weather forecasts. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+    "duration": 25,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Educators",
+      "Content creators"
+    ],
+    "useCases": [
+      "Science lessons",
+      "Learning materials"
+    ],
+    "technique": "diagrams",
+    "sourceRepo": "https://github.com/ManimCommunity/manim",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from ManimCommunity/manim. No upstream prompt, implementation, or media copied.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-35-water-cycle-25510366e07a-9eb293a9/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-35-water-cycle-25510366e07a-9eb293a9/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-35-water-cycle-25510366e07a-9eb293a9/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-35-water-cycle-25510366e07a-9eb293a9/review.md"
+  },
+  {
+    "id": "useful-36-support-triage",
+    "title": "Map a Support Decision",
+    "category": "Explainers",
+    "description": "Make a sample support-routing policy visible, including its fallback path.",
+    "prompt": "Use Video Use to create a 25-second support-training diagram for a fictional helpdesk policy. Start with one ticket reading Charged twice. Ask Can the customer sign in? Follow Yes, then ask Is this a billing question? Follow Yes to Billing team. Keep the unchosen branches visible but quiet: No at the sign-in decision leads to Account support; No at the billing decision leads to General support. Label the whole chart Example routing policy. After the example ticket reaches Billing, briefly reveal an Unclear issue→General support fallback so no ticket disappears. Use a stable left-to-right decision layout with actual labelled connectors and a single ticket identity. Do not imply this is a real company’s policy or that a billing adjustment/refund was performed. End on the complete tree and Route first. Resolve with the right team. for 3 seconds. Use ivory, ink blue, teal active paths and restrained motion. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+    "duration": 25,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Product teams",
+      "Founders"
+    ],
+    "useCases": [
+      "Internal training",
+      "Process documentation"
+    ],
+    "technique": "diagrams",
+    "sourceRepo": "https://github.com/motion-canvas/examples",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from motion-canvas/examples. No upstream prompt, implementation, or media copied.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-36-support-triage-01144968ba94-7f35ccfb/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-36-support-triage-01144968ba94-7f35ccfb/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-36-support-triage-01144968ba94-7f35ccfb/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-36-support-triage-01144968ba94-7f35ccfb/review.md"
+  },
+  {
+    "id": "useful-37-product-dimensions",
+    "title": "Show Product Dimensions",
+    "category": "Motion Design",
+    "description": "Turn a fictional lamp into a clear size-and-fit explanation with anchored measurements.",
+    "prompt": "Use Video Use to create a 24-second square 3D size guide for an original fictional desk lamp called Luma. Model real geometry with a circular 18 cm-diameter base, a total 42 cm height, and a widest horizontal reach of 28 cm. Choose a form that actually fits those dimensions. Begin with a slow three-quarter view, then settle into a readable measurement view. Reveal one anchored dimension at a time:42 cm tall, 28 cm reach, 18 cm base. Leader lines must touch the correct physical endpoints and stay legible as the camera moves; use projected 2D type over the 3D render. Finish with all three measurements and Luma / Illustrative dimensions held for 3 seconds. Use a warm cream studio, charcoal lamp and one orange measurement accent. Do not claim real-product specifications or show impossible scale. Keep dimensions, geometry, camera and labels driven from the same configuration. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "square",
+    "audiences": [
+      "Designers",
+      "Marketers",
+      "Founders"
+    ],
+    "useCases": [
+      "Product detail pages",
+      "Size guides"
+    ],
+    "technique": "3d",
+    "sourceRepo": "https://github.com/mrdoob/three.js",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from mrdoob/three.js. No upstream prompt, implementation, or media copied.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-37-product-dimensions-a0575a02c024-6e55ca2e/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-37-product-dimensions-a0575a02c024-6e55ca2e/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-37-product-dimensions-a0575a02c024-6e55ca2e/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-37-product-dimensions-a0575a02c024-6e55ca2e/review.md"
+  },
+  {
+    "id": "useful-38-filter-replacement",
+    "title": "Show a Maintenance Step",
+    "category": "Motion Design",
+    "description": "Explain an original fictional fan’s filter replacement with a clear 3D assembly sequence.",
+    "prompt": "Use Video Use to create a 26-second 3D instruction film for a fictional desktop fan called Breeze. Model a simple fan housing, rear cover and removable dust-filter panel as original geometry. Begin with Power off and unplug, visibly show the disconnected plug, and keep the blades still throughout. Rotate to the rear, release two visible cover tabs, remove the cover, lift out the old plain filter panel and insert a matching clean panel along the same guide rails. Replace the cover so both tabs visibly return into place. Use one short phrase per action: Open the back, Swap the filter, Close the cover. Finish with the assembled fan and Breeze / Fictional maintenance example for 3 seconds; do not reconnect it or show powered motion. This is an invented assembly demonstration, not instructions for a real appliance or a filtration-performance claim. Use a pale blue studio, off-white housing and coral tab highlights, with crisp overlays and clear depth. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+    "duration": 26,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Product teams",
+      "Designers",
+      "Marketers"
+    ],
+    "useCases": [
+      "Product instructions",
+      "Maintenance guides"
+    ],
+    "technique": "3d",
+    "sourceRepo": "https://github.com/mrdoob/three.js",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from mrdoob/three.js. No upstream prompt, implementation, or media copied.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-38-filter-replacement-52ff73607d90-e25304d2/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-38-filter-replacement-52ff73607d90-e25304d2/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-38-filter-replacement-52ff73607d90-e25304d2/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-38-filter-replacement-52ff73607d90-e25304d2/review.md"
+  },
+  {
     "id": "whiplash-cinematic-story-edit",
     "title": "Whiplash — a Cinematic Story Edit",
     "category": "Video Edits",

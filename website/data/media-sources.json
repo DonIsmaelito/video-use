@@ -3788,5 +3788,141 @@
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-31-service-status-9f210e68cc7b-ec42515f/poster.jpg"
       }
     ]
+  },
+  {
+    "id": "useful-35-water-cycle",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-10",
+    "sourceRun": "useful-35-water-cycle",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "e29de31a796ddec193a72a1a91bf4ea50ddb5737",
+    "frameworkArchiveSha256": "c0c21ae59ed3ec6decdc42b2fe80158a44d3d992d5669a53eb2ba3ba7f07b90a",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "25510366e07afc711cb322b6eea609c417e8f34cb81ad9052e06766dd0c84a0b",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from ManimCommunity/manim. No upstream prompt, implementation, or media copied.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-35-water-cycle-25510366e07a-9eb293a9/source.zip",
+    "editableSourceSha256": "24b8f30c24c9826a00c4bf639f84f02804ba512b0062be4f10def6c1ffd3b092",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-10/useful-35-water-cycle/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-35-water-cycle-25510366e07a-9eb293a9/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-35-water-cycle-25510366e07a-9eb293a9/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-35-water-cycle-25510366e07a-9eb293a9/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-35-water-cycle-25510366e07a-9eb293a9/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-35-water-cycle-25510366e07a-9eb293a9/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-35-water-cycle-25510366e07a-9eb293a9/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-35-water-cycle-25510366e07a-9eb293a9/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-36-support-triage",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-10",
+    "sourceRun": "useful-36-support-triage",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "e29de31a796ddec193a72a1a91bf4ea50ddb5737",
+    "frameworkArchiveSha256": "c0c21ae59ed3ec6decdc42b2fe80158a44d3d992d5669a53eb2ba3ba7f07b90a",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "01144968ba94ab5484b61ac34bcf452b200c21b95c994217fe4b7989178e5ad5",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from motion-canvas/examples. No upstream prompt, implementation, or media copied.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-36-support-triage-01144968ba94-7f35ccfb/source.zip",
+    "editableSourceSha256": "d6c381d64583aba73b895e647d3862c71da7c1ca597a7d271d62ae4438ae3506",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-10/useful-36-support-triage/repairs/repair-clear-ticket-exact-20261004/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-36-support-triage-01144968ba94-7f35ccfb/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-36-support-triage-01144968ba94-7f35ccfb/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-36-support-triage-01144968ba94-7f35ccfb/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-36-support-triage-01144968ba94-7f35ccfb/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-36-support-triage-01144968ba94-7f35ccfb/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-36-support-triage-01144968ba94-7f35ccfb/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-36-support-triage-01144968ba94-7f35ccfb/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-37-product-dimensions",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-10",
+    "sourceRun": "useful-37-product-dimensions",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "e29de31a796ddec193a72a1a91bf4ea50ddb5737",
+    "frameworkArchiveSha256": "c0c21ae59ed3ec6decdc42b2fe80158a44d3d992d5669a53eb2ba3ba7f07b90a",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "a0575a02c024b07f290223571a73bd31495384ac2e5e107995ffd48cb2c627be",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from mrdoob/three.js. No upstream prompt, implementation, or media copied.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-37-product-dimensions-a0575a02c024-6e55ca2e/source.zip",
+    "editableSourceSha256": "d9fb20c28b3d7fd74ee1095dfe492308d8b21c8c19885a0cc18c10862296f9b6",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-10/useful-37-product-dimensions/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-37-product-dimensions-a0575a02c024-6e55ca2e/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-37-product-dimensions-a0575a02c024-6e55ca2e/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-37-product-dimensions-a0575a02c024-6e55ca2e/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-37-product-dimensions-a0575a02c024-6e55ca2e/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-37-product-dimensions-a0575a02c024-6e55ca2e/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-37-product-dimensions-a0575a02c024-6e55ca2e/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-37-product-dimensions-a0575a02c024-6e55ca2e/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-38-filter-replacement",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-10",
+    "sourceRun": "useful-38-filter-replacement",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "e29de31a796ddec193a72a1a91bf4ea50ddb5737",
+    "frameworkArchiveSha256": "c0c21ae59ed3ec6decdc42b2fe80158a44d3d992d5669a53eb2ba3ba7f07b90a",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "52ff73607d905c5ece4f3a0c0fdf70dfa69c5d8fa784652e3980bd3dcb407f42",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from mrdoob/three.js. No upstream prompt, implementation, or media copied.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-38-filter-replacement-52ff73607d90-e25304d2/source.zip",
+    "editableSourceSha256": "71fe47c59f2ce3fc78839732fdafa303c3074bf78e5a6c9bed0e5494c3691279",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-10/useful-38-filter-replacement/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-38-filter-replacement-52ff73607d90-e25304d2/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-38-filter-replacement-52ff73607d90-e25304d2/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-38-filter-replacement-52ff73607d90-e25304d2/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-38-filter-replacement-52ff73607d90-e25304d2/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-38-filter-replacement-52ff73607d90-e25304d2/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-38-filter-replacement-52ff73607d90-e25304d2/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-38-filter-replacement-52ff73607d90-e25304d2/poster.jpg"
+      }
+    ]
   }
 ]
