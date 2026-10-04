@@ -3006,5 +3006,39 @@
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-12-research-summary-e809aa823b25-003c95a7/poster.jpg"
       }
     ]
+  },
+  {
+    "id": "useful-18-code-fix",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-05",
+    "sourceRun": "useful-18-code-fix",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "e408a4dba819e75c1dff75b50b4f31c4467cd084",
+    "frameworkArchiveSha256": "ec7bb6765eda72641a3683687671be25462c20ee0c59d28a4e794f780128d6cb",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "0bedcda84b7bf2044c0f2c02b30b64a2681cabcc9a151e6c9cb15c5974c1ecbd",
+    "promptSource": "Original Video Use brief and implementation. Animated layout/code-selection ideas informed by Motion Canvas examples (MIT).",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-18-code-fix-0bedcda84b7b-34d742d4/source.zip",
+    "editableSourceSha256": "2a65b23af584a87dad3895928751abac11ca6cea4e941f98d8d1641e827d8354",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-05/useful-18-code-fix/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-18-code-fix-0bedcda84b7b-34d742d4/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-18-code-fix-0bedcda84b7b-34d742d4/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-18-code-fix-0bedcda84b7b-34d742d4/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-18-code-fix-0bedcda84b7b-34d742d4/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-18-code-fix-0bedcda84b7b-34d742d4/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-18-code-fix-0bedcda84b7b-34d742d4/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-18-code-fix-0bedcda84b7b-34d742d4/poster.jpg"
+      }
+    ]
   }
 ]

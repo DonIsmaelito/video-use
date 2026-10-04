@@ -295,6 +295,33 @@
     "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-12-research-summary-e809aa823b25-003c95a7/review.md"
   },
   {
+    "id": "useful-18-code-fix",
+    "title": "Explain a Small Code Fix",
+    "category": "Explainers",
+    "description": "Make a bug and its fix visible with an input, a changing code line, and the correct result.",
+    "prompt": "Use Video Use to make a 26-second 1920×1080 developer explainer called “Count the paid orders”. Show three sample orders: one pending and two paid. Start with the JavaScript line “const total = orders.length;” and the output 3. Highlight that the pending order is being counted. Replace the line with “const total = orders.filter(order => order.status === 'paid').length;” while visually filtering the pending row out. The corrected output becomes 2. Keep the code large enough to read; wrap the chained call across two lines if needed. Use a dark ink editor surface, soft lavender syntax accents and mint for the accepted rows. End with the two paid orders, the corrected code and “Filter first. Count second.” Use deliberate selection boxes and motion that follows the actual data flow. No fake terminal activity or scrolling walls of code. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
+    "duration": 26,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Educators",
+      "Product teams",
+      "Content creators"
+    ],
+    "useCases": [
+      "Developer education",
+      "Technical explainers",
+      "Tutorials"
+    ],
+    "technique": "diagrams",
+    "sourceRepo": "https://github.com/motion-canvas/motion-canvas",
+    "promptSource": "Original Video Use brief and implementation. Animated layout/code-selection ideas informed by Motion Canvas examples (MIT).",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-18-code-fix-0bedcda84b7b-34d742d4/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-18-code-fix-0bedcda84b7b-34d742d4/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-18-code-fix-0bedcda84b7b-34d742d4/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-18-code-fix-0bedcda84b7b-34d742d4/review.md"
+  },
+  {
     "id": "whiplash-cinematic-story-edit",
     "title": "Whiplash — a Cinematic Story Edit",
     "category": "Video Edits",
