@@ -3754,5 +3754,39 @@
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-34-cache-expiry-e5e44379cc31-116b7119/poster.jpg"
       }
     ]
+  },
+  {
+    "id": "useful-31-service-status",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-09",
+    "sourceRun": "useful-31-service-status",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "1bf8404c48d34708641942e5405770cf560e1938",
+    "frameworkArchiveSha256": "c0c21ae59ed3ec6decdc42b2fe80158a44d3d992d5669a53eb2ba3ba7f07b90a",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "9f210e68cc7be244bbd94a29ca874b7f8f43048cec4edec5d7fbd3604b2974a2",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from motion-canvas/examples. No upstream prompt, implementation, or media copied.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-31-service-status-9f210e68cc7b-ec42515f/source.zip",
+    "editableSourceSha256": "46d1f569e25f6ea7a45737fcd88dc16bad190adac4e905b2cae24ed4de37ec0d",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-09/useful-31-service-status/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-31-service-status-9f210e68cc7b-ec42515f/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-31-service-status-9f210e68cc7b-ec42515f/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-31-service-status-9f210e68cc7b-ec42515f/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-31-service-status-9f210e68cc7b-ec42515f/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-31-service-status-9f210e68cc7b-ec42515f/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-31-service-status-9f210e68cc7b-ec42515f/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-31-service-status-9f210e68cc7b-ec42515f/poster.jpg"
+      }
+    ]
   }
 ]

@@ -792,6 +792,31 @@
     "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-30-match-result-1c1a491cbb1e-73385504/review.md"
   },
   {
+    "id": "useful-31-service-status",
+    "title": "Explain a Service Update",
+    "category": "Motion Design",
+    "description": "Present a fictional incident timeline with precise states and a calm customer update.",
+    "prompt": "Use Video Use to create a 22-second calm service-update video for fictional file-sharing app Sparrow. Keep an Example incident label visible. Present one horizontal timeline for File uploads with three supplied states: Investigating 09:10, Recovering 10:05, Resolved 10:20. Reveal them in order, keeping earlier timestamps visible. At the recovery stage, show Uploads recovering, monitoring continues; only at 10:20 show Uploads restored. End on the complete timeline with Thank you for your patience and Resolved 10:20 held for 3 seconds. Do not add a root cause, outage duration statistic, SLA claim, compensation promise or claim that all services were affected. Use warm grey, charcoal, amber during investigation and muted green after resolution. Motion should support clarity rather than urgency. Keep the state data, affected feature and timestamps editable and clearly identify the content as a fictional demonstration in the gallery. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+    "duration": 22,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Product teams",
+      "Founders"
+    ],
+    "useCases": [
+      "Customer communication",
+      "Status updates"
+    ],
+    "technique": "motion-design",
+    "sourceRepo": "https://github.com/motion-canvas/examples",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from motion-canvas/examples. No upstream prompt, implementation, or media copied.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-31-service-status-9f210e68cc7b-ec42515f/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-31-service-status-9f210e68cc7b-ec42515f/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-31-service-status-9f210e68cc7b-ec42515f/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-31-service-status-9f210e68cc7b-ec42515f/review.md"
+  },
+  {
     "id": "useful-32-break-even",
     "title": "Explain Break Even Visually",
     "category": "Explainers",
