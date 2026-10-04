@@ -20,10 +20,10 @@
     "technique": "motion-design",
     "sourceRepo": "https://github.com/instavar/remotion-templates",
     "promptSource": "Original Video Use brief and implementation. Story structure inspired by Instavar Remotion Templates (MIT); fictional content and visual direction are new.",
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-f22ad18a/final.mp4",
-    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-f22ad18a/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-f22ad18a/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-f22ad18a/review.md"
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-a39a9c32/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-a39a9c32/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-a39a9c32/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-a39a9c32/review.md"
   },
   {
     "id": "useful-02-modular-desk",
@@ -47,10 +47,10 @@
     "technique": "3d",
     "sourceRepo": "https://github.com/ahujasid/mcp-for-blender",
     "promptSource": "Original Video Use brief and 3D scene. Modeling, studio-lighting and isometric-camera ideas inspired by MCP for Blender (MIT); built with Video Use’s selected runtime.",
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-34cd5927/final.mp4",
-    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-34cd5927/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-34cd5927/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-34cd5927/review.md"
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-615152a4/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-615152a4/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-615152a4/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-615152a4/review.md"
   },
   {
     "id": "useful-03-lead-routing",
@@ -74,10 +74,117 @@
     "technique": "diagrams",
     "sourceRepo": "https://github.com/motion-canvas/motion-canvas",
     "promptSource": "Original Video Use brief and implementation. Animated layout/code-selection ideas informed by Motion Canvas examples (MIT).",
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-ea0cc4cc/final.mp4",
-    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-ea0cc4cc/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-ea0cc4cc/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-ea0cc4cc/review.md"
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-9b5e560c/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-9b5e560c/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-9b5e560c/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-9b5e560c/review.md"
+  },
+  {
+    "id": "useful-04-monthly-report",
+    "title": "Turn Metrics into a Story",
+    "category": "Explainers",
+    "description": "Make a monthly update that shows the change, explains it, and names the next action.",
+    "prompt": "Use Video Use to produce a 24-second 1080×1080 monthly business update for fictional company Fieldnote. Use this exact demonstration dataset: trial signups July 240, August 320, September 400; paid conversions July 48, August 64, September 100. Open on “September, at a glance”. Build a three-month signup bar chart with a fixed zero baseline; grow the bars to their true relative heights. Highlight 320 → 400 and “Signups +25%”. Then transform into a conversion-rate view: 20%, 20%, 25%, with “Conversion +5 percentage points”. End with a small action card: “Next: improve the first-session checklist”. Use forest green, cream and a warm orange highlight, precise chart labels, short clean transitions, and no finance-dashboard clutter. Keep “Illustrative data” quietly visible. Let the strongest chart hold long enough to read. No fabricated causal claim or implied real customer results. Use Video Use and its current production helpers to create the finished video and editable source. Keep typography large, all content inside safe areas, and camera motion motivated by the message. Review representative rendered frames and the opening and ending before delivery. Use only original geometry, demo interfaces, and licensed assets. All company names and numbers in this example are fictional demonstration content.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "square",
+    "audiences": [
+      "Founders",
+      "Marketers",
+      "Product teams"
+    ],
+    "useCases": [
+      "Reports",
+      "Social content",
+      "Data stories"
+    ],
+    "technique": "diagrams",
+    "sourceRepo": "https://github.com/ManimCommunity/manim",
+    "promptSource": "Original Video Use brief and visual explanation. Geometry, annotation and chart ideas informed by Manim Community examples (MIT).",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-04-monthly-report-1086b0fa60ec-2b1b7c1b/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-04-monthly-report-1086b0fa60ec-2b1b7c1b/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-04-monthly-report-1086b0fa60ec-2b1b7c1b/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-04-monthly-report-1086b0fa60ec-2b1b7c1b/review.md"
+  },
+  {
+    "id": "useful-05-screen-tutorial",
+    "title": "Make a Screen Recording Clear",
+    "category": "Video Edits",
+    "description": "Cut a slow screen recording into a focused tutorial with purposeful zooms and three clear steps.",
+    "prompt": "Use Video Use to turn the supplied 45–60 second recording of a fictional Fieldnote workspace into a 24-second tutorial called “Share a project in three steps”. Keep the real screen recording as the main picture. Remove idle time, failed clicks and unnecessary pointer travel. Preserve the actual successful sequence: open Share, enter a teammate’s email, choose Can comment, send invite. Introduce only three step labels: “1 Open sharing”, “2 Choose access”, “3 Send the invite”. Use a restrained smooth crop to enlarge the active controls, returning to the full view for the confirmation. Make the selected permission legible; do not cover it with text or invent a UI response that did not occur. Use the original cursor and add a small highlight only when the click is otherwise hard to see. End on the successful invite with “Ready for feedback”. Use soft lavender and dark ink annotation graphics, no heavy transitions, and quiet click accents. For this showcase, create and record an original demo UI with deliberate pauses first, then edit that recorded video; label it as a demo app in the project notes. Execute the edit with the current Video Use helpers, keep the source media unchanged, and retain the EDL, overlays and editable source. Inspect the rendered cut boundaries, readability and ending before delivery. Use 30 ms audio fades at cut boundaries and composite captions last. Describe the supplied source footage and its credit honestly; do not imply Video Use generated the source footage.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Product teams",
+      "Educators",
+      "Content creators"
+    ],
+    "useCases": [
+      "Tutorials",
+      "Onboarding",
+      "Training"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/veedstudio/open-edit",
+    "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-97c5dc1039e8-5835b2ca/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-97c5dc1039e8-5835b2ca/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-97c5dc1039e8-5835b2ca/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-97c5dc1039e8-5835b2ca/review.md"
+  },
+  {
+    "id": "useful-06-fractions-lesson",
+    "title": "Teach a Visual Math Lesson",
+    "category": "Explainers",
+    "description": "Teach one idea clearly with a visual comparison and a final worked answer.",
+    "prompt": "Use Video Use to make a 26-second 1920×1080 classroom explainer answering “Which is larger: 2/3 or 3/4?” Draw two exactly equal-length horizontal bars. Split the upper bar into thirds and fill two; split the lower into fourths and fill three. Align their left edges so the filled lengths can be compared. Then subdivide both into twelfths without changing their widths: 2/3 becomes 8/12 and 3/4 becomes 9/12. Isolate the single extra twelfth in warm coral and end on “3/4 is larger by 1/12”. Use a warm white canvas, navy labels, teal fills and coral only for the difference. Keep mathematical meaning attached to the moving geometry rather than switching to a text slide. Use gentle line drawing and precise label placement; leave the final annotated comparison visible for 4 seconds. No voiceover is needed because each step is visibly explained. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
+    "duration": 26,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Educators",
+      "Content creators"
+    ],
+    "useCases": [
+      "Lessons",
+      "Explainers",
+      "Training"
+    ],
+    "technique": "diagrams",
+    "sourceRepo": "https://github.com/ManimCommunity/manim",
+    "promptSource": "Original Video Use brief and visual explanation. Geometry, annotation and chart ideas informed by Manim Community examples (MIT).",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-06-fractions-lesson-45907805b9b1-70d97f00/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-06-fractions-lesson-45907805b9b1-70d97f00/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-06-fractions-lesson-45907805b9b1-70d97f00/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-06-fractions-lesson-45907805b9b1-70d97f00/review.md"
+  },
+  {
+    "id": "useful-07-workshop-invite",
+    "title": "Invite People to a Workshop",
+    "category": "Motion Design",
+    "description": "Make a mobile-first event announcement with a useful promise and a readable invitation.",
+    "prompt": "Use Video Use to create an 18-second 1080×1920 social invitation for a fictional workshop called “Make Your First Mini Documentary”. Build the story from three original paper-like scene frames: a notebook outline, a simple shot list, and a tidy three-clip edit timeline. The copy is “A story worth telling”, then “Plan it. Shoot it. Shape it.” End with “Mini Documentary Lab / Saturday, 10 AM / Bring your phone”. Use a cobalt blue background, cream serif headlines, lime accent tape and clean sans-serif event details. Let the three scene frames form one editorial collage instead of a stack of generic cards. Keep the important event details on screen for the last 4 seconds. Use original paper rustles or quiet clicks if helpful. Include “Example event” discreetly so the showcase is not mistaken for a real scheduled workshop. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
+    "duration": 18,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": [
+      "Educators",
+      "Marketers",
+      "Content creators"
+    ],
+    "useCases": [
+      "Event promotion",
+      "Social content",
+      "Courses"
+    ],
+    "technique": "motion-design",
+    "sourceRepo": "https://github.com/veedstudio/open-edit",
+    "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-07-workshop-invite-1d9e78431ab1-b32da676/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-07-workshop-invite-1d9e78431ab1-b32da676/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-07-workshop-invite-1d9e78431ab1-b32da676/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-07-workshop-invite-1d9e78431ab1-b32da676/review.md"
   },
   {
     "id": "practical-cut-pauses",

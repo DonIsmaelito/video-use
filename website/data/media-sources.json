@@ -2587,23 +2587,23 @@
     "storage": "Cloudflare R2",
     "websiteSha256": "a03dfab79c397e1f74e6df99984682ffdfc8cee9233b3915af677eec9951dd50",
     "promptSource": "Original Video Use brief and implementation. Animated layout/code-selection ideas informed by Motion Canvas examples (MIT).",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-ea0cc4cc/source.zip",
-    "editableSourceSha256": "286185cddfeca06afa534b6885ff998e6c904fc4a6ba624398b1f1e1ed4d32ff",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-9b5e560c/source.zip",
+    "editableSourceSha256": "a8f98729166b3320ba69649e829eb04e37380e2e7a35cd14b3b255f763618c5f",
     "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
     "cloudProject": "video-use-useful-library-20261003/batch-01/useful-03-lead-routing/project/edit",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-ea0cc4cc/review.md",
-    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-ea0cc4cc/verification.json",
-    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-ea0cc4cc/storyboard.jpg",
-    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-ea0cc4cc/creative-prompt.txt",
-    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-ea0cc4cc/provenance.json",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-9b5e560c/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-9b5e560c/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-9b5e560c/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-9b5e560c/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-9b5e560c/provenance.json",
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-ea0cc4cc/final.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-9b5e560c/final.mp4"
       },
       {
         "field": "poster",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-ea0cc4cc/poster.jpg"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-9b5e560c/poster.jpg"
       }
     ]
   },
@@ -2621,23 +2621,23 @@
     "storage": "Cloudflare R2",
     "websiteSha256": "86178a46412a09fd413fda793ff67e71871a019895442351382704ef8c380702",
     "promptSource": "Original Video Use brief and implementation. Story structure inspired by Instavar Remotion Templates (MIT); fictional content and visual direction are new.",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-f22ad18a/source.zip",
-    "editableSourceSha256": "39b992d91d984affd39d07acf96239a4bc0483ccb0ec0ed602d90d82a9b0b429",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-a39a9c32/source.zip",
+    "editableSourceSha256": "88d074371c8e48c8dbd24d90545f5d55447348d049e1fd0629359712aafb890f",
     "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
     "cloudProject": "video-use-useful-library-20261003/batch-01/useful-01-launch-approvals/project/edit",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-f22ad18a/review.md",
-    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-f22ad18a/verification.json",
-    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-f22ad18a/storyboard.jpg",
-    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-f22ad18a/creative-prompt.txt",
-    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-f22ad18a/provenance.json",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-a39a9c32/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-a39a9c32/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-a39a9c32/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-a39a9c32/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-a39a9c32/provenance.json",
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-f22ad18a/final.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-a39a9c32/final.mp4"
       },
       {
         "field": "poster",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-f22ad18a/poster.jpg"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-a39a9c32/poster.jpg"
       }
     ]
   },
@@ -2655,23 +2655,23 @@
     "storage": "Cloudflare R2",
     "websiteSha256": "d8c7925327fda638d7b01038493b7678b5ab6683499fcc72c872fccc9d98e379",
     "promptSource": "Original Video Use brief and 3D scene. Modeling, studio-lighting and isometric-camera ideas inspired by MCP for Blender (MIT); built with Video Use’s selected runtime.",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-34cd5927/source.zip",
-    "editableSourceSha256": "ca44dd0946226cdd8f69737a6dfd78ff698c426a25664edd8994774665af46c0",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-615152a4/source.zip",
+    "editableSourceSha256": "c17fbf06b66d0378f5ef57e307f21906e4788e6c9b620c7d20aae27f4f7985b7",
     "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
     "cloudProject": "video-use-useful-library-20261003/batch-01/useful-02-modular-desk/project/edit",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-34cd5927/review.md",
-    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-34cd5927/verification.json",
-    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-34cd5927/storyboard.jpg",
-    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-34cd5927/creative-prompt.txt",
-    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-34cd5927/provenance.json",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-615152a4/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-615152a4/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-615152a4/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-615152a4/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-615152a4/provenance.json",
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-34cd5927/final.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-615152a4/final.mp4"
       },
       {
         "field": "poster",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-34cd5927/poster.jpg"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-615152a4/poster.jpg"
       }
     ]
   },
@@ -2689,23 +2689,159 @@
     "storage": "Cloudflare R2",
     "websiteSha256": "63c49aab5da7a4f54c98b506e6152d23c7bdf31caef57ca57d97f16aa151edbc",
     "promptSource": "Original Video Use product demonstration, created with Video Use. No third-party prompt template was copied.",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-63c49aab5da7-08312d88/source.zip",
-    "editableSourceSha256": "c01f7b7fea60bda2eb4717c3a02e35fc47750194638b1a2f23a0347800881dec",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-63c49aab5da7-cd587a08/source.zip",
+    "editableSourceSha256": "794d224609a4fa9972ad10b7929ed3ac896459c22996c404a61fb4b0f0065b98",
     "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
     "cloudProject": "video-use-useful-library-20261003/batch-01/mcp-launch/repairs/repair-20261003-204324/project/edit",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-63c49aab5da7-08312d88/review.md",
-    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-63c49aab5da7-08312d88/verification.json",
-    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-63c49aab5da7-08312d88/storyboard.jpg",
-    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-63c49aab5da7-08312d88/creative-prompt.txt",
-    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-63c49aab5da7-08312d88/provenance.json",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-63c49aab5da7-cd587a08/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-63c49aab5da7-cd587a08/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-63c49aab5da7-cd587a08/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-63c49aab5da7-cd587a08/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-63c49aab5da7-cd587a08/provenance.json",
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-63c49aab5da7-08312d88/final.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-63c49aab5da7-cd587a08/final.mp4"
       },
       {
         "field": "poster",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-63c49aab5da7-08312d88/poster.jpg"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-63c49aab5da7-cd587a08/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-04-monthly-report",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-02",
+    "sourceRun": "useful-04-monthly-report",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "33239f866b4c32a5cbf7b29b00a98c3682a17407",
+    "frameworkArchiveSha256": "2bdf037ff6767b3253f47aaceda54278c8807f2acae169198e2cf668c92dde20",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "1086b0fa60ec96c1dfcf52959d668b6eb3c749eb5aeea3af415eb5f7f797129f",
+    "promptSource": "Original Video Use brief and visual explanation. Geometry, annotation and chart ideas informed by Manim Community examples (MIT).",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-04-monthly-report-1086b0fa60ec-2b1b7c1b/source.zip",
+    "editableSourceSha256": "3c67d5e9a50e556742c298dbcde4ded08f96a990f70064cb90f1b1b258c56920",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-02/useful-04-monthly-report/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-04-monthly-report-1086b0fa60ec-2b1b7c1b/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-04-monthly-report-1086b0fa60ec-2b1b7c1b/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-04-monthly-report-1086b0fa60ec-2b1b7c1b/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-04-monthly-report-1086b0fa60ec-2b1b7c1b/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-04-monthly-report-1086b0fa60ec-2b1b7c1b/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-04-monthly-report-1086b0fa60ec-2b1b7c1b/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-04-monthly-report-1086b0fa60ec-2b1b7c1b/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-07-workshop-invite",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-02",
+    "sourceRun": "useful-07-workshop-invite",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "33239f866b4c32a5cbf7b29b00a98c3682a17407",
+    "frameworkArchiveSha256": "2bdf037ff6767b3253f47aaceda54278c8807f2acae169198e2cf668c92dde20",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "1d9e78431ab14ee212b63dd7917f9f137c07681c1ccbd175a1a43608c99fccdf",
+    "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-07-workshop-invite-1d9e78431ab1-b32da676/source.zip",
+    "editableSourceSha256": "975e48f4ff7d23cb3034850eab451eef9fafe60871e3009233d80beff605ae94",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-02/useful-07-workshop-invite/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-07-workshop-invite-1d9e78431ab1-b32da676/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-07-workshop-invite-1d9e78431ab1-b32da676/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-07-workshop-invite-1d9e78431ab1-b32da676/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-07-workshop-invite-1d9e78431ab1-b32da676/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-07-workshop-invite-1d9e78431ab1-b32da676/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-07-workshop-invite-1d9e78431ab1-b32da676/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-07-workshop-invite-1d9e78431ab1-b32da676/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-05-screen-tutorial",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-02",
+    "sourceRun": "useful-05-screen-tutorial",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "7b78da63a71087da99377c1f7bf7767a5caef860",
+    "frameworkArchiveSha256": "410627cb7c37e18b3501608be8d4527257d832823896774eec01f785911943b2",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "97c5dc1039e8b3caaceed4dbab2b3a9075aa3c320dae45d2088429175bfee198",
+    "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-97c5dc1039e8-5835b2ca/source.zip",
+    "editableSourceSha256": "afdcbb510e20b60700fff9459c2d2f50ccdecf1de4b1fcf3df7793c914f59356",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-02/useful-05-screen-tutorial/repairs/repair-20261003-211526/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-97c5dc1039e8-5835b2ca/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-97c5dc1039e8-5835b2ca/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-97c5dc1039e8-5835b2ca/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-97c5dc1039e8-5835b2ca/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-97c5dc1039e8-5835b2ca/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-97c5dc1039e8-5835b2ca/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-05-screen-tutorial-97c5dc1039e8-5835b2ca/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-06-fractions-lesson",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-02",
+    "sourceRun": "useful-06-fractions-lesson",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "33239f866b4c32a5cbf7b29b00a98c3682a17407",
+    "frameworkArchiveSha256": "2bdf037ff6767b3253f47aaceda54278c8807f2acae169198e2cf668c92dde20",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "45907805b9b11ea1e0dcccc5a0762a9f60b91c0a3755c761a022ecb56efa4875",
+    "promptSource": "Original Video Use brief and visual explanation. Geometry, annotation and chart ideas informed by Manim Community examples (MIT).",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-06-fractions-lesson-45907805b9b1-70d97f00/source.zip",
+    "editableSourceSha256": "c7f7d492d39fdd74967584a5a5a539afec5cc7d466b8e17339e7ca152236ce89",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-02/useful-06-fractions-lesson/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-06-fractions-lesson-45907805b9b1-70d97f00/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-06-fractions-lesson-45907805b9b1-70d97f00/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-06-fractions-lesson-45907805b9b1-70d97f00/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-06-fractions-lesson-45907805b9b1-70d97f00/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-06-fractions-lesson-45907805b9b1-70d97f00/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-06-fractions-lesson-45907805b9b1-70d97f00/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-06-fractions-lesson-45907805b9b1-70d97f00/poster.jpg"
       }
     ]
   }
