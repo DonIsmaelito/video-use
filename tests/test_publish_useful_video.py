@@ -6,6 +6,7 @@ from copy import deepcopy
 import pytest
 
 from experiments.publish_useful_video import check_archive, contains_secret, validate_approval
+from experiments.useful_video_library import archive_source
 
 
 def approval():
@@ -52,3 +53,38 @@ def test_editable_source_is_accepted(tmp_path):
 def test_stream_scan_covers_large_files_and_chunk_boundaries():
     data = b" " * (11 * 1024 * 1024 - 5) + b"sk-proj-" + b"x" * 32
     assert contains_secret(io.BytesIO(data))
+
+
+def test_real_dependency_locks_survive_archive_and_publisher_with_exact_bytes(tmp_path):
+    project = tmp_path / "project"
+    edit = project / "edit"
+    edit.mkdir(parents=True)
+    locks = {"requirements.lock": b"numpy==2.5.3\nPillow==12.3.0\n",
+             "uv.lock": b'version = 1\n', "poetry.lock": b'[[package]]\nname = "numpy"\n',
+             "Pipfile.lock": b'{"default": {}}\n', "yarn.lock": b'# yarn lockfile v1\n'}
+    for name, content in locks.items():
+        (edit / name).write_bytes(content)
+    for name in ("runtime.lock", "render.lock", "backup.requirements.lock"):
+        (edit / name).write_bytes(b"arbitrary process/cache state")
+    (edit / "node_modules").mkdir()
+    (edit / "node_modules/requirements.lock").write_text("must remain excluded")
+    archive = tmp_path / "source.zip"
+    archive_source(project, archive)
+    with zipfile.ZipFile(archive) as package:
+        assert set(package.namelist()) == {"edit/" + name for name in locks}
+        for name, content in locks.items():
+            assert package.read("edit/" + name) == content
+    assert check_archive(archive)["files"] == len(locks)
+
+
+@pytest.mark.parametrize("name,content", [
+    ("edit/runtime.lock", "arbitrary cache"), ("edit/requirements.lock.bak", "backup"),
+    ("edit/unknown.lock", "private process state"),
+    ("edit/requirements.lock", 'token="sk-' + 'x' * 24 + '"'),
+])
+def test_unknown_locks_and_credentials_in_recognized_locks_are_rejected(tmp_path, name, content):
+    archive = tmp_path / "source.zip"
+    with zipfile.ZipFile(archive, "w") as package:
+        package.writestr(name, content)
+    with pytest.raises(ValueError):
+        check_archive(archive)

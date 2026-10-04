@@ -25,7 +25,8 @@ SECRET_TEXT = re.compile(rb"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----|(?
 SOURCE_SUFFIXES = {".py", ".js", ".mjs", ".cjs", ".jsx", ".ts", ".tsx", ".html", ".css", ".scss",
                    ".json", ".toml", ".yaml", ".yml", ".txt", ".md", ".svg", ".png", ".jpg", ".jpeg", ".webp",
                    ".woff", ".woff2", ".ttf", ".otf", ".glb", ".gltf", ".obj", ".mtl", ".stl", ".blend",
-                   ".sh", ".srt", ".vtt", ".ass", ".csv", ".lock", ".ipynb"}
+                   ".sh", ".srt", ".vtt", ".ass", ".csv", ".ipynb"}
+DEPENDENCY_LOCK_NAMES = {"requirements.lock", "uv.lock", "poetry.lock", "Pipfile.lock", "yarn.lock"}
 
 
 def contains_secret(stream) -> bool:
@@ -73,7 +74,7 @@ def check_archive(path: Path) -> dict:
             if "\\" in entry.filename or re.match(r"^[A-Za-z]:", entry.filename) or relative.is_absolute() or any(part.startswith(".") or part in forbidden_parts for part in relative.parts):
                 raise ValueError("Unsafe source archive path")
             is_notice = bool(re.fullmatch(r"(?:.*[-_.])?(?:LICENSE|NOTICE|COPYING)", relative.name, re.IGNORECASE))
-            if relative.name in {"auth.json", "credentials.json"} or (relative.suffix.lower() not in SOURCE_SUFFIXES and not is_notice and relative.name.upper() != "MAKEFILE"):
+            if relative.name in {"auth.json", "credentials.json"} or (relative.suffix.lower() not in SOURCE_SUFFIXES and relative.name not in DEPENDENCY_LOCK_NAMES and not is_notice and relative.name.upper() != "MAKEFILE"):
                 raise ValueError("Non-source or private file in source archive: " + str(relative))
             if (entry.external_attr >> 16) & 0o170000 == 0o120000:
                 raise ValueError("Symlink in source archive")

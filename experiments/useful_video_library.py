@@ -52,6 +52,7 @@ SOURCE_EXTENSIONS = {".py", ".mjs", ".js", ".cjs", ".jsx", ".tsx", ".ts", ".html
                      ".json", ".md", ".txt", ".srt", ".vtt", ".ass", ".csv", ".yaml", ".yml", ".toml", ".svg", ".png",
                      ".jpg", ".jpeg", ".webp", ".gif", ".ttf", ".otf", ".woff", ".woff2",
                      ".blend", ".gltf", ".glb", ".obj", ".mtl", ".stl", ".ply"}
+DEPENDENCY_LOCK_NAMES = {"requirements.lock", "uv.lock", "poetry.lock", "Pipfile.lock", "yarn.lock"}
 
 
 def safe_id(value: str) -> str:
@@ -299,7 +300,7 @@ def archive_source(project: Path, target: Path, *, framework: dict | None = None
                            for index, part in enumerate(relative.parts[:-1]))):
                 continue
             legal_name = re.fullmatch(r"(?:.*[-_.])?(?:LICENSE|NOTICE|COPYING)", path.name, flags=re.IGNORECASE)
-            if path.suffix.lower() not in SOURCE_EXTENSIONS and path.name.upper() != "README" and not legal_name:
+            if path.suffix.lower() not in SOURCE_EXTENSIONS and path.name not in DEPENDENCY_LOCK_NAMES and path.name.upper() != "README" and not legal_name:
                 continue
             if path.stat().st_size > 25_000_000:
                 continue
