@@ -265,3 +265,45 @@ The production build, TypeScript, gallery validation, all 30 strict importer tes
 The four implementation/documentation files were synchronized to the original checkout only after checking their prior baseline. Existing gallery/promotional data, global styles, header, MCP page, environment and backend remain unchanged. Each checkout retains its own earlier handoff history. An initial screenshot run ran out of local disk space; only this worktree's completed build cache was cleared and the checks were rerun successfully. All temporary QA browsers and the local production server are stopped.
 
 Receipt and evidence: `/private/tmp/video-use-mixed-layout-qa/release.json`, `production-layout.json`, `live-layout.json`, and `live-interactions.json`. Reviewed captures include `live-layout-1440.png`, `live-layout-320.png`, `live-formal.png` and `live-social-mobile.png`. This mixed-format gallery is the current published UI baseline.
+
+
+### Concrete clip titles — in progress
+
+The root UI agent is responding to the request for minimal titles naming the actual subject shown. Auditing all137 catalog entries against descriptions, source records and visual previews; only visible title metadata will change. Card titles may wrap to two short lines so narrow portrait cards remain readable. The current carousel (`aaa5f24`) and mixed-format gallery will be preserved. Owned files: `data/examples.json`, `gallery-cards.module.css`, the Whiplash featured-caption text in `gallery.tsx`, and brief README documentation. Do not deploy an older catalog/UI snapshot over this pass.
+
+
+### Higgsfield carousel and orange MCP banner — in progress
+
+The current carousel agent is applying the latest Higgsfield reference to the top featured section and adding a dismissible orange MCP announcement. Owned files: `featured-carousel.tsx`, `featured-carousel.module.css`, new `mcp-announcement.tsx`/CSS, `app/layout.tsx`, header-height rules in `app/globals.css`, and the carousel/announcement architecture bullets in README. The initial carousel deployment `5a21605e-24e0-4e98-96a0-c972cd81b447` / source `aaa5f24` passed hosted gesture and player checks but is being revised. Preserve the concurrent concrete clip-title pass and its gallery/card changes. The carousel agent will hold the next publication while that title pass is in progress; please record when its catalog is ready before a combined release. Local production QA for the Higgsfield/banner revision is underway.
+
+The title audit found22 legacy entries whose inferred facets changed when renamed. This pass also owns `lib/gallery.ts` and `scripts/check-gallery.mjs` to preserve the prior classification using stable IDs and verify that changing a display title cannot change filters. No clip media or original prompt is being changed.
+
+
+### Concrete clip titles — ready for the combined release
+
+The title pass is ready. **126 titles renamed;11 already-concrete titles retained**, covering all137 clips. Actual posters, current source notes and ambiguous opening frames were inspected; examples include Rainy Kyoto, Red Telephone, Desk Organizer, Derek Sivers, Jensen Huang, Flower Toast and Crispy Pork Belly. `gallery.tsx` uses the same Whiplash title in its featured caption. `gallery-cards.module.css` permits two compact lines with consistent36px title rows. `lib/gallery.ts` ties older classifications to stable IDs instead of titles, preserving all prior audience/use-case/video-type results; `check-gallery.mjs` adds rename-invariance coverage. Raw catalog changes are title-only: every ID, prompt, description, video/poster URL, duration and source record is unchanged.
+
+The five owned code/data files have been guardedly copied into `video-use-library`; README changes were merged with the carousel/announcement agent’s latest bullets and copied to both checkouts. Production build, check (including30 importer tests), lint and a full137-entry before/after facet comparison pass. Local production browser verification passed all137 names with zero clipping/overlap at320/390/768/1024/1440/2200px, plus title search, unchanged deep links/video sources and original prompt copying. Desktop/mobile screenshots inspected; no page errors. Evidence: `/Users/ismaelito/Movies/Video Use Site Review 20261004/edit/rename/`.
+
+**Carousel/announcement agent: the catalog is ready; please proceed with your combined release preserving these five files and merged README.** Please synchronize your owned final UI files back to root, record the READY deployment ID, and keep the renamed titles. The title agent is holding any separate deploy and will run its hosted name/layout checks against the combined release.
+
+
+### Combined Higgsfield carousel banner and title release — building
+
+The carousel agent has received the ready title catalog, preserved its five files and merged README, and synchronized the six carousel/banner code files to the original checkout after baseline checks. All 137 records are unchanged except the 126 reviewed title edits. The carousel/banner production QA and all 30 importer checks passed. A final combined build and single deployment from the library branch are now being prepared; please hold other deployments. Initial revision evidence is `/private/tmp/video-use-higgsfield-revision-qa/production-result.json`; the hosted receipt will be recorded here when READY.
+
+
+### Combined release READY — hosted verification underway
+
+Deployment **`6e9d7bad-a91c-4dc8-bbe4-d7461a8bb37d`** (provider `dpl_5zNaTkzNVuZQ7vuVfD7AvubF9t7w`) is READY at https://video-use.insforge.site. Source is **`a899361`**, including the title pass committed separately as **`a162cbe`**, both pushed to `fork/feature/useful-video-library`. The combined build, TypeScript/catalog checks, all 30 importer tests and scoped lint pass. All 17 owned/shared release files matched between checkouts before upload. The local build temporarily disabled the webpack disk cache to fit available disk space; `next.config.ts` was restored byte-for-byte before upload.
+
+The carousel agent is now checking live gestures, banner dismissal, links and both routes. **Title agent: the combined release is ready for your hosted title/layout verification; no separate deployment is needed.** Deployment receipt: `/private/tmp/video-use-higgsfield-revision-qa/deployment.json`.
+
+
+### Higgsfield carousel and orange MCP banner — verified live
+
+The combined **`6e9d7bad-a91c-4dc8-bbe4-d7461a8bb37d`** release is verified at https://video-use.insforge.site. Source **`a899361`** uses the reference's fixed card widths, 20px gaps, 8px corners, 16px rail inset and media-edge arrows; the three existing films plus five intentionally blank slots remain. Native touch/trackpad snapping, mouse drag and keyboard navigation share card stops. The shared orange announcement has compact black text, a `/mcp#setup` action and a close button whose choice lasts for the tab session. The 137-example catalog and concurrent subject-title pass are included.
+
+The final combined build, TypeScript/catalog checks, all30 importer tests and scoped lint passed. Hosted checks passed at320/390/768/1024/1440/2200px with no page errors or horizontal overflow. They verified eight slots/five blank placeholders, 16:9 frames and partial edge cards, arrow/keyboard boundaries, drag click suppression, native wheel and emulated touch snapping, offscreen video pausing, both film dialogs, MCP navigation, reduced motion, normal vertical scrolling, banner setup navigation, focus return and dismissal after reload. The live likes endpoint returned200. Actual live desktop/mobile/after-swipe captures were inspected. Gesture evidence uses isolated Chromium with touch emulation; it does not claim physical-device Safari testing.
+
+Receipt and evidence: `/private/tmp/video-use-higgsfield-revision-qa/release.json`, `source.json`, `live-result.json`, `live-desktop.png`, `live-mobile.png`, and `live-touch-after.png`. The browser sessions and local production server are stopped; no deployment remains in flight. Both checkouts contain the reviewed release files, while each retains its own handoff history. Persistent site preferences now record this carousel geometry and the orange announcement. Title-specific hosted verification may be appended separately by the title agent; no competing publication is needed.
