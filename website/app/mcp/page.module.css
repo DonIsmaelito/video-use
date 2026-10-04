@@ -1,0 +1,491 @@
+/* Reference hierarchy adapted to Video Use's palette and actual connection flow. */
+.page {
+  --section-width: 1100px;
+}
+.hero {
+  max-width: 1260px;
+  margin: auto;
+  padding: 66px 32px 76px;
+  text-align: center;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 14px;
+  border: 1px solid #2b2b2b;
+  border-radius: 99px;
+  color: #bababa;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.badge > span {
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+.hero h1 {
+  margin: 30px 0 23px;
+  font-size: clamp(44px, 6.2vw, 80px);
+  line-height: 1.06;
+  font-weight: 500;
+  letter-spacing: -0.065em;
+  text-wrap: balance;
+}
+.hero h1 > span {
+  color: var(--accent);
+}
+.intro {
+  color: #a3a3a3;
+  font-size: 17px;
+  line-height: 1.75;
+  text-wrap: balance;
+}
+.heroConnect {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 18px;
+  margin: 30px auto 48px;
+}
+.quietLink,
+.cardLink,
+.exploreLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 13px;
+}
+.quietLink {
+  color: #a5a5a5;
+}
+.quietLink:hover,
+.cardLink:hover,
+.exploreLink:hover {
+  color: var(--accent);
+}
+.film {
+  width: min(100%, 900px);
+  margin: auto;
+  border-radius: 18px;
+  box-shadow: 0 24px 70px -45px #9873e864;
+}
+.facts {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px 28px;
+  margin: 29px 0 0;
+  padding: 0;
+  list-style: none;
+  color: #b8b8b8;
+  font-size: 12px;
+}
+.facts li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.facts svg {
+  color: #e8e8e8;
+}
+.section {
+  padding: 84px max(32px, calc((100% - var(--section-width)) / 2));
+  border-top: 1px solid #222;
+  scroll-margin-top: 20px;
+}
+.sectionHeading {
+  max-width: 730px;
+  margin: 0 auto 52px;
+  text-align: center;
+}
+.section h2 {
+  font-size: clamp(32px, 3.7vw, 48px);
+  line-height: 1.12;
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  text-wrap: balance;
+}
+.sectionHeading p {
+  margin-top: 16px;
+  color: #a0a0a0;
+  font-size: 15px;
+  line-height: 1.7;
+  text-wrap: balance;
+}
+.kicker {
+  color: #a5a5a5;
+  font-size: 10px;
+  letter-spacing: 1.8px;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+.sectionHeading > .kicker {
+  display: block;
+  margin-bottom: 18px;
+}
+.steps,
+.clients {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+.steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.steps > li,
+.clientCard,
+.promptCard {
+  min-width: 0;
+  border: 1px solid #2b2b2b;
+  border-radius: 18px;
+  background: #0c0c0c;
+  padding: 30px;
+}
+.steps > li {
+  position: relative;
+  padding-top: 36px;
+}
+.stepNumber {
+  position: absolute;
+  top: -14px;
+  left: 28px;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  background: #ededed;
+  color: #171717;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 50%;
+}
+.steps li:nth-child(2) .stepNumber {
+  background: var(--accent);
+}
+.section h3 {
+  font-size: 20px;
+  line-height: 1.4;
+  letter-spacing: -0.6px;
+  font-weight: 500;
+}
+.steps p,
+.clientCard > p {
+  margin-top: 15px;
+  color: #a3a3a3;
+  font-size: 14px;
+  line-height: 1.8;
+}
+.steps .cardLink {
+  margin-top: 24px;
+  text-align: left;
+  justify-content: flex-start;
+}
+.examplePrompt {
+  padding-top: 20px;
+  margin-top: 20px;
+  border-top: 1px solid #252525;
+  color: #d2d2d2;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.clientCard {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 26px;
+}
+.clientHeading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.clientHeading .kicker {
+  font-size: 9px;
+}
+.clientHeading h3 {
+  margin-top: 4px;
+}
+.clientIcon {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  flex: 0 0 46px;
+  border: 1px solid #2b2b2b;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.clientIcon img {
+  max-width: none;
+}
+.clientCard > p {
+  margin: 0;
+  font-size: 13px;
+  min-height: 70px;
+}
+.clientCard code {
+  color: #d8d8d8;
+  font-size: 11px;
+}
+.setupButton {
+  align-self: flex-start;
+  padding: 10px 0 0;
+  margin-top: auto;
+  font-size: 12px;
+  color: #e3e3e3;
+  gap: 8px;
+}
+.setupButton > svg:first-child {
+  display: none;
+}
+.setupButton:hover {
+  color: var(--accent);
+}
+.setupNote {
+  max-width: 760px;
+  margin: 28px auto 0;
+  text-align: center;
+  color: #888;
+  font-size: 11px;
+  line-height: 1.8;
+}
+.prompts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+.promptLabel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.promptLabel > span:first-child {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #202020;
+  color: #dedede;
+}
+.promptCard:first-child .promptLabel > span:first-child,
+.promptCard:last-child .promptLabel > span:first-child {
+  background: #a78bfa12;
+  color: var(--accent);
+}
+.promptCard h3 {
+  margin-bottom: 22px;
+}
+.promptFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-top: 24px;
+  color: #999;
+  font-size: 11px;
+}
+.promptFooter a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #d0d0d0;
+}
+.promptFooter a:hover {
+  color: var(--accent);
+}
+.exploreLink {
+  display: flex;
+  width: fit-content;
+  margin: 35px auto 0;
+}
+.agentOptions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 860px;
+  margin: auto;
+  gap: 16px;
+}
+.agentOptions a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 23px;
+  border: 1px solid #292929;
+  border-radius: 12px;
+}
+.agentOptions a:hover {
+  background: #141414;
+  border-color: #4c425b;
+}
+.agentOptions a > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.agentOptions a > span:last-child {
+  color: #999;
+  font-size: 11px;
+}
+.faqs {
+  max-width: 860px;
+  margin: auto;
+}
+.faqs details {
+  border-bottom: 1px solid #2b2b2b;
+}
+.faqs summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 24px 0;
+  font-size: 15px;
+  list-style: none;
+  cursor: pointer;
+}
+.faqs summary::-webkit-details-marker {
+  display: none;
+}
+.faqs summary svg {
+  flex-shrink: 0;
+  color: #888;
+}
+.faqs details[open] summary svg {
+  transform: rotate(45deg);
+  color: var(--accent);
+}
+.faqs p {
+  padding: 0 42px 24px 0;
+  color: #a4a4a4;
+  font-size: 14px;
+  line-height: 1.8;
+}
+.closing {
+  text-align: center;
+  padding-top: 66px;
+  padding-bottom: 72px;
+}
+.closing > svg {
+  color: var(--accent);
+  margin: 0 auto 22px;
+}
+.closing > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 26px;
+  margin-top: 30px;
+}
+@media (max-width: 900px) {
+  .section {
+    padding: 64px 28px;
+  }
+  .steps,
+  .clients {
+    gap: 15px;
+  }
+  .steps > li,
+  .clientCard,
+  .promptCard {
+    padding: 24px 20px;
+  }
+  .steps > li {
+    padding-top: 32px;
+  }
+  .clients {
+    grid-template-columns: 1fr;
+    max-width: 600px;
+    margin: auto;
+  }
+  .clientCard > p {
+    min-height: 0;
+  }
+  .clientCard {
+    gap: 18px;
+  }
+  .agentOptions a {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+@media (max-width: 600px) {
+  .hero {
+    padding: 36px 20px 42px;
+  }
+  .badge {
+    font-size: 8px;
+    letter-spacing: 1.5px;
+  }
+  .hero h1 {
+    font-size: clamp(35px, 9.3vw, 54px);
+    margin: 27px 0 21px;
+  }
+  .intro {
+    font-size: 14px;
+  }
+  .desktopBreak {
+    display: none;
+  }
+  .heroConnect {
+    margin: 26px auto 32px;
+  }
+  .facts {
+    gap: 14px 20px;
+    max-width: 330px;
+    margin: 24px auto 0;
+    font-size: 10px;
+  }
+  .section {
+    padding: 50px 20px;
+  }
+  .sectionHeading {
+    margin-bottom: 34px;
+  }
+  .sectionHeading p {
+    font-size: 13px;
+  }
+  .section h2 {
+    font-size: 32px;
+  }
+  .steps,
+  .prompts,
+  .agentOptions {
+    grid-template-columns: 1fr;
+  }
+  .steps {
+    gap: 28px;
+  }
+  .steps > li {
+    padding: 30px 24px 25px;
+  }
+  .clientCard,
+  .promptCard {
+    padding: 24px;
+  }
+  .agentOptions a {
+    align-items: center;
+    flex-direction: row;
+    padding: 21px;
+  }
+  .faqs summary {
+    font-size: 14px;
+    padding: 21px 0;
+  }
+  .faqs p {
+    font-size: 13px;
+    padding-right: 15px;
+  }
+}

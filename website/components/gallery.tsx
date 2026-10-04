@@ -24,6 +24,8 @@ import {
 } from '@/components/ui/dialog';
 import { ConnectMcp } from '@/components/connect-mcp';
 import { McpFeature } from '@/components/mcp-feature';
+import { FeaturedFilm } from '@/components/featured-film';
+import productLaunch from '@/data/product-launch.json';
 import {
   useGalleryLikes,
   type LikeState,
@@ -148,21 +150,10 @@ export function Gallery() {
   const manualText = useRef<HTMLTextAreaElement>(null);
   const visible = filterExamples(filters, galleryExamples);
   const { likes, pending, toggle } = useGalleryLikes(notify);
-  const featuredCandidates = [
-    ...examples.filter(
-      (example) => example.id === 'whiplash-cinematic-story-edit',
-    ),
-    ...examples.filter((example) => example.id === 'useful-02-modular-desk'),
-    ...examples.filter((example) => example.hasWorkflowMetadata),
-    ...examples.filter((example) => example.id.startsWith('practical-')),
-  ];
-  const featuredExamples = featuredCandidates
-    .filter(
-      (example, index) =>
-        featuredCandidates.findIndex((item) => item.id === example.id) ===
-        index,
-    )
-    .slice(0, 2);
+  // Keep the requested hero order explicit: MCP, Product Launches, Whiplash.
+  const featuredExamples = examples.filter(
+    (example) => example.id === 'whiplash-cinematic-story-edit',
+  );
   const filterCount =
     filters.audiences.length +
     filters.useCases.length +
@@ -275,7 +266,13 @@ export function Gallery() {
       >
         <div className="homepage-featured-grid">
           <McpFeature suspended={selected !== null || !!manualCopy} />
-          {featuredExamples.map((example, index) => (
+          <FeaturedFilm
+            media={productLaunch}
+            title="Product Launches"
+            subtitle="Introduce what's next"
+            suspended={selected !== null || !!manualCopy}
+          />
+          {featuredExamples.map((example) => (
             <article className="featured-card" key={example.id}>
               <button
                 type="button"
@@ -300,11 +297,10 @@ export function Gallery() {
               </button>
               <div className="featured-caption">
                 <button type="button" onClick={() => openExample(example)}>
-                  {index === 0 ? 'Cinematic edits' : 'Ideas in motion'}
+                  Cinematic edits
                 </button>
                 <span>
-                  {index === 0 ? 'Find your rhythm' : 'Make it move'}{' '}
-                  <ArrowUpRight size={14} />
+                  Find your rhythm <ArrowUpRight size={14} />
                 </span>
               </div>
             </article>

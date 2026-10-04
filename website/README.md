@@ -29,13 +29,13 @@ The production build explicitly uses Next.js's webpack builder, matching the loc
 ## Routes and components
 
 - `app/page.tsx` assembles the compact header, featured films, example gallery, and footer.
-- `app/mcp/page.tsx` explains the hosted MCP, approval flow, account requirements, setup, and use cases.
+- `app/mcp/page.tsx` and its CSS module provide the centered MCP landing page, launch film, three-step flow, client setup cards, copyable starter prompts, and FAQs.
 - `components/site-header.tsx` and `wordmark.tsx` provide the shared navigation and open-source links.
 - `components/gallery.tsx` handles audience/use-case/video-type/category filters, search, clipboard feedback, deep links, and the detail dialog. Video type keeps the internal `technique` data key and URL parameter.
 - `components/preview-media.tsx` loads media near the viewport and plays only visible, muted previews. Previews pause in hidden tabs, under dialogs, and for reduced motion. Tall gallery windows preserve the full frame over a blurred poster; featured films remain wide.
 - `components/connect-mcp.tsx` provides copyable setup URLs and separate ChatGPT, Claude, Cursor, and local-source instructions. Official client artwork lives in `public/clients`, with its provenance in `brand-sources.json`; compatible clients are not presented as end-to-end tested.
 - `components/ui/disclosure.tsx` uses Base UI for optional filters and source details. `technique-icon.tsx` gives each video type a consistent icon.
-- `components/mcp-feature.tsx` leads the three-film hero immediately below the header. `mcp-launch.tsx` opens its full launch film on the MCP page.
+- `components/mcp-feature.tsx` leads the fixed hero order: MCP, Product Launches, then Whiplash. `featured-film.tsx` shares an accessible full-film dialog for the product and MCP films; opening it pauses background previews. `mcp-launch.tsx` places the new 12-second film on the MCP page.
 - `lib/gallery.ts` contains the real filtering and URL parsing logic. `buildChatPrompt` appends a visible handoff to the example's original brief.
 - `app/globals.css` owns the neutral black/white/gray palette, occasional purple actions, responsive containers, and media treatment.
 - `components/use-gallery-likes.ts`, `app/api/likes/route.ts`, and `lib/likes-server.ts` provide shared, persistent likes with one vote per example per signed browser identity. Counts start at zero; the database stores a hash rather than the cookie itself.
@@ -44,7 +44,7 @@ The production build explicitly uses Next.js's webpack builder, matching the loc
 
 Configure `INSFORGE_URL`, `INSFORGE_API_KEY`, and `LIKES_COOKIE_SECRET` in local and hosted server environments; see `.env.example`. None use a public framework prefix. The schema is recorded in `../migrations/20261004054241_gallery-likes.sql` and was tested in an isolated InsForge backend branch before being applied to the existing site project. Anonymous and authenticated clients have no direct table or RPC access; the server validates example IDs and the request origin. Retrying a like does not add another vote. Clearing browser cookies resets the anonymous identity.
 
-The compact card action copies the same full prompt as the detail dialog. Cards expose controls on hover and keyboard focus; touch devices show them continuously. Filters are available in an expandable panel, and all existing category/search/facet/deep-link behavior is retained. The opening gallery order mixes film formats without changing the source catalog.
+The compact card action copies the same full prompt as the detail dialog. Cards expose controls on hover and keyboard focus; touch devices show them continuously. Filters stay visible in the sidebar, and all existing category/search/facet/deep-link behavior is retained. The opening gallery order mixes film formats without changing the source catalog.
 
 Coordination and verification notes are in `docs/ui-refresh-handoff.md`.
 
@@ -85,6 +85,8 @@ Legacy examples retain their original content. Conservative fallback tags classi
 
 The earlier library includes unboxing and Tears of Steel edits, footage-based montages, original motion studies, and technical explainers. Film excerpts retain attribution in the detail view. Existing batch history and review artifacts are recorded in the provenance ledger.
 
+The three `screen-demo-*` examples are archived educational browser/app edits from x-demo-maker with saved Video Use creation evidence. Their public films are silent, retain contextual credits, and use reconstructed Starter prompts. They include production notes, but no editable project ZIP or claim of a new MCP generation. The bounded publisher is `../experiments/publish_archived_screen_demo.py`; private historical records remain outside the public site.
+
 ### Importing reviewed receipts
 
 Run `node scripts/import-reviewed-examples.mjs /path/to/receipt.json [...]` only after publication verifies the reviewed media bytes. All input receipts are validated before any manifest is written. The established `useful-*` and MCP receipt formats remain supported.
@@ -123,6 +125,10 @@ The copied prompt asks the agent to adapt the workflow to existing chat context,
 ```
 
 Replace these only after publication with the lighter muted autoplay URL, full MP4 URL, poster URL, and measured duration. Until then the tile shows an original static design with no fake playback control. It is promotional content, separate from the gallery example count.
+
+`data/product-launch.json` uses the same media fields for the user-provided 31.648-second Product Launches film. The source MP4, audio, and embedded captions are preserved. Both promotional films stay separate from the 117 gallery examples. `data/featured-media-sources.json` records their current provenance; each media manifest retains the InsForge storage bucket, returned URL, object key, and file hash. Public media is served from the site project’s `site-media` bucket with versioned keys. Historical MCP provenance remains in `media-sources.json`.
+
+`components/mcp-copy.tsx` provides copy feedback and selectable fallbacks for the landing page’s URL, Cursor configuration, and starter prompts. `ConnectMcp` accepts an `initialClient` so each setup card opens the correct guide.
 
 ## Playback and accessibility
 

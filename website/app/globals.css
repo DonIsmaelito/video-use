@@ -1126,15 +1126,13 @@ summary {
 .connection-tabs > button:not(.active) img {
   filter: grayscale(1) brightness(0) invert(1);
 }
-.endpoint-field > label,
-.landing-endpoint label {
+.endpoint-field > label {
   display: block;
   margin-bottom: 9px;
   color: #bdbdbd;
   font-size: 11px;
 }
-.endpoint-field > div,
-.landing-endpoint > div {
+.endpoint-field > div {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -1143,8 +1141,7 @@ summary {
   padding: 10px 12px;
   border-radius: 9px;
 }
-.endpoint-field input,
-.landing-endpoint input {
+.endpoint-field input {
   width: 100%;
   min-width: 0;
   border: 0;
@@ -1154,8 +1151,7 @@ summary {
   font-family: var(--font-code);
   font-size: 11px;
 }
-.endpoint-field button,
-.landing-endpoint button {
+.endpoint-field button {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -1278,67 +1274,7 @@ summary {
   width: 25px;
   height: 25px;
 }
-.client-line {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  color: #999;
-  font-size: 12px;
-}
-/* MCP keeps its existing content and connection guides with the same palette. */
-.mcp-page > section {
-  max-width: 1800px;
-  margin: auto;
-  padding-left: clamp(24px, 5vw, 90px);
-  padding-right: clamp(24px, 5vw, 90px);
-}
-.mcp-hero {
-  display: grid;
-  grid-template-columns: 1fr 1.15fr;
-  gap: 60px;
-  align-items: center;
-  padding-top: 70px;
-  padding-bottom: 100px;
-}
-.mcp-hero h1 {
-  font-size: clamp(48px, 5.5vw, 90px);
-  letter-spacing: -0.06em;
-  line-height: 1.05;
-  margin: 24px 0;
-  font-weight: 500;
-}
-.mcp-page h1 em,
-.mcp-page h2 em {
-  font-family: var(--font-display);
-  color: var(--accent);
-  font-weight: 400;
-  letter-spacing: -0.035em;
-}
-.mcp-hero-copy > p {
-  color: #aaa;
-  font-size: 15px;
-  line-height: 1.7;
-}
-.hero-actions {
-  display: flex;
-  align-items: center;
-  gap: 22px;
-  flex-wrap: wrap;
-  margin: 28px 0;
-}
-.text-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: #c0c0c0;
-  font-size: 12px;
-}
-.text-link:hover {
-  color: #fff;
-}
-.mcp-hero-media {
-  min-width: 0;
-}
+/* Shared full-film previews; MCP page layout lives in its CSS module. */
 .launch-film-preview {
   position: relative;
   display: block;
@@ -1375,167 +1311,15 @@ summary {
   width: 100%;
   max-height: 88svh;
   display: block;
+  object-fit: contain;
 }
-.mcp-media-caption {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  padding-top: 14px;
-  font-size: 10px;
-  color: #999;
-}
-.mcp-how,
-.mcp-workflows {
-  padding-top: 50px;
-  padding-bottom: 80px;
-}
-.mcp-section-heading {
-  margin-bottom: 35px;
-}
-.mcp-section-heading h2,
-.mcp-connection h2,
-.mcp-faq h2,
-.mcp-open-source h2 {
-  font-size: clamp(36px, 4vw, 64px);
-  font-weight: 500;
-  line-height: 1.1;
-  letter-spacing: -0.05em;
-  margin: 18px 0;
-}
-.mcp-steps {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
-}
-.mcp-steps article {
-  position: relative;
-  padding: 26px;
-  background: #171717;
-  border: 1px solid #2c2c2c;
-  border-radius: 16px;
-}
-.step-number {
-  position: absolute;
-  top: 22px;
-  right: 22px;
-  color: #777;
-  font-size: 11px;
-}
-.mcp-step-icon {
-  display: block;
-  margin: 10px 0 32px;
-}
-.mcp-steps h3 {
-  font-size: 15px;
-  font-weight: 500;
-  margin-bottom: 12px;
-}
-.mcp-steps p {
-  color: #aaa;
-  font-size: 12px;
-  line-height: 1.7;
-}
-.mcp-connection {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  padding-top: 70px;
-  padding-bottom: 70px;
-}
-.mcp-connection > div:first-child > p {
-  color: #aaa;
-  font-size: 14px;
-  margin: 18px 0 24px;
-}
-.mcp-setup-card {
-  align-self: center;
-  background: #151515;
-  border: 1px solid #333;
-  border-radius: 20px;
-  padding: 30px;
-}
-.landing-endpoint {
-  margin: 24px 0;
-}
-.connection-facts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  color: #ccc;
-  font-size: 11px;
-}
-.connection-facts > span {
-  display: inline-flex;
-  gap: 5px;
-  align-items: center;
-}
-.mcp-setup-card > p {
-  color: #999;
-  font-size: 11px;
-  line-height: 1.7;
-  margin-top: 20px;
-}
-.workflow-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-}
-.workflow-grid > a {
-  padding: 28px;
-  border: 1px solid #303030;
-  border-radius: 16px;
-  background: #151515;
-}
-.workflow-icon {
-  display: block;
-  margin-bottom: 30px;
-}
-.workflow-grid h3 {
-  font-size: 17px;
-  margin-bottom: 12px;
-  font-weight: 500;
-}
-.workflow-grid p {
-  color: #aaa;
-  font-size: 13px;
-  line-height: 1.7;
-}
-.workflow-grid a > span:last-child {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 28px;
-  color: #eee;
-  font-size: 12px;
-}
-.mcp-faq {
-  display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 80px;
-  padding-top: 80px;
-  padding-bottom: 100px;
-}
-.faq-items details {
-  border-bottom: 1px solid #333;
-  padding: 20px 0;
-}
-.faq-items summary {
-  font-size: 14px;
-  cursor: pointer;
-}
-.faq-items p {
-  color: #aaa;
-  font-size: 13px;
-  line-height: 1.8;
-  padding-top: 15px;
-}
-.mcp-open-source {
+.film-fallback {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 30px;
-  padding-top: 50px;
-  padding-bottom: 70px;
+  justify-content: center;
+  gap: 8px;
+  min-height: 200px;
+  padding: 40px;
 }
 .mcp-artwork {
   position: relative;
@@ -1647,9 +1431,6 @@ summary {
   .site-header {
     gap: 32px;
   }
-  .mcp-hero {
-    gap: 30px;
-  }
 }
 @media (max-width: 1000px) {
   .library-toolbar {
@@ -1675,21 +1456,6 @@ summary {
   }
   .detail-actions {
     flex-wrap: wrap;
-  }
-  .mcp-hero,
-  .mcp-connection,
-  .mcp-faq {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-  .mcp-hero-copy {
-    max-width: 700px;
-  }
-  .mcp-steps {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .mcp-hero-media {
-    max-width: 850px;
   }
 }
 @media (max-width: 700px) {
@@ -1883,37 +1649,6 @@ summary {
   }
   .connection-tabs > button {
     font-size: 10px;
-  }
-  .mcp-page > section {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-  .mcp-hero {
-    padding-top: 30px;
-    padding-bottom: 45px;
-  }
-  .mcp-media-caption > span:last-child {
-    display: none;
-  }
-  .mcp-how,
-  .mcp-workflows,
-  .mcp-connection,
-  .mcp-faq {
-    padding-top: 40px;
-    padding-bottom: 40px;
-  }
-  .mcp-steps article {
-    padding: 20px;
-  }
-  .workflow-grid {
-    grid-template-columns: 1fr;
-  }
-  .mcp-open-source {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-  .mcp-setup-card {
-    padding: 24px;
   }
   .footer-links {
     font-size: 10px;

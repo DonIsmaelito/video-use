@@ -1,0 +1,26 @@
+{
+  "src": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261004%2Fproduct-launch%2F5c78c75479be-autoplay.mp4?v=3798bb611f8d1390b9a4ed37e12d05f4",
+  "video": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261004%2Fproduct-launch%2F45698e58d781-final.mp4?v=d0b8fce523552aab34dd58c3ebc51335",
+  "poster": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261004%2Fproduct-launch%2F2ea253c7c683-poster.jpg?v=9d2a793c7098d438cd54bb00c7424a25",
+  "duration": 31.648,
+  "storage": {
+    "autoplay.mp4": {
+      "bucket": "site-media",
+      "key": "launches/20261004/product-launch/5c78c75479be-autoplay.mp4",
+      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261004%2Fproduct-launch%2F5c78c75479be-autoplay.mp4?v=3798bb611f8d1390b9a4ed37e12d05f4",
+      "sha256": "5c78c75479be0c5b8661bd6f7f9bb48f13a35fceb18963082cbdb7a1347b72d7"
+    },
+    "final.mp4": {
+      "bucket": "site-media",
+      "key": "launches/20261004/product-launch/45698e58d781-final.mp4",
+      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261004%2Fproduct-launch%2F45698e58d781-final.mp4?v=d0b8fce523552aab34dd58c3ebc51335",
+      "sha256": "45698e58d78133eb1d9a73dac662a4dae4380b8d7ddcedfd8a878a53f5c73f4b"
+    },
+    "poster.jpg": {
+      "bucket": "site-media",
+      "key": "launches/20261004/product-launch/2ea253c7c683-poster.jpg",
+      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261004%2Fproduct-launch%2F2ea253c7c683-poster.jpg?v=9d2a793c7098d438cd54bb00c7424a25",
+      "sha256": "2ea253c7c683740adedd6d5022a8da07d2c44ffe8f220641a333b53738176b8a"
+    }
+  }
+}

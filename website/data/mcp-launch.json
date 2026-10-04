@@ -1,6 +1,26 @@
 {
-  "src": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-44f0c3565d86-ead49539/autoplay.mp4",
-  "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-44f0c3565d86-ead49539/final.mp4",
-  "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-44f0c3565d86-ead49539/poster.jpg",
-  "duration": 28
+  "src": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261004%2Fmcp-launch%2Fc7e354a05a99-autoplay.mp4?v=844f7355f56a63a1fde0016b60fa5237",
+  "video": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261004%2Fmcp-launch%2Fcf62bdd579bc-final.mp4?v=24bf5bf7fa666d7b938115ed248c943e",
+  "poster": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261004%2Fmcp-launch%2F6832bb83ba73-poster.jpg?v=6972d01cadd26a5dfdce71cc6d02f771",
+  "duration": 12,
+  "storage": {
+    "autoplay.mp4": {
+      "bucket": "site-media",
+      "key": "launches/20261004/mcp-launch/c7e354a05a99-autoplay.mp4",
+      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261004%2Fmcp-launch%2Fc7e354a05a99-autoplay.mp4?v=844f7355f56a63a1fde0016b60fa5237",
+      "sha256": "c7e354a05a99c7c09c1aa33d2051b5b5931c38b6455efbac41d982fba0d929c9"
+    },
+    "final.mp4": {
+      "bucket": "site-media",
+      "key": "launches/20261004/mcp-launch/cf62bdd579bc-final.mp4",
+      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261004%2Fmcp-launch%2Fcf62bdd579bc-final.mp4?v=24bf5bf7fa666d7b938115ed248c943e",
+      "sha256": "cf62bdd579bc056b06114de9d79f105a09905f1f208bbba5ef9868675b2110fc"
+    },
+    "poster.jpg": {
+      "bucket": "site-media",
+      "key": "launches/20261004/mcp-launch/6832bb83ba73-poster.jpg",
+      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261004%2Fmcp-launch%2F6832bb83ba73-poster.jpg?v=6972d01cadd26a5dfdce71cc6d02f771",
+      "sha256": "6832bb83ba73cf55d3c0a9599ba36bbec2c03ad2a1b5ad5da3266ba719a00e35"
+    }
+  }
 }

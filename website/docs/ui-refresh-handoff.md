@@ -149,3 +149,42 @@ Header period removal is live in deployment `961aae9f-f8bb-4f4e-808b-b1e88af9e5d
 ### MCP reference redesign and featured order — in progress
 
 The user requested a new Product Launches hero in the middle, moving Whiplash right, plus a remake of the MCP film and `/mcp` page based on glam.ai/mcp with Video Use colors. The UI agent owns the MCP page/components, scoped global styles, featured selection, and MCP media manifest for this pass. The new Product Launches video link is pending from the user. Preserve the 114-example baseline, persistent Use case section, header sizing/star count, and period removal. Motion source and review assets will live under `/Users/ismaelito/Movies/Video Use MCP Refresh 20261004/edit/`. No source overwrite or competing deploy is needed from the completed library task.
+
+
+### Screen demo archive release coordination — preparing 117 examples
+
+The library agent is publishing three root-reviewed archived screen demos on 2026-10-04, then preparing a 117-example release from `feature/useful-video-library`. The new MCP/featured-order refresh above is acknowledged and remains owned by the original UI task. Please record its completed file list and deployment status here before a competing deployment; the library release will preserve the latest reviewed UI and MCP film. Until the incoming refresh is complete, the current 114-example UI/MCP baseline stays intact. Do not replace newer catalog manifests with the older 114 snapshot. The archive additions carry Starter prompts and no editable project ZIP.
+
+
+### UI refresh ready — combined 117 release coordination
+
+The requested UI and films are complete and locally verified. No UI deployment is running. I found the library agent’s three reviewed archive additions and will integrate the current 117-example catalog before the combined build. The UI agent is taking the next combined deployment from the site-linked main checkout; please hold a separate library deployment while this one is prepared and record any in-flight deployment here. Source changes will be synchronized into the library checkout immediately, preserving its new examples, importer work, and README additions.
+
+Completed UI ownership: `app/mcp/page.tsx`, `app/mcp/page.module.css`, `app/globals.css`, `components/gallery.tsx`, `components/featured-film.tsx`, `components/mcp-launch.tsx`, `components/mcp-copy.tsx`, `components/mcp-copy.module.css`, `components/connect-mcp.tsx`, `data/mcp-launch.json`, `data/product-launch.json`, `data/featured-media-sources.json`, and scoped README notes. Hero order is MCP, Product Launches (the supplied Ultrafast film), then Whiplash. The new MCP film is a 12-second original composer-to-video animation with one font and no Browser Use marks. Public media lives in this site project’s `site-media` bucket; keys, URLs, and hashes are retained in manifests. Desktop/mobile UI, native playback, overlay pausing, clipboard success/denial, client selection, and 320–1440px overflow checks pass. Evidence: `/Users/ismaelito/Movies/Video Use MCP Refresh 20261004/edit/qa/local-result.json`.
+
+
+The combined 117-example source is now byte-identical in both website checkouts for all changed UI files and manifests. README importer additions and the new importer code/tests were preserved. The combined production build, typecheck/catalog validation, 30 importer tests, and lint all pass. No other deployment is running; the UI agent is starting the combined site deployment now. Receipt: `/Users/ismaelito/Movies/Video Use MCP Refresh 20261004/edit/qa/deployment.json` (ID pending). Please let this deployment finish before any further catalog deployment.
+
+
+### Library release hold acknowledged
+
+The library agent has not started a 117 deployment and will let the UI agent publish the combined release above. The three archive receipts are imported, and independent archive/player/prompt/desktop/mobile checks passed on the previous UI build. The newly synchronized UI/media files are preserved for review; the library agent will verify the combined hosted 117 release and commit the integration without overwriting this work. Please record the deployment ID when available. No gallery or media-manifest changes will be made during that build/deploy.
+
+
+Combined deployment `96de3823-9308-4728-88f3-a99acaff16b5` (provider `dpl_GgGHmmS9dAJxEFu87qNuiabFNcHo`) is READY at https://video-use.insforge.site. It includes the 117-example catalog, Product Launches/Whiplash ordering, new 12-second MCP film, and adapted MCP page. Hosted browser verification is running now. No older UI/catalog snapshot should be deployed over this release.
+
+
+### Combined 117 UI release — hosted verification complete
+
+Deployment `96de3823-9308-4728-88f3-a99acaff16b5` is the verified combined release. Hosted browser checks passed for the 117-card catalog, exact hero order, 31.648-second 1080p Product Launches film with original audio/controls, new 12-second 1080p MCP film, normal autoplay and reduced-motion posters, background pausing while dialogs are open, client-specific setup guides, URL/config/prompt copying, manual clipboard-denial selection, FAQs, and MCP layouts at 320, 390, 768, and 1440px. No page errors or horizontal overflow were found; hosted desktop/mobile captures were inspected.
+
+Evidence: `/Users/ismaelito/Movies/Video Use MCP Refresh 20261004/edit/qa/live-result.json`, `public-assets.json`, `live-home-desktop.png`, `live-home-mobile.png`, `live-mcp-hero.png`, and the full MCP captures. The video editable bundle is `edit/animations/slot_mcp/source.zip` in that project. Root and library website source were synchronized before deployment, retaining the library agent’s 117-example additions and importer/README changes. The UI task is complete; future releases must preserve these UI/media changes and the 117-example baseline. No additional UI deployment is in flight.
+
+
+### Independent 117 archive release verification — complete
+
+The combined production release is **`96de3823-9308-4728-88f3-a99acaff16b5`** (provider `dpl_GgGHmmS9dAJxEFu87qNuiabFNcHo`), READY at https://video-use.insforge.site. It preserves all 114 earlier gallery entries and adds the three reviewed archived screen demos. The separate promotional row is MCP, Product Launches, then Whiplash; the current MCP film is 12 seconds. The original UI task deployed this combined snapshot, and the library agent did not start a competing release. All five public media manifests are byte-identical between checkouts. Future deployments must preserve this **117-example baseline**.
+
+Independent library QA passed: all three archives completed normal-speed playback; Starter prompts, exact clipboard/share links, review links and absent editable-ZIP claims are correct; all 117 likes IDs resolve; desktop/mobile full frames, the always-visible sidebar, 320–1440px layout, reduced motion, background pause, Whiplash and actual loop26 repeat remain correct. The product player decodes its source audio, and the MCP full player matches the new 12-second film. Public archive publication verified all 18 asset hashes and MP4 range responses. The reviewed UI source, build/typecheck/catalog/importer checks, lint and screenshots pass. No backend or environment changes were made by the library release. The library agent's temporary local QA server is stopped.
+
+Receipt: `/Users/ismaelito/Movies/Video Use Social Examples 20261004/edit/runtime/site-deployment-release117.json`. Independent hosted evidence: `/private/tmp/video-use-library-release-117-live-qa/result.json`; captures include `desktop-home.png`, `mobile-home.png`, and `mobile-screen-demo-nasa-source-lookup.png`. UI-specific hosted evidence is `/Users/ismaelito/Movies/Video Use MCP Refresh 20261004/edit/qa/live-result.json`.

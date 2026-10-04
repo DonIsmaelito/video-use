@@ -11,45 +11,6 @@ import {
 } from '@/components/ui/dialog';
 import { mcpUrl, repository } from '@/lib/gallery';
 
-export function McpEndpoint() {
-  const [copied, setCopied] = useState(false);
-  const [manual, setManual] = useState(false);
-  const input = useRef<HTMLInputElement>(null);
-  return (
-    <div className="landing-endpoint">
-      <label htmlFor="landing-mcp-url">Your connection URL</label>
-      <div>
-        <input
-          id="landing-mcp-url"
-          ref={input}
-          readOnly
-          value={mcpUrl}
-          onFocus={(event) => event.target.select()}
-        />
-        <button
-          type="button"
-          onClick={async () => {
-            try {
-              await navigator.clipboard.writeText(mcpUrl);
-              setCopied(true);
-              setManual(false);
-            } catch {
-              setManual(true);
-              input.current?.focus();
-              input.current?.select();
-            }
-          }}
-          aria-label="Copy Video Use MCP URL"
-        >
-          {copied ? <Check size={16} /> : <Copy size={16} />}
-          <span>{copied ? 'Copied' : 'Copy URL'}</span>
-        </button>
-      </div>
-      {manual && <output>Copy the selected URL above.</output>}
-    </div>
-  );
-}
-
 export function AgentMarks({ compact = false }: { compact?: boolean }) {
   return (
     <span
@@ -79,15 +40,17 @@ export function ConnectMcp({
   className = '',
   label = 'Connect Video Use',
   compact = false,
+  initialClient = 'chatgpt',
 }: {
   className?: string;
   label?: string;
   compact?: boolean;
+  initialClient?: 'chatgpt' | 'claude' | 'cursor' | 'local';
 }) {
   const [open, setOpen] = useState(false);
   const [client, setClient] = useState<
     'chatgpt' | 'claude' | 'cursor' | 'local'
-  >('chatgpt');
+  >(initialClient);
   const [copied, setCopied] = useState(false);
   const [manual, setManual] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -131,7 +94,12 @@ export function ConnectMcp({
       <button
         type="button"
         className={`connect-button ${className}`}
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          setClient(initialClient);
+          setCopied(false);
+          setManual(false);
+          setOpen(true);
+        }}
         aria-label={
           compact
             ? 'Connect Video Use MCP to ChatGPT, Claude, Cursor, or your own agent'
