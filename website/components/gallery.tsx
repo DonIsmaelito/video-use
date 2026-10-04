@@ -305,7 +305,7 @@ export function Gallery() {
             </button>
             <div className="featured-caption">
               <button type="button" onClick={() => openExample(example)}>
-                Cinematic edits
+                {example.title}
               </button>
               <span>
                 Find your rhythm <ArrowUpRight size={14} />

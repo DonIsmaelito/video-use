@@ -65,6 +65,29 @@ assert.equal(formatDuration(59.8), '1:00');
 assert.equal(formatDuration(8), '0:08');
 assert.equal(formatDuration(75.77), '1:16');
 
+// Visible subject names can change without moving a clip to different facets.
+for (const example of require('../data/examples.json')) {
+  const original = enrichExample(example);
+  const renamed = enrichExample({ ...example, title: 'New Product Film' });
+  for (const field of ['technique', 'audiences', 'useCases']) {
+    assert.deepEqual(
+      renamed[field],
+      original[field],
+      `${example.id}: renaming must preserve ${field}`,
+    );
+  }
+}
+assert.equal(
+  enrichExample({
+    id: '11-rotary-telephone',
+    title: 'Red Telephone',
+    description: 'A red telephone forms around its cord.',
+    category: 'Motion Design',
+  }).technique,
+  '3d',
+  'A renamed 3D study must retain its video type',
+);
+
 // The gallery is linked from agent conversations, so stale or invalid links
 // must not silently activate unsupported techniques, filters, or examples.
 for (const technique of techniqueOptions) {

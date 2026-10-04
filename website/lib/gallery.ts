@@ -65,11 +65,40 @@ export const repository = 'https://github.com/browser-use/video-use';
 export const mcpUrl =
   'https://iaredur--video-use-browser-pilot-web.modal.run/mcp';
 
+// These older studies predate explicit tags. Keep their known classifications
+// attached to IDs so changing the display title never changes the filters.
+const legacy3dIds = new Set([
+  '11-rotary-telephone',
+  '12-glass-staircase',
+  '13-beach-umbrella',
+  '15-color-zipper',
+  '02-jelly-chair',
+  '03-chrome-beetle',
+  '06-satin-bow',
+  '07-blood-orange',
+  '08-toy-planet',
+  '09-jellyfish',
+  '02-orbit',
+  '04-fold',
+  'optical-assembly',
+]);
+const legacyBrandIds = new Set([
+  'cloud-motion-01-make-room',
+  'cloud-motion-02-night-shift',
+  'cloud-motion-06-ink-relay',
+]);
+const legacyEditingIds = new Set([
+  'edit-velocity',
+  'edit-freeze_poster',
+  'edit-triptych',
+  'edit-after_dark',
+  'cloud-edit-podcast',
+]);
+
 // Older cards predate audience/use-case metadata. Label studies as studies;
 // a visually interesting loop alone is not evidence of a product workflow.
 export function enrichExample(example: Example): GalleryExample {
-  const text =
-    `${example.id} ${example.title} ${example.description}`.toLowerCase();
+  const text = `${example.id} ${example.description}`.toLowerCase();
   let technique: Technique = 'motion-design';
   let audiences = ['Designers'];
   let useCases = ['Motion studies'];
@@ -88,7 +117,10 @@ export function enrichExample(example: Example): GalleryExample {
       audiences.push('Educators');
       useCases = ['Tutorials'];
     }
-    if (/cinematic|film|freeze|split screen|speed ramp/.test(text))
+    if (
+      legacyEditingIds.has(example.id) ||
+      /cinematic|film|freeze|split screen|speed ramp/.test(text)
+    )
       useCases = ['Editing techniques'];
   } else if (example.category === 'Video Creation') {
     technique = 'video-editing';
@@ -100,18 +132,16 @@ export function enrichExample(example: Example): GalleryExample {
     useCases = ['Explainers', 'Learning materials'];
   } else {
     if (
-      /local-motion-20260916-(09|10|11|12|13|14|15|16)-/.test(text) ||
-      /object assembly|glass cascade|radial reveal|fabric reveal|squash and stretch|mechanical unfolding|ribbon motion|exploded view|miniature animation|organic motion|metal morph|metal folding|mechanical assembly/.test(
-        text,
-      )
+      legacy3dIds.has(example.id) ||
+      /local-motion-20260916-(09|10|11|12|13|14|15|16)-/.test(example.id)
     ) {
       technique = '3d';
     }
-    if (/broadcast identity|kinetic typography|animated lettering/.test(text)) {
+    if (legacyBrandIds.has(example.id)) {
       audiences.push('Marketers');
       useCases = ['Brand identity', 'Motion studies'];
     }
-    if (/interface animation/.test(text)) {
+    if (example.id === 'cloud-motion-07-one-good-day') {
       audiences = ['Designers', 'Product teams'];
       useCases = ['Product demos'];
     }

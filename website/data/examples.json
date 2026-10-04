@@ -1,21 +1,15 @@
 [
   {
     "id": "social-01-interview-face-follow",
-    "title": "Keep the speaker in frame",
+    "title": "Lunar Teamwork",
     "category": "Video Edits",
     "description": "A focused interview answer with measured face following and word-timed captions.",
     "prompt": "Use Video Use to turn a useful answer from a filmed interview into a 22-second social clip. Choose one complete thought that answers a clear question. Put the question on screen immediately as an editorial hook, then let the original speaker deliver the answer with no long intro or generic end card. Follow the visible face with measured tracking and a deliberately reviewed target; use a calm crop, never a jittery zoom on every word. Keep the whole head and natural gesture room. Burn accurate phrase captions after all cuts and framing, with at most two lines and one restrained highlighted key word at a time. Preserve small hesitations when they carry meaning; never splice words into a new claim. Use clean speech with short boundary fades; no music under this example. Keep a quiet attribution footer and let the last thought land. Use the real footage supplied in this chat or acquired from the supplied source URL with yt-dlp. Inspect the actual pixels and audio evidence, not only metadata. Keep the subject and intent of the current query. Deliver a polished 1080×1920 vertical MP4 with a readable first-second hook and a clear payoff. Keep important content away from the top 150px, bottom 300px, and rightmost 120px used by social app controls. Use few words, deliberate typography, clean cuts and intentional sound. Preserve meaning, source credits and honest framing; do not invent actions, reactions, quotes or claims. Give me a short preview for approval before completing the full edit in normal interactive use. Keep the editable cut map, source URLs, caption timing, licenses and complete replay instructions.",
     "duration": 22,
     "promptKind": "Original prompt",
     "orientation": "portrait",
-    "audiences": [
-      "Content creators",
-      "Marketers"
-    ],
-    "useCases": [
-      "Social content",
-      "Short-form edits"
-    ],
+    "audiences": ["Content creators", "Marketers"],
+    "useCases": ["Social content", "Short-form edits"],
     "technique": "video-editing",
     "sourceRepo": "https://github.com/browser-use/video-use",
     "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
@@ -26,21 +20,15 @@
   },
   {
     "id": "social-02-podcast-punchline",
-    "title": "Cut to the punchline",
+    "title": "Space Station Chat",
     "category": "Video Edits",
     "description": "A short NASA podcast moment with clear captions and the hosts’ real reaction.",
     "prompt": "Use Video Use to make a 24-second podcast highlight built around one amusing, complete exchange. Start with the interesting sentence, keep its setup and payoff, and retain the actual host reaction immediately after it. Remove broadcast delay and dead air using word-level boundaries, without changing the order or implying a different response. Design an expressive portrait edit with large phrase captions, selective word emphasis and a short editorial hook. Adapt the layout at genuine source camera changes: preserve meaningful gestures and show both participants when the reaction needs them. Keep speech natural and foregrounded; no unrelated music, fake laughter or fabricated face motion. This is a short conversational post, not a long interview or a text slideshow. Use the real footage supplied in this chat or acquired from the supplied source URL with yt-dlp. Inspect the actual pixels and audio evidence, not only metadata. Keep the subject and intent of the current query. Deliver a polished 1080×1920 vertical MP4 with a readable first-second hook and a clear payoff. Keep important content away from the top 150px, bottom 300px, and rightmost 120px used by social app controls. Use few words, deliberate typography, clean cuts and intentional sound. Preserve meaning, source credits and honest framing; do not invent actions, reactions, quotes or claims. Give me a short preview for approval before completing the full edit in normal interactive use. Keep the editable cut map, source URLs, caption timing, licenses and complete replay instructions.",
     "duration": 24,
     "promptKind": "Original prompt",
     "orientation": "portrait",
-    "audiences": [
-      "Content creators",
-      "Marketers"
-    ],
-    "useCases": [
-      "Social content",
-      "Short-form edits"
-    ],
+    "audiences": ["Content creators", "Marketers"],
+    "useCases": ["Social content", "Short-form edits"],
     "technique": "video-editing",
     "sourceRepo": "https://github.com/browser-use/video-use",
     "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
@@ -51,21 +39,15 @@
   },
   {
     "id": "social-03-action-replay",
-    "title": "Make the movement the hook",
+    "title": "Skateboard Replay",
     "category": "Video Edits",
     "description": "An action reel with a brief replay, paced cuts and a crop that follows the board.",
     "prompt": "Use Video Use to turn a short action recording into an 18-second vertical highlight that makes the movement easy to follow. Open on the strongest visible moment, cut back briefly to its setup, then let the action play through with a clean finish. Include one clearly labeled slow replay of the most useful detail; do not disguise it as a second attempt. Use motivated reframing that keeps the relevant feet, hands or equipment in frame. Change pace around actual movement rather than applying a random effect to every cut. Add only two or three short text cues tied to what the footage visibly shows, plus a subtle original rhythmic sound bed. No invented trick names, performance claims, new action frames or aggressive strobing. Keep it energetic and useful as a creator’s sports highlight. Use the real footage supplied in this chat or acquired from the supplied source URL with yt-dlp. Inspect the actual pixels and audio evidence, not only metadata. Keep the subject and intent of the current query. Deliver a polished 1080×1920 vertical MP4 with a readable first-second hook and a clear payoff. Keep important content away from the top 150px, bottom 300px, and rightmost 120px used by social app controls. Use few words, deliberate typography, clean cuts and intentional sound. Preserve meaning, source credits and honest framing; do not invent actions, reactions, quotes or claims. Give me a short preview for approval before completing the full edit in normal interactive use. Keep the editable cut map, source URLs, caption timing, licenses and complete replay instructions.",
     "duration": 18,
     "promptKind": "Original prompt",
     "orientation": "portrait",
-    "audiences": [
-      "Content creators",
-      "Marketers"
-    ],
-    "useCases": [
-      "Social content",
-      "Short-form edits"
-    ],
+    "audiences": ["Content creators", "Marketers"],
+    "useCases": ["Social content", "Short-form edits"],
     "technique": "video-editing",
     "sourceRepo": "https://github.com/browser-use/video-use",
     "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
@@ -76,21 +58,15 @@
   },
   {
     "id": "social-04-destination-reveal",
-    "title": "Build a destination reveal",
+    "title": "Forest Hike",
     "category": "Video Edits",
     "description": "A compact travel reel that moves from footsteps to the view.",
     "prompt": "Use Video Use to turn a travel recording into an 18-second vertical destination reveal. Find a simple visual arc: an intriguing detail, the approach, and the view that rewards the journey. Begin with moving footage immediately. Use deliberate crops and two or three clean cuts so the reveal grows naturally from what was actually recorded. Keep the person and landscape readable; avoid cropping out the destination for the sake of a face close-up. Add one short opening line and a quiet closing thought, with warm restrained grading and a subtle original ambient pulse. Do not invent the location, travel advice, a route, or footage of an experience that never occurs. Aim for a reusable short travel post with a real payoff rather than a generic stock slideshow. Use the real footage supplied in this chat or acquired from the supplied source URL with yt-dlp. Inspect the actual pixels and audio evidence, not only metadata. Keep the subject and intent of the current query. Deliver a polished 1080×1920 vertical MP4 with a readable first-second hook and a clear payoff. Keep important content away from the top 150px, bottom 300px, and rightmost 120px used by social app controls. Use few words, deliberate typography, clean cuts and intentional sound. Preserve meaning, source credits and honest framing; do not invent actions, reactions, quotes or claims. Give me a short preview for approval before completing the full edit in normal interactive use. Keep the editable cut map, source URLs, caption timing, licenses and complete replay instructions.",
     "duration": 18,
     "promptKind": "Original prompt",
     "orientation": "portrait",
-    "audiences": [
-      "Content creators",
-      "Marketers"
-    ],
-    "useCases": [
-      "Social content",
-      "Short-form edits"
-    ],
+    "audiences": ["Content creators", "Marketers"],
+    "useCases": ["Social content", "Short-form edits"],
     "technique": "video-editing",
     "sourceRepo": "https://github.com/browser-use/video-use",
     "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
@@ -101,22 +77,15 @@
   },
   {
     "id": "social-05-two-speaker-banter",
-    "title": "Follow the conversation",
+    "title": "Pronouncing Deno",
     "category": "Video Edits",
     "description": "A real two-person exchange with reviewed speaker framing and accurate captions.",
     "prompt": "Use Video Use to make a 22-second vertical podcast clip from a real two-person conversation. Keep one complete setup and payoff, including interruptions that make the exchange funny. Begin directly on the conversation with a short editorial hook, not an intro card. Reframe the actual speaking person using measured face positions and a reviewed speaker map. Hold the crop calmly through each thought; keep both people visible during overlapping speech rather than guessing who is speaking. Let genuine reactions stay in their original place. Add readable phrase captions with at most two lines, correct names and one subtle accent. Keep the original voices and timing; no music, synthetic speech or invented reactions. End after the payoff with a brief picture hold if needed, without a generic CTA. Use the footage or source URLs supplied in this chat and preserve its subject and intent. Deliver 1080×1920 at 30 fps, with the top 150px, bottom 300px and rightmost 120px clear of important text. Keep honest credits and an editable cut map, caption timing and replay instructions. In normal interactive use, show a short preview for approval before the full edit.",
     "duration": 22,
     "promptKind": "Original prompt",
     "orientation": "portrait",
-    "audiences": [
-      "Content creators",
-      "Marketers"
-    ],
-    "useCases": [
-      "Podcast clips",
-      "Social content",
-      "Short-form edits"
-    ],
+    "audiences": ["Content creators", "Marketers"],
+    "useCases": ["Podcast clips", "Social content", "Short-form edits"],
     "technique": "video-editing",
     "sourceRepo": "https://github.com/browser-use/video-use",
     "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
@@ -127,22 +96,15 @@
   },
   {
     "id": "social-06-podcast-audiogram",
-    "title": "Give an audio clip a pulse",
+    "title": "Popover Audiogram",
     "category": "Video Edits",
     "description": "A static podcast portrait, a waveform from real speech and a complete captioned exchange.",
     "prompt": "Use Video Use to turn a complete 26-second podcast exchange into a vertical audiogram. Use the supplied still portrait or cover image as an intentional static picture. Put the interest in the real conversation, accurate phrase captions and a restrained waveform computed from the actual edited audio. Keep the setup, response and payoff together. Show no more than two caption lines and a tiny editorial hook; use speaker labels only after checking attribution. Keep the original voices and natural pauses with clean cut fades. Do not animate the hosts into fake speech, claim face tracking or invent a reaction from a photograph. Let the waveform settle with the final sound and end on the last completed thought, with no generic CTA. Use the footage or source URLs supplied in this chat and preserve its subject and intent. Deliver 1080×1920 at 30 fps, with the top 150px, bottom 300px and rightmost 120px clear of important text. Keep honest credits and an editable cut map, caption timing and replay instructions. In normal interactive use, show a short preview for approval before the full edit.",
     "duration": 26,
     "promptKind": "Original prompt",
     "orientation": "portrait",
-    "audiences": [
-      "Content creators",
-      "Marketers"
-    ],
-    "useCases": [
-      "Podcast clips",
-      "Social content",
-      "Short-form edits"
-    ],
+    "audiences": ["Content creators", "Marketers"],
+    "useCases": ["Podcast clips", "Social content", "Short-form edits"],
     "technique": "video-editing",
     "sourceRepo": "https://github.com/browser-use/video-use",
     "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
@@ -153,21 +115,15 @@
   },
   {
     "id": "social-07-pizza-process",
-    "title": "From dough to dinner",
+    "title": "Pizza Making",
     "category": "Video Edits",
     "description": "A compact pizza montage with real preparation, oven action and a finished result.",
     "prompt": "Use Video Use to make a 20-second vertical food montage from real pizza footage: dough, sauce, the oven and a cooked result. Start on hands doing something useful, cut on completed actions and give the finished food room to land. Use close detail where it works and a wider picture window where a tall crop would hide the action. Build appetite with warm, natural color and a quiet, licensed or original rhythmic bed; preserve any usable source sound and identify added sound as authored. Use only a few editorial words, with no narration, invented recipe quantities or generic CTA. Make the sequence easy to understand with the sound off. Preserve the chronological process while being honest about separate source shots and missing steps. Use the footage or source URLs supplied in this chat and preserve its subject and intent. Deliver 1080×1920 at 30 fps, with the top 150px, bottom 300px and rightmost 120px clear of important text. Keep honest credits and an editable cut map, caption timing and replay instructions. In normal interactive use, show a short preview for approval before the full edit.",
     "duration": 20,
     "promptKind": "Original prompt",
     "orientation": "portrait",
-    "audiences": [
-      "Content creators",
-      "Marketers"
-    ],
-    "useCases": [
-      "Social content",
-      "Short-form edits"
-    ],
+    "audiences": ["Content creators", "Marketers"],
+    "useCases": ["Social content", "Short-form edits"],
     "technique": "video-editing",
     "sourceRepo": "https://github.com/browser-use/video-use",
     "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
@@ -178,21 +134,15 @@
   },
   {
     "id": "social-08-coffee-ritual",
-    "title": "Make a coffee moment",
+    "title": "Pour-Over Coffee",
     "category": "Video Edits",
     "description": "An honest three-source ritual: beans into a grinder, a pour-over and a finished cup.",
     "prompt": "Use Video Use to make an 18-second vertical coffee ritual from real footage: beans entering a grinder, a pour-over and a ready cup. Keep the pace tactile and calm, with deliberate cuts that connect pouring shapes and movement. Preserve the tool, stream and vessel whenever they explain the action; use a wider picture window instead of cropping them away. Keep natural warm tones and use restrained licensed music or original sound if the source lacks usable audio. Use at most a tiny editorial hook, no voiceover, recipe measurements or generic CTA. End after the visible pour finishes and let the cup settle. Treat different settings as a considered montage, not a claim that every shot follows the same brew. Use the footage or source URLs supplied in this chat and preserve its subject and intent. Deliver 1080×1920 at 30 fps, with the top 150px, bottom 300px and rightmost 120px clear of important text. Keep honest credits and an editable cut map, caption timing and replay instructions. In normal interactive use, show a short preview for approval before the full edit.",
     "duration": 18,
     "promptKind": "Original prompt",
     "orientation": "portrait",
-    "audiences": [
-      "Content creators",
-      "Marketers"
-    ],
-    "useCases": [
-      "Social content",
-      "Short-form edits"
-    ],
+    "audiences": ["Content creators", "Marketers"],
+    "useCases": ["Social content", "Short-form edits"],
     "technique": "video-editing",
     "sourceRepo": "https://github.com/browser-use/video-use",
     "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
@@ -203,21 +153,15 @@
   },
   {
     "id": "social-09-pottery-memory",
-    "title": "Save a workshop memory",
+    "title": "Pottery Workshop",
     "category": "Video Edits",
     "description": "A warm pottery-day montage: shared clay work and a separate finished-mug selfie, without a false before-and-after claim.",
     "prompt": "Use Video Use to make an 18-second vertical workshop-memory post from real footage of people making something together and taking a photo afterward. Open with a brief glimpse of the shared memory, then let hands, material and expressions carry the story. Keep both people and the useful handwork legible. Treat any different finished objects as part of the visit, not proof that the wet piece was instantly finished. Use one short warm hook, no recipe, invented venue, price, booking claim or generic CTA. Finish on a generous photo-like memory hold with a subtle drift, not an empty end card. Keep natural skin and clay tones and an understated licensed bed only if it fits. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the current query. Deliver 1080×1920 at 30 fps. Make the footage large and keep words few; use a compact first-second hook, not a title card followed by a small landscape rectangle. Keep essential text out of the top 150px, bottom 300px and rightmost 120px social controls. Use a deliberate wider picture window only when an essential action cannot fit a portrait crop. Keep honest credits, an editable cut map, source-to-output timing and complete replay instructions. In normal interactive use, show a short preview for approval before the full edit.",
     "duration": 18,
     "promptKind": "Original prompt",
     "orientation": "portrait",
-    "audiences": [
-      "Content creators",
-      "Marketers"
-    ],
-    "useCases": [
-      "Social content",
-      "Short-form edits"
-    ],
+    "audiences": ["Content creators", "Marketers"],
+    "useCases": ["Social content", "Short-form edits"],
     "technique": "video-editing",
     "sourceRepo": "https://github.com/browser-use/video-use",
     "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
@@ -228,21 +172,15 @@
   },
   {
     "id": "social-10-forest-ride",
-    "title": "Cut a forest ride",
+    "title": "Forest Bike Ride",
     "category": "Video Edits",
     "description": "A ride-day social edit connecting a pedal push with two riders on a forest ramp, using honest montage continuity.",
     "prompt": "Use Video Use to make an 18-second vertical ride-day post from real bike-detail and forest-action footage. Lead with a short action glimpse, return to the foot finding the pedal, then pay it off with the riders moving through the forest. Cut around actual movement and keep the pedal, wheels, helmets and landing area readable. Keep different riders or bikes honest as a montage rather than pretending the sources are one uninterrupted ride. Use no more than a compact hook and let the footage supply the energy. Do not reverse movement, invent a stunt or add speed statistics. Finish after the visible landings and ride-away, with a brief quiet breath of the trail. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the current query. Deliver 1080×1920 at 30 fps. Make the footage large and keep words few; use a compact first-second hook, not a title card followed by a small landscape rectangle. Keep essential text out of the top 150px, bottom 300px and rightmost 120px social controls. Use a deliberate wider picture window only when an essential action cannot fit a portrait crop. Keep honest credits, an editable cut map, source-to-output timing and complete replay instructions. In normal interactive use, show a short preview for approval before the full edit.",
     "duration": 18,
     "promptKind": "Original prompt",
     "orientation": "portrait",
-    "audiences": [
-      "Content creators",
-      "Marketers"
-    ],
-    "useCases": [
-      "Social content",
-      "Short-form edits"
-    ],
+    "audiences": ["Content creators", "Marketers"],
+    "useCases": ["Social content", "Short-form edits"],
     "technique": "video-editing",
     "sourceRepo": "https://github.com/browser-use/video-use",
     "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
@@ -253,20 +191,15 @@
   },
   {
     "id": "social-11-dog-payoff",
-    "title": "Replay the dog payoff",
+    "title": "Frisbee Dog",
     "category": "Video Edits",
     "description": "A dog leap, landing and disc-carry payoff with one clearly labeled replay; no unsupported claim about the exact catch.",
     "prompt": "Use Video Use to turn a real pet-action clip into an 18-second vertical setup, payoff and replay. Let the original action establish what happened before repeating one satisfying, clearly visible part with a small Replay label. Follow the animal smoothly while preserving paws, landing space and the object it carries. Keep the footage large, the hook short and the timing playful. Only describe a catch, trick or reaction if the actual frames show it; a result does not prove an unseen moment. Keep the source’s natural recorded playback character rather than piling extra slow motion onto footage that is already slowed. Finish on the visible result, with no invented voiceover, repeated action presented as a new event or generic subscribe card. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the current query. Deliver 1080×1920 at 30 fps. Make the footage large and keep words few; use a compact first-second hook, not a title card followed by a small landscape rectangle. Keep essential text out of the top 150px, bottom 300px and rightmost 120px social controls. Use a deliberate wider picture window only when an essential action cannot fit a portrait crop. Keep honest credits, an editable cut map, source-to-output timing and complete replay instructions. In normal interactive use, show a short preview for approval before the full edit.",
     "duration": 18,
     "promptKind": "Original prompt",
     "orientation": "portrait",
-    "audiences": [
-      "Content creators"
-    ],
-    "useCases": [
-      "Social content",
-      "Short-form edits"
-    ],
+    "audiences": ["Content creators"],
+    "useCases": ["Social content", "Short-form edits"],
     "technique": "video-editing",
     "sourceRepo": "https://github.com/browser-use/video-use",
     "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
@@ -277,21 +210,15 @@
   },
   {
     "id": "social-12-spring-story",
-    "title": "Tease a nonverbal story",
+    "title": "Spring Teaser",
     "category": "Video Edits",
     "description": "A vertical story teaser from Blender’s Spring, connecting apprehension, a giant encounter and a warmer final image.",
     "prompt": "Use Video Use to turn a licensed nonverbal animated short into a 24-second vertical story teaser. Choose a clear emotional progression: a character notices something, encounters a larger presence and reaches a visually satisfying change. Let eyelines, scale, light and the original sound carry meaning. Keep source order where it supports the story, and do not fabricate a cause, ending or new character action. Use close framing for readable emotion and a wider picture only when the size relationship is essential. Use at most one compact editorial hook and a short film-title credit over the final real image. Build deliberate tension and release through shot duration rather than fast random cuts or generic narration. Keep the original score and effects where licensed and shape clean audio joins. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the current query. Deliver 1080×1920 at 30 fps. Make the footage large and keep words few; use a compact first-second hook, not a title card followed by a small landscape rectangle. Keep essential text out of the top 150px, bottom 300px and rightmost 120px social controls. Use a deliberate wider picture window only when an essential action cannot fit a portrait crop. Keep honest credits, an editable cut map, source-to-output timing and complete replay instructions. In normal interactive use, show a short preview for approval before the full edit.",
     "duration": 24,
     "promptKind": "Original prompt",
     "orientation": "portrait",
-    "audiences": [
-      "Content creators",
-      "Designers"
-    ],
-    "useCases": [
-      "Social content",
-      "Short-form edits"
-    ],
+    "audiences": ["Content creators", "Designers"],
+    "useCases": ["Social content", "Short-form edits"],
     "technique": "video-editing",
     "sourceRepo": "https://github.com/browser-use/video-use",
     "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
@@ -302,21 +229,15 @@
   },
   {
     "id": "social-13-robot-hand-dialogue",
-    "title": "Reframe a film conversation",
+    "title": "Robot Hand",
     "category": "Video Edits",
     "description": "The complete opening robot-hand exchange from Tears of Steel, with readable captions and framing that keeps the reveal visible.",
     "prompt": "Use Video Use to make a 24-second vertical film-dialogue post from one complete, self-contained exchange. Preserve the setup, answer and final response in order with the original voices and meaning. Reframe toward the actual speaker, then widen or change the crop when a gesture or revealed object explains the line. Keep human expressions large and subtitle the real speech in short readable groups, not a paraphrased voiceover or a wall of text. Retain meaningful pauses and the film’s own audio bridges. Use a short editorial hook only if it does not duplicate or cover the captions. Do not manufacture a reaction, make a person say something from another moment, or split a sentence to fit the length. End after the final thought and let its reaction breathe. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the current query. Deliver 1080×1920 at 30 fps. Make the footage large and keep words few; use a compact first-second hook, not a title card followed by a small landscape rectangle. Keep essential text out of the top 150px, bottom 300px and rightmost 120px social controls. Use a deliberate wider picture window only when an essential action cannot fit a portrait crop. Keep honest credits, an editable cut map, source-to-output timing and complete replay instructions. In normal interactive use, show a short preview for approval before the full edit.",
     "duration": 24,
     "promptKind": "Original prompt",
     "orientation": "portrait",
-    "audiences": [
-      "Content creators",
-      "Educators"
-    ],
-    "useCases": [
-      "Social content",
-      "Short-form edits"
-    ],
+    "audiences": ["Content creators", "Educators"],
+    "useCases": ["Social content", "Short-form edits"],
     "technique": "video-editing",
     "sourceRepo": "https://github.com/browser-use/video-use",
     "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
@@ -327,21 +248,15 @@
   },
   {
     "id": "social-14-robot-action",
-    "title": "Build an action trailer",
+    "title": "Robot Attack",
     "category": "Video Edits",
     "description": "A short Tears of Steel battle teaser: a defender, a growing robot threat and an unresolved breach, cut from the real film.",
     "prompt": "Use Video Use to cut a 24-second vertical action trailer from licensed film footage. Build one clear escalation: establish who is under pressure, reveal the approaching threat, show the encounter and leave a strong unresolved final image. Use actual action and source order to carry the story, with deliberate changes of scale and shot duration. Keep the main subject, weapon or moving limb and the direction of movement readable on a phone. Use the film’s original sound and music where licensed, shape clean joins, and avoid constant extra impacts. A compact hook and a film-title credit are enough; do not add fake dialogue, invented explosions, a made-up release date or unrelated stock shots. End on a real suspenseful image rather than spoiling a resolution or cutting to an empty card. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the current query. Deliver 1080×1920 at 30 fps. Make the footage large and keep words few; use a compact first-second hook, not a title card followed by a small landscape rectangle. Keep essential text out of the top 150px, bottom 300px and rightmost 120px social controls. Use a deliberate wider picture window only when an essential action cannot fit a portrait crop. Keep honest credits, an editable cut map, source-to-output timing and complete replay instructions. In normal interactive use, show a short preview for approval before the full edit.",
     "duration": 24,
     "promptKind": "Original prompt",
     "orientation": "portrait",
-    "audiences": [
-      "Content creators",
-      "Designers"
-    ],
-    "useCases": [
-      "Social content",
-      "Short-form edits"
-    ],
+    "audiences": ["Content creators", "Designers"],
+    "useCases": ["Social content", "Short-form edits"],
     "technique": "video-editing",
     "sourceRepo": "https://github.com/browser-use/video-use",
     "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
@@ -352,21 +267,15 @@
   },
   {
     "id": "social-15-expert-explainer",
-    "title": "Make one answer click",
+    "title": "Metamaterials",
     "category": "Video Edits",
     "description": "A science answer reframed around the speaker’s face, hands and a single clear question.",
     "prompt": "Use Video Use to turn one complete expert answer into a 30-second social explainer. Begin with a short editorial question, then let the original speaker answer in their own words. Keep the face and useful hand gestures large enough to follow; use measured face tracking within real continuous shots. Use precise phrase captions with one restrained key-word accent. Let a physical object or gesture shown by the expert provide the visual explanation rather than covering it with invented B-roll. Keep qualifications and uncertainty. Original speech only, no stock music or generated narration. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the query. Deliver a polished 1080×1920 vertical MP4 at 30 fps. Put the real footage first: a generous picture, a compact hook, captions readable on a phone, and very little unused matte. Keep important text away from the top 150px, bottom 300px and rightmost 120px used by social app controls. Keep source credits quiet and truthful. Preserve original voices, meaning and real reactions. Do not fabricate missing actions or quotes. Save editable cuts, caption timings, source URLs and replay instructions. In normal interactive use, show a short preview for approval before finishing the full edit.",
     "duration": 30,
     "promptKind": "Original prompt",
     "orientation": "portrait",
-    "audiences": [
-      "Content creators",
-      "Marketers"
-    ],
-    "useCases": [
-      "Social content",
-      "Short-form edits"
-    ],
+    "audiences": ["Content creators", "Marketers"],
+    "useCases": ["Social content", "Short-form edits"],
     "technique": "video-editing",
     "sourceRepo": "https://github.com/browser-use/video-use",
     "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
@@ -377,21 +286,15 @@
   },
   {
     "id": "social-16-question-answer-cut",
-    "title": "Turn a question into a short",
+    "title": "Life in Zero Gravity",
     "category": "Video Edits",
     "description": "A focused Q&A with broadcast delay trimmed and captions rebuilt around the cuts.",
     "prompt": "Use Video Use to make a 34-second vertical Q&A from a longer recorded interview. Keep a concise original question and a self-contained passage from the answer immediately following it, preserving its context. Remove broadcast delay and long empty pauses while preserving the actual order and speaker meaning. Adapt the portrait layout when the source camera changes, keeping the questioner and respondent visible when needed. Use a short editorial question as the opening hook, large phrase captions and clean speech. Avoid background music, unrelated reaction shots and a generic outro. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the query. Deliver a polished 1080×1920 vertical MP4 at 30 fps. Put the real footage first: a generous picture, a compact hook, captions readable on a phone, and very little unused matte. Keep important text away from the top 150px, bottom 300px and rightmost 120px used by social app controls. Keep source credits quiet and truthful. Preserve original voices, meaning and real reactions. Do not fabricate missing actions or quotes. Save editable cuts, caption timings, source URLs and replay instructions. In normal interactive use, show a short preview for approval before finishing the full edit.",
     "duration": 34,
     "promptKind": "Original prompt",
     "orientation": "portrait",
-    "audiences": [
-      "Content creators",
-      "Marketers"
-    ],
-    "useCases": [
-      "Social content",
-      "Short-form edits"
-    ],
+    "audiences": ["Content creators", "Marketers"],
+    "useCases": ["Social content", "Short-form edits"],
     "technique": "video-editing",
     "sourceRepo": "https://github.com/browser-use/video-use",
     "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
@@ -402,21 +305,15 @@
   },
   {
     "id": "social-17-developer-insight",
-    "title": "Keep the useful takeaway",
+    "title": "Node & Deno",
     "category": "Video Edits",
     "description": "A developer conversation condensed into one complete, qualified idea with measured speaker framing.",
     "prompt": "Use Video Use to extract a 28-second useful insight from a filmed technical conversation. Pick one complete idea with its qualification, begin directly on the speaker and add a compact editorial hook. Track the actual speaking person only after reviewing the face and shot map. Keep natural gestures and authentic listening reactions. Use large, accurate phrase captions with restrained emphasis on the central idea. Preserve the source date when technical context could otherwise be mistaken for current instructions. Keep original speech only. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the query. Deliver a polished 1080×1920 vertical MP4 at 30 fps. Put the real footage first: a generous picture, a compact hook, captions readable on a phone, and very little unused matte. Keep important text away from the top 150px, bottom 300px and rightmost 120px used by social app controls. Keep source credits quiet and truthful. Preserve original voices, meaning and real reactions. Do not fabricate missing actions or quotes. Save editable cuts, caption timings, source URLs and replay instructions. In normal interactive use, show a short preview for approval before finishing the full edit.",
     "duration": 28,
     "promptKind": "Original prompt",
     "orientation": "portrait",
-    "audiences": [
-      "Content creators",
-      "Marketers"
-    ],
-    "useCases": [
-      "Social content",
-      "Short-form edits"
-    ],
+    "audiences": ["Content creators", "Marketers"],
+    "useCases": ["Social content", "Short-form edits"],
     "technique": "video-editing",
     "sourceRepo": "https://github.com/browser-use/video-use",
     "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
@@ -427,21 +324,15 @@
   },
   {
     "id": "social-18-two-takeaway-edit",
-    "title": "Give a longer answer structure",
+    "title": "Moon Base Robots",
     "category": "Video Edits",
     "description": "One interview answer becomes a concise two-part social clip with restrained editorial signposts.",
     "prompt": "Use Video Use to turn a longer interview answer into a 35-second social clip with two useful takeaways. Keep the original voice and chronological explanation. Add a compact opening question and two short editorial signposts at the exact moments the speaker changes topic. Use a generous view of the speaker, measured face framing and clear phrase captions. A tiny original diagram may clarify the relationship, but label it as editorial and do not present generated footage as evidence. Keep qualifications and future tense. No music, new narration, invented quote or generic CTA. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the query. Deliver a polished 1080×1920 vertical MP4 at 30 fps. Put the real footage first: a generous picture, a compact hook, captions readable on a phone, and very little unused matte. Keep important text away from the top 150px, bottom 300px and rightmost 120px used by social app controls. Keep source credits quiet and truthful. Preserve original voices, meaning and real reactions. Do not fabricate missing actions or quotes. Save editable cuts, caption timings, source URLs and replay instructions. In normal interactive use, show a short preview for approval before finishing the full edit.",
     "duration": 35,
     "promptKind": "Original prompt",
     "orientation": "portrait",
-    "audiences": [
-      "Content creators",
-      "Marketers"
-    ],
-    "useCases": [
-      "Social content",
-      "Short-form edits"
-    ],
+    "audiences": ["Content creators", "Marketers"],
+    "useCases": ["Social content", "Short-form edits"],
     "technique": "video-editing",
     "sourceRepo": "https://github.com/browser-use/video-use",
     "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
@@ -452,21 +343,15 @@
   },
   {
     "id": "social-19-weekend-roundup",
-    "title": "Make a weekend worth saving",
+    "title": "Hikes & Coffee",
     "category": "Video Edits",
     "description": "A short inspiration reel connects outdoor movement, coffee and food with a consistent visual rhythm.",
     "prompt": "Use Video Use to make a 20-second weekend inspiration reel from four real clips: an outdoor view, movement, a coffee moment and food. Open with the strongest moving image, cut on recognizable actions, and let the final image settle. Give the clips one considered color treatment without crushing detail. Use a licensed rhythmic bed and a few simple text cues that read with sound off. It is a moodboard of possibilities, not a claim that different people or places belong to one documented trip. Keep transitions clean and avoid travel facts, venue names or sponsored endorsements not supported by the footage. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the query. Deliver a polished 1080×1920 vertical MP4 at 30 fps. Put the real footage first: a generous picture, a compact hook, captions readable on a phone, and very little unused matte. Keep important text away from the top 150px, bottom 300px and rightmost 120px used by social app controls. Keep source credits quiet and truthful. Preserve original voices, meaning and real reactions. Do not fabricate missing actions or quotes. Save editable cuts, caption timings, source URLs and replay instructions. In normal interactive use, show a short preview for approval before finishing the full edit.",
     "duration": 20,
     "promptKind": "Original prompt",
     "orientation": "portrait",
-    "audiences": [
-      "Content creators",
-      "Marketers"
-    ],
-    "useCases": [
-      "Social content",
-      "Short-form edits"
-    ],
+    "audiences": ["Content creators", "Marketers"],
+    "useCases": ["Social content", "Short-form edits"],
     "technique": "video-editing",
     "sourceRepo": "https://github.com/browser-use/video-use",
     "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
@@ -477,21 +362,15 @@
   },
   {
     "id": "social-20-tutorial-to-short",
-    "title": "Make the detail readable",
+    "title": "Deno Imports",
     "category": "Video Edits",
     "description": "A recorded code explanation becomes a vertical tutorial with a readable version highlight and timed captions.",
     "prompt": "Use Video Use to turn a recorded software explanation into a 26-second vertical tutorial. Choose one complete useful idea. Keep the original narration and show the exact interface or code detail being discussed, using a deliberate magnified inset or editorial highlight when the original screen would be unreadable on a phone. Preserve the source screen as evidence; do not invent typing, cursor actions, execution output or a live demonstration. Use precise phrase captions below the focused detail and a compact opening question. Keep historical versions and qualifications explicit, with no background music. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the query. Deliver a polished 1080×1920 vertical MP4 at 30 fps. Put the real footage first: a generous picture, a compact hook, captions readable on a phone, and very little unused matte. Keep important text away from the top 150px, bottom 300px and rightmost 120px used by social app controls. Keep source credits quiet and truthful. Preserve original voices, meaning and real reactions. Do not fabricate missing actions or quotes. Save editable cuts, caption timings, source URLs and replay instructions. In normal interactive use, show a short preview for approval before finishing the full edit.",
     "duration": 26,
     "promptKind": "Original prompt",
     "orientation": "portrait",
-    "audiences": [
-      "Content creators",
-      "Marketers"
-    ],
-    "useCases": [
-      "Social content",
-      "Short-form edits"
-    ],
+    "audiences": ["Content creators", "Marketers"],
+    "useCases": ["Social content", "Short-form edits"],
     "technique": "video-editing",
     "sourceRepo": "https://github.com/browser-use/video-use",
     "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
@@ -501,19 +380,11 @@
     "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-20-tutorial-to-short-5a4f9ad7056f-0b8e512d/review.md"
   },
   {
-    "title": "A calm browser tour",
+    "title": "Mount Fuji",
     "duration": 27.6,
     "orientation": "landscape",
-    "audiences": [
-      "Content creators",
-      "Educators",
-      "Product teams"
-    ],
-    "useCases": [
-      "Tutorials",
-      "Browser workflows",
-      "Screen recordings"
-    ],
+    "audiences": ["Content creators", "Educators", "Product teams"],
+    "useCases": ["Tutorials", "Browser workflows", "Screen recordings"],
     "promptKind": "Starter prompt",
     "promptSource": "Starter prompt reconstructed from the archived final and saved edit plan; not the exact historical editing instruction.",
     "technique": "video-editing",
@@ -526,19 +397,11 @@
     "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/archived-screen-demos/20261004/screen-demo-fuji-browser-tour-20424afa10ed-5fda1b5f9ba0/review.md"
   },
   {
-    "title": "Show an app workflow",
+    "title": "Chrome Music Lab",
     "duration": 20,
     "orientation": "landscape",
-    "audiences": [
-      "Educators",
-      "Content creators",
-      "Product teams"
-    ],
-    "useCases": [
-      "Tutorials",
-      "Browser workflows",
-      "Screen recordings"
-    ],
+    "audiences": ["Educators", "Content creators", "Product teams"],
+    "useCases": ["Tutorials", "Browser workflows", "Screen recordings"],
     "promptKind": "Starter prompt",
     "promptSource": "Starter prompt reconstructed from the archived final and saved edit plan; not the exact historical editing instruction.",
     "technique": "video-editing",
@@ -551,19 +414,11 @@
     "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/archived-screen-demos/20261004/screen-demo-melody-app-workflow-db682dcf77b5-6775197f6927/review.md"
   },
   {
-    "title": "Find and verify a source",
+    "title": "NASA Image Search",
     "duration": 20,
     "orientation": "landscape",
-    "audiences": [
-      "Content creators",
-      "Educators",
-      "Designers"
-    ],
-    "useCases": [
-      "Tutorials",
-      "Source research",
-      "Browser workflows"
-    ],
+    "audiences": ["Content creators", "Educators", "Designers"],
+    "useCases": ["Tutorials", "Source research", "Browser workflows"],
     "promptKind": "Starter prompt",
     "promptSource": "Starter prompt reconstructed from the archived final and saved edit plan; not the exact historical editing instruction.",
     "technique": "video-editing",
@@ -577,22 +432,15 @@
   },
   {
     "id": "useful-01-launch-approvals",
-    "title": "Launch a Product Feature",
+    "title": "Loopboard Approvals",
     "category": "Motion Design",
     "description": "Turn a feature announcement into a short product story with a clear before and after.",
     "prompt": "Use Video Use to create a 22-second 1920×1080 product launch film for the fictional team app Loopboard. The new feature is one-click approvals. Open on three overlapping feedback threads with the headline “Still waiting for a yes?” At 4 seconds, gather the threads into one crisp approval request. Animate a cursor selecting Approve; the card changes from Pending to Approved and the board advances to Ready to publish. Follow with three tangible benefits—one owner, one decision, one clear next step—shown as part of the working interface, not a bullet slide. End on “Keep good work moving” and the Loopboard wordmark. Use warm ivory, deep navy, electric coral, editorial typography, restrained depth, elegant position changes and short, purposeful push-ins. Give the approved state and final CTA at least 2 seconds to read. Build an original fictional UI. Add quiet custom UI clicks and a light original pulse; no voiceover is necessary. Use Video Use and its current production helpers to create the finished video and editable source. Keep typography large, all content inside safe areas, and camera motion motivated by the message. Review representative rendered frames and the opening and ending before delivery. Use only original geometry, demo interfaces, and licensed assets. All company names and numbers in this example are fictional demonstration content.",
     "duration": 22,
     "promptKind": "Original prompt",
     "orientation": "landscape",
-    "audiences": [
-      "Founders",
-      "Marketers",
-      "Product teams"
-    ],
-    "useCases": [
-      "Product launches",
-      "Feature announcements"
-    ],
+    "audiences": ["Founders", "Marketers", "Product teams"],
+    "useCases": ["Product launches", "Feature announcements"],
     "technique": "motion-design",
     "sourceRepo": "https://github.com/instavar/remotion-templates",
     "promptSource": "Original Video Use brief and implementation. Story structure inspired by Instavar Remotion Templates (MIT); fictional content and visual direction are new.",
@@ -603,23 +451,15 @@
   },
   {
     "id": "useful-02-modular-desk",
-    "title": "Show How a Product Fits Together",
+    "title": "Desk Organizer",
     "category": "Motion Design",
     "description": "A 3D assembly film turns an everyday product’s parts into its main selling point.",
     "prompt": "Use Video Use to make a 20-second 1920×1080 true 3D product film for Pebble, a fictional modular desktop organizer. Model an original soft-cornered tray, a pen cup and a phone rest from clean primitive geometry. Start with the three modules slightly separated over a warm studio surface; the camera makes a slow three-quarter arc so the real depth and contact shadows are clear. The pieces slide and seat into the tray one at a time. Label the corresponding benefits only when visible: “A place for the small things”, “Your tools within reach”, “A little room to focus”. Finish with the assembled organizer, a restrained 25-degree turn and “Pebble / Make space for your day”. Use matte terracotta, oat and charcoal, a large soft key light, realistic shadows, gentle bevels and quiet tactile sound accents. Keep labels as crisp post-composited type. No fake specifications, impossible joins or aimless orbiting. Hold the finished product for the last 3 seconds. Use Video Use and its current production helpers to create the finished video and editable source. Keep typography large, all content inside safe areas, and camera motion motivated by the message. Review representative rendered frames and the opening and ending before delivery. Use only original geometry, demo interfaces, and licensed assets. All company names and numbers in this example are fictional demonstration content.",
     "duration": 20,
     "promptKind": "Original prompt",
     "orientation": "landscape",
-    "audiences": [
-      "Designers",
-      "Marketers",
-      "Founders"
-    ],
-    "useCases": [
-      "Product launches",
-      "Ecommerce",
-      "Product explainers"
-    ],
+    "audiences": ["Designers", "Marketers", "Founders"],
+    "useCases": ["Product launches", "Ecommerce", "Product explainers"],
     "technique": "3d",
     "sourceRepo": "https://github.com/ahujasid/mcp-for-blender",
     "promptSource": "Original Video Use brief and 3D scene. Modeling, studio-lighting and isometric-camera ideas inspired by MCP for Blender (MIT); built with Video Use’s selected runtime.",
@@ -630,23 +470,15 @@
   },
   {
     "id": "useful-03-lead-routing",
-    "title": "Explain a Team Workflow",
+    "title": "Lead Routing",
     "category": "Explainers",
     "description": "Make a complex handoff understandable with one animated, end-to-end example.",
     "prompt": "Use Video Use to create a 24-second 1920×1080 workflow explainer for a fictional studio called Northstar. Show how a new enquiry becomes an assigned next step: Form submitted → Check service → Assign owner → Send reply. Use one persistent orange enquiry card labelled “Website redesign”; move it through the connected diagram rather than replacing the entire page each scene. Briefly branch at Check service into Brand / Web, then highlight Web and mute the other branch. Show “Maya” as the assigned owner and a concise drafted reply, “Thanks—Maya will be in touch”. Conclude by zooming back to the full path with “Every enquiry has a next step”. Use an off-white drawing surface, dark ink, generous spacing, simple arrow geometry, deliberate line draws and a single orange signal color. Each state must be readable and causally connected. Use quiet motion accents and no voiceover. The diagram should be useful for explaining any team handoff after replacing the labels. Use Video Use and its current production helpers to create the finished video and editable source. Keep typography large, all content inside safe areas, and camera motion motivated by the message. Review representative rendered frames and the opening and ending before delivery. Use only original geometry, demo interfaces, and licensed assets. All company names and numbers in this example are fictional demonstration content.",
     "duration": 24,
     "promptKind": "Original prompt",
     "orientation": "landscape",
-    "audiences": [
-      "Product teams",
-      "Founders",
-      "Educators"
-    ],
-    "useCases": [
-      "Product explainers",
-      "Onboarding",
-      "Training"
-    ],
+    "audiences": ["Product teams", "Founders", "Educators"],
+    "useCases": ["Product explainers", "Onboarding", "Training"],
     "technique": "diagrams",
     "sourceRepo": "https://github.com/motion-canvas/motion-canvas",
     "promptSource": "Original Video Use brief and implementation. Animated layout/code-selection ideas informed by Motion Canvas examples (MIT).",
@@ -657,23 +489,15 @@
   },
   {
     "id": "useful-04-monthly-report",
-    "title": "Turn Metrics into a Story",
+    "title": "Signup Growth",
     "category": "Explainers",
     "description": "Make a monthly update that shows the change, explains it, and names the next action.",
     "prompt": "Use Video Use to produce a 24-second 1080×1080 monthly business update for fictional company Fieldnote. Use this exact demonstration dataset: trial signups July 240, August 320, September 400; paid conversions July 48, August 64, September 100. Open on “September, at a glance”. Build a three-month signup bar chart with a fixed zero baseline; grow the bars to their true relative heights. Highlight 320 → 400 and “Signups +25%”. Then transform into a conversion-rate view: 20%, 20%, 25%, with “Conversion +5 percentage points”. End with a small action card: “Next: improve the first-session checklist”. Use forest green, cream and a warm orange highlight, precise chart labels, short clean transitions, and no finance-dashboard clutter. Keep “Illustrative data” quietly visible. Let the strongest chart hold long enough to read. No fabricated causal claim or implied real customer results. Use Video Use and its current production helpers to create the finished video and editable source. Keep typography large, all content inside safe areas, and camera motion motivated by the message. Review representative rendered frames and the opening and ending before delivery. Use only original geometry, demo interfaces, and licensed assets. All company names and numbers in this example are fictional demonstration content.",
     "duration": 24,
     "promptKind": "Original prompt",
     "orientation": "square",
-    "audiences": [
-      "Founders",
-      "Marketers",
-      "Product teams"
-    ],
-    "useCases": [
-      "Reports",
-      "Social content",
-      "Data stories"
-    ],
+    "audiences": ["Founders", "Marketers", "Product teams"],
+    "useCases": ["Reports", "Social content", "Data stories"],
     "technique": "diagrams",
     "sourceRepo": "https://github.com/ManimCommunity/manim",
     "promptSource": "Original Video Use brief and visual explanation. Geometry, annotation and chart ideas informed by Manim Community examples (MIT).",
@@ -684,23 +508,15 @@
   },
   {
     "id": "useful-05-screen-tutorial",
-    "title": "Make a Screen Recording Clear",
+    "title": "Project Sharing",
     "category": "Video Edits",
     "description": "Cut a slow screen recording into a focused tutorial with purposeful zooms and three clear steps.",
     "prompt": "Use Video Use to turn the supplied 45–60 second recording of a fictional Fieldnote workspace into a 24-second tutorial called “Share a project in three steps”. Keep the real screen recording as the main picture. Remove idle time, failed clicks and unnecessary pointer travel. Preserve the actual successful sequence: open Share, enter a teammate’s email, choose Can comment, send invite. Introduce only three step labels: “1 Open sharing”, “2 Choose access”, “3 Send the invite”. Use a restrained smooth crop to enlarge the active controls, returning to the full view for the confirmation. Make the selected permission legible; do not cover it with text or invent a UI response that did not occur. Use the original cursor and add a small highlight only when the click is otherwise hard to see. End on the successful invite with “Ready for feedback”. Use soft lavender and dark ink annotation graphics, no heavy transitions, and quiet click accents. For this showcase, create and record an original demo UI with deliberate pauses first, then edit that recorded video; label it as a demo app in the project notes. Execute the edit with the current Video Use helpers, keep the source media unchanged, and retain the EDL, overlays and editable source. Inspect the rendered cut boundaries, readability and ending before delivery. Use 30 ms audio fades at cut boundaries and composite captions last. Describe the supplied source footage and its credit honestly; do not imply Video Use generated the source footage.",
     "duration": 24,
     "promptKind": "Original prompt",
     "orientation": "landscape",
-    "audiences": [
-      "Product teams",
-      "Educators",
-      "Content creators"
-    ],
-    "useCases": [
-      "Tutorials",
-      "Onboarding",
-      "Training"
-    ],
+    "audiences": ["Product teams", "Educators", "Content creators"],
+    "useCases": ["Tutorials", "Onboarding", "Training"],
     "technique": "video-editing",
     "sourceRepo": "https://github.com/veedstudio/open-edit",
     "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled.",
@@ -711,22 +527,15 @@
   },
   {
     "id": "useful-06-fractions-lesson",
-    "title": "Teach a Visual Math Lesson",
+    "title": "Comparing Fractions",
     "category": "Explainers",
     "description": "Teach one idea clearly with a visual comparison and a final worked answer.",
     "prompt": "Use Video Use to make a 26-second 1920×1080 classroom explainer answering “Which is larger: 2/3 or 3/4?” Draw two exactly equal-length horizontal bars. Split the upper bar into thirds and fill two; split the lower into fourths and fill three. Align their left edges so the filled lengths can be compared. Then subdivide both into twelfths without changing their widths: 2/3 becomes 8/12 and 3/4 becomes 9/12. Isolate the single extra twelfth in warm coral and end on “3/4 is larger by 1/12”. Use a warm white canvas, navy labels, teal fills and coral only for the difference. Keep mathematical meaning attached to the moving geometry rather than switching to a text slide. Use gentle line drawing and precise label placement; leave the final annotated comparison visible for 4 seconds. No voiceover is needed because each step is visibly explained. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
     "duration": 26,
     "promptKind": "Original prompt",
     "orientation": "landscape",
-    "audiences": [
-      "Educators",
-      "Content creators"
-    ],
-    "useCases": [
-      "Lessons",
-      "Explainers",
-      "Training"
-    ],
+    "audiences": ["Educators", "Content creators"],
+    "useCases": ["Lessons", "Explainers", "Training"],
     "technique": "diagrams",
     "sourceRepo": "https://github.com/ManimCommunity/manim",
     "promptSource": "Original Video Use brief and visual explanation. Geometry, annotation and chart ideas informed by Manim Community examples (MIT).",
@@ -737,23 +546,15 @@
   },
   {
     "id": "useful-07-workshop-invite",
-    "title": "Invite People to a Workshop",
+    "title": "Documentary Lab",
     "category": "Motion Design",
     "description": "Make a mobile-first event announcement with a useful promise and a readable invitation.",
     "prompt": "Use Video Use to create an 18-second 1080×1920 social invitation for a fictional workshop called “Make Your First Mini Documentary”. Build the story from three original paper-like scene frames: a notebook outline, a simple shot list, and a tidy three-clip edit timeline. The copy is “A story worth telling”, then “Plan it. Shoot it. Shape it.” End with “Mini Documentary Lab / Saturday, 10 AM / Bring your phone”. Use a cobalt blue background, cream serif headlines, lime accent tape and clean sans-serif event details. Let the three scene frames form one editorial collage instead of a stack of generic cards. Keep the important event details on screen for the last 4 seconds. Use original paper rustles or quiet clicks if helpful. Include “Example event” discreetly so the showcase is not mistaken for a real scheduled workshop. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
     "duration": 18,
     "promptKind": "Original prompt",
     "orientation": "portrait",
-    "audiences": [
-      "Educators",
-      "Marketers",
-      "Content creators"
-    ],
-    "useCases": [
-      "Event promotion",
-      "Social content",
-      "Courses"
-    ],
+    "audiences": ["Educators", "Marketers", "Content creators"],
+    "useCases": ["Event promotion", "Social content", "Courses"],
     "technique": "motion-design",
     "sourceRepo": "https://github.com/veedstudio/open-edit",
     "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled.",
@@ -764,23 +565,15 @@
   },
   {
     "id": "useful-08-refill-product",
-    "title": "Explain a Product Benefit in 3D",
+    "title": "Soap Refill",
     "category": "Motion Design",
     "description": "Show a useful physical interaction so customers understand a product without a paragraph of copy.",
     "prompt": "Use Video Use to create a 22-second 1080×1080 true 3D product film for Moss, a fictional refillable hand-soap dispenser. Model the dispenser, removable top and refill pouch as original simple geometry. Begin on the complete bottle. The cap gently unscrews and rises; the pouch approaches the open neck and a short stylized stream shows a refill. Return the cap to the correct position and settle on the complete object. Pair each action with only one phrase: “Keep the bottle”, “Add a refill”, “Back to the sink”. End with “Moss / A simple refill ritual”. Use a pale sage studio, warm off-white bottle, forest-green pump and softly rounded geometry. The changing camera angle, shadows and occlusion must show real three-dimensional form. Avoid unsupported waste-reduction percentages, photoreal claims or invisible liquid physics. Use the existing documented 3D runtime and composite crisp type over the render. Hold the final product for 3 seconds. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
     "duration": 22,
     "promptKind": "Original prompt",
     "orientation": "square",
-    "audiences": [
-      "Marketers",
-      "Designers",
-      "Founders"
-    ],
-    "useCases": [
-      "Ecommerce",
-      "Product explainers",
-      "Social content"
-    ],
+    "audiences": ["Marketers", "Designers", "Founders"],
+    "useCases": ["Ecommerce", "Product explainers", "Social content"],
     "technique": "3d",
     "sourceRepo": "https://github.com/ahujasid/mcp-for-blender",
     "promptSource": "Original Video Use brief and 3D scene. Modeling, studio-lighting and isometric-camera ideas inspired by MCP for Blender (MIT); built with Video Use’s selected runtime.",
@@ -791,23 +584,15 @@
   },
   {
     "id": "useful-09-cafe-promo",
-    "title": "Edit a Local Business Promo",
+    "title": "Sunday Coffee",
     "category": "Video Edits",
     "description": "Edit licensed coffee footage into a focused promo for a fictional café.",
     "prompt": "Use Video Use to edit the supplied licensed coffee footage into a 20-second 1080×1920 social promo for a fictional café called Sunday Coffee. Build a tactile sequence from falling beans, espresso preparation and the finished pour. Choose the most useful moments by watching the actual clips, crop each shot to protect the cup and hands, and cut on the completion of each action. Keep the first two seconds visually immediate. Add restrained cream typography: “A little pause”, “Made properly”, then “Sunday Coffee / Your morning starts here”. Use a subtle warm corrective grade that keeps the coffee natural, quiet café room tone if available and a light original rhythmic bed. Avoid exaggerated speed ramps, fake discount offers or claims about the stock café. Finish with a clean 3-second title card over a real coffee detail. The gallery description must say the business is fictional and the footage is licensed stock. Execute the edit with the current Video Use helpers, keep the source media unchanged, and retain the EDL, overlays and editable source. Inspect the rendered cut boundaries, readability and ending before delivery. Use 30 ms audio fades at cut boundaries and composite captions last. Describe the supplied source footage and its credit honestly; do not imply Video Use generated the source footage.",
     "duration": 20,
     "promptKind": "Original prompt",
     "orientation": "portrait",
-    "audiences": [
-      "Marketers",
-      "Content creators",
-      "Founders"
-    ],
-    "useCases": [
-      "Social content",
-      "Local business",
-      "Ads"
-    ],
+    "audiences": ["Marketers", "Content creators", "Founders"],
+    "useCases": ["Social content", "Local business", "Ads"],
     "technique": "video-editing",
     "sourceRepo": "https://github.com/veedstudio/open-edit",
     "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled.",
@@ -818,23 +603,15 @@
   },
   {
     "id": "useful-10-welcome-flow",
-    "title": "Create a Customer Onboarding Video",
+    "title": "Trail Onboarding",
     "category": "Motion Design",
     "description": "Guide a new customer from an empty workspace to their first useful result.",
     "prompt": "Use Video Use to create a 24-second 1920×1080 welcome film for the fictional planning app Trail. The viewer should learn the first three things to do after joining. Start with an empty project titled “Spring launch”. Show a task being created, a teammate assigned, and a due date selected. Keep one continuous workspace on screen and move the camera only enough to read each action. The on-screen instruction copy is “Add the next task”, “Give it an owner”, “Set a clear date”. Finish with the populated board and “Your plan is ready to move”. Design an original clean UI with warm ivory, charcoal and saturated blue. Use the same task throughout so the viewer can follow the change. No floating abstract spheres, feature grids or unrelated promo language. The final completed state should be visible for 3 seconds. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
     "duration": 24,
     "promptKind": "Original prompt",
     "orientation": "landscape",
-    "audiences": [
-      "Product teams",
-      "Founders",
-      "Educators"
-    ],
-    "useCases": [
-      "Onboarding",
-      "Tutorials",
-      "Product explainers"
-    ],
+    "audiences": ["Product teams", "Founders", "Educators"],
+    "useCases": ["Onboarding", "Tutorials", "Product explainers"],
     "technique": "motion-design",
     "sourceRepo": "https://github.com/instavar/remotion-templates",
     "promptSource": "Original Video Use brief and implementation. Story structure inspired by Instavar Remotion Templates (MIT); fictional content and visual direction are new.",
@@ -845,23 +622,15 @@
   },
   {
     "id": "useful-11-retry-webhook",
-    "title": "Explain a Technical Architecture",
+    "title": "Webhook Retries",
     "category": "Explainers",
     "description": "Show a delivery failure and recovery path in an architecture diagram.",
     "prompt": "Use Video Use to create a 26-second 1920×1080 technical explainer titled “When a webhook fails”. Draw a stable left-to-right path: App → Queue → Receiver. Send one event token labelled order.paid. On the first delivery, show the Receiver returning 503; keep the event in the Queue. Display “Retry later” with a small clock, then deliver again and show 200 OK. Move the token into a Delivered state only after success. Reveal the short takeaway “A queue keeps the event until delivery succeeds”. Use a deep navy background, soft white labels, mint success and amber retry. Explain only this simplified flow; do not claim retries guarantee exactly-once delivery. Let arrows draw along their real paths and use a consistent event identity across every state. End with the full successful path visible for 3 seconds and a quiet footnote “Simplified delivery flow”. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
     "duration": 26,
     "promptKind": "Original prompt",
     "orientation": "landscape",
-    "audiences": [
-      "Product teams",
-      "Educators",
-      "Content creators"
-    ],
-    "useCases": [
-      "Technical explainers",
-      "Documentation",
-      "Training"
-    ],
+    "audiences": ["Product teams", "Educators", "Content creators"],
+    "useCases": ["Technical explainers", "Documentation", "Training"],
     "technique": "diagrams",
     "sourceRepo": "https://github.com/motion-canvas/motion-canvas",
     "promptSource": "Original Video Use brief and implementation. Animated layout/code-selection ideas informed by Motion Canvas examples (MIT).",
@@ -872,23 +641,15 @@
   },
   {
     "id": "useful-12-research-summary",
-    "title": "Present Research Findings Clearly",
+    "title": "Usability Study",
     "category": "Explainers",
     "description": "Turn a small study into a transparent visual summary with context and limitations.",
     "prompt": "Use Video Use to make a 25-second 1080×1080 visual research summary for a fictional usability study. Use exactly this illustrative dataset: Prototype A,18 of 24 participants completed the task; Prototype B,21 of 24 completed it. Start with “Can people finish the task?” Show two grids of 24 equal dots, filling 18 then 21, with success counts and 75% versus 87.5%. Highlight the difference as “3 more completions in this sample”. Briefly show a compact study card: “Same task /24 participants per version /Illustrative results”. End with “Next: test the confusing step” and a persistent note “Small sample; no significance claim”. Use white, ink and a calm periwinkle accent with consistent scaling and no misleading truncated charts. Animate the actual count, not arbitrary decorative counters. Let viewers inspect both groups at the same time. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
     "duration": 25,
     "promptKind": "Original prompt",
     "orientation": "square",
-    "audiences": [
-      "Educators",
-      "Product teams",
-      "Designers"
-    ],
-    "useCases": [
-      "Research summaries",
-      "Reports",
-      "Data stories"
-    ],
+    "audiences": ["Educators", "Product teams", "Designers"],
+    "useCases": ["Research summaries", "Reports", "Data stories"],
     "technique": "diagrams",
     "sourceRepo": "https://github.com/ManimCommunity/manim",
     "promptSource": "Original Video Use brief and visual explanation. Geometry, annotation and chart ideas informed by Manim Community examples (MIT).",
@@ -899,23 +660,15 @@
   },
   {
     "id": "useful-13-launch-highlights",
-    "title": "Cut an Event Highlight",
+    "title": "Artemis I Launch",
     "category": "Video Edits",
     "description": "Shape NASA’s Artemis I launch footage into a concise vertical recap.",
     "prompt": "Use Video Use to edit NASA’s public Artemis I press-site footage into a 24-second 1080×1920 factual launch recap. Inspect the full source and choose three useful moments: anticipation before ignition, liftoff, and the rocket climbing into the sky. Preserve the chronological order and the real launch sound when it is clean. Reframe each shot to keep the rocket and its plume visible; use a restrained movement only when the subject rises out of frame. The copy is “Artemis I”, “16 November 2022”, “From the launchpad toward the Moon”. Keep overlay text minimal so the event remains the focus. End with a 3-second view of the ascent and the credit “Footage: NASA /Edited excerpt”. Do not add unrelated space imagery, invented radio dialogue, background music with unclear rights, or any suggestion that NASA endorses Video Use. This is an editorial science recap example. Execute the edit with the current Video Use helpers, keep the source media unchanged, and retain the EDL, overlays and editable source. Inspect the rendered cut boundaries, readability and ending before delivery. Use 30 ms audio fades at cut boundaries and composite captions last. Describe the supplied source footage and its credit honestly; do not imply Video Use generated the source footage.",
     "duration": 24,
     "promptKind": "Original prompt",
     "orientation": "portrait",
-    "audiences": [
-      "Content creators",
-      "Educators",
-      "Marketers"
-    ],
-    "useCases": [
-      "Event recaps",
-      "Social content",
-      "Science communication"
-    ],
+    "audiences": ["Content creators", "Educators", "Marketers"],
+    "useCases": ["Event recaps", "Social content", "Science communication"],
     "technique": "video-editing",
     "sourceRepo": "https://github.com/veedstudio/open-edit",
     "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled.",
@@ -926,23 +679,15 @@
   },
   {
     "id": "useful-14-campaign-announcement",
-    "title": "Build a Reusable Campaign Ad",
+    "title": "Lamp Repair",
     "category": "Motion Design",
     "description": "Second Life — Fictional studio. An original cut-paper desk lamp unfolds, reconnects and lights up in a campaign about caring for the things you love. Demonstration content; no real customer before-and-after evidence.",
     "prompt": "Use Video Use to create a 20-second 1080×1350 campaign film for the fictional repair studio Second Life. Show an original illustrated desk lamp with a bent shade and loose cable; small parts align and the bulb turns on, making the service visible. Copy: “Keep the things you love”, then “Small repairs. Longer stories.” Finish with “Second Life /Book a repair assessment”. Use cream, tomato red and charcoal, editorial serif headlines and a simple tactile cut-paper visual treatment. Integrate the lettering with the repair action rather than placing a paragraph beside it. Keep the actual final service offer readable for 4 seconds. No fabricated before-and-after customer evidence, environmental savings figures or discount pricing. Include “Fictional studio” quietly in the project notes and gallery description. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
     "duration": 20,
     "promptKind": "Original prompt",
     "orientation": "portrait",
-    "audiences": [
-      "Marketers",
-      "Founders",
-      "Designers"
-    ],
-    "useCases": [
-      "Ads",
-      "Social content",
-      "Brand campaigns"
-    ],
+    "audiences": ["Marketers", "Founders", "Designers"],
+    "useCases": ["Ads", "Social content", "Brand campaigns"],
     "technique": "motion-design",
     "sourceRepo": "https://github.com/veedstudio/open-edit",
     "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled.",
@@ -953,23 +698,15 @@
   },
   {
     "id": "useful-15-venue-wayfinding",
-    "title": "Show Visitors Where to Go",
+    "title": "Venue Map",
     "category": "Motion Design",
     "description": "Use a simple spatial model to help attendees understand a venue before they arrive.",
     "prompt": "Use Video Use to create a 24-second 1920×1080 true 3D orientation film for a fictional event venue called The Workshop House. Build an original simplified floor plan in three-dimensional geometry with an entrance, welcome desk, central studio and coffee corner. Use an isometric three-quarter camera and a soft cream floor. Animate one amber route line from the entrance to the welcome desk, then to the studio; briefly point out the coffee corner as an optional stop. Label spaces with crisp post-composited type. Copy: “Start here”, “Check in”, “Make yourself at home”. End with a clear overview of the entire route and “The Workshop House /Find your first stop”. Use pale lavender walls, dark ink furniture and warm amber navigation. Keep walls low or partially transparent so the route is not occluded. This is a conceptual venue example, not directions to a real address or a fire-exit map. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
     "duration": 24,
     "promptKind": "Original prompt",
     "orientation": "landscape",
-    "audiences": [
-      "Marketers",
-      "Designers",
-      "Educators"
-    ],
-    "useCases": [
-      "Event promotion",
-      "Onboarding",
-      "Wayfinding"
-    ],
+    "audiences": ["Marketers", "Designers", "Educators"],
+    "useCases": ["Event promotion", "Onboarding", "Wayfinding"],
     "technique": "3d",
     "sourceRepo": "https://github.com/ahujasid/mcp-for-blender",
     "promptSource": "Original Video Use brief and 3D scene. Modeling, studio-lighting and isometric-camera ideas inspired by MCP for Blender (MIT); built with Video Use’s selected runtime.",
@@ -980,23 +717,15 @@
   },
   {
     "id": "useful-16-room-walkthrough",
-    "title": "Polish a Room Walkthrough",
+    "title": "Room Tour",
     "category": "Video Edits",
     "description": "Turn licensed room footage into an unbranded walkthrough with useful visual labels.",
     "prompt": "Use Video Use to turn the supplied licensed 48-second room-and-terrace footage into a 22-second 1920×1080 hospitality walkthrough. Watch the source and choose a purposeful sequence of the visible bedroom, interior details and terrace view. Keep camera direction consistent, remove redundant panning, and use only gentle stabilization or reframing where it helps. Add restrained location labels only to details actually visible: “Rest”, “Room to unwind”, “A view outside”. Use warm neutral type, thin rules and natural daylight color correction. Finish on the terrace view with “A slower kind of stay”. Keep this an unbranded demonstration edit; do not invent an address, nightly price, room size or claims about amenities outside the frame. Credit the stock source in the gallery and project notes. Prefer calm editorial cuts to flashy transitions. Execute the edit with the current Video Use helpers, keep the source media unchanged, and retain the EDL, overlays and editable source. Inspect the rendered cut boundaries, readability and ending before delivery. Use 30 ms audio fades at cut boundaries and composite captions last. Describe the supplied source footage and its credit honestly; do not imply Video Use generated the source footage.",
     "duration": 22,
     "promptKind": "Original prompt",
     "orientation": "landscape",
-    "audiences": [
-      "Marketers",
-      "Content creators",
-      "Designers"
-    ],
-    "useCases": [
-      "Property tours",
-      "Hospitality",
-      "Social content"
-    ],
+    "audiences": ["Marketers", "Content creators", "Designers"],
+    "useCases": ["Property tours", "Hospitality", "Social content"],
     "technique": "video-editing",
     "sourceRepo": "https://github.com/veedstudio/open-edit",
     "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled.",
@@ -1007,23 +736,15 @@
   },
   {
     "id": "useful-17-service-packages",
-    "title": "Explain Two Service Options",
+    "title": "Design Packages",
     "category": "Motion Design",
     "description": "Help prospective customers choose a service by showing the difference in scope.",
     "prompt": "Use Video Use to create a 22-second 1080×1080 service comparison for fictional design studio Form & Field. Show two options: “Starter /One landing page” and “Launch /Landing page +email kit +social kit”. Begin with a single page frame for Starter. Duplicate its design language into an email and two small social frames to reveal the Launch package. Keep the page, email and social views concrete, with original fictional content for a plant shop called Fern. Use a restrained editorial layout, parchment white, deep brown and fresh green accents. Ask visually “One page, or the whole launch?” End with both scopes visible and “Choose the support your launch needs”. No prices, discounts, fake ratings or urgency. Make this easy for a freelancer to reuse by swapping the service labels and deliverables. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
     "duration": 22,
     "promptKind": "Original prompt",
     "orientation": "square",
-    "audiences": [
-      "Founders",
-      "Marketers",
-      "Designers"
-    ],
-    "useCases": [
-      "Sales enablement",
-      "Service explainers",
-      "Social content"
-    ],
+    "audiences": ["Founders", "Marketers", "Designers"],
+    "useCases": ["Sales enablement", "Service explainers", "Social content"],
     "technique": "motion-design",
     "sourceRepo": "https://github.com/instavar/remotion-templates",
     "promptSource": "Original Video Use brief and implementation. Story structure inspired by Instavar Remotion Templates (MIT); fictional content and visual direction are new.",
@@ -1034,23 +755,15 @@
   },
   {
     "id": "useful-18-code-fix",
-    "title": "Explain a Small Code Fix",
+    "title": "Counting Paid Orders",
     "category": "Explainers",
     "description": "Make a bug and its fix visible with an input, a changing code line, and the correct result.",
     "prompt": "Use Video Use to make a 26-second 1920×1080 developer explainer called “Count the paid orders”. Show three sample orders: one pending and two paid. Start with the JavaScript line “const total = orders.length;” and the output 3. Highlight that the pending order is being counted. Replace the line with “const total = orders.filter(order => order.status === 'paid').length;” while visually filtering the pending row out. The corrected output becomes 2. Keep the code large enough to read; wrap the chained call across two lines if needed. Use a dark ink editor surface, soft lavender syntax accents and mint for the accepted rows. End with the two paid orders, the corrected code and “Filter first. Count second.” Use deliberate selection boxes and motion that follows the actual data flow. No fake terminal activity or scrolling walls of code. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
     "duration": 26,
     "promptKind": "Original prompt",
     "orientation": "landscape",
-    "audiences": [
-      "Educators",
-      "Product teams",
-      "Content creators"
-    ],
-    "useCases": [
-      "Developer education",
-      "Technical explainers",
-      "Tutorials"
-    ],
+    "audiences": ["Educators", "Product teams", "Content creators"],
+    "useCases": ["Developer education", "Technical explainers", "Tutorials"],
     "technique": "diagrams",
     "sourceRepo": "https://github.com/motion-canvas/motion-canvas",
     "promptSource": "Original Video Use brief and implementation. Animated layout/code-selection ideas informed by Motion Canvas examples (MIT).",
@@ -1061,23 +774,15 @@
   },
   {
     "id": "useful-19-fulfilment-flow",
-    "title": "Show How an Order Moves",
+    "title": "Order Packing",
     "category": "Motion Design",
     "description": "Use a miniature 3D scene to make a behind-the-scenes process easy to follow.",
     "prompt": "Use Video Use to create a 24-second 1920×1080 true 3D process film for fictional shop Parcel & Pine. Build a compact isometric packing bench using original geometry. Follow one small coral order box through three physical actions: a product goes into the box, a blank label is applied, and the sealed box moves to an outgoing tray. Pair the actions with crisp labels “Pack”, “Label”, “Ready to go”. Start with the whole bench, move closer for the packing action, and finish with a clear full-scene view. Use pale wood, soft sage, coral and warm studio light. Animate actual object motion and contact shadows; do not replace the story with icons floating in front of a flat wall. End on “Every order, handled with care”. No delivery-time guarantees, courier logos, customer addresses or invented real shipment tracking. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
     "duration": 24,
     "promptKind": "Original prompt",
     "orientation": "landscape",
-    "audiences": [
-      "Founders",
-      "Marketers",
-      "Product teams"
-    ],
-    "useCases": [
-      "Ecommerce",
-      "Process explainers",
-      "Training"
-    ],
+    "audiences": ["Founders", "Marketers", "Product teams"],
+    "useCases": ["Ecommerce", "Process explainers", "Training"],
     "technique": "3d",
     "sourceRepo": "https://github.com/ahujasid/mcp-for-blender",
     "promptSource": "Original Video Use brief and 3D scene. Modeling, studio-lighting and isometric-camera ideas inspired by MCP for Blender (MIT); built with Video Use’s selected runtime.",
@@ -1088,23 +793,15 @@
   },
   {
     "id": "useful-20-science-broll",
-    "title": "Turn B-roll into an Explainer",
+    "title": "Inside the ISS",
     "category": "Video Edits",
     "description": "Edit NASA’s ISS tour into a short science explainer with factual labels.",
     "prompt": "Use Video Use to edit the supplied NASA International Space Station interior tour into a 26-second 1920×1080 educational short titled “A laboratory in orbit”. Inspect the actual footage and choose three clear visual moments that show the station’s connected working spaces, mounted equipment and a window view if present. Use labels only where the image supports them: “Connected modules”, “Equipment within reach”, “A view of Earth” only if Earth is actually visible. Keep any optional narration original and factual; the piece should also work without sound. Use short clean cuts, a subtle navy label band and a small line pointer only when it identifies something specific. End with “Explore the full station tour” and a visible “Footage: NASA /Edited excerpt” credit. Do not invent astronaut quotations, identify hardware without verifying it, add synthetic outside footage, or imply NASA endorses Video Use. Do not spend most of the film on a title card; the real footage is the evidence. Execute the edit with the current Video Use helpers, keep the source media unchanged, and retain the EDL, overlays and editable source. Inspect the rendered cut boundaries, readability and ending before delivery. Use 30 ms audio fades at cut boundaries and composite captions last. Describe the supplied source footage and its credit honestly; do not imply Video Use generated the source footage.",
     "duration": 26,
     "promptKind": "Original prompt",
     "orientation": "landscape",
-    "audiences": [
-      "Educators",
-      "Content creators",
-      "Marketers"
-    ],
-    "useCases": [
-      "Science communication",
-      "Explainers",
-      "Educational content"
-    ],
+    "audiences": ["Educators", "Content creators", "Marketers"],
+    "useCases": ["Science communication", "Explainers", "Educational content"],
     "technique": "video-editing",
     "sourceRepo": "https://github.com/veedstudio/open-edit",
     "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled.",
@@ -1115,21 +812,15 @@
   },
   {
     "id": "useful-21-speech-captions",
-    "title": "Caption an Interview Excerpt",
+    "title": "Mike Fincke",
     "category": "Video Edits",
     "description": "Make an archival NASA interview easier to follow with accurate captions and clear speaker credit.",
     "prompt": "Use Video Use to create a 25-second portrait accessibility edit from NASA’s archival Mike Fincke interview, asset ksc_020305_fincke. Use the continuous passage at approximately source 27–51 seconds about seeing Apollo as a child and wanting to become an astronaut. Verify the actual spoken boundaries against the audio and NASA’s VTT; do not rewrite, synthesize, translate, rearrange, or speed up his words. Fit the complete thought within 24 seconds and reserve the remaining second for a quiet held image and credit; use the exact passage boundaries rather than padding with unrelated speech. Keep the archival picture’s aspect ratio inside a restrained midnight-blue portrait canvas, using a modest inset because the actual source is 320×212 at 12 fps. The selected passage shows Apollo B-roll under his voice; do not pretend it is a talking-head shot. Place captions below the picture in ample readable space. Identify the voice as Mike Fincke, NASA astronaut, and label this Archival interview; the catalog publication date is 2005, not proof of the recording day. Set accurate two-line captions with calm word-group changes, comfortable reading speed and no karaoke bouncing. Credit NASA throughout and in provenance. Keep only the selected speech audio with short clean fades; exclude the source’s intro/outro music. This is an editorial captioning example, not an endorsement of Video Use. The gallery description must identify NASA archival source footage. Preserve editable captions and the actual EDL. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
     "duration": 25,
     "promptKind": "Original prompt",
     "orientation": "portrait",
-    "audiences": [
-      "Content creators",
-      "Educators"
-    ],
-    "useCases": [
-      "Accessibility",
-      "Interview clips"
-    ],
+    "audiences": ["Content creators", "Educators"],
+    "useCases": ["Accessibility", "Interview clips"],
     "technique": "video-editing",
     "sourceRepo": "https://github.com/ggml-org/whisper.cpp",
     "promptSource": "Original Video Use brief; conceptual workflow inspiration from ggml-org/whisper.cpp. No upstream prompt, implementation, or media copied.",
@@ -1140,21 +831,15 @@
   },
   {
     "id": "useful-22-grade-comparison",
-    "title": "Review a Color Grade",
+    "title": "River Color Grade",
     "category": "Video Edits",
     "description": "Compare an original licensed landscape shot with a restrained correction at exactly the same moment.",
     "prompt": "Use Video Use to make a 20-second color-review reel from the licensed Mixkit river-under-a-bridge clip 1641. Choose one calm continuous source range by looking at the footage. Begin with a full-frame Original label, then introduce a vertical comparison wipe revealing a gently corrected version of the identical source frames. Settle into a split view labelled Original and Warm neutral, then finish on the corrected full frame for 3 seconds. Keep water, foliage, sky and bridge detail natural: modest exposure/white-balance correction, no dramatic teal-orange look, false HDR claim or crushed shadows. The two sides must remain frame-synchronized with the same crop and speed; only the stated grade changes. Retain a small movable dividing line and quiet neutral labels. Deliberately omit audio for this review export. State in the gallery that the input is licensed stock, and preserve the exact grade parameters, source time range and split/wipe animation as editable source. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
     "duration": 20,
     "promptKind": "Original prompt",
     "orientation": "landscape",
-    "audiences": [
-      "Content creators",
-      "Designers"
-    ],
-    "useCases": [
-      "Client reviews",
-      "Color correction"
-    ],
+    "audiences": ["Content creators", "Designers"],
+    "useCases": ["Client reviews", "Color correction"],
     "technique": "video-editing",
     "sourceRepo": "https://github.com/FFmpeg/FFmpeg",
     "promptSource": "Original Video Use brief; conceptual workflow inspiration from FFmpeg/FFmpeg. No upstream prompt, implementation, or media copied.",
@@ -1165,21 +850,15 @@
   },
   {
     "id": "useful-23-screen-redaction",
-    "title": "Redact a Screen Recording",
+    "title": "Redacted Contacts",
     "category": "Video Edits",
     "description": "Hide sample contact details throughout an original support-demo recording while preserving the useful action.",
     "prompt": "Use Video Use to create an original 36-second browser recording of a fictional support app called Beacon Desk, then edit it into a 22-second demonstration of reliable redaction. The raw app shows a support record with sample email alex@example.com and sample order ID DEMO-4821. Open the record, scroll its details and return to the queue. These values are fictional, and the source must be labelled Demo data. Keep that raw recording unchanged. In the final edit, cover every visible occurrence of the email and order ID with fully opaque rounded charcoal masks from the very first frame; do not reveal the values in an introductory before/after. Let the masks follow the known source layout through scrolling. Preserve the request title, status and cursor so viewers still understand the support action. Use two restrained annotations, Share the workflow and Keep the details private. Finish with the masked record and Demo data / Redaction example held for 3 seconds. No voiceover or music is needed. Keep the mask paths, active intervals and source-to-output time mapping editable; include commands to regenerate the excluded original demo capture. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
     "duration": 22,
     "promptKind": "Original prompt",
     "orientation": "landscape",
-    "audiences": [
-      "Product teams",
-      "Content creators"
-    ],
-    "useCases": [
-      "Privacy in demos",
-      "Support tutorials"
-    ],
+    "audiences": ["Product teams", "Content creators"],
+    "useCases": ["Privacy in demos", "Support tutorials"],
     "technique": "video-editing",
     "sourceRepo": "https://github.com/FFmpeg/FFmpeg",
     "promptSource": "Original Video Use brief; conceptual workflow inspiration from FFmpeg/FFmpeg. No upstream prompt, implementation, or media copied.",
@@ -1190,21 +869,15 @@
   },
   {
     "id": "useful-24-craft-process",
-    "title": "Tighten a Craft Process",
+    "title": "Pottery Wheel",
     "category": "Video Edits",
     "description": "Turn licensed pottery footage into a concise process study without inventing missing steps.",
     "prompt": "Use Video Use to edit the licensed pottery clips 1973 and 1974 into a 20-second 4:5 process study titled Taking shape. Inspect the real hand movements first. Select an opening contact with the clay, a useful shaping movement and a settled view of the form, preserving the order within each source. Do not pretend two unrelated shots document an entire finished vessel or add unrecorded glazing, firing or finished-product stages. Use quiet warm typography reading Center, Shape, Refine only when the visible action supports that label; otherwise use a more literal short observation. Prefer clean action cuts and trim inactive holds. If a continuous repetitive movement benefits from speeding up, use a modest fixed speed, disclose it in the EDL, and return to real time before the action completes. Protect the hands and clay in the crop. End on a genuine clay detail for 3 seconds with Taking shape / A process study. Use a soft original procedural pulse or deliberate silence, not invented workshop room tone. Credit licensed stock in the gallery and source records. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
     "duration": 20,
     "promptKind": "Original prompt",
     "orientation": "portrait",
-    "audiences": [
-      "Content creators",
-      "Marketers"
-    ],
-    "useCases": [
-      "Process videos",
-      "Maker portfolios"
-    ],
+    "audiences": ["Content creators", "Marketers"],
+    "useCases": ["Process videos", "Maker portfolios"],
     "technique": "video-editing",
     "sourceRepo": "https://github.com/WyattBlue/auto-editor",
     "promptSource": "Original Video Use brief; conceptual workflow inspiration from WyattBlue/auto-editor. No upstream prompt, implementation, or media copied.",
@@ -1215,21 +888,15 @@
   },
   {
     "id": "useful-25-subject-reframe",
-    "title": "Keep a Subject in Portrait",
+    "title": "Running Dog",
     "category": "Video Edits",
     "description": "Reframe licensed moving-dog footage for a vertical post while keeping the subject visible.",
     "prompt": "Use Video Use to make a 16-second portrait reframing example from licensed Mixkit dachshund clip 10365. First inspect the dog’s actual path and choose the complete useful movement. Use the first 2 seconds to show the landscape shot fitted inside the portrait canvas with a subtle 9:16 crop guide, then show the selected movement at its original pace in the portrait crop, and finish with a 2-second held frame. Use the remaining time as a clean final crop/detail hold if the source action is shorter; never invent extra action or loop the run as if it happened twice. Animate the crop only when needed to keep the dog’s face, ears and paws comfortably visible. Movement should have anticipation and a small safe margin rather than jerk after the subject. Do not stretch the source or crop off the dog to fill the screen; if its complete body cannot fit a full-height portrait crop with margin, use a deliberately framed portrait matte for that moment. A single line, Keep the moment in frame, may appear in the opening only. Use deliberate silence. Credit the licensed stock and keep the actual crop keyframes or tracked bounds editable. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
     "duration": 16,
     "promptKind": "Original prompt",
     "orientation": "portrait",
-    "audiences": [
-      "Content creators",
-      "Marketers"
-    ],
-    "useCases": [
-      "Social reframing",
-      "Pet content"
-    ],
+    "audiences": ["Content creators", "Marketers"],
+    "useCases": ["Social reframing", "Pet content"],
     "technique": "video-editing",
     "sourceRepo": "https://github.com/google-ai-edge/mediapipe",
     "promptSource": "Original Video Use brief; conceptual workflow inspiration from google-ai-edge/mediapipe. No upstream prompt, implementation, or media copied.",
@@ -1240,22 +907,15 @@
   },
   {
     "id": "useful-26-website-loop",
-    "title": "Build a Quiet Website Loop",
+    "title": "River Loop",
     "category": "Video Edits",
     "description": "Turn licensed river footage into a subtle background loop with a checked seam.",
     "prompt": "Use Video Use to make an 18-second silent website-background loop from licensed Mixkit river clip 1641. Inspect the real footage and choose a stable composition with moving water and a calm area that could sit behind webpage text. Preserve natural forward motion. Construct a short, subtle overlap between compatible end and beginning moments so repeated playback has no hard camera jump, exposure flash or obvious double bridge. Do not reverse the river, freeze the final image, add text, or insert a branded end card. This export is meant to loop quietly under a webpage. Keep the original color treatment restrained and protect useful water and foliage detail. Review at least two consecutive cycles around the seam, including the actual encoded last-to-first frame transition. Preserve the exact selected source range, overlap duration, blend curve and export settings. The gallery description must identify licensed stock; the downloadable source should reacquire the raw asset rather than redistribute it. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
     "duration": 18,
     "promptKind": "Original prompt",
     "orientation": "landscape",
-    "audiences": [
-      "Designers",
-      "Founders",
-      "Marketers"
-    ],
-    "useCases": [
-      "Website backgrounds",
-      "Ambient loops"
-    ],
+    "audiences": ["Designers", "Founders", "Marketers"],
+    "useCases": ["Website backgrounds", "Ambient loops"],
     "technique": "video-editing",
     "sourceRepo": "https://github.com/mifi/lossless-cut",
     "promptSource": "Original Video Use brief; conceptual workflow inspiration from mifi/lossless-cut. No upstream prompt, implementation, or media copied.",
@@ -1267,22 +927,15 @@
   },
   {
     "id": "useful-27-hiring-post",
-    "title": "Announce a Job Opening",
+    "title": "Service Designer Role",
     "category": "Motion Design",
     "description": "Turn a role brief into a readable social hiring post with a clear next step.",
     "prompt": "Use Video Use to create a 20-second 4:5 hiring post for the fictional studio Common Ground. Open with We’re looking for a service designer, using confident editorial type on warm paper with one cobalt rule. Let a simple service-map line connect three concrete role details: Map the journey, Prototype the service, Work with the team. Resolve into a compact role panel reading Service designer / Remote within UK / Full time. End with Explore the role / commonground.example/jobs held for 4 seconds. Keep Example opening visible in a small readable footer throughout so this cannot be mistaken for a real vacancy. Do not invent salary, benefits, applicants, employee portraits or a real application destination. Use meaningful type/layout transitions and an original restrained click rhythm; avoid a generic feature-card grid. Make role, location, work pattern, capabilities and CTA editable in one content file. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
     "duration": 20,
     "promptKind": "Original prompt",
     "orientation": "portrait",
-    "audiences": [
-      "Founders",
-      "Marketers",
-      "Designers"
-    ],
-    "useCases": [
-      "Hiring",
-      "Social announcements"
-    ],
+    "audiences": ["Founders", "Marketers", "Designers"],
+    "useCases": ["Hiring", "Social announcements"],
     "technique": "motion-design",
     "sourceRepo": "https://github.com/instavar/remotion-templates",
     "promptSource": "Original Video Use brief; conceptual workflow inspiration from instavar/remotion-templates. No upstream prompt, implementation, or media copied.",
@@ -1293,21 +946,15 @@
   },
   {
     "id": "useful-28-course-syllabus",
-    "title": "Preview a Course Syllabus",
+    "title": "Mapmaking Course",
     "category": "Motion Design",
     "description": "Show what learners will make and how three lessons build toward that result.",
     "prompt": "Use Video Use to create a 24-second syllabus preview for an original fictional mini-course called Make a Useful Map. Keep one cream notebook spread on screen. A blank map develops across three named lessons: Choose a place, Show what matters, Guide the reader. At each step add an original visible artifact—a simple local-area outline, three clearly different place symbols, then a legend and route. Show that each lesson produces part of the final map. Do not imply this is a real geographic location or accurate navigation. Finish on the completed example map with Three short lessons. One map you can explain. Hold the result for 3 seconds. Use ink-blue linework, warm orange highlights, original vector icons and crisp lesson numbers. This is a course overview, not an event invitation; omit dates, ticket prices and enrollment promises. Keep lesson order, titles, symbols, legend and route editable. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
     "duration": 24,
     "promptKind": "Original prompt",
     "orientation": "landscape",
-    "audiences": [
-      "Educators",
-      "Content creators"
-    ],
-    "useCases": [
-      "Course previews",
-      "Learning materials"
-    ],
+    "audiences": ["Educators", "Content creators"],
+    "useCases": ["Course previews", "Learning materials"],
     "technique": "motion-design",
     "sourceRepo": "https://github.com/motion-canvas/motion-canvas",
     "promptSource": "Original Video Use brief; conceptual workflow inspiration from motion-canvas/motion-canvas. No upstream prompt, implementation, or media copied.",
@@ -1318,22 +965,15 @@
   },
   {
     "id": "useful-29-faq-answer",
-    "title": "Answer a Customer Question",
+    "title": "Shared Brand Kit",
     "category": "Motion Design",
     "description": "Explain a recurring customer question through one visible, concrete example.",
     "prompt": "Use Video Use to create a 22-second square FAQ video for fictional brand-kit app Palette Room. Start with the question Can everyone use the same brand kit? Keep one original brand-kit sheet visible with three assets: a simple leaf mark, the colors Forest and Cream, and the typeface Inter. Show the sheet saved to Team space, then two teammate cursors opening the same unchanged kit in two small composition canvases. Each output must visibly use the same mark, palette and type. Answer with One shared kit. Two consistent starting points. Finish with the two example outputs and Palette Room / Fictional product demo held for 3 seconds. Use a quiet editorial layout; teach the idea rather than inventing access-control guarantees, synchronization latency or actual integrations. Keep the kit data, teammates and example copy editable. Original shapes and fonts only; no existing company UI. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
     "duration": 22,
     "promptKind": "Original prompt",
     "orientation": "square",
-    "audiences": [
-      "Founders",
-      "Product teams",
-      "Marketers"
-    ],
-    "useCases": [
-      "Customer education",
-      "FAQ videos"
-    ],
+    "audiences": ["Founders", "Product teams", "Marketers"],
+    "useCases": ["Customer education", "FAQ videos"],
     "technique": "motion-design",
     "sourceRepo": "https://github.com/instavar/remotion-templates",
     "promptSource": "Original Video Use brief; conceptual workflow inspiration from instavar/remotion-templates. No upstream prompt, implementation, or media copied.",
@@ -1344,21 +984,15 @@
   },
   {
     "id": "useful-30-match-result",
-    "title": "Publish a Match Result",
+    "title": "North vs Harbor",
     "category": "Motion Design",
     "description": "Build a clear score recap from editable fictional match events.",
     "prompt": "Use Video Use to create a 20-second vertical result graphic for a fictional football match, North FC versus Harbor FC. Use original geometric club marks, never real club badges or player likenesses. Start at 0–0 and progress through these five events in order: North scores at 12 minutes, Harbor at 37, North at 51, Harbor at 69, North at 88. Keep the same central scoreboard throughout, animate only the team that scored, and place the corresponding minute on a compact timeline. The final result must be North 3–2 Harbor. End with Full time / North 3–2 Harbor and a small Illustrative match footer for 3 seconds. Use midnight blue, soft white and one vivid lime accent with restrained sports-broadcast motion. Do not claim this match occurred. Generate any short score accents originally and keep them quiet. Store the event list once and derive totals, minute markers and final copy from it. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
     "duration": 20,
     "promptKind": "Original prompt",
     "orientation": "portrait",
-    "audiences": [
-      "Content creators",
-      "Marketers"
-    ],
-    "useCases": [
-      "Sports recaps",
-      "Community updates"
-    ],
+    "audiences": ["Content creators", "Marketers"],
+    "useCases": ["Sports recaps", "Community updates"],
     "technique": "motion-design",
     "sourceRepo": "https://github.com/motion-canvas/motion-canvas",
     "promptSource": "Original Video Use brief; conceptual workflow inspiration from motion-canvas/motion-canvas. No upstream prompt, implementation, or media copied.",
@@ -1369,21 +1003,15 @@
   },
   {
     "id": "useful-31-service-status",
-    "title": "Explain a Service Update",
+    "title": "Upload Status",
     "category": "Motion Design",
     "description": "Present a fictional incident timeline with precise states and a calm customer update.",
     "prompt": "Use Video Use to create a 22-second calm service-update video for fictional file-sharing app Sparrow. Keep an Example incident label visible. Present one horizontal timeline for File uploads with three supplied states: Investigating 09:10, Recovering 10:05, Resolved 10:20. Reveal them in order, keeping earlier timestamps visible. At the recovery stage, show Uploads recovering, monitoring continues; only at 10:20 show Uploads restored. End on the complete timeline with Thank you for your patience and Resolved 10:20 held for 3 seconds. Do not add a root cause, outage duration statistic, SLA claim, compensation promise or claim that all services were affected. Use warm grey, charcoal, amber during investigation and muted green after resolution. Motion should support clarity rather than urgency. Keep the state data, affected feature and timestamps editable and clearly identify the content as a fictional demonstration in the gallery. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
     "duration": 22,
     "promptKind": "Original prompt",
     "orientation": "landscape",
-    "audiences": [
-      "Product teams",
-      "Founders"
-    ],
-    "useCases": [
-      "Customer communication",
-      "Status updates"
-    ],
+    "audiences": ["Product teams", "Founders"],
+    "useCases": ["Customer communication", "Status updates"],
     "technique": "motion-design",
     "sourceRepo": "https://github.com/motion-canvas/examples",
     "promptSource": "Original Video Use brief; conceptual workflow inspiration from motion-canvas/examples. No upstream prompt, implementation, or media copied.",
@@ -1394,21 +1022,15 @@
   },
   {
     "id": "useful-32-break-even",
-    "title": "Explain Break Even Visually",
+    "title": "Print Stall Break-Even",
     "category": "Explainers",
     "description": "Use illustrative numbers to show where revenue and total cost meet.",
     "prompt": "Use Video Use to create a 26-second educational diagram explaining a simple break-even model for a fictional print stall. State the illustrative inputs: fixed cost $120, variable cost $3 per print, price $9 per print. Draw a single stable chart with horizontal axis Prints sold from 0 to 30 and vertical axis Dollars from 0 to 300. Reveal total cost 120+3 q and revenue 9 q from their correct intercepts. Mark the intersection at 20 prints and $180, then show 120÷(9−3)=20. Explain that in this simplified example revenue equals total cost there; do not call revenue profit or imply real business advice or a guaranteed outcome. Show Illustrative numbers / Single-product model throughout. Keep labels attached to the right lines and use equal, truthful axis scales. End with the graph and calculation together for 4 seconds. Use original vector geometry, charcoal text, teal revenue and amber cost on a light background. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
     "duration": 26,
     "promptKind": "Original prompt",
     "orientation": "landscape",
-    "audiences": [
-      "Educators",
-      "Founders"
-    ],
-    "useCases": [
-      "Business education",
-      "Math explainers"
-    ],
+    "audiences": ["Educators", "Founders"],
+    "useCases": ["Business education", "Math explainers"],
     "technique": "diagrams",
     "sourceRepo": "https://github.com/ManimCommunity/manim",
     "promptSource": "Original Video Use brief; conceptual workflow inspiration from ManimCommunity/manim. No upstream prompt, implementation, or media copied.",
@@ -1419,21 +1041,15 @@
   },
   {
     "id": "useful-33-binary-search",
-    "title": "Teach Binary Search",
+    "title": "Binary Search Steps",
     "category": "Explainers",
     "description": "Follow three comparisons that find one value in a sorted list.",
     "prompt": "Use Video Use to create a 27-second binary-search lesson for the sorted array [3, 7, 12, 19, 24, 31, 42], searching for 24. Keep all seven indexed cells visible and distinguish zero-based index from value. Start with low 0, high 6. Compare midpoint index 3, value 19; because 24 is greater, dim indices 0–3 and set low 4. Compare midpoint index 5, value 31; because 24 is smaller, set high 4 and dim indices 5–6. Compare index 4, value 24 and mark Found / index 4. Keep the target 24 fixed above the row and show only the current comparison, low and high bounds; avoid a wall of code. An optional tiny pseudocode line may track the actual operation. Do not move values around or imply the algorithm works on an unsorted list. End with the successful cell and Three comparisons / Sorted input for 3 seconds. Use navy outlines, a mint active range and amber comparison markers. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
     "duration": 27,
     "promptKind": "Original prompt",
     "orientation": "landscape",
-    "audiences": [
-      "Educators",
-      "Product teams"
-    ],
-    "useCases": [
-      "Algorithm lessons",
-      "Technical explainers"
-    ],
+    "audiences": ["Educators", "Product teams"],
+    "useCases": ["Algorithm lessons", "Technical explainers"],
     "technique": "diagrams",
     "sourceRepo": "https://github.com/motion-canvas/motion-canvas",
     "promptSource": "Original Video Use brief; conceptual workflow inspiration from motion-canvas/motion-canvas. No upstream prompt, implementation, or media copied.",
@@ -1444,21 +1060,15 @@
   },
   {
     "id": "useful-34-cache-expiry",
-    "title": "Explain Cache Expiry",
+    "title": "Cache Expiry",
     "category": "Explainers",
     "description": "Show a miss, a cache hit, and a fresh fetch after a simple TTL expires.",
     "prompt": "Use Video Use to create a 26-second technical diagram of one simplified cache-aside request flow: Client→Cache→Origin. Track the key menu:v1. On request 1 at simulated 0 seconds, show Cache miss, fetch the value from Origin, return it and store it with TTL 10 seconds. On request 2 at simulated 4 seconds, return the same cached value and show no origin request. Advance a clearly labelled compressed clock to 11 seconds; the cached item is now expired. Request 3 must miss and fetch a fresh value from Origin before the cache refills. Use solid arrows for requests, a distinct response path, and one persistent key label so identity stays clear. Finish on Miss→Hit→Expired→Refetch with Simplified example / Time compressed for 3 seconds. Do not claim TTL guarantees data freshness or that all caches share these semantics. Use a dark technical canvas, amber misses and mint hits, with no live endpoint. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
     "duration": 26,
     "promptKind": "Original prompt",
     "orientation": "landscape",
-    "audiences": [
-      "Product teams",
-      "Educators"
-    ],
-    "useCases": [
-      "Architecture explainers",
-      "Developer documentation"
-    ],
+    "audiences": ["Product teams", "Educators"],
+    "useCases": ["Architecture explainers", "Developer documentation"],
     "technique": "diagrams",
     "sourceRepo": "https://github.com/motion-canvas/examples",
     "promptSource": "Original Video Use brief; conceptual workflow inspiration from motion-canvas/examples. No upstream prompt, implementation, or media copied.",
@@ -1469,21 +1079,15 @@
   },
   {
     "id": "useful-35-water-cycle",
-    "title": "Explain a Natural Cycle",
+    "title": "Water Cycle",
     "category": "Explainers",
     "description": "Trace one simplified route through evaporation, condensation, rain and runoff.",
     "prompt": "Use Video Use to create a 25-second classroom animation following one simplified route through the water cycle. Draw one stable landscape with a lake, hillside, cloud and stream. Show solar energy at the lake and label Evaporation: liquid→vapor; represent vapor as a subtle rising dotted path, not visible smoke. At the cloud show Condensation: vapor→liquid droplets, then Precipitation as rain falling toward the hillside. Follow surface runoff downhill through the stream back to the lake. Keep arrows directional and preserve the diagram instead of replacing it with unrelated slides. Conclude with Water moves and changes state and a small One simplified route; the cycle has no fixed start note for 3 seconds. Do not claim all water follows this path or that clouds are made only of vapor. Use original vector scenery, sky blue, deep green and warm sunlight; no unsupported percentages or weather forecasts. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
     "duration": 25,
     "promptKind": "Original prompt",
     "orientation": "landscape",
-    "audiences": [
-      "Educators",
-      "Content creators"
-    ],
-    "useCases": [
-      "Science lessons",
-      "Learning materials"
-    ],
+    "audiences": ["Educators", "Content creators"],
+    "useCases": ["Science lessons", "Learning materials"],
     "technique": "diagrams",
     "sourceRepo": "https://github.com/ManimCommunity/manim",
     "promptSource": "Original Video Use brief; conceptual workflow inspiration from ManimCommunity/manim. No upstream prompt, implementation, or media copied.",
@@ -1494,21 +1098,15 @@
   },
   {
     "id": "useful-36-support-triage",
-    "title": "Map a Support Decision",
+    "title": "Support Routing",
     "category": "Explainers",
     "description": "Make a sample support-routing policy visible, including its fallback path.",
     "prompt": "Use Video Use to create a 25-second support-training diagram for a fictional helpdesk policy. Start with one ticket reading Charged twice. Ask Can the customer sign in? Follow Yes, then ask Is this a billing question? Follow Yes to Billing team. Keep the unchosen branches visible but quiet: No at the sign-in decision leads to Account support; No at the billing decision leads to General support. Label the whole chart Example routing policy. After the example ticket reaches Billing, briefly reveal an Unclear issue→General support fallback so no ticket disappears. Use a stable left-to-right decision layout with actual labelled connectors and a single ticket identity. Do not imply this is a real company’s policy or that a billing adjustment/refund was performed. End on the complete tree and Route first. Resolve with the right team. for 3 seconds. Use ivory, ink blue, teal active paths and restrained motion. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
     "duration": 25,
     "promptKind": "Original prompt",
     "orientation": "landscape",
-    "audiences": [
-      "Product teams",
-      "Founders"
-    ],
-    "useCases": [
-      "Internal training",
-      "Process documentation"
-    ],
+    "audiences": ["Product teams", "Founders"],
+    "useCases": ["Internal training", "Process documentation"],
     "technique": "diagrams",
     "sourceRepo": "https://github.com/motion-canvas/examples",
     "promptSource": "Original Video Use brief; conceptual workflow inspiration from motion-canvas/examples. No upstream prompt, implementation, or media copied.",
@@ -1519,22 +1117,15 @@
   },
   {
     "id": "useful-37-product-dimensions",
-    "title": "Show Product Dimensions",
+    "title": "Desk Lamp Size",
     "category": "Motion Design",
     "description": "Turn a fictional lamp into a clear size-and-fit explanation with anchored measurements.",
     "prompt": "Use Video Use to create a 24-second square 3D size guide for an original fictional desk lamp called Luma. Model real geometry with a circular 18 cm-diameter base, a total 42 cm height, and a widest horizontal reach of 28 cm. Choose a form that actually fits those dimensions. Begin with a slow three-quarter view, then settle into a readable measurement view. Reveal one anchored dimension at a time:42 cm tall, 28 cm reach, 18 cm base. Leader lines must touch the correct physical endpoints and stay legible as the camera moves; use projected 2D type over the 3D render. Finish with all three measurements and Luma / Illustrative dimensions held for 3 seconds. Use a warm cream studio, charcoal lamp and one orange measurement accent. Do not claim real-product specifications or show impossible scale. Keep dimensions, geometry, camera and labels driven from the same configuration. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
     "duration": 24,
     "promptKind": "Original prompt",
     "orientation": "square",
-    "audiences": [
-      "Designers",
-      "Marketers",
-      "Founders"
-    ],
-    "useCases": [
-      "Product detail pages",
-      "Size guides"
-    ],
+    "audiences": ["Designers", "Marketers", "Founders"],
+    "useCases": ["Product detail pages", "Size guides"],
     "technique": "3d",
     "sourceRepo": "https://github.com/mrdoob/three.js",
     "promptSource": "Original Video Use brief; conceptual workflow inspiration from mrdoob/three.js. No upstream prompt, implementation, or media copied.",
@@ -1545,22 +1136,15 @@
   },
   {
     "id": "useful-38-filter-replacement",
-    "title": "Show a Maintenance Step",
+    "title": "Fan Filter Swap",
     "category": "Motion Design",
     "description": "Explain an original fictional fan’s filter replacement with a clear 3D assembly sequence.",
     "prompt": "Use Video Use to create a 26-second 3D instruction film for a fictional desktop fan called Breeze. Model a simple fan housing, rear cover and removable dust-filter panel as original geometry. Begin with Power off and unplug, visibly show the disconnected plug, and keep the blades still throughout. Rotate to the rear, release two visible cover tabs, remove the cover, lift out the old plain filter panel and insert a matching clean panel along the same guide rails. Replace the cover so both tabs visibly return into place. Use one short phrase per action: Open the back, Swap the filter, Close the cover. Finish with the assembled fan and Breeze / Fictional maintenance example for 3 seconds; do not reconnect it or show powered motion. This is an invented assembly demonstration, not instructions for a real appliance or a filtration-performance claim. Use a pale blue studio, off-white housing and coral tab highlights, with crisp overlays and clear depth. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
     "duration": 26,
     "promptKind": "Original prompt",
     "orientation": "landscape",
-    "audiences": [
-      "Product teams",
-      "Designers",
-      "Marketers"
-    ],
-    "useCases": [
-      "Product instructions",
-      "Maintenance guides"
-    ],
+    "audiences": ["Product teams", "Designers", "Marketers"],
+    "useCases": ["Product instructions", "Maintenance guides"],
     "technique": "3d",
     "sourceRepo": "https://github.com/mrdoob/three.js",
     "promptSource": "Original Video Use brief; conceptual workflow inspiration from mrdoob/three.js. No upstream prompt, implementation, or media copied.",
@@ -1571,22 +1155,15 @@
   },
   {
     "id": "useful-39-kit-packing",
-    "title": "Explain a Kit Layout",
+    "title": "Welcome Kit",
     "category": "Motion Design",
     "description": "Show how three original welcome-kit items fit into a box with readable placement order.",
     "prompt": "Use Video Use to create a 24-second 3D packing guide for the fictional studio welcome kit First Day. Model an open cardboard box with an inner cavity 30×22×8 cm, a notebook 18×13×1 cm, a pencil sleeve 19×3×1 cm and a small accessory pouch 10×6×3 cm. Use one consistent scale and an original divider layout that truly fits all three items without overlap or protrusion. Begin on the empty divided box, place the notebook, then the pencil sleeve, then the pouch in a clear order. Call out each item once and briefly show enough of the top view to prove the fit. Close the lid only after every item is below its sweep, then settle on First Day / Ready to welcome for 3 seconds. Keep measurements in editable source and label Illustrative kit dimensions in the film. Do not claim tested shipping protection or use real customer names/addresses. Use kraft paper, warm ivory and a cobalt notebook with real shadows. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
     "duration": 24,
     "promptKind": "Original prompt",
     "orientation": "landscape",
-    "audiences": [
-      "Marketers",
-      "Designers",
-      "Product teams"
-    ],
-    "useCases": [
-      "Packaging design",
-      "Assembly instructions"
-    ],
+    "audiences": ["Marketers", "Designers", "Product teams"],
+    "useCases": ["Packaging design", "Assembly instructions"],
     "technique": "3d",
     "sourceRepo": "https://github.com/mrdoob/three.js",
     "promptSource": "Original Video Use brief; conceptual workflow inspiration from mrdoob/three.js. No upstream prompt, implementation, or media copied.",
@@ -1597,21 +1174,15 @@
   },
   {
     "id": "useful-40-gear-ratio",
-    "title": "Explain a Gear Ratio in 3D",
+    "title": "Gear Ratio",
     "category": "Motion Design",
     "description": "Use two real 3D gear shapes to connect tooth count with rotational speed.",
     "prompt": "Use Video Use to create a 26-second 3D lesson showing a simple external spur-gear pair with 20 teeth on the small driver and 40 teeth on the large driven gear. Model actual extruded toothed geometry with the same tooth spacing/module and correct center distance, so the gears visibly mesh. Use a fixed, readable three-quarter view that reveals thickness; the teaching must not be a flat illustrated spinning disc. Label the gears 20 teeth and 40 teeth, mark one tooth on each, and rotate the small gear through exactly two complete turns while the large gear makes one turn in the opposite direction. Show turn counters tied to actual angle, then the relationship 40÷20=2 and Small gear turns twice per large gear turn. Finish with the matched marks, labels and Simplified gear model / Not a manufacturing drawing held for 3 seconds. Do not invent efficiency, torque or power gains. Use warm graphite, mint and amber, with slow enough motion to follow the meshing. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
     "duration": 26,
     "promptKind": "Original prompt",
     "orientation": "landscape",
-    "audiences": [
-      "Educators",
-      "Designers"
-    ],
-    "useCases": [
-      "Engineering explainers",
-      "Technical lessons"
-    ],
+    "audiences": ["Educators", "Designers"],
+    "useCases": ["Engineering explainers", "Technical lessons"],
     "technique": "3d",
     "sourceRepo": "https://github.com/mrdoob/three.js",
     "promptSource": "Original Video Use brief; conceptual workflow inspiration from mrdoob/three.js. No upstream prompt, implementation, or media copied.",
@@ -1622,22 +1193,14 @@
   },
   {
     "id": "whiplash-cinematic-story-edit",
-    "title": "Whiplash — a Cinematic Story Edit",
+    "title": "Whiplash",
     "category": "Video Edits",
     "description": "Build tension with dialogue, bold captions and an accelerating finish. Adapt the workflow to your own footage.",
     "promptKind": "Starter prompt",
     "orientation": "landscape",
     "duration": 48.966667,
-    "audiences": [
-      "Content creators",
-      "Filmmakers",
-      "Marketers"
-    ],
-    "useCases": [
-      "Trailers",
-      "Stories & recaps",
-      "Editing techniques"
-    ],
+    "audiences": ["Content creators", "Filmmakers", "Marketers"],
+    "useCases": ["Trailers", "Stories & recaps", "Editing techniques"],
     "technique": "video-editing",
     "promptSource": "Adaptable prompt derived from the saved Whiplash edit’s source inspection, timeline, caption layouts and production records. The shown video was made in an earlier reference-reconstruction run, not generated by this new prompt. Film: Whiplash (2014). Music: Grant Steller, Every Living Breathing Moment. Source footage and music are not part of the open-source toolkit.",
     "prompt": "Use Video Use to turn my supplied or licensed footage into a cinematic story edit. Carry forward the subject, audience, format, length and level of involvement already established in this conversation. If no length is set, aim for 45–60 seconds. Adapt the editing language of this example to my material; choose new shots and words that fit my story.\n\nInspect the footage and transcribe the useful dialogue before choosing cuts. Find a clear subject, a goal, an obstacle and a payoff. Use only events and spoken words supported by the source. Open with a compelling line or visible action, hold long enough to understand the stakes, then alternate effort, resistance and reactions. Give the strongest setback a little breathing room. Build toward a final 6–10 seconds of shorter, energetic shots that show the payoff. Keep that final burst mostly free of text. Preserve the meaning of dialogue and the order of any process being demonstrated.\n\nUse mostly clean hard cuts. Let expressions, eyelines and movement motivate each cut; save the fastest cutting for the finish. Keep natural motion unless a deliberate speed change improves a specific moment. Use a restrained, high-contrast grade with believable skin tones and consistent shots within each setting.\n\nAdd selective, bold, uppercase slab-serif captions in white, with a few important words in red. Build short phrases in sync with actual speech, placing them in available negative space. Leave uncaptained passages for the images to breathe. Keep text readable and clear of faces, hands and important action throughout the cue. If the footage supports it, use one brief isolated-subject-on-black moment at the emotional peak, then return to the scene. Omit it if a clean moving matte cannot be achieved.\n\nEdit dialogue and music on separate timelines. Choose a licensed or original track whose changing intensity supports the story. Align key transitions to its actual phrases and accents rather than forcing every cut onto a fixed beat grid. Keep dialogue clear, music continuous across picture cuts, and sound effects sparse and motivated. Avoid clipped words, cut clicks and an abruptly truncated music tail.\n\nRender the agreed format with current Video Use tools and retain an editable EDL, caption timing, fonts, audio decisions and source credits. Check the encoded cut boundaries, speech alignment, moving text/subject collisions, first frame and final hold; decode the complete file and verify both audio and picture duration. Follow the existing involvement mode, including a short approval snippet before the full edit in hands-on mode.",
@@ -1647,7 +1210,7 @@
   },
   {
     "id": "practical-cut-pauses",
-    "title": "Dead Air Removal",
+    "title": "Camera Unboxing",
     "category": "Video Edits",
     "description": "Remove pauses and repeated speech from a camera unboxing.",
     "prompt": "Tighten this unboxing footage into a natural 12–15 second clip. Find one useful complete thought about the camera, then remove hesitations, repeated words, long pauses, and time spent fumbling with packaging. Keep the speaker’s real voice and meaning. Use clean cuts and only a small change in crop when it helps cover a jump. Keep the product visible. No music, flashy transitions, title cards, or decorative overlays.",
@@ -1659,7 +1222,7 @@
   },
   {
     "id": "practical-show-details",
-    "title": "Detail Crop",
+    "title": "Camera Close-Ups",
     "category": "Video Edits",
     "description": "Select clear product views from a long unboxing.",
     "prompt": "Turn this raw camera unboxing into a clear 12–15 second product showcase. Skip the packaging struggle and find three genuinely useful views of the camera: the full product, a close detail being handled, and a satisfying finished view. Cut when the hands move naturally and use careful close crops to show what matters. Hold each detail long enough to understand it. Keep real handling sounds; omit incomplete speech. No invented features, music, graphic frames, or unnecessary text.",
@@ -1671,7 +1234,7 @@
   },
   {
     "id": "practical-skip-waiting",
-    "title": "Process Cutdown",
+    "title": "Camera Reveal",
     "category": "Video Edits",
     "description": "Condense packaging and setup into a short reveal.",
     "prompt": "Turn the slow box-opening and setup in this unboxing footage into a satisfying 12–15 second reveal. Show a brief sealed-box or wrapped-product moment, keep only the decisive opening and assembly actions, and finish on the camera fully revealed and ready to use. Remove searching, repeated handling, empty hands, and long gaps. Preserve the real order of events and keep clean original handling sounds. No added music, fake product facts, title cards, or flashy transitions.",
@@ -1683,7 +1246,7 @@
   },
   {
     "id": "practical-vertical-reframe",
-    "title": "Vertical Reframe",
+    "title": "Camera Demo",
     "category": "Video Edits",
     "description": "Reframe a product demonstration for a vertical short.",
     "prompt": "Make a useful 12–15 second vertical short from this widescreen camera-unboxing footage. Choose one complete product demonstration with an actual reveal or useful takeaway. Cut the idle handling and pauses, reframe each shot to keep the camera and the demonstrator’s hands visible, and move the crop only when the product moves. Keep any included speech intact and add clean accurate phrase captions within safe margins. Use the speaker’s own voice and real sounds. No blurred background bars, stretching, fake words, music, or decorative transitions.",
@@ -1695,7 +1258,7 @@
   },
   {
     "id": "edit-velocity",
-    "title": "Speed Ramp",
+    "title": "Robot Battle",
     "category": "Video Edits",
     "description": "Acceleration, a slow-motion peak, and cuts that follow the action.",
     "prompt": "Use only the supplied Tears of Steel source video to make a 12-second widescreen action edit called Velocity. Inspect the source first and choose four genuinely energetic shots with clear camera or subject motion; avoid dialogue-only holds and credits. Build a readable arc: 0–2s an intriguing moving detail, 2–5s three escalating action cuts, 5–8s one hero movement that eases from 100% to 45% speed for its peak then accelerates to 220%, 8–11s a decisive payoff, 11–12s a clean visual finish. Cut on matching movement directions and use two 6-frame whip transitions only where source motion supports them. Add a single 6% punch-in on the strongest impact. Preserve sharp faces and edges; use frame sampling if interpolation bends objects. Keep original environmental sound where useful, add a restrained original percussive pulse and two synchronized impacts, and duck the pulse under any retained intelligible speech. No stock footage, no new generated scenes, no full-screen captions, and no random flash/glitch effects. Deliver one polished 1920x1080 H264 MP4 with intentional crops, no stretched image, plus source timecodes and an edit decision list. The edit must still clearly communicate acceleration and payoff when muted.",
@@ -1707,7 +1270,7 @@
   },
   {
     "id": "edit-freeze_poster",
-    "title": "Freeze Frame Poster",
+    "title": "Tears of Steel Poster",
     "category": "Video Edits",
     "description": "A moving shot becomes an editorial poster, then returns to motion.",
     "prompt": "Turn the same supplied Tears of Steel source into a 12-second widescreen moving film poster. Choose one continuous shot with at least 6 seconds of usable motion with a clear expressive character or striking mechanical silhouette. Start full-screen in motion for 2.5s; stop precisely on the strongest pose with a clean 8-frame camera ease, then animate the frozen image into a large offset rectangular crop over a warm ivory background. Reveal three small close-up tiles from that exact same frame—an eye or face detail, a mechanical detail, and a texture—with precise staggered slides. Use bold condensed black typography reading 'A MOMENT / IN MOTION', one small burnt-orange index '01', and thin alignment rules. Keep the frozen hero recognizably photographic and let scale/position supply depth; do not attempt a rough automatic cutout. Hold the completed editorial poster from 6.5–9s, then resolve the tiles into the full original frame and resume its source motion from the exact held frame for the final 3s. Use restrained dry camera clicks and the source ambience. No footage beyond the one source. Deliver 1920x1080 H264 MP4, crisp type, generous margins, no unreadable microtext, source timecodes, and the edit decision list.",
@@ -1719,7 +1282,7 @@
   },
   {
     "id": "edit-triptych",
-    "title": "Animated Split Screen",
+    "title": "Robot Triptych",
     "category": "Video Edits",
     "description": "Three views share the frame and exchange emphasis.",
     "prompt": "Create a 12-second 1920x1080 widescreen editorial split-screen film using only the same supplied Tears of Steel source. Pick one short sequence with a clear subject and useful wide, medium, and close-up views. Open as one uninterrupted full-width shot for 1.5s. Slide two thin cream dividers into place over 0.5s to reveal a deliberate 25% / 50% / 25% triptych: left is an environment or gesture detail, center is the hero action, right is a face or mechanical detail. Use different source moments or crops, never three identical copies; align the most important actions to meet at 5s. At 6s smoothly transfer the center panel's dominance to the right by resizing the panels over 12 frames, maintaining every subject's framing. At 9s make a clean synchronized match cut across all three panels. From 10.5–12s expand the strongest panel to full screen and finish on a satisfying moving frame. White balance all panels coherently and use warm off-white 5px gutters, no rounded app-card styling. Retain a continuous source ambience with gentle edit accents. No captions except small optional '01', '02', '03' outside faces. Deliver the MP4 and exact crop/timecode decisions. Every panel must visibly contribute a different view.",
@@ -1731,7 +1294,7 @@
   },
   {
     "id": "edit-after_dark",
-    "title": "Cinematic Grade",
+    "title": "Tears of Steel Grade",
     "category": "Video Edits",
     "description": "A moving comparison reveals cool shadows and controlled warm highlights.",
     "prompt": "Create a 10-second cinematic color transformation from the same supplied Tears of Steel source. Select one continuous shot with a face, strong practical lights or glowing machinery, and meaningful shadow detail. For the first 1.25s show the untouched source. Then let a thin vertical comparison edge travel from left to right over 1.25s, revealing a carefully balanced nocturnal grade: deep cool shadows, warm controlled highlights, natural skin, gentle highlight rolloff, and readable blacks. During 2.5–7.5s give the graded image a very restrained 4% camera push while keeping the shot continuous and preserving its actual action. In the final 2.5s show a concise moving 50/50 original-versus-grade comparison with small crisp 'SOURCE' and 'AFTER DARK' labels in the lower safe area. The change must be obvious but tasteful—no crushed eyes, orange faces, excessive saturation, faux scratches, or synthetic grain. Do not call an already graded source LOG and do not add fake camera metadata. Preserve source ambience and use no new music. Deliver one 1920x1080 H264 MP4 plus source timecode and a concise list of the actual grading adjustments.",
@@ -1743,7 +1306,7 @@
   },
   {
     "id": "local-motion-20260916-01-pressure-type",
-    "title": "Pressure Type",
+    "title": "Press",
     "category": "Motion Design",
     "description": "Industrial plates compress giant typography into a narrow column before the word rebounds into open spacing.",
     "prompt": "Create an original 10 second graphic motion piece: giant PRESS typography is compressed by two mechanical plates, then springs into generous spacing. Use ivory, black, and one acid yellow accent. Let deformation, contact, rebound, and release carry the story with no captions.",
@@ -1755,7 +1318,7 @@
   },
   {
     "id": "local-motion-20260916-02-chromatic-weave",
-    "title": "Chromatic Weave",
+    "title": "Woven Ribbons",
     "category": "Motion Design",
     "description": "A fabric of broad coral weft and cobalt warp twists under a traveling diagonal wave.",
     "prompt": "Wide colored ribbons weave over and under; a traveling wave unpicks and reforms the fabric in a saturated editorial flat graphic composition.",
@@ -1767,7 +1330,7 @@
   },
   {
     "id": "local-motion-20260916-03-slice-clock",
-    "title": "Slice Clock",
+    "title": "Optical Sun",
     "category": "Motion Design",
     "description": "Twenty-four black blades use their own radial pivot to lock into a mathematically exact optical sun.",
     "prompt": "Eccentric black and white radial sectors lock into a striking optical sun, hold, and break apart in a spare Swiss graphic composition.",
@@ -1779,7 +1342,7 @@
   },
   {
     "id": "local-motion-20260916-04-ink-relay",
-    "title": "Ink Relay",
+    "title": "Blue Ink",
     "category": "Motion Design",
     "description": "Four liquid masses pass a visible impulse from left to right, then travel inward to form a single four-lobed cobalt emblem.",
     "prompt": "Smooth ink-like blobs pass momentum, merge into one emblem, then split. Use high-contrast cobalt and cream with smooth vector geometry and no noise.",
@@ -1791,7 +1354,7 @@
   },
   {
     "id": "local-motion-20260916-05-elastic-grid",
-    "title": "Elastic Grid",
+    "title": "Ball on a Net",
     "category": "Motion Design",
     "description": "A heavy ivory orb lands on a dark vermilion net viewed in shallow perspective.",
     "prompt": "One heavy orb depresses a flexible grid; its release sends a crisp elastic wave across a warm vermilion space.",
@@ -1803,7 +1366,7 @@
   },
   {
     "id": "local-motion-20260916-06-folded-arrows",
-    "title": "Folded Arrows",
+    "title": "Paper Arrows",
     "category": "Motion Design",
     "description": "Three broad golden paper arrows join in a cyclic triangular chain over an aubergine field.",
     "prompt": "Hinged paper strips fold into an impossible arrow chain with over/under shading and physically anchored folds.",
@@ -1815,7 +1378,7 @@
   },
   {
     "id": "local-motion-20260916-07-typographic-tunnel",
-    "title": "Typographic Tunnel",
+    "title": "Now",
     "category": "Motion Design",
     "description": "The outlines of NOW become architectural ribs, all aimed at a single moving vanishing point.",
     "prompt": "The word NOW forms a carefully aligned perspective corridor. Reverse its depth without repeated generic zoom entrances; use editorial monochrome with one lime accent.",
@@ -1827,7 +1390,7 @@
   },
   {
     "id": "local-motion-20260916-08-orbit-score",
-    "title": "Orbit Score",
+    "title": "Dots on a Track",
     "category": "Motion Design",
     "description": "Seven colored discs travel a continuous five-line serpentine track, behaving like notes before a score has settled.",
     "prompt": "Colored discs travel along a constructed track, collide and exchange paths to form a visual musical score. Build a graphic concert identity without explanatory labels.",
@@ -1839,7 +1402,7 @@
   },
   {
     "id": "local-motion-20260916-09-porcelain-bloom",
-    "title": "Porcelain Bloom",
+    "title": "Porcelain Flower",
     "category": "Motion Design",
     "description": "A segmented ceramic bud opens into a gold-lined radial flower on a small porcelain foot.",
     "prompt": "Create an original wordless 10 second 1920×1080 30fps sculptural motion film. A segmented ceramic bud opens into a gold-lined radial flower on a small porcelain foot. Use deliberate studio reflections, editable geometry, no external image assets, and deterministic absolute-time animation.",
@@ -1851,7 +1414,7 @@
   },
   {
     "id": "local-motion-20260916-10-ribbon-knot",
-    "title": "Ribbon Knot",
+    "title": "Silver Ribbon Knot",
     "category": "Motion Design",
     "description": "A continuous silver satin ribbon flows from a loose spiral into a three-lobed knot and opens again against midnight blue.",
     "prompt": "Create an original wordless 10 second 1920×1080 30fps sculptural motion film. A continuous silver satin ribbon flows from a loose spiral into a three-lobed knot and opens again against midnight blue. Use deliberate studio reflections, editable geometry, no external image assets, and deterministic absolute-time animation.",
@@ -1863,7 +1426,7 @@
   },
   {
     "id": "local-motion-20260916-11-magnetic-totem",
-    "title": "Magnetic Totem",
+    "title": "Stacking Blocks",
     "category": "Motion Design",
     "description": "Seven rounded toy blocks attract into an improbable offset tower, balance, then separate into ordered orbit.",
     "prompt": "Create an original wordless 10 second 1920×1080 30fps sculptural motion film. Seven rounded toy blocks attract into an improbable offset tower, balance, then separate into ordered orbit. Use deliberate material lighting, editable mesh geometry, no external image assets, and deterministic absolute-time animation.",
@@ -1875,7 +1438,7 @@
   },
   {
     "id": "local-motion-20260916-12-glass-tide",
-    "title": "Glass Tide",
+    "title": "Glass Wave",
     "category": "Motion Design",
     "description": "A row of translucent aqua lozenges carries a traveling wave above a dark reflective gallery plinth.",
     "prompt": "Create an original wordless 10 second 1920×1080 30fps sculptural motion film. A row of translucent aqua lozenges carries a traveling wave above a dark reflective gallery plinth. Use deliberate material lighting, editable mesh geometry, no external image assets, and deterministic absolute-time animation.",
@@ -1887,7 +1450,7 @@
   },
   {
     "id": "local-motion-20260916-13-cam-dance",
-    "title": "Cam Dance",
+    "title": "Cam & Follower",
     "category": "Motion Design",
     "description": "An eccentric graphite cam raises and lowers a red follower on polished guide rails.",
     "prompt": "Create an original wordless 10 second 1920×1080 30fps sculptural motion film. An eccentric graphite cam raises and lowers a red follower on polished guide rails. Use deliberate material lighting, editable geometry, no external image assets, and deterministic absolute-time animation.",
@@ -1899,7 +1462,7 @@
   },
   {
     "id": "local-motion-20260916-14-pleated-sun",
-    "title": "Pleated Sun",
+    "title": "Paper Fan",
     "category": "Motion Design",
     "description": "An orange paper fan opens around one pin into a complete radial pleated sun, then gently twists.",
     "prompt": "Create an original wordless 10 second 1920×1080 30fps sculptural motion film. An orange paper fan opens around one pin into a complete radial pleated sun, then gently twists. Use deliberate material lighting, editable geometry, no external image assets, and deterministic absolute-time animation.",
@@ -1911,7 +1474,7 @@
   },
   {
     "id": "local-motion-20260916-15-soft-landing",
-    "title": "Soft Landing",
+    "title": "Bouncing Capsule",
     "category": "Motion Design",
     "description": "A lavender capsule drops onto a cream platform, compresses, rebounds and settles while tiny companion spheres react.",
     "prompt": "Create an original wordless 10 second 1920×1080 30fps sculptural motion film. A lavender capsule drops onto a cream platform, compresses, rebounds and settles while tiny companion spheres react. Use deliberate studio material lighting, editable geometry, no external image assets, and deterministic absolute-time animation.",
@@ -1959,7 +1522,7 @@
   },
   {
     "id": "local-motion-20260916-19-paper-aviary",
-    "title": "Paper Aviary",
+    "title": "Origami Bird",
     "category": "Motion Design",
     "description": "A folded coral bird gathers itself on a paper branch, lifts into a wide airy arc and lands on another folded branch. Wing joints remain attached and changing facets make each flap feel like origami.",
     "prompt": "Authored prompt: A folded coral bird gathers itself on a paper branch, lifts into a wide airy arc and lands on another folded branch. Wing joints remain attached and changing facets make each flap feel like origami. Original Canvas illustration, wordless, native 1920×1080, 30 fps, 10 seconds, deterministic absolute-time motion. No external assets.",
@@ -1971,7 +1534,7 @@
   },
   {
     "id": "local-motion-20260916-20-tidal-postcard",
-    "title": "Tidal Postcard",
+    "title": "Paper Sailboat",
     "category": "Motion Design",
     "description": "A tiny folded sailboat rides broad layers of sculpted teal water. A terracotta sun rises through the pale horizon as sweeping wave crests briefly hide and reveal the hull.",
     "prompt": "Authored prompt: A tiny folded sailboat rides broad layers of sculpted teal water. A terracotta sun rises through the pale horizon as sweeping wave crests briefly hide and reveal the hull. Original Canvas illustration, wordless, native 1920×1080, 30 fps, 10 seconds, deterministic absolute-time motion. No external assets.",
@@ -1995,7 +1558,7 @@
   },
   {
     "id": "local-motion-20260916-22-lantern-parade",
-    "title": "Lantern Parade",
+    "title": "Paper Lanterns",
     "category": "Motion Design",
     "description": "A sweeping strand of pleated coral lanterns lights from left to right above an indigo roofscape. The lit strand then floats upward into the dusk, leaving long tassels gently trailing.",
     "prompt": "Authored prompt: A sweeping strand of pleated coral lanterns lights from left to right above an indigo roofscape. The lit strand then floats upward into the dusk, leaving long tassels gently trailing. Original Canvas illustration, wordless, native 1920×1080, 30 fps, 10 seconds, deterministic absolute-time motion. No external assets.",
@@ -2031,7 +1594,7 @@
   },
   {
     "id": "cloud-motion-01-make-room",
-    "title": "Kinetic Typography",
+    "title": "Make Room",
     "category": "Motion Design",
     "description": "Letterforms negotiate space and open into a balanced moving poster.",
     "prompt": "Create a 12–16 second kinetic typography film about the words MAKE ROOM. Make the letterforms themselves compress, negotiate space, and open into a surprising beautifully balanced composition. Invent the choreography and typography. It should feel like an excellent moving graphic-design poster, with a strong visual payoff, not a succession of title cards.",
@@ -2043,7 +1606,7 @@
   },
   {
     "id": "cloud-motion-02-night-shift",
-    "title": "Broadcast Identity",
+    "title": "After Hours",
     "category": "Motion Design",
     "description": "Acid-yellow typography and purple graphic shapes announce a night shift.",
     "prompt": "Create a 14–18 second broadcast identity for a fictional late-night culture channel called NIGHT SHIFT. Build an original flat graphic identity using framing, cropping, colour blocks and bold typography. Develop one recognisable graphic motif through several purposeful edits and a memorable end identity. No 3D objects, channel bugs copied from real broadcasters, or generic logo reveal.",
@@ -2055,7 +1618,7 @@
   },
   {
     "id": "cloud-motion-03-paper-current",
-    "title": "Paper Collage",
+    "title": "Paper River",
     "category": "Motion Design",
     "description": "A paper river connects a map, photographic skyline, and open water.",
     "prompt": "Create a 15–20 second wordless editorial collage film about a river finding its way through a city. Use a coherent family of flat paper, print, map and photographic fragments, with tactile edges and surprising scale changes. A continuous visual connection should carry us through three distinct compositions. Invent or source your own permitted assets and keep it a designed collage, not slides with camera pans.",
@@ -2067,7 +1630,7 @@
   },
   {
     "id": "cloud-motion-04-little-weather",
-    "title": "Character Animation",
+    "title": "Cloud & Seed",
     "category": "Motion Design",
     "description": "A small cloud helps a seed grow into a flower.",
     "prompt": "Create a charming 12–16 second flat illustrated micro-story: a small cloud tries to water one stubborn seed, and the seed gives the cloud an unexpected gift. Draw an original simple character language with expressive poses, clear cause and effect and a satisfying ending. Make the motion feel hand-authored and playful. No explanatory text, 3D, or stock cartoon assets.",
@@ -2079,7 +1642,7 @@
   },
   {
     "id": "cloud-motion-05-woven-signal",
-    "title": "Geometric Weaving",
+    "title": "Woven Stripes",
     "category": "Motion Design",
     "description": "Colorful strands cross and transform into woven graphic patterns.",
     "prompt": "Create a 10–14 second optical graphic-design loop in which coloured lines exchange foreground and background, become an interlaced fabric, and resolve into the starting state. Make a distinctive composition with intentional visual rhythm and a few surprising changes in scale. Flat geometry, beautiful colour relationships, no words, no particles, and no 3D product study. The loop should actually join cleanly.",
@@ -2091,7 +1654,7 @@
   },
   {
     "id": "cloud-motion-06-ink-relay",
-    "title": "Animated Lettering",
+    "title": "Again",
     "category": "Motion Design",
     "description": "Ink gestures connect and resolve into expressive lettering.",
     "prompt": "Create a 12–18 second original lettering animation centred on the word again. A moving ink stroke should pass energy between the letters, with convincing drawn stroke construction and an inventive transformation through the word counterforms. Choose a distinctive lettering style and restrained paper/ink palette. The word must read clearly at the payoff; avoid typing-on text or cycling fonts.",
@@ -2103,7 +1666,7 @@
   },
   {
     "id": "cloud-motion-07-one-good-day",
-    "title": "Interface Animation",
+    "title": "Daily Planner",
     "category": "Motion Design",
     "description": "A planner interface turns scattered tasks into one good day.",
     "prompt": "Create a 15–20 second product UI motion story for a fictional day planner called One Good Day. Show a crowded day becoming manageable through one beautifully legible interaction that reorganises tasks into a calm timeline. Design the interface from scratch with excellent typography, continuity and hierarchy. Use close framing and purposeful transitions, no rotating devices, floating 3D screens, feature-list slides or implementation labels.",
@@ -2115,7 +1678,7 @@
   },
   {
     "id": "cloud-motion-08-shape-jazz",
-    "title": "Geometric Choreography",
+    "title": "Shape Trio",
     "category": "Motion Design",
     "description": "Three simple shapes trade weight, rhythm, and balance.",
     "prompt": "Create a 10–15 second silent visual jazz performance using a small original family of flat graphic shapes. Give each shape its own rhythmic personality; let them trade a motif, interrupt, improvise and end together. Invent the composition and colour system. It must communicate rhythm through actual choreography and staging without music, text, equaliser bars, particles or 3D objects.",
@@ -2127,7 +1690,7 @@
   },
   {
     "id": "11-rotary-telephone",
-    "title": "Object Assembly",
+    "title": "Red Telephone",
     "category": "Motion Design",
     "description": "A glossy red telephone forms around its curling cord.",
     "prompt": "Make a glossy red rotary telephone spring into shape as its coiled cord draws a looping path.",
@@ -2139,7 +1702,7 @@
   },
   {
     "id": "12-glass-staircase",
-    "title": "Glass Cascade",
+    "title": "Glass Staircase",
     "category": "Motion Design",
     "description": "Colored glass tiles cascade into a sculptural spiral.",
     "prompt": "Make a stack of translucent colored glass tiles cascade into a spiral staircase.",
@@ -2151,7 +1714,7 @@
   },
   {
     "id": "13-beach-umbrella",
-    "title": "Radial Reveal",
+    "title": "Beach Umbrella",
     "category": "Motion Design",
     "description": "Peppermint stripes bloom into a sun umbrella.",
     "prompt": "Make a striped beach umbrella bloom from a spinning peppermint disc.",
@@ -2163,7 +1726,7 @@
   },
   {
     "id": "14-ink-octopus",
-    "title": "Fluid Morph",
+    "title": "Ink Octopus",
     "category": "Motion Design",
     "description": "A blue ink droplet grows eight curling arms and swims.",
     "prompt": "Make a single blue ink droplet become a swimming octopus.",
@@ -2175,7 +1738,7 @@
   },
   {
     "id": "15-color-zipper",
-    "title": "Fabric Reveal",
+    "title": "Rainbow Zipper",
     "category": "Motion Design",
     "description": "A silver zipper opens midnight fabric onto a river of color.",
     "prompt": "Make a silver zipper unzip a midnight surface and reveal a flowing river of color.",
@@ -2187,7 +1750,7 @@
   },
   {
     "id": "01-paper-koi",
-    "title": "Origami",
+    "title": "Paper Koi",
     "category": "Motion Design",
     "description": "A red paper square unfolds into a swimming koi.",
     "prompt": "Make a red paper koi unfold from a square and swim through blue ink ripples.",
@@ -2199,7 +1762,7 @@
   },
   {
     "id": "02-jelly-chair",
-    "title": "Squash and Stretch",
+    "title": "Jelly Chair",
     "category": "Motion Design",
     "description": "A soft cherry-red chair lands, squashes, and recovers.",
     "prompt": "Make a cherry-red jelly chair land, squash, and spring back into shape.",
@@ -2211,7 +1774,7 @@
   },
   {
     "id": "03-chrome-beetle",
-    "title": "Mechanical Unfolding",
+    "title": "Chrome Beetle",
     "category": "Motion Design",
     "description": "A metallic beetle opens its wing cases and takes flight.",
     "prompt": "Make a chrome beetle open its wing cases and take flight.",
@@ -2223,7 +1786,7 @@
   },
   {
     "id": "04-melt",
-    "title": "Liquid Typography",
+    "title": "Melt",
     "category": "Motion Design",
     "description": "Yellow letters liquefy and draw themselves back together.",
     "prompt": "Make the word MELT turn into warm yellow liquid and pull itself back into letters.",
@@ -2235,7 +1798,7 @@
   },
   {
     "id": "06-satin-bow",
-    "title": "Ribbon Motion",
+    "title": "Satin Bow",
     "category": "Motion Design",
     "description": "A continuous fuchsia ribbon gathers into a floating bow.",
     "prompt": "Make a satin ribbon tie itself into a floating bow.",
@@ -2247,7 +1810,7 @@
   },
   {
     "id": "07-blood-orange",
-    "title": "Exploded View",
+    "title": "Blood Orange",
     "category": "Motion Design",
     "description": "Ruby orange slices spiral open and snap back into one fruit.",
     "prompt": "Make a blood orange split into juicy slices, spiral open, and snap back together.",
@@ -2259,7 +1822,7 @@
   },
   {
     "id": "08-toy-planet",
-    "title": "Miniature Animation",
+    "title": "Toy Train Planet",
     "category": "Motion Design",
     "description": "A tiny locomotive pulls a ceramic landscape into place.",
     "prompt": "Make a tiny train race around a ceramic planet and pull its landscape into place.",
@@ -2271,7 +1834,7 @@
   },
   {
     "id": "09-jellyfish",
-    "title": "Organic Motion",
+    "title": "Jellyfish",
     "category": "Motion Design",
     "description": "A translucent bell pulses above trailing luminous ribbons.",
     "prompt": "Make a translucent jellyfish pulse through an inky sea, trailing glowing ribbons.",
@@ -2283,7 +1846,7 @@
   },
   {
     "id": "10-checker-zebra",
-    "title": "Pattern Morph",
+    "title": "Running Zebra",
     "category": "Motion Design",
     "description": "Checker cells become stripes as a running zebra takes shape.",
     "prompt": "Make a checkerboard peel itself into a galloping zebra.",
@@ -2295,7 +1858,7 @@
   },
   {
     "id": "02-orbit",
-    "title": "Metal Morph",
+    "title": "Chrome Loop",
     "category": "Motion Design",
     "description": "A chrome filament opens, threads through itself, and transforms.",
     "prompt": "Create a 16-second wordless motion film with a single chrome filament as the hero. Choreograph it from an open strand into a loop, through a threading transformation, and into a satisfying final form. Use polished reflections, dark studio lighting, deliberate camera movement, and no sound. No titles or supporting copy.",
@@ -2307,7 +1870,7 @@
   },
   {
     "id": "generated-20260906-bubbles",
-    "title": "Bubble Optics",
+    "title": "Soap Bubble Colors",
     "category": "Explainers",
     "description": "Macro bubble imagery connects to a clear thin-film interference diagram.",
     "prompt": "Make a short, beautiful explanation of why soap bubbles have rainbow colors.",
@@ -2379,7 +1942,7 @@
   },
   {
     "id": "cloud-edit-podcast",
-    "title": "Split Screen",
+    "title": "Derek Sivers",
     "category": "Video Edits",
     "description": "A complete podcast exchange with synchronized stacked speakers and clean captions.",
     "prompt": "Turn one compelling podcast exchange into a polished 25–40 second vertical clip. Find a source episode with two visible speakers and a complete surprising or useful thought. Stack the guest above the host using distinct, synchronized crops from the same conversation, separated by a thin white line. Add clean white phrase captions near the divider without covering faces. Remove dead air, preserve the speaker’s meaning and natural reactions, and end on the payoff. No unrelated background footage.",
@@ -2391,7 +1954,7 @@
   },
   {
     "id": "lane-3-efdc06d815f3",
-    "title": "Auto Captions",
+    "title": "Jensen Huang",
     "category": "Video Edits",
     "description": "A 44-second Jensen Huang interview highlight with vertical framing and burned captions.",
     "prompt": "Turn this interview recording into one postable vertical clip, 30 to 60 seconds, with burned captions. Pick the strongest self-contained moment yourself. Preserve the speaker’s meaning, remove dead space, keep the subject comfortably framed, and make the captions easy to read on a phone.",
@@ -2403,7 +1966,7 @@
   },
   {
     "id": "04-fold",
-    "title": "Metal Folding",
+    "title": "Copper Folds",
     "category": "Motion Design",
     "description": "A sculptural copper surface pleats, curls, and unfolds.",
     "prompt": "Create a 16-second wordless motion film starring one copper folding sculpture. Animate the material through precise pleats, a curl, and a full unfolding. Keep the sculpture centered, with warm directional light that reveals the metallic surface and a restrained camera move. Keep it silent. No titles or supporting copy.",
@@ -2415,7 +1978,7 @@
   },
   {
     "id": "cloud-edit-comedy",
-    "title": "Reaction Cuts",
+    "title": "Conan & Jordan",
     "category": "Video Edits",
     "description": "Conan tries to get a straight answer from Jordan Schlansky.",
     "prompt": "Make a 30–50 second comedy cut from one original Conan and Jordan Schlansky segment. Find a self-contained absurd exchange with a clear setup, escalation, punchline, and reaction. Reframe deliberately for vertical, keep both people visible when the reaction matters, and caption their actual words in clean white text. Tighten pauses that drag but protect comic hesitation and the final reaction. No canned laughter, fabricated dialogue, or distracting meme effects.",
@@ -2427,7 +1990,7 @@
   },
   {
     "id": "cloud-edit-recipe",
-    "title": "Step Selection",
+    "title": "Flower Toast",
     "category": "Video Edits",
     "description": "A cooking tutorial becomes a concise recipe with intact technique and clear timing.",
     "prompt": "Turn one original cooking tutorial into a useful 25–40 second vertical recipe short. Choose a visually satisfying dish with a few clear steps. Open on the finished result, then show ingredients, decisive technique, transformation, and a final serving shot. Cut on hand actions, retain crisp kitchen sounds, and use minimal readable ingredient and step labels grounded in the recipe. Preserve essential quantities and timings; compress waiting time without making the instructions misleading.",
@@ -2439,7 +2002,7 @@
   },
   {
     "id": "cloud-edit-restoration",
-    "title": "Restoration Montage",
+    "title": "Hand Drill Repair",
     "category": "Video Creation",
     "description": "A corroded hand drill is dismantled, repaired, reassembled, and tested.",
     "prompt": "Create a 25–40 second satisfying restoration short from one original long-form workshop video. Establish the damaged object, then show a coherent progression through dismantling, cleaning, repair, reassembly, and a working reveal. Match actions across cuts, vary wide and detail views, and let real tool sounds drive the rhythm. Use a restrained before/after comparison and only essential labels. Keep the causal steps honest; the final object must be the same one shown at the beginning.",
@@ -2451,7 +2014,7 @@
   },
   {
     "id": "cloud-edit-travel",
-    "title": "Travel Montage",
+    "title": "Rainy Kyoto",
     "category": "Video Creation",
     "description": "A travel vlog becomes a short journey through arrival, discoveries, and rain.",
     "prompt": "Edit one original travel vlog into a 25–40 second vertical micro-story of a day in one place. Move from arrival through two or three distinct discoveries to a satisfying evening or departure. Use purposeful match cuts, a few natural-sound moments, and an independently sourced music bed that supports the changes in energy. Reframe people and landmarks carefully, avoid repeated scenic shots, and use only a few accurate location labels. Make it feel like a lived experience rather than a slideshow.",
@@ -2463,7 +2026,7 @@
   },
   {
     "id": "05-flow",
-    "title": "Shape Morph",
+    "title": "Ribbon Loop",
     "category": "Motion Design",
     "description": "Blue sparks become capsules, ribbons, rings, and a pinwheel.",
     "prompt": "Create a 15-second wordless motion film with luminous blue shapes. Develop one continuous transformation from sparks to capsules, then ribbons, a ring, and a pinwheel. Give each state a clear readable moment and make each transition flow naturally into the next. Use a dark studio background and no sound. No UI, labels, or supporting text.",
@@ -2475,7 +2038,7 @@
   },
   {
     "id": "cloud-edit-messi",
-    "title": "Sports Montage",
+    "title": "Messi Goals",
     "category": "Video Creation",
     "description": "A music-led sequence of Messi goals builds into celebration.",
     "prompt": "Create a roughly 60-second Lionel Messi goals montage to Joy Crookes’ Feet Don’t Fail Me Now. Source sharp footage with yt-dlp, preferably one official goals compilation. Build from anticipation into increasingly spectacular goals and a joyful celebration. Preserve enough buildup and ball travel to understand every goal; land selected finishes on musical accents. Keep the song continuous, use crowd sound sparingly, and avoid repetitive replays, intrusive text, or effects hiding the football. Deliver widescreen 1080p.",
@@ -2487,7 +2050,7 @@
   },
   {
     "id": "cloud-edit-nacho",
-    "title": "Film Montage",
+    "title": "Nacho Libre",
     "category": "Video Creation",
     "description": "Homemade heroics, wrestling spectacle, and a comic baptism payoff.",
     "prompt": "Make a 45–60 second Nacho Libre reel to Mister Loco’s original Religious Man. Begin with Nacho’s wonderfully serious face and homemade costume, keep the stretchy-pants joke and its reaction, then build through increasingly spectacular wrestling to the science line and sudden baptism gag. Source original scenes with yt-dlp. Keep music continuous, dialogue intact, and action readable. Use a centered full-width widescreen strip on a black portrait canvas, with compact white in-picture captions and selective red emphasis only during dialogue. No generic effects or title intro.",
@@ -2499,7 +2062,7 @@
   },
   {
     "id": "cloud-edit-food",
-    "title": "Food Review",
+    "title": "Crispy Pork Belly",
     "category": "Video Creation",
     "description": "A long food vlog becomes one focused story of preparation, first bite, and verdict.",
     "prompt": "Cut a long food-review vlog into a cohesive 50–75 second vertical story about one standout dish. Start with an irresistible real reaction, establish what and where it is, show preparation and texture, then let the first bite and honest verdict pay off. Use one original creator upload, such as Mark Wiens or Best Ever Food Review Show. Weave its own food close-ups under intact speech, remove repetition, add accurate clean captions, and preserve appetizing color and cooking sounds.",
@@ -2511,7 +2074,7 @@
   },
   {
     "id": "optical-assembly",
-    "title": "Mechanical Assembly",
+    "title": "Camera Iris",
     "category": "Motion Design",
     "description": "An eight-blade optical mechanism pulls apart and closes into place.",
     "prompt": "Create an eight-second, wordless 3D study of an optical aperture. Assemble eight metallic blades, open and close the iris, then separate the parts in a controlled exploded view. Use brushed metal, soft studio lighting, a dark background, and a slow deliberate camera. Keep every transformation mechanically clear.",
