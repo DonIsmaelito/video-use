@@ -351,6 +351,31 @@
     "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-14-robot-action-ab1cb0047f70-ba89a13e/review.md"
   },
   {
+    "id": "social-15-expert-explainer",
+    "title": "Make one answer click",
+    "category": "Video Edits",
+    "description": "A science answer reframed around the speaker’s face, hands and a single clear question.",
+    "prompt": "Use Video Use to turn one complete expert answer into a 30-second social explainer. Begin with a short editorial question, then let the original speaker answer in their own words. Keep the face and useful hand gestures large enough to follow; use measured face tracking within real continuous shots. Use precise phrase captions with one restrained key-word accent. Let a physical object or gesture shown by the expert provide the visual explanation rather than covering it with invented B-roll. Keep qualifications and uncertainty. Original speech only, no stock music or generated narration. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the query. Deliver a polished 1080×1920 vertical MP4 at 30 fps. Put the real footage first: a generous picture, a compact hook, captions readable on a phone, and very little unused matte. Keep important text away from the top 150px, bottom 300px and rightmost 120px used by social app controls. Keep source credits quiet and truthful. Preserve original voices, meaning and real reactions. Do not fabricate missing actions or quotes. Save editable cuts, caption timings, source URLs and replay instructions. In normal interactive use, show a short preview for approval before finishing the full edit.",
+    "duration": 30,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": [
+      "Content creators",
+      "Marketers"
+    ],
+    "useCases": [
+      "Social content",
+      "Short-form edits"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/browser-use/video-use",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-15-expert-explainer-25a9cad9d27c-b9e324fc/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-15-expert-explainer-25a9cad9d27c-b9e324fc/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-15-expert-explainer-25a9cad9d27c-b9e324fc/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-15-expert-explainer-25a9cad9d27c-b9e324fc/review.md"
+  },
+  {
     "id": "social-16-question-answer-cut",
     "title": "Turn a question into a short",
     "category": "Video Edits",
@@ -374,6 +399,31 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-16-question-answer-cut-a741c098b437-c59ea1e3/poster.jpg",
     "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-16-question-answer-cut-a741c098b437-c59ea1e3/source.zip",
     "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-16-question-answer-cut-a741c098b437-c59ea1e3/review.md"
+  },
+  {
+    "id": "social-17-developer-insight",
+    "title": "Keep the useful takeaway",
+    "category": "Video Edits",
+    "description": "A developer conversation condensed into one complete, qualified idea with measured speaker framing.",
+    "prompt": "Use Video Use to extract a 28-second useful insight from a filmed technical conversation. Pick one complete idea with its qualification, begin directly on the speaker and add a compact editorial hook. Track the actual speaking person only after reviewing the face and shot map. Keep natural gestures and authentic listening reactions. Use large, accurate phrase captions with restrained emphasis on the central idea. Preserve the source date when technical context could otherwise be mistaken for current instructions. Keep original speech only. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the query. Deliver a polished 1080×1920 vertical MP4 at 30 fps. Put the real footage first: a generous picture, a compact hook, captions readable on a phone, and very little unused matte. Keep important text away from the top 150px, bottom 300px and rightmost 120px used by social app controls. Keep source credits quiet and truthful. Preserve original voices, meaning and real reactions. Do not fabricate missing actions or quotes. Save editable cuts, caption timings, source URLs and replay instructions. In normal interactive use, show a short preview for approval before finishing the full edit.",
+    "duration": 28,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": [
+      "Content creators",
+      "Marketers"
+    ],
+    "useCases": [
+      "Social content",
+      "Short-form edits"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/browser-use/video-use",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-17-developer-insight-d37345dc6b3c-dd50ac9c/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-17-developer-insight-d37345dc6b3c-dd50ac9c/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-17-developer-insight-d37345dc6b3c-dd50ac9c/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-17-developer-insight-d37345dc6b3c-dd50ac9c/review.md"
   },
   {
     "id": "social-18-two-takeaway-edit",

@@ -4676,5 +4676,73 @@
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-20-tutorial-to-short-5a4f9ad7056f-0b8e512d/poster.jpg"
       }
     ]
+  },
+  {
+    "id": "social-15-expert-explainer",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "social-14-17",
+    "sourceRun": "social-15-expert-explainer",
+    "model": null,
+    "reasoningEffort": null,
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "2924241b2657ca766291d49961a205b1c46d749f",
+    "frameworkArchiveSha256": "0bf30014c5e7a7db8508f48d51d3b81d20d344c128a57f260e12eea620c721be",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "25a9cad9d27c295c758dc60552d9100058dd08ab84e449e4906381a0b37d1a3e",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-15-expert-explainer-25a9cad9d27c-b9e324fc/source.zip",
+    "editableSourceSha256": "7f51f4f738758e6bd771f5b4ae9ff82ec0660cf5ba97ca84cc09ab325ad12e54",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/social-14-17/social-15-expert-explainer/repairs/repair-source-handoff-20261004/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-15-expert-explainer-25a9cad9d27c-b9e324fc/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-15-expert-explainer-25a9cad9d27c-b9e324fc/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-15-expert-explainer-25a9cad9d27c-b9e324fc/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-15-expert-explainer-25a9cad9d27c-b9e324fc/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-15-expert-explainer-25a9cad9d27c-b9e324fc/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-15-expert-explainer-25a9cad9d27c-b9e324fc/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-15-expert-explainer-25a9cad9d27c-b9e324fc/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "social-17-developer-insight",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "social-14-17",
+    "sourceRun": "social-17-developer-insight",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "95aa3ce5f6c88817dcaeb4e28031e93dae97e4f5",
+    "frameworkArchiveSha256": "ba07d6840e6a5af0498f60a72afaab07d8f18419ab076a2b763b174dc56d37dc",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "d37345dc6b3c7596ef9441ed83f3bae4a25e10fc0a4f1f7723a44d8101bddffe",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-17-developer-insight-d37345dc6b3c-dd50ac9c/source.zip",
+    "editableSourceSha256": "d13006993f65a75e1f0ebbb9c8495f6d1d1e6b81af9962b040cb978330b8ad21",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/social-14-17/social-17-developer-insight/repairs/repair-20261004-132427-dbc063/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-17-developer-insight-d37345dc6b3c-dd50ac9c/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-17-developer-insight-d37345dc6b3c-dd50ac9c/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-17-developer-insight-d37345dc6b3c-dd50ac9c/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-17-developer-insight-d37345dc6b3c-dd50ac9c/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-17-developer-insight-d37345dc6b3c-dd50ac9c/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-17-developer-insight-d37345dc6b3c-dd50ac9c/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-17-developer-insight-d37345dc6b3c-dd50ac9c/poster.jpg"
+      }
+    ]
   }
 ]
