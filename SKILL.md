@@ -20,7 +20,7 @@ description: Edit any video by conversation. Transcribe, cut, color grade, gener
 These are the things where deviation produces silent failures or broken output. They are not taste, they are correctness. Memorize them.
 
 1. **Subtitles are applied LAST in the filter chain**, after every overlay. Otherwise overlays hide captions. Silent failure.
-2. **Per-segment extract → lossless `-c copy` concat**, not single-pass filtergraph. Otherwise you double-encode every segment when overlays are added.
+2. **Per-segment extract → lossless video `-c:v copy` concat**, not a single-pass video filtergraph. Otherwise you double-encode every segment when overlays are added. Join decoded per-segment audio on the measured video clock and encode one continuous stream; copying separate AAC encodes also copies priming/padding at the cuts and can cause drift. `helpers/render.py` handles this without a fixed audio trim.
 3. **30ms audio fades at every segment boundary** (`afade=t=in:st=0:d=0.03,afade=t=out:st={dur-0.03}:d=0.03`). Otherwise audible pops at every cut.
 4. **Overlays use `setpts=PTS-STARTPTS+T/TB`** to shift the overlay's frame 0 to its window start. Otherwise you see the middle of the animation during the overlay window.
 5. **Master SRT uses output-timeline offsets**: `output_time = word.start - segment_start + segment_offset`. Otherwise captions misalign after segment concat.

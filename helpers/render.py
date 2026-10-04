@@ -3,7 +3,7 @@
 Implements the HEURISTICS render pipeline in the correct order:
 
   1. Per-segment extract with color grade + 30ms audio fades baked in
-  2. Lossless -c copy concat into base.mp4
+  2. Lossless video concat into base.mp4; join decoded audio on the video clock
   3. Apply optional canvas treatment and generated graphic layers
   4. In one filter graph, overlay animations/graphics (PTS-shifted) and apply
      libass or deterministic PIL captions LAST → final.mp4
@@ -277,7 +277,7 @@ def extract_segment(
         preset, crf = "fast", "20"
 
     # Frame rate: use the rate the caller resolved once for the whole render
-    # (every segment must share it — concat -c copy in Rule 2 requires a uniform
+    # (every segment must share it — video concat in Rule 2 requires a uniform
     # frame rate). When called standalone with no rate, preserve this source's
     # own rate; fall back to 24 only if it can't be probed.
     out_rate = rate if rate is not None else (probe_source_fps(source) or "24")
@@ -323,7 +323,7 @@ def extract_all_segments(
     sources = edl["sources"]
 
     # Resolve ONE output frame rate for the entire render and apply it to every
-    # segment. The lossless concat (Rule 2, `-c copy`) requires all segments to
+    # segment. The lossless video concat (Rule 2) requires all segments to
     # share a frame rate; probing per-segment would diverge for multi-source
     # EDLs that mix rates (e.g. a 30fps and a 60fps source) and break the concat.
     # Explicit --fps wins; otherwise preserve the first source's rate.
@@ -373,26 +373,114 @@ def extract_all_segments(
     return seg_paths
 
 
-# -------- Lossless concat ----------------------------------------------------
+# -------- Lossless video concat with continuous audio ------------------------
+
+
+def _segment_timing(path: Path) -> tuple[Fraction, Fraction, dict | None]:
+    """Read the video clock, rather than the potentially padded AAC duration."""
+    result = subprocess.run(
+        ["ffprobe", "-v", "error", "-show_streams", "-of", "json", str(path)],
+        check=True, capture_output=True, text=True,
+    )
+    streams = json.loads(result.stdout).get("streams", [])
+    video = next((stream for stream in streams if stream.get("codec_type") == "video"), None)
+    if video is None:
+        raise ValueError(f"Segment has no video stream: {path}")
+    try:
+        timebase = Fraction(video["time_base"])
+        duration = Fraction(video["duration_ts"]) * timebase
+    except (KeyError, ValueError, ZeroDivisionError):
+        try:
+            duration = Fraction(video["duration"])
+        except (KeyError, ValueError, ZeroDivisionError) as exc:
+            raise ValueError(f"Segment has no usable video duration: {path}") from exc
+    if duration <= 0:
+        raise ValueError(f"Segment video duration must be positive: {path}")
+    try:
+        start = Fraction(video.get("start_time", "0"))
+    except (ValueError, ZeroDivisionError) as exc:
+        raise ValueError(f"Segment has no usable video start time: {path}") from exc
+    audio = next((stream for stream in streams if stream.get("codec_type") == "audio"), None)
+    return duration, start, audio
+
+
+def _audio_layout(stream: dict) -> str:
+    layout = stream.get("channel_layout")
+    if layout and re.fullmatch(r"[a-zA-Z0-9.+_() -]+", layout):
+        return layout
+    channels = int(stream.get("channels", 0))
+    if channels in (1, 2):
+        return "mono" if channels == 1 else "stereo"
+    raise ValueError("Segment audio needs a known channel layout")
 
 
 def concat_segments(segment_paths: list[Path], out_path: Path, edit_dir: Path) -> None:
-    """Lossless concat via the concat demuxer. No re-encode."""
+    """Copy video packets; join decoded audio without per-segment AAC padding.
+
+    Every extracted video segment starts on its own output clock. Keeping the
+    concat demuxer's timestamps avoids rebasing video to the negative AAC
+    priming packet. Audio is decoded separately per input, where the decoder can
+    still remove that input's priming, then fitted to its measured video span.
+    This preserves source A/V offsets and encodes one continuous audio stream.
+    """
+    if not segment_paths:
+        raise ValueError("At least one segment is required")
+    timings = [_segment_timing(path) for path in segment_paths]
+    first_audio = next((audio for _, _, audio in timings if audio is not None), None)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     concat_list = edit_dir / "_concat.txt"
-    concat_list.write_text("".join(f"file '{p.resolve()}'\n" for p in segment_paths))
+    entries = []
+    for path, (duration, _, _) in zip(segment_paths, timings):
+        escaped = str(path.resolve()).replace("'", "'\\''")
+        entries.append(f"file '{escaped}'\nduration {float(duration):.12f}\n")
+    concat_list.write_text("".join(entries))
 
     cmd = [
-        "ffmpeg", "-y",
+        "ffmpeg", "-y", "-copyts",
         "-f", "concat", "-safe", "0",
         "-i", str(concat_list),
-        "-c", "copy",
-        "-movflags", "+faststart",
-        str(out_path),
     ]
+    if first_audio is not None:
+        sample_rate = int(first_audio["sample_rate"])
+        if not 8000 <= sample_rate <= 192000:
+            raise ValueError("Segment audio sample rate is outside supported bounds")
+        layout = _audio_layout(first_audio)
+        filters = []
+        clock = Fraction(0)
+        previous_sample = 0
+        for index, (path, (duration, start, audio)) in enumerate(zip(segment_paths, timings), start=1):
+            cmd.extend(["-i", str(path)])
+            clock += duration
+            # Round the cumulative clock, so fractional frame rates cannot
+            # accumulate a rounding error at every cut.
+            sample = int(clock * sample_rate + Fraction(1, 2))
+            count = sample - previous_sample
+            previous_sample = sample
+            if audio is None:
+                filters.append(
+                    f"anullsrc=r={sample_rate}:cl={layout},atrim=end_sample={count}[a{index}]"
+                )
+            else:
+                filters.append(
+                    f"[{index}:a:0]atrim=start={float(start):.12f}:end={float(start + duration):.12f},"
+                    f"asetpts=PTS-({float(start):.12f})/TB,"
+                    f"aformat=channel_layouts={layout},aresample={sample_rate}:async=1:first_pts=0,"
+                    f"apad,atrim=end_sample={count},asetpts=N/SR/TB[a{index}]"
+                )
+        labels = "".join(f"[a{index}]" for index in range(1, len(segment_paths) + 1))
+        filters.append(f"{labels}concat=n={len(segment_paths)}:v=0:a=1[audio]")
+        cmd.extend([
+            "-filter_complex", ";".join(filters), "-map", "0:v:0", "-map", "[audio]",
+            "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-ar", str(sample_rate),
+        ])
+    else:
+        cmd.extend(["-map", "0:v:0", "-c:v", "copy", "-an"])
+    cmd.extend(["-movflags", "+faststart", str(out_path)])
     print(f"concat → {out_path.name}")
-    subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
-    concat_list.unlink(missing_ok=True)
+    try:
+        subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
+    finally:
+        concat_list.unlink(missing_ok=True)
 
 
 # -------- Loudness normalization (social-ready audio) -----------------------
