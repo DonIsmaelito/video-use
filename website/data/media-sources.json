@@ -4064,5 +4064,39 @@
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/archived-screen-demos/20261004/screen-demo-melody-app-workflow-db682dcf77b5-6775197f6927/poster.jpg"
       }
     ]
+  },
+  {
+    "id": "social-04-destination-reveal",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "social-01-r1",
+    "sourceRun": "social-04-destination-reveal",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "084df1d04e9f23572bd68dce22d8ce7cff0ded61",
+    "frameworkArchiveSha256": "6625fd49472d98b4f4ed9546c3a1f0ca0c1f0a556f14220e5bc944b4cfd38a1f",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "03028bf612107030cdbc90fc409704c7d473ca5d4922d57fb888c0a3e4686a58",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-04-destination-reveal-03028bf61210-f0387f97/source.zip",
+    "editableSourceSha256": "e903105def33cf50e7df3ac292b6857fa0d6be851b36c561b47dcab2b55efa8b",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/social-01-r1/social-04-destination-reveal/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-04-destination-reveal-03028bf61210-f0387f97/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-04-destination-reveal-03028bf61210-f0387f97/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-04-destination-reveal-03028bf61210-f0387f97/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-04-destination-reveal-03028bf61210-f0387f97/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-04-destination-reveal-03028bf61210-f0387f97/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-04-destination-reveal-03028bf61210-f0387f97/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-04-destination-reveal-03028bf61210-f0387f97/poster.jpg"
+      }
+    ]
   }
 ]

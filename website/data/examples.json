@@ -1,5 +1,30 @@
 [
   {
+    "id": "social-04-destination-reveal",
+    "title": "Build a destination reveal",
+    "category": "Video Edits",
+    "description": "A compact travel reel that moves from footsteps to the view.",
+    "prompt": "Use Video Use to turn a travel recording into an 18-second vertical destination reveal. Find a simple visual arc: an intriguing detail, the approach, and the view that rewards the journey. Begin with moving footage immediately. Use deliberate crops and two or three clean cuts so the reveal grows naturally from what was actually recorded. Keep the person and landscape readable; avoid cropping out the destination for the sake of a face close-up. Add one short opening line and a quiet closing thought, with warm restrained grading and a subtle original ambient pulse. Do not invent the location, travel advice, a route, or footage of an experience that never occurs. Aim for a reusable short travel post with a real payoff rather than a generic stock slideshow. Use the real footage supplied in this chat or acquired from the supplied source URL with yt-dlp. Inspect the actual pixels and audio evidence, not only metadata. Keep the subject and intent of the current query. Deliver a polished 1080×1920 vertical MP4 with a readable first-second hook and a clear payoff. Keep important content away from the top 150px, bottom 300px, and rightmost 120px used by social app controls. Use few words, deliberate typography, clean cuts and intentional sound. Preserve meaning, source credits and honest framing; do not invent actions, reactions, quotes or claims. Give me a short preview for approval before completing the full edit in normal interactive use. Keep the editable cut map, source URLs, caption timing, licenses and complete replay instructions.",
+    "duration": 18,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": [
+      "Content creators",
+      "Marketers"
+    ],
+    "useCases": [
+      "Social content",
+      "Short-form edits"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/browser-use/video-use",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-04-destination-reveal-03028bf61210-f0387f97/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-04-destination-reveal-03028bf61210-f0387f97/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-04-destination-reveal-03028bf61210-f0387f97/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-04-destination-reveal-03028bf61210-f0387f97/review.md"
+  },
+  {
     "title": "A calm browser tour",
     "duration": 27.6,
     "orientation": "landscape",
