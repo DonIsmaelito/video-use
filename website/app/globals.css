@@ -54,7 +54,7 @@
   --radius-sm: 4px;
 }
 
-/* UI refresh: shared neutral tokens; purple is an action/state accent. */
+/* Browser Use's pumpkin-500 orange, shared by every brand accent. */
 :root {
   color-scheme: dark;
   --font-display: 'Instrument Serif', Georgia, serif;
@@ -68,8 +68,8 @@
   --muted: #222;
   --muted-foreground: #a0a0a0;
   --border: #303030;
-  --accent: #a78bfa;
-  --accent-strong: #8558ed;
+  --accent: #fe750e;
+  --accent-foreground: #171717;
   --page-gutter: clamp(16px, 1.7vw, 36px);
 }
 * {
@@ -141,8 +141,8 @@ summary {
   outline: 2px solid var(--accent);
 }
 ::selection {
-  color: #fff;
-  background: #7445c6;
+  color: var(--accent-foreground);
+  background: var(--accent);
 }
 [hidden] {
   display: none !important;
@@ -193,10 +193,38 @@ summary {
   height: 34px;
   filter: grayscale(1) brightness(0) invert(1);
 }
-.brand > span {
+.brand-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  white-space: nowrap;
+}
+.brand-title {
   font-size: 22px;
   font-weight: 600;
   letter-spacing: -1.1px;
+  line-height: 1.1;
+}
+.brand-credit {
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  animation: brand-credit-glow 4.8s ease-in-out infinite;
+}
+/* Keep the credit legible throughout its slow glow; reduced motion disables it. */
+@keyframes brand-credit-glow {
+  0%,
+  100% {
+    text-shadow: 0 0 6px transparent;
+  }
+  50% {
+    text-shadow:
+      0 0 8px color-mix(in srgb, var(--accent) 55%, transparent),
+      0 0 18px color-mix(in srgb, var(--accent) 20%, transparent);
+  }
 }
 .header-actions {
   margin-left: auto;
@@ -215,10 +243,10 @@ summary {
   justify-content: center;
   gap: 8px;
   padding: 0 16px;
-  border: 1px solid #302c37;
-  background: #1c1921;
+  border: 1px solid #303030;
+  background: #1c1c1c;
   box-shadow: inset 0 1px 0 #ffffff05;
-  color: #f5f4f7;
+  color: #f5f5f5;
   font-size: 14px;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
@@ -229,8 +257,8 @@ summary {
     border-color 0.18s;
 }
 .header-repo:hover {
-  background: #29252f;
-  border-color: #494351;
+  background: #292929;
+  border-color: #494949;
 }
 .header-repo img {
   flex-shrink: 0;
@@ -253,7 +281,7 @@ summary {
 }
 .header-connect:hover {
   background: var(--accent);
-  color: #171022;
+  color: var(--accent-foreground);
 }
 .header-connect > svg:first-child {
   display: none;
@@ -667,7 +695,7 @@ summary {
     opacity 0.18s;
 }
 .like-button.is-liked {
-  color: #c8b2ff;
+  color: var(--accent);
 }
 .like-button:hover {
   color: var(--accent);
@@ -693,8 +721,8 @@ summary {
   align-items: center;
   justify-content: center;
   gap: 7px;
-  background: var(--accent-strong);
-  color: #fff;
+  background: var(--accent);
+  color: var(--accent-foreground);
   padding: 0 9px;
   min-width: 0;
   height: 42px;
@@ -769,7 +797,7 @@ summary {
   line-height: 1.7;
   font-size: 13px;
 }
-/* Dialog actions are white; selected/confirmed actions supply the purple. */
+/* Dialog actions are white; selected/confirmed actions use the brand accent. */
 [data-slot='dialog-overlay'] {
   background: #000b;
   backdrop-filter: blur(12px);
@@ -899,7 +927,7 @@ summary {
 }
 .primary-button:hover {
   background: var(--accent);
-  color: #171022;
+  color: var(--accent-foreground);
 }
 .detail-actions .primary-button {
   flex: 1;
@@ -921,7 +949,7 @@ summary {
 }
 .detail-like.is-liked {
   color: var(--accent);
-  border-color: #a78bfa70;
+  border-color: color-mix(in srgb, var(--accent) 44%, transparent);
 }
 .prompt-heading {
   margin-bottom: 10px;
@@ -1351,7 +1379,7 @@ summary {
   margin-top: 24px;
   font-size: 11px;
 }
-/* A quiet white sign-off replaces the large lavender footer block. */
+/* A quiet white sign-off keeps the footer minimal. */
 .site-footer {
   padding: 20px var(--page-gutter) 0;
   margin: auto;
@@ -1463,7 +1491,7 @@ summary {
     height: 76px;
     gap: 22px;
   }
-  .brand > span {
+  .brand-title {
     font-size: 19px;
   }
   .brand > img {
@@ -1672,7 +1700,7 @@ summary {
     width: 25px;
     height: 25px;
   }
-  .brand > span {
+  .brand-title {
     font-size: 18px;
   }
   .header-repo {
@@ -1714,8 +1742,11 @@ summary {
   .header-actions {
     gap: 6px;
   }
-  .brand > span {
+  .brand-title {
     font-size: 16px;
+  }
+  .brand-credit {
+    font-size: 9px;
   }
   .header-repo {
     gap: 5px;

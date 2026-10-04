@@ -71,7 +71,8 @@
   width: min(100%, 900px);
   margin: auto;
   border-radius: 18px;
-  box-shadow: 0 24px 70px -45px #9873e864;
+  box-shadow: 0 24px 70px -45px
+    color-mix(in srgb, var(--accent) 39%, transparent);
 }
 .facts {
   display: flex;
@@ -278,7 +279,7 @@
 }
 .promptCard:first-child .promptLabel > span:first-child,
 .promptCard:last-child .promptLabel > span:first-child {
-  background: #a78bfa12;
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
   color: var(--accent);
 }
 .promptCard h3 {
@@ -326,7 +327,7 @@
 }
 .agentOptions a:hover {
   background: #141414;
-  border-color: #4c425b;
+  border-color: color-mix(in srgb, var(--accent) 24%, #303030);
 }
 .agentOptions a > span {
   display: inline-flex;

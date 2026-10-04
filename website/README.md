@@ -30,14 +30,14 @@ The production build explicitly uses Next.js's webpack builder, matching the loc
 
 - `app/page.tsx` assembles the compact header, featured films, example gallery, and footer.
 - `app/mcp/page.tsx` and its CSS module provide the centered MCP landing page, launch film, three-step flow, client setup cards, copyable starter prompts, and FAQs.
-- `components/site-header.tsx` and `wordmark.tsx` provide the shared navigation and open-source links.
+- `components/site-header.tsx` and `wordmark.tsx` provide the shared navigation and open-source links. The header's small “by Browser Use” credit glows slowly and stays still for reduced motion.
 - `components/gallery.tsx` handles audience/use-case/video-type/category filters, search, clipboard feedback, deep links, and the detail dialog. Video type keeps the internal `technique` data key and URL parameter.
 - `components/preview-media.tsx` loads media near the viewport and plays only visible, muted previews. Previews pause in hidden tabs, under dialogs, and for reduced motion. Tall gallery windows preserve the full frame over a blurred poster; featured films remain wide.
 - `components/connect-mcp.tsx` provides copyable setup URLs and separate ChatGPT, Claude, Cursor, and local-source instructions. Official client artwork lives in `public/clients`, with its provenance in `brand-sources.json`; compatible clients are not presented as end-to-end tested.
 - `components/ui/disclosure.tsx` uses Base UI for optional filters and source details. `technique-icon.tsx` gives each video type a consistent icon.
 - `components/mcp-feature.tsx` leads the fixed hero order: MCP, Product Launches, then Whiplash. `featured-film.tsx` shares an accessible full-film dialog for the product and MCP films; opening it pauses background previews. `mcp-launch.tsx` places the new 12-second film on the MCP page.
 - `lib/gallery.ts` contains the real filtering and URL parsing logic. `buildChatPrompt` appends a visible handoff to the example's original brief.
-- `app/globals.css` owns the neutral black/white/gray palette, occasional purple actions, responsive containers, and media treatment.
+- `app/globals.css` owns the neutral black/white/gray palette, responsive containers, and media treatment. All brand accents share `--accent: #fe750e`, matching Browser Use's `--pumpkin-500` color; MCP page tints derive from the same token.
 - `components/use-gallery-likes.ts`, `app/api/likes/route.ts`, and `lib/likes-server.ts` provide shared, persistent likes with one vote per example per signed browser identity. Counts start at zero; the database stores a hash rather than the cookie itself.
 
 ## Gallery likes

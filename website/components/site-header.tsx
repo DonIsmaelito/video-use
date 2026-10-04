@@ -20,9 +20,16 @@ export async function SiteHeader() {
 
   return (
     <header className="site-header">
-      <Link href="/" aria-label="Video Use home" className="brand">
+      <Link
+        href="/"
+        aria-label="Video Use by Browser Use home"
+        className="brand"
+      >
         <Image src="/brand/browser-use.svg" alt="" width={40} height={40} />
-        <span>Video Use</span>
+        <span className="brand-copy">
+          <span className="brand-title">Video Use</span>
+          <span className="brand-credit">by Browser Use</span>
+        </span>
       </Link>
       <div className="header-actions">
         <a
