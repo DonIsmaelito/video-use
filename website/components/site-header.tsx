@@ -22,9 +22,7 @@ export async function SiteHeader() {
     <header className="site-header">
       <Link href="/" aria-label="Video Use home" className="brand">
         <Image src="/brand/browser-use.svg" alt="" width={40} height={40} />
-        <span>
-          Video Use<span className="brand-dot">.</span>
-        </span>
+        <span>Video Use</span>
       </Link>
       <div className="header-actions">
         <a

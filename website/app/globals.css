@@ -198,9 +198,6 @@ summary {
   font-weight: 600;
   letter-spacing: -1.1px;
 }
-.brand-dot {
-  color: var(--accent);
-}
 .header-actions {
   margin-left: auto;
   display: flex;

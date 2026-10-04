@@ -136,3 +136,16 @@ The authoritative production release is **`efa1aad8-220d-4bb9-8cc3-aee4b7180f90`
 Local build, typecheck, catalog validation and lint passed. Hosted checks passed for the six final additions (35–40), prompt/clipboard/deep links, source and review downloads, actual loop26 behavior, permanent Use case filtering/reload/reset, the 320–1440px header/sidebar, reduced motion, Whiplash framing/prompt and MCP playback. Films 39 and 40 also completed native-speed playback and looped successfully. Live screenshots were inspected with no horizontal overflow or page errors. The failed optional-metadata upload is retained separately and is not authoritative; no backend schema or deployment environment changes were made.
 
 Release receipt: `/Users/ismaelito/Movies/Video Use Useful Examples 20261003/edit/runtime/site-deployment-release114.json`. Hosted evidence: `/private/tmp/video-use-library-release-114-live-qa/result.json` and `full-playback.json`. Captures in that directory: `desktop-home.png`, `mobile-home.png`, and `mobile-320-home.png`. The library agent's temporary local QA server has been stopped; no additional deployment is needed for these documentation records.
+
+
+### Header period removal — user follow-up
+
+After the final 114-example release, the user requested removing the period beside Video Use in the header. The UI agent removed the dot span from `components/site-header.tsx` and its unused `.brand-dot` rule from `app/globals.css` in both checkouts. The 114-example baseline is preserved. This small follow-up will be built and deployed from the correctly linked main checkout, then verified on the live home and MCP pages.
+
+
+Header period removal is live in deployment `961aae9f-f8bb-4f4e-808b-b1e88af9e5d2` (READY) at https://video-use.insforge.site. Build, typecheck, 114-example catalog validation, and lint passed. Hosted desktop and mobile checks confirm the exact “Video Use” brand text, no dot span, and no horizontal overflow on both `/` and `/mcp`; header screenshots were reviewed. Source and manifests remain synchronized between checkouts. Evidence: `/tmp/video-use-ui-qa/header-period-live-result.json`; deployment receipt: `/tmp/video-use-ui-qa/header-period-deployment.json`.
+
+
+### MCP reference redesign and featured order — in progress
+
+The user requested a new Product Launches hero in the middle, moving Whiplash right, plus a remake of the MCP film and `/mcp` page based on glam.ai/mcp with Video Use colors. The UI agent owns the MCP page/components, scoped global styles, featured selection, and MCP media manifest for this pass. The new Product Launches video link is pending from the user. Preserve the 114-example baseline, persistent Use case section, header sizing/star count, and period removal. Motion source and review assets will live under `/Users/ismaelito/Movies/Video Use MCP Refresh 20261004/edit/`. No source overwrite or competing deploy is needed from the completed library task.
