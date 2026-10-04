@@ -70,7 +70,7 @@ Use case is now a permanent `<section>` in `gallery.tsx`, with no collapse butto
 Use case deployment `84d20679-d3f7-4122-8d29-30aa8d6c6ade` is READY and verified at https://video-use.insforge.site. Desktop and mobile checks confirm the expanded section, absence of a collapse button, all 64 use-case options in the rendered list, selection/reload/reset behavior, independence from the Audience disclosure, and no page errors or horizontal overflow. The complete 108-example catalog is preserved. Evidence: `/tmp/video-use-ui-qa/use-case-live-result.json`.
 
 
-### GitHub star badge — in progress
+### GitHub star badge — completed
 
 The user requested a compact dark rounded GitHub badge matching their reference, showing this repository’s real star count. This pass owns `components/site-header.tsx`, the header styles in `app/globals.css`, a new server-only GitHub metadata helper, and README notes. Preserve the expanded Use case section and current 108-example catalog. The helper will use GitHub’s public metadata endpoint with hourly Next.js caching; no credentials or backend schema changes are required.
 
@@ -110,4 +110,29 @@ All requested UI changes are already copied into the library checkout: server-re
 
 The library agent reviewed the synchronized GitHub metadata helper, equal 44px header actions, `Video Use` brand text, and the user-requested Whiplash hero fill. The fill applies only to that featured preview; its full player and all other videos retain complete-frame playback. The helper's version header is supported by [GitHub's API documentation](https://docs.github.com/en/rest/about-the-rest-api/api-versions), and an independent public API request returned a real nonnegative star count. TypeScript, 112-example catalog checks and lint pass; desktop and 320px header captures were inspected. The complete UI will be rebuilt with the final 114-example manifest before the library agent publishes it.
 
-The initial 112 deployment `4440e939-1811-4186-b7cd-b34372bed966` reached READY after explicit provider status sync, but a later original-checkout deployment controlled the production alias, so it is not recorded as a live 112 release. The original UI follow-up deployment `278f3813-8021-4ea5-969c-04f9fe5a4fc4` is being allowed to finish; it now includes the 112-example manifest. The final 114 deployment must follow it. No older catalog should be deployed afterward.
+The initial 112 deployment `4440e939-1811-4186-b7cd-b34372bed966` reached READY after explicit provider status sync, but a later original-checkout deployment controlled the production alias, so it is not recorded as a live 112 release. The original UI follow-up deployment `278f3813-8021-4ea5-969c-04f9fe5a4fc4` was allowed to finish; the original UI task subsequently confirmed its uploaded snapshot still contained 108 examples. The final 114 deployment must follow it. No older catalog should be deployed afterward.
+
+
+The already-running original-checkout sizing deployment has been identified: `278f3813-8021-4ea5-969c-04f9fe5a4fc4`, created 09:26:32 UTC, currently BUILDING. It contains the 108-example snapshot and predates Whiplash filling. Please supersede it with the final catalog/UI release after it settles. No further deployments are being started here.
+
+
+Final UI checks passed locally, including desktop/mobile Whiplash video and poster coverage, playback, reduced-motion fallback, dialog opening and original-frame full player, plus the aligned 44px GitHub/Connect buttons and Video Use name. Evidence: `/tmp/video-use-ui-qa/whiplash-fill-local-result.json` and `/tmp/video-use-ui-qa/github-badge-local-result.json`. The main checkout now also holds the final `11423e0` 114-example catalog for live verification. I am synchronizing status for the already-running `278f3813` deployment to unblock the library agent’s final release; no new deployment is being started here.
+
+
+The in-flight original-checkout deployment `278f3813-8021-4ea5-969c-04f9fe5a4fc4` is now READY. The library agent can safely let the final 114-example release supersede it. The UI agent will perform live checks against that final release and will not deploy another source snapshot.
+
+
+### Final live UI verification — complete
+
+The library agent’s combined deployment `efa1aad8-220d-4bb9-8cc3-aee4b7180f90` is READY. Both https://video-use.insforge.site and https://c6t3b5eb.insforge.site serve the final 114-example catalog with the Whiplash hero fill. Independent live browser checks passed for: Whiplash video/poster edge-to-edge coverage at desktop and mobile sizes; playback and reduced-motion behavior; complete-frame full player; Video Use branding; the real 28K GitHub star display and exact accessible count; equal 44px button heights and vertical alignment from 320 to 1440px; no overflow or page errors.
+
+Evidence: `/tmp/video-use-ui-qa/whiplash-fill-live-result.json` and `/tmp/video-use-ui-qa/github-badge-live-result.json`. All current source and data changes are synchronized between the main checkout and the authoritative library branch. No additional UI-agent deployment was started after the coordination hold. This completes the GitHub badge, brand rename, button scaling, and Whiplash-container requests together.
+
+
+### Final 114 production release — verified
+
+The authoritative production release is **`efa1aad8-220d-4bb9-8cc3-aee4b7180f90`** (provider `dpl_oQfF4ULEDH5qiCDU62tZfyYv8MQ5`), READY at https://video-use.insforge.site. It deploys the final catalog **`11423e0`** and reviewed UI **`7cae7b9`**: 73 existing examples, 40 new useful workflows, the archived Whiplash example, and the separate 28-second MCP launch film. Both checkouts hold byte-identical final example/media/MCP manifests, independently rechecked by the root agent after hosted QA. Future UI deployments must preserve this **114-example baseline**. The original UI task acknowledged no further competing deployment.
+
+Local build, typecheck, catalog validation and lint passed. Hosted checks passed for the six final additions (35–40), prompt/clipboard/deep links, source and review downloads, actual loop26 behavior, permanent Use case filtering/reload/reset, the 320–1440px header/sidebar, reduced motion, Whiplash framing/prompt and MCP playback. Films 39 and 40 also completed native-speed playback and looped successfully. Live screenshots were inspected with no horizontal overflow or page errors. The failed optional-metadata upload is retained separately and is not authoritative; no backend schema or deployment environment changes were made.
+
+Release receipt: `/Users/ismaelito/Movies/Video Use Useful Examples 20261003/edit/runtime/site-deployment-release114.json`. Hosted evidence: `/private/tmp/video-use-library-release-114-live-qa/result.json` and `full-playback.json`. Captures in that directory: `desktop-home.png`, `mobile-home.png`, and `mobile-320-home.png`. The library agent's temporary local QA server has been stopped; no additional deployment is needed for these documentation records.
