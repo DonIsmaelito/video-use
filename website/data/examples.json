@@ -538,6 +538,31 @@
     "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-20-science-broll-7fac352b91d0-c341d415/review.md"
   },
   {
+    "id": "useful-21-speech-captions",
+    "title": "Caption an Interview Excerpt",
+    "category": "Video Edits",
+    "description": "Make an archival NASA interview easier to follow with accurate captions and clear speaker credit.",
+    "prompt": "Use Video Use to create a 25-second portrait accessibility edit from NASA’s archival Mike Fincke interview, asset ksc_020305_fincke. Use the continuous passage at approximately source 27–51 seconds about seeing Apollo as a child and wanting to become an astronaut. Verify the actual spoken boundaries against the audio and NASA’s VTT; do not rewrite, synthesize, translate, rearrange, or speed up his words. Fit the complete thought within 24 seconds and reserve the remaining second for a quiet held image and credit; use the exact passage boundaries rather than padding with unrelated speech. Keep the archival picture’s aspect ratio inside a restrained midnight-blue portrait canvas, using a modest inset because the actual source is 320×212 at 12 fps. The selected passage shows Apollo B-roll under his voice; do not pretend it is a talking-head shot. Place captions below the picture in ample readable space. Identify the voice as Mike Fincke, NASA astronaut, and label this Archival interview; the catalog publication date is 2005, not proof of the recording day. Set accurate two-line captions with calm word-group changes, comfortable reading speed and no karaoke bouncing. Credit NASA throughout and in provenance. Keep only the selected speech audio with short clean fades; exclude the source’s intro/outro music. This is an editorial captioning example, not an endorsement of Video Use. The gallery description must identify NASA archival source footage. Preserve editable captions and the actual EDL. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+    "duration": 25,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": [
+      "Content creators",
+      "Educators"
+    ],
+    "useCases": [
+      "Accessibility",
+      "Interview clips"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/ggml-org/whisper.cpp",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from ggml-org/whisper.cpp. No upstream prompt, implementation, or media copied.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-21-speech-captions-d60121e5f6eb-92196c60/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-21-speech-captions-d60121e5f6eb-92196c60/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-21-speech-captions-d60121e5f6eb-92196c60/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-21-speech-captions-d60121e5f6eb-92196c60/review.md"
+  },
+  {
     "id": "useful-22-grade-comparison",
     "title": "Review a Color Grade",
     "category": "Video Edits",
