@@ -76,6 +76,9 @@ def _digest(path):
 
 def stage_inputs(values, project: Path, volume_root: Path = Path("/results")):
     values = validate_inputs(values)
+    # Modal can expose its configured mount through a symlink. This caller-owned
+    # anchor is trusted; links anywhere inside the input namespace still fail.
+    volume_root = volume_root.resolve(strict=True)
     plan = []
     for value in values:
         source = _no_links(volume_root, PurePosixPath(value["source"]))

@@ -27,6 +27,14 @@ def test_copies_independent_bytes(tmp_path):
     assert source.read_bytes() == b"reviewed source bytes"
 
 
+def test_configured_volume_mount_may_be_a_symlink(tmp_path):
+    volume, source, project, item = fixture(tmp_path)
+    mount = tmp_path / "results"
+    mount.symlink_to(volume, target_is_directory=True)
+    stage_inputs([item], project, mount)
+    assert (project / item["target"]).read_bytes() == source.read_bytes()
+
+
 @pytest.mark.parametrize("field,value", [("source", "campaign/other.mp4"), ("source", "prepared-assets/../private/auth.json"),
     ("source", "/prepared-assets/video.mp4"), ("source", "prepared-assets/.env.txt"),
     ("target", "edit/final.mp4"), ("target", "edit/downloads/../final.mp4"),
