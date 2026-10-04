@@ -1,123 +1,93 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { ArrowDown, ArrowUpRight } from 'lucide-react';
+import Image from 'next/image';
+import { SiteHeader } from '@/components/site-header';
 import { GettingStarted } from '@/components/getting-started';
-import { repository } from '@/lib/gallery';
-
-const words = ['edits', 'motion', 'stories', 'video'];
-const wordTransitionMs = 500;
-const wordHoldMs = 1200;
+import { examples, repository } from '@/lib/gallery';
 
 export function Hero() {
-  const [step, setStep] = useState(0);
-  const index = step % words.length;
-  const [reducedMotion, setReducedMotion] = useState(true);
-  const [stars, setStars] = useState<number | null>(null);
-
-  useEffect(() => {
-    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const sync = () => setReducedMotion(preference.matches);
-    sync();
-    preference.addEventListener('change', sync);
-    return () => preference.removeEventListener('change', sync);
-  }, []);
-
-  useEffect(() => {
-    if (reducedMotion) return;
-    let timer = window.setTimeout(advance, wordHoldMs);
-    function advance() {
-      setStep((current) => current + 1);
-      timer = window.setTimeout(advance, wordHoldMs + wordTransitionMs);
-    }
-    return () => window.clearTimeout(timer);
-  }, [reducedMotion]);
-
-  useEffect(() => {
-    const controller = new AbortController();
-    fetch('https://api.github.com/repos/browser-use/video-use', {
-      signal: controller.signal,
-    })
-      .then((response) => (response.ok ? response.json() : Promise.reject()))
-      .then((data: unknown) => {
-        if (
-          data &&
-          typeof data === 'object' &&
-          'stargazers_count' in data &&
-          typeof data.stargazers_count === 'number' &&
-          Number.isFinite(data.stargazers_count)
-        )
-          setStars(data.stargazers_count);
-      })
-      .catch(() => {});
-    return () => controller.abort();
-  }, []);
-
   return (
     <>
-      <header className="site-header">
-        <a href="/" aria-label="Video use home" className="brand">
-          <img
-            src="/brand/browser-use.svg"
-            alt="Browser Use"
-            width="56"
-            height="56"
-          />
-        </a>
-        <a
-          className="github-link"
-          aria-label={
-            stars === null
-              ? 'View video-use on GitHub'
-              : `View video-use on GitHub · ${stars.toLocaleString()} stars`
-          }
-          href={repository}
-          target="_blank"
-          rel="noreferrer"
-        >
-          <span>GitHub</span>
-          <span className="github-stars" aria-hidden="true">
-            {stars === null
-              ? '—'
-              : new Intl.NumberFormat('en', {
-                  notation: 'compact',
-                  maximumFractionDigits: 1,
-                }).format(stars)}
+      <SiteHeader />
+      <section className="hero" aria-labelledby="hero-title">
+        <div className="hero-main">
+          <span className="eyebrow">
+            <span className="status-dot" /> The open-source video toolkit
           </span>
-        </a>
-      </header>
-      <section
-        className="hero"
-        aria-label="Make edits, motion, stories, and video with a prompt"
-      >
-        <div className="hero-composition">
-          <h1>
-            <span className="sr-only">
-              Prompt edits, motion, stories, and video.
-            </span>
-            <span aria-hidden="true" className="hero-top">
-              <span>prompt</span>
-              <span className="hero-rule" />
-              <span className="hero-amp">&</span>
-            </span>
-            <span aria-hidden="true" className="hero-bottom">
-              <span className="hero-word-stage">
-                {step > 0 && !reducedMotion && (
-                  <span key={`out-${step}`} className="hero-word hero-word-out">
-                    {words[(index + words.length - 1) % words.length]}
-                  </span>
-                )}
-                <span
-                  key={`in-${step}`}
-                  className={`hero-word ${step > 0 && !reducedMotion ? 'hero-word-in' : ''}`}
-                >
-                  {words[index]}
-                </span>
-              </span>
-            </span>
+          <h1 id="hero-title">
+            A prompt.
+            <br />
+            <em>Something useful.</em>
           </h1>
+          <div className="hero-actions">
+            <a
+              href={repository}
+              target="_blank"
+              rel="noreferrer"
+              className="primary-button"
+            >
+              <Image
+                src="/brand/github.svg"
+                className="github-button-mark"
+                alt=""
+                width={16}
+                height={16}
+              />{' '}
+              Get Video Use <ArrowUpRight size={16} />
+            </a>
+            <a href="#examples" className="text-link">
+              Explore the library <ArrowDown size={15} />
+            </a>
+          </div>
+        </div>
+        <div className="hero-aside">
+          <span className="hero-index">CREATE. EDIT. MAKE IT YOURS.</span>
+          <p>
+            Good videos start with a useful idea. Find yours in a library of
+            real edits, motion design, 3D, and explainers.
+          </p>
           <GettingStarted />
+          <div className="hero-footnote">
+            <span>{examples.length} examples to explore</span>
+            <span>Free prompts, always</span>
+          </div>
         </div>
       </section>
     </>
+  );
+}
+
+export function HowItWorks() {
+  return (
+    <div className="how-it-works" aria-label="How to use this library">
+      <div>
+        <span>01</span>
+        <p>
+          <strong>Find a direction</strong>
+          <span>Choose an example that does the job.</span>
+        </p>
+      </div>
+      <span className="flow-arrow" aria-hidden="true">
+        ↗
+      </span>
+      <div>
+        <span>02</span>
+        <p>
+          <strong>Copy the prompt</strong>
+          <span>The useful details are already there.</span>
+        </p>
+      </div>
+      <span className="flow-arrow" aria-hidden="true">
+        ↗
+      </span>
+      <div>
+        <span>03</span>
+        <p>
+          <strong>Make it your own</strong>
+          <span>Paste into your Video Use agent.</span>
+        </p>
+      </div>
+    </div>
   );
 }
