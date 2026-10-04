@@ -1,0 +1,52 @@
+{
+  "id": "mcp-launch",
+  "title": "Video Use MCP",
+  "category": "Video Creation",
+  "description": "Connect your AI chat to Video Use, choose a direction, and preview before the full film.",
+  "audiences": [
+    "Content creators",
+    "Founders",
+    "Marketers",
+    "Designers",
+    "Educators",
+    "Product teams"
+  ],
+  "useCases": [
+    "Product launches",
+    "Getting started"
+  ],
+  "technique": "motion-design",
+  "duration": 28,
+  "orientation": "landscape",
+  "aspect": "16:9",
+  "promptKind": "Original prompt",
+  "sourceRepo": "https://github.com/browser-use/video-use",
+  "promptSource": "Original Video Use product film with official client marks used for identification.",
+  "license": "MIT for authored scene code; client marks retain their owners’ trademark rights",
+  "licenseUrl": "https://github.com/browser-use/video-use/blob/main/LICENSE",
+  "prompt": "Create a new 28-second 1920×1080 product launch film for Video Use MCP with the current Video Use workflow. The user requested a clearer integration scene with AI client icons and a visible pointer, and tighter alignment throughout. Match our actual site: black #000000, near-white #f1f0ee, lavender #b28af7, Instrument Serif for short editorial headlines and Inter for UI. Use the exact supplied Video Use mark and official ChatGPT/OpenAI, Claude and Cursor SVGs; do not redraw, distort or recolor them. Video Use remains the main brand. Keep the film useful and immediately understandable muted, with very little copy.\n\nOpen 0–3s on the Video Use mark and “Your chat. Your video studio.” During 3–8s, show three carefully aligned, equally spaced client tiles labeled ChatGPT, Claude and Cursor. Use their real marks at balanced optical sizes with generous clear space. A visible pointer selects a client and clicks one clear “Connect Video Use” action. Show a restrained connection line reaching the Video Use hub and the button becoming “Connected”. This is an original illustrative connection diagram, not a fake recording of a provider’s current settings UI. Do not imply partnership, endorsement, universal MCP compatibility or automatic access without account authorization.\n\nDuring 8–13s, transition to one original chat/workspace panel containing “Make a launch film for Fieldnote.” and three clean original style/reference cards. The pointer selects an editorial reference. During 13–18s, show that direction adapted to the fictional Fieldnote note-taking product, with an original mini launch composition and its own UI/content. Avoid overlaying outgoing and incoming product names. Use a shared panel grid so source, selected state and preview occupy aligned anchors rather than drifting independently. During 18–23s, show the actual short animated snippet in a clipped preview panel with “Refine” and “Continue” below it. Let the viewer see the snippet for at least1.5s before the pointer clicks Continue. Only then reveal the finished film with concise MP4 and editable-source icons. During the last3s, hold the real Video Use mark, “Make it in chat.” and video-use.insforge.site. The icons/connection scene should feel like a polished product launch, not a slide of provider logos.\n\nUse a consistent spatial system: equal card sizes/gaps, text baselines and padding, 96px or larger outer safe margins, consistent icon containers, stable centers, intentional optical alignment and no accidental overlaps. Move panels on a small set of shared anchors; keep pointer position and click targets synchronized on the same deterministic timeline. Avoid paragraphs, tiny labels, decorative metric badges, gratuitous particles and unrelated orbiting objects. During the conceptual app walkthrough, a small readable “Illustrative workflow” label is sufficient. Animate only enough to explain actions; settle readable states before transitions. Build the miniature Fieldnote result with original code/assets, not a static placeholder or a fake generated photoreal clip. Use a restrained original tactile score if helpful; it must remain understandable muted.\n\nReview actual encoded frames throughout, especially every transition, connection line endpoint, pointer click, caption boundary, and final hold. Measure DOM boxes at dense transition intervals to catch accidental collisions or off-canvas content; distinguish intentional contained previews from overlaps. Also inspect at960px-wide autoplay size for legibility. Deliver final.mp4, editable scene/source, dependency locks and fresh-machine replay instructions. Keep all logo source notices and record that client marks belong to their owners. No invented prices, testimonials, universal compatibility or provider endorsements.",
+  "assetPlan": "Exact first-party Video Use logo/fonts plus official unmodified client SVGs supplied at /opt/video-use/brand/chatgpt.svg, claude.svg, cursor.svg and brand-sources.json. Original connection diagram, pointer, generic illustrative chat, reference cards and fictional Fieldnote mini-film. No stock or AI-generated provider logos.",
+  "productFacts": [
+    "Video Use is the primary open-source product",
+    "ChatGPT and Claude expose remote MCP connectors; Cursor supports remote HTTP MCP with OAuth",
+    "The connection scene is illustrative, not a verified recording of three completed client sessions",
+    "A reference adapts to the user context",
+    "Hands-on users see a snippet before Continue",
+    "An MP4 and editable source follow the approved work"
+  ],
+  "qualityChecks": [
+    "Use exact supplied brand assets and preserve notices",
+    "Three client marks visibly present with balanced spacing and contrast",
+    "Pointer actually lands on its selected client and connection control",
+    "Lines end precisely at icon or hub anchors",
+    "Snippet moves before Continue click and full result appears only afterwards",
+    "No outgoing/incoming title overlap or accidental panel clipping",
+    "DOM bounding-box audit at0.1s around transitions plus encoded frame review",
+    "All meaningful text and marks readable at960px-wide preview",
+    "Last3seconds stable brand/URL hold",
+    "Portable README references the recorded public framework and real packaged assets"
+  ],
+  "websitePlacement": "Featured autoplay-muted tile on the repository-focused main site; tile opens /mcp. Also usable as the /mcp hero film.",
+  "productionStatus": "User-requested remake; not yet rendered",
+  "revision": "integration-and-alignment-20261003"
+}
