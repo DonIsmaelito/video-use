@@ -792,6 +792,81 @@
     "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-30-match-result-1c1a491cbb1e-73385504/review.md"
   },
   {
+    "id": "useful-32-break-even",
+    "title": "Explain Break Even Visually",
+    "category": "Explainers",
+    "description": "Use illustrative numbers to show where revenue and total cost meet.",
+    "prompt": "Use Video Use to create a 26-second educational diagram explaining a simple break-even model for a fictional print stall. State the illustrative inputs: fixed cost $120, variable cost $3 per print, price $9 per print. Draw a single stable chart with horizontal axis Prints sold from 0 to 30 and vertical axis Dollars from 0 to 300. Reveal total cost 120+3 q and revenue 9 q from their correct intercepts. Mark the intersection at 20 prints and $180, then show 120÷(9−3)=20. Explain that in this simplified example revenue equals total cost there; do not call revenue profit or imply real business advice or a guaranteed outcome. Show Illustrative numbers / Single-product model throughout. Keep labels attached to the right lines and use equal, truthful axis scales. End with the graph and calculation together for 4 seconds. Use original vector geometry, charcoal text, teal revenue and amber cost on a light background. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+    "duration": 26,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Educators",
+      "Founders"
+    ],
+    "useCases": [
+      "Business education",
+      "Math explainers"
+    ],
+    "technique": "diagrams",
+    "sourceRepo": "https://github.com/ManimCommunity/manim",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from ManimCommunity/manim. No upstream prompt, implementation, or media copied.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-32-break-even-75da812e978a-2c2285b6/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-32-break-even-75da812e978a-2c2285b6/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-32-break-even-75da812e978a-2c2285b6/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-32-break-even-75da812e978a-2c2285b6/review.md"
+  },
+  {
+    "id": "useful-33-binary-search",
+    "title": "Teach Binary Search",
+    "category": "Explainers",
+    "description": "Follow three comparisons that find one value in a sorted list.",
+    "prompt": "Use Video Use to create a 27-second binary-search lesson for the sorted array [3, 7, 12, 19, 24, 31, 42], searching for 24. Keep all seven indexed cells visible and distinguish zero-based index from value. Start with low 0, high 6. Compare midpoint index 3, value 19; because 24 is greater, dim indices 0–3 and set low 4. Compare midpoint index 5, value 31; because 24 is smaller, set high 4 and dim indices 5–6. Compare index 4, value 24 and mark Found / index 4. Keep the target 24 fixed above the row and show only the current comparison, low and high bounds; avoid a wall of code. An optional tiny pseudocode line may track the actual operation. Do not move values around or imply the algorithm works on an unsorted list. End with the successful cell and Three comparisons / Sorted input for 3 seconds. Use navy outlines, a mint active range and amber comparison markers. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+    "duration": 27,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Educators",
+      "Product teams"
+    ],
+    "useCases": [
+      "Algorithm lessons",
+      "Technical explainers"
+    ],
+    "technique": "diagrams",
+    "sourceRepo": "https://github.com/motion-canvas/motion-canvas",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from motion-canvas/motion-canvas. No upstream prompt, implementation, or media copied.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-33-binary-search-f1d52037f50f-9228c533/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-33-binary-search-f1d52037f50f-9228c533/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-33-binary-search-f1d52037f50f-9228c533/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-33-binary-search-f1d52037f50f-9228c533/review.md"
+  },
+  {
+    "id": "useful-34-cache-expiry",
+    "title": "Explain Cache Expiry",
+    "category": "Explainers",
+    "description": "Show a miss, a cache hit, and a fresh fetch after a simple TTL expires.",
+    "prompt": "Use Video Use to create a 26-second technical diagram of one simplified cache-aside request flow: Client→Cache→Origin. Track the key menu:v1. On request 1 at simulated 0 seconds, show Cache miss, fetch the value from Origin, return it and store it with TTL 10 seconds. On request 2 at simulated 4 seconds, return the same cached value and show no origin request. Advance a clearly labelled compressed clock to 11 seconds; the cached item is now expired. Request 3 must miss and fetch a fresh value from Origin before the cache refills. Use solid arrows for requests, a distinct response path, and one persistent key label so identity stays clear. Finish on Miss→Hit→Expired→Refetch with Simplified example / Time compressed for 3 seconds. Do not claim TTL guarantees data freshness or that all caches share these semantics. Use a dark technical canvas, amber misses and mint hits, with no live endpoint. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+    "duration": 26,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Product teams",
+      "Educators"
+    ],
+    "useCases": [
+      "Architecture explainers",
+      "Developer documentation"
+    ],
+    "technique": "diagrams",
+    "sourceRepo": "https://github.com/motion-canvas/examples",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from motion-canvas/examples. No upstream prompt, implementation, or media copied.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-34-cache-expiry-e5e44379cc31-116b7119/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-34-cache-expiry-e5e44379cc31-116b7119/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-34-cache-expiry-e5e44379cc31-116b7119/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-34-cache-expiry-e5e44379cc31-116b7119/review.md"
+  },
+  {
     "id": "whiplash-cinematic-story-edit",
     "title": "Whiplash — a Cinematic Story Edit",
     "category": "Video Edits",

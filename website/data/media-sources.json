@@ -3652,5 +3652,107 @@
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-27-hiring-post-243e29316944-2f6522de/poster.jpg"
       }
     ]
+  },
+  {
+    "id": "useful-33-binary-search",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-09",
+    "sourceRun": "useful-33-binary-search",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "1bf8404c48d34708641942e5405770cf560e1938",
+    "frameworkArchiveSha256": "c0c21ae59ed3ec6decdc42b2fe80158a44d3d992d5669a53eb2ba3ba7f07b90a",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "f1d52037f50fffdd08a36fe69ecb0f78b216118c3a39a4348453ef572ec733f5",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from motion-canvas/motion-canvas. No upstream prompt, implementation, or media copied.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-33-binary-search-f1d52037f50f-9228c533/source.zip",
+    "editableSourceSha256": "b958c538ebf184bb157438bb374b875e4a46c228268315228f247eddb184b09c",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-09/useful-33-binary-search/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-33-binary-search-f1d52037f50f-9228c533/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-33-binary-search-f1d52037f50f-9228c533/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-33-binary-search-f1d52037f50f-9228c533/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-33-binary-search-f1d52037f50f-9228c533/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-33-binary-search-f1d52037f50f-9228c533/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-33-binary-search-f1d52037f50f-9228c533/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-33-binary-search-f1d52037f50f-9228c533/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-32-break-even",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-09",
+    "sourceRun": "useful-32-break-even",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "1bf8404c48d34708641942e5405770cf560e1938",
+    "frameworkArchiveSha256": "c0c21ae59ed3ec6decdc42b2fe80158a44d3d992d5669a53eb2ba3ba7f07b90a",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "75da812e978a4f61f041c758bacc0e2efa1f4190b16a42be72ce5e15b2b58d6f",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from ManimCommunity/manim. No upstream prompt, implementation, or media copied.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-32-break-even-75da812e978a-2c2285b6/source.zip",
+    "editableSourceSha256": "d8331d2a3604952d090e599047d2127f3beeb5bbfbdd97c0464882561a2b129e",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-09/useful-32-break-even/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-32-break-even-75da812e978a-2c2285b6/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-32-break-even-75da812e978a-2c2285b6/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-32-break-even-75da812e978a-2c2285b6/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-32-break-even-75da812e978a-2c2285b6/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-32-break-even-75da812e978a-2c2285b6/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-32-break-even-75da812e978a-2c2285b6/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-32-break-even-75da812e978a-2c2285b6/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-34-cache-expiry",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-09",
+    "sourceRun": "useful-34-cache-expiry",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "1bf8404c48d34708641942e5405770cf560e1938",
+    "frameworkArchiveSha256": "c0c21ae59ed3ec6decdc42b2fe80158a44d3d992d5669a53eb2ba3ba7f07b90a",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "e5e44379cc3100daa6880b2774f7d3ae93cd9cc7b376de5c8e77e9b008c0996b",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from motion-canvas/examples. No upstream prompt, implementation, or media copied.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-34-cache-expiry-e5e44379cc31-116b7119/source.zip",
+    "editableSourceSha256": "510bd82aa614f81ee5f41cf873030df4b7a7905f2338542ccd20f58852c80a17",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-09/useful-34-cache-expiry/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-34-cache-expiry-e5e44379cc31-116b7119/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-34-cache-expiry-e5e44379cc31-116b7119/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-34-cache-expiry-e5e44379cc31-116b7119/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-34-cache-expiry-e5e44379cc31-116b7119/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-34-cache-expiry-e5e44379cc31-116b7119/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-34-cache-expiry-e5e44379cc31-116b7119/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-34-cache-expiry-e5e44379cc31-116b7119/poster.jpg"
+      }
+    ]
   }
 ]
