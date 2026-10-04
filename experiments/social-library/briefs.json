@@ -24,7 +24,7 @@
         "Social content",
         "Short-form edits"
       ],
-      "prompt": "Use Video Use to turn a useful answer from a filmed interview into a 22-second social clip. Choose one complete thought that answers a clear question. Put the question on screen immediately as an editorial hook, then let the original speaker deliver the answer with no long intro or generic end card. Follow the visible face with measured tracking and a deliberately reviewed target; use a calm crop, never a jittery zoom on every word. Keep the whole head and natural gesture room. Burn accurate phrase captions after all cuts and framing, with at most two lines and one restrained highlighted key word at a time. Preserve small hesitations when they carry meaning; never splice words into a new claim. Use clean speech with short boundary fades; no music under this example. Keep a quiet attribution footer and let the last thought land. Use the real footage supplied in this chat or acquired from the supplied source URL with yt-dlp. Inspect the actual pixels and audio evidence, not only metadata. Keep the subject and intent of the current query. Deliver a polished 1080×1920 vertical MP4 with a readable first-second hook and a clear payoff. Keep important content away from the top 150px, bottom 300px, and rightmost 120px used by social app controls. Use few words, deliberate typography, clean cuts and intentional sound. Preserve meaning, source credits and honest framing; do not invent actions, reactions, quotes or claims. Give me a short preview for approval before completing the full edit in normal interactive use. Keep the editable cut map, source URLs, caption timing, licenses and complete replay instructions.",
+      "prompt": "Use Video Use to turn a useful answer from a filmed interview into a 22-second social clip. Choose one complete thought that answers a clear question. Put the question on screen immediately as an editorial hook, then let the original speaker deliver the answer with no long intro or generic end card. Follow the visible face with measured tracking and a deliberately reviewed target; use a calm crop, never a jittery zoom on every word. Keep the whole head and natural gesture room. Burn accurate phrase captions after all cuts and framing, with at most two lines and one restrained highlighted key word at a time. Preserve small hesitations when they carry meaning; never splice words into a new claim. Use clean speech with short boundary fades; no music under this example. Keep a quiet attribution footer and let the last thought land. Use the real footage supplied in this chat or acquired from the supplied source URL with yt-dlp. Inspect the actual pixels and audio evidence, not only metadata. Keep the subject and intent of the current query. Deliver a polished 1080\u00d71920 vertical MP4 with a readable first-second hook and a clear payoff. Keep important content away from the top 150px, bottom 300px, and rightmost 120px used by social app controls. Use few words, deliberate typography, clean cuts and intentional sound. Preserve meaning, source credits and honest framing; do not invent actions, reactions, quotes or claims. Give me a short preview for approval before completing the full edit in normal interactive use. Keep the editable cut map, source URLs, caption timing, licenses and complete replay instructions.",
       "sourceAssets": [
         {
           "id": "moon-robots",
@@ -34,7 +34,7 @@
           "license": "CC BY 4.0",
           "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
           "licenseEvidence": "The creator-written YouTube episode description explicitly grants CC BY 4.0 and requests credit and a backlink",
-          "credit": "Fraser Cain and Prof Yang Gao — Moon Robots interview (2024), CC BY 4.0; excerpted and reformatted by Video Use",
+          "credit": "Fraser Cain and Prof Yang Gao \u2014 Moon Robots interview (2024), CC BY 4.0; excerpted and reformatted by Video Use",
           "transcribe": true,
           "sha256": "f6620041f4adb9885f9474d5752af865174506c33a8797f0bc1ff6b0335f9ea8",
           "bytes": 32197464,
@@ -74,7 +74,7 @@
           "bytes": 61112
         }
       ],
-      "assetPlan": "Use moon-robots.mp4, an actual Fraser Cain interview with Prof Yang Gao. Local 29.18–49.74 contains a complete thought about astronauts and robots working as a team. Use small phonetic handles and conform to 22 seconds without including the next answer. This is future-facing discussion, not a claim that a lunar base exists today. Suggested editorial hook: Who joins the next lunar crew? The source changes from split view to the full guest near 28 seconds. Detect only the continuous guest shot, inspect labeled source frames, then select Yang. Read skills/video-workflows/face-follow.md and use face_follow through normal render.py. If the original lower third is cropped, provide her truthful name and source attribution in the new composition. The Scribe v2 cache is supplied. Keep this a filmed interview clip rather than adding invented robot B-roll.",
+      "assetPlan": "Use moon-robots.mp4, an actual Fraser Cain interview with Prof Yang Gao. Local 29.18\u201349.74 contains a complete thought about astronauts and robots working as a team. Use small phonetic handles and conform to 22 seconds without including the next answer. This is future-facing discussion, not a claim that a lunar base exists today. Suggested editorial hook: Who joins the next lunar crew? The source changes from split view to the full guest near 28 seconds. Detect only the continuous guest shot, inspect labeled source frames, then select Yang. Read skills/video-workflows/face-follow.md and use face_follow through normal render.py. If the original lower third is cropped, provide her truthful name and source attribution in the new composition. The Scribe v2 cache is supplied. Keep this a filmed interview clip rather than adding invented robot B-roll.",
       "qualityChecks": [
         "Scribe source hash matches the provided MP4",
         "Actual face detections and source PTS retained",
@@ -94,7 +94,7 @@
       "id": "social-02-podcast-punchline",
       "title": "Cut to the punchline",
       "category": "Video Edits",
-      "description": "A short NASA podcast moment with clear captions and the hosts’ real reaction.",
+      "description": "A short NASA podcast moment with clear captions and the hosts\u2019 real reaction.",
       "technique": "video-editing",
       "orientation": "portrait",
       "aspect": "9:16",
@@ -113,7 +113,7 @@
         "Social content",
         "Short-form edits"
       ],
-      "prompt": "Use Video Use to make a 24-second podcast highlight built around one amusing, complete exchange. Start with the interesting sentence, keep its setup and payoff, and retain the actual host reaction immediately after it. Remove broadcast delay and dead air using word-level boundaries, without changing the order or implying a different response. Design an expressive portrait edit with large phrase captions, selective word emphasis and a short editorial hook. Adapt the layout at genuine source camera changes: preserve meaningful gestures and show both participants when the reaction needs them. Keep speech natural and foregrounded; no unrelated music, fake laughter or fabricated face motion. This is a short conversational post, not a long interview or a text slideshow. Use the real footage supplied in this chat or acquired from the supplied source URL with yt-dlp. Inspect the actual pixels and audio evidence, not only metadata. Keep the subject and intent of the current query. Deliver a polished 1080×1920 vertical MP4 with a readable first-second hook and a clear payoff. Keep important content away from the top 150px, bottom 300px, and rightmost 120px used by social app controls. Use few words, deliberate typography, clean cuts and intentional sound. Preserve meaning, source credits and honest framing; do not invent actions, reactions, quotes or claims. Give me a short preview for approval before completing the full edit in normal interactive use. Keep the editable cut map, source URLs, caption timing, licenses and complete replay instructions.",
+      "prompt": "Use Video Use to make a 24-second podcast highlight built around one amusing, complete exchange. Start with the interesting sentence, keep its setup and payoff, and retain the actual host reaction immediately after it. Remove broadcast delay and dead air using word-level boundaries, without changing the order or implying a different response. Design an expressive portrait edit with large phrase captions, selective word emphasis and a short editorial hook. Adapt the layout at genuine source camera changes: preserve meaningful gestures and show both participants when the reaction needs them. Keep speech natural and foregrounded; no unrelated music, fake laughter or fabricated face motion. This is a short conversational post, not a long interview or a text slideshow. Use the real footage supplied in this chat or acquired from the supplied source URL with yt-dlp. Inspect the actual pixels and audio evidence, not only metadata. Keep the subject and intent of the current query. Deliver a polished 1080\u00d71920 vertical MP4 with a readable first-second hook and a clear payoff. Keep important content away from the top 150px, bottom 300px, and rightmost 120px used by social app controls. Use few words, deliberate typography, clean cuts and intentional sound. Preserve meaning, source credits and honest framing; do not invent actions, reactions, quotes or claims. Give me a short preview for approval before completing the full edit in normal interactive use. Keep the editable cut map, source URLs, caption timing, licenses and complete replay instructions.",
       "sourceAssets": [
         {
           "id": "nasa-orientation",
@@ -123,7 +123,7 @@
           "license": "NASA media guidelines for factual educational excerpts",
           "licenseUrl": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
           "licenseEvidence": "Official NASA episode and footage; informational educational excerpt with source credit, no endorsement",
-          "credit": "NASA — Houston We Have a Podcast, The Most Awesome Podcast from Space (2017); edited excerpt",
+          "credit": "NASA \u2014 Houston We Have a Podcast, The Most Awesome Podcast from Space (2017); edited excerpt",
           "transcribe": true,
           "remote": "prepared-assets/social-20261004/nasa-orientation/nasa-orientation.mp4",
           "sha256": "9e59579c3219b5ee893ef5fba82c2476661acceed371ccfd78747f055ab67ccc",
@@ -163,7 +163,7 @@
           "bytes": 78891
         }
       ],
-      "assetPlan": "Use nasa-orientation.mp4, an actual NASA broadcast excerpt from source 640–715 seconds. Local 10.08–31.12: astronaut Jack Fischer says he will change walls or ceiling at each question because he can. Local 31.74–33.84 contains Gary Jordan’s actual amused response. Use padded word cuts and conform to 24 seconds with short natural handles. The source changes from the astronaut view to a broadcast split. It is 1280×720: use a designed picture window and caption area rather than enlarging a tiny inset across the entire portrait. Preserve head and hand gestures, a NASA credit, and small 2017 archive context. Do not imply he actually rotates in this excerpt or add an endorsement CTA. An explicitly authored fixed or split layout is appropriate; only claim tracking if measured evidence supports it.",
+      "assetPlan": "Use nasa-orientation.mp4, an actual NASA broadcast excerpt from source 640\u2013715 seconds. Local 10.08\u201331.12: astronaut Jack Fischer says he will change walls or ceiling at each question because he can. Local 31.74\u201333.84 contains Gary Jordan\u2019s actual amused response. Use padded word cuts and conform to 24 seconds with short natural handles. The source changes from the astronaut view to a broadcast split. It is 1280\u00d7720: use a designed picture window and caption area rather than enlarging a tiny inset across the entire portrait. Preserve head and hand gestures, a NASA credit, and small 2017 archive context. Do not imply he actually rotates in this excerpt or add an endorsement CTA. An explicitly authored fixed or split layout is appropriate; only claim tracking if measured evidence supports it.",
       "qualityChecks": [
         "No midwordcuts or accidental nextquestion",
         "Host reaction follows its real source context",
@@ -202,7 +202,7 @@
         "Social content",
         "Short-form edits"
       ],
-      "prompt": "Use Video Use to turn a short action recording into an 18-second vertical highlight that makes the movement easy to follow. Open on the strongest visible moment, cut back briefly to its setup, then let the action play through with a clean finish. Include one clearly labeled slow replay of the most useful detail; do not disguise it as a second attempt. Use motivated reframing that keeps the relevant feet, hands or equipment in frame. Change pace around actual movement rather than applying a random effect to every cut. Add only two or three short text cues tied to what the footage visibly shows, plus a subtle original rhythmic sound bed. No invented trick names, performance claims, new action frames or aggressive strobing. Keep it energetic and useful as a creator’s sports highlight. Use the real footage supplied in this chat or acquired from the supplied source URL with yt-dlp. Inspect the actual pixels and audio evidence, not only metadata. Keep the subject and intent of the current query. Deliver a polished 1080×1920 vertical MP4 with a readable first-second hook and a clear payoff. Keep important content away from the top 150px, bottom 300px, and rightmost 120px used by social app controls. Use few words, deliberate typography, clean cuts and intentional sound. Preserve meaning, source credits and honest framing; do not invent actions, reactions, quotes or claims. Give me a short preview for approval before completing the full edit in normal interactive use. Keep the editable cut map, source URLs, caption timing, licenses and complete replay instructions.",
+      "prompt": "Use Video Use to turn a short action recording into an 18-second vertical highlight that makes the movement easy to follow. Open on the strongest visible moment, cut back briefly to its setup, then let the action play through with a clean finish. Include one clearly labeled slow replay of the most useful detail; do not disguise it as a second attempt. Use motivated reframing that keeps the relevant feet, hands or equipment in frame. Change pace around actual movement rather than applying a random effect to every cut. Add only two or three short text cues tied to what the footage visibly shows, plus a subtle original rhythmic sound bed. No invented trick names, performance claims, new action frames or aggressive strobing. Keep it energetic and useful as a creator\u2019s sports highlight. Use the real footage supplied in this chat or acquired from the supplied source URL with yt-dlp. Inspect the actual pixels and audio evidence, not only metadata. Keep the subject and intent of the current query. Deliver a polished 1080\u00d71920 vertical MP4 with a readable first-second hook and a clear payoff. Keep important content away from the top 150px, bottom 300px, and rightmost 120px used by social app controls. Use few words, deliberate typography, clean cuts and intentional sound. Preserve meaning, source credits and honest framing; do not invent actions, reactions, quotes or claims. Give me a short preview for approval before completing the full edit in normal interactive use. Keep the editable cut map, source URLs, caption timing, licenses and complete replay instructions.",
       "sourceAssets": [
         {
           "id": "skate-push",
@@ -245,7 +245,7 @@
           "bytes": 48355432
         }
       ],
-      "assetPlan": "Use skate-push.mp4, Mixkit clip 34389. It shows pushing and gliding through a park, not a jump or aerial trick. The original shot already omits much of the head; frame board and feet. Suggested sequence: strongest coast first, push setup and foot return at normal speed, one 0.65–0.8× replay labeled Replay, then the uninterrupted coast. Text cues are authored action labels, not speech captions. Native source is 23.976 fps; use existing renderer timing. Avoid invented limbs from aggressive interpolation and avoid false 60 fps capture claims. The source is silent; use an original procedural rhythm and do not imply it is recorded wheel sound. Avoid blank title slides. Publish the edited derivative; exclude raw stock footage from the source ZIP.",
+      "assetPlan": "Use skate-push.mp4, Mixkit clip 34389. It shows pushing and gliding through a park, not a jump or aerial trick. The original shot already omits much of the head; frame board and feet. Suggested sequence: strongest coast first, push setup and foot return at normal speed, one 0.65\u20130.8\u00d7 replay labeled Replay, then the uninterrupted coast. Text cues are authored action labels, not speech captions. Native source is 23.976 fps; use existing renderer timing. Avoid invented limbs from aggressive interpolation and avoid false 60 fps capture claims. The source is silent; use an original procedural rhythm and do not imply it is recorded wheel sound. Avoid blank title slides. Publish the edited derivative; exclude raw stock footage from the source ZIP.",
       "qualityChecks": [
         "Show only the recorded action; no jump or trick claim",
         "Clearly label the replay",
@@ -284,7 +284,7 @@
         "Social content",
         "Short-form edits"
       ],
-      "prompt": "Use Video Use to turn a travel recording into an 18-second vertical destination reveal. Find a simple visual arc: an intriguing detail, the approach, and the view that rewards the journey. Begin with moving footage immediately. Use deliberate crops and two or three clean cuts so the reveal grows naturally from what was actually recorded. Keep the person and landscape readable; avoid cropping out the destination for the sake of a face close-up. Add one short opening line and a quiet closing thought, with warm restrained grading and a subtle original ambient pulse. Do not invent the location, travel advice, a route, or footage of an experience that never occurs. Aim for a reusable short travel post with a real payoff rather than a generic stock slideshow. Use the real footage supplied in this chat or acquired from the supplied source URL with yt-dlp. Inspect the actual pixels and audio evidence, not only metadata. Keep the subject and intent of the current query. Deliver a polished 1080×1920 vertical MP4 with a readable first-second hook and a clear payoff. Keep important content away from the top 150px, bottom 300px, and rightmost 120px used by social app controls. Use few words, deliberate typography, clean cuts and intentional sound. Preserve meaning, source credits and honest framing; do not invent actions, reactions, quotes or claims. Give me a short preview for approval before completing the full edit in normal interactive use. Keep the editable cut map, source URLs, caption timing, licenses and complete replay instructions.",
+      "prompt": "Use Video Use to turn a travel recording into an 18-second vertical destination reveal. Find a simple visual arc: an intriguing detail, the approach, and the view that rewards the journey. Begin with moving footage immediately. Use deliberate crops and two or three clean cuts so the reveal grows naturally from what was actually recorded. Keep the person and landscape readable; avoid cropping out the destination for the sake of a face close-up. Add one short opening line and a quiet closing thought, with warm restrained grading and a subtle original ambient pulse. Do not invent the location, travel advice, a route, or footage of an experience that never occurs. Aim for a reusable short travel post with a real payoff rather than a generic stock slideshow. Use the real footage supplied in this chat or acquired from the supplied source URL with yt-dlp. Inspect the actual pixels and audio evidence, not only metadata. Keep the subject and intent of the current query. Deliver a polished 1080\u00d71920 vertical MP4 with a readable first-second hook and a clear payoff. Keep important content away from the top 150px, bottom 300px, and rightmost 120px used by social app controls. Use few words, deliberate typography, clean cuts and intentional sound. Preserve meaning, source credits and honest framing; do not invent actions, reactions, quotes or claims. Give me a short preview for approval before completing the full edit in normal interactive use. Keep the editable cut map, source URLs, caption timing, licenses and complete replay instructions.",
       "sourceAssets": [
         {
           "id": "waterfall-walk",
@@ -342,6 +342,624 @@
         "Existing motion/audio helpers where appropriate"
       ],
       "productionBatch": "social-01"
+    },
+    {
+      "id": "social-05-two-speaker-banter",
+      "title": "Follow the conversation",
+      "category": "Video Edits",
+      "description": "A real two-person exchange with reviewed speaker framing and accurate captions.",
+      "technique": "video-editing",
+      "orientation": "portrait",
+      "aspect": "9:16",
+      "duration": 22,
+      "fps": 30,
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/browser-use/video-use",
+      "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+      "license": "MIT for original editing code and documentation; source media retains its own credited terms",
+      "licenseUrl": "https://github.com/browser-use/video-use/blob/main/LICENSE",
+      "audiences": [
+        "Content creators",
+        "Marketers"
+      ],
+      "useCases": [
+        "Podcast clips",
+        "Social content",
+        "Short-form edits"
+      ],
+      "prompt": "Use Video Use to make a 22-second vertical podcast clip from a real two-person conversation. Keep one complete setup and payoff, including interruptions that make the exchange funny. Begin directly on the conversation with a short editorial hook, not an intro card. Reframe the actual speaking person using measured face positions and a reviewed speaker map. Hold the crop calmly through each thought; keep both people visible during overlapping speech rather than guessing who is speaking. Let genuine reactions stay in their original place. Add readable phrase captions with at most two lines, correct names and one subtle accent. Keep the original voices and timing; no music, synthetic speech or invented reactions. End after the payoff with a brief picture hold if needed, without a generic CTA. Use the footage or source URLs supplied in this chat and preserve its subject and intent. Deliver 1080\u00d71920 at 30 fps, with the top 150px, bottom 300px and rightmost 120px clear of important text. Keep honest credits and an editable cut map, caption timing and replay instructions. In normal interactive use, show a short preview for approval before the full edit.",
+      "sourceAssets": [
+        {
+          "id": "http203-banter",
+          "url": "https://www.youtube.com/watch?v=SYkzk_j3yb0",
+          "sourceStart": 80,
+          "sourceEnd": 115,
+          "license": "Creative Commons Attribution license (YouTube reuse allowed)",
+          "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+          "licenseEvidence": "Explicit Creative Commons Attribution reuse-allowed field in the official Chrome for Developers YouTube watch metadata, with saved title and channel evidence.",
+          "credit": "Chrome for Developers \u2014 HTTP 203, Deno (2021), Jake Archibald and Surma; edited excerpt",
+          "transcribe": true,
+          "remote": "prepared-assets/social-20261004/http203-banter/http203-banter.mp4",
+          "sha256": "5d1bd8de3114b8e2c1df5900d91c9af189cc4ca8e3aadd4e64bbad9ffc45e814",
+          "bytes": 3610544,
+          "duration": 35.0,
+          "width": 1920,
+          "height": 1080,
+          "fps": "25/1",
+          "reviewMoments": [
+            0.0,
+            3.168,
+            6.336,
+            9.505,
+            12.673,
+            15.841,
+            19.009,
+            22.177,
+            25.345,
+            28.514,
+            31.682,
+            34.85
+          ],
+          "actualAcquisition": "yt-dlp on local user machine, bounded excerpt; uploaded and SHA256 verified in cloud; no browser cookies used"
+        }
+      ],
+      "preparedInputs": [
+        {
+          "source": "prepared-assets/social-20261004/http203-banter/http203-banter.mp4",
+          "target": "edit/downloads/http203-banter.mp4",
+          "sha256": "5d1bd8de3114b8e2c1df5900d91c9af189cc4ca8e3aadd4e64bbad9ffc45e814",
+          "bytes": 3610544
+        },
+        {
+          "source": "prepared-assets/social-20261004/http203-banter/transcripts/http203-banter.json",
+          "target": "edit/transcripts/http203-banter.json",
+          "sha256": "ec718f30657ddf0e8eda0ad943d61ea28a548f5d6fa69f60199ea2fa25155464",
+          "bytes": 44627
+        },
+        {
+          "source": "prepared-assets/social-20261004/caption-evidence/http203-uploaded.vtt",
+          "target": "edit/references/http203-uploaded.vtt",
+          "sha256": "1a5bb39e2457a4f17294fbac640811eebec68dfe4702857afeb83ef7a4b6aad1",
+          "bytes": 53507
+        }
+      ],
+      "assetPlan": "Use http203-banter.mp4, the official HTTP 203 Deno excerpt starting at original source 80s. The useful naming joke is approximately local 7\u201325.5s; all local times are relative to this 35s acquired file. It is real filmed dialogue, with a continuous seated two-shot from roughly local 5.5s until the later presentation cut. The left person wears a pink short-sleeved shirt; the right person wears a red long-sleeved top. Review actual audio and visible mouth movement before assigning Jake Archibald or Surma to either target. Read skills/video-workflows/face-follow.md. Detect the continuous shot, inspect labeled seed frames, preserve native 25 fps source PTS and make separate reviewed tracks/crops for the two people. Normal render.py must consume the authored face_follow selections; diarization IDs alone must never drive a crop. Use a designed two-person view for overlap. Candidate dialogue begins around local 6.3s with OK / So hang on and ends after It is one of the two, before And you know what I did. Confirm precise word handles from audio. The self-contained exchange is shorter than 22s: keep the speech at natural speed and conform with a sub-second editorial picture lead and a clearly authored final picture hold, not speech from the unfinished next sentence or reactions borrowed from elsewhere. Use no more than three seconds of total authored picture holds and keep the hook over actual source imagery. Suggested hook: How do you say Deno? Preserve the raw Scribe cache unchanged and write separately reviewed word/speaker corrections with reasons and source times. The uploaded VTT in research/podcast-sources/SYkzk_j3yb0.en.vtt is attribution evidence, not sample-accurate alignment. Original-source cues identify Jake asking about the name and saying You wanted me to make the mistake / And get all the YouTube comments, and Surma replying This is exactly why I put it there / Now you are wrong, not me / It is one of the two. The raw cache mixes those overlapping turns and may mishear Now as No and true as correct. Listen before correcting; do not replace spoken words merely to match the VTT. The production handoff must stage this VTT or its reviewed cue excerpt before final speaker approval; no unverified remote path is assumed. Keep the Deno / 2021 archive context and Chrome for Developers credit discreet. Final captions must map reviewed source words through the actual EDL, then burn after all overlays; use 30ms audio boundary fades and 30\u2013200ms phonetic cut handles. The original uploaded caption evidence is now staged at edit/references/http203-uploaded.vtt. Visual direction: this is a social post, so make the real footage prominent. Avoid a small landscape rectangle surrounded by half a screen of empty matte. Use a generous tall or square picture region, complementary stacked views when needed, and only a compact hook and credit. Podcast captions should be approximately 60\u201372px at 1080 width and readable on a phone. Preserve essential action with intentional framing rather than simply shrinking everything. Do not put tool names, license prose, technical specs or production explanations into the visible video.",
+      "qualityChecks": [
+        "Raw Scribe JSON hash and its embedded source_sha256 match the acquired HTTP 203 file; corrections are separate and documented",
+        "Every named speaker change is supported by actual audio, uploaded-cue context and visible mouth evidence, with source times retained",
+        "Each measured face target has a reviewed seed, source PTS and crop proof; overlap keeps both people visible and no target silently switches",
+        "Naming setup, interruption, YouTube-comments line and final reply retain their actual context and chronological order",
+        "The final line ends cleanly before the next topic; no stretched voice, invented reaction or unmarked source-time jump",
+        "660 output frames; any authored picture holds are recorded separately from source playback and total no more than three seconds",
+        "Caption and audio review checks the Deno pronunciation joke and Now versus No against the real audio, not an unchecked transcript",
+        "Final encoded MP4 is 1080\u00d71920 at 30 fps with the specified frame count; decoded opening, every cut and ending have been inspected",
+        "Critical text and action stay outside the top 150px, bottom 300px and rightmost 120px social UI zones",
+        "All supplied input hashes pass; the source list, license evidence, exact creative prompt and complete editable replay are preserved",
+        "Raw third-party footage is reacquired by documented URL and hash, not redistributed inside the editable source ZIP"
+      ],
+      "toolNeeds": [
+        "Existing face_track.py detection, reviewed selection and render.py face_follow for separate speakers",
+        "Source-bound Scribe word cache plus explicit human-readable speaker and word corrections",
+        "Video Use normal per-segment EDL render and video-copy concat pipeline",
+        "Existing caption, overlay and audio helpers; document any bounded tool gap before implementing a new helper"
+      ],
+      "productionBatch": "social-02"
+    },
+    {
+      "id": "social-06-podcast-audiogram",
+      "title": "Give an audio clip a pulse",
+      "category": "Video Edits",
+      "description": "A static podcast portrait, a waveform from real speech and a complete captioned exchange.",
+      "technique": "video-editing",
+      "orientation": "portrait",
+      "aspect": "9:16",
+      "duration": 26,
+      "fps": 30,
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/browser-use/video-use",
+      "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+      "license": "MIT for original editing code and documentation; source media retains its own credited terms",
+      "licenseUrl": "https://github.com/browser-use/video-use/blob/main/LICENSE",
+      "audiences": [
+        "Content creators",
+        "Marketers"
+      ],
+      "useCases": [
+        "Podcast clips",
+        "Social content",
+        "Short-form edits"
+      ],
+      "prompt": "Use Video Use to turn a complete 26-second podcast exchange into a vertical audiogram. Use the supplied still portrait or cover image as an intentional static picture. Put the interest in the real conversation, accurate phrase captions and a restrained waveform computed from the actual edited audio. Keep the setup, response and payoff together. Show no more than two caption lines and a tiny editorial hook; use speaker labels only after checking attribution. Keep the original voices and natural pauses with clean cut fades. Do not animate the hosts into fake speech, claim face tracking or invent a reaction from a photograph. Let the waveform settle with the final sound and end on the last completed thought, with no generic CTA. Use the footage or source URLs supplied in this chat and preserve its subject and intent. Deliver 1080\u00d71920 at 30 fps, with the top 150px, bottom 300px and rightmost 120px clear of important text. Keep honest credits and an editable cut map, caption timing and replay instructions. In normal interactive use, show a short preview for approval before the full edit.",
+      "sourceAssets": [
+        {
+          "id": "css-dialog",
+          "url": "https://www.youtube.com/watch?v=6u7EbMuxNkE",
+          "sourceStart": 65,
+          "sourceEnd": 103,
+          "license": "Creative Commons Attribution license (YouTube reuse allowed)",
+          "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+          "licenseEvidence": "Explicit Creative Commons Attribution reuse-allowed field in the official Chrome for Developers YouTube watch metadata, with saved title and channel evidence.",
+          "credit": "Chrome for Developers \u2014 The CSS Podcast, Popover and Dialog (2024), Una Kravets and Adam Argyle; edited audiogram",
+          "transcribe": true,
+          "remote": "prepared-assets/social-20261004/css-dialog/css-dialog.mp4",
+          "sha256": "7030f115ca6598b38743fdc1bf872b96310f45e6f16bdbb79dbfb8b1dd53366e",
+          "bytes": 3701892,
+          "duration": 38.0,
+          "width": 1920,
+          "height": 1080,
+          "fps": "30/1",
+          "reviewMoments": [
+            0.0,
+            3.441,
+            6.882,
+            10.323,
+            13.764,
+            17.205,
+            20.645,
+            24.086,
+            27.527,
+            30.968,
+            34.409,
+            37.85
+          ],
+          "actualAcquisition": "yt-dlp on local user machine, bounded excerpt; uploaded and SHA256 verified in cloud; no browser cookies used"
+        }
+      ],
+      "preparedInputs": [
+        {
+          "source": "prepared-assets/social-20261004/css-dialog/css-dialog.mp4",
+          "target": "edit/downloads/css-dialog.mp4",
+          "sha256": "7030f115ca6598b38743fdc1bf872b96310f45e6f16bdbb79dbfb8b1dd53366e",
+          "bytes": 3701892
+        },
+        {
+          "source": "prepared-assets/social-20261004/css-dialog/transcripts/css-dialog.json",
+          "target": "edit/transcripts/css-dialog.json",
+          "sha256": "c26e5b8ea03330a40e70828388c07b8cac55f09ea69fc7b7ac56bbd312d43254",
+          "bytes": 46674
+        },
+        {
+          "source": "prepared-assets/social-20261004/caption-evidence/css-uploaded.vtt",
+          "target": "edit/references/css-uploaded.vtt",
+          "sha256": "38d93b315f45b11f4e0404731edd13e6230d897cdf4574ca51a3ce0f99188c8d",
+          "bytes": 37247
+        }
+      ],
+      "assetPlan": "Use css-dialog.mp4, an official CSS Podcast excerpt starting at original source 65s. Inspection of all sampled frames shows fixed host poses with a changing decorative background, not live mouth motion. Extract one representative credited frame for a static picture panel containing both hosts; record its exact source frame/time. Do not run face following or animate either face. The complete dialog/popover joke is roughly local 5.1\u201329s: Adam offers the food/API wordplay, Una suggests having a dialog over a popover, and Adam lands in the top layer, followed by laughter. Exclude the earlier browser release prediction and the next Anyway topic. Confirm a contiguous phrase-complete audio selection by listening, then reach 26s with short authored picture handles and the real laughter. Do not stretch speech or loop laughter. Keep raw css-dialog.json unchanged; its later speaker_1 run incorrectly merges Una and Adam. Write a separate reviewed word/speaker correction map. Attribution evidence is research/podcast-sources/css-popover.en-j3PyPqV-e1s.vtt: original 70.15\u201379.892s Adam begins the joke; 79.892\u201380.6s Una responds; 80.6\u201388.06s Adam continues; 88.06\u201390.06s Una says Let us have a dialog over a popover; 90.06\u201391.285s Adam repeats it; 91.285\u201391.88s Una says Which you can do; 91.88\u201393.797s Adam ends in the top layer. These are evidence ranges, not final caption timings; source word boundaries need auditory review because VTT and ASR timing differ. Stage that evidence or the reviewed cue excerpt before final attribution approval. Use the actual pronunciations, with dialog/popover spelling appropriate to the API pun, and distinguish overlapping voices only when the audio supports it. Suggested hook: A dialog over a popover. The waveform must be derived from PCM of the actual final speech edit, using a stored amplitude envelope with declared sampling/window/normalization and output-time mapping. It must react to real syllables and settle during silence; no random bars, decorative sine wave or fabricated per-speaker separation. Put the waveform and captions in distinct quiet areas below the static image. Original speech only, no background music. Burn remapped captions last, use 30ms audio fades, and keep a small CSS Podcast / Chrome for Developers source credit. The original uploaded caption evidence is now staged at edit/references/css-uploaded.vtt. Visual direction: this is a social post, so make the real footage prominent. Avoid a small landscape rectangle surrounded by half a screen of empty matte. Use a generous tall or square picture region, complementary stacked views when needed, and only a compact hook and credit. Podcast captions should be approximately 60\u201372px at 1080 width and readable on a phone. Preserve essential action with intentional framing rather than simply shrinking everything. Do not put tool names, license prose, technical specs or production explanations into the visible video.",
+      "qualityChecks": [
+        "Scribe cache and its source hash remain unchanged; reviewed speaker/word corrections are stored separately with audio evidence",
+        "The source image is explicitly static; no mouth animation, active-speaker tracking claim or photographic reaction claim appears",
+        "Una and Adam overlap is corrected by listening with uploaded-cue context; unresolved overlap uses neutral captions instead of guessed labels",
+        "The full food/API pun and top-layer payoff survive; no outdated browser-release prediction is presented as current information",
+        "Waveform sample data comes from the final edited PCM and agrees with decoded audio at speech onsets, pauses and ending",
+        "780 output frames with original voices at natural speed and no repeated laugh or invented silence inside the exchange",
+        "Photo, waveform and two-line captions stay distinct and readable at phone size; caption timing is checked after all cuts",
+        "Final encoded MP4 is 1080\u00d71920 at 30 fps with the specified frame count; decoded opening, every cut and ending have been inspected",
+        "Critical text and action stay outside the top 150px, bottom 300px and rightmost 120px social UI zones",
+        "All supplied input hashes pass; the source list, license evidence, exact creative prompt and complete editable replay are preserved",
+        "Raw third-party footage is reacquired by documented URL and hash, not redistributed inside the editable source ZIP"
+      ],
+      "toolNeeds": [
+        "Source-bound Scribe word cache and reviewed speaker corrections",
+        "PCM extraction and a deterministic sampled-amplitude waveform overlay, reusing an existing helper if available",
+        "Video Use normal per-segment EDL render and video-copy concat pipeline",
+        "Existing caption, overlay and audio helpers; document any bounded tool gap before implementing a new helper"
+      ],
+      "productionBatch": "social-02"
+    },
+    {
+      "id": "social-07-pizza-process",
+      "title": "From dough to dinner",
+      "category": "Video Edits",
+      "description": "A compact pizza montage with real preparation, oven action and a finished result.",
+      "technique": "video-editing",
+      "orientation": "portrait",
+      "aspect": "9:16",
+      "duration": 20,
+      "fps": 30,
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/browser-use/video-use",
+      "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+      "license": "MIT for original editing code and documentation; source media retains its own credited terms",
+      "licenseUrl": "https://github.com/browser-use/video-use/blob/main/LICENSE",
+      "audiences": [
+        "Content creators",
+        "Marketers"
+      ],
+      "useCases": [
+        "Social content",
+        "Short-form edits"
+      ],
+      "prompt": "Use Video Use to make a 20-second vertical food montage from real pizza footage: dough, sauce, the oven and a cooked result. Start on hands doing something useful, cut on completed actions and give the finished food room to land. Use close detail where it works and a wider picture window where a tall crop would hide the action. Build appetite with warm, natural color and a quiet, licensed or original rhythmic bed; preserve any usable source sound and identify added sound as authored. Use only a few editorial words, with no narration, invented recipe quantities or generic CTA. Make the sequence easy to understand with the sound off. Preserve the chronological process while being honest about separate source shots and missing steps. Use the footage or source URLs supplied in this chat and preserve its subject and intent. Deliver 1080\u00d71920 at 30 fps, with the top 150px, bottom 300px and rightmost 120px clear of important text. Keep honest credits and an editable cut map, caption timing and replay instructions. In normal interactive use, show a short preview for approval before the full edit.",
+      "sourceAssets": [
+        {
+          "id": "mixkit-42468",
+          "url": "https://assets.mixkit.co/videos/42468/42468-2160.mp4",
+          "sourcePage": "https://mixkit.co/free-stock-video/preparing-pizza-dough-42468/",
+          "license": "Mixkit Stock Video Free License",
+          "licenseUrl": "https://mixkit.co/license/",
+          "licenseEvidence": "The exact item page explicitly identifies the Stock Video Free License and permits commercial or personal use. License and terms links were opened separately.",
+          "credit": "Footage: Mixkit, item 42468 \u2014 Preparing pizza dough. Edited and reframed for this educational Video Use workflow example.",
+          "actualContent": "Real hands folding and kneading a large dough ball on a work surface.",
+          "limitations": "No finished pizza or oven is shown. Combine with sauce and a verified cooked-pizza shot for a beginning-to-result edit.",
+          "transcribe": false,
+          "remote": "prepared-assets/social-20261004/mixkit-42468/mixkit-42468.mp4",
+          "sha256": "0571e0f0de898451698606b1589d00cdff2073d7e8d2aac90b6dd8633fa72ab6",
+          "bytes": 51977124,
+          "duration": 10.343333,
+          "width": 3840,
+          "height": 2160,
+          "fps": "24000/1001",
+          "reviewMoments": [
+            0.0,
+            0.927,
+            1.853,
+            2.78,
+            3.707,
+            4.633,
+            5.56,
+            6.487,
+            7.413,
+            8.34,
+            9.267,
+            10.193
+          ],
+          "actualAcquisition": "yt-dlp direct public rendition in cloud; actual source probed and hashed"
+        },
+        {
+          "id": "mixkit-42473",
+          "url": "https://assets.mixkit.co/videos/42473/42473-2160.mp4",
+          "sourcePage": "https://mixkit.co/free-stock-video/putting-sauce-on-pizza-dough-42473/",
+          "license": "Mixkit Stock Video Free License",
+          "licenseUrl": "https://mixkit.co/license/",
+          "licenseEvidence": "The exact item page explicitly identifies the Stock Video Free License and permits commercial or personal use. License and terms links were opened separately.",
+          "credit": "Footage: Mixkit, item 42473 \u2014 Putting sauce on pizza dough. Edited and reframed for this educational Video Use workflow example.",
+          "actualContent": "A ladle adds red sauce to the centre of flattened circular pizza dough.",
+          "limitations": "Only four seconds. Do not claim the source shows a complete spreading step or finished bake.",
+          "transcribe": false,
+          "remote": "prepared-assets/social-20261004/mixkit-42473/mixkit-42473.mp4",
+          "sha256": "8ab334caa178307362d0f760dd6775e2741d349ab46a94164799b41660751890",
+          "bytes": 20227394,
+          "duration": 4.003333,
+          "width": 3840,
+          "height": 2160,
+          "fps": "24000/1001",
+          "reviewMoments": [
+            0.0,
+            0.35,
+            0.701,
+            1.051,
+            1.401,
+            1.752,
+            2.102,
+            2.452,
+            2.802,
+            3.153,
+            3.503,
+            3.853
+          ],
+          "actualAcquisition": "yt-dlp direct public rendition in cloud; actual source probed and hashed"
+        },
+        {
+          "id": "mixkit-42480",
+          "url": "https://assets.mixkit.co/videos/42480/42480-1080.mp4",
+          "sourcePage": "https://mixkit.co/free-stock-video/chef-puts-the-pizza-in-the-oven-42480/",
+          "license": "Mixkit Stock Video Free License",
+          "licenseUrl": "https://mixkit.co/license/",
+          "licenseEvidence": "The exact item page explicitly identifies the Stock Video Free License and permits commercial or personal use.",
+          "credit": "Footage: Mixkit item 42480, Chef puts the pizza in the oven. Edited for an educational Video Use example.",
+          "actualContent": "A pizza moves from the preparation shelf on a peel into the oven; hands and oven opening are visible.",
+          "limitations": "Native1080 landscape. Preserve pizza, peel and oven opening. Prefer square or landscape if portrait would destroy the action.",
+          "transcribe": false,
+          "remote": "prepared-assets/social-20261004/mixkit-42480/mixkit-42480.mp4",
+          "sha256": "f38457429e6e5cece33e1c7f6f1681264c42f6c8989ece39bebc58d8d40ad1a8",
+          "bytes": 29811949,
+          "duration": 9.091667,
+          "width": 1920,
+          "height": 1080,
+          "fps": "24000/1001",
+          "reviewMoments": [
+            0.0,
+            0.813,
+            1.626,
+            2.439,
+            3.252,
+            4.064,
+            4.877,
+            5.69,
+            6.503,
+            7.316,
+            8.129,
+            8.942
+          ],
+          "actualAcquisition": "yt-dlp direct public rendition in cloud; actual source probed and hashed"
+        },
+        {
+          "id": "mixkit-42484",
+          "url": "https://assets.mixkit.co/videos/42484/42484-2160.mp4",
+          "sourcePage": "https://mixkit.co/free-stock-video/close-up-shot-of-a-freshly-made-hot-pizza-42484/",
+          "license": "Mixkit Stock Video Free License",
+          "licenseUrl": "https://mixkit.co/license/",
+          "licenseEvidence": "The exact item page explicitly identifies the Stock Video Free License and permits commercial or personal use.",
+          "credit": "Footage: Mixkit item 42484, Close up shot of a freshly made hot pizza. Edited for an educational Video Use example.",
+          "actualContent": "A cooked pepperoni pizza settles inside an open cardboard box, providing a clear finished-food result.",
+          "limitations": "UHD source. Use the sharp settled portion for a meaningful ending hold; the opening is closer and softer.",
+          "transcribe": false,
+          "remote": "prepared-assets/social-20261004/mixkit-42484/mixkit-42484.mp4",
+          "sha256": "48528c2baa29a5abd9205488a5d69279fb0074ba19a470850d8d1241c387aec2",
+          "bytes": 36373228,
+          "duration": 6.965,
+          "width": 3840,
+          "height": 2160,
+          "fps": "24000/1001",
+          "reviewMoments": [
+            0.0,
+            0.62,
+            1.239,
+            1.859,
+            2.478,
+            3.098,
+            3.717,
+            4.337,
+            4.956,
+            5.576,
+            6.195,
+            6.815
+          ],
+          "actualAcquisition": "yt-dlp direct public rendition in cloud; actual source probed and hashed"
+        },
+        {
+          "id": "music-boogie",
+          "url": "https://freemusicarchive.org/music/John_Bartmann/retro-boogie/boogie-til-you-drop/",
+          "license": "CC BY4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "credit": "Boogie Til You Drop by John Bartmann \u2014 https://johnbartmann.com/music \u2014 CC BY 4.0 https://creativecommons.org/licenses/by/4.0/ \u2014 excerpt with volume normalization and fades",
+          "sha256": "d71a66c54c71902781c5a9e1b8007ed8ebe8b2aa9717b4c85844d3fc348794a6",
+          "duration": 84.264,
+          "acquisition": "Existing licensed project soundtrack; original hash verified locally and in cloud"
+        }
+      ],
+      "preparedInputs": [
+        {
+          "source": "prepared-assets/social-20261004/mixkit-42468/mixkit-42468.mp4",
+          "target": "edit/downloads/mixkit-42468.mp4",
+          "sha256": "0571e0f0de898451698606b1589d00cdff2073d7e8d2aac90b6dd8633fa72ab6",
+          "bytes": 51977124
+        },
+        {
+          "source": "prepared-assets/social-20261004/mixkit-42473/mixkit-42473.mp4",
+          "target": "edit/downloads/mixkit-42473.mp4",
+          "sha256": "8ab334caa178307362d0f760dd6775e2741d349ab46a94164799b41660751890",
+          "bytes": 20227394
+        },
+        {
+          "source": "prepared-assets/social-20261004/mixkit-42480/mixkit-42480.mp4",
+          "target": "edit/downloads/mixkit-42480.mp4",
+          "sha256": "f38457429e6e5cece33e1c7f6f1681264c42f6c8989ece39bebc58d8d40ad1a8",
+          "bytes": 29811949
+        },
+        {
+          "source": "prepared-assets/social-20261004/mixkit-42484/mixkit-42484.mp4",
+          "target": "edit/downloads/mixkit-42484.mp4",
+          "sha256": "48528c2baa29a5abd9205488a5d69279fb0074ba19a470850d8d1241c387aec2",
+          "bytes": 36373228
+        },
+        {
+          "source": "prepared-assets/social-20261004/music-boogie/boogie-til-you-drop.mp3",
+          "target": "edit/downloads/boogie-til-you-drop.mp3",
+          "sha256": "d71a66c54c71902781c5a9e1b8007ed8ebe8b2aa9717b4c85844d3fc348794a6",
+          "bytes": 4503142
+        }
+      ],
+      "assetPlan": "Use only the four verified Mixkit files, in order: 42468 kneading dough; 42473 depositing sauce; 42480 placing a topped pizza into the oven; 42484 the sharp settled cooked pizza. The source does not show dough rolling, complete sauce spreading, topping assembly or the bake itself; this is an editorial process montage rather than a complete recipe or proof of one uninterrupted pizza. A workable 20s starting cut map is dough local 0.5\u20135.0s (4.5s), sauce 0.9\u20133.9s (3s), oven 0.9\u20138.9s (8s), cooked result 2.0\u20136.5s (4.5s). Recheck the exact encoded action boundaries before locking; preserve the total 600-frame budget. The sauce source is only 4.003s: retain the real ladle deposit and never label it as a fully spread base. The oven action travels from the top shelf down into the opening. Keep pizza, peel, hands and oven entry visible throughout, using a landscape picture window inside the required 1080\u00d71920 canvas rather than a destructive full-height crop. Macro shots may use closer windows, but transitions should feel like one deliberate layout. The cooked-pizza opening is soft; use the settled sharp portion for at least the final three seconds. Suggested sparse copy is From dough to dinner, with at most one short stage cue at a time. Do not claim a bake temperature, elapsed cooking time, venue or specific recipe. Inspect audio streams first; if silent, use and credit the optional licensed bed or restrained original sound rather than suggesting recorded kitchen ambience. Derive any sound accents from visible action timing and use boundary fades. Preserve full source-page and license evidence; the public editable package must contain acquisition/replay instructions and hashes, not the raw stock files. Optional licensed bed: audition the prepared boogie-til-you-drop.mp3 against the actual edit. Use it only if its pace fits; especially for coffee, keep the requested calm character. This is music, not captured location sound. If used, preserve the exact credit: Boogie Til You Drop by John Bartmann \u2014 https://johnbartmann.com/music \u2014 CC BY 4.0 https://creativecommons.org/licenses/by/4.0/ \u2014 excerpt with volume normalization and fades. Record the selected range, fades and gain, plus its source page and SHA256 d71a66c54c71902781c5a9e1b8007ed8ebe8b2aa9717b4c85844d3fc348794a6. Document reacquisition from the credited Free Music Archive page and hash verification; exclude the raw MP3 from the public source ZIP. If unused, omit it from the final used-assets and soundtrack claims. Visual direction: this is a social post, so make the real footage prominent. Avoid a small landscape rectangle surrounded by half a screen of empty matte. Use a generous tall or square picture region, complementary stacked views when needed, and only a compact hook and credit. Podcast captions should be approximately 60\u201372px at 1080 width and readable on a phone. Preserve essential action with intentional framing rather than simply shrinking everything. Do not put tool names, license prose, technical specs or production explanations into the visible video.",
+      "qualityChecks": [
+        "The final sequence visibly contains all four verified stages in order, with actual cooked pizza as the ending",
+        "Ladle deposit is visible; no text claims a complete spreading, topping or baking step that the footage does not show",
+        "Oven placement is semantically complete and its pizza, peel and opening remain in frame during the full transfer",
+        "Finished food is sharp and readable for at least three seconds; no blank outro or unrelated food shot",
+        "All source cuts stay within their real duration and normal-speed timing; no AI-generated intermediate cooking action",
+        "600 output frames; original footage cadence is honestly converted to 30 fps without a false high-frame-rate capture claim",
+        "Source audio was inspected; any added rhythm or kitchen-like accents are original, documented and not passed off as location sound",
+        "Final encoded MP4 is 1080\u00d71920 at 30 fps with the specified frame count; decoded opening, every cut and ending have been inspected",
+        "Critical text and action stay outside the top 150px, bottom 300px and rightmost 120px social UI zones",
+        "All supplied input hashes pass; the source list, license evidence, exact creative prompt and complete editable replay are preserved",
+        "Raw third-party footage is reacquired by documented URL and hash, not redistributed inside the editable source ZIP",
+        "Any licensed soundtrack is audibly reviewed for fit, credited with its exact CC BY 4.0 attribution and modification note, and excluded as raw MP3 from the public ZIP"
+      ],
+      "toolNeeds": [
+        "Source-pixel crop inspection and the existing normal EDL renderer",
+        "Existing audio mix/fade helpers for the optional licensed bed or documented original accents",
+        "Video Use normal per-segment EDL render and video-copy concat pipeline",
+        "Existing caption, overlay and audio helpers; document any bounded tool gap before implementing a new helper"
+      ],
+      "productionBatch": "social-02"
+    },
+    {
+      "id": "social-08-coffee-ritual",
+      "title": "Make a coffee moment",
+      "category": "Video Edits",
+      "description": "An honest three-source ritual: beans into a grinder, a pour-over and a finished cup.",
+      "technique": "video-editing",
+      "orientation": "portrait",
+      "aspect": "9:16",
+      "duration": 18,
+      "fps": 30,
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/browser-use/video-use",
+      "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+      "license": "MIT for original editing code and documentation; source media retains its own credited terms",
+      "licenseUrl": "https://github.com/browser-use/video-use/blob/main/LICENSE",
+      "audiences": [
+        "Content creators",
+        "Marketers"
+      ],
+      "useCases": [
+        "Social content",
+        "Short-form edits"
+      ],
+      "prompt": "Use Video Use to make an 18-second vertical coffee ritual from real footage: beans entering a grinder, a pour-over and a ready cup. Keep the pace tactile and calm, with deliberate cuts that connect pouring shapes and movement. Preserve the tool, stream and vessel whenever they explain the action; use a wider picture window instead of cropping them away. Keep natural warm tones and use restrained licensed music or original sound if the source lacks usable audio. Use at most a tiny editorial hook, no voiceover, recipe measurements or generic CTA. End after the visible pour finishes and let the cup settle. Treat different settings as a considered montage, not a claim that every shot follows the same brew. Use the footage or source URLs supplied in this chat and preserve its subject and intent. Deliver 1080\u00d71920 at 30 fps, with the top 150px, bottom 300px and rightmost 120px clear of important text. Keep honest credits and an editable cut map, caption timing and replay instructions. In normal interactive use, show a short preview for approval before the full edit.",
+      "sourceAssets": [
+        {
+          "id": "mixkit-4985",
+          "url": "https://assets.mixkit.co/videos/4985/4985-1080.mp4",
+          "sourcePage": "https://mixkit.co/free-stock-video/coffee-beans-falling-into-a-coffee-pot-4985/",
+          "license": "Mixkit Stock Video Free License",
+          "licenseUrl": "https://mixkit.co/license/",
+          "licenseEvidence": "The exact item page explicitly identifies the Stock Video Free License and permits commercial or personal use.",
+          "credit": "Footage: Mixkit item 4985, Coffee beans falling into a coffee pot. Edited for an educational Video Use example.",
+          "actualContent": "Whole coffee beans drop from a scoop/cup into a small blade grinder; its metal blade is visible.",
+          "limitations": "The item title calls it a coffee pot, but the actual footage shows a grinder. Do not label whole beans as brewed coffee or skip grinding in any claimed recipe.",
+          "transcribe": false,
+          "remote": "prepared-assets/social-20261004/mixkit-4985/mixkit-4985.mp4",
+          "sha256": "41724fc7798700062c952571904481318b54be78036d8ed8cec5e473cb3e2ea7",
+          "bytes": 51913230,
+          "duration": 16.766667,
+          "width": 1920,
+          "height": 1080,
+          "fps": "24000/1001",
+          "reviewMoments": [
+            0.0,
+            1.511,
+            3.021,
+            4.532,
+            6.042,
+            7.553,
+            9.064,
+            10.574,
+            12.085,
+            13.595,
+            15.106,
+            16.617
+          ],
+          "actualAcquisition": "yt-dlp direct public rendition in cloud; actual source probed and hashed"
+        },
+        {
+          "id": "mixkit-816",
+          "url": "https://assets.mixkit.co/videos/816/816-1080.mp4",
+          "sourcePage": "https://mixkit.co/free-stock-video/water-poured-into-a-coffee-filter-816/",
+          "license": "Mixkit Stock Video Free License",
+          "licenseUrl": "https://mixkit.co/license/",
+          "licenseEvidence": "The exact item page explicitly identifies the Stock Video Free License and permits commercial or personal use.",
+          "credit": "Footage: Mixkit item 816, Water poured into a coffee filter. Edited for an educational Video Use example.",
+          "actualContent": "A gooseneck kettle pours water onto grounds in a paper filter and glass brewer.",
+          "limitations": "Preserve kettle tip, water stream, filter and brewer. This is not espresso extraction. No quantities or exact recipe claims are established.",
+          "transcribe": false,
+          "remote": "prepared-assets/social-20261004/mixkit-816/mixkit-816.mp4",
+          "sha256": "67e4161f9c4b9ea4806e6b5d37484101a81302e4f4163bd0ecf79fa8c96de9d8",
+          "bytes": 74075956,
+          "duration": 24.375,
+          "width": 1920,
+          "height": 1080,
+          "fps": "24/1",
+          "reviewMoments": [
+            0.0,
+            2.202,
+            4.405,
+            6.607,
+            8.809,
+            11.011,
+            13.214,
+            15.416,
+            17.618,
+            19.82,
+            22.023,
+            24.225
+          ],
+          "actualAcquisition": "yt-dlp direct public rendition in cloud; actual source probed and hashed"
+        },
+        {
+          "id": "mixkit-236",
+          "url": "https://assets.mixkit.co/videos/236/236-2160.mp4",
+          "sourcePage": "https://mixkit.co/free-stock-video/filling-a-white-cup-of-coffee-236/",
+          "license": "Mixkit Stock Video Free License",
+          "licenseUrl": "https://mixkit.co/license/",
+          "licenseEvidence": "The exact item page explicitly identifies the Stock Video Free License and permits commercial or personal use.",
+          "credit": "Footage: Mixkit item 236, Filling a white cup of coffee. Edited for an educational Video Use example.",
+          "actualContent": "A dark coffee stream fills a white cup; foam rises and the stream tapers near the end.",
+          "limitations": "Verified UHD rendition should be used. The cup and tabletop differ from other coffee sources; present an editorial coffee ritual montage, not proof of one continuous brew.",
+          "transcribe": false,
+          "remote": "prepared-assets/social-20261004/mixkit-236/mixkit-236.mp4",
+          "sha256": "72aaaccfcc32a49667b65136aa17b9cad94650f4eff2850f9d255ab82d49978b",
+          "bytes": 97136028,
+          "duration": 20.061667,
+          "width": 3840,
+          "height": 2160,
+          "fps": "24000/1001",
+          "reviewMoments": [
+            0.0,
+            1.81,
+            3.62,
+            5.43,
+            7.241,
+            9.051,
+            10.861,
+            12.671,
+            14.481,
+            16.291,
+            18.102,
+            19.912
+          ],
+          "actualAcquisition": "yt-dlp direct public rendition in cloud; actual source probed and hashed"
+        },
+        {
+          "id": "music-boogie",
+          "url": "https://freemusicarchive.org/music/John_Bartmann/retro-boogie/boogie-til-you-drop/",
+          "license": "CC BY4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "credit": "Boogie Til You Drop by John Bartmann \u2014 https://johnbartmann.com/music \u2014 CC BY 4.0 https://creativecommons.org/licenses/by/4.0/ \u2014 excerpt with volume normalization and fades",
+          "sha256": "d71a66c54c71902781c5a9e1b8007ed8ebe8b2aa9717b4c85844d3fc348794a6",
+          "duration": 84.264,
+          "acquisition": "Existing licensed project soundtrack; original hash verified locally and in cloud"
+        }
+      ],
+      "preparedInputs": [
+        {
+          "source": "prepared-assets/social-20261004/mixkit-4985/mixkit-4985.mp4",
+          "target": "edit/downloads/mixkit-4985.mp4",
+          "sha256": "41724fc7798700062c952571904481318b54be78036d8ed8cec5e473cb3e2ea7",
+          "bytes": 51913230
+        },
+        {
+          "source": "prepared-assets/social-20261004/mixkit-816/mixkit-816.mp4",
+          "target": "edit/downloads/mixkit-816.mp4",
+          "sha256": "67e4161f9c4b9ea4806e6b5d37484101a81302e4f4163bd0ecf79fa8c96de9d8",
+          "bytes": 74075956
+        },
+        {
+          "source": "prepared-assets/social-20261004/mixkit-236/mixkit-236.mp4",
+          "target": "edit/downloads/mixkit-236.mp4",
+          "sha256": "72aaaccfcc32a49667b65136aa17b9cad94650f4eff2850f9d255ab82d49978b",
+          "bytes": 97136028
+        },
+        {
+          "source": "prepared-assets/social-20261004/music-boogie/boogie-til-you-drop.mp3",
+          "target": "edit/downloads/boogie-til-you-drop.mp3",
+          "sha256": "d71a66c54c71902781c5a9e1b8007ed8ebe8b2aa9717b4c85844d3fc348794a6",
+          "bytes": 4503142
+        }
+      ],
+      "assetPlan": "Use Mixkit 4985, 816 and 236 in that order. Actual inspection corrects the first item title: 4985 shows whole beans entering a blade grinder, not brewed coffee in a pot. The blade does not visibly spin, so do not claim grinding is shown or add a misleading grinding sound. In 816, a gooseneck kettle pours water into grounds in a filter and glass brewer. In 236, dark coffee fills a white cup and the stream ends; its source vessel is off screen, so do not call this espresso extraction. The props and settings differ: preserve that as a multi-source editorial ritual, with no continuous-recipe claim. A feasible 18s starting cut map is 4985 local 0.8\u20135.8s (5s), 816 local 16.8\u201322.8s (6s), and 236 local 12.9\u201319.9s (7s). Verify these boundaries on actual frames: the first shot should show falling beans and the grinder blade, the second retains the kettle tip and stream over the filter, and the third includes the stream stopping plus at least a one-second settled-cup ending. Keep normal-speed motion and the full 540-frame budget; do not invent a missing grinding step or time-compress the footage into a recipe. Source 816 is 24 fps and the other two are 23.976 fps; conform deliberately to 30 fps. Use measured source-pixel windows, widening to a designed inset when the portrait crop loses the stream or vessel. Suggested hook: A coffee moment. Inspect real source audio before mixing; any licensed bed or authored pouring texture needs explicit provenance and must not be described as captured location sound. No invented place, shop, roast, taste, health claim, temperature or brew ratio. Record separate source URLs, item credits and Mixkit license evidence, and exclude raw stock files from the editable ZIP. Optional licensed bed: audition the prepared boogie-til-you-drop.mp3 against the actual edit. Use it only if its pace fits; especially for coffee, keep the requested calm character. This is music, not captured location sound. If used, preserve the exact credit: Boogie Til You Drop by John Bartmann \u2014 https://johnbartmann.com/music \u2014 CC BY 4.0 https://creativecommons.org/licenses/by/4.0/ \u2014 excerpt with volume normalization and fades. Record the selected range, fades and gain, plus its source page and SHA256 d71a66c54c71902781c5a9e1b8007ed8ebe8b2aa9717b4c85844d3fc348794a6. Document reacquisition from the credited Free Music Archive page and hash verification; exclude the raw MP3 from the public source ZIP. If unused, omit it from the final used-assets and soundtrack claims. Visual direction: this is a social post, so make the real footage prominent. Avoid a small landscape rectangle surrounded by half a screen of empty matte. Use a generous tall or square picture region, complementary stacked views when needed, and only a compact hook and credit. Podcast captions should be approximately 60\u201372px at 1080 width and readable on a phone. Preserve essential action with intentional framing rather than simply shrinking everything. Do not put tool names, license prose, technical specs or production explanations into the visible video.",
+      "qualityChecks": [
+        "Actual content reads as beans into a grinder, water onto a filter and coffee into a cup, in that order",
+        "The grinder blade is visible but not falsely described or sounded as spinning; no whole beans are labeled brewed coffee",
+        "The kettle tip, water stream, filter and brewer remain legible through the selected pour-over action",
+        "The last cup pour actually stops and the film holds the settled cup for at least one second",
+        "Different source settings are represented honestly as a montage, with no exact recipe or espresso claim",
+        "540 output frames, with source-derived action timing and no invented intermediate process or AI continuation",
+        "Sound provenance distinguishes any real source audio from the original authored bed and accents",
+        "Final encoded MP4 is 1080\u00d71920 at 30 fps with the specified frame count; decoded opening, every cut and ending have been inspected",
+        "Critical text and action stay outside the top 150px, bottom 300px and rightmost 120px social UI zones",
+        "All supplied input hashes pass; the source list, license evidence, exact creative prompt and complete editable replay are preserved",
+        "Raw third-party footage is reacquired by documented URL and hash, not redistributed inside the editable source ZIP",
+        "Any licensed soundtrack is audibly reviewed for fit, credited with its exact CC BY 4.0 attribution and modification note, and excluded as raw MP3 from the public ZIP"
+      ],
+      "toolNeeds": [
+        "Existing per-source crop and EDL timing tools",
+        "Existing audio mix/fade helpers for a quiet optional licensed bed or documented original accents",
+        "Video Use normal per-segment EDL render and video-copy concat pipeline",
+        "Existing caption, overlay and audio helpers; document any bounded tool gap before implementing a new helper"
+      ],
+      "productionBatch": "social-02"
     }
   ]
 }
