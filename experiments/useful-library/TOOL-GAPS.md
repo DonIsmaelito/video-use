@@ -99,3 +99,14 @@ short multiword cues, temporal overlap and optional fixed-font line capacity.
 It reuses existing timestamp and wrapping primitives, preserves every input word,
 permits brief single-token emphasis, and keeps warnings advisory. Actual speech,
 intentional overlap and encoded typography still require editorial review.
+
+The hosted transcription path now shares the standalone audio-clock policy through
+`video_use_mcp/transcription.py`. An explicitly requested
+`transcribe_video(cache_mode="new_clock")` preserves the historical cache and
+creates a separately keyed, source-bound correction. Subsequent default requests
+reuse the verified correction; packed transcripts exclude superseded timing.
+Provider failures and database-save failures cannot replace a reviewed cache.
+The deployed `95aa3ce` revision passed 53 production tests and a live recovery
+smoke that retained original records, reused the corrected cache, and made no
+paid speech calls. This fixes cache recovery rather than claiming that ASR text
+or diarized speaker labels are automatically correct.

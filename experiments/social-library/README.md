@@ -46,7 +46,7 @@ The campaign's reusable changes are in the actual production framework:
 | Files | Purpose |
 | --- | --- |
 | `helpers/face_track.py`, `helpers/face_follow.py` | Measure a reviewed face target within a real shot, then compile bounded crop motion through the normal renderer. They do not identify people or infer active speakers. |
-| `helpers/transcribe.py`, `video_use_mcp/transcription.py` | Preserve source audio offsets and gaps during ASR extraction and verify cache compatibility. The hosted MCP and standalone workflow share that policy. |
+| `helpers/transcribe.py`, `video_use_mcp/transcription.py`, `video_use_mcp/runtime.py` | Preserve source audio offsets and gaps during ASR extraction and verify cache compatibility. The hosted MCP and standalone workflow share that policy; explicit `new_clock` recovery preserves historical caches and reuses a separately verified correction. |
 | `helpers/silent_retime.py` | Create an explicit, frame-mapped slow replay from silent footage, without claiming optical flow or secretly discarding audio. |
 | `helpers/ambient_audio.py` | Generate original bounded tonal/pulse beds with deterministic PCM and headroom checks. This is synthesis, not recorded location sound. |
 | `helpers/caption_readability.py` | Report phrase density, overlap and optional fixed-font capacity without silently deleting words or automatically approving an edit. |
