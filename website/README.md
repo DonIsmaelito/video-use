@@ -24,6 +24,8 @@ npm run build
 
 Set `SITE_URL` to the public origin when building a different deployment. The site is hosted by the **Video-use site** InsForge project, separate from the MCP backend project. Follow that project's existing hosting configuration; this is not a Vite app and does not use a Sites build plugin.
 
+The production build explicitly uses Next.js's webpack builder, matching the locally verified CSS pipeline. After publishing, check the rendered homepage and `/mcp`; a successful build alone does not verify the hosted styles or media.
+
 ## Routes and components
 
 - `app/page.tsx` assembles the repository-first homepage and example library.
