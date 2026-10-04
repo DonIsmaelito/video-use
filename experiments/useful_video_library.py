@@ -334,7 +334,11 @@ def runtime_app():
     for name in BRAND_FILES:
         if (ROOT / "website/public" / name).is_file():
             image = image.add_local_file(ROOT / "website/public" / name, str(REMOTE / "brand" / Path(name).name), copy=True)
-    options = dict(image=image, cpu=8, memory=16384, timeout=7200, max_containers=4, serialized=True,
+    # A provider preemption reruns a function even with retries=0. Long agent
+    # turns cannot safely restart over an existing authored attempt. Reserve
+    # nonpreemptible CPU/memory; explicit repairs preserve prior work instead.
+    # https://modal.com/docs/guide/preemption (3x CPU/memory rate, not model cost)
+    options = dict(image=image, cpu=8, memory=16384, timeout=7200, max_containers=4, serialized=True, nonpreemptible=True,
                    retries=0, volumes={"/results": volume}, secrets=[modal.Secret.from_name("video-use-codex")])
 
     @app.function(**options)
@@ -374,6 +378,12 @@ def runtime_app():
             metadata["error_type"] = type(exc).__name__
             # Keep errors concise; upstream auth/provider text must not be reflected.
             metadata["error"] = "Production did not complete; inspect this attempt's private evidence"
+        except BaseException:
+            # Cancellation/preemption bypass Exception. Retain an honest final
+            # state before provider cleanup, and let cancellation propagate.
+            metadata["status"] = "interrupted"
+            metadata["error"] = "Execution was interrupted; continue from preserved source in a new repair attempt"
+            raise
         finally:
             metadata["finished_at"] = time.time()
             write_json(root / "run.json", metadata)
@@ -614,7 +624,7 @@ def main(argv: list[str] | None = None) -> int:
             try:
                 result = call.get()
             except Exception as exc:
-                result = {"id": name, "status": "transport_failed", "error_type": type(exc).__name__, "call_id": call.object_id}
+                result = {"id": name, "status": "call_failed", "error_type": type(exc).__name__, "call_id": call.object_id}
             results.append(result)
             write_json(args.output / (args.batch + "-results.json"), results)
             print(json.dumps(result), flush=True)

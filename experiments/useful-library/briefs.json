@@ -394,7 +394,10 @@
         "Bottle opening and cap align",
         "Pouch and stream do not pass through bottle",
         "True geometry and shadows",
-        "No invented sustainability statistics"
+        "No invented sustainability statistics",
+        "Real 3D geometry, neck visibly open before refill, stream enters neck, top returns without intersecting bottle. No waste-reduction statistics or physical-simulation claims. Fictional Moss product.",
+        "Model dimensions, cap/pump pivots, stream timing, camera, materials, lights, brand and benefit copy should be editable. Changing the product name must change the final title and source metadata.",
+        "Preserve license notices for every bundled font, helper and upstream research copy; distinguish workflow inspiration from copied code. Do not claim no upstream source is bundled without inspecting the actual archive."
       ],
       "productionStatus": "brief only; not rendered",
       "productionBatch": "batch-03"
@@ -427,7 +430,7 @@
       "sourceConcept": "Author a composition or edit source footage, inspect frames, cut/reframe, mix audio and retain editable source. The current verified source is SKILL.md; the search-index README prompt anchor is stale.",
       "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled.",
       "prompt": "Use Video Use to edit the supplied licensed coffee footage into a 20-second 1080×1920 social promo for a fictional café called Sunday Coffee. Build a tactile sequence from falling beans, espresso preparation and the finished pour. Choose the most useful moments by watching the actual clips, crop each shot to protect the cup and hands, and cut on the completion of each action. Keep the first two seconds visually immediate. Add restrained cream typography: “A little pause”, “Made properly”, then “Sunday Coffee / Your morning starts here”. Use a subtle warm corrective grade that keeps the coffee natural, quiet café room tone if available and a light original rhythmic bed. Avoid exaggerated speed ramps, fake discount offers or claims about the stock café. Finish with a clean 3-second title card over a real coffee detail. The gallery description must say the business is fictional and the footage is licensed stock. Execute the edit with the current Video Use helpers, keep the source media unchanged, and retain the EDL, overlays and editable source. Inspect the rendered cut boundaries, readability and ending before delivery. Use 30 ms audio fades at cut boundaries and composite captions last. Describe the supplied source footage and its credit honestly; do not imply Video Use generated the source footage.",
-      "assetPlan": "Three Mixkit coffee clips, each explicitly licensed for commercial and personal reuse on its own item page. Public720p source renditions verified; crop carefully and do not describe output as native4K.",
+      "assetPlan": "Three Mixkit coffee clips, each explicitly licensed for commercial and personal reuse on its own item page. Official 1920x1080 downloads verified; inspect the actual source dimensions, crop carefully, and do not describe a portrait crop as native 4K.",
       "toolNeeds": [
         "Video Use render.py",
         "Existing per-range reframing",
@@ -438,7 +441,11 @@
         "Real action continuity at cuts",
         "Fictional business clearly documented",
         "Footage source credited",
-        "No aggressive grade clipping"
+        "No aggressive grade clipping",
+        "Inspect actual coffee actions; do not infer falling beans, espresso machinery or café ambience from a clip title. Match action cuts and protect cup/hands in the portrait crop. Sunday Coffee is fictional; footage is licensed stock.",
+        "Preserve each source URL/hash, source in/out times, per-shot crop and grade, original audio settings and title overlay. Mixed landscape-to-portrait crops need full-size sharpness review.",
+        "Preserve license notices for every bundled font, helper and upstream research copy; distinguish workflow inspiration from copied code. Do not claim no upstream source is bundled without inspecting the actual archive.",
+        "Record source asset URL, license, hash and actual downloaded dimensions; keep raw media out of the public archive and document permitted reacquisition plus exact edit/crop/audio parameters."
       ],
       "productionStatus": "brief only; not rendered",
       "sourceAssets": [
@@ -509,7 +516,10 @@
         "Same task persists across all3actions",
         "Instructions match visible control actions",
         "Readability at half-size",
-        "No existing product UI copied"
+        "No existing product UI copied",
+        "One continuous task receives a name, owner, then date; the final board must visibly contain all three. Do not call a fictional UI a real application integration.",
+        "Centralize task, owner, date and instruction copy; any name/avatar initial repeats need consistent replacement. UI source and seek timeline must remain editable.",
+        "Preserve license notices for every bundled font, helper and upstream research copy; distinguish workflow inspiration from copied code. Do not claim no upstream source is bundled without inspecting the actual archive."
       ],
       "productionStatus": "brief only; not rendered",
       "productionBatch": "batch-03"
@@ -551,7 +561,10 @@
         "Event is not lost after503",
         "Delivered appears only after200OK",
         "Retry path is directional and readable",
-        "No exactly-once guarantee"
+        "No exactly-once guarantee",
+        "The same order.paid event stays pending after the receiver's 503 and becomes Delivered only after the later 200. The response arrows need clear direction. This is one simplified configured retry flow, not guaranteed eventual delivery, indefinite retention, or exactly-once semantics.",
+        "State transitions, labels, token identity, retry timing and routes must be explicit. No live endpoint or secret should be required. Keep the simplified-flow footnote.",
+        "Preserve license notices for every bundled font, helper and upstream research copy; distinguish workflow inspiration from copied code. Do not claim no upstream source is bundled without inspecting the actual archive."
       ],
       "productionStatus": "brief only; not rendered",
       "productionBatch": "batch-03"
@@ -593,7 +606,10 @@
         "Each group has24dots",
         "Counts18and21matchpercentages75and87.5",
         "No causal or statistical significance claim",
-        "Notes readable in square format"
+        "Notes readable in square format",
+        "Exactly 24 dots in each group; 18 and 21 successes are 75% and 87.5%. Difference is three completions, or 12.5 percentage points if a rate difference is added. Do not invent significance, causality, sample demographics or a measured real study. Keep illustrative/small-sample notes visible.",
+        "Data drives counts and derived labels consistently. Avoid separate hardcoded percentages that would disagree after a dataset edit. Group assignment is unspecified; do not add claims about paired or independent study design.",
+        "Preserve license notices for every bundled font, helper and upstream research copy; distinguish workflow inspiration from copied code. Do not claim no upstream source is bundled without inspecting the actual archive."
       ],
       "productionStatus": "brief only; not rendered",
       "productionBatch": "batch-04"
@@ -637,7 +653,11 @@
         "Vertical crop does not lose rocket",
         "Date matches official metadata",
         "Source credit visible",
-        "No fabricated radio or endorsement"
+        "No fabricated radio or endorsement",
+        "Source metadata confirms Artemis I, 16 November 2022, Kennedy LC39B. Preserve anticipation → liftoff → ascent order; this was a launch toward the Moon, not footage of a lunar landing or crewed flight. No invented radio dialogue. Credit NASA, with photographer NASA/Sam Lott in provenance when retained.",
+        "Source selections and crop tracking should be reproducible. Keep clean real launch sound if used; recorded bystander or third-party music must not be mistaken for unrestricted soundtrack.",
+        "Preserve license notices for every bundled font, helper and upstream research copy; distinguish workflow inspiration from copied code. Do not claim no upstream source is bundled without inspecting the actual archive.",
+        "Record source asset URL, license, hash and actual downloaded dimensions; keep raw media out of the public archive and document permitted reacquisition plus exact edit/crop/audio parameters."
       ],
       "productionStatus": "brief only; not rendered",
       "sourceAssets": [
@@ -694,7 +714,10 @@
         "Service benefit visible without sound",
         "Broken/repaired states understandable",
         "CTA clear for4seconds",
-        "No fabricated metrics or endorsements"
+        "No fabricated metrics or endorsements",
+        "Visible lamp defect changes into the repaired illustrated state. Fictional service, no real customer before/after claim, performance guarantee, environmental statistic, price or urgency.",
+        "Preserve separate articulated lamp parts, pivots, timing, brand and service copy. Reusable CTA remains readable for the last four seconds.",
+        "Preserve license notices for every bundled font, helper and upstream research copy; distinguish workflow inspiration from copied code. Do not claim no upstream source is bundled without inspecting the actual archive."
       ],
       "productionStatus": "brief only; not rendered",
       "productionBatch": "batch-04"
@@ -737,7 +760,10 @@
         "Route remains continuous and unobstructed",
         "Destination labels match spaces",
         "No invented real address or safety map",
-        "Final overview readable"
+        "Final overview readable",
+        "Route physically reaches entrance → welcome desk → studio. Coffee is optional and must not replace the main route. Labels stay attached to the correct geometry. This is a fictional conceptual plan, not accessibility certification, emergency egress guidance, or directions to a real address.",
+        "Route coordinates, room positions and label anchors are explicit. Repositioning a room should not leave a label or route inside a wall. No borrowed real floor plan.",
+        "Preserve license notices for every bundled font, helper and upstream research copy; distinguish workflow inspiration from copied code. Do not claim no upstream source is bundled without inspecting the actual archive."
       ],
       "productionStatus": "brief only; not rendered",
       "productionBatch": "batch-04"
@@ -781,7 +807,11 @@
         "Cuts preserve direction or feel intentional",
         "No property facts invented",
         "Final view holds3seconds",
-        "Stock/demonstration credit retained"
+        "Stock/demonstration credit retained",
+        "Describe only spaces visible in the actual clip. Do not add room size, address, nightly price, amenities or property ownership. Keep it an unbranded licensed-stock demonstration; avoid a misleading impression of an actual accommodation offer.",
+        "Record source selects, camera direction, stabilization/crop and color settings. Reacquisition instructions must identify Mixkit clip 4029 and the exact rendition.",
+        "Preserve license notices for every bundled font, helper and upstream research copy; distinguish workflow inspiration from copied code. Do not claim no upstream source is bundled without inspecting the actual archive.",
+        "Record source asset URL, license, hash and actual downloaded dimensions; keep raw media out of the public archive and document permitted reacquisition plus exact edit/crop/audio parameters."
       ],
       "productionStatus": "brief only; not rendered",
       "sourceAssets": [
@@ -835,7 +865,10 @@
         "The two scopes are visually distinct",
         "Starter remains onepage",
         "Launch includes all3deliverabletypes",
-        "Comparison readable in finalframe"
+        "Comparison readable in finalframe",
+        "Starter contains one landing page; Launch contains that page plus email and social deliverables. Final side-by-side scopes must remain clear. Fictional studio and plant-shop content, no invented commercial offer details.",
+        "Editable deliverable list should determine both labels and visible mockups. Avoid changing text to promise an asset absent from the visual package.",
+        "Preserve license notices for every bundled font, helper and upstream research copy; distinguish workflow inspiration from copied code. Do not claim no upstream source is bundled without inspecting the actual archive."
       ],
       "productionStatus": "brief only; not rendered",
       "productionBatch": "batch-05"
@@ -877,7 +910,10 @@
         "Original count3andcorrectedcount2matchdata",
         "Only pendingrowremoved",
         "Code remains valid JavaScript",
-        "Linewrappingneverclips"
+        "Linewrappingneverclips",
+        "Three sample orders contain one pending and two paid. orders.length returns 3; filtering status === 'paid' then counting returns 2. Keep the pending row identifiable as excluded, not deleted from the underlying data. Code remains valid after visual line wrapping.",
+        "Source data and computed outputs agree; monospace text is editable. The corrected chain is fully readable, including predicate, closing parenthesis and .length. No real account data.",
+        "Preserve license notices for every bundled font, helper and upstream research copy; distinguish workflow inspiration from copied code. Do not claim no upstream source is bundled without inspecting the actual archive."
       ],
       "productionStatus": "brief only; not rendered",
       "productionBatch": "batch-05"
@@ -919,7 +955,10 @@
         "Box is sameobjectthroughout",
         "Packingandlabelapplywithoutgeometryintersections",
         "Oneclearprocessstepatatime",
-        "No shippingguaranteesoraddresses"
+        "No shippingguaranteesoraddresses",
+        "The same parcel is packed before it is sealed, labelled, and moved to the outgoing tray. Product/label/box transitions should make physical sense with no unexplained duplicates or intersections. No real shipping address, carrier claim, delivery guarantee, or tracking number.",
+        "Geometry, pivots, timings and camera remain editable; no account integration is needed. Keep a blank neutral shipping label.",
+        "Preserve license notices for every bundled font, helper and upstream research copy; distinguish workflow inspiration from copied code. Do not claim no upstream source is bundled without inspecting the actual archive."
       ],
       "productionStatus": "brief only; not rendered",
       "productionBatch": "batch-05"
@@ -963,7 +1002,11 @@
         "No unverified hardwareidentifications",
         "Source ranges recorded",
         "Credit readable",
-        "NoNASAendorsement"
+        "NoNASAendorsement",
+        "Select actual connected spaces and equipment; use “A view of Earth” only if Earth is visible. Do not identify a specific module or instrument without source confirmation. Tour metadata states it was recorded on 10 October 2022; later file publication/encode dates are not recording dates. The clean source title and descriptive popup text differ, so inspect the actual rendition.",
+        "Retain source selections, overlay anchors and any original narration text. Use the recorded tour page for the closing invitation rather than inventing a URL. Preserve NASA source attribution and no-endorsement framing.",
+        "Preserve license notices for every bundled font, helper and upstream research copy; distinguish workflow inspiration from copied code. Do not claim no upstream source is bundled without inspecting the actual archive.",
+        "Record source asset URL, license, hash and actual downloaded dimensions; keep raw media out of the public archive and document permitted reacquisition plus exact edit/crop/audio parameters."
       ],
       "productionStatus": "brief only; not rendered",
       "sourceAssets": [
