@@ -1,4 +1,4 @@
-import { ArrowUpRight, Plug } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 import launch from '@/data/mcp-launch.json';
 import { AgentMarks } from '@/components/connect-mcp';
@@ -36,12 +36,6 @@ export function McpFeature() {
         ) : (
           <McpArtwork />
         )}
-        <span className="featured-label">
-          <Plug size={11} /> Featured
-        </span>
-        <span className="feature-open">
-          <ArrowUpRight size={18} />
-        </span>
       </Link>
       <div className="card-heading">
         <Link href="/mcp">Your chat is a video studio</Link>
@@ -52,7 +46,7 @@ export function McpFeature() {
         conversation.
       </p>
       <div className="card-bottom">
-        <span className="feature-tag">Meet the MCP</span>
+        <span className="feature-tag">Featured · Video Use MCP</span>
         <Link className="card-connect" href="/mcp">
           <AgentMarks compact />
           <span>Explore</span>

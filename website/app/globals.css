@@ -991,40 +991,6 @@ em {
   border-radius: 50%;
   transform: rotate(70deg);
 }
-.featured-label {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 4;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 8px;
-  color: #e8d3fb;
-  padding: 4px 6px;
-  border: 1px solid #ffffff20;
-  border-radius: 4px;
-  background: #1b132980;
-  backdrop-filter: blur(8px);
-}
-.mcp-feature .mcp-artwork > .artwork-label {
-  visibility: hidden;
-}
-.feature-open {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 26px;
-  height: 26px;
-  border: 1px solid #ffffff28;
-  border-radius: 50%;
-  color: #dfc4f4;
-  background: #20192f80;
-  z-index: 4;
-}
 .feature-tag {
   font-size: 9px;
   color: #d1b3eb;
@@ -1656,15 +1622,27 @@ em {
 .mcp-hero-media > .mcp-artwork {
   height: calc(100% - 37px);
 }
+.mcp-hero-media:has(> .launch-film-preview) {
+  aspect-ratio: auto;
+}
 .launch-film-preview {
   position: relative;
   display: block;
   width: 100%;
-  height: calc(100% - 37px);
+  height: auto;
+  aspect-ratio: 16 / 9;
   padding: 0;
   border: 0;
   background: #17101e;
   text-align: left;
+}
+.launch-film-preview > .preview-media {
+  position: absolute;
+  inset: 0;
+}
+.launch-film-preview .card-poster,
+.launch-film-preview video {
+  object-fit: contain;
 }
 .launch-film-preview > span {
   position: absolute;
@@ -2675,23 +2653,6 @@ em {
   }
   .featured-note-footer {
     display: none;
-  }
-  .featured-label {
-    left: 7px;
-    top: 7px;
-    font-size: 6px;
-    gap: 4px;
-    padding: 3px 4px;
-  }
-  .feature-open {
-    width: 20px;
-    height: 20px;
-    right: 7px;
-    top: 7px;
-  }
-  .feature-open > svg {
-    width: 13px;
-    height: 13px;
   }
   .feature-tag {
     font-size: 8px;
