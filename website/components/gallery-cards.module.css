@@ -1,24 +1,29 @@
-/* Proportional flex widths give every filled row one media height, without
-   masonry holes, DOM reordering or a resize script. The last row stays modest. */
+/* Higgsfield-style equal-width columns with natural-height media and 8px seams.
+   The regular grid remains usable before the masonry enhancement hydrates. */
 .grid:global(.video-grid) {
-  --preview-height: 252px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 16px 12px;
+  --gallery-columns: 2;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--gallery-columns), minmax(0, 1fr));
+  align-items: start;
+  gap: 8px;
 }
 
-.grid::after {
-  content: '';
-  flex: 1000000 1 0;
+.grid[data-masonry] {
+  display: block;
+}
+
+.grid[data-masonry] > .card {
+  position: absolute;
+  width: calc(
+    (100% - (var(--gallery-columns) - 1) * 8px) / var(--gallery-columns)
+  );
 }
 
 .card:global(.video-card) {
   --media-ratio: 1.777777778;
-  flex: calc(var(--media-ratio) * 100) 1
-    calc(var(--preview-height) * var(--media-ratio));
   min-width: 0;
-  border-radius: 14px;
+  border-radius: 12px;
   background: #141414;
 }
 
@@ -32,7 +37,7 @@
 
 .frame:global(.video-frame) {
   aspect-ratio: var(--media-ratio);
-  border-radius: 14px 14px 0 0;
+  border-radius: 12px 12px 0 0;
 }
 
 .duration:global(.video-duration) {
@@ -125,30 +130,25 @@
   background: #fff;
 }
 
-@media (min-width: 1800px) {
+@media (min-width: 1024px) {
   .grid:global(.video-grid) {
-    --preview-height: 290px;
-    gap: 18px 14px;
+    --gallery-columns: 3;
+  }
+}
+
+@media (min-width: 1280px) {
+  .grid:global(.video-grid) {
+    --gallery-columns: 4;
   }
 }
 
 @media (max-width: 700px) {
-  .grid:global(.video-grid) {
-    --preview-height: 240px;
-    gap: 12px 10px;
-  }
-
   .footer {
     padding-inline: 8px;
   }
 }
 
 @media (max-width: 380px) {
-  .grid:global(.video-grid) {
-    --preview-height: 220px;
-    gap: 12px 8px;
-  }
-
   .heading {
     gap: 3px;
   }

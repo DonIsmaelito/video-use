@@ -26,6 +26,7 @@ import { ConnectMcp } from '@/components/connect-mcp';
 import { McpFeature } from '@/components/mcp-feature';
 import { FeaturedFilm } from '@/components/featured-film';
 import { FeaturedCarousel } from '@/components/featured-carousel';
+import { MasonryGallery } from '@/components/masonry-gallery';
 import productLaunch from '@/data/product-launch.json';
 import {
   useGalleryLikes,
@@ -474,7 +475,7 @@ export function Gallery() {
                 )}
               </div>
             )}
-            <div className={`video-grid ${cardStyles.grid}`}>
+            <MasonryGallery>
               {visible.map((example) => (
                 <VideoCard
                   key={example.id}
@@ -494,7 +495,7 @@ export function Gallery() {
                   toggleLike={() => toggle(example.id)}
                 />
               ))}
-            </div>
+            </MasonryGallery>
             {!visible.length && (
               <div className="empty-results">
                 <Search size={25} />
