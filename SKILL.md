@@ -81,6 +81,7 @@ Helpers (`helpers/transcribe.py`, `helpers/render.py`, etc.) live alongside this
 - **`visuals.py`** — reusable canvas treatments, per-range reframing, and style-neutral text/line/box/image graphic layers.
 - **[Continuous reframing](skills/video-workflows/continuous-reframing.md)** — bounded output-time zoom/focus keyframes under `treatment.reframe`, preserving motion across cuts before graphics and captions.
 - **[Color comparisons](skills/video-workflows/grade-comparison.md)** — a silent original/corrected wipe using one decoded frame clock, matching geometry and bounded RGB curves.
+- **[Moving privacy masks](skills/video-workflows/tracked-masks.md)** — explicit opaque rectangle tracks mapped through source cuts, with fixed-clock and encoded-frame coverage checks.
 - **`grade.py <in> -o <out>`** — ffmpeg filter chain grade. Presets + `--filter '<raw>'` for custom.
 
 For animations, create `<edit>/animations/slot_<id>/` with `Bash` and spawn a sub-agent via the `Agent` tool.
