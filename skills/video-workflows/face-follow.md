@@ -109,6 +109,11 @@ but never override measured face containment. If the head margin cannot fit or
 the necessary pan exceeds the configured speed, rendering fails for review.
 This path performs position changes at a fixed crop size, not automatic zoom.
 
+A full-height 9:16 crop can be too narrow for a wide head outline or existing
+source titles even when the measured face fits. In that case use a wider picture
+window on the portrait canvas, or an explicit contain layout. Do not treat the
+detector box as evidence that hair, hands or source graphics remain intact.
+
 No extra `range.reframe`, `layout.crop`, global `treatment.reframe` or global
 `treatment.canvas` is allowed to recrop the verified face-follow result. Define
 the required output canvas/window in `layout`; grade, graphics and captions

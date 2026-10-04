@@ -56,3 +56,18 @@ audio and concatenation keep the established pipeline. Local encoded fixtures
 cover moving positions, VFR, nonzero container starts, previews, audio events at
 44.1/48 kHz and explicit failure conditions. A real acquired-source detector and
 encoded-crop review is required before using it for the new campaign's films.
+
+The secret-free production image passed all 82 face/shot/AAC/frame-clock tests.
+Actual YouTube-acquired Moon interview footage exposed a split-to-guest camera
+cut at source-local 32.631917 seconds, correcting the earlier shot assumption.
+The reviewed 33–49 second guest shot yielded 960/960 selected YuNet measurements
+and a normal-pipeline 1080×1920, 30 fps, 480-frame encode with 16 seconds of audio.
+Encoded samples were viewed; the tight full-height crop preserves the face but
+trims old source lower-thirds, so it is framing proof, not a publishable design
+or a full-head guarantee. Wider picture windows remain an explicit design option.
+
+The same audit reproduced an ASR clock gap: ordinary PCM export discards a
+positive audio start offset. `transcribe.py` now fills/trims against actual input
+timestamps before dropping them into WAV, records extraction policy in cache v2,
+and only reuses a v1 cache after every decoded audio timestamp agrees with its
+continuous sample clock. Unverified caches are preserved, not silently migrated.

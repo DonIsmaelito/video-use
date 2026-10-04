@@ -27,7 +27,7 @@ These are the things where deviation produces silent failures or broken output. 
 6. **Never cut inside a word.** Snap every cut edge to a word boundary from the Scribe transcript.
 7. **Pad every cut edge.** Working window: 30–200ms. Scribe timestamps drift 50–100ms — padding absorbs the drift. Tighter for fast-paced, looser for cinematic.
 8. **Word-level verbatim ASR only.** Never SRT/phrase mode (loses sub-second gap data). Never normalized fillers (loses editorial signal).
-9. **Cache transcripts per source.** Never re-transcribe unless the source file itself changed.
+9. **Cache transcripts per source and clock.** Reuse matching source/settings/clock evidence. Preserve incompatible legacy caches; see [transcript clock validation](skills/video-workflows/transcription-clock.md).
 10. **Parallel sub-agents for multiple animations.** Never sequential. Spawn N at once via the `Agent` tool; total wall time ≈ slowest one.
 11. **Respect the agreed strategy.** Confirm a cut strategy when the user has not already approved it or authorized autonomous execution. Existing authorization carries forward; do not add another approval step for routine implementation or an explicitly open-ended creative task.
 12. **All session outputs in `<videos_dir>/edit/`.** Never write inside the `video-use/` project directory.

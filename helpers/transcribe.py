@@ -17,6 +17,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+from fractions import Fraction
 import hashlib
 import json
 import os
@@ -33,6 +34,15 @@ from dotenv import dotenv_values
 SCRIBE_URL = "https://api.elevenlabs.io/v1/speech-to-text"
 DEFAULT_MODEL = "scribe_v2"
 MODELS = ("scribe_v2", "scribe_v1")
+# WAV has no source timestamps. Explicitly fill/trim to the input seek clock
+# before dropping timestamps; otherwise delayed speech moves earlier in ASR.
+# async=1 only fills/trims, without stretching the spoken waveform.
+AUDIO_FILTER = "aresample=16000:async=1:min_comp=0.0000625:min_hard_comp=0.0000625:first_pts=0"
+AUDIO_EXTRACTION = {
+    "version": 2, "stream": "a:0", "sample_rate": 16000, "channels": 1,
+    "clock": "decoded audio PTS minus format.start_time in seconds",
+    "filter": AUDIO_FILTER,
+}
 
 
 def load_api_key() -> str:
@@ -56,9 +66,54 @@ def source_identity(video: Path, language: str | None, num_speakers: int | None,
     with video.open("rb") as stream:
         for chunk in iter(lambda: stream.read(1024 * 1024), b""):
             digest.update(chunk)
-    return {"version": 1, "source_sha256": digest.hexdigest(),
+    return {"version": 2, "source_sha256": digest.hexdigest(),
             "model_id": model, "language_code": language, "num_speakers": num_speakers,
-            "diarize": True, "tag_audio_events": True, "timestamps_granularity": "word"}
+            "diarize": True, "tag_audio_events": True, "timestamps_granularity": "word",
+            "audio_extraction": dict(AUDIO_EXTRACTION)}
+
+
+def legacy_audio_clock(video: Path) -> dict:
+    """Prove a v1 untimed WAV had the source clock, without rewriting its cache.
+
+    Inspect *decoded* timestamps/sample counts, including AAC priming, across
+    the entire stream. Checking only stream.start_time misses internal gaps.
+    More than one audio stream is rejected because v1 used FFmpeg's automatic
+    stream selection. Sources with unprovable/quantized timing fail closed.
+    """
+    command = ["ffprobe", "-v", "error", "-select_streams", "a", "-show_streams",
+               "-show_frames", "-show_format", "-show_entries",
+               "stream=index,sample_rate,time_base:format=start_time:"
+               "frame=stream_index,best_effort_timestamp,nb_samples", "-of", "json", str(video)]
+    try:
+        data = json.loads(subprocess.run(command, capture_output=True, check=True, timeout=1800).stdout)
+        streams, frames = data.get("streams", []), data.get("frames", [])
+        if len(streams) != 1 or not frames:
+            raise ValueError("one decoded audio stream is required")
+        stream = streams[0]
+        rate = int(stream["sample_rate"])
+        time_base = Fraction(stream["time_base"])
+        origin = Fraction(data["format"]["start_time"])
+        if rate <= 0 or time_base <= 0:
+            raise ValueError("invalid audio time base")
+        samples = 0
+        max_error = Fraction(0)
+        first_time = None
+        for frame in frames:
+            pts, count = frame.get("best_effort_timestamp"), frame.get("nb_samples")
+            if frame.get("stream_index") != stream["index"] or type(pts) is not int or type(count) is not int or count <= 0:
+                raise ValueError("incomplete decoded audio timing")
+            source_time = pts * time_base - origin
+            if first_time is None:
+                first_time = source_time
+            max_error = max(max_error, abs(source_time - Fraction(samples, rate)))
+            samples += count
+        # A single 16kHz output sample is the maximum accepted clock rounding.
+        if max_error > Fraction(1, 16000):
+            raise ValueError("decoded audio has a nonzero start or a timestamp discontinuity")
+    except (KeyError, TypeError, ValueError, ZeroDivisionError, subprocess.SubprocessError) as error:
+        raise ValueError("Legacy transcript audio clock is not verified; preserve it and transcribe into a separate edit directory") from error
+    return {"audio_frames": len(frames), "decoded_samples": samples, "sample_rate": rate,
+            "first_sample_time": float(first_time), "max_clock_error_seconds": float(max_error)}
 
 
 def cached_transcript(video: Path, edit_dir: Path, language: str | None = None,
@@ -73,15 +128,24 @@ def cached_transcript(video: Path, edit_dir: Path, language: str | None = None,
         payload = json.loads(out_path.read_text())
     except (ValueError, UnicodeError):
         raise ValueError("Existing transcript is not valid JSON; preserve it and use a separate edit directory") from None
-    if not isinstance(payload, dict) or payload.get("_video_use") != identity or not isinstance(payload.get("words"), list):
+    if not isinstance(payload, dict) or not isinstance(payload.get("words"), list):
         raise ValueError("Existing transcript does not match these source bytes and settings; preserve it and use a separate edit directory")
+    if payload.get("_video_use") != identity:
+        legacy_identity = {key: value for key, value in identity.items() if key != "audio_extraction"}
+        legacy_identity["version"] = 1
+        if payload.get("_video_use") != legacy_identity:
+            raise ValueError("Existing transcript does not match these source bytes and settings; preserve it and use a separate edit directory")
+        legacy_audio_clock(video)
+        if source_identity(video, language, num_speakers, model) != identity:
+            raise ValueError("Source changed during legacy transcript clock verification")
     return out_path
 
 
 def extract_audio(video_path: Path, dest: Path) -> None:
     cmd = [
-        "ffmpeg", "-y", "-i", str(video_path),
-        "-vn", "-ac", "1", "-ar", "16000", "-c:a", "pcm_s16le",
+        "ffmpeg", "-nostdin", "-y", "-i", str(video_path),
+        "-map", "0:a:0", "-vn", "-sn", "-dn", "-af", AUDIO_FILTER,
+        "-ac", "1", "-ar", "16000", "-c:a", "pcm_s16le",
         str(dest),
     ]
     subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
