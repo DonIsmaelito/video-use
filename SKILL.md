@@ -78,6 +78,7 @@ Helpers (`helpers/transcribe.py`, `helpers/render.py`, etc.) live alongside this
 - **`timeline_view.py <video> <start> <end>`** — filmstrip + waveform PNG. On-demand visual drill-down. **Not a scan tool** — use it at decision points, not constantly.
 - **`render.py <edl.json> -o <out>`** — per-segment extract → concat → overlays (PTS-shifted) → subtitles LAST. `--preview` for 720p fast. `--build-subtitles` to generate master.srt inline.
 - **`captions.py`** — configurable word-level caption chunking plus libass/PIL renderer selection. PIL is the fallback when ffmpeg lacks the subtitles filter and the path for pixel-specific caption styling.
+- **[Caption readability](skills/video-workflows/caption-readability.md)** — read-only SRT/ASS density, overlap and fixed-font capacity report; warnings require editorial review, not automatic word removal.
 - **`visuals.py`** — reusable canvas treatments, per-range reframing, and style-neutral text/line/box/image graphic layers.
 - **[Continuous reframing](skills/video-workflows/continuous-reframing.md)** — bounded output-time zoom/focus keyframes under `treatment.reframe`, preserving motion across cuts before graphics and captions.
 - **[Measured face following](skills/video-workflows/face-follow.md)** — reviewed face seeds, real per-frame YuNet observations and target-aspect crops through the normal renderer, with explicit loss and ambiguity handling.

@@ -91,3 +91,11 @@ seed and input/output hashes, and preserves existing files. This is original
 sinusoidal synthesis, not recorded nature sound or a generative music service.
 Focused tests inspect real WAV samples, oscillator frequency/pan, exact duration,
 silent boundaries, overlap rejection and failed/concurrent-write protection.
+
+Native review of two social conversation films found eight-word cues lasting
+only 0.62s and 0.58s. Both fit their caption box, so geometric checks alone missed
+the problem. `helpers/caption_readability.py` now reports SRT/ASS text density,
+short multiword cues, temporal overlap and optional fixed-font line capacity.
+It reuses existing timestamp and wrapping primitives, preserves every input word,
+permits brief single-token emphasis, and keeps warnings advisory. Actual speech,
+intentional overlap and encoded typography still require editorial review.

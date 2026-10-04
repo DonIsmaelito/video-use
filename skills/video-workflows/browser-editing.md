@@ -118,6 +118,7 @@ assets and prove uncertain visual components before promising their quality.
 Read only the relevant compact guide: `scenes` for editable 2D drawing data,
 `manim` for richer diagrams/equations, `motion` for browser compositions, or
 `workflows` for mixed-media work. Detailed references are available on demand.
+For footage edits, read `skills/video-workflows/editing-tools.md` for the reusable helper index.
 
 For silent SDR before/after wipes, read `skills/video-workflows/grade-comparison.md`
 through `video_use_guidance`; run `helpers/grade_comparison.py` with
