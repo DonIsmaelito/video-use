@@ -2678,34 +2678,34 @@
   {
     "id": "mcp-launch",
     "kind": "original useful workflow produced with Video Use",
-    "sourceBatch": "batch-01",
+    "sourceBatch": "batch-04",
     "sourceRun": "mcp-launch",
     "model": "gpt-6-astra",
     "reasoningEffort": "medium",
     "frameworkBranch": "feature/useful-video-library",
-    "frameworkCommit": "a68d0e2904aa8c028fa74f79fa99d68788ad68ba",
-    "frameworkArchiveSha256": "914f855395276841c8f48cb739883c965ef5732144e324f2137b6d6edef80573",
+    "frameworkCommit": "42039fb21af37e5f985c2879ca3ee894218640d9",
+    "frameworkArchiveSha256": "561bc61faaa5876b7b3bbdd1abc233f936974e7b1ecf8d8a7c1e83d5f16275d5",
     "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
     "storage": "Cloudflare R2",
-    "websiteSha256": "63c49aab5da7a4f54c98b506e6152d23c7bdf31caef57ca57d97f16aa151edbc",
+    "websiteSha256": "44f0c3565d86ac51f4ae53ac5ab84f58aeca4b70f3268865e2ac99a29bc1ff25",
     "promptSource": "Original Video Use product demonstration, created with Video Use. No third-party prompt template was copied.",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-63c49aab5da7-cd587a08/source.zip",
-    "editableSourceSha256": "794d224609a4fa9972ad10b7929ed3ac896459c22996c404a61fb4b0f0065b98",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-44f0c3565d86-ead49539/source.zip",
+    "editableSourceSha256": "2360394689a0ca1a51363d4c03c77db4b26a57a46bc3cfed2de2aafad8a2f4f5",
     "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
-    "cloudProject": "video-use-useful-library-20261003/batch-01/mcp-launch/repairs/repair-20261003-204324/project/edit",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-63c49aab5da7-cd587a08/review.md",
-    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-63c49aab5da7-cd587a08/verification.json",
-    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-63c49aab5da7-cd587a08/storyboard.jpg",
-    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-63c49aab5da7-cd587a08/creative-prompt.txt",
-    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-63c49aab5da7-cd587a08/provenance.json",
+    "cloudProject": "video-use-useful-library-20261003/batch-04/mcp-launch/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-44f0c3565d86-ead49539/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-44f0c3565d86-ead49539/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-44f0c3565d86-ead49539/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-44f0c3565d86-ead49539/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-44f0c3565d86-ead49539/provenance.json",
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-63c49aab5da7-cd587a08/final.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-44f0c3565d86-ead49539/final.mp4"
       },
       {
         "field": "poster",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-63c49aab5da7-cd587a08/poster.jpg"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-44f0c3565d86-ead49539/poster.jpg"
       }
     ]
   },
@@ -2970,6 +2970,40 @@
       {
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-11-retry-webhook-9a2aeef7c61f-03cde557/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-12-research-summary",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-04",
+    "sourceRun": "useful-12-research-summary",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "42039fb21af37e5f985c2879ca3ee894218640d9",
+    "frameworkArchiveSha256": "561bc61faaa5876b7b3bbdd1abc233f936974e7b1ecf8d8a7c1e83d5f16275d5",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "e809aa823b253c5d1f376a1cc42cd7ced6d95820ad2667ad70a685dd672226de",
+    "promptSource": "Original Video Use brief and visual explanation. Geometry, annotation and chart ideas informed by Manim Community examples (MIT).",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-12-research-summary-e809aa823b25-003c95a7/source.zip",
+    "editableSourceSha256": "acdfbbbc78c67acfed0903c244ad61b1ad811a1b3b88c54fb5100c09b2ae6b11",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-04/useful-12-research-summary/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-12-research-summary-e809aa823b25-003c95a7/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-12-research-summary-e809aa823b25-003c95a7/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-12-research-summary-e809aa823b25-003c95a7/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-12-research-summary-e809aa823b25-003c95a7/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-12-research-summary-e809aa823b25-003c95a7/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-12-research-summary-e809aa823b25-003c95a7/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-12-research-summary-e809aa823b25-003c95a7/poster.jpg"
       }
     ]
   }

@@ -268,6 +268,33 @@
     "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-11-retry-webhook-9a2aeef7c61f-03cde557/review.md"
   },
   {
+    "id": "useful-12-research-summary",
+    "title": "Present Research Findings Clearly",
+    "category": "Explainers",
+    "description": "Turn a small study into a transparent visual summary with context and limitations.",
+    "prompt": "Use Video Use to make a 25-second 1080×1080 visual research summary for a fictional usability study. Use exactly this illustrative dataset: Prototype A,18 of 24 participants completed the task; Prototype B,21 of 24 completed it. Start with “Can people finish the task?” Show two grids of 24 equal dots, filling 18 then 21, with success counts and 75% versus 87.5%. Highlight the difference as “3 more completions in this sample”. Briefly show a compact study card: “Same task /24 participants per version /Illustrative results”. End with “Next: test the confusing step” and a persistent note “Small sample; no significance claim”. Use white, ink and a calm periwinkle accent with consistent scaling and no misleading truncated charts. Animate the actual count, not arbitrary decorative counters. Let viewers inspect both groups at the same time. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
+    "duration": 25,
+    "promptKind": "Original prompt",
+    "orientation": "square",
+    "audiences": [
+      "Educators",
+      "Product teams",
+      "Designers"
+    ],
+    "useCases": [
+      "Research summaries",
+      "Reports",
+      "Data stories"
+    ],
+    "technique": "diagrams",
+    "sourceRepo": "https://github.com/ManimCommunity/manim",
+    "promptSource": "Original Video Use brief and visual explanation. Geometry, annotation and chart ideas informed by Manim Community examples (MIT).",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-12-research-summary-e809aa823b25-003c95a7/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-12-research-summary-e809aa823b25-003c95a7/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-12-research-summary-e809aa823b25-003c95a7/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-12-research-summary-e809aa823b25-003c95a7/review.md"
+  },
+  {
     "id": "whiplash-cinematic-story-edit",
     "title": "Whiplash — a Cinematic Story Edit",
     "category": "Video Edits",
