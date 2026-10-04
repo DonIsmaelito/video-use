@@ -2,6 +2,8 @@
 
 Use sound analysis when a visual behavior should follow actual audio. A score can also be authored alongside motion with deliberate phrase-level decisions. Choose the relationship for the brief; do not turn every film into a reactive visualizer.
 
+For original procedural tap and slide accents authored to a timeline, use [tactile audio generation](tactile-audio.md). That helper generates sound; the analyzer described below measures existing sound.
+
 `helpers/motion_audio.py` decodes the first audio stream with FFmpeg and uses NumPy to create versioned, time-indexed controls. It makes no assumptions about BPM, genre, instruments, scene type, or design style. It does not interpret a prompt or choose a visual composition.
 
 ```bash
