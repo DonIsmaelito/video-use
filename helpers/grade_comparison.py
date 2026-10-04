@@ -213,7 +213,7 @@ def render(config_path, output, *, width=None, overwrite=False):
     if abs(spec["height"] - spec["width"] * video["height"] / video["width"]) > 2:
         raise ValueError("Comparison dimensions must preserve source aspect ratio")
     if width is not None and (type(width) is not int or not 64 <= width <= spec["width"] or width % 2):
-        raise ValueError("Draft width must be an even integer from64 through configured width")
+        raise ValueError("Draft width must be an even integer from 64 through configured width")
     w = width or spec["width"]
     h = 2 * round(w * spec["height"] / spec["width"] / 2)
     if h < 2:

@@ -58,8 +58,8 @@ the source. H.264/chroma subsampling can slightly change exported pixels.
 
 Use a square-pixel, unrotated SDR source and matching aspect ratio. Convert HDR,
 anamorphic or orientation metadata explicitly before comparison. Duration must
-span whole output frames, up to300 seconds; the integer frame rate is1–60. Even
-dimensions are64–4096, up to8,388,608 pixels. Draft width can only reduce the
+span whole output frames, up to 300 seconds; the integer frame rate is 1–60. Even
+dimensions are 64–4096, up to 8,388,608 pixels. Draft width can only reduce the
 configured width. Reframing/stretching and sound editing belong in separate steps.
 
 Inspect the encoded original, split and corrected holds, plus frames around each

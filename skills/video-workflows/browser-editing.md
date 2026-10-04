@@ -15,7 +15,8 @@ labeled key-moments default. Do not restart intake for an existing request.
 - **Key moments:** use selective questions and useful visual updates; compatible
   work continues without a stop at every milestone.
 - **Hands on:** after basics, choose the video type if unspecified (e.g. motion
-  design or Manim diagrams), find source references, then review a short sample.
+  design, procedural 3D or diagrams), offer the example library, find relevant
+  source references, then review a short sample.
 
 Required decisions wait for answers; only cheap compatible preparation continues.
 Resolve real blockers in every mode. Save actual chat answers with
@@ -23,6 +24,15 @@ Resolve real blockers in every mode. Save actual chat answers with
 Host turn and tool limits still apply.
 
 ## Find the hands-on direction before rendering
+
+Offer the returned `example_library.url` once after the creation approach is
+chosen. The user can browse practical Video Use examples, copy a prompt and paste
+it into this chat. Keep their original subject, brand, audience, duration and
+destination while adapting that example. This is an optional link, not another
+required question. If the actual pasted request chooses this workflow and
+explicitly skips other references, save those words with
+`record_video_references action=delegate`; the hands-on snippet still needs
+acceptance before the remaining video is made. Otherwise continue source research.
 
 Search YouTube, TikTok and X sequentially for accessible examples that fit the
 brief and creation approach, preferring observed traction over niche studio reels.
@@ -113,6 +123,12 @@ assets and prove uncertain visual components before promising their quality.
 Read only the relevant compact guide: `scenes` for editable 2D drawing data,
 `manim` for richer diagrams/equations, `motion` for browser compositions, or
 `workflows` for mixed-media work. Detailed references are available on demand.
+
+For a silent original/corrected color wipe, read
+`skills/video-workflows/grade-comparison.md` through `video_use_guidance` and use
+`helpers/grade_comparison.py` within `run_video_step`. It keeps both sides on one
+frame clock and crop, validates a bounded SDR RGB curve, and protects source files.
+It requires an explicit silent-output choice and does not provide HDR grading.
 
 ## Build and assemble useful increments
 
