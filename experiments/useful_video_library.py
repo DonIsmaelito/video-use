@@ -49,7 +49,7 @@ BRAND_FILES = ("favicon.svg", "fonts/instrument-serif.ttf", "fonts/inter-regular
 SKIP_PARTS = {"node_modules", "__pycache__", ".git", ".venv", ".cache", ".pytest_cache", ".npm"}
 SAFE_ID = re.compile(r"[a-z0-9][a-z0-9_-]{0,99}")
 SOURCE_EXTENSIONS = {".py", ".mjs", ".js", ".cjs", ".jsx", ".tsx", ".ts", ".html", ".css", ".sh",
-                     ".json", ".md", ".txt", ".csv", ".yaml", ".yml", ".toml", ".svg", ".png",
+                     ".json", ".md", ".txt", ".srt", ".vtt", ".ass", ".csv", ".yaml", ".yml", ".toml", ".svg", ".png",
                      ".jpg", ".jpeg", ".webp", ".gif", ".ttf", ".otf", ".woff", ".woff2",
                      ".blend", ".gltf", ".glb", ".obj", ".mtl", ".stl", ".ply"}
 

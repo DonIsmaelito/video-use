@@ -155,6 +155,20 @@ def test_declared_regenerated_assets_are_omitted_without_following_external_path
             archive_source(project, tmp_path / "source.zip")
 
 
+def test_caption_source_files_survive_packaging_while_recordings_stay_private(tmp_path):
+    project = tmp_path / "project"
+    edit = project / "edit"
+    edit.mkdir(parents=True)
+    for name, content in (("master.srt", "1\n00:00:00,000 --> 00:00:01,000\nHello\n"),
+                          ("official.vtt", "WEBVTT\n\n00:00.000 --> 00:01.000\nHello\n"),
+                          ("styled.ass", "[Script Info]\nScriptType: v4.00+\n"),
+                          ("source.wav", "raw recording")):
+        (edit / name).write_text(content)
+    archive_source(project, tmp_path / "source.zip")
+    with zipfile.ZipFile(tmp_path / "source.zip") as archive:
+        assert set(archive.namelist()) == {"edit/master.srt", "edit/official.vtt", "edit/styled.ass"}
+
+
 def test_prompt_is_preserved_and_proposals_stay_project_local():
     value = normalize_brief(brief(prompt="Exact original creative words"))
     prompt = technical_instructions(value)
