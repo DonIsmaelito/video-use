@@ -199,3 +199,12 @@ Local production build, typecheck, catalog checks and 30 strict importer tests p
 The original checkout's examples/media ledger exactly matched the previous 117 baseline before synchronization; only those two manifests were updated to 121 and verified byte-identical. Promo manifests and all original-thread UI work remain unchanged. Existing hosting environment and backend schema were preserved. The completed local build cache was removed; temporary native-review servers and browsers are closed.
 
 Receipt: `/Users/ismaelito/Movies/Video Use Social Examples 20261004/edit/runtime/site-deployment-release121.json`. Hosted evidence: `/private/tmp/video-use-library-release-121-live-qa/result.json` and `short-form-filter.json`; captures include `desktop-home.png`, `mobile-home.png`, `short-form-filter.png`, and `mobile-social06-repaired-caption.png`.
+
+
+### Second social edit release — verified 125
+
+Deployment **`902a59c0-7e89-4353-84cc-ce7764de4be9`** (provider `dpl_7u79LXQxGRz6Jf3fuwmToh6xGw5a`) is READY at https://video-use.insforge.site. Catalog commit **`398a38e`** brings the gallery to **125 examples**, adding the reviewed interview reframe, action replay, two-speaker conversation and pottery memory. The website UI, MCP and Product Launches films, featured order and existing examples are unchanged.
+
+Strict receipt import, gallery validation and the required production build/typecheck pass. Focused hosted checks passed for all four new players and endings, audio decoding where present, exact prompts/clipboard/deep links, editable sources and review links, Video type/Short-form edits filtering and reload, mobile full frames and the 320px header. Eight short-form edits are now discoverable. Desktop and mobile captures were inspected with no page errors or overflow. Broader unchanged-UI checks retain the verified 121 baseline; no subjective listening is claimed.
+
+Only the original checkout's two catalog manifests were synchronized after checking their exact previous 121 baseline. Both checkouts now match 125; promo manifests and UI work are preserved. Hosting environment and backend schema are unchanged, and no local QA server remains. Receipt: `/Users/ismaelito/Movies/Video Use Social Examples 20261004/edit/runtime/site-deployment-release125.json`. Evidence and captures: `/private/tmp/video-use-library-release-125-live-qa/`.
