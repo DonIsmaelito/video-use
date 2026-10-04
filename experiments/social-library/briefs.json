@@ -1,0 +1,347 @@
+{
+  "description": "Twenty new short-form edits; reviewed source evidence and exact production prompts are added in batches.",
+  "briefs": [
+    {
+      "id": "social-01-interview-face-follow",
+      "title": "Keep the speaker in frame",
+      "category": "Video Edits",
+      "description": "A focused interview answer with measured face following and word-timed captions.",
+      "technique": "video-editing",
+      "orientation": "portrait",
+      "aspect": "9:16",
+      "duration": 22,
+      "fps": 30,
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/browser-use/video-use",
+      "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+      "license": "MIT for original editing code and documentation; source media retains its own credited terms",
+      "licenseUrl": "https://github.com/browser-use/video-use/blob/main/LICENSE",
+      "audiences": [
+        "Content creators",
+        "Marketers"
+      ],
+      "useCases": [
+        "Social content",
+        "Short-form edits"
+      ],
+      "prompt": "Use Video Use to turn a useful answer from a filmed interview into a 22-second social clip. Choose one complete thought that answers a clear question. Put the question on screen immediately as an editorial hook, then let the original speaker deliver the answer with no long intro or generic end card. Follow the visible face with measured tracking and a deliberately reviewed target; use a calm crop, never a jittery zoom on every word. Keep the whole head and natural gesture room. Burn accurate phrase captions after all cuts and framing, with at most two lines and one restrained highlighted key word at a time. Preserve small hesitations when they carry meaning; never splice words into a new claim. Use clean speech with short boundary fades; no music under this example. Keep a quiet attribution footer and let the last thought land. Use the real footage supplied in this chat or acquired from the supplied source URL with yt-dlp. Inspect the actual pixels and audio evidence, not only metadata. Keep the subject and intent of the current query. Deliver a polished 1080×1920 vertical MP4 with a readable first-second hook and a clear payoff. Keep important content away from the top 150px, bottom 300px, and rightmost 120px used by social app controls. Use few words, deliberate typography, clean cuts and intentional sound. Preserve meaning, source credits and honest framing; do not invent actions, reactions, quotes or claims. Give me a short preview for approval before completing the full edit in normal interactive use. Keep the editable cut map, source URLs, caption timing, licenses and complete replay instructions.",
+      "sourceAssets": [
+        {
+          "id": "moon-robots",
+          "url": "https://www.youtube.com/watch?v=j4K75MIlRz0",
+          "sourceStart": 165,
+          "sourceEnd": 255,
+          "license": "CC BY 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "licenseEvidence": "The creator-written YouTube episode description explicitly grants CC BY 4.0 and requests credit and a backlink",
+          "credit": "Fraser Cain and Prof Yang Gao — Moon Robots interview (2024), CC BY 4.0; excerpted and reformatted by Video Use",
+          "transcribe": true,
+          "sha256": "f6620041f4adb9885f9474d5752af865174506c33a8797f0bc1ff6b0335f9ea8",
+          "bytes": 32197464,
+          "remote": "prepared-assets/social-20261004/moon-robots/moon-robots.mp4",
+          "duration": 90.024,
+          "width": 1920,
+          "height": 1080,
+          "fps": "60000/1001",
+          "reviewMoments": [
+            0.0,
+            8.17,
+            16.341,
+            24.511,
+            32.681,
+            40.852,
+            49.022,
+            57.193,
+            65.363,
+            73.533,
+            81.704,
+            89.874
+          ],
+          "actualAcquisition": "yt-dlp on local user machine, bounded excerpt; uploaded and SHA256 verified in cloud; no browser cookies used"
+        }
+      ],
+      "preparedInputs": [
+        {
+          "source": "prepared-assets/social-20261004/moon-robots/moon-robots.mp4",
+          "target": "edit/downloads/moon-robots.mp4",
+          "sha256": "f6620041f4adb9885f9474d5752af865174506c33a8797f0bc1ff6b0335f9ea8",
+          "bytes": 32197464
+        },
+        {
+          "source": "prepared-assets/social-20261004/moon-robots/transcripts/moon-robots.json",
+          "target": "edit/transcripts/moon-robots.json",
+          "sha256": "d51e179c79b4f263c780a245dd4386156918926920fd920155717171936e8d96",
+          "bytes": 61112
+        }
+      ],
+      "assetPlan": "Use moon-robots.mp4, an actual Fraser Cain interview with Prof Yang Gao. Local 29.18–49.74 contains a complete thought about astronauts and robots working as a team. Use small phonetic handles and conform to 22 seconds without including the next answer. This is future-facing discussion, not a claim that a lunar base exists today. Suggested editorial hook: Who joins the next lunar crew? The source changes from split view to the full guest near 28 seconds. Detect only the continuous guest shot, inspect labeled source frames, then select Yang. Read skills/video-workflows/face-follow.md and use face_follow through normal render.py. If the original lower third is cropped, provide her truthful name and source attribution in the new composition. The Scribe v2 cache is supplied. Keep this a filmed interview clip rather than adding invented robot B-roll.",
+      "qualityChecks": [
+        "Scribe source hash matches the provided MP4",
+        "Actual face detections and source PTS retained",
+        "Reviewed seed is Yang in the continuous guest shot",
+        "No clipped forehead/chin or captions over the mouth",
+        "Question is clearly editorial; spoken answer remains verbatim",
+        "No synthetic or substituted voice"
+      ],
+      "toolNeeds": [
+        "Video Use normal EDL render and caption pipeline",
+        "yt-dlp acquisition with native source metadata",
+        "Existing motion/audio helpers where appropriate"
+      ],
+      "productionBatch": "social-01"
+    },
+    {
+      "id": "social-02-podcast-punchline",
+      "title": "Cut to the punchline",
+      "category": "Video Edits",
+      "description": "A short NASA podcast moment with clear captions and the hosts’ real reaction.",
+      "technique": "video-editing",
+      "orientation": "portrait",
+      "aspect": "9:16",
+      "duration": 24,
+      "fps": 30,
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/browser-use/video-use",
+      "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+      "license": "MIT for original editing code and documentation; source media retains its own credited terms",
+      "licenseUrl": "https://github.com/browser-use/video-use/blob/main/LICENSE",
+      "audiences": [
+        "Content creators",
+        "Marketers"
+      ],
+      "useCases": [
+        "Social content",
+        "Short-form edits"
+      ],
+      "prompt": "Use Video Use to make a 24-second podcast highlight built around one amusing, complete exchange. Start with the interesting sentence, keep its setup and payoff, and retain the actual host reaction immediately after it. Remove broadcast delay and dead air using word-level boundaries, without changing the order or implying a different response. Design an expressive portrait edit with large phrase captions, selective word emphasis and a short editorial hook. Adapt the layout at genuine source camera changes: preserve meaningful gestures and show both participants when the reaction needs them. Keep speech natural and foregrounded; no unrelated music, fake laughter or fabricated face motion. This is a short conversational post, not a long interview or a text slideshow. Use the real footage supplied in this chat or acquired from the supplied source URL with yt-dlp. Inspect the actual pixels and audio evidence, not only metadata. Keep the subject and intent of the current query. Deliver a polished 1080×1920 vertical MP4 with a readable first-second hook and a clear payoff. Keep important content away from the top 150px, bottom 300px, and rightmost 120px used by social app controls. Use few words, deliberate typography, clean cuts and intentional sound. Preserve meaning, source credits and honest framing; do not invent actions, reactions, quotes or claims. Give me a short preview for approval before completing the full edit in normal interactive use. Keep the editable cut map, source URLs, caption timing, licenses and complete replay instructions.",
+      "sourceAssets": [
+        {
+          "id": "nasa-orientation",
+          "url": "https://www.youtube.com/watch?v=2cY6wsW8vdc",
+          "sourceStart": 640,
+          "sourceEnd": 715,
+          "license": "NASA media guidelines for factual educational excerpts",
+          "licenseUrl": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+          "licenseEvidence": "Official NASA episode and footage; informational educational excerpt with source credit, no endorsement",
+          "credit": "NASA — Houston We Have a Podcast, The Most Awesome Podcast from Space (2017); edited excerpt",
+          "transcribe": true,
+          "remote": "prepared-assets/social-20261004/nasa-orientation/nasa-orientation.mp4",
+          "sha256": "9e59579c3219b5ee893ef5fba82c2476661acceed371ccfd78747f055ab67ccc",
+          "bytes": 13284663,
+          "duration": 75.009,
+          "width": 1280,
+          "height": 720,
+          "fps": "60000/1001",
+          "reviewMoments": [
+            0.0,
+            6.805,
+            13.611,
+            20.416,
+            27.221,
+            34.027,
+            40.832,
+            47.638,
+            54.443,
+            61.248,
+            68.054,
+            74.859
+          ],
+          "actualAcquisition": "yt-dlp on local user machine, bounded excerpt; uploaded and SHA256 verified in cloud; no browser cookies used"
+        }
+      ],
+      "preparedInputs": [
+        {
+          "source": "prepared-assets/social-20261004/nasa-orientation/nasa-orientation.mp4",
+          "target": "edit/downloads/nasa-orientation.mp4",
+          "sha256": "9e59579c3219b5ee893ef5fba82c2476661acceed371ccfd78747f055ab67ccc",
+          "bytes": 13284663
+        },
+        {
+          "source": "prepared-assets/social-20261004/nasa-orientation/transcripts/nasa-orientation.json",
+          "target": "edit/transcripts/nasa-orientation.json",
+          "sha256": "f46f215bab6b67f459435c03024c2eff2b40f7eb38258eaa1060ac0fc0cb333a",
+          "bytes": 78891
+        }
+      ],
+      "assetPlan": "Use nasa-orientation.mp4, an actual NASA broadcast excerpt from source 640–715 seconds. Local 10.08–31.12: astronaut Jack Fischer says he will change walls or ceiling at each question because he can. Local 31.74–33.84 contains Gary Jordan’s actual amused response. Use padded word cuts and conform to 24 seconds with short natural handles. The source changes from the astronaut view to a broadcast split. It is 1280×720: use a designed picture window and caption area rather than enlarging a tiny inset across the entire portrait. Preserve head and hand gestures, a NASA credit, and small 2017 archive context. Do not imply he actually rotates in this excerpt or add an endorsement CTA. An explicitly authored fixed or split layout is appropriate; only claim tracking if measured evidence supports it.",
+      "qualityChecks": [
+        "No midwordcuts or accidental nextquestion",
+        "Host reaction follows its real source context",
+        "Readable portrait framing despite broadcast split",
+        "No fake rotation animation of the astronaut",
+        "Source/datecredit retained",
+        "Safe caption margins and natural speech levels"
+      ],
+      "toolNeeds": [
+        "Video Use normal EDL render and caption pipeline",
+        "yt-dlp acquisition with native source metadata",
+        "Existing motion/audio helpers where appropriate"
+      ],
+      "productionBatch": "social-01"
+    },
+    {
+      "id": "social-03-action-replay",
+      "title": "Make the movement the hook",
+      "category": "Video Edits",
+      "description": "An action reel with a brief replay, paced cuts and a crop that follows the board.",
+      "technique": "video-editing",
+      "orientation": "portrait",
+      "aspect": "9:16",
+      "duration": 18,
+      "fps": 30,
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/browser-use/video-use",
+      "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+      "license": "MIT for original editing code and documentation; source media retains its own credited terms",
+      "licenseUrl": "https://github.com/browser-use/video-use/blob/main/LICENSE",
+      "audiences": [
+        "Content creators",
+        "Marketers"
+      ],
+      "useCases": [
+        "Social content",
+        "Short-form edits"
+      ],
+      "prompt": "Use Video Use to turn a short action recording into an 18-second vertical highlight that makes the movement easy to follow. Open on the strongest visible moment, cut back briefly to its setup, then let the action play through with a clean finish. Include one clearly labeled slow replay of the most useful detail; do not disguise it as a second attempt. Use motivated reframing that keeps the relevant feet, hands or equipment in frame. Change pace around actual movement rather than applying a random effect to every cut. Add only two or three short text cues tied to what the footage visibly shows, plus a subtle original rhythmic sound bed. No invented trick names, performance claims, new action frames or aggressive strobing. Keep it energetic and useful as a creator’s sports highlight. Use the real footage supplied in this chat or acquired from the supplied source URL with yt-dlp. Inspect the actual pixels and audio evidence, not only metadata. Keep the subject and intent of the current query. Deliver a polished 1080×1920 vertical MP4 with a readable first-second hook and a clear payoff. Keep important content away from the top 150px, bottom 300px, and rightmost 120px used by social app controls. Use few words, deliberate typography, clean cuts and intentional sound. Preserve meaning, source credits and honest framing; do not invent actions, reactions, quotes or claims. Give me a short preview for approval before completing the full edit in normal interactive use. Keep the editable cut map, source URLs, caption timing, licenses and complete replay instructions.",
+      "sourceAssets": [
+        {
+          "id": "skate-push",
+          "url": "https://assets.mixkit.co/videos/34389/34389-1080.mp4",
+          "sourceItem": "34389",
+          "license": "Mixkit Stock Video Free License",
+          "licenseUrl": "https://mixkit.co/license/#videoFree",
+          "licenseEvidence": "Exact item page explicitly labels Stock Video Free License; source footage and sampled action inspected by research agent",
+          "credit": "Mixkit clip 34389; edited excerpt",
+          "transcribe": false,
+          "remote": "prepared-assets/social-20261004/skate-push/skate-push.mp4",
+          "sha256": "298b21daccf9bdca4c86c8b54df9a7ec9a246c09ed9c9f0af6bc601b351096a3",
+          "bytes": 48355432,
+          "duration": 15.473333,
+          "width": 1920,
+          "height": 1080,
+          "fps": "24000/1001",
+          "reviewMoments": [
+            0.0,
+            1.393,
+            2.786,
+            4.179,
+            5.572,
+            6.965,
+            8.358,
+            9.751,
+            11.144,
+            12.537,
+            13.93,
+            15.323
+          ],
+          "actualAcquisition": "yt-dlp direct public rendition in cloud; actual source probed and hashed"
+        }
+      ],
+      "preparedInputs": [
+        {
+          "source": "prepared-assets/social-20261004/skate-push/skate-push.mp4",
+          "target": "edit/downloads/skate-push.mp4",
+          "sha256": "298b21daccf9bdca4c86c8b54df9a7ec9a246c09ed9c9f0af6bc601b351096a3",
+          "bytes": 48355432
+        }
+      ],
+      "assetPlan": "Use skate-push.mp4, Mixkit clip 34389. It shows pushing and gliding through a park, not a jump or aerial trick. The original shot already omits much of the head; frame board and feet. Suggested sequence: strongest coast first, push setup and foot return at normal speed, one 0.65–0.8× replay labeled Replay, then the uninterrupted coast. Text cues are authored action labels, not speech captions. Native source is 23.976 fps; use existing renderer timing. Avoid invented limbs from aggressive interpolation and avoid false 60 fps capture claims. The source is silent; use an original procedural rhythm and do not imply it is recorded wheel sound. Avoid blank title slides. Publish the edited derivative; exclude raw stock footage from the source ZIP.",
+      "qualityChecks": [
+        "Show only the recorded action; no jump or trick claim",
+        "Clearly label the replay",
+        "Keep board and both feet in frame",
+        "Do not replace moving footage with long frozen frames",
+        "Declare original sound design",
+        "Review every cut and text cue against motion"
+      ],
+      "toolNeeds": [
+        "Video Use normal EDL render and caption pipeline",
+        "yt-dlp acquisition with native source metadata",
+        "Existing motion/audio helpers where appropriate"
+      ],
+      "productionBatch": "social-01"
+    },
+    {
+      "id": "social-04-destination-reveal",
+      "title": "Build a destination reveal",
+      "category": "Video Edits",
+      "description": "A compact travel reel that moves from footsteps to the view.",
+      "technique": "video-editing",
+      "orientation": "portrait",
+      "aspect": "9:16",
+      "duration": 18,
+      "fps": 30,
+      "promptKind": "Original prompt",
+      "sourceRepo": "https://github.com/browser-use/video-use",
+      "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+      "license": "MIT for original editing code and documentation; source media retains its own credited terms",
+      "licenseUrl": "https://github.com/browser-use/video-use/blob/main/LICENSE",
+      "audiences": [
+        "Content creators",
+        "Marketers"
+      ],
+      "useCases": [
+        "Social content",
+        "Short-form edits"
+      ],
+      "prompt": "Use Video Use to turn a travel recording into an 18-second vertical destination reveal. Find a simple visual arc: an intriguing detail, the approach, and the view that rewards the journey. Begin with moving footage immediately. Use deliberate crops and two or three clean cuts so the reveal grows naturally from what was actually recorded. Keep the person and landscape readable; avoid cropping out the destination for the sake of a face close-up. Add one short opening line and a quiet closing thought, with warm restrained grading and a subtle original ambient pulse. Do not invent the location, travel advice, a route, or footage of an experience that never occurs. Aim for a reusable short travel post with a real payoff rather than a generic stock slideshow. Use the real footage supplied in this chat or acquired from the supplied source URL with yt-dlp. Inspect the actual pixels and audio evidence, not only metadata. Keep the subject and intent of the current query. Deliver a polished 1080×1920 vertical MP4 with a readable first-second hook and a clear payoff. Keep important content away from the top 150px, bottom 300px, and rightmost 120px used by social app controls. Use few words, deliberate typography, clean cuts and intentional sound. Preserve meaning, source credits and honest framing; do not invent actions, reactions, quotes or claims. Give me a short preview for approval before completing the full edit in normal interactive use. Keep the editable cut map, source URLs, caption timing, licenses and complete replay instructions.",
+      "sourceAssets": [
+        {
+          "id": "waterfall-walk",
+          "url": "https://assets.mixkit.co/videos/50561/50561-1080.mp4",
+          "sourceItem": "50561",
+          "license": "Mixkit Stock Video Free License",
+          "licenseUrl": "https://mixkit.co/license/#videoFree",
+          "licenseEvidence": "Exact item page explicitly labels Stock Video Free License; source footage and sampled action inspected by research agent",
+          "credit": "Mixkit clip 50561; edited excerpt",
+          "transcribe": false,
+          "remote": "prepared-assets/social-20261004/waterfall-walk/waterfall-walk.mp4",
+          "sha256": "1bd79474b461aa7e6ad535299943486e9d0c59f7cd1bd35f845f7665b8c0c415",
+          "bytes": 55119584,
+          "duration": 17.766667,
+          "width": 1920,
+          "height": 1080,
+          "fps": "24000/1001",
+          "reviewMoments": [
+            0.0,
+            1.602,
+            3.203,
+            4.805,
+            6.406,
+            8.008,
+            9.609,
+            11.211,
+            12.812,
+            14.414,
+            16.015,
+            17.617
+          ],
+          "actualAcquisition": "yt-dlp direct public rendition in cloud; actual source probed and hashed"
+        }
+      ],
+      "preparedInputs": [
+        {
+          "source": "prepared-assets/social-20261004/waterfall-walk/waterfall-walk.mp4",
+          "target": "edit/downloads/waterfall-walk.mp4",
+          "sha256": "1bd79474b461aa7e6ad535299943486e9d0c59f7cd1bd35f845f7665b8c0c415",
+          "bytes": 55119584
+        }
+      ],
+      "assetPlan": "Use waterfall-walk.mp4, Mixkit clip 50561: a photographer approaches a waterfall. Review the actual shot before choosing approach and reveal. Use source-pixel windows that preserve the human and waterfall, widening the picture window when both cannot fit a full-bleed portrait. Suggested editorial copy: Chase the view, then Worth the detour. No invented place name, route, booking CTA or fabricated photograph-taking action. Keep natural warmth without crushing shadow detail. The source is silent; any original ambient sound design must be declared as authored. End on the actual view with a brief reading hold; no pointless loop or large blank outro.",
+      "qualityChecks": [
+        "Build three visual beats from the recorded shot",
+        "Show the waterfall in the payoff",
+        "Do not invent a location or action",
+        "Keep captions clear of the view",
+        "Review motion after 23.976 to 30 fps conversion",
+        "Do not describe authored audio as a field recording"
+      ],
+      "toolNeeds": [
+        "Video Use normal EDL render and caption pipeline",
+        "yt-dlp acquisition with native source metadata",
+        "Existing motion/audio helpers where appropriate"
+      ],
+      "productionBatch": "social-01"
+    }
+  ]
+}
