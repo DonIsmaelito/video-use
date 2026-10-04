@@ -227,6 +227,31 @@
     "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-09-pottery-memory-8b37c2265b96-0d410960/review.md"
   },
   {
+    "id": "social-10-forest-ride",
+    "title": "Cut a forest ride",
+    "category": "Video Edits",
+    "description": "A ride-day social edit connecting a pedal push with two riders on a forest ramp, using honest montage continuity.",
+    "prompt": "Use Video Use to make an 18-second vertical ride-day post from real bike-detail and forest-action footage. Lead with a short action glimpse, return to the foot finding the pedal, then pay it off with the riders moving through the forest. Cut around actual movement and keep the pedal, wheels, helmets and landing area readable. Keep different riders or bikes honest as a montage rather than pretending the sources are one uninterrupted ride. Use no more than a compact hook and let the footage supply the energy. Do not reverse movement, invent a stunt or add speed statistics. Finish after the visible landings and ride-away, with a brief quiet breath of the trail. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the current query. Deliver 1080×1920 at 30 fps. Make the footage large and keep words few; use a compact first-second hook, not a title card followed by a small landscape rectangle. Keep essential text out of the top 150px, bottom 300px and rightmost 120px social controls. Use a deliberate wider picture window only when an essential action cannot fit a portrait crop. Keep honest credits, an editable cut map, source-to-output timing and complete replay instructions. In normal interactive use, show a short preview for approval before the full edit.",
+    "duration": 18,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": [
+      "Content creators",
+      "Marketers"
+    ],
+    "useCases": [
+      "Social content",
+      "Short-form edits"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/browser-use/video-use",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-10-forest-ride-d5eeaf3087eb-3e11fd32/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-10-forest-ride-d5eeaf3087eb-3e11fd32/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-10-forest-ride-d5eeaf3087eb-3e11fd32/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-10-forest-ride-d5eeaf3087eb-3e11fd32/review.md"
+  },
+  {
     "id": "social-11-dog-payoff",
     "title": "Replay the dog payoff",
     "category": "Video Edits",

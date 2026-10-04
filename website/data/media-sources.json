@@ -4574,5 +4574,39 @@
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-19-weekend-roundup-7ff64bc76dcb-43b7f77a/poster.jpg"
       }
     ]
+  },
+  {
+    "id": "social-10-forest-ride",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "social-10-13",
+    "sourceRun": "social-10-forest-ride",
+    "model": null,
+    "reasoningEffort": null,
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "f2bb9548cc1d571c7807c625eb9d8b63e96d4b47",
+    "frameworkArchiveSha256": "0bf30014c5e7a7db8508f48d51d3b81d20d344c128a57f260e12eea620c721be",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "d5eeaf3087eb6fc59923d401433325feebf46e8d917105c4b3841eb599ad77ae",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-10-forest-ride-d5eeaf3087eb-3e11fd32/source.zip",
+    "editableSourceSha256": "88c679a3d7ff7ff869ce06d9e19a8b0ccf64145a1760b54bc755092c00e73d7a",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/social-10-13/social-10-forest-ride/repairs/repair-replay-source-20261004/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-10-forest-ride-d5eeaf3087eb-3e11fd32/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-10-forest-ride-d5eeaf3087eb-3e11fd32/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-10-forest-ride-d5eeaf3087eb-3e11fd32/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-10-forest-ride-d5eeaf3087eb-3e11fd32/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-10-forest-ride-d5eeaf3087eb-3e11fd32/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-10-forest-ride-d5eeaf3087eb-3e11fd32/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-10-forest-ride-d5eeaf3087eb-3e11fd32/poster.jpg"
+      }
+    ]
   }
 ]
