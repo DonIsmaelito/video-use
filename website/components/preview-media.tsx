@@ -9,11 +9,13 @@ export function PreviewMedia({
   poster,
   suspended = false,
   orientation = 'landscape',
+  ambient = false,
 }: {
   src: string;
   poster: string;
   suspended?: boolean;
   orientation?: string;
+  ambient?: boolean;
 }) {
   const frame = useRef<HTMLDivElement>(null);
   const video = useRef<HTMLVideoElement>(null);
@@ -90,8 +92,20 @@ export function PreviewMedia({
   return (
     <div
       ref={frame}
-      className={`preview-media ${orientation} ${playing ? 'is-playing' : ''}`}
+      className={`preview-media ${orientation} ${ambient ? 'has-ambient' : ''} ${playing ? 'is-playing' : ''}`}
     >
+      {/* Tall gallery windows preserve the complete film over its blurred poster. */}
+      {ambient && (
+        <Image
+          src={poster}
+          className="card-ambient"
+          alt=""
+          loading="lazy"
+          width={320}
+          height={180}
+          unoptimized
+        />
+      )}
       <Image
         src={poster}
         className="card-poster"

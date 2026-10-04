@@ -1,7 +1,6 @@
-import { Hero } from '@/components/hero';
+import { SiteHeader } from '@/components/site-header';
 import { Gallery } from '@/components/gallery';
 import { Wordmark } from '@/components/wordmark';
-import { McpBanner } from '@/components/connect-mcp';
 
 export default function Home() {
   return (
@@ -9,9 +8,9 @@ export default function Home() {
       <a className="skip-link" href="#examples">
         Skip to video examples
       </a>
-      <Hero />
+      <SiteHeader />
+      <h1 className="sr-only">Video Use — find a video, make it yours</h1>
       <Gallery />
-      <McpBanner />
       <Wordmark />
     </main>
   );

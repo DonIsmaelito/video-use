@@ -28,16 +28,25 @@ The production build explicitly uses Next.js's webpack builder, matching the loc
 
 ## Routes and components
 
-- `app/page.tsx` assembles the repository-first homepage and example library.
+- `app/page.tsx` assembles the compact header, featured films, example gallery, and footer.
 - `app/mcp/page.tsx` explains the hosted MCP, approval flow, account requirements, setup, and use cases.
-- `components/hero.tsx`, `site-header.tsx`, and `wordmark.tsx` link back to the open-source project.
+- `components/site-header.tsx` and `wordmark.tsx` provide the shared navigation and open-source links.
 - `components/gallery.tsx` handles audience/use-case/video-type/category filters, search, clipboard feedback, deep links, and the detail dialog. Video type keeps the internal `technique` data key and URL parameter.
-- `components/preview-media.tsx` loads media near the viewport and plays only visible, muted previews. Previews pause in hidden tabs, under dialogs, and for reduced motion.
+- `components/preview-media.tsx` loads media near the viewport and plays only visible, muted previews. Previews pause in hidden tabs, under dialogs, and for reduced motion. Tall gallery windows preserve the full frame over a blurred poster; featured films remain wide.
 - `components/connect-mcp.tsx` provides copyable setup URLs and separate ChatGPT, Claude, Cursor, and local-source instructions. Official client artwork lives in `public/clients`, with its provenance in `brand-sources.json`; compatible clients are not presented as end-to-end tested.
-- `components/ui/disclosure.tsx` and `hint.tsx` use existing Base UI primitives for optional details and supplementary icon labels. `technique-icon.tsx` gives each video type a consistent icon.
-- `components/mcp-feature.tsx` places the MCP feature tile beside two real examples immediately below the repository hero. `mcp-launch.tsx` opens its full launch film on the MCP page.
+- `components/ui/disclosure.tsx` uses Base UI for optional filters and source details. `technique-icon.tsx` gives each video type a consistent icon.
+- `components/mcp-feature.tsx` leads the three-film hero immediately below the header. `mcp-launch.tsx` opens its full launch film on the MCP page.
 - `lib/gallery.ts` contains the real filtering and URL parsing logic. `buildChatPrompt` appends a visible handoff to the example's original brief.
-- `app/globals.css` owns the black/lavender palette, Instrument Serif/Inter typography, responsive layouts, and media treatment.
+- `app/globals.css` owns the neutral black/white/gray palette, occasional purple actions, responsive containers, and media treatment.
+- `components/use-gallery-likes.ts`, `app/api/likes/route.ts`, and `lib/likes-server.ts` provide shared, persistent likes with one vote per example per signed browser identity. Counts start at zero; the database stores a hash rather than the cookie itself.
+
+## Gallery likes
+
+Configure `INSFORGE_URL`, `INSFORGE_API_KEY`, and `LIKES_COOKIE_SECRET` in local and hosted server environments; see `.env.example`. None use a public framework prefix. The schema is recorded in `../migrations/20261004054241_gallery-likes.sql` and was tested in an isolated InsForge backend branch before being applied to the existing site project. Anonymous and authenticated clients have no direct table or RPC access; the server validates example IDs and the request origin. Retrying a like does not add another vote. Clearing browser cookies resets the anonymous identity.
+
+The compact card action copies the same full prompt as the detail dialog. Cards expose controls on hover and keyboard focus; touch devices show them continuously. Filters are available in an expandable panel, and all existing category/search/facet/deep-link behavior is retained. The opening gallery order mixes film formats without changing the source catalog.
+
+Coordination and verification notes are in `docs/ui-refresh-handoff.md`.
 
 ## Example data
 
@@ -70,9 +79,9 @@ Optional fields for practical workflows:
 - `sourceRepo: string` and `promptSource: string` for a public source URL and short adaptation credit.
 - `sourceArchive: string` and `reviewUrl: string` for the editable project and production notes.
 
-Legacy examples retain their original content. Conservative fallback tags classify art-only pieces as Motion studies. Explicit tags on new examples override those fallbacks. Examples with explicit audience and use-case metadata appear in Useful workflows before the legacy category sections.
+Legacy examples retain their original content. Conservative fallback tags classify art-only pieces as Motion studies. Explicit tags on new examples override those fallbacks. The gallery uses one continuous grid with shared filters.
 
-`data/media-sources.json` preserves provenance, source rights, exact prompts, run/container/framework evidence, reviews, and output hashes. Do not replace the stored original prompt with the chat handoff. The UI shows exactly what the Copy for my chat button copies, including the example link and instructions to preserve the user's involvement and approval mode.
+`data/media-sources.json` preserves provenance, source rights, exact prompts, run/container/framework evidence, reviews, and output hashes. Do not replace the stored original prompt with the chat handoff. The UI shows exactly what Copy Prompt copies, including the example link and instructions to preserve the user's involvement and approval mode.
 
 The earlier library includes unboxing and Tears of Steel edits, footage-based montages, original motion studies, and technical explainers. Film excerpts retain attribution in the detail view. Existing batch history and review artifacts are recorded in the provenance ledger.
 
@@ -105,7 +114,7 @@ Replace these only after publication with the lighter muted autoplay URL, full M
 
 ## Playback and accessibility
 
-Cards use a consistent 16:9 crop; full players preserve the complete original frame, including portrait edits. Motion Design remains silent and loops in detail. Video Edits, Video Creation, and Explainers preserve the source audio in the full player. The MCP launch preview is muted; the full film has native controls.
+Cards use tall preview windows with a blurred poster behind the complete original frame; featured films use wide windows. Full players also preserve the entire frame, including portrait edits. Motion Design remains silent and loops in detail. Video Edits, Video Creation, and Explainers preserve the source audio in the full player. The MCP launch preview is muted; the full film has native controls.
 
 Dialogs support keyboard focus, dismissal, and focus restoration. Every copy action has visible feedback and a manual-selection fallback. Optional installation, filters, and provenance use keyboard-accessible disclosures; the complete copied prompt stays visible. Mobile filters expand without covering the gallery. Reduced motion disables automatic previews and decorative transitions. Fonts are local, with OFL licenses in `public/fonts`.
 

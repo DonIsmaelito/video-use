@@ -4,7 +4,7 @@ export function Wordmark() {
   return (
     <footer className="site-footer" aria-label="Video Use">
       <div className="footer-links">
-        <span>Made with Video Use. Built in the open.</span>
+        <span>Made with Video Use.</span>
         <div>
           <Link href="/#examples">Library</Link>
           <Link href="/mcp">MCP</Link>

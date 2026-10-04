@@ -3,32 +3,32 @@
 /* oxlint-disable jsx-a11y/media-has-caption -- These are original published media, some silent and some with burned captions. Do not invent caption tracks for existing videos. */
 
 import { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
 import {
   ArrowUpRight,
   Check,
   Copy,
-  FileText,
   FolderCode,
   Link2,
-  Play,
-  Plug,
+  Heart,
+  Maximize2,
   Search,
   SlidersHorizontal,
   X,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Disclosure } from '@/components/ui/disclosure';
-import { Hint } from '@/components/ui/hint';
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { AgentMarks, ConnectMcp } from '@/components/connect-mcp';
+import { ConnectMcp } from '@/components/connect-mcp';
 import { McpFeature } from '@/components/mcp-feature';
-import { HowItWorks } from '@/components/hero';
+import {
+  useGalleryLikes,
+  type LikeState,
+} from '@/components/use-gallery-likes';
 import { PreviewMedia } from '@/components/preview-media';
 import { TechniqueIcon } from '@/components/technique-icon';
 import {
@@ -49,24 +49,47 @@ import {
   type GalleryExample,
 } from '@/lib/gallery';
 
+// Mix footage, product films and graphic work in the opening row without changing
+// the source catalog or its provenance. Filters and deep links still use all films.
+const openingIds = [
+  'cloud-edit-travel',
+  'useful-08-refill-product',
+  'cloud-edit-podcast',
+  'useful-07-workshop-invite',
+  'cloud-edit-food',
+  '11-rotary-telephone',
+];
+const galleryExamples = [
+  ...openingIds.flatMap((id) =>
+    examples.filter((example) => example.id === id),
+  ),
+  ...examples.filter((example) => !openingIds.includes(example.id)),
+];
+
 function VideoCard({
   example,
   open,
   copy,
   copied,
   suspended,
+  like,
+  liking,
+  toggleLike,
 }: {
   example: GalleryExample;
   open: () => void;
   copy: () => void;
   copied: boolean;
   suspended: boolean;
+  like?: LikeState;
+  liking: boolean;
+  toggleLike: () => void;
 }) {
   return (
     <article className="video-card" aria-label={example.title}>
       <button
         type="button"
-        className="video-frame"
+        className={`video-frame ${example.orientation}`}
         onClick={open}
         aria-label={'Watch ' + example.title + ' and view its prompt'}
       >
@@ -75,52 +98,41 @@ function VideoCard({
           poster={example.poster}
           orientation={example.orientation}
           suspended={suspended}
+          ambient
         />
         <span className="video-shade" />
-        <span className="video-duration">
-          {formatDuration(example.duration)}
-        </span>
-        <span className="card-play" aria-hidden="true">
-          <Play size={17} fill="currentColor" />
-        </span>
-        <span className="preview-label">
-          View example <ArrowUpRight size={13} />
-        </span>
+        <span className="card-caption">{example.title}</span>
       </button>
-      <div className="card-heading">
-        <button type="button" onClick={open}>
-          {example.title}
-        </button>
-        <span className="card-technique">
-          <TechniqueIcon technique={example.technique} size={12} />
-          {example.technique === '3d'
-            ? '3D'
-            : example.technique === 'video-editing'
-              ? 'Edit'
-              : example.technique === 'diagrams'
-                ? 'Explain'
-                : 'Motion'}
-        </span>
-      </div>
-      <div className="card-bottom">
+      <span className="video-duration">{formatDuration(example.duration)}</span>
+      <button
+        type="button"
+        className={`like-button ${like?.liked ? 'is-liked' : ''}`}
+        aria-label={`${like?.liked ? 'Unlike' : 'Like'} ${example.title}`}
+        aria-pressed={like?.liked ?? false}
+        disabled={liking}
+        onClick={toggleLike}
+      >
+        <span>{like ? like.count.toLocaleString() : '–'}</span>
+        <Heart size={17} fill={like?.liked ? 'currentColor' : 'none'} />
+      </button>
+      <div className="card-actions">
         <button
           className={'copy-card ' + (copied ? 'copied' : '')}
           type="button"
           onClick={copy}
-          aria-label={'Copy chat prompt for ' + example.title}
+          aria-label={'Copy prompt for ' + example.title}
         >
           {copied ? <Check size={14} /> : <Copy size={14} />}{' '}
-          {copied ? 'Copied' : 'Copy prompt'}
+          {copied ? 'Copied' : 'Copy Prompt'}
         </button>
-        <Hint label="Use in your chat · Video Use MCP">
-          <Link
-            href="/mcp"
-            className="card-mcp-icon"
-            aria-label="Learn about Video Use MCP"
-          >
-            <Plug size={15} strokeWidth={1.7} />
-          </Link>
-        </Hint>
+        <button
+          type="button"
+          className="expand-card"
+          onClick={open}
+          aria-label={`Expand ${example.title}`}
+        >
+          <Maximize2 size={16} />
+        </button>
       </div>
     </article>
   );
@@ -136,9 +148,13 @@ export function Gallery() {
   const [showFilters, setShowFilters] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const manualText = useRef<HTMLTextAreaElement>(null);
-  const visible = filterExamples(filters);
+  const visible = filterExamples(filters, galleryExamples);
+  const { likes, pending, toggle } = useGalleryLikes(notify);
   const featuredCandidates = [
-    ...examples.filter((example) => /^useful-0[12]-/.test(example.id)),
+    ...examples.filter(
+      (example) => example.id === 'whiplash-cinematic-story-edit',
+    ),
+    ...examples.filter((example) => example.id === 'useful-02-modular-desk'),
     ...examples.filter((example) => example.hasWorkflowMetadata),
     ...examples.filter((example) => example.id.startsWith('practical-')),
   ];
@@ -149,23 +165,6 @@ export function Gallery() {
         index,
     )
     .slice(0, 2);
-  const practicalExamples = visible.filter(
-    (example) => example.hasWorkflowMetadata,
-  );
-  const sections = [
-    {
-      name: 'Useful workflows',
-      items: practicalExamples,
-    },
-    ...categories.slice(1).map((category) => ({
-      name: category,
-      items: visible.filter(
-        (example) =>
-          example.category === category && !example.hasWorkflowMetadata,
-      ),
-    })),
-  ];
-  const selectedTags = selected ? Array.from(selected.useCases) : [];
   const filterCount =
     filters.audiences.length +
     filters.useCases.length +
@@ -192,6 +191,24 @@ export function Gallery() {
   useEffect(() => {
     if (manualCopy) manualText.current?.select();
   }, [manualCopy]);
+  useEffect(() => {
+    if (!selected && !manualCopy) return;
+    window.dispatchEvent(new CustomEvent('videouse:overlay', { detail: true }));
+    return () => {
+      window.dispatchEvent(
+        new CustomEvent('videouse:overlay', { detail: false }),
+      );
+    };
+  }, [selected, manualCopy]);
+
+  function notify(text: string) {
+    setMessage(text);
+    if (timer.current) clearTimeout(timer.current);
+    timer.current = setTimeout(() => {
+      setMessage('');
+      setCopied('');
+    }, 2600);
+  }
 
   function writeLocation(
     nextFilters: Filters,
@@ -258,46 +275,47 @@ export function Gallery() {
         className="homepage-featured"
         aria-label="Featured Video Use workflows"
       >
-        <div className="homepage-featured-heading">
-          <span className="eyebrow">A few things you can make</span>
-          <a href="#examples">
-            Explore the library <ArrowUpRight size={12} />
-          </a>
-        </div>
         <div className="homepage-featured-grid">
-          <McpFeature />
-          {featuredExamples.map((example) => (
-            <VideoCard
-              key={example.id}
-              example={example}
-              open={() => openExample(example)}
-              copy={() =>
-                copyText(
-                  buildChatPrompt(example),
-                  example.id,
-                  'Prompt copied. Paste it into your Video Use chat.',
-                )
-              }
-              copied={copied === example.id}
-              suspended={selected !== null || !!manualCopy}
-            />
+          <McpFeature suspended={selected !== null || !!manualCopy} />
+          {featuredExamples.map((example, index) => (
+            <article className="featured-card" key={example.id}>
+              <button
+                type="button"
+                className="featured-frame"
+                onClick={() => openExample(example)}
+                aria-label={`Watch ${example.title}`}
+              >
+                <PreviewMedia
+                  src={example.video}
+                  poster={example.poster}
+                  orientation={example.orientation}
+                  suspended={selected !== null || !!manualCopy}
+                />
+                <span className="featured-watch">
+                  <Maximize2 size={18} />
+                </span>
+              </button>
+              <div className="featured-caption">
+                <button type="button" onClick={() => openExample(example)}>
+                  {index === 0 ? 'Cinematic edits' : 'Ideas in motion'}
+                </button>
+                <span>
+                  {index === 0 ? 'Find your rhythm' : 'Make it move'}{' '}
+                  <ArrowUpRight size={14} />
+                </span>
+              </div>
+            </article>
           ))}
         </div>
       </section>
-      <HowItWorks />
       <section
         id="examples"
         className="gallery-section"
         aria-labelledby="library-heading"
       >
-        <div className="library-heading">
-          <div>
-            <span className="eyebrow">The Video Use library</span>
-            <h2 id="library-heading">
-              Find your <em>starting point.</em>
-            </h2>
-          </div>
-        </div>
+        <h2 id="library-heading" className="sr-only">
+          Explore the video library
+        </h2>
         <div className="library-toolbar">
           <fieldset className="filter-list" aria-label="Filter by category">
             {categories.map((item) => (
@@ -310,10 +328,7 @@ export function Gallery() {
                 aria-pressed={filters.category === item}
                 onClick={() => updateFilters({ category: item })}
               >
-                {item === 'All examples' ? 'All examples' : item}
-                <span>
-                  {filterExamples({ ...filters, category: item }).length}
-                </span>
+                {item === 'All examples' ? 'All' : item}
               </button>
             ))}
           </fieldset>
@@ -322,7 +337,7 @@ export function Gallery() {
             <span className="sr-only">Search examples</span>
             <input
               type="search"
-              placeholder="Find a workflow…"
+              placeholder="Search prompts"
               value={filters.query}
               maxLength={200}
               onChange={(event) => updateFilters({ query: event.target.value })}
@@ -344,6 +359,7 @@ export function Gallery() {
             id="library-filters"
             className={'library-sidebar ' + (showFilters ? 'is-open' : '')}
             aria-label="Refine examples"
+            hidden={!showFilters}
           >
             <div className="sidebar-title">
               <span>Find your fit</span>
@@ -417,21 +433,11 @@ export function Gallery() {
                 </fieldset>
               </Disclosure>
             ))}
-            <Link href="/mcp" className="sidebar-mcp">
-              <AgentMarks />
-              <span className="sidebar-mcp-link">
-                Make it in your chat <ArrowUpRight size={13} />
-              </span>
-            </Link>
           </aside>
           <div className="library-content">
-            <div className="results-line" aria-live="polite">
-              <span>
-                {visible.length} {visible.length === 1 ? 'example' : 'examples'}
-                {hasFilters ? ' found' : ''}
-              </span>
-              <span>Free to make your own</span>
-            </div>
+            <p className="sr-only" aria-live="polite">
+              {visible.length} examples
+            </p>
             {filterCount > 0 && (
               <div className="active-filters" aria-label="Active filters">
                 {filters.technique && (
@@ -457,49 +463,31 @@ export function Gallery() {
                 )}
               </div>
             )}
-            {sections.map(({ name: category, items }) => {
-              if (!items.length) return null;
-              const headingId =
-                'category-' + category.toLowerCase().replaceAll(' ', '-');
-              return (
-                <section
-                  key={category}
-                  className="gallery-category"
-                  aria-labelledby={headingId}
-                >
-                  <div className="category-heading">
-                    <div>
-                      <h3 id={headingId}>
-                        {category}
-                        <span>{items.length}</span>
-                      </h3>
-                    </div>
-                  </div>
-                  <div className="video-grid">
-                    {items.map((example) => (
-                      <VideoCard
-                        key={example.id}
-                        example={example}
-                        open={() => openExample(example)}
-                        copy={() =>
-                          copyText(
-                            buildChatPrompt(example),
-                            example.id,
-                            'Prompt copied. Paste it into your Video Use chat.',
-                          )
-                        }
-                        copied={copied === example.id}
-                        suspended={selected !== null || !!manualCopy}
-                      />
-                    ))}
-                  </div>
-                </section>
-              );
-            })}
+            <div className="video-grid">
+              {visible.map((example) => (
+                <VideoCard
+                  key={example.id}
+                  example={example}
+                  open={() => openExample(example)}
+                  copy={() =>
+                    copyText(
+                      buildChatPrompt(example),
+                      example.id,
+                      'Prompt copied',
+                    )
+                  }
+                  copied={copied === example.id}
+                  suspended={selected !== null || !!manualCopy}
+                  like={likes[example.id]}
+                  liking={pending.has(example.id)}
+                  toggleLike={() => toggle(example.id)}
+                />
+              ))}
+            </div>
             {!visible.length && (
               <div className="empty-results">
                 <Search size={25} />
-                <h3>No examples found yet.</h3>
+                <h3>No matches.</h3>
                 <p>
                   Try fewer filters or a different search, like “product” or
                   “captions”.
@@ -607,20 +595,12 @@ export function Gallery() {
               )}
             </div>
             <div className="detail-body">
-              <span className="eyebrow">
-                <FileText size={13} /> Free prompt
-              </span>
               <DialogTitle className="detail-title">
                 {selected.title}
               </DialogTitle>
-              <DialogDescription className="detail-description">
+              <DialogDescription className="sr-only">
                 {selected.description}
               </DialogDescription>
-              <div className="detail-tags">
-                {selectedTags.slice(0, 2).map((item) => (
-                  <span key={item}>{item}</span>
-                ))}
-              </div>
               <div className="detail-actions">
                 <button
                   type="button"
@@ -629,7 +609,7 @@ export function Gallery() {
                     copyText(
                       buildChatPrompt(selected),
                       selected.id,
-                      'Prompt copied. Paste it into your Video Use chat.',
+                      'Prompt copied',
                     )
                   }
                 >
@@ -638,10 +618,21 @@ export function Gallery() {
                   ) : (
                     <Copy size={16} />
                   )}
-                  {copied === selected.id
-                    ? 'Copied for your chat'
-                    : 'Copy for my chat'}
-                  <ArrowUpRight size={15} />
+                  {copied === selected.id ? 'Copied' : 'Copy Prompt'}
+                </button>
+                <button
+                  type="button"
+                  className={`detail-like ${likes[selected.id]?.liked ? 'is-liked' : ''}`}
+                  onClick={() => toggle(selected.id)}
+                  disabled={pending.has(selected.id)}
+                  aria-label={`${likes[selected.id]?.liked ? 'Unlike' : 'Like'} ${selected.title}`}
+                  aria-pressed={likes[selected.id]?.liked ?? false}
+                >
+                  <Heart
+                    size={17}
+                    fill={likes[selected.id]?.liked ? 'currentColor' : 'none'}
+                  />
+                  {likes[selected.id]?.count.toLocaleString() ?? '–'}
                 </button>
                 <button
                   type="button"
@@ -663,12 +654,7 @@ export function Gallery() {
                 </button>
               </div>
               <div className="prompt-heading">
-                <h3>Your prompt</h3>
-                <span>
-                  {selected.promptKind === 'Starter prompt'
-                    ? 'Starter + chat context'
-                    : 'Original brief + chat context'}
-                </span>
+                <h3>{selected.promptKind}</h3>
               </div>
               <textarea
                 className="prompt-text"
@@ -682,6 +668,7 @@ export function Gallery() {
                 icon={<FolderCode size={16} />}
                 className="source-disclosure"
               >
+                <p className="detail-description">{selected.description}</p>
                 <div className="detail-audience">
                   <span>Useful for</span>
                   {selected.audiences.map((item) => (
@@ -738,7 +725,7 @@ export function Gallery() {
         }}
       >
         <DialogContent className="manual-copy-dialog">
-          <DialogTitle>Copy for your chat</DialogTitle>
+          <DialogTitle>Copy Prompt</DialogTitle>
           <DialogDescription>
             Your browser couldn’t copy automatically. Copy the selected text
             below.
@@ -753,12 +740,7 @@ export function Gallery() {
           <Button onClick={() => setManualCopy('')}>Done</Button>
         </DialogContent>
       </Dialog>
-      {message && (
-        <output className="toast-message">
-          <Check size={14} />
-          {message}
-        </output>
-      )}
+      {message && <output className="toast-message">{message}</output>}
     </>
   );
 }

@@ -1,7 +1,6 @@
 import { ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 import launch from '@/data/mcp-launch.json';
-import { AgentMarks } from '@/components/connect-mcp';
 import { PreviewMedia } from '@/components/preview-media';
 
 export function McpArtwork() {
@@ -23,36 +22,29 @@ export function McpArtwork() {
   );
 }
 
-export function McpFeature() {
+export function McpFeature({ suspended = false }: { suspended?: boolean }) {
   return (
-    <article className="video-card mcp-feature">
+    <article className="featured-card mcp-feature">
       <Link
         href="/mcp"
-        className="video-frame mcp-feature-frame"
+        className="featured-frame mcp-feature-frame"
         aria-label="Discover Video Use MCP and connect your chat"
       >
         {launch.src && launch.poster ? (
-          <PreviewMedia src={launch.src} poster={launch.poster} />
+          <PreviewMedia
+            src={launch.src}
+            poster={launch.poster}
+            suspended={suspended}
+          />
         ) : (
           <McpArtwork />
         )}
       </Link>
-      <div className="card-heading">
-        <Link href="/mcp">Your chat is a video studio</Link>
-        <ArrowUpRight size={14} />
-      </div>
-      <div className="card-bottom">
-        <span className="feature-tag">Video Use MCP</span>
-        <Link
-          className="card-connect"
-          href="/mcp"
-          aria-label="Connect Video Use to ChatGPT, Claude, or Cursor"
-        >
-          <AgentMarks compact />
-          <span>
-            Connect <ArrowUpRight size={12} />
-          </span>
-        </Link>
+      <div className="featured-caption">
+        <Link href="/mcp">Video Use MCP</Link>
+        <span>
+          Connect your chat <ArrowUpRight size={14} />
+        </span>
       </div>
     </article>
   );

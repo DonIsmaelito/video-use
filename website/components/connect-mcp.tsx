@@ -351,32 +351,3 @@ export function ConnectMcp({
     </>
   );
 }
-
-export function McpBanner() {
-  return (
-    <section
-      className="mcp-banner"
-      id="connect"
-      aria-label="Make videos in your chat"
-    >
-      <div className="mcp-banner-copy">
-        <span className="eyebrow">
-          <Plug size={13} /> Video Use MCP
-        </span>
-        <h2>
-          A little inspiration.
-          <br />
-          <em>A lot you can make.</em>
-        </h2>
-        <p>Bring a prompt. Make it yours in chat.</p>
-      </div>
-      <div className="mcp-banner-action">
-        <div className="client-line">
-          <AgentMarks />
-          <span>ChatGPT · Claude · Cursor guides</span>
-        </div>
-        <ConnectMcp className="primary-button" label="Set up Video Use" />
-      </div>
-    </section>
-  );
-}
