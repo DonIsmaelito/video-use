@@ -1,0 +1,158 @@
+/* Proportional flex widths give every filled row one media height, without
+   masonry holes, DOM reordering or a resize script. The last row stays modest. */
+.grid:global(.video-grid) {
+  --preview-height: 252px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 16px 12px;
+}
+
+.grid::after {
+  content: '';
+  flex: 1000000 1 0;
+}
+
+.card:global(.video-card) {
+  --media-ratio: 1.777777778;
+  flex: calc(var(--media-ratio) * 100) 1
+    calc(var(--preview-height) * var(--media-ratio));
+  min-width: 0;
+  border-radius: 14px;
+  background: #141414;
+}
+
+.card[data-orientation='portrait'] {
+  --media-ratio: 0.5625;
+}
+
+.card[data-orientation='square'] {
+  --media-ratio: 1;
+}
+
+.frame:global(.video-frame) {
+  aspect-ratio: var(--media-ratio);
+  border-radius: 14px 14px 0 0;
+}
+
+.duration:global(.video-duration) {
+  top: 10px;
+  left: 10px;
+  opacity: 1;
+  background: #111b;
+}
+
+.footer {
+  display: grid;
+  gap: 6px;
+  padding: 6px 10px 10px;
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  height: 32px;
+}
+
+.title {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: 500;
+}
+
+.like:global(.like-button) {
+  position: static;
+  flex-shrink: 0;
+  min-height: 32px;
+  padding: 4px 0 4px 4px;
+  gap: 4px;
+  opacity: 1;
+  color: #aaa;
+  font-size: 10px;
+}
+
+.like:global(.is-liked),
+.like:hover {
+  color: var(--accent);
+}
+
+.like svg {
+  width: 14px;
+  height: 14px;
+}
+
+.actions:global(.card-actions) {
+  position: static;
+  gap: 6px;
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.actions :global(.copy-card),
+.actions :global(.expand-card) {
+  height: 36px;
+  border-radius: 8px;
+}
+
+.actions :global(.copy-card) {
+  font-size: 11px;
+  gap: 5px;
+  padding-inline: 6px;
+}
+
+.actions :global(.copy-card) svg {
+  display: none;
+}
+
+.actions :global(.expand-card) {
+  width: 32px;
+  background: #222;
+  border-color: #353535;
+  backdrop-filter: none;
+}
+
+.actions :global(.expand-card):hover {
+  background: #fff;
+}
+
+@media (min-width: 1800px) {
+  .grid:global(.video-grid) {
+    --preview-height: 290px;
+    gap: 18px 14px;
+  }
+}
+
+@media (max-width: 700px) {
+  .grid:global(.video-grid) {
+    --preview-height: 240px;
+    gap: 12px 10px;
+  }
+
+  .footer {
+    padding-inline: 8px;
+  }
+}
+
+@media (max-width: 380px) {
+  .grid:global(.video-grid) {
+    --preview-height: 220px;
+    gap: 12px 8px;
+  }
+
+  .heading {
+    gap: 3px;
+  }
+
+  .actions :global(.copy-card) {
+    font-size: 10px;
+  }
+}

@@ -32,6 +32,7 @@ import {
 } from '@/components/use-gallery-likes';
 import { PreviewMedia } from '@/components/preview-media';
 import { TechniqueIcon } from '@/components/technique-icon';
+import cardStyles from '@/components/gallery-cards.module.css';
 import {
   buildChatPrompt,
   categories,
@@ -87,10 +88,14 @@ function VideoCard({
   toggleLike: () => void;
 }) {
   return (
-    <article className="video-card" aria-label={example.title}>
+    <article
+      className={`video-card ${cardStyles.card}`}
+      data-orientation={example.orientation}
+      aria-label={example.title}
+    >
       <button
         type="button"
-        className={`video-frame ${example.orientation}`}
+        className={`video-frame ${example.orientation} ${cardStyles.frame}`}
         onClick={open}
         aria-label={'Watch ' + example.title + ' and view its prompt'}
       >
@@ -99,41 +104,47 @@ function VideoCard({
           poster={example.poster}
           orientation={example.orientation}
           suspended={suspended}
-          ambient
         />
-        <span className="video-shade" />
-        <span className="card-caption">{example.title}</span>
+        <span className={`video-duration ${cardStyles.duration}`}>
+          {formatDuration(example.duration)}
+        </span>
       </button>
-      <span className="video-duration">{formatDuration(example.duration)}</span>
-      <button
-        type="button"
-        className={`like-button ${like?.liked ? 'is-liked' : ''}`}
-        aria-label={`${like?.liked ? 'Unlike' : 'Like'} ${example.title}`}
-        aria-pressed={like?.liked ?? false}
-        disabled={liking}
-        onClick={toggleLike}
-      >
-        <span>{like ? like.count.toLocaleString() : '–'}</span>
-        <Heart size={17} fill={like?.liked ? 'currentColor' : 'none'} />
-      </button>
-      <div className="card-actions">
-        <button
-          className={'copy-card ' + (copied ? 'copied' : '')}
-          type="button"
-          onClick={copy}
-          aria-label={'Copy prompt for ' + example.title}
-        >
-          {copied ? <Check size={14} /> : <Copy size={14} />}{' '}
-          {copied ? 'Copied' : 'Copy Prompt'}
-        </button>
-        <button
-          type="button"
-          className="expand-card"
-          onClick={open}
-          aria-label={`Expand ${example.title}`}
-        >
-          <Maximize2 size={16} />
-        </button>
+      <div className={cardStyles.footer}>
+        <div className={cardStyles.heading}>
+          <h3 className={cardStyles.title} title={example.title}>
+            {example.title}
+          </h3>
+          <button
+            type="button"
+            className={`like-button ${cardStyles.like} ${like?.liked ? 'is-liked' : ''}`}
+            aria-label={`${like?.liked ? 'Unlike' : 'Like'} ${example.title}`}
+            aria-pressed={like?.liked ?? false}
+            disabled={liking}
+            onClick={toggleLike}
+          >
+            <span>{like ? like.count.toLocaleString() : '–'}</span>
+            <Heart size={17} fill={like?.liked ? 'currentColor' : 'none'} />
+          </button>
+        </div>
+        <div className={`card-actions ${cardStyles.actions}`}>
+          <button
+            className={'copy-card ' + (copied ? 'copied' : '')}
+            type="button"
+            onClick={copy}
+            aria-label={'Copy prompt for ' + example.title}
+          >
+            {copied ? <Check size={14} /> : <Copy size={14} />}{' '}
+            {copied ? 'Copied' : 'Copy Prompt'}
+          </button>
+          <button
+            type="button"
+            className="expand-card"
+            onClick={open}
+            aria-label={`Expand ${example.title}`}
+          >
+            <Maximize2 size={16} />
+          </button>
+        </div>
       </div>
     </article>
   );
@@ -467,7 +478,7 @@ export function Gallery() {
                 )}
               </div>
             )}
-            <div className="video-grid">
+            <div className={`video-grid ${cardStyles.grid}`}>
               {visible.map((example) => (
                 <VideoCard
                   key={example.id}

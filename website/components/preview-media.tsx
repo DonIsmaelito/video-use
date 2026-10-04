@@ -94,7 +94,7 @@ export function PreviewMedia({
       ref={frame}
       className={`preview-media ${orientation} ${ambient ? 'has-ambient' : ''} ${playing ? 'is-playing' : ''}`}
     >
-      {/* Tall gallery windows preserve the complete film over its blurred poster. */}
+      {/* Optional ambient fill never crops the foreground film. */}
       {ambient && (
         <Image
           src={poster}
