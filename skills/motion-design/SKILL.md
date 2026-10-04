@@ -23,10 +23,18 @@ For a complex build, prove one representative component in the chosen renderer b
 
 ## Build the appropriate representation
 
-- HTML/CSS/SVG with GSAP or direct time functions: typography, graphic shapes, UI, collage, masks, and 2.5D.
+- HTML/CSS/SVG with direct time functions, or GSAP when installed: typography, graphic shapes, UI, collage, masks, and 2.5D.
 - Three.js or another suitable 3D renderer: sculptural objects, real camera movement, material and lighting studies.
-- Remotion: an existing React composition system or React-based content makes implementation simpler.
+- Remotion when installed: an existing React composition system or React-based content makes implementation simpler.
 - Manim: diagrams, equations, and formal explanations; load its skill when applicable.
+
+Match this choice to the actual execution environment. The hosted Claude/ChatGPT
+pilot bundles Chromium/Puppeteer, Three.js and Manim; GSAP, Remotion and Blender
+are not bundled. Its render worker has no external network: use local assets and
+direct time functions, not CDN imports or runtime installs. Local-machine projects
+can use separately installed frameworks; those workflows do not establish hosted
+availability. Procedural 3D needs a small working proof in the actual worker before
+promising a complex reference treatment.
 
 Reuse rendering, asset-loading, and timeline mechanics. Author the concept and layout for the piece. A component catalog can supply a suitable primitive; its availability should not decide the visual idea.
 

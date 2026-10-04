@@ -188,3 +188,41 @@ def test_known_source_category_gets_relevant_starting_types():
     offered = intake_context(current)["questions"][0]["options"]
     assert offered[0]["id"] == "screen_demo"
     assert "diagram_animation" not in {o["id"] for o in offered}
+
+
+@pytest.mark.parametrize(
+    "category,choice,qualification",
+    [
+        ("custom", "cinematic", "supplied footage"),
+        ("software_demo", "screen_demo", "recording"),
+        ("procedural_3d", "procedural_3d", "Procedural 3D"),
+    ],
+)
+def test_conditional_approaches_stay_available_with_concise_prerequisites(
+    category, choice, qualification
+):
+    current = initialize_intake(
+        {"revision": 1, "category": category},
+        {"duration_seconds": 30, "viewing_destination": "web"},
+    )
+    current["intake"]["mode"] = "hands_on"
+    context = intake_context(current)
+    assert context["phase"] == "approach"
+    question = context["questions"][0]
+    assert question["id"] == "creation_approach"
+    choices = {option["id"]: option for option in question["options"]}
+    assert qualification in choices[choice]["label"]
+    assert "you_decide" in choices
+    assert len(choices[choice]["label"]) < 60
+    # Requirements are model guidance, not extra controls or a second question.
+    assert len(context["questions"]) == 1
+    assert set(choices[choice]) == {"id", "label"}
+    for requirement in (
+        "video_use_capabilities",
+        "supplied or licensed footage",
+        "screen demos need a recording",
+        "Three.js or Manim",
+        "not Blender",
+        "Keep these options available",
+    ):
+        assert requirement in context["next_action"]

@@ -37,7 +37,7 @@ For a short idea made of simple 2D geometry and type, `render_video_scene` can
 remove the renderer/assembly boilerplate; see the compact `scenes` guide. Use
 Manim when semantic transformations, equations or geometry need its richer API.
 
-Manim CE **0.19.2**, FFmpeg and the default LaTeX/MathTex dependencies are ready.
+Manim CE **0.19.x**, FFmpeg and the default LaTeX/MathTex dependencies are ready.
 Do not run setup scripts or inventory fonts. `DejaVu Sans`, `DejaVu Serif` and
 `Noto Sans` are known choices; use supplied brand fonts when available.
 

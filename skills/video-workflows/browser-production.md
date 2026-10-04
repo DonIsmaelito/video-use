@@ -127,8 +127,27 @@ with the actual post or supported API. Do not repeatedly retry blocked platforms
 `inspect_social_reference(project_id, url, browser_request_id=...)` can use an actual
 Browser Harness receipt for post-bound metadata. It returns a private receipt ID
 for the offered reference and does not claim visual inspection from metadata.
-For non-social references, preserve observed `playback.url` and
-`playback.browser_request_id`; specialist collections remain supplemental.
+Offer only individual YouTube, TikTok or X video posts. Other collections may
+identify leads; their pages cannot be offered as reference choices. Metadata/page
+inspection alone cannot qualify a recommendation; inspect actual media frames.
+Use `sample_video` for timed stills. A poster cannot establish the video treatment.
+For blocked posts, keep the lead as reserve/reject and try another accessible work.
+Report access failures per candidate; do not claim an entire platform was inspected.
+
+Before searching, use intake's `production_context` to compare the defining
+treatment with installed methods and historical output evidence. This is an
+internal capability ledger, not a fixed reference gallery. Research fresh works.
+Each recommendation needs a `production_plan`: method, specific treatment to
+preserve, matching evidence IDs, asset requirements, adaptations and confidence.
+Runtime primitives alone use `requires_sample`; a stored example demonstrates
+only its described mechanism. Do not turn installed Three.js or one toy planet
+into a claim that a detailed Blender city can be cloned. Equally, a simple
+Blender-authored object may be feasible with procedural Three.js. Explain any
+meaningful change to the look beside the thumbnail before asking the user to choose.
+Inspect relevant frames; metadata-only candidates remain discovery leads.
+The downloader accepts complete videos up to ten minutes/200 MB, not remote
+segments from larger files. Longer works need a supplied excerpt: disclose that
+dependency before offering one, or prefer an accessible short work.
 
 Save each candidate's real `search_intent`, `search_queries`, evidence, fit,
 limitations and disposition in `record_video_references`. Offered references must

@@ -24,6 +24,15 @@ explicit delegation instead of pretending there is a downloadable video.
 
 ## Measure before planning
 
+Read the selected `production_plan` from the project's reference context first.
+It records the proposed renderer, essential treatment, historical evidence,
+asset dependencies and disclosed adaptations. Downloading is acquisition, not
+proof we can reproduce the look. Confirm those assumptions against the actual
+frames; if the defining effect needs an unavailable asset or tool, resolve that
+specific gap with the user before rendering. Do not silently reduce a realistic
+environment to flat boxes or promise exact cloning. Keep the user's content and
+the selected visual mechanisms, and prove them in the snippet.
+
 The old Whiplash clone prompt's useful principle is: the breakdown is the
 specification. Match what actually happens, measured rather than guessed.
 The initial contact sheet is an overview, not a cut detector or motion analysis.

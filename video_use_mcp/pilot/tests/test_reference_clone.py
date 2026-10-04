@@ -21,13 +21,14 @@ from video_use_mcp.pilot.tests.test_reference_direction import (
     saved,
 )
 from video_use_mcp.pilot.tests.test_reference_direction import (
-    project as project,
+    project as project_fixture,
 )
 from video_use_mcp.pilot.tests.test_reference_direction import (
     registry as registry,
 )
 
 pytest_plugins = ["video_use_mcp.pilot.tests.test_oauth_discovery"]
+project = project_fixture
 
 
 def selected(pilot, project, both=False):
@@ -133,16 +134,51 @@ def test_prepare_tool_is_discovered_and_checks_selection_before_spending(
 
 def manager_for(pilot, project):
     store = pilot[1].state.store
+    objects, files = {}, {}
+
+    def sql(query, *args):
+        if "WHERE id=$1 AND owner=$2 AND project=$3" in query:
+            oid, uid, pid = args
+            row = objects.get(oid)
+            return [row] if row and (row["owner"], row["project"]) == (uid, pid) else []
+        if "WHERE project=$1 AND owner=$2" in query:
+            pid, uid, name = args
+            return [
+                row
+                for row in objects.values()
+                if (row["project"], row["owner"], row["name"]) == (pid, uid, name)
+            ]
+        if "WHERE project=$1 AND kind='source' AND name=$2" in query:
+            pid, name = args
+            return [
+                row
+                for row in objects.values()
+                if (row["project"], row["name"]) == (pid, name)
+            ]
+        return []
+
+    store.sql.side_effect = sql
+    store.download = Mock(side_effect=lambda key, path: path.write_bytes(files[key]))
 
     async def save_object(uid, pid, kind, name, local):
-        return dict(
+        row = dict(
             id=hashlib.sha256(name.encode()).hexdigest(),
             name=name,
             size=local.stat().st_size,
+            key=name,
+            owner=uid,
+            project=pid,
         )
+        objects[row["id"]] = row
+        files[name] = local.read_bytes()
+        return row
 
     return SimpleNamespace(
-        store=store, sessions={}, save_object=AsyncMock(side_effect=save_object)
+        store=store,
+        sessions={},
+        save_object=AsyncMock(side_effect=save_object),
+        objects=objects,
+        files=files,
     )
 
 
@@ -196,11 +232,20 @@ def test_acquisition_persists_source_paths_and_retries_reuse_media(
     assert (
         saved(pilot, project)["intake"]["excerpt_review"]["status"] == "not_requested"
     )
+    # Earlier durable receipts have no handoff flag or separate sheet hash.
+    state = saved(pilot, project)
+    old_receipt = state["intake"]["reference_direction"]["clone"]["media"]["diagram"]
+    old_receipt.pop("handoff_complete")
+    old_receipt["contact_sheet"].pop("sha256")
+    manager.store.put("creative", project, state)
     again = asyncio.run(
         clone.prepare_reference(manager, task_for(pilot, project), sandbox)
     )
     assert again["cached"]
     assert download.await_count == 1
+    assert sandbox.upload.await_count == 4
+    assert sandbox.write.await_count == 2
+    assert manager.store.download.call_count == 2
 
 
 def test_download_failure_never_unlocks_snippet(pilot, project, monkeypatch):
@@ -335,3 +380,240 @@ def test_cancellation_does_not_unlock_acquisition(pilot, project, monkeypatch):
         ]
         == "download_required"
     )
+
+
+@pytest.mark.parametrize("failure", ["upload", "write"])
+def test_failed_handoff_blocks_render_and_retry_restores_saved_assets(
+    pilot, project, monkeypatch, failure
+):
+    selected(pilot, project)
+    manager = manager_for(pilot, project)
+    download = AsyncMock(side_effect=fake_download)
+    monkeypatch.setattr(clone, "download_selected", download)
+    failed = SimpleNamespace(upload=AsyncMock(), write=AsyncMock())
+    getattr(failed, failure).side_effect = OSError("Workspace write failed")
+    with pytest.raises(OSError, match="Workspace write failed"):
+        asyncio.run(clone.prepare_reference(manager, task_for(pilot, project), failed))
+    context = clone.clone_context(
+        saved(pilot, project)["intake"]["reference_direction"]
+    )
+    assert context["pending_reference_ids"] == ["diagram"]
+    assert context["media"]["diagram"]["handoff_complete"] is False
+    with pytest.raises(ValueError, match="Download the selected"):
+        require_production_intake(
+            saved(pilot, project), "step", {"production_stage": "excerpt"}
+        )
+
+    # A replacement workspace starts empty. The retry must use durable storage,
+    # restore the exact bytes, and rebuild the manifest without another download.
+    restored = {}
+
+    async def upload(path, local):
+        restored[path] = local.read_bytes()
+
+    sandbox = SimpleNamespace(upload=AsyncMock(side_effect=upload), write=AsyncMock())
+    result = asyncio.run(
+        clone.prepare_reference(manager, task_for(pilot, project), sandbox)
+    )
+    assert result["cached"]
+    assert result["clone"]["status"] == "ready_for_analysis"
+    receipt = result["reference"]
+    assert restored[receipt["source"]["path"]] == b"downloaded reference"
+    assert restored[receipt["contact_sheet"]["path"]] == b"sheet"
+    manifest = json.loads(sandbox.write.call_args.args[1])
+    assert manifest["references"]["diagram"] == receipt
+    assert download.await_count == 1
+    assert manager.save_object.await_count == 2
+    require_production_intake(
+        saved(pilot, project), "step", {"production_stage": "excerpt"}
+    )
+
+
+@pytest.mark.parametrize("invalid", ["corrupt", "foreign_owner", "foreign_project"])
+def test_cached_restore_checks_integrity_and_ownership_before_unlocking(
+    pilot, project, monkeypatch, invalid
+):
+    selected(pilot, project)
+    manager = manager_for(pilot, project)
+    monkeypatch.setattr(
+        clone, "download_selected", AsyncMock(side_effect=fake_download)
+    )
+    result = asyncio.run(
+        clone.prepare_reference(
+            manager,
+            task_for(pilot, project),
+            SimpleNamespace(upload=AsyncMock(), write=AsyncMock()),
+        )
+    )
+    obj = manager.objects[result["reference"]["source"]["id"]]
+    if invalid == "corrupt":
+        manager.files[obj["key"]] = b"x" * obj["size"]
+    elif invalid == "foreign_owner":
+        obj["owner"] = "other-owner"
+    else:
+        obj["project"] = "other-project"
+    sandbox = SimpleNamespace(upload=AsyncMock(), write=AsyncMock())
+    with pytest.raises(ValueError, match="Saved reference source"):
+        asyncio.run(clone.prepare_reference(manager, task_for(pilot, project), sandbox))
+    assert not sandbox.upload.called and not sandbox.write.called
+    assert clone.clone_context(saved(pilot, project)["intake"]["reference_direction"])[
+        "pending_reference_ids"
+    ] == ["diagram"]
+
+
+def test_selection_change_during_manifest_write_never_completes_old_handoff(
+    pilot, project, monkeypatch
+):
+    selected(pilot, project)
+    manager = manager_for(pilot, project)
+    monkeypatch.setattr(
+        clone, "download_selected", AsyncMock(side_effect=fake_download)
+    )
+
+    async def change_selection(*args):
+        state = saved(pilot, project)
+        state["intake"]["reference_direction"]["direction"] = "Changed treatment"
+        manager.store.put("creative", project, state)
+
+    sandbox = SimpleNamespace(
+        upload=AsyncMock(), write=AsyncMock(side_effect=change_selection)
+    )
+    with pytest.raises(ValueError, match="selection changed"):
+        asyncio.run(clone.prepare_reference(manager, task_for(pilot, project), sandbox))
+    state = saved(pilot, project)
+    assert state["intake"]["reference_direction"]["direction"] == "Changed treatment"
+    with pytest.raises(ValueError, match="Download the selected"):
+        require_production_intake(state, "step", {"production_stage": "excerpt"})
+
+
+def download_evidence(pilot, project, **changes):
+    store = pilot[1].state.store
+    page = "https://studio.example/film"
+    media = "https://cdn.example/film.mp4"
+    reference = dict(
+        url=page, playback=dict(url=media, browser_request_id="inspection")
+    )
+    receipt = dict(
+        owner="tester",
+        project=project,
+        status="complete",
+        result=dict(
+            engine="browser-harness",
+            project_id=project,
+            results=[dict(ok=True, page_url=page, videos=[dict(src=media)])],
+        ),
+    )
+    receipt.update(changes)
+    key = hashlib.sha256(f"tester:{project}:inspection".encode()).hexdigest()
+    store.put("reference_browser_run", key, receipt)
+    return store, reference, receipt, key
+
+
+def test_download_target_uses_exact_owned_media_and_keeps_page_attribution(
+    pilot, project
+):
+    store, reference, _, _ = download_evidence(pilot, project)
+    target = clone.download_target(store, "tester", project, reference)
+    assert target["url"] == "https://cdn.example/film.mp4"
+    assert (
+        target["source_page_url"] == reference["url"] == "https://studio.example/film"
+    )
+    assert target["observed_as"] == "video"
+    assert clone.download_target(
+        store, "tester", project, {"url": reference["url"]}
+    ) == dict(
+        url=reference["url"],
+        source_page_url=reference["url"],
+        observed_as="selected_page",
+    )
+
+
+@pytest.mark.parametrize(
+    "invalid", ["owner", "project", "status", "page", "media", "missing"]
+)
+def test_unverified_playback_cannot_become_download_target(
+    pilot, project, monkeypatch, tmp_path, invalid
+):
+    store, reference, receipt, key = download_evidence(pilot, project)
+    if invalid in {"owner", "project", "status"}:
+        receipt[invalid] = "different"
+    elif invalid == "page":
+        receipt["result"]["results"][0]["page_url"] = (
+            "https://studio.example/other-film"
+        )
+    elif invalid == "media":
+        reference["playback"]["url"] = "https://cdn.example/unobserved.mp4"
+    else:
+        reference["playback"]["browser_request_id"] = "missing-request"
+    store.put("reference_browser_run", key, receipt)
+    store.reserve = Mock()
+    monkeypatch.setenv("PILOT_REFERENCE_BROWSER_IMAGE", "test-image")
+    with pytest.raises(ValueError, match="provenance|not observed"):
+        asyncio.run(
+            clone.download_selected(
+                SimpleNamespace(store=store), "tester", project, reference, tmp_path
+            )
+        )
+    store.reserve.assert_not_called()
+
+
+def test_worker_receives_verified_media_url_and_preserves_acquisition_evidence(
+    pilot, project, monkeypatch, tmp_path
+):
+    import modal
+    import video_use_mcp.sandbox as sandbox_module
+
+    store, reference, _, _ = download_evidence(pilot, project)
+    store.reserve = Mock(return_value="reservation")
+    store.settle = Mock()
+    video = b"verified downloaded video"
+    result = dict(
+        filename="reference.mp4",
+        sha256=hashlib.sha256(video).hexdigest(),
+        size=len(video),
+        duration_seconds=8,
+    )
+
+    async def output(text):
+        yield text
+
+    stdin = SimpleNamespace(
+        write=Mock(), write_eof=Mock(), drain=SimpleNamespace(aio=AsyncMock())
+    )
+    process = SimpleNamespace(
+        stdin=stdin,
+        stdout=output(json.dumps(result)),
+        stderr=output(""),
+        wait=SimpleNamespace(aio=AsyncMock(return_value=0)),
+    )
+    worker = SimpleNamespace(
+        exec=SimpleNamespace(aio=AsyncMock(return_value=process)),
+        terminate=SimpleNamespace(aio=AsyncMock()),
+    )
+    monkeypatch.setattr(
+        modal.App, "lookup", SimpleNamespace(aio=AsyncMock(return_value=object()))
+    )
+    monkeypatch.setattr(
+        modal.Sandbox, "create", SimpleNamespace(aio=AsyncMock(return_value=worker))
+    )
+    monkeypatch.setattr(modal.Image, "from_id", Mock(return_value=object()))
+
+    async def transfer(remote, local, limit):
+        local.write_bytes(video if remote.endswith("reference.mp4") else b"sheet")
+
+    wrapper = SimpleNamespace(download=AsyncMock(side_effect=transfer))
+    monkeypatch.setattr(sandbox_module, "ModalSandbox", Mock(return_value=wrapper))
+    monkeypatch.setenv("PILOT_REFERENCE_BROWSER_IMAGE", "test-image")
+    manager = SimpleNamespace(store=store, config=SimpleNamespace(modal_app="test-app"))
+    downloaded, _, metadata = asyncio.run(
+        clone.download_selected(manager, "tester", project, reference, tmp_path)
+    )
+    assert json.loads(stdin.write.call_args.args[0]) == dict(
+        url="https://cdn.example/film.mp4", uploaded=False
+    )
+    assert downloaded.read_bytes() == video
+    assert metadata["acquisition"]["url"] == "https://cdn.example/film.mp4"
+    assert metadata["acquisition"]["source_page_url"] == reference["url"]
+    assert reference["url"] == "https://studio.example/film"
+    worker.terminate.aio.assert_awaited_once()
+    store.settle.assert_called_once()

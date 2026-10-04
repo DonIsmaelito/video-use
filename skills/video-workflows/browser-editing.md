@@ -94,7 +94,7 @@ Keep feedback tied to the stated version/time.
 
 - `/workspace/sources/` contains originals; `/workspace/edit/` contains editable
   work. The harness is `/opt/video-use`; source files persist in checkpoints.
-- Python/Pillow/NumPy, FFmpeg, Manim CE 0.19.2 with MathTex, Node/Puppeteer/Chromium
+- Python/Pillow/NumPy, FFmpeg, Manim CE 0.19.x with MathTex, Node/Puppeteer/Chromium
   are installed. Use DejaVu Sans/Serif or Noto Sans; no inventory or installation.
 - Render workers have no external network. Use connector speech and explicit
   source-transfer tools; never embed credentials in a script.
@@ -104,6 +104,11 @@ Keep feedback tied to the stated version/time.
   needed; otherwise retain the default. Do not invent voices, languages or clones.
 - Workers render with bounded CPU/memory and at most two independent components
   concurrently. They do not author scenes for you.
+
+Cinematic editing needs supplied or licensed footage; screen demos need a recording.
+Keep them available when inputs can be supplied. Procedural 3D uses bounded Three.js
+or Manim, without Blender or a GPU render service. Match references to available
+assets and prove uncertain visual components before promising their quality.
 
 Read only the relevant compact guide: `scenes` for editable 2D drawing data,
 `manim` for richer diagrams/equations, `motion` for browser compositions, or

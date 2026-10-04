@@ -49,7 +49,7 @@ def test_native_references_then_reviewed_snippet_then_full_video(pilot):
             refs()[0],
             id=f"choice-{i}",
             title=f"Direction {i + 1}",
-            url=f"https://artist.example/film-{i}",
+            url=f"https://www.youtube.com/watch?v=Film{i:07d}",
             discovery_url=f"https://example.com/collection/film-{i}",
         )
         for i in range(5)

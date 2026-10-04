@@ -155,6 +155,40 @@ class Reference(BaseModel):
         return public_reference_url(value) if value else value
 
 
+class ProductionPlan(BaseModel):
+    """The assistant's concrete route from observed treatment to available tools."""
+
+    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+    method: Literal["ffmpeg", "canvas", "manim", "threejs"]
+    treatment: str = Field(
+        min_length=1,
+        max_length=1200,
+        description="Essential observed composition and motion to preserve, not just colors or topic.",
+    )
+    evidence_ids: list[str] = Field(min_length=1, max_length=4)
+    asset_requirements: str = Field(
+        min_length=1,
+        max_length=800,
+        description="Required assets and their availability; explicitly say none when none are needed.",
+    )
+    adaptations: str = Field(
+        min_length=1,
+        max_length=1000,
+        description="Concrete substitutions for unavailable defining effects or assets; explicitly say none when unnecessary.",
+    )
+    confidence: Literal["demonstrated", "requires_sample"]
+
+    @field_validator("evidence_ids")
+    @classmethod
+    def bounded_evidence_ids(cls, values):
+        values = [value.strip() for value in values]
+        if any(not value or len(value) > 120 for value in values):
+            raise ValueError("Use production evidence IDs within 1–120 characters")
+        if len(set(values)) != len(values):
+            raise ValueError("Use distinct production evidence IDs")
+        return values
+
+
 class CandidateEvaluation(BaseModel):
     """One candidate examined for this brief, not a reusable recommendation."""
 
@@ -164,6 +198,14 @@ class CandidateEvaluation(BaseModel):
     fit: str = Field(min_length=1, max_length=800)
     limitations: str = Field(min_length=1, max_length=800)
     disposition: Literal["recommend", "reserve", "reject"]
+    production_plan: ProductionPlan | None = None
+
+    @model_serializer(mode="wrap")
+    def serialized(self, handler):
+        value = handler(self)
+        if self.production_plan is None:
+            value.pop("production_plan", None)  # Preserve historic retry hashes.
+        return value
 
 
 class ReferenceSearch(BaseModel):
@@ -220,6 +262,11 @@ def search_summary(search):
                     key: candidate[key]
                     for key in ("evidence_note", "fit", "limitations")
                 },
+                **(
+                    {"production_plan": deepcopy(candidate["production_plan"])}
+                    if candidate.get("production_plan")
+                    else {}
+                ),
             }
             for candidate in search["candidates"]
             if candidate["disposition"] == "recommend"
@@ -321,6 +368,8 @@ def reference_context(state, project_id=None):
     status = reference.get("status", "needed")
     rounds = reference.get("rounds", [])
     current = rounds[-1] if rounds else {}
+    from .production_evidence import production_context
+
     context = {
         "version": 1,
         "status": status,
@@ -334,6 +383,7 @@ def reference_context(state, project_id=None):
             search_summary(batch) for batch in current.get("search_batches", [])
         ],
         "creation_approach": deepcopy(state["intake"].get("creation_approach", {})),
+        "production_context": production_context(),
         "excluded_reference_urls": list(reference.get("excluded_reference_urls", [])),
         "selected_ids": deepcopy(reference.get("selected_ids", [])),
         "direction": reference.get("direction", ""),
@@ -359,6 +409,18 @@ def reference_context(state, project_id=None):
         "selected_references": deepcopy(reference.get("selected_references", [])),
         "record_with": "record_video_references",
     }
+    if reference.get("selected_ids"):
+        searches = current.get("search_batches") or [current.get("search") or {}]
+        context["selected_production_plans"] = [
+            {
+                "reference_id": candidate["reference"]["id"],
+                "production_plan": deepcopy(candidate["production_plan"]),
+            }
+            for search in searches
+            for candidate in search.get("candidates", [])
+            if candidate["reference"]["id"] in reference["selected_ids"]
+            and candidate.get("production_plan")
+        ]
     if status in {"needed", "refining", "collecting", "offered"}:
         from .reference_sources import reference_source_catalog
 
@@ -448,7 +510,7 @@ def reference_context(state, project_id=None):
         )
     else:
         context["next_action"] = (
-            "Before creation, derive a visual search intent from this brief and selected approach. Use YouTube, TikTok and X as primary sources; specialist collections are supplemental when requested or after explaining why primary sources did not fit. "
+            "Before creation, derive a visual search intent from this brief and selected approach. Offer only individual YouTube, TikTok or X video posts, with actual visual inspection; metadata-only leads cannot be recommended. "
             "Search sequentially with host tools: inspect one useful candidate, call inspect_social_reference for available attribution/engagement and save social_receipt_id, offer it immediately with more_expected=true, then show its source thumbnail when available and original link with a short conversational fit explanation before searching for the next. Append later candidates as found. Usually three useful references, at most five, then finish and ask one native question listing references, Find another batch and Give my input. "
             "One good reference is sufficient; five is a maximum, not a quota. Record search evidence and reasons for the choices. Use only sourced creator/engagement and observation dates after each reference card; unknown counts are unavailable, never zero or evidence of popularity. oEmbed verifies identity, not visual inspection or popularity. "
             "Collection order and prior research examples are not recommendations. "
@@ -464,6 +526,14 @@ def reference_context(state, project_id=None):
         if clone:
             context["clone"] = clone
             context["next_action"] = clone["next_action"]
+    if status in {"needed", "refining", "collecting", "offered"}:
+        context["next_action"] = (
+            "Use production_context to judge achievable visual treatment before topical similarity or popularity. "
+            "For every recommended reference, record production_plan with method, essential treatment, matching evidence_ids, asset_requirements, adaptations and confidence. "
+            "Name concrete substitutions and disclose meaningful gaps in the short fit explanation; a palette match or an unavailable defining effect is not a credible recreation plan. "
+            "Judge the observed treatment, not the software named in its title. Runtime support alone requires_sample; a stored example only demonstrates what that example actually shows. "
+            + context["next_action"]
+        )
     return context
 
 
@@ -485,7 +555,7 @@ def register_references(mcp, store, muser, read, write):
         more_expected: bool = False,
         round_id: str = "",
     ) -> dict:
-        """Save live, brief-specific reference research or the user's response without displaying an app. This tool does NOT search or inspect. Search YouTube, TikTok and X sequentially with host tools or browse_video_references. Inspect one candidate; for supported YouTube, TikTok or X posts call inspect_social_reference and save its social_receipt_id for observed identity and available engagement. Do not send unsupported studio links to the social-post tool. Specialist collections are supplemental when requested or primary sources do not fit. Offer the first inspected candidate with more_expected=true and display its source thumbnail when available and original link immediately followed by one short fit explanation, creator and sourced views/likes/date where available; append each new candidate to the same round_id as found with its own search record. Use more_expected=false on the final append or finish with no new candidates. At five references collection finishes automatically. Legacy offer defaults to a completed batch. Each offer or append requires search: search_intent, actual search_queries (empty for direct browsing), candidates with reference/evidence_note/fit/limitations/disposition, selection_reason, coverage_limitations. Compare relevance, design differences and production feasibility; no fixed candidate quota or fabricated rejections. Offer 1–5 inspected references, never more than five; their records must match the recommended candidates exactly. Save optional playback:{url,browser_request_id} from a cited page's actual Browser Harness videos, embedded_players or YouTube/Vimeo links. Invoke returned show_video_reference descriptors to show source thumbnails when available and original links, then ask the native reference-choice question including Find another batch and final Give my input. Never invent metrics or interpret missing counts as zero; oEmbed does not prove popularity or visual inspection. No custom choice widget; reference presentation is separate from project creation. Record page/image/video evidence honestly: only actual motion inspection supports pacing claims. web_search entries need curated source_id and discovery_url. The registry supplies search locations, never preapproved example videos. Select current IDs (including an explicit early choice while collecting), refine with actual user feedback, another_batch on the explicit Find another batch request without demanding a critique, or delegate only on explicit user request to skip. Keep saved preferences and exclude previously rejected works in new batches. Selection unlocks a snippet, not the full video. Decisions quote user_message. Visual inspection and user quotes remain assistant-reported; social metadata is hydrated only from the saved server receipt."""
+        """Save live, brief-specific reference research or the user's response without displaying an app. This tool does NOT search or inspect. Search YouTube, TikTok and X sequentially with host tools or browse_video_references. Offer only individual YouTube, TikTok or X video posts. Inspect actual frames first; metadata/page-only leads may be reserve/reject but cannot be recommended. Call inspect_social_reference and save social_receipt_id for attribution and available engagement. Collections are discovery leads, not reference choices. Offer the first inspected candidate with more_expected=true and display its source thumbnail when available and original link immediately followed by one short fit explanation, creator and sourced views/likes/date where available; append each new candidate to the same round_id as found with its own search record. Use more_expected=false on the final append or finish with no new candidates. At five references collection finishes automatically. Legacy offer defaults to a completed batch. Each offer or append requires search: search_intent, actual search_queries (empty for direct browsing), candidates with reference/evidence_note/fit/limitations/disposition, selection_reason, coverage_limitations. Every recommended candidate requires relevant image/video inspection and a production_plan: method, essential treatment, evidence_ids from production_context, asset_requirements, adaptations and confidence. Explain the achievable treatment and concrete substitutions, not just topic or colors; runtime primitives alone require confidence=requires_sample. Compare production feasibility before topic or popularity; no fixed candidate quota or fabricated rejections. Offer 1–5 inspected references, never more than five; their records must match the recommended candidates exactly. Save optional playback:{url,browser_request_id} from a cited page's actual Browser Harness videos, embedded_players or YouTube/Vimeo links. Invoke returned show_video_reference descriptors to show source thumbnails when available and original links, then ask the native reference-choice question including Find another batch and final Give my input. Never invent metrics or interpret missing counts as zero; oEmbed does not prove popularity or visual inspection. No custom choice widget; reference presentation is separate from project creation. Record page/image/video evidence honestly: only actual motion inspection supports pacing claims. web_search entries need curated source_id and discovery_url. The registry supplies search locations, never preapproved example videos. Select current IDs (including an explicit early choice while collecting), refine with actual user feedback, another_batch on the explicit Find another batch request without demanding a critique, or delegate only on explicit user request to skip. Keep saved preferences and exclude previously rejected works in new batches. Selection unlocks a snippet, not the full video. Decisions quote user_message. Visual inspection and user quotes remain assistant-reported; social metadata is hydrated only from the saved server receipt."""
         uid = muser(True)
         store.project(uid, project_id)
         if (
@@ -672,8 +742,28 @@ def register_references(mcp, store, muser, read, write):
                 raise ValueError(
                     "Offered references must match the recommended candidate records exactly"
                 )
+            from .social_references import social_post
+
+            for item in references:
+                # Collections can help discovery, but the offered work itself
+                # must be an individual post on one of these three platforms.
+                social_post(item.url)
             social_evidence = {}
             for candidate in search.candidates:
+                if candidate.disposition == "recommend":
+                    if candidate.reference.inspection not in {"image", "video"}:
+                        raise ValueError(
+                            "Inspect actual reference frames before recommending it; metadata or page text alone cannot support a visual reference. "
+                            "Use browse_video_references sample_video, another visual tool, or choose an accessible candidate. "
+                            "Keep inaccessible leads as reserve/reject with their limitations."
+                        )
+                    if candidate.production_plan is None:
+                        raise ValueError(
+                            "Recommended references require a concrete production_plan grounded in production_context"
+                        )
+                    from .production_evidence import validate_production_plan
+
+                    validate_production_plan(candidate.production_plan.model_dump())
                 validate_reference_source(candidate.reference.model_dump())
                 if candidate.reference.social_receipt_id:
                     from .social_references import validate_social_receipt
@@ -705,8 +795,12 @@ def register_references(mcp, store, muser, read, write):
                         candidate.reference.url,
                         candidate.reference.discovery_url,
                     } - {""}
-                    if not cited_urls.intersection(
-                        {evidence.get("page_url"), evidence.get("source_page_url")}
+                    from .social_references import same_social_post
+
+                    observed_urls = {evidence.get("page_url"), evidence.get("source_page_url")}
+                    if not cited_urls.intersection(observed_urls) and not any(
+                        same_social_post(cited, observed)
+                        for cited in cited_urls for observed in observed_urls
                     ):
                         raise ValueError(
                             "Reference evidence must show the cited reference or discovery page"

@@ -56,8 +56,10 @@ randomness. A renderer does not infer visual design from a text prompt.
 
 Puppeteer dependencies are in `/opt/video-use/skills/motion-design/runtime`.
 Three.js is bundled there in `node_modules/three`; copy needed bundles into the
-served composition directory and use local imports. CPU/software WebGL is
-available for bounded scenes, not a photoreal rendering farm.
+served composition directory and use local imports. Use bounded procedural scenes;
+prove uncertain geometry/material in the actual worker before promising a reference
+treatment. Blender, GSAP and Remotion are not bundled. Use direct time functions,
+not CDN imports or runtime installs.
 
 ```sh
 node /opt/video-use/helpers/motion_render.mjs edit/animations/scene/index.html \

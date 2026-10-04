@@ -8,7 +8,11 @@ import pytest
 
 from video_use_mcp.pilot import reference_sources
 from video_use_mcp.pilot.intake import intake_context
-from video_use_mcp.pilot.reference_direction import Reference, reference_context
+from video_use_mcp.pilot.reference_direction import (
+    Reference,
+    ReferenceSearch,
+    reference_context,
+)
 from video_use_mcp.pilot.runtime import require_production_intake
 from video_use_mcp.pilot.tests.test_cards import rpc
 from video_use_mcp.pilot.tests.test_workflow import call
@@ -81,7 +85,7 @@ def refs():
         dict(
             id="diagram",
             title="Diagram motion",
-            url="https://artist.example/diagram",
+            url="https://www.youtube.com/watch?v=Diagram0001",
             observed_traits="Lines reveal the orbit before labels appear",
             inspection="video",
             source_id="example",
@@ -90,7 +94,7 @@ def refs():
         dict(
             id="editorial",
             title="Editorial stills",
-            url="https://artist.example/editorial",
+            url="https://www.tiktok.com/@editorial/video/6718335390845095173",
             observed_traits="Warm paper and restrained serif typography",
             inspection="image",
             source_id="example",
@@ -105,7 +109,7 @@ def many_refs(count, offset=0):
             refs()[index % 2],
             id=f"reference-{index}",
             title=f"Reference {index + 1}",
-            url=f"https://artist.example/reference-{index}",
+            url=f"https://www.youtube.com/watch?v=Video{index:06d}",
             discovery_url=f"https://example.com/collection/reference-{index}",
         )
         for index in range(offset, offset + count)
@@ -143,6 +147,14 @@ def research(references):
                 fit="Readable lunar geometry with room for labels",
                 limitations="Adapt to this audience; references do not verify lunar facts",
                 disposition="recommend",
+                production_plan=dict(
+                    method="manim",
+                    treatment="Reveal an orbital path before labels, preserving the spatial hierarchy and staged explanation",
+                    evidence_ids=["runtime_manim"],
+                    asset_requirements="None; construct the geometry and labels in code",
+                    adaptations="Use lunar content and validate the reveal timing in the snippet",
+                    confidence="requires_sample",
+                ),
             )
             for reference in references
         ],
@@ -587,9 +599,7 @@ def test_refinement_keeps_rejections_likes_and_prior_selection_across_search_rou
     assert feedback["references"][0]["url"] == refs()[0]["url"]
     with pytest.raises(ValueError):
         require_production_intake(saved(pilot, project), "narrate", {})
-    replacements = [
-        dict(ref, id=ref["id"] + "2", url=ref["url"] + "2") for ref in refs()
-    ]
+    replacements = many_refs(2, offset=10)
     next_offer = invoke(pilot, project, references=replacements, request_id="new-round")
     assert (
         next_offer["reference_direction"]["recent_feedback"]
@@ -1312,7 +1322,7 @@ def test_needed_reference_guidance_is_sequential_social_and_source_honest(
 ):
     context = reference_context(saved(pilot, project), project)
     action = context["next_action"]
-    assert "YouTube, TikTok and X" in action
+    assert "YouTube, TikTok or X" in action
     assert "Search sequentially" in action
     assert "parallel" not in action
     assert "social_receipt_id" in action
@@ -1325,3 +1335,158 @@ def test_needed_reference_guidance_is_sequential_social_and_source_honest(
     assert "social_receipt_id" in description
     assert "one short fit explanation" in description
     assert "Find another batch" in description
+
+
+@pytest.mark.parametrize("inspection", ["metadata", "page"])
+def test_recommended_references_require_actual_visual_inspection(
+    pilot, project, inspection
+):
+    reference = refs()[0] | {"inspection": inspection}
+    before = saved(pilot, project)
+    error = failure(pilot, args(pilot, project, references=[reference]))
+    assert "Inspect actual reference frames" in error
+    assert saved(pilot, project) == before
+
+
+@pytest.mark.parametrize(
+    "change",
+    ["missing", "unknown_evidence", "wrong_method", "runtime_is_not_demonstrated"],
+)
+def test_new_recommendations_require_grounded_production_plans(pilot, project, change):
+    reference = refs()[0]
+    search = research([reference])
+    candidate = search["candidates"][0]
+    if change == "missing":
+        candidate.pop("production_plan")
+    elif change == "unknown_evidence":
+        candidate["production_plan"]["evidence_ids"] = ["imaginary_render"]
+    elif change == "wrong_method":
+        candidate["production_plan"]["method"] = "threejs"
+    else:
+        candidate["production_plan"]["confidence"] = "demonstrated"
+    before = saved(pilot, project)
+    failure(pilot, args(pilot, project, references=[reference], search=search))
+    assert saved(pilot, project) == before
+
+
+def test_discovered_candidates_need_no_invented_production_plan(pilot, project):
+    reference = refs()[0]
+    search = research([reference])
+    for index, disposition in enumerate(("reserve", "reject")):
+        candidate = deepcopy(search["candidates"][0])
+        candidate["reference"].update(
+            id=f"lead-{index}",
+            url=f"https://artist.example/lead-{index}",
+            inspection="metadata",
+        )
+        candidate["disposition"] = disposition
+        candidate.pop("production_plan")
+        search["candidates"].append(candidate)
+    context = invoke(
+        pilot, project, references=[reference], search=search
+    )["reference_direction"]
+    assert [
+        item["disposition"]
+        for item in context["search_summary"]["other_candidates"]
+    ] == ["reserve", "reject"]
+
+
+def test_achievable_treatment_is_not_rejected_for_source_software(pilot, project):
+    reference = refs()[0] | {"title": "Blender procedural orbital animation"}
+    search = research([reference])
+    search["candidates"][0]["production_plan"].update(
+        method="threejs",
+        evidence_ids=["runtime_threejs"],
+        treatment="Preserve the orbiting camera, staged sphere assembly and clean silhouette",
+        adaptations="Use procedural meshes and simple lighting; omit the source's volumetric glow",
+    )
+    context = invoke(
+        pilot, project, references=[reference], search=search
+    )["reference_direction"]
+    assert context["references"][0]["title"] == reference["title"]
+    assert context["search_summary"]["recommended_evidence"][0]["production_plan"] == (
+        search["candidates"][0]["production_plan"]
+    )
+
+
+def test_production_evidence_and_plan_survive_collection_reload_and_selection(
+    pilot, project
+):
+    needed = reference_context(saved(pilot, project), project)
+    assert needed["production_context"]
+    assert "essential treatment" in needed["next_action"]
+    assert "before topical similarity or popularity" in needed["next_action"]
+    first = invoke(pilot, project, references=many_refs(1), more_expected=True)
+    reference = many_refs(1, 1)[0]
+    search = research([reference])
+    appended = invoke(
+        pilot,
+        project,
+        "append",
+        references=[reference],
+        search=search,
+        round_id=first["reference_direction"]["round_id"],
+        request_id="append-plan",
+    )
+    plan = search["candidates"][0]["production_plan"]
+    batch = appended["reference_direction"]["search_batches"][1]
+    assert batch["recommended_evidence"][0]["production_plan"] == plan
+    reloaded = call(pilot, "get_video_project", dict(project_id=project))
+    context = reloaded["creative"]["intake"]["reference_direction"]
+    assert (
+        context["search_batches"][1]["recommended_evidence"][0]["production_plan"]
+        == plan
+    )
+    selected = invoke(
+        pilot,
+        project,
+        "select",
+        selected_ids=[reference["id"]],
+        user_message="Use the second reference",
+        request_id="select-plan",
+    )["reference_direction"]
+    assert selected["production_context"] == needed["production_context"]
+    assert selected["selected_production_plans"] == [
+        {"reference_id": reference["id"], "production_plan": plan}
+    ]
+
+
+def test_historic_comparison_retry_and_selection_remain_readable(pilot, project):
+    parameters = args(pilot, project, references=[refs()[0]])
+    call(pilot, "record_video_references", parameters)
+    state = saved(pilot, project)
+    direction = state["intake"]["reference_direction"]
+    parameters["search"]["candidates"][0].pop("production_plan")
+    current = direction["rounds"][-1]
+    for search in [current["search"], *current["search_batches"]]:
+        search["candidates"][0].pop("production_plan", None)
+    # Old receipts must still hash exactly, even though new offers require a plan.
+    legacy_search = ReferenceSearch.model_validate(parameters["search"]).model_dump()
+    assert "production_plan" not in legacy_search["candidates"][0]
+    legacy_payload = {
+        key: parameters[key] for key in ("creative_revision", "action", "references")
+    } | {
+        "selected_ids": [],
+        "direction": "",
+        "user_message": "",
+        "search": legacy_search,
+        "references": [Reference.model_validate(item).model_dump() for item in parameters["references"]],
+    }
+    direction["receipts"][-1]["digest"] = hashlib.sha256(
+        json.dumps(legacy_payload, sort_keys=True, separators=(",", ":")).encode()
+    ).hexdigest()
+    pilot[1].state.store.put("creative", project, state)
+    retried = call(pilot, "record_video_references", parameters)
+    assert retried["repeated"] is True
+    evidence = retried["reference_direction"]["search_summary"]["recommended_evidence"][0]
+    assert "production_plan" not in evidence
+    selected = invoke(
+        pilot,
+        project,
+        "select",
+        selected_ids=[refs()[0]["id"]],
+        user_message="Use the saved diagram",
+        request_id="select-historic",
+    )["reference_direction"]
+    assert selected["status"] == "accepted"
+    assert selected["selected_production_plans"] == []

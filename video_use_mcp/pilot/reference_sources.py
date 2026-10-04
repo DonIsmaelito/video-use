@@ -187,11 +187,11 @@ def reference_source_catalog(category=None, *, compact=False):
         status="ready" if data["sources"] else "awaiting_curation",
         source_count=len(approved),
         matched_source_count=len(selected),
-        routing_policy="Category routes are starting points, not a browsing whitelist or a global ranking. YouTube, TikTok and X are the primary discovery platforms. Specialist collections are supplemental. Discover, inspect and show one fresh candidate before searching for the next; there are no preselected videos.",
+        routing_policy="Category routes are starting points, not a browsing whitelist or a global ranking. Offered references must be individual YouTube, TikTok or X video posts. Specialist collections may identify leads, but cannot be offered as references. Discover, inspect and show one fresh candidate before searching for the next; there are no preselected videos.",
         policy=(
             "Search the approved primary social platforms sequentially using host tools, with Browser Harness for public inspection when needed. "
             "Save source_id and the discovery_url inside that collection for each web reference. "
-            "An example may link out to its creator's site; preserve both links. "
+            "Keep discovery attribution, but offer only the individual YouTube, TikTok or X post after inspecting actual media frames. "
             "Prioritize approachable examples with observed traction and actual brief fit. Report only sourced views/likes and observation dates, never invented popularity. "
             "User-supplied references can be inspected directly. If the list is empty or no source fits, "
             "ask for a reference or an explicitly delegated direction; do not silently broaden the search. "

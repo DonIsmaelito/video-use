@@ -1,0 +1,150 @@
+{
+  "version": 1,
+  "audited_at": "2026-10-03",
+  "review_scope": "Seven owned R2 files downloaded, hashes matched to provenance, FFprobe checked and six evenly spaced frames per video visually inspected. Existing review reports consulted where present. No continuous motion/listening assessment, latency benchmark or current production-image validation. Demonstrated means historical mechanism only.",
+  "runtime": [
+    {
+      "id": "runtime_ffmpeg",
+      "method": "ffmpeg",
+      "supports": "Cuts, crops, compositing, captions and audio mixing on supplied media.",
+      "limits": "Needs source assets; does not synthesize footage."
+    },
+    {
+      "id": "runtime_canvas",
+      "method": "canvas",
+      "supports": "Custom HTML/SVG/Canvas in Chromium with absolute-time animation.",
+      "limits": "Local assets and fonts only; no network imports; author and inspect actual motion."
+    },
+    {
+      "id": "runtime_manim",
+      "method": "manim",
+      "supports": "Programmatic diagrams, geometry, charts, mathematical labels and transitions.",
+      "limits": "Installed runtime, not proof of arbitrary illustration or scientific correctness."
+    },
+    {
+      "id": "runtime_threejs",
+      "method": "threejs",
+      "supports": "Procedural meshes, local models, camera, materials and authored deformation.",
+      "limits": "CPU Chromium; no Blender/CAD, native generative footage, cloth/fluid solver or photoreal guarantee. Current worker WebGL not probed by this audit."
+    }
+  ],
+  "examples": [
+    {
+      "id": "cloud-motion-01-make-room",
+      "methods": [
+        "canvas"
+      ],
+      "origin": "historical Modal run",
+      "supports": "Letterform compression, counters, negative space and staged composition.",
+      "limits": "14s silent authored SVG/browser film; revisions needed, not automatic one-shot proof.",
+      "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-01-make-room/final.mp4",
+      "sha256": "c0f7c0cdc87bc1bbbec490facaf811c2a9151f3d81fc0226771e768f7b7dc259",
+      "prompt": "Create a 12–16 second kinetic typography film about the words MAKE ROOM. Make the letterforms themselves compress, negotiate space, and open into a surprising beautifully balanced composition. Invent the choreography and typography. It should feel like an excellent moving graphic-design poster, with a strong visual payoff, not a succession of title cards.",
+      "prompt_provenance": "exact creative request; full request and delivery contract saved at promptUrl",
+      "source_archive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-01-make-room/source.zip",
+      "provenance_file": "website/data/media-sources.json",
+      "duration_seconds": 14.0,
+      "has_audio": false
+    },
+    {
+      "id": "cloud-motion-03-paper-current",
+      "methods": [
+        "canvas"
+      ],
+      "origin": "historical Modal run",
+      "supports": "Layered paper/photo cutouts, continuous river path and scale changes.",
+      "limits": "18s silent collage with prepared images; assets must be available locally.",
+      "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-03-paper-current/final.mp4",
+      "sha256": "50f1331720ed37d3a89ca3d79e3d60afdf43fe5a1398de6d42ed1773eb4dbb52",
+      "prompt": "Create a 15–20 second wordless editorial collage film about a river finding its way through a city. Use a coherent family of flat paper, print, map and photographic fragments, with tactile edges and surprising scale changes. A continuous visual connection should carry us through three distinct compositions. Invent or source your own permitted assets and keep it a designed collage, not slides with camera pans.",
+      "prompt_provenance": "exact creative request; full request and delivery contract saved at promptUrl",
+      "source_archive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-03-paper-current/source.zip",
+      "provenance_file": "website/data/media-sources.json",
+      "duration_seconds": 18.0,
+      "has_audio": false
+    },
+    {
+      "id": "local-motion-20260916-09-porcelain-bloom",
+      "methods": [
+        "threejs"
+      ],
+      "origin": "historical local browser run",
+      "supports": "One sculptural object, radial petals, controlled material/light and joint transforms.",
+      "limits": "10s silent small studio scene; not Blender, physical simulation or complex environment proof.",
+      "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/09-porcelain-bloom-776489881f52/final.mp4",
+      "sha256": "776489881f5266a026347c580b6f262e433094352357e4160765e09c13d93c54",
+      "prompt": "Create an original wordless 10 second 1920×1080 30fps sculptural motion film. A segmented ceramic bud opens into a gold-lined radial flower on a small porcelain foot. Use deliberate studio reflections, editable geometry, no external image assets, and deterministic absolute-time animation.",
+      "prompt_provenance": "Authored production brief for this study, preserved separately from the original open-ended collection request; presented as a reusable starter prompt",
+      "source_archive": null,
+      "provenance_file": "website/data/media-sources.json",
+      "duration_seconds": 10.0,
+      "has_audio": false
+    },
+    {
+      "id": "local-motion-20260916-17-night-tram",
+      "methods": [
+        "canvas"
+      ],
+      "origin": "historical local browser run",
+      "supports": "Flat illustrated city, attached tram wheels, layered buildings and graphic reflections.",
+      "limits": "10s silent Canvas illustration; not a photoreal 3D city or freely moving camera.",
+      "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/17-night-tram-1a152575892c/final.mp4",
+      "sha256": "1a152575892cf009cb05b2216eb48f75f76c2985a210713db96d114173a45e60",
+      "prompt": "Authored prompt: A jade tram glides through a rainy midnight city. Warm windows pass between deep architectural layers and stretch into graphic reflections on wet asphalt. Original Canvas illustration, wordless, native 1920×1080, 30 fps, 10 seconds, deterministic absolute-time motion. No external assets.",
+      "prompt_provenance": "Authored production brief for this study, preserved separately from the original open-ended collection request; presented as a reusable starter prompt",
+      "source_archive": null,
+      "provenance_file": "website/data/media-sources.json",
+      "duration_seconds": 10.0,
+      "has_audio": false
+    },
+    {
+      "id": "08-toy-planet",
+      "methods": [
+        "threejs"
+      ],
+      "origin": "historical authored Three.js recipe",
+      "supports": "Small stylized world, connected train/track, original geometry and timed assembly.",
+      "limits": "8s silent authored scene with iteration; not large worlds, crowds or natural landscapes.",
+      "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/08-toy-planet-f841936084cd8e7d.mp4",
+      "sha256": "f841936084cd8e7d4c1fd3d14f06e9982fa3dacc8f093992d899dafbad2f7359",
+      "prompt": "Make a tiny train race around a ceramic planet and pull its landscape into place.",
+      "prompt_provenance": "exact saved short prompt; expanded creative direction and repairs retained in source archive",
+      "source_archive": "five-more-20260914/source.zip",
+      "provenance_file": "website/data/media-sources.json",
+      "duration_seconds": 8.0,
+      "has_audio": false
+    },
+    {
+      "id": "lane-1-ee1aba7e491f",
+      "methods": [],
+      "origin": "historical R2 explainer; renderer unconfirmed",
+      "supports": "Readable array comparisons, reduction steps, labels and captions in sampled frames.",
+      "limits": "20s with audio; renderer and original prompt unverified, no listening/motion assessment. Do not cite as renderer proof.",
+      "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/runs/lane-1-ee1aba7e491f/final.mp4",
+      "sha256": "0372fb1a6fccd80832f1ca67dd0b2817dbc7994d57dbc0708550346156671693",
+      "prompt": "Make a concise narrated explainer of binary search. Show a target being found by repeatedly halving a sorted array, then connect the demonstration to searching one million items in at most twenty comparisons.",
+      "prompt_provenance": "reusable starter adapted from the delivered explanation; not the exact generating request",
+      "source_archive": null,
+      "provenance_file": "website/data/media-sources.json",
+      "duration_seconds": 20.032,
+      "has_audio": true
+    },
+    {
+      "id": "practical-vertical-reframe",
+      "methods": [
+        "ffmpeg"
+      ],
+      "origin": "historical Modal run",
+      "supports": "Footage cutdown, portrait crop preserving product/hands and phrase captions.",
+      "limits": "13.61s uses existing footage and speech; does not generate actors/products or validate listening.",
+      "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/practical-vertical-reframe/caption-placement-v4/final.mp4",
+      "sha256": "999baffb413509cb25f56e122165cafa7a70d0ae7a4f6bbeaf9a8eb28021f42c",
+      "prompt": "Make a useful 12–15 second vertical short from this widescreen camera-unboxing footage. Choose one complete product demonstration with an actual reveal or useful takeaway. Cut the idle handling and pauses, reframe each shot to keep the camera and the demonstrator’s hands visible, and move the crop only when the product moves. Keep any included speech intact and add clean accurate phrase captions within safe margins. Use the speaker’s own voice and real sounds. No blurred background bars, stretching, fake words, music, or decorative transitions.",
+      "prompt_provenance": "exact creative prompt; technical delivery instructions stored separately",
+      "source_archive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/practical-edits/20260915/practical-vertical-reframe/caption-placement-v4/source.zip",
+      "provenance_file": "website/data/media-sources.json",
+      "duration_seconds": 13.61,
+      "has_audio": true
+    }
+  ]
+}

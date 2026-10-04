@@ -47,11 +47,11 @@ BASIC_QUESTIONS = {
 APPROACH_OPTIONS = {
     "motion_design": "Motion design · type and designed animation",
     "diagram_animation": "Manim · diagrams and visual explanations",
-    "cinematic": "Cinematic · footage and atmosphere",
-    "screen_demo": "Screen demo · real interface and callouts",
+    "cinematic": "Cinematic · edit supplied footage",
+    "screen_demo": "Screen demo · edit a recording",
     "footage_edit": "Footage edit · clips, pacing and captions",
     "data_animation": "Data animation · charts and comparisons",
-    "procedural_3d": "3D animation · forms, lighting and camera",
+    "procedural_3d": "Procedural 3D · forms and camera",
 }
 
 
@@ -195,7 +195,7 @@ def intake_context(state, project_id=None):
             if existing.get("purpose") == "approach"
             else [approach_question(state)]
         )
-        action = "Before finding references, ask which creation approach the user wants using one native question or short chat. The supplied choices are relevant starting points; tailor this one question to the brief with show_video_brief if needed, keeping its creation_approach ID and a You decide option. Do not treat the content category as a technique choice. Reuse an approach explicitly stated in the request instead of asking again. Wait for the actual choice or delegation; do not search, render or silently choose a default. Check capabilities before promising generated footage or paid assets."
+        action = "Before finding references, ask which creation approach the user wants using one native question or short chat. The supplied choices are relevant starting points; tailor this one question to the brief with show_video_brief if needed, keeping its creation_approach ID and a You decide option. Do not treat the content category as a technique choice. Reuse an approach explicitly stated in the request instead of asking again. Wait for the actual choice or delegation; do not search, render or silently choose a default. Check video_use_capabilities and required assets before promising a treatment: cinematic editing needs supplied or licensed footage, screen demos need a recording, and procedural 3D means bounded Three.js or Manim scenes, not Blender. Keep these options available when their inputs can be supplied; resolve a missing prerequisite without implying built-in generative footage, screen recording or paid asset access."
     elif (pending_questions and not pending_questions.get("answered")) or pending_style:
         phase, questions = "personalization", []
         action = "The hands-on user has an unanswered content or style choice. Wait for that explicit answer before dependent production; do not invent a selection."
@@ -213,7 +213,7 @@ def intake_context(state, project_id=None):
         elif status == "refining":
             action = "Search a new batch sequentially on YouTube, TikTok or X using the saved brief, creation approach, likes/dislikes and excluded URLs. Find another batch is sufficient direction: do not demand a critique. For ambiguous specific feedback ask one focused contrast question only if needed. Show each inspected candidate immediately before searching for the next, then the native choice question. Do not recycle rejected examples unchanged or start production."
         else:
-            action = "Derive fresh topic, audience and visual queries from the brief, confirmed essentials and saved creation_approach. YouTube, TikTok and X are the primary sources; prefer approachable, appealing examples with observed traction and relevant design rather than niche studio reels. Search sequentially, inspect one promising candidate, call inspect_social_reference for verified attribution/available metrics, save it with record_video_references offer(more_expected=true), and immediately show its returned source thumbnail and original link with a short chat explanation and sourced counts. Then find and append the next candidate. Usually three useful choices, maximum five; no filler. Finish the batch and ask its native question including Find another batch and Give my input. Use Browser Harness for public inspection where host tools fall short; no invented popularity, playback claims or cached substitute examples."
+            action = "Derive fresh topic, audience and visual queries from the brief, confirmed essentials and saved creation_approach. Reference choices must be individual YouTube, TikTok or X videos; prefer approachable, appealing examples with observed traction and relevant design rather than niche studio reels. Search sequentially, inspect one promising candidate, call inspect_social_reference for verified attribution/available metrics, save it with record_video_references offer(more_expected=true), and immediately show its returned source thumbnail and original link with a short chat explanation and sourced counts. Then find and append the next candidate. Usually three useful choices, maximum five; no filler. Finish the batch and ask its native question including Find another batch and Give my input. Use Browser Harness for public inspection where host tools fall short; no invented popularity, playback claims or cached substitute examples."
     elif mode == "hands_on" and review.get("status") != "approved":
         phase, questions = "excerpt_review", []
         if review.get("status") == "pending":

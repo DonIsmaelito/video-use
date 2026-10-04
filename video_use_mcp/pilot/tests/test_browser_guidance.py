@@ -113,3 +113,18 @@ def test_overview_keeps_internal_plan_and_irrelevant_quota_out_of_conversation(p
         "Never silently change audio or visual direction while the mode answer is pending"
         in text
     )
+
+
+def test_served_runtime_guidance_distinguishes_hosted_and_optional_local_tools(pilot):
+    overview = " ".join(guidance(pilot, "overview")["content"][0]["text"].split())
+    assert "screen demos need a recording" in overview
+    assert "Cinematic editing needs supplied or licensed footage" in overview
+    assert "without Blender or a GPU render service" in overview
+    motion = " ".join(guidance(pilot, "motion")["content"][0]["text"].split())
+    assert "Blender, GSAP and Remotion are not bundled" in motion
+    assert "not CDN imports or runtime installs" in motion
+    skill = " ".join(
+        guidance(pilot, "skills/motion-design/SKILL.md")["content"][0]["text"].split()
+    )
+    assert "GSAP, Remotion and Blender are not bundled" in skill
+    assert "Local-machine projects can use separately installed frameworks" in skill
