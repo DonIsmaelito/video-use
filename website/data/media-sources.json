@@ -1214,7 +1214,7 @@
     "sourceAcquisition": "yt-dlp in Modal",
     "sourceSha256": "3c81ed2ab6f35a040178bf96f43810288fe68299849341629f4d7c46681b9d91",
     "outputSha256": "9d4fe8e8f9f2547d2475ff6f1c448cbaaf6ab5333f520e7b9fdb1088301a6234",
-    "duration": 12.0,
+    "duration": 12,
     "review": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/lunar-edits/20260915/lunar-freeze-breakdown/review.md",
     "verification": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/lunar-edits/20260915/lunar-freeze-breakdown/verification.json",
     "editableSource": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/lunar-edits/20260915/lunar-freeze-breakdown/source.zip",
@@ -1235,7 +1235,7 @@
     "sourceAcquisition": "yt-dlp in Modal",
     "sourceSha256": "3c81ed2ab6f35a040178bf96f43810288fe68299849341629f4d7c46681b9d91",
     "outputSha256": "0f7d08422f616ec913ac340dc21c9d2f957015ccd378f2c12da257e9d820d13f",
-    "duration": 12.0,
+    "duration": 12,
     "review": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/lunar-edits/20260915/lunar-time-triptych/review.md",
     "verification": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/lunar-edits/20260915/lunar-time-triptych/verification.json",
     "editableSource": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/lunar-edits/20260915/lunar-time-triptych/source.zip",
@@ -1256,7 +1256,7 @@
     "sourceAcquisition": "yt-dlp in Modal",
     "sourceSha256": "3c81ed2ab6f35a040178bf96f43810288fe68299849341629f4d7c46681b9d91",
     "outputSha256": "52c288f1a875b0f190357350a7d9519b7408adf9fbfaa07b3d26a8551229be7c",
-    "duration": 12.0,
+    "duration": 12,
     "review": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/lunar-edits/20260915/lunar-tracked-spotlight/review.md",
     "verification": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/lunar-edits/20260915/lunar-tracked-spotlight/verification.json",
     "editableSource": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/lunar-edits/20260915/lunar-tracked-spotlight/source.zip",
@@ -1277,7 +1277,7 @@
     "sourceAcquisition": "yt-dlp in Modal",
     "sourceSha256": "3c81ed2ab6f35a040178bf96f43810288fe68299849341629f4d7c46681b9d91",
     "outputSha256": "5b3a8328452aee4da1eeaabcc65c0014e0a15de5be434b104be2f22616e9c40c",
-    "duration": 12.0,
+    "duration": 12,
     "review": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/lunar-edits/20260915/lunar-analog-monitor/review.md",
     "verification": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/lunar-edits/20260915/lunar-analog-monitor/verification.json",
     "editableSource": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/lunar-edits/20260915/lunar-analog-monitor/source.zip",
@@ -2570,6 +2570,142 @@
       {
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/24-moon-laundromat-8189a3b6f9d8/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-03-lead-routing",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-01",
+    "sourceRun": "useful-03-lead-routing",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "5cf9d9bc8aff9c38a72bd61b74e8af0bfc464263",
+    "frameworkArchiveSha256": "a594fd93961e45ce91c029090194d67f245d4347bdf95a9e2b133641553a9431",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "a03dfab79c397e1f74e6df99984682ffdfc8cee9233b3915af677eec9951dd50",
+    "promptSource": "Original Video Use brief and implementation. Animated layout/code-selection ideas informed by Motion Canvas examples (MIT).",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-ea0cc4cc/source.zip",
+    "editableSourceSha256": "286185cddfeca06afa534b6885ff998e6c904fc4a6ba624398b1f1e1ed4d32ff",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-01/useful-03-lead-routing/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-ea0cc4cc/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-ea0cc4cc/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-ea0cc4cc/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-ea0cc4cc/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-ea0cc4cc/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-ea0cc4cc/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-ea0cc4cc/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-01-launch-approvals",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-01",
+    "sourceRun": "useful-01-launch-approvals",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "5cf9d9bc8aff9c38a72bd61b74e8af0bfc464263",
+    "frameworkArchiveSha256": "a594fd93961e45ce91c029090194d67f245d4347bdf95a9e2b133641553a9431",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "86178a46412a09fd413fda793ff67e71871a019895442351382704ef8c380702",
+    "promptSource": "Original Video Use brief and implementation. Story structure inspired by Instavar Remotion Templates (MIT); fictional content and visual direction are new.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-f22ad18a/source.zip",
+    "editableSourceSha256": "39b992d91d984affd39d07acf96239a4bc0483ccb0ec0ed602d90d82a9b0b429",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-01/useful-01-launch-approvals/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-f22ad18a/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-f22ad18a/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-f22ad18a/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-f22ad18a/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-f22ad18a/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-f22ad18a/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-f22ad18a/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-02-modular-desk",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-01",
+    "sourceRun": "useful-02-modular-desk",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "5cf9d9bc8aff9c38a72bd61b74e8af0bfc464263",
+    "frameworkArchiveSha256": "a594fd93961e45ce91c029090194d67f245d4347bdf95a9e2b133641553a9431",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "d8c7925327fda638d7b01038493b7678b5ab6683499fcc72c872fccc9d98e379",
+    "promptSource": "Original Video Use brief and 3D scene. Modeling, studio-lighting and isometric-camera ideas inspired by MCP for Blender (MIT); built with Video Use’s selected runtime.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-34cd5927/source.zip",
+    "editableSourceSha256": "ca44dd0946226cdd8f69737a6dfd78ff698c426a25664edd8994774665af46c0",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-01/useful-02-modular-desk/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-34cd5927/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-34cd5927/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-34cd5927/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-34cd5927/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-34cd5927/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-34cd5927/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-34cd5927/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "mcp-launch",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-01",
+    "sourceRun": "mcp-launch",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "a68d0e2904aa8c028fa74f79fa99d68788ad68ba",
+    "frameworkArchiveSha256": "914f855395276841c8f48cb739883c965ef5732144e324f2137b6d6edef80573",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "63c49aab5da7a4f54c98b506e6152d23c7bdf31caef57ca57d97f16aa151edbc",
+    "promptSource": "Original Video Use product demonstration, created with Video Use. No third-party prompt template was copied.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-63c49aab5da7-08312d88/source.zip",
+    "editableSourceSha256": "c01f7b7fea60bda2eb4717c3a02e35fc47750194638b1a2f23a0347800881dec",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-01/mcp-launch/repairs/repair-20261003-204324/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-63c49aab5da7-08312d88/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-63c49aab5da7-08312d88/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-63c49aab5da7-08312d88/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-63c49aab5da7-08312d88/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-63c49aab5da7-08312d88/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-63c49aab5da7-08312d88/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/mcp-launch-63c49aab5da7-08312d88/poster.jpg"
       }
     ]
   }

@@ -1,5 +1,85 @@
 [
   {
+    "id": "useful-01-launch-approvals",
+    "title": "Launch a Product Feature",
+    "category": "Motion Design",
+    "description": "Turn a feature announcement into a short product story with a clear before and after.",
+    "prompt": "Use Video Use to create a 22-second 1920×1080 product launch film for the fictional team app Loopboard. The new feature is one-click approvals. Open on three overlapping feedback threads with the headline “Still waiting for a yes?” At 4 seconds, gather the threads into one crisp approval request. Animate a cursor selecting Approve; the card changes from Pending to Approved and the board advances to Ready to publish. Follow with three tangible benefits—one owner, one decision, one clear next step—shown as part of the working interface, not a bullet slide. End on “Keep good work moving” and the Loopboard wordmark. Use warm ivory, deep navy, electric coral, editorial typography, restrained depth, elegant position changes and short, purposeful push-ins. Give the approved state and final CTA at least 2 seconds to read. Build an original fictional UI. Add quiet custom UI clicks and a light original pulse; no voiceover is necessary. Use Video Use and its current production helpers to create the finished video and editable source. Keep typography large, all content inside safe areas, and camera motion motivated by the message. Review representative rendered frames and the opening and ending before delivery. Use only original geometry, demo interfaces, and licensed assets. All company names and numbers in this example are fictional demonstration content.",
+    "duration": 22,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Founders",
+      "Marketers",
+      "Product teams"
+    ],
+    "useCases": [
+      "Product launches",
+      "Feature announcements"
+    ],
+    "technique": "motion-design",
+    "sourceRepo": "https://github.com/instavar/remotion-templates",
+    "promptSource": "Original Video Use brief and implementation. Story structure inspired by Instavar Remotion Templates (MIT); fictional content and visual direction are new.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-f22ad18a/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-f22ad18a/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-f22ad18a/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-f22ad18a/review.md"
+  },
+  {
+    "id": "useful-02-modular-desk",
+    "title": "Show How a Product Fits Together",
+    "category": "Motion Design",
+    "description": "A 3D assembly film turns an everyday product’s parts into its main selling point.",
+    "prompt": "Use Video Use to make a 20-second 1920×1080 true 3D product film for Pebble, a fictional modular desktop organizer. Model an original soft-cornered tray, a pen cup and a phone rest from clean primitive geometry. Start with the three modules slightly separated over a warm studio surface; the camera makes a slow three-quarter arc so the real depth and contact shadows are clear. The pieces slide and seat into the tray one at a time. Label the corresponding benefits only when visible: “A place for the small things”, “Your tools within reach”, “A little room to focus”. Finish with the assembled organizer, a restrained 25-degree turn and “Pebble / Make space for your day”. Use matte terracotta, oat and charcoal, a large soft key light, realistic shadows, gentle bevels and quiet tactile sound accents. Keep labels as crisp post-composited type. No fake specifications, impossible joins or aimless orbiting. Hold the finished product for the last 3 seconds. Use Video Use and its current production helpers to create the finished video and editable source. Keep typography large, all content inside safe areas, and camera motion motivated by the message. Review representative rendered frames and the opening and ending before delivery. Use only original geometry, demo interfaces, and licensed assets. All company names and numbers in this example are fictional demonstration content.",
+    "duration": 20,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Designers",
+      "Marketers",
+      "Founders"
+    ],
+    "useCases": [
+      "Product launches",
+      "Ecommerce",
+      "Product explainers"
+    ],
+    "technique": "3d",
+    "sourceRepo": "https://github.com/ahujasid/mcp-for-blender",
+    "promptSource": "Original Video Use brief and 3D scene. Modeling, studio-lighting and isometric-camera ideas inspired by MCP for Blender (MIT); built with Video Use’s selected runtime.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-34cd5927/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-34cd5927/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-34cd5927/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-34cd5927/review.md"
+  },
+  {
+    "id": "useful-03-lead-routing",
+    "title": "Explain a Team Workflow",
+    "category": "Explainers",
+    "description": "Make a complex handoff understandable with one animated, end-to-end example.",
+    "prompt": "Use Video Use to create a 24-second 1920×1080 workflow explainer for a fictional studio called Northstar. Show how a new enquiry becomes an assigned next step: Form submitted → Check service → Assign owner → Send reply. Use one persistent orange enquiry card labelled “Website redesign”; move it through the connected diagram rather than replacing the entire page each scene. Briefly branch at Check service into Brand / Web, then highlight Web and mute the other branch. Show “Maya” as the assigned owner and a concise drafted reply, “Thanks—Maya will be in touch”. Conclude by zooming back to the full path with “Every enquiry has a next step”. Use an off-white drawing surface, dark ink, generous spacing, simple arrow geometry, deliberate line draws and a single orange signal color. Each state must be readable and causally connected. Use quiet motion accents and no voiceover. The diagram should be useful for explaining any team handoff after replacing the labels. Use Video Use and its current production helpers to create the finished video and editable source. Keep typography large, all content inside safe areas, and camera motion motivated by the message. Review representative rendered frames and the opening and ending before delivery. Use only original geometry, demo interfaces, and licensed assets. All company names and numbers in this example are fictional demonstration content.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Product teams",
+      "Founders",
+      "Educators"
+    ],
+    "useCases": [
+      "Product explainers",
+      "Onboarding",
+      "Training"
+    ],
+    "technique": "diagrams",
+    "sourceRepo": "https://github.com/motion-canvas/motion-canvas",
+    "promptSource": "Original Video Use brief and implementation. Animated layout/code-selection ideas informed by Motion Canvas examples (MIT).",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-ea0cc4cc/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-ea0cc4cc/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-ea0cc4cc/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-ea0cc4cc/review.md"
+  },
+  {
     "id": "practical-cut-pauses",
     "title": "Dead Air Removal",
     "category": "Video Edits",
@@ -55,7 +135,7 @@
     "prompt": "Use only the supplied Tears of Steel source video to make a 12-second widescreen action edit called Velocity. Inspect the source first and choose four genuinely energetic shots with clear camera or subject motion; avoid dialogue-only holds and credits. Build a readable arc: 0–2s an intriguing moving detail, 2–5s three escalating action cuts, 5–8s one hero movement that eases from 100% to 45% speed for its peak then accelerates to 220%, 8–11s a decisive payoff, 11–12s a clean visual finish. Cut on matching movement directions and use two 6-frame whip transitions only where source motion supports them. Add a single 6% punch-in on the strongest impact. Preserve sharp faces and edges; use frame sampling if interpolation bends objects. Keep original environmental sound where useful, add a restrained original percussive pulse and two synchronized impacts, and duck the pulse under any retained intelligible speech. No stock footage, no new generated scenes, no full-screen captions, and no random flash/glitch effects. Deliver one polished 1920x1080 H264 MP4 with intentional crops, no stretched image, plus source timecodes and an edit decision list. The edit must still clearly communicate acceleration and payoff when muted.",
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/edit-velocity/recovered-2/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/review/edit-velocity-2a245d64a59e-p2_4/feature-poster.jpg",
-    "duration": 12.0,
+    "duration": 12,
     "promptKind": "Original prompt",
     "orientation": "landscape"
   },
@@ -67,7 +147,7 @@
     "prompt": "Turn the same supplied Tears of Steel source into a 12-second widescreen moving film poster. Choose one continuous shot with at least 6 seconds of usable motion with a clear expressive character or striking mechanical silhouette. Start full-screen in motion for 2.5s; stop precisely on the strongest pose with a clean 8-frame camera ease, then animate the frozen image into a large offset rectangular crop over a warm ivory background. Reveal three small close-up tiles from that exact same frame—an eye or face detail, a mechanical detail, and a texture—with precise staggered slides. Use bold condensed black typography reading 'A MOMENT / IN MOTION', one small burnt-orange index '01', and thin alignment rules. Keep the frozen hero recognizably photographic and let scale/position supply depth; do not attempt a rough automatic cutout. Hold the completed editorial poster from 6.5–9s, then resolve the tiles into the full original frame and resume its source motion from the exact held frame for the final 3s. Use restrained dry camera clicks and the source ambience. No footage beyond the one source. Deliver 1920x1080 H264 MP4, crisp type, generous margins, no unreadable microtext, source timecodes, and the edit decision list.",
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/edit-freeze_poster/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/review/edit-freeze_poster-a3efc69b40d1-p7_2/feature-poster.jpg",
-    "duration": 12.0,
+    "duration": 12,
     "promptKind": "Original prompt",
     "orientation": "landscape"
   },
@@ -91,7 +171,7 @@
     "prompt": "Create a 10-second cinematic color transformation from the same supplied Tears of Steel source. Select one continuous shot with a face, strong practical lights or glowing machinery, and meaningful shadow detail. For the first 1.25s show the untouched source. Then let a thin vertical comparison edge travel from left to right over 1.25s, revealing a carefully balanced nocturnal grade: deep cool shadows, warm controlled highlights, natural skin, gentle highlight rolloff, and readable blacks. During 2.5–7.5s give the graded image a very restrained 4% camera push while keeping the shot continuous and preserving its actual action. In the final 2.5s show a concise moving 50/50 original-versus-grade comparison with small crisp 'SOURCE' and 'AFTER DARK' labels in the lower safe area. The change must be obvious but tasteful—no crushed eyes, orange faces, excessive saturation, faux scratches, or synthetic grain. Do not call an already graded source LOG and do not add fake camera metadata. Preserve source ambience and use no new music. Deliver one 1920x1080 H264 MP4 plus source timecode and a concise list of the actual grading adjustments.",
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/edit-after_dark/revision-2/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edits-showcase/20260915/review/edit-after_dark-d42c634df88e-p8_5/feature-poster.jpg",
-    "duration": 10.0,
+    "duration": 10,
     "promptKind": "Original prompt",
     "orientation": "landscape"
   },
@@ -391,7 +471,7 @@
     "prompt": "Create a 12–16 second kinetic typography film about the words MAKE ROOM. Make the letterforms themselves compress, negotiate space, and open into a surprising beautifully balanced composition. Invent the choreography and typography. It should feel like an excellent moving graphic-design poster, with a strong visual payoff, not a succession of title cards.",
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-01-make-room/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-01-make-room/poster.jpg",
-    "duration": 14.0,
+    "duration": 14,
     "promptKind": "Original prompt",
     "orientation": "landscape"
   },
@@ -403,7 +483,7 @@
     "prompt": "Create a 14–18 second broadcast identity for a fictional late-night culture channel called NIGHT SHIFT. Build an original flat graphic identity using framing, cropping, colour blocks and bold typography. Develop one recognisable graphic motif through several purposeful edits and a memorable end identity. No 3D objects, channel bugs copied from real broadcasters, or generic logo reveal.",
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-02-night-shift/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-02-night-shift/poster.jpg",
-    "duration": 16.0,
+    "duration": 16,
     "promptKind": "Original prompt",
     "orientation": "landscape"
   },
@@ -415,7 +495,7 @@
     "prompt": "Create a 15–20 second wordless editorial collage film about a river finding its way through a city. Use a coherent family of flat paper, print, map and photographic fragments, with tactile edges and surprising scale changes. A continuous visual connection should carry us through three distinct compositions. Invent or source your own permitted assets and keep it a designed collage, not slides with camera pans.",
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-03-paper-current/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-03-paper-current/poster.jpg",
-    "duration": 18.0,
+    "duration": 18,
     "promptKind": "Original prompt",
     "orientation": "landscape"
   },
@@ -427,7 +507,7 @@
     "prompt": "Create a charming 12–16 second flat illustrated micro-story: a small cloud tries to water one stubborn seed, and the seed gives the cloud an unexpected gift. Draw an original simple character language with expressive poses, clear cause and effect and a satisfying ending. Make the motion feel hand-authored and playful. No explanatory text, 3D, or stock cartoon assets.",
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-04-little-weather/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-04-little-weather/poster.jpg",
-    "duration": 15.0,
+    "duration": 15,
     "promptKind": "Original prompt",
     "orientation": "landscape"
   },
@@ -439,7 +519,7 @@
     "prompt": "Create a 10–14 second optical graphic-design loop in which coloured lines exchange foreground and background, become an interlaced fabric, and resolve into the starting state. Make a distinctive composition with intentional visual rhythm and a few surprising changes in scale. Flat geometry, beautiful colour relationships, no words, no particles, and no 3D product study. The loop should actually join cleanly.",
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-05-woven-signal/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-05-woven-signal/poster.jpg",
-    "duration": 12.0,
+    "duration": 12,
     "promptKind": "Original prompt",
     "orientation": "landscape"
   },
@@ -451,7 +531,7 @@
     "prompt": "Create a 12–18 second original lettering animation centred on the word again. A moving ink stroke should pass energy between the letters, with convincing drawn stroke construction and an inventive transformation through the word counterforms. Choose a distinctive lettering style and restrained paper/ink palette. The word must read clearly at the payoff; avoid typing-on text or cycling fonts.",
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-06-ink-relay/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-06-ink-relay/poster.jpg",
-    "duration": 15.0,
+    "duration": 15,
     "promptKind": "Original prompt",
     "orientation": "landscape"
   },
@@ -463,7 +543,7 @@
     "prompt": "Create a 15–20 second product UI motion story for a fictional day planner called One Good Day. Show a crowded day becoming manageable through one beautifully legible interaction that reorganises tasks into a calm timeline. Design the interface from scratch with excellent typography, continuity and hierarchy. Use close framing and purposeful transitions, no rotating devices, floating 3D screens, feature-list slides or implementation labels.",
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-07-one-good-day/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-07-one-good-day/poster.jpg",
-    "duration": 18.0,
+    "duration": 18,
     "promptKind": "Original prompt",
     "orientation": "landscape"
   },
@@ -475,7 +555,7 @@
     "prompt": "Create a 10–15 second silent visual jazz performance using a small original family of flat graphic shapes. Give each shape its own rhythmic personality; let them trade a motif, interrupt, improvise and end together. Invent the composition and colour system. It must communicate rhythm through actual choreography and staging without music, text, equaliser bars, particles or 3D objects.",
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-08-shape-jazz/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-08-shape-jazz/poster.jpg",
-    "duration": 14.0,
+    "duration": 14,
     "promptKind": "Original prompt",
     "orientation": "landscape"
   },
@@ -691,7 +771,7 @@
     "prompt": "Create a silent visual explanation of data moving through a GPU. Follow inputs from global memory through shared cache and parallel arithmetic, then return the computed results to memory.",
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/runs/lane-1-6eca5ba640fc/preview.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/explainers/20260915/gpu-poster.jpg",
-    "duration": 32.0,
+    "duration": 32,
     "promptKind": "Starter prompt",
     "orientation": "landscape"
   },
@@ -739,7 +819,7 @@
     "prompt": "Turn one compelling podcast exchange into a polished 25–40 second vertical clip. Find a source episode with two visible speakers and a complete surprising or useful thought. Stack the guest above the host using distinct, synchronized crops from the same conversation, separated by a thin white line. Add clean white phrase captions near the divider without covering faces. Remove dead air, preserve the speaker’s meaning and natural reactions, and end on the payoff. No unrelated background footage.",
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-podcast/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/edit-cloud/20260915/cloud-edit-podcast/poster.jpg",
-    "duration": 27.0,
+    "duration": 27,
     "promptKind": "Original prompt",
     "orientation": "portrait"
   },
