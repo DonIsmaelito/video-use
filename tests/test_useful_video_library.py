@@ -8,7 +8,7 @@ import pytest
 
 from experiments.useful_video_library import (
     archive_source, attempt_root, load_briefs, normalize_brief, snapshot,
-    technical_instructions, updated_audit_record, verify_snapshot,
+    public_framework, technical_instructions, updated_audit_record, verify_snapshot,
 )
 
 
@@ -80,9 +80,31 @@ def test_only_explicit_brand_files_join_the_runtime_snapshot(tmp_path):
     (tmp_path / "website/public/unrelated.png").write_bytes(b"not a runtime asset")
     expected = snapshot(tmp_path)
     assert set(expected["files"]) == {"brand/favicon.svg"}
+    assert expected["repository_paths"] == {"brand/favicon.svg": "website/public/favicon.svg"}
     (tmp_path / "brand").mkdir()
     (tmp_path / "brand/favicon.svg").write_text("<svg/>")
     verify_snapshot(expected, tmp_path)
+
+
+def test_public_brand_aliases_resolve_to_real_repository_files(tmp_path):
+    public = tmp_path / "website/public"
+    for relative, content in (("fonts/inter-regular.ttf", b"font"),
+                              ("clients/cursor.svg", b"<svg/>"), ("favicon.svg", b"mark")):
+        path = public / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(content)
+    record = snapshot(tmp_path)
+    record["repository_paths"].update({"brand/private": "../private", "brand/unused.ttf": "website/public/fonts/unused.ttf"})
+    metadata = public_framework(record)
+    assert metadata["repository_paths"] == {
+        "brand/inter-regular.ttf": "website/public/fonts/inter-regular.ttf",
+        "brand/cursor.svg": "website/public/clients/cursor.svg",
+        "brand/favicon.svg": "website/public/favicon.svg",
+    }
+    import hashlib
+    for alias, path in metadata["repository_paths"].items():
+        assert hashlib.sha256((tmp_path / path).read_bytes()).hexdigest() == metadata["files"][alias]
+    assert "repository_paths maps runtime brand/* aliases" in technical_instructions(normalize_brief(brief()))
 
 
 def test_source_archive_retains_helpers_not_traces_outputs_or_symlinks(tmp_path):

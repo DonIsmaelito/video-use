@@ -23,6 +23,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import re
 import subprocess
 import sys
@@ -691,12 +692,18 @@ def build_final_composite(
     for idx, ov in enumerate(overlays, start=1):
         t = float(ov["start_in_output"])
         dur = float(ov["duration"])
-        if t < 0 or dur <= 0:
-            raise ValueError("overlay timing must have start_in_output >= 0 and duration > 0")
+        if not math.isfinite(t) or not math.isfinite(dur) or t < 0 or dur <= 0:
+            raise ValueError("overlay timing must have finite start_in_output >= 0 and duration > 0")
         end = t + dur
+        if not math.isfinite(end):
+            raise ValueError("overlay end time must be finite")
         next_label = f"[v{idx}]"
+        # Duration is half-open: [start, start + duration). Adjacent graphics
+        # must not share the boundary frame. Preserve sub-millisecond timing;
+        # the 1 ns comparison tolerance absorbs floating-point clock error at
+        # exact frame boundaries without rounding authored times to 1 ms.
         filter_parts.append(
-            f"{current}[a{idx}]overlay=enable='between(t,{t:.3f},{end:.3f})':"
+            f"{current}[a{idx}]overlay=enable='gte(t+1e-9,{t:.12f})*lt(t+1e-9,{end:.12f})':"
             f"eof_action=pass:repeatlast=1{next_label}"
         )
         current = next_label

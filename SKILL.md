@@ -264,6 +264,8 @@ None is mandatory. Invent hybrids if useful (e.g., PIL background with a HyperFr
 - Over voiceover, leave enough time for the visual payoff and sentence ending; derive this from the spoken timing.
 - Coordinate simultaneous motion around one focal event. Stagger competing new information; supporting layers may move together.
 
+**Overlay duration:** Image/video overlays and generated graphics use output seconds with a half-open interval `[start_in_output, start_in_output + duration)`. Adjacent layers do not share their boundary frame. Supply the intended duration directly; do not subtract one frame. Replaying older projects with their pinned framework preserves that version’s timing semantics.
+
 **Animation payoff timing (rule for sync-to-narration):** get the payoff word's timestamp. Start the overlay `reveal_duration` seconds earlier so the landing frame coincides with the spoken payoff word. Without this sync the animation feels disconnected.
 
 **Easing examples** (select curves for the intended behavior):
