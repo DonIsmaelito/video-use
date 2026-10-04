@@ -4200,5 +4200,73 @@
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-06-podcast-audiogram-2f3ec9ac7dce-656418de/poster.jpg"
       }
     ]
+  },
+  {
+    "id": "social-05-two-speaker-banter",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "social-02",
+    "sourceRun": "social-05-two-speaker-banter",
+    "model": null,
+    "reasoningEffort": null,
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "e0c7ea893d342bfdfc313aaae5f8b807591884ce",
+    "frameworkArchiveSha256": "e3891721c1ade1e90d24f513cd1ca3b6dba0d07f89b23e78d71e174f566e6ea2",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "71911524c0fcffe2e7ade5dad2b25bb5b082254c0d3e9234eefeb8eac6f00ffb",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-05-two-speaker-banter-71911524c0fc-131c9489/source.zip",
+    "editableSourceSha256": "6f4ddd33ef0e24e5dca90720ef7d2a04623e9851a1f972d803d88c9c30fae79c",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/social-02/social-05-two-speaker-banter/repairs/repair-caption-hold-20261004/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-05-two-speaker-banter-71911524c0fc-131c9489/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-05-two-speaker-banter-71911524c0fc-131c9489/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-05-two-speaker-banter-71911524c0fc-131c9489/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-05-two-speaker-banter-71911524c0fc-131c9489/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-05-two-speaker-banter-71911524c0fc-131c9489/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-05-two-speaker-banter-71911524c0fc-131c9489/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-05-two-speaker-banter-71911524c0fc-131c9489/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "social-09-pottery-memory",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "social-03",
+    "sourceRun": "social-09-pottery-memory",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "2d2741f23261d394f1c042978ddd5fd2962bec6f",
+    "frameworkArchiveSha256": "bdb83676c1c31d3647b908c84c4b41a86562962207d19a2b8f8a482665a91594",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "8b37c2265b96e560f103edfddf0de50ec1a42c0696f1703a22533569c0311e49",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-09-pottery-memory-8b37c2265b96-0d410960/source.zip",
+    "editableSourceSha256": "4b9b2a220e54446c018e3d4851cd11c16ea9c5aeb5be8bfa7aecbb41f96019da",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/social-03/social-09-pottery-memory/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-09-pottery-memory-8b37c2265b96-0d410960/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-09-pottery-memory-8b37c2265b96-0d410960/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-09-pottery-memory-8b37c2265b96-0d410960/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-09-pottery-memory-8b37c2265b96-0d410960/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-09-pottery-memory-8b37c2265b96-0d410960/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-09-pottery-memory-8b37c2265b96-0d410960/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-09-pottery-memory-8b37c2265b96-0d410960/poster.jpg"
+      }
+    ]
   }
 ]
