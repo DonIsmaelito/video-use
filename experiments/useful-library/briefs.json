@@ -996,7 +996,7 @@
       "sourceConcept": "Author a composition or edit source footage, inspect frames, cut/reframe, mix audio and retain editable source. The current verified source is SKILL.md; the search-index README prompt anchor is stale.",
       "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled.",
       "prompt": "Use Video Use to edit the supplied NASA International Space Station interior tour into a 26-second 1920×1080 educational short titled “A laboratory in orbit”. Inspect the actual footage and choose three clear visual moments that show the station’s connected working spaces, mounted equipment and a window view if present. Use labels only where the image supports them: “Connected modules”, “Equipment within reach”, “A view of Earth” only if Earth is actually visible. Keep any optional narration original and factual; the piece should also work without sound. Use short clean cuts, a subtle navy label band and a small line pointer only when it identifies something specific. End with “Explore the full station tour” and a visible “Footage: NASA /Edited excerpt” credit. Do not invent astronaut quotations, identify hardware without verifying it, add synthetic outside footage, or imply NASA endorses Video Use. Do not spend most of the film on a title card; the real footage is the evidence. Execute the edit with the current Video Use helpers, keep the source media unchanged, and retain the EDL, overlays and editable source. Inspect the rendered cut boundaries, readability and ending before delivery. Use 30 ms audio fades at cut boundaries and composite captions last. Describe the supplied source footage and its credit honestly; do not imply Video Use generated the source footage.",
-      "assetPlan": "Official NASA clean ISS-tour video, about15minutes. Medium MP4 verified accessible,265.5MB; inspect selects and record source time ranges. Credits and factual editorial framing required.",
+      "assetPlan": "Use the official NASA clean ISS-tour large MP4: verified 1920×1080, 30 fps, 896.833333 seconds and 579,320,830 bytes. This native 1080p rendition matches the landscape delivery. Inspect selects and record source time ranges, acquisition hash and factual NASA credit; keep raw footage in cloud storage.",
       "toolNeeds": [
         "Video Use render.py",
         "Existing clip selection and timed overlay helpers",
@@ -1018,13 +1018,22 @@
         {
           "title": "Step Inside the International Space Station (Full Tour, No Text)",
           "page": "https://images.nasa.gov/details/Step_Inside_the_Station-4K-Clean",
-          "url": "https://images-assets.nasa.gov/video/Step_Inside_the_Station-4K-Clean/Step_Inside_the_Station-4K-Clean~medium.mp4",
+          "url": "https://images-assets.nasa.gov/video/Step_Inside_the_Station-4K-Clean/Step_Inside_the_Station-4K-Clean~large.mp4",
           "metadataUrl": "https://images-assets.nasa.gov/video/Step_Inside_the_Station-4K-Clean/metadata.json",
           "license": "NASA media usage guidelines; NASA-created factual editorial footage",
           "licenseUrl": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
           "credit": "Footage: NASA. Edited excerpt. No NASA endorsement.",
           "verifiedHttpStatus": 200,
-          "verifiedBytes": 265500743,
+          "verifiedBytes": 579320830,
+          "verifiedRendition": {
+            "checkedAt": "2026-10-04 UTC",
+            "manifestUrl": "https://images-assets.nasa.gov/video/Step_Inside_the_Station-4K-Clean/collection.json",
+            "width": 1920,
+            "height": 1080,
+            "frameRate": "30/1",
+            "durationSeconds": 896.833333,
+            "verification": "Listed in NASA's official asset manifest; HTTP HEAD and remote FFprobe confirmed access, dimensions, cadence, duration and byte size. Record the full-file SHA-256 during production acquisition."
+          },
           "rightsNote": "Editorial educational use. Prefer hardware/interior views without identifiable crew for showcase cover art; do not imply endorsement. Original source is roughly15minutes."
         }
       ],
