@@ -146,11 +146,16 @@ def test_verified_source_assets_reach_the_production_agent_without_substitution(
     asset = {"url": "https://assets.example.org/4029/4029-1080.mp4", "width": 1920,
              "height": 1080, "sha256": "b" * 64, "licenseUrl": "https://example.org/license",
              "credit": "Licensed source credit"}
-    value = normalize_brief(brief(sourceAssets=[asset], productFacts=["Fictional example product"]))
+    value = normalize_brief(brief(sourceAssets=[asset], assetEvidence=[{"sha256": "b" * 64, "width": 1920}],
+                                  factualSources=[{"url": "https://example.org/official-captions.vtt"}],
+                                  sourceCommit="verified-source-revision", productFacts=["Fictional example product"]))
     prompt = technical_instructions(value)
     evidence = prompt.split("\nORIGINAL CREATIVE PROMPT:")[0]
     assert json.dumps([asset], ensure_ascii=False) in evidence
     assert '"productFacts": ["Fictional example product"]' in evidence
+    assert '"assetEvidence": [{"sha256": "' + "b" * 64 + '", "width": 1920}]' in evidence
+    assert "https://example.org/official-captions.vtt" in evidence
+    assert '"sourceCommit": "verified-source-revision"' in evidence
     assert "Do not silently substitute a lower-resolution preview" in evidence
 
 
