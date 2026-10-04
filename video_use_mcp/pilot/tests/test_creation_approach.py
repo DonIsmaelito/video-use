@@ -49,6 +49,7 @@ def test_broad_hands_on_asks_approach_after_only_missing_basics(pilot):
     assert offered["id"] == "creation_approach"
     assert [o["id"] for o in offered["options"]] == [
         "motion_design",
+        "procedural_3d",
         "diagram_animation",
         "cinematic",
         "you_decide",

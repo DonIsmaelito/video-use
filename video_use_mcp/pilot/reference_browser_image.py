@@ -70,7 +70,7 @@ def reference_browser_image():
         # Research calls the core harness CLI inside this separate sandbox.
         .pip_install(
             "browser-harness==0.1.13",
-            "yt-dlp[default]==2026.8.19",
+            "yt-dlp[default,curl-cffi]==2026.8.19",
             "deno==2.7.5",
             "cdp-use==1.4.5",
             "fetch-use==0.4.0",

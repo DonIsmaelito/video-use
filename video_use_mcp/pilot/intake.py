@@ -5,6 +5,7 @@ import math
 
 from .store import ident
 from .reference_direction import reference_context
+from .example_library import example_library_context
 
 MODES = {"delegate", "key_moments", "hands_on"}
 INVOLVEMENT_QUESTION = dict(
@@ -66,7 +67,10 @@ def approach_question(state):
         "data_story": ["data_animation", "diagram_animation", "motion_design"],
         "procedural_3d": ["procedural_3d", "motion_design", "cinematic"],
         "generative": ["cinematic", "motion_design", "procedural_3d"],
-    }.get(state.get("category"), ["motion_design", "diagram_animation", "cinematic"])
+    }.get(
+        state.get("category"),
+        ["motion_design", "procedural_3d", "diagram_animation", "cinematic"],
+    )
     return dict(
         id="creation_approach",
         prompt="What kind of video should we make?",
@@ -248,6 +252,16 @@ def intake_context(state, project_id=None):
         context["pending_questions"] = deepcopy(pending_questions)
     if pending_style:
         context["pending_style"] = deepcopy(pending_style)
+    if phase == "references":
+        library = example_library_context(intake, project_id)
+        if library:
+            context["example_library"] = library
+            context["next_action"] += (
+                " Offer example_library.url once after the creation approach is chosen: "
+                "the user can browse examples and copy a prompt back into this chat. "
+                "Follow example_library.instructions; this optional link is not an "
+                "extra intake gate, a reference selection or snippet approval."
+            )
     if mode == "hands_on" and intake.get("reference_direction"):
         context["reference_direction"] = reference_context(state, project_id)
         if phase == "references" and context["reference_direction"].get("question"):

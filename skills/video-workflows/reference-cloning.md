@@ -14,7 +14,11 @@ dimensions, frame rate, audio presence, and a timestamped contact sheet. View th
 sheet with `view_video_frame`. The source is restored with the project's other
 inputs after a workspace restart. Do not download unchosen candidates.
 
-If a platform blocks downloads, explain that specific blocker and use
+YouTube, TikTok and X share this acquisition path. Public access can vary by
+post, region and request; extractor support is not a promise that every link works.
+A reported frame-inspection failure means media arrived but could not be decoded,
+not that the platform denied the download. If a platform blocks downloads,
+explain that specific blocker and use
 `request_video_sources` for an uploaded copy; retry `prepare_video_reference`
 with that source's `source_object_id`. Alternatively let the user choose an
 accessible reference. Never bypass login, pretend a thumbnail establishes

@@ -32,7 +32,7 @@ class Question(BaseModel):
     model_config = ConfigDict(extra="forbid")
     id: str = Field(pattern=r"^[a-zA-Z0-9][a-zA-Z0-9_-]{0,59}$")
     prompt: str = Field(min_length=1, max_length=180)
-    options: list[Option] = Field(min_length=2, max_length=4)
+    options: list[Option] = Field(min_length=2, max_length=5)
     recommended: str = ""
 
 
@@ -252,7 +252,7 @@ def register_widgets(mcp, store, muser, read, write):
         questions: list[Question],
         title: str = "Make it yours",
     ) -> CallToolResult:
-        """Prepare a question for you to ask using the host's native question tool if available, otherwise short ordinary chat. This tool displays no custom UI. Do not call it for a question already returned by start_video; present that question once instead. Identical questions reuse their existing ID. Required involvement/basics/creation approach and offered Hands on content need explicit answers; during the approach phase tailor only one creation_approach question with 2–4 relevant options including you_decide, without selecting for the user; Key moments questions remain optional. Record the user's actual words with record_video_answers. Never paste tool JSON into chat or ask known context again."""
+        """Prepare a question for you to ask using the host's native question tool if available, otherwise short ordinary chat. This tool displays no custom UI. Do not call it for a question already returned by start_video; present that question once instead. Identical questions reuse their existing ID. Required involvement/basics/creation approach and offered Hands on content need explicit answers; during the approach phase tailor only one creation_approach question with 2–5 relevant options including you_decide, without selecting for the user. If the host cannot fit all options, ask in short normal chat. Key moments questions remain optional. Record the user's actual words with record_video_answers. Never paste tool JSON into chat or ask known context again."""
         state = context(project_id)
         if state["revision"] != creative_revision:
             raise ValueError(

@@ -34,14 +34,42 @@ def failure_details(error, stage):
         }
     # Classify locally; never return extractor messages containing remote content.
     message = str(error).lower()
-    if any(token in message for token in ("sign in", "login", "log in", "private video", "not a bot", "captcha")):
-        code, reason = "access_restricted", "The platform requires login or an access check."
-    elif any(token in message for token in ("403", "429", "unexpected response", "unable to extract webpage")):
-        code, reason = "platform_unavailable", "The platform did not provide accessible public media to the downloader."
-    elif any(token in message for token in ("timed out", "timeout", "connection", "temporary failure")):
-        code, reason = "network_error", "The public media request failed because of a network error."
+    if any(
+        token in message
+        for token in (
+            "sign in",
+            "login",
+            "log in",
+            "private video",
+            "not a bot",
+            "captcha",
+        )
+    ):
+        code, reason = (
+            "access_restricted",
+            "The platform requires login or an access check.",
+        )
+    elif any(
+        token in message
+        for token in ("403", "429", "unexpected response", "unable to extract webpage")
+    ):
+        code, reason = (
+            "platform_unavailable",
+            "The platform did not provide accessible public media to the downloader.",
+        )
+    elif any(
+        token in message
+        for token in ("timed out", "timeout", "connection", "temporary failure")
+    ):
+        code, reason = (
+            "network_error",
+            "The public media request failed because of a network error.",
+        )
     else:
-        code, reason = "download_failed", "No complete public video could be downloaded."
+        code, reason = (
+            "download_failed",
+            "No complete public video could be downloaded.",
+        )
     return {"error_code": code, "error": reason}
 
 
@@ -87,7 +115,9 @@ def inspect_media(path, output_dir):
     )
     duration = float(probe.get("format", {}).get("duration", 0))
     if not video or not math.isfinite(duration) or not 0 < duration <= MAX_DURATION:
-        raise ReferenceMediaError("unsupported_media", "Reference must be a video of at most ten minutes")
+        raise ReferenceMediaError(
+            "unsupported_media", "Reference must be a video of at most ten minutes"
+        )
     if not 0 < path.stat().st_size <= MAX_BYTES:
         raise ReferenceMediaError("size_limit", "Reference exceeds 200 MB or is empty")
     width, height = int(video["width"]), int(video["height"])
@@ -106,10 +136,22 @@ def inspect_media(path, output_dir):
     for i, t in enumerate(times):
         frame = output_dir / f"frame-{i}.png"
         command = [
-            "ffmpeg", "-v", "error", "-nostdin", "-y",
-            "-protocol_whitelist", "file,pipe", "-ss", str(t),
-            "-i", str(path), "-frames:v", "1", "-vf",
-            "scale=320:180:force_original_aspect_ratio=decrease", str(frame),
+            "ffmpeg",
+            "-v",
+            "error",
+            "-nostdin",
+            "-y",
+            "-protocol_whitelist",
+            "file,pipe",
+            "-ss",
+            str(t),
+            "-i",
+            str(path),
+            "-frames:v",
+            "1",
+            "-vf",
+            "scale=320:180:force_original_aspect_ratio=decrease",
+            str(frame),
         ]
         subprocess.run(command, capture_output=True, check=True, timeout=20)
         # Some containers omit video duration. FFmpeg exits successfully even
@@ -119,7 +161,10 @@ def inspect_media(path, output_dir):
             command[command.index("-ss") + 1] = str(t)
             subprocess.run(command, capture_output=True, check=True, timeout=20)
         if not frame.is_file():
-            raise ReferenceMediaError("inspection_failed", "The media arrived, but a requested video frame could not be decoded")
+            raise ReferenceMediaError(
+                "inspection_failed",
+                "The media arrived, but a requested video frame could not be decoded",
+            )
         with Image.open(frame) as image:
             image = ImageOps.contain(image.convert("RGB"), (320, 180))
             x, y = (i % 3) * 320, (i // 3) * 210
@@ -154,13 +199,19 @@ def acquire(url, output_dir):
     def bounded(progress):
         total = sum(p.stat().st_size for p in output_dir.iterdir() if p.is_file())
         if total > MAX_BYTES or progress.get("downloaded_bytes", 0) > MAX_BYTES:
-            raise ReferenceMediaError("size_limit", "Reference exceeds the 200 MB download limit")
+            raise ReferenceMediaError(
+                "size_limit", "Reference exceeds the 200 MB download limit"
+            )
 
     def suitable(info, *, incomplete=False):
         if info.get("is_live") or info.get("live_status") in {"is_live", "is_upcoming"}:
-            raise ReferenceMediaError("unsupported_media", "Live references cannot be downloaded")
+            raise ReferenceMediaError(
+                "unsupported_media", "Live references cannot be downloaded"
+            )
         if info.get("duration") and info["duration"] > MAX_DURATION:
-            raise ReferenceMediaError("duration_limit", "Choose a finished reference of at most ten minutes")
+            raise ReferenceMediaError(
+                "duration_limit", "Choose a finished reference of at most ten minutes"
+            )
 
     options = dict(
         quiet=True,

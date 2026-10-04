@@ -753,9 +753,9 @@ def register_references(mcp, store, muser, read, write):
                 if candidate.disposition == "recommend":
                     if candidate.reference.inspection not in {"image", "video"}:
                         raise ValueError(
-                            "Inspect actual reference frames before recommending it; metadata or page text alone cannot support a visual reference. "
-                            "Use browse_video_references sample_video, another visual tool, or choose an accessible candidate. "
-                            "Keep inaccessible leads as reserve/reject with their limitations."
+                            "Recommended references require relevant image or video inspection. "
+                            "Inspect actual reference frames with browse_video_references sample_video or another visual tool; "
+                            "keep metadata/page-only leads as reserve or reject."
                         )
                     if candidate.production_plan is None:
                         raise ValueError(

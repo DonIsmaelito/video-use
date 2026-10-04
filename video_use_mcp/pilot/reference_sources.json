@@ -2,7 +2,7 @@
   "version": 1,
   "checked_at": "2026-10-02",
   "research_document": "AI Video Reference Sources.md supplied by the user on 2026-10-02",
-  "selection_policy": "Start with accessible, appealing videos on YouTube, TikTok and X that fit the actual brief and chosen creation approach. For visual inspiration prefer distinct finished short pieces that demonstrate one clear idea or treatment; a keyword match is not design fit. Generic tutorials, courses and long compilations are not finished style examples unless explicitly requested or an actually inspected bounded segment is useful and explained. Judge duration by the category and purpose, not a universal cutoff. Inspect relevant media frames before offering visual recommendations; a metadata-only label is not a quality substitute. Choose another candidate when relevant visual evidence is unavailable, rather than padding the shortlist. Prefer observed substantial views or likes among otherwise fitting works, not raw popularity over clarity or treatment. There is no global quality or popularity ranking across platforms. Discover, inspect and show each candidate sequentially before researching the next. Usually offer three different useful directions, at most five, with fewer when evidence is limited. Specialist studio collections are supplemental only when the user asks or primary platforms do not fit.",
+  "selection_policy": "Start with accessible, appealing videos on YouTube, TikTok and X that fit the actual brief and chosen creation approach. For visual inspiration prefer distinct finished short pieces that demonstrate one clear idea or treatment; a keyword match is not design fit. Generic tutorials, courses and long compilations are not finished style examples unless explicitly requested or an actually inspected bounded segment is useful and explained. Judge duration by the category and purpose, not a universal cutoff. Inspect relevant media frames before offering visual recommendations; a metadata-only label is not a quality substitute. Choose another candidate when relevant visual evidence is unavailable, rather than padding the shortlist. Prefer observed substantial views or likes among otherwise fitting works, not raw popularity over clarity or treatment. There is no global quality or popularity ranking across platforms. Discover, inspect and show each candidate sequentially before researching the next. Usually offer three different useful directions, at most five, with fewer when evidence is limited. Specialist collections may identify leads, but offered references must be individual YouTube, TikTok or X video posts; do not offer off-platform pages.",
   "evidence_policy": [
     "fetched means page text was opened; indexed means a search-engine copy was read; unverified means a lead that still needs checking.",
     "No reference video was played during this curation. Describe page-stated titles, creators, categories, runtime, synopsis, credits and tools as attributed metadata.",
@@ -32,7 +32,7 @@
         "wine_after_coffee"
       ],
       "coverage": "live_search",
-      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Use specialist collections only when requested or explain the primary-source gap first."
+      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Collections may identify leads, but offered references must be individual YouTube, TikTok or X video posts with inspected media frames."
     },
     "motion_design": {
       "primary": [
@@ -46,7 +46,7 @@
         "wine_after_coffee"
       ],
       "coverage": "live_search",
-      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Use specialist collections only when requested or explain the primary-source gap first."
+      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Collections may identify leads, but offered references must be individual YouTube, TikTok or X video posts with inspected media frames."
     },
     "typography": {
       "primary": [
@@ -61,7 +61,7 @@
         "eyecannndy"
       ],
       "coverage": "live_search",
-      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Use specialist collections only when requested or explain the primary-source gap first."
+      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Collections may identify leads, but offered references must be individual YouTube, TikTok or X video posts with inspected media frames."
     },
     "ads": {
       "primary": [
@@ -75,7 +75,7 @@
         "motion_awards"
       ],
       "coverage": "live_search",
-      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Use specialist collections only when requested or explain the primary-source gap first."
+      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Collections may identify leads, but offered references must be individual YouTube, TikTok or X video posts with inspected media frames."
     },
     "product_video": {
       "primary": [
@@ -89,7 +89,7 @@
         "what_ships"
       ],
       "coverage": "live_search",
-      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Use specialist collections only when requested or explain the primary-source gap first."
+      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Collections may identify leads, but offered references must be individual YouTube, TikTok or X video posts with inspected media frames."
     },
     "brand": {
       "primary": [
@@ -106,7 +106,7 @@
         "ordinary_folk"
       ],
       "coverage": "live_search",
-      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Use specialist collections only when requested or explain the primary-source gap first."
+      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Collections may identify leads, but offered references must be individual YouTube, TikTok or X video posts with inspected media frames."
     },
     "software_demo": {
       "primary": [
@@ -119,7 +119,7 @@
         "what_ships"
       ],
       "coverage": "live_search",
-      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Use specialist collections only when requested or explain the primary-source gap first."
+      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Collections may identify leads, but offered references must be individual YouTube, TikTok or X video posts with inspected media frames."
     },
     "social_clips": {
       "primary": [
@@ -132,7 +132,7 @@
         "eyecannndy"
       ],
       "coverage": "live_search",
-      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Use specialist collections only when requested or explain the primary-source gap first."
+      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Collections may identify leads, but offered references must be individual YouTube, TikTok or X video posts with inspected media frames."
     },
     "footage_story": {
       "primary": [
@@ -146,7 +146,7 @@
         "vimeo_staff_picks"
       ],
       "coverage": "live_search",
-      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Use specialist collections only when requested or explain the primary-source gap first."
+      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Collections may identify leads, but offered references must be individual YouTube, TikTok or X video posts with inspected media frames."
     },
     "data_story": {
       "primary": [
@@ -160,7 +160,7 @@
         "motion_awards"
       ],
       "coverage": "live_search",
-      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Use specialist collections only when requested or explain the primary-source gap first."
+      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Collections may identify leads, but offered references must be individual YouTube, TikTok or X video posts with inspected media frames."
     },
     "document_video": {
       "primary": [
@@ -173,7 +173,7 @@
         "the_pudding"
       ],
       "coverage": "live_search",
-      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Use specialist collections only when requested or explain the primary-source gap first."
+      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Collections may identify leads, but offered references must be individual YouTube, TikTok or X video posts with inspected media frames."
     },
     "audio_first": {
       "primary": [
@@ -184,7 +184,7 @@
       "secondary": [],
       "supplemental": [],
       "coverage": "live_search",
-      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Use specialist collections only when requested or explain the primary-source gap first."
+      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Collections may identify leads, but offered references must be individual YouTube, TikTok or X video posts with inspected media frames."
     },
     "procedural_3d": {
       "primary": [
@@ -199,7 +199,7 @@
         "vimeo_staff_picks"
       ],
       "coverage": "live_search",
-      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Use specialist collections only when requested or explain the primary-source gap first."
+      "notes": "Search accessible public social videos sequentially; availability and popularity evidence are checked for each candidate. Collections may identify leads, but offered references must be individual YouTube, TikTok or X video posts with inspected media frames."
     }
   },
   "sources": [
@@ -251,7 +251,7 @@
       "verification": "fetched",
       "verification_evidence": "Official YouTube Data API videos/list and search/list documentation checked 2026-10-02; live post availability is checked per request.",
       "search_notes": "Search for finished pieces matching the chosen technique, audience and brief, not just topic keywords. Prefer a concise example of one clear treatment over generic tutorials, courses or compilations. Longer works need an actually inspected relevant segment or an explicit user request; there is no universal duration cutoff. Verify distinct canonical videos and inspect relevant frames before showing each candidate sequentially. Shorts can be useful, but platform format alone does not establish fit.",
-      "inspection_notes": "Public oEmbed supplies title and creator, not views/likes. Optional YouTube Data API key enables official statistics; otherwise capture exact post-bound public page evidence. Use standard YouTube embed with original source link.",
+      "inspection_notes": "Public oEmbed supplies title and creator, not views/likes. Optional YouTube Data API key enables official statistics; otherwise capture exact post-bound public page evidence. Sample decoded video frames for visual inspection; use a thumbnail and original source link for presentation.",
       "access_notes": "Some videos disable embeds, require age verification, or are region restricted. Stop at access controls and keep the original source link. API statistics need a configured API key.",
       "biases": [
         "Views accumulate with age and vary by topic; inspect actual fit and publication date.",
@@ -298,7 +298,7 @@
       "verification": "fetched",
       "verification_evidence": "Official TikTok Embed Player and Embed Videos documentation checked 2026-10-02; no general commercial research API assumed.",
       "search_notes": "Use host web search site:tiktok.com with topic and technique. Look for understandable hooks, edits, short explainers and accessible creator formats. Prefer observed traction, not niche award reels.",
-      "inspection_notes": "Use canonical @creator/video/id post and official player/v1/id embed. Public oEmbed supplies attribution and description; views and likes require separate visible post evidence.",
+      "inspection_notes": "Use canonical @creator/video/id post and official player/v1/id embed. Public oEmbed supplies attribution and description; views and likes require separate visible post evidence. If the loaded video is hidden behind a custom canvas player, use sample_video with its observed video_index and capture_mode=decoded; verify post_id matches the requested post.",
       "access_notes": "Public pages may be blocked or require login; no login bypass. Research API eligibility does not make it a general commercial search backend. Keep source links if embedding fails.",
       "biases": [
         "Search indexing and regional availability are incomplete.",

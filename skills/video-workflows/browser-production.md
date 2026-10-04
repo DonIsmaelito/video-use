@@ -35,7 +35,14 @@ If the basics are already present, proceed directly to the selected mode.
   useful choices or meaningful drafts when an answer could change the result.
   Avoid routine approval stops; preserve what the user has already specified.
 - **Hands on:** after output basics, choose a creation approach when unspecified
-  through the native question (e.g. Motion design or Manim diagrams). Then research
+  through the native question (e.g. Motion design, procedural 3D or diagrams).
+  Offer `intake.example_library.url` once after that choice so the user can browse
+  useful Video Use examples, copy a prompt and paste it back into this chat.
+  Preserve the original subject, brand, duration and destination while adapting
+  a pasted example. This is an optional link, never another required question.
+  When the user's actual pasted request chooses that workflow and explicitly
+  skips other references, save it with `record_video_references action=delegate`.
+  That choice still requires the hands-on snippet checkpoint. Otherwise research
   actual online visual/video references
   using host web/image tools before creating. Let the user choose or combine
   examples, save the approved traits, then make a representative snippet for review
@@ -130,7 +137,10 @@ for the offered reference and does not claim visual inspection from metadata.
 Offer only individual YouTube, TikTok or X video posts. Other collections may
 identify leads; their pages cannot be offered as reference choices. Metadata/page
 inspection alone cannot qualify a recommendation; inspect actual media frames.
-Use `sample_video` for timed stills. A poster cannot establish the video treatment.
+Use `sample_video` for timed stills. If a custom player hides its loaded video,
+retry with its observed `video_index` and `capture_mode="decoded"`; this reads
+actual decoded pixels, with no access bypass. Verify the frames belong to the
+intended post. A poster cannot establish the video treatment.
 For blocked posts, keep the lead as reserve/reject and try another accessible work.
 Report access failures per candidate; do not claim an entire platform was inspected.
 

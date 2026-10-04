@@ -35,7 +35,7 @@ ACTIONS = {
     "open": {"url"}, "read": set(), "click": {"node_id"},
     "fill": {"node_id", "text"}, "press": {"key"},
     "scroll": {"delta_y", "delta_x"}, "screenshot": set(),
-    "sample_video": {"timestamps", "video_index"}, "close": set(),
+    "sample_video": {"timestamps", "video_index", "capture_mode"}, "close": set(),
 }
 KEYS = {
     "Enter", "Tab", "Escape", "Backspace", "Delete", "Space", " ",
@@ -113,6 +113,9 @@ def validate_request(payload):
             index = operation.get("video_index", 0)
             if isinstance(index, bool) or not isinstance(index, int) or not 0 <= index < 20:
                 raise ValueError("video_index must be between 0 and 19")
+            mode = operation.get("capture_mode", "page")
+            if not isinstance(mode, str) or mode not in {"page", "decoded"}:
+                raise ValueError("capture_mode must be page or decoded")
     image_count = sum(1 if op["action"] == "screenshot" else len(op["timestamps"])
                       if op["action"] == "sample_video" else 0 for op in operations)
     if image_count > 4:
@@ -260,6 +263,8 @@ PAGE_CONTENT_JS = """(() => ({
     ({url:a.href.slice(0,4096),text:(a.innerText||a.getAttribute('aria-label')||'').trim().slice(0,180)})),
   videos: Array.from(document.querySelectorAll('video')).slice(0,20).map((v,index) =>
     ({index,src:(v.currentSrc||v.src||'').slice(0,2048),duration_seconds:Number.isFinite(v.duration)?v.duration:null,
+      visible:v.checkVisibility({checkOpacity:true,checkVisibilityCSS:true}),
+      post_id:v.closest('[id^="xgwrapper-"]')?.id.match(/^xgwrapper-[0-9]+-([0-9]+)$/)?.[1]||null,
       current_time_seconds:v.currentTime,paused:v.paused,loop:v.loop,ready_state:v.readyState,width:v.videoWidth,height:v.videoHeight})),
   embedded_frames: document.querySelectorAll('iframe').length,
   embedded_players: Array.from(document.querySelectorAll('iframe[src]')).slice(0,12).map(f =>
@@ -589,6 +594,7 @@ class _Session:
     def _sample_video(self, operation):
         frames = []
         index = operation.get("video_index", 0)
+        capture_mode = operation.get("capture_mode", "page")
         for requested in operation["timestamps"]:
             remaining = self.deadline - time.monotonic()
             if remaining < 0.5:
@@ -599,19 +605,26 @@ class _Session:
             expression = """(async () => {
               const deadline=performance.now()+WAIT_MS;
               const remaining=()=>Math.max(0,deadline-performance.now());
+              const decoded=DECODED;
               const v=document.querySelectorAll('video')[INDEX];
               if(!v) return {ok:false,reason:'No top-document HTML5 video is available; embedded or custom players cannot be sampled here.'};
+              const tiktokPost=['www.tiktok.com','tiktok.com','m.tiktok.com'].includes(location.hostname)&&location.pathname.match(/[/]@[^/]+[/]video[/]([0-9]+)/)?.[1];
+              if(decoded&&tiktokPost) {
+                const wrapper=v.closest('[id^="xgwrapper-"]');
+                const bound=wrapper?.id.match(/^xgwrapper-[0-9]+-([0-9]+)$/)?.[1];
+                if(bound!==tiktokPost)return {ok:false,reason:'The selected TikTok video is not bound to this post in the rendered player. Inspect the video_index and post_id before sampling; no related clip was substituted.'};
+              }
               const showingAd=()=>{
                 const player=v.closest?.('.html5-video-player');
                 return player?.classList.contains('ad-showing')||player?.classList.contains('ad-interrupting');
               };
               const adUnavailable={ok:false,reason:'The selected YouTube player is showing an ad; use its visible controls or wait for the ad to finish before sampling source-video frames.'};
               if(showingAd())return adUnavailable;
-              if(!v.checkVisibility({checkOpacity:true,checkVisibilityCSS:true}))
-                return {ok:false,reason:'The chosen video is CSS-hidden; reveal that player or explicitly select the correct video_index. No different video was substituted.'};
+              if(!decoded&&!v.checkVisibility({checkOpacity:true,checkVisibilityCSS:true}))
+                return {ok:false,reason:'The chosen video is CSS-hidden. For a custom canvas player use capture_mode=decoded with this explicit video_index, or reveal the player. No different video was substituted.'};
               // Keep the exact selected element. Do not fall back to a visible
               // related clip when the requested player is hidden or unavailable.
-              v.scrollIntoView({block:'center',inline:'nearest',behavior:'instant'});
+              if(!decoded)v.scrollIntoView({block:'center',inline:'nearest',behavior:'instant'});
               await new Promise(resolve=>requestAnimationFrame(resolve));
               if(!Number.isFinite(v.duration)||v.readyState<1) {
                 await new Promise(resolve => {
@@ -643,20 +656,47 @@ class _Session:
               const visible=v.checkVisibility({checkOpacity:true,checkVisibilityCSS:true})
                 &&r.width>0&&r.height>0&&r.bottom>0&&r.right>0&&r.top<innerHeight&&r.left<innerWidth;
               if(!settled||Math.abs(v.currentTime-target)>0.25) return {ok:false,reason:'Video did not decode the requested frame before the seek timeout.'};
-              if(!visible) return {ok:false,reason:'Video is hidden or outside the viewport; make it visible before sampling.'};
+              if(!decoded&&!visible) return {ok:false,reason:'Video is hidden or outside the viewport; make it visible before sampling.'};
               await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
               if(showingAd())return adUnavailable;
+              let frame_data;
+              if(decoded) {
+                if(!v.videoWidth||!v.videoHeight)return {ok:false,reason:'The selected video has no decoded picture.'};
+                const scale=Math.min(1,1600/v.videoWidth,1600/v.videoHeight);
+                const canvas=document.createElement('canvas');
+                canvas.width=Math.max(1,Math.round(v.videoWidth*scale));
+                canvas.height=Math.max(1,Math.round(v.videoHeight*scale));
+                try {
+                  canvas.getContext('2d').drawImage(v,0,0,canvas.width,canvas.height);
+                  frame_data=canvas.toDataURL('image/png');
+                } catch(e) {
+                  return {ok:false,reason:'The browser does not permit reading this decoded frame. Use visible page capture or another accessible reference; no media access restriction was bypassed.'};
+                }
+                if(frame_data.length>4000000)return {ok:false,reason:'Decoded frame exceeds the inspection image limit.'};
+              }
               return {ok:true,timestamp_seconds:v.currentTime,duration_seconds:v.duration,
-                video_src:(v.currentSrc||v.src||'').slice(0,2048)};
+                video_src:(v.currentSrc||v.src||'').slice(0,2048),frame_data};
             })()""".replace("INDEX", json.dumps(index)).replace("STAMP", json.dumps(requested)).replace(
-                "WAIT_MS", json.dumps(max(1, int(min(3, remaining - 0.25) * 1000))))
+                "WAIT_MS", json.dumps(max(1, int(min(3, remaining - 0.25) * 1000)))).replace(
+                "DECODED", json.dumps(capture_mode == "decoded"))
             sampled = self.h.js(expression) or {}
             if not sampled.get("ok"):
                 self.limitations.append(str(sampled.get("reason", "Video frame is unavailable"))[:400])
                 continue
-            evidence = self._capture("video_frame", requested_timestamp_seconds=requested,
-                                     timestamp_seconds=sampled["timestamp_seconds"], video_index=index,
-                                     video_src=sampled.get("video_src", ""))
+            metadata = dict(requested_timestamp_seconds=requested,
+                            timestamp_seconds=sampled["timestamp_seconds"], video_index=index,
+                            video_src=sampled.get("video_src", ""), capture_mode=capture_mode)
+            if capture_mode == "decoded":
+                data = sampled.get("frame_data", "")
+                if not data.startswith("data:image/png;base64,") or len(data) > 4_000_000:
+                    raise ValueError("Invalid decoded video frame")
+                path = EVIDENCE_DIR / f"{uuid.uuid4().hex}.png"
+                path.write_bytes(base64.b64decode(data.split(",", 1)[1], validate=True))
+                evidence = dict(path=str(path), mime_type="image/png", kind="video_frame",
+                                page_url=self._page()["page_url"], **metadata)
+                self.evidence.append(evidence)
+            else:
+                evidence = self._capture("video_frame", **metadata)
             frames.append(evidence)
         self.limitations.append("Video evidence contains only the returned decoded frame screenshots; audio and continuous playback were not inspected.")
         result = {"ok": bool(frames), "page_url": self._page()["page_url"],

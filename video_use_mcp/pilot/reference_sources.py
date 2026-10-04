@@ -242,6 +242,14 @@ def validate_reference_source(reference):
         raise ValueError(
             "discovery_url must be inside the selected curated collection"
         ) from exc
+    if source["id"] in {"youtube", "tiktok", "x"}:
+        from .social_references import social_post
+
+        try:
+            if social_post(reference["discovery_url"])["platform"] == source["id"]:
+                return  # Canonical posts and mobile/share aliases are one source.
+        except ValueError:
+            pass
     for root_url in source.get("discovery_roots", [source["url"]]):
         entry = _public_https_url(root_url)
         root = _collection_path(entry.path)

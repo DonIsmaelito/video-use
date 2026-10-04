@@ -21,7 +21,15 @@ This private pilot lets the assistant in a tester's Claude or ChatGPT account dr
    other requirements already supplied; do not reopen settled decisions.
 3. For Hands on, ask the native creation-approach question if the request leaves it
    open: Motion design, Manim diagrams, footage or another relevant treatment.
-   Explicit techniques are reused. Search YouTube, TikTok and X for approachable
+   Explicit techniques are reused. After the approach is selected, offer the
+   optional [Video Use example library](https://video-use.insforge.site) once,
+   filtered to that technique when known. The user can browse by audience or
+   workflow, watch a complete example, copy its prompt, and paste it into the
+   current chat. Preserve their existing subject, brand, format and length when
+   adapting the example. A pasted request that explicitly chooses the workflow
+   and skips other references can use the existing reference-delegation action;
+   it does not approve a snippet or change involvement mode. The link adds no
+   required question or automatic selection. Otherwise search YouTube, TikTok and X for approachable
    examples that fit this brief and technique. Inspect and present one candidate
    before searching for the next; usually offer three, with a maximum of five.
 4. Show each reference through `show_video_reference`: a source thumbnail when
@@ -61,8 +69,9 @@ silence. A native tool with too few options falls back to one concise chat quest
 Hands-on requests consult `video_use_mcp/pilot/reference_sources.json` after output
 basics and before creation. The registry adapts the supplied **AI Video Reference
 Sources** research into discovery roots, category routes and access notes. It
-makes YouTube, TikTok and X primary, with eleven specialist collections kept as
-supplemental sources. It contains places to search, not videos to recommend
+makes YouTube, TikTok and X the only platforms for offered references. Specialist
+collections can identify leads, but the offered work must be an individual post
+on one of those three platforms. It contains places to search, not videos to recommend
 repeatedly. The host
 assistant finds current candidates for the actual request, inspects 1–5 useful
 references (at most five, not a quota), records evidence and refines from feedback.
@@ -102,6 +111,43 @@ traits. Capture success and evidence persistence do not prove that inspection.
 sampled states. It does not establish continuous motion, pacing, transition
 quality or audio. Record sampled stills as image evidence and disclose those
 limits. Registry access checks also do not establish current playback.
+
+For custom canvas players, `sample_video` also accepts `capture_mode="decoded"`
+and the observed `video_index`. It reads the selected loaded video's actual pixels
+instead of a page screenshot, without changing browser security settings. TikTok's
+hidden video must be bound to the current post ID in its rendered player wrapper;
+an unrelated feed video cannot stand in. Cross-origin restrictions and missing
+frames remain explicit failures. Metadata/page-only candidates can be logged as
+reserve/reject, but cannot be offered as visual recommendations. Image/video
+assessment is still reported by the host, not inferred by the server from a URL.
+
+After selection, `prepare_video_reference` downloads the actual media in a separate
+isolated worker using [yt-dlp](https://github.com/yt-dlp/yt-dlp#dependencies)
+with its documented `default,curl-cffi` dependencies,
+Deno and FFmpeg. It preserves the original post identity and verifies the transferred
+file's hash. Contact-sheet timestamps use the video stream duration so an audio
+tail does not cause a false download failure. Access checks, network errors, limits
+and frame-inspection failures are reported separately; an uploaded copy or another
+accessible choice is required when acquisition fails. Support for a platform does
+not guarantee access to every public link from every cloud worker.
+
+The repeatable public-media smoke test uses no project database and requires three
+explicit URLs. It builds the current worker image, downloads/probes/transfers each
+video, and saves a report and contact sheets; it incurs Modal compute usage:
+
+```sh
+uv run --extra mcp python -m video_use_mcp.pilot.tests.smoke_reference_platforms \
+  --youtube-url '<individual YouTube URL>' \
+  --tiktok-url '<full TikTok post URL>' \
+  --x-url '<individual X or Twitter URL>'
+```
+
+On October 3, 2026, all three public examples downloaded and produced real contact
+sheets in one isolated-worker run. A fresh-worker check passed TikTok and X but
+YouTube required an access check for the same previously accessible video. This is
+why the fallback is part of the contract. TikTok decoded-frame inspection was also
+verified against the intended post's video. These checks establish media access,
+not the artistic quality of an adapted snippet.
 
 `inspect_social_reference` reads official public oEmbed metadata and optionally
 merges engagement observed in a completed browser snapshot of the **same post**.
