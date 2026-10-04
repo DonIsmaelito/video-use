@@ -187,6 +187,87 @@
     "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-07-workshop-invite-1d9e78431ab1-b32da676/review.md"
   },
   {
+    "id": "useful-08-refill-product",
+    "title": "Explain a Product Benefit in 3D",
+    "category": "Motion Design",
+    "description": "Show a useful physical interaction so customers understand a product without a paragraph of copy.",
+    "prompt": "Use Video Use to create a 22-second 1080×1080 true 3D product film for Moss, a fictional refillable hand-soap dispenser. Model the dispenser, removable top and refill pouch as original simple geometry. Begin on the complete bottle. The cap gently unscrews and rises; the pouch approaches the open neck and a short stylized stream shows a refill. Return the cap to the correct position and settle on the complete object. Pair each action with only one phrase: “Keep the bottle”, “Add a refill”, “Back to the sink”. End with “Moss / A simple refill ritual”. Use a pale sage studio, warm off-white bottle, forest-green pump and softly rounded geometry. The changing camera angle, shadows and occlusion must show real three-dimensional form. Avoid unsupported waste-reduction percentages, photoreal claims or invisible liquid physics. Use the existing documented 3D runtime and composite crisp type over the render. Hold the final product for 3 seconds. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
+    "duration": 22,
+    "promptKind": "Original prompt",
+    "orientation": "square",
+    "audiences": [
+      "Marketers",
+      "Designers",
+      "Founders"
+    ],
+    "useCases": [
+      "Ecommerce",
+      "Product explainers",
+      "Social content"
+    ],
+    "technique": "3d",
+    "sourceRepo": "https://github.com/ahujasid/mcp-for-blender",
+    "promptSource": "Original Video Use brief and 3D scene. Modeling, studio-lighting and isometric-camera ideas inspired by MCP for Blender (MIT); built with Video Use’s selected runtime.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-08-refill-product-af980ab60445-07f91453/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-08-refill-product-af980ab60445-07f91453/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-08-refill-product-af980ab60445-07f91453/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-08-refill-product-af980ab60445-07f91453/review.md"
+  },
+  {
+    "id": "useful-10-welcome-flow",
+    "title": "Create a Customer Onboarding Video",
+    "category": "Motion Design",
+    "description": "Guide a new customer from an empty workspace to their first useful result.",
+    "prompt": "Use Video Use to create a 24-second 1920×1080 welcome film for the fictional planning app Trail. The viewer should learn the first three things to do after joining. Start with an empty project titled “Spring launch”. Show a task being created, a teammate assigned, and a due date selected. Keep one continuous workspace on screen and move the camera only enough to read each action. The on-screen instruction copy is “Add the next task”, “Give it an owner”, “Set a clear date”. Finish with the populated board and “Your plan is ready to move”. Design an original clean UI with warm ivory, charcoal and saturated blue. Use the same task throughout so the viewer can follow the change. No floating abstract spheres, feature grids or unrelated promo language. The final completed state should be visible for 3 seconds. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Product teams",
+      "Founders",
+      "Educators"
+    ],
+    "useCases": [
+      "Onboarding",
+      "Tutorials",
+      "Product explainers"
+    ],
+    "technique": "motion-design",
+    "sourceRepo": "https://github.com/instavar/remotion-templates",
+    "promptSource": "Original Video Use brief and implementation. Story structure inspired by Instavar Remotion Templates (MIT); fictional content and visual direction are new.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-10-welcome-flow-cad3a8e631a2-0728abba/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-10-welcome-flow-cad3a8e631a2-0728abba/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-10-welcome-flow-cad3a8e631a2-0728abba/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-10-welcome-flow-cad3a8e631a2-0728abba/review.md"
+  },
+  {
+    "id": "useful-11-retry-webhook",
+    "title": "Explain a Technical Architecture",
+    "category": "Explainers",
+    "description": "Show a delivery failure and recovery path in an architecture diagram.",
+    "prompt": "Use Video Use to create a 26-second 1920×1080 technical explainer titled “When a webhook fails”. Draw a stable left-to-right path: App → Queue → Receiver. Send one event token labelled order.paid. On the first delivery, show the Receiver returning 503; keep the event in the Queue. Display “Retry later” with a small clock, then deliver again and show 200 OK. Move the token into a Delivered state only after success. Reveal the short takeaway “A queue keeps the event until delivery succeeds”. Use a deep navy background, soft white labels, mint success and amber retry. Explain only this simplified flow; do not claim retries guarantee exactly-once delivery. Let arrows draw along their real paths and use a consistent event identity across every state. End with the full successful path visible for 3 seconds and a quiet footnote “Simplified delivery flow”. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
+    "duration": 26,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Product teams",
+      "Educators",
+      "Content creators"
+    ],
+    "useCases": [
+      "Technical explainers",
+      "Documentation",
+      "Training"
+    ],
+    "technique": "diagrams",
+    "sourceRepo": "https://github.com/motion-canvas/motion-canvas",
+    "promptSource": "Original Video Use brief and implementation. Animated layout/code-selection ideas informed by Motion Canvas examples (MIT).",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-11-retry-webhook-9a2aeef7c61f-03cde557/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-11-retry-webhook-9a2aeef7c61f-03cde557/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-11-retry-webhook-9a2aeef7c61f-03cde557/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-11-retry-webhook-9a2aeef7c61f-03cde557/review.md"
+  },
+  {
     "id": "whiplash-cinematic-story-edit",
     "title": "Whiplash — a Cinematic Story Edit",
     "category": "Video Edits",

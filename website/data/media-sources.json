@@ -2870,5 +2870,107 @@
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/archived-edits/20261003/whiplash-cinematic-story-edit-5c0cedd4e335-cbe595e5/poster.jpg"
       }
     ]
+  },
+  {
+    "id": "useful-08-refill-product",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-03",
+    "sourceRun": "useful-08-refill-product",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "eb577c717f93e11b1e13bda94d4c84ae1eea4c8f",
+    "frameworkArchiveSha256": "385016abd05d80dea5b51b4921b9e685b9722a868656648161e3522e1ce7a29b",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "af980ab6044584a690b61d78c07c3fecd132bb1bb6e94c7affd506044a67c525",
+    "promptSource": "Original Video Use brief and 3D scene. Modeling, studio-lighting and isometric-camera ideas inspired by MCP for Blender (MIT); built with Video Use’s selected runtime.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-08-refill-product-af980ab60445-07f91453/source.zip",
+    "editableSourceSha256": "e1279e422a6a0f321f96d01dab7f93dec4cae0ef9de4019ab0f16be3afea4d2a",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-03/useful-08-refill-product/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-08-refill-product-af980ab60445-07f91453/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-08-refill-product-af980ab60445-07f91453/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-08-refill-product-af980ab60445-07f91453/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-08-refill-product-af980ab60445-07f91453/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-08-refill-product-af980ab60445-07f91453/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-08-refill-product-af980ab60445-07f91453/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-08-refill-product-af980ab60445-07f91453/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-10-welcome-flow",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-03",
+    "sourceRun": "useful-10-welcome-flow",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "eb577c717f93e11b1e13bda94d4c84ae1eea4c8f",
+    "frameworkArchiveSha256": "385016abd05d80dea5b51b4921b9e685b9722a868656648161e3522e1ce7a29b",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "cad3a8e631a2f557bf4869be926abebe84bdae77c53af1eb14a35d287d55c9e1",
+    "promptSource": "Original Video Use brief and implementation. Story structure inspired by Instavar Remotion Templates (MIT); fictional content and visual direction are new.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-10-welcome-flow-cad3a8e631a2-0728abba/source.zip",
+    "editableSourceSha256": "060472e67eae20cf1e2645d4af9daa42c2df3db49b1f8f58138d393e392cf9c5",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-03/useful-10-welcome-flow/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-10-welcome-flow-cad3a8e631a2-0728abba/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-10-welcome-flow-cad3a8e631a2-0728abba/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-10-welcome-flow-cad3a8e631a2-0728abba/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-10-welcome-flow-cad3a8e631a2-0728abba/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-10-welcome-flow-cad3a8e631a2-0728abba/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-10-welcome-flow-cad3a8e631a2-0728abba/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-10-welcome-flow-cad3a8e631a2-0728abba/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-11-retry-webhook",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-03",
+    "sourceRun": "useful-11-retry-webhook",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "eb577c717f93e11b1e13bda94d4c84ae1eea4c8f",
+    "frameworkArchiveSha256": "385016abd05d80dea5b51b4921b9e685b9722a868656648161e3522e1ce7a29b",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "9a2aeef7c61f9a3ac14681f6252c99e074a105833c6d50e0bc11693d5ea26da7",
+    "promptSource": "Original Video Use brief and implementation. Animated layout/code-selection ideas informed by Motion Canvas examples (MIT).",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-11-retry-webhook-9a2aeef7c61f-03cde557/source.zip",
+    "editableSourceSha256": "0148722efb119f365b0efa60ded7857587ab264b3e5a65bf66a81f198f2301bc",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-03/useful-11-retry-webhook/repairs/repair-editorial-20261003-2220/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-11-retry-webhook-9a2aeef7c61f-03cde557/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-11-retry-webhook-9a2aeef7c61f-03cde557/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-11-retry-webhook-9a2aeef7c61f-03cde557/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-11-retry-webhook-9a2aeef7c61f-03cde557/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-11-retry-webhook-9a2aeef7c61f-03cde557/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-11-retry-webhook-9a2aeef7c61f-03cde557/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-11-retry-webhook-9a2aeef7c61f-03cde557/poster.jpg"
+      }
+    ]
   }
 ]
