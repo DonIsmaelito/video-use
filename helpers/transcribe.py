@@ -165,17 +165,14 @@ def transcribe_one(
     if source_identity(video, language, num_speakers, model) != identity:
         raise ValueError("Source changed during transcription; no transcript was installed")
     payload["_video_use"] = identity
-    temporary = None
-    try:
-        with tempfile.NamedTemporaryFile(mode="w", dir=transcripts_dir, suffix=".tmp", delete=False) as stream:
-            temporary = Path(stream.name)
-            json.dump(payload, stream, indent=2)
-            stream.write("\n")
-        # Never overwrite a transcript created by another process while uploading.
-        os.link(temporary, out_path)
-    finally:
-        if temporary is not None:
-            temporary.unlink(missing_ok=True)
+    # Modal volumes do not support hard links. Exclusive creation works there
+    # and protects a transcript installed by another process during the upload.
+    # A concurrent reader fails closed until this complete JSON has been written.
+    encoded = json.dumps(payload, indent=2) + "\n"
+    with out_path.open("x") as stream:
+        stream.write(encoded)
+        stream.flush()
+        os.fsync(stream.fileno())
     dt = time.time() - t0
 
     if verbose:
