@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from fractions import Fraction
 import shutil
 import subprocess
 from pathlib import Path
@@ -171,3 +172,44 @@ def test_real_extraction_concat_and_composite_keep_exact_timing(tmp_path: Path) 
     flashes, centers = _event_times(final, 48000, [0.35, 0.85, 1.25])
     assert flashes == [9, 10, 11, 24, 25, 26, 36, 37, 38]
     assert centers == pytest.approx([0.35, 0.85, 1.25], abs=0.008)
+
+
+@pytest.mark.parametrize("source_rate", ["24", "24000/1001"])
+@pytest.mark.parametrize("with_audio", [False, True])
+def test_mixed_rate_cuts_fill_the_first_frame_without_moving_audio(tmp_path: Path, source_rate: str, with_audio: bool) -> None:
+    source = tmp_path / "source.mp4"
+    rate = float(Fraction(source_rate))
+    pulse_start, pulse_end = 42 / rate, 45 / rate
+    _run(
+        "ffmpeg", "-y", "-v", "error", "-f", "lavfi", "-i",
+        f"color=c=black:s=160x90:r={source_rate}:d=4",
+        *(["-f", "lavfi", "-i", f"aevalsrc='0.6*sin(2*PI*1000*t)*gte(t,{pulse_start})*lt(t,{pulse_end})':s=48000:d=4"] if with_audio else []),
+        "-vf", "drawbox=color=white:t=fill:enable='gte(n,42)*lt(n,45)'",
+        "-c:v", "libx264", "-preset", "fast", "-pix_fmt", "yuv420p", "-c:a", "aac", str(source),
+    )
+    clips = []
+    expected = []
+    for index, start in enumerate([1.3, 0.7, 1.5]):
+        path = tmp_path / f"cut-{index}.mp4"
+        render.extract_segment(source, start, 1.4, "", path, rate="30")
+        stream = next(s for s in _probe(path)["streams"] if s["codec_type"] == "video")
+        assert int(stream["nb_read_frames"]) == 42
+        assert float(stream["start_time"]) == pytest.approx(0, abs=1e-6)
+        clips.append(path)
+        expected.append((pulse_start + pulse_end) / 2 - start + index * 1.4)
+    output = tmp_path / "joined.mp4"
+    render.concat_segments(clips, output, tmp_path)
+    if with_audio:
+        flashes, centers = _event_times(output, 48000, expected)
+        assert centers == pytest.approx(expected, abs=0.008)
+    else:
+        pixels = np.frombuffer(_run("ffmpeg", "-v", "error", "-i", str(output), "-vf", "scale=1:1", "-pix_fmt", "gray", "-f", "rawvideo", "pipe:1"), dtype=np.uint8)
+        flashes, centers = np.flatnonzero(pixels > 128).tolist(), expected
+    for index, center in enumerate(centers):
+        visible = [frame for frame in flashes if index * 42 <= frame < (index + 1) * 42]
+        assert visible
+        visible_center = (visible[0] + visible[-1] + 1) / 60
+        assert visible_center == pytest.approx(center, abs=1 / 30)
+    video = next(s for s in _probe(output)["streams"] if s["codec_type"] == "video")
+    assert int(video["nb_read_frames"]) == 126
+    assert float(video["duration"]) == pytest.approx(4.2, abs=0.001)

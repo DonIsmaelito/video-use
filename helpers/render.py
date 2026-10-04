@@ -46,6 +46,7 @@ from visuals import (  # noqa: E402
     render_graphic_layers,
     scale_visual_specs,
 )
+from shot_layout import build_shot_layout_filters, layout_dimensions  # noqa: E402
 
 try:
     from grade import get_preset, auto_grade_for_clip  # same directory
@@ -234,6 +235,7 @@ def extract_segment(
     draft: bool = False,
     rate: str | None = None,
     reframe: dict | None = None,
+    layout: dict | None = None,
 ) -> None:
     """Extract a cut range as its own MP4 with grade + 30ms audio fades baked in.
 
@@ -254,15 +256,28 @@ def extract_segment(
     else:
         scale = "scale=-2:1920" if portrait else "scale=1920:-2"
 
+    crop_filter, layout_filter = "", ""
+    if layout is not None:
+        dimensions = probe_video(source)
+        crop_filter, layout_filter = build_shot_layout_filters(
+            layout, int(dimensions["width"]), int(dimensions["height"]),
+            max_dimension=1280 if draft or preview else None,
+        )
+
     vf_parts: list[str] = []
     if is_hdr_source(source):
         vf_parts.append(TONEMAP_CHAIN)
-    vf_parts.append(scale)
+    if crop_filter:
+        vf_parts.append(crop_filter)
+    if not layout_filter:
+        vf_parts.append(scale)
     reframe_filter = build_reframe_filter(reframe)
     if reframe_filter:
         vf_parts.append(reframe_filter)
     if grade_filter:
         vf_parts.append(grade_filter)
+    if layout_filter:
+        vf_parts.append(layout_filter)
     vf = ",".join(vf_parts)
 
     # 30ms audio fades at both edges (Rule 3) — prevent pops
@@ -280,7 +295,12 @@ def extract_segment(
     # (every segment must share it — video concat in Rule 2 requires a uniform
     # frame rate). When called standalone with no rate, preserve this source's
     # own rate; fall back to 24 only if it can't be probed.
-    out_rate = rate if rate is not None else (probe_source_fps(source) or "24")
+    out_rate = parse_fps(rate) if rate is not None else (probe_source_fps(source) or "24")
+    # A seek between source frames can leave the first retained picture after
+    # t=0. In silent footage, output -r alone then emits one frame too few.
+    # Pad that initial gap on the requested output clock without resetting the
+    # source video timestamps relative to audio (setpts=PTS-STARTPTS would).
+    vf += f",fps=fps={out_rate}:start_time=0"
 
     cmd = [
         "ffmpeg", "-y",
@@ -321,6 +341,12 @@ def extract_all_segments(
 
     ranges = edl["ranges"]
     sources = edl["sources"]
+    layouts = [item.get("layout") for item in ranges]
+    if any(layout is not None for layout in layouts):
+        if any(layout is None for layout in layouts):
+            raise ValueError("Every range needs a layout when per-shot canvas placement is used")
+        if len({layout_dimensions(layout) for layout in layouts}) != 1:
+            raise ValueError("All range layouts must share one canvas size for video concatenation")
 
     # Resolve ONE output frame rate for the entire render and apply it to every
     # segment. The lossless video concat (Rule 2) requires all segments to
@@ -367,6 +393,7 @@ def extract_all_segments(
             draft=draft,
             rate=out_rate,
             reframe=r.get("reframe"),
+            layout=r.get("layout"),
         )
         seg_paths.append(out_path)
 

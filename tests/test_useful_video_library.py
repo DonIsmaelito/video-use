@@ -24,6 +24,19 @@ def test_delivery_orientation_and_bad_frames():
             normalize_brief(brief(**changes))
 
 
+def test_explicit_aspect_controls_defaults_and_rejects_conflicting_dimensions():
+    value = normalize_brief(brief(orientation="portrait", aspect="4:5"))
+    assert (value["width"], value["height"]) == (1080, 1350)
+    value = normalize_brief(brief(orientation="portrait", aspect="4:5", width=720))
+    assert (value["width"], value["height"]) == (720, 900)
+    value = normalize_brief(brief(aspect="4:3", height=720))
+    assert (value["width"], value["height"]) == (960, 720)
+    for changes in ({"aspect": "4:5", "width": 1080, "height": 1920}, {"aspect": "0:5"},
+                    {"aspect": "4/5"}, {"aspect": "1:9999"}, {"aspect": "4:5", "width": True}):
+        with pytest.raises(ValueError):
+            normalize_brief(brief(**changes))
+
+
 def test_only_four_distinct_explicit_briefs(tmp_path):
     path = tmp_path / "briefs.json"
     for values in ([], [brief()] * 2, [brief(id=f"demo-{i}") for i in range(5)]):
@@ -77,6 +90,7 @@ def test_source_archive_retains_helpers_not_traces_outputs_or_symlinks(tmp_path)
     (project / "edit/tool-proposals").mkdir(parents=True)
     (project / "edit/tool-proposals/tool.py").write_text("print('reusable')")
     (project / "edit/README.md").write_text("render instructions")
+    (project / "edit/render.sh").write_text("#!/bin/sh\npython edit/render.py\n")
     for name in ("LICENSE", "COPYING", "NOTICE", "dependency-LICENSE", "asset_NOTICE", "library_COPYING"):
         (project / "edit" / name).write_text("Required legal notice")
     (project / "edit/final.mp4").write_bytes(b"large-video")
@@ -87,9 +101,10 @@ def test_source_archive_retains_helpers_not_traces_outputs_or_symlinks(tmp_path)
     (project / "edit/.env").write_text("private")
     (project / "edit/.codex-home").mkdir()
     (project / "edit/.codex-home/auth.json").write_text("private")
-    for directory in ("base.render", "draft2-base.render", "draft-verify", "draft2-verify", "draft-media", "final-media", "partial_movie_files"):
+    for directory in ("base.render", "draft2-base.render", "draft-verify", "draft2-verify", "draft-media", "final-media", "partial_movie_files",
+                      "media/texts", "media-draft/texts", "media-final/Tex", "research", "build", "build-preview"):
         generated = project / "edit" / directory
-        generated.mkdir()
+        generated.mkdir(parents=True)
         (generated / "render.json").write_text("Generated render cache")
         (generated / "frame.svg").write_text("<svg/>")
     outside = tmp_path / "outside.txt"
@@ -98,7 +113,24 @@ def test_source_archive_retains_helpers_not_traces_outputs_or_symlinks(tmp_path)
     target = tmp_path / "source.zip"
     archive_source(project, target)
     with zipfile.ZipFile(target) as archive:
-        assert set(archive.namelist()) == {"edit/README.md", "edit/tool-proposals/tool.py", "edit/LICENSE", "edit/COPYING", "edit/NOTICE", "edit/dependency-LICENSE", "edit/asset_NOTICE", "edit/library_COPYING"}
+        assert set(archive.namelist()) == {"edit/README.md", "edit/render.sh", "edit/tool-proposals/tool.py", "edit/LICENSE", "edit/COPYING", "edit/NOTICE", "edit/dependency-LICENSE", "edit/asset_NOTICE", "edit/library_COPYING"}
+
+
+def test_declared_regenerated_assets_are_omitted_without_following_external_paths(tmp_path):
+    project = tmp_path / "project"
+    assets = project / "edit/assets"
+    assets.mkdir(parents=True)
+    (assets / "derived.png").write_bytes(b"regenerable frame")
+    (assets / "authored.png").write_bytes(b"authored reusable asset")
+    manifest = project / "edit/source-exclusions.json"
+    manifest.write_text(json.dumps({"paths": ["edit/assets/derived.png"]}))
+    archive_source(project, tmp_path / "source.zip")
+    with zipfile.ZipFile(tmp_path / "source.zip") as archive:
+        assert set(archive.namelist()) == {"edit/source-exclusions.json", "edit/assets/authored.png"}
+    for path in ("/private", "../outside", "edit/../assets", "."):
+        manifest.write_text(json.dumps({"paths": [path]}))
+        with pytest.raises(ValueError, match="inside the project"):
+            archive_source(project, tmp_path / "source.zip")
 
 
 def test_prompt_is_preserved_and_proposals_stay_project_local():

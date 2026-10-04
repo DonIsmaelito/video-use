@@ -127,6 +127,7 @@ The EDL can express reusable treatment decisions without baking in a preset:
 
 - `treatment.canvas` sets the output width, height, and `cover`, `contain`, or `blur` fit. A blur canvas may also define the foreground video's size and position.
 - Each range may use `reframe` with `zoom`, `focus_x`, and `focus_y` to hold attention on the important region.
+- Each range may use `layout` for an explicit source-pixel crop and a picture window on a common canvas. See [per-shot layouts](skills/video-workflows/shot-layouts.md) for its validated coordinates, fit modes and preview behavior.
 - `graphics` supports timed `text`, `line`, `box`, and `image` layers. Coordinates from 0 through 1 are relative to the output canvas; larger values are pixels. Text can define a maximum width so it wraps and fits instead of clipping.
 - `captions` controls chunking, case, renderer, font, size, position, stroke, shadow, and background. Use `renderer: auto` unless a specific renderer is required.
 
