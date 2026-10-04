@@ -295,6 +295,33 @@
     "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-12-research-summary-e809aa823b25-003c95a7/review.md"
   },
   {
+    "id": "useful-14-campaign-announcement",
+    "title": "Build a Reusable Campaign Ad",
+    "category": "Motion Design",
+    "description": "Second Life — Fictional studio. An original cut-paper desk lamp unfolds, reconnects and lights up in a campaign about caring for the things you love. Demonstration content; no real customer before-and-after evidence.",
+    "prompt": "Use Video Use to create a 20-second 1080×1350 campaign film for the fictional repair studio Second Life. Show an original illustrated desk lamp with a bent shade and loose cable; small parts align and the bulb turns on, making the service visible. Copy: “Keep the things you love”, then “Small repairs. Longer stories.” Finish with “Second Life /Book a repair assessment”. Use cream, tomato red and charcoal, editorial serif headlines and a simple tactile cut-paper visual treatment. Integrate the lettering with the repair action rather than placing a paragraph beside it. Keep the actual final service offer readable for 4 seconds. No fabricated before-and-after customer evidence, environmental savings figures or discount pricing. Include “Fictional studio” quietly in the project notes and gallery description. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
+    "duration": 20,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": [
+      "Marketers",
+      "Founders",
+      "Designers"
+    ],
+    "useCases": [
+      "Ads",
+      "Social content",
+      "Brand campaigns"
+    ],
+    "technique": "motion-design",
+    "sourceRepo": "https://github.com/veedstudio/open-edit",
+    "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-14-campaign-announcement-058d104ad32c-ff37a4e2/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-14-campaign-announcement-058d104ad32c-ff37a4e2/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-14-campaign-announcement-058d104ad32c-ff37a4e2/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-14-campaign-announcement-058d104ad32c-ff37a4e2/review.md"
+  },
+  {
     "id": "useful-18-code-fix",
     "title": "Explain a Small Code Fix",
     "category": "Explainers",
