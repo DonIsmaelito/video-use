@@ -376,6 +376,31 @@
     "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-16-question-answer-cut-a741c098b437-c59ea1e3/review.md"
   },
   {
+    "id": "social-18-two-takeaway-edit",
+    "title": "Give a longer answer structure",
+    "category": "Video Edits",
+    "description": "One interview answer becomes a concise two-part social clip with restrained editorial signposts.",
+    "prompt": "Use Video Use to turn a longer interview answer into a 35-second social clip with two useful takeaways. Keep the original voice and chronological explanation. Add a compact opening question and two short editorial signposts at the exact moments the speaker changes topic. Use a generous view of the speaker, measured face framing and clear phrase captions. A tiny original diagram may clarify the relationship, but label it as editorial and do not present generated footage as evidence. Keep qualifications and future tense. No music, new narration, invented quote or generic CTA. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the query. Deliver a polished 1080×1920 vertical MP4 at 30 fps. Put the real footage first: a generous picture, a compact hook, captions readable on a phone, and very little unused matte. Keep important text away from the top 150px, bottom 300px and rightmost 120px used by social app controls. Keep source credits quiet and truthful. Preserve original voices, meaning and real reactions. Do not fabricate missing actions or quotes. Save editable cuts, caption timings, source URLs and replay instructions. In normal interactive use, show a short preview for approval before finishing the full edit.",
+    "duration": 35,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": [
+      "Content creators",
+      "Marketers"
+    ],
+    "useCases": [
+      "Social content",
+      "Short-form edits"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/browser-use/video-use",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-18-two-takeaway-edit-7ad81dedc634-575eb563/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-18-two-takeaway-edit-7ad81dedc634-575eb563/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-18-two-takeaway-edit-7ad81dedc634-575eb563/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-18-two-takeaway-edit-7ad81dedc634-575eb563/review.md"
+  },
+  {
     "id": "social-19-weekend-roundup",
     "title": "Make a weekend worth saving",
     "category": "Video Edits",
@@ -399,6 +424,31 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-19-weekend-roundup-7ff64bc76dcb-43b7f77a/poster.jpg",
     "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-19-weekend-roundup-7ff64bc76dcb-43b7f77a/source.zip",
     "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-19-weekend-roundup-7ff64bc76dcb-43b7f77a/review.md"
+  },
+  {
+    "id": "social-20-tutorial-to-short",
+    "title": "Make the detail readable",
+    "category": "Video Edits",
+    "description": "A recorded code explanation becomes a vertical tutorial with a readable version highlight and timed captions.",
+    "prompt": "Use Video Use to turn a recorded software explanation into a 26-second vertical tutorial. Choose one complete useful idea. Keep the original narration and show the exact interface or code detail being discussed, using a deliberate magnified inset or editorial highlight when the original screen would be unreadable on a phone. Preserve the source screen as evidence; do not invent typing, cursor actions, execution output or a live demonstration. Use precise phrase captions below the focused detail and a compact opening question. Keep historical versions and qualifications explicit, with no background music. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the query. Deliver a polished 1080×1920 vertical MP4 at 30 fps. Put the real footage first: a generous picture, a compact hook, captions readable on a phone, and very little unused matte. Keep important text away from the top 150px, bottom 300px and rightmost 120px used by social app controls. Keep source credits quiet and truthful. Preserve original voices, meaning and real reactions. Do not fabricate missing actions or quotes. Save editable cuts, caption timings, source URLs and replay instructions. In normal interactive use, show a short preview for approval before finishing the full edit.",
+    "duration": 26,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": [
+      "Content creators",
+      "Marketers"
+    ],
+    "useCases": [
+      "Social content",
+      "Short-form edits"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/browser-use/video-use",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-20-tutorial-to-short-5a4f9ad7056f-0b8e512d/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-20-tutorial-to-short-5a4f9ad7056f-0b8e512d/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-20-tutorial-to-short-5a4f9ad7056f-0b8e512d/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-20-tutorial-to-short-5a4f9ad7056f-0b8e512d/review.md"
   },
   {
     "title": "A calm browser tour",

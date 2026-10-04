@@ -4608,5 +4608,73 @@
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-10-forest-ride-d5eeaf3087eb-3e11fd32/poster.jpg"
       }
     ]
+  },
+  {
+    "id": "social-18-two-takeaway-edit",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "social-18-20",
+    "sourceRun": "social-18-two-takeaway-edit",
+    "model": null,
+    "reasoningEffort": null,
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "f2bb9548cc1d571c7807c625eb9d8b63e96d4b47",
+    "frameworkArchiveSha256": "0bf30014c5e7a7db8508f48d51d3b81d20d344c128a57f260e12eea620c721be",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "7ad81dedc634893148f1409a1e12cee6a061aabedd001b21e7bea362ba2a0a28",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-18-two-takeaway-edit-7ad81dedc634-575eb563/source.zip",
+    "editableSourceSha256": "e31c70e9ec695ae1d735d9851974fe4e728fea2d03f9d9ff0c5bcdd7cf5185e1",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/social-18-20/social-18-two-takeaway-edit/repairs/repair-replay-source-v2-20261004/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-18-two-takeaway-edit-7ad81dedc634-575eb563/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-18-two-takeaway-edit-7ad81dedc634-575eb563/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-18-two-takeaway-edit-7ad81dedc634-575eb563/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-18-two-takeaway-edit-7ad81dedc634-575eb563/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-18-two-takeaway-edit-7ad81dedc634-575eb563/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-18-two-takeaway-edit-7ad81dedc634-575eb563/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-18-two-takeaway-edit-7ad81dedc634-575eb563/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "social-20-tutorial-to-short",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "social-18-20",
+    "sourceRun": "social-20-tutorial-to-short",
+    "model": null,
+    "reasoningEffort": null,
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "2924241b2657ca766291d49961a205b1c46d749f",
+    "frameworkArchiveSha256": "0bf30014c5e7a7db8508f48d51d3b81d20d344c128a57f260e12eea620c721be",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "5a4f9ad7056f98cf29b2e9701689f94d1f12d41afa1b09faaf666c44d6868718",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-20-tutorial-to-short-5a4f9ad7056f-0b8e512d/source.zip",
+    "editableSourceSha256": "0dc14a1d8531cfa15dd9665b654beb4a3fc149e7cd2d3e83d910a73d7a90df85",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/social-18-20/social-20-tutorial-to-short/repairs/repair-command-proof-source-20261004/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-20-tutorial-to-short-5a4f9ad7056f-0b8e512d/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-20-tutorial-to-short-5a4f9ad7056f-0b8e512d/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-20-tutorial-to-short-5a4f9ad7056f-0b8e512d/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-20-tutorial-to-short-5a4f9ad7056f-0b8e512d/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-20-tutorial-to-short-5a4f9ad7056f-0b8e512d/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-20-tutorial-to-short-5a4f9ad7056f-0b8e512d/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-20-tutorial-to-short-5a4f9ad7056f-0b8e512d/poster.jpg"
+      }
+    ]
   }
 ]
