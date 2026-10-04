@@ -87,6 +87,11 @@ def test_source_archive_retains_helpers_not_traces_outputs_or_symlinks(tmp_path)
     (project / "edit/.env").write_text("private")
     (project / "edit/.codex-home").mkdir()
     (project / "edit/.codex-home/auth.json").write_text("private")
+    for directory in ("base.render", "draft2-base.render", "draft-verify", "draft2-verify", "draft-media", "final-media", "partial_movie_files"):
+        generated = project / "edit" / directory
+        generated.mkdir()
+        (generated / "render.json").write_text("Generated render cache")
+        (generated / "frame.svg").write_text("<svg/>")
     outside = tmp_path / "outside.txt"
     outside.write_text("private")
     (project / "edit/linked.txt").symlink_to(outside)

@@ -624,6 +624,7 @@ def build_final_composite(
         treatment,
         fallback_width=int(metadata["width"]),
         fallback_height=int(metadata["height"]),
+        fps=str(metadata["fps"]),
     )
 
     inputs: list[str] = ["-i", str(base_path)]

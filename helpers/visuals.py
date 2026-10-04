@@ -9,7 +9,9 @@ and timing that fit the material.
 from __future__ import annotations
 
 import copy
+from fractions import Fraction
 import json
+import math
 import re
 import subprocess
 from pathlib import Path
@@ -160,10 +162,64 @@ def scale_visual_specs(
     return scaled_treatment, scaled_graphics, scaled_captions, scale
 
 
-def build_reframe_filter(spec: dict[str, Any] | None) -> str:
-    """Return a same-size static focus crop for a segment or full composition."""
+def _animated_reframe(spec: dict[str, Any], width: int | None, height: int | None, fps: str | None) -> str:
+    """Compile bounded output-time camera keys for the final composite."""
+    if any(type(value) is not int or not 2 <= value <= 8192 or value % 2 for value in (width, height)):
+        raise ValueError("Animated reframe requires even output dimensions; use treatment.reframe")
+    try:
+        rate = Fraction(str(fps))
+    except (ValueError, ZeroDivisionError) as exc:
+        raise ValueError("Animated reframe requires the actual output frame rate") from exc
+    if not 1 <= rate <= 240:
+        raise ValueError("Animated reframe frame rate must be between 1 and 240")
+    interpolation = spec.get("interpolation", "smooth")
+    if not isinstance(interpolation, str) or interpolation not in {"linear", "smooth", "hold"}:
+        raise ValueError("Animated reframe interpolation must be linear, smooth, or hold")
+    raw_keys = spec["keyframes"]
+    if not isinstance(raw_keys, list) or not 1 <= len(raw_keys) <= 24:
+        raise ValueError("Animated reframe needs 1 to 24 keyframes")
+    bounds = {"time": (0, 86400), "zoom": (1, 3), "focus_x": (0, 1), "focus_y": (0, 1)}
+    state = {"zoom": spec.get("zoom", 1), "focus_x": spec.get("focus_x", 0.5), "focus_y": spec.get("focus_y", 0.5)}
+    keys = []
+    for raw in raw_keys:
+        if not isinstance(raw, dict) or "time" not in raw or set(raw) - set(bounds):
+            raise ValueError("Reframe keys need time and optional zoom, focus_x, focus_y")
+        key = {**state, **raw}
+        for field, (minimum, maximum) in bounds.items():
+            value = key[field]
+            if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value) or not minimum <= value <= maximum:
+                raise ValueError(f"reframe key {field} must be finite and between {minimum} and {maximum}")
+        if keys and key["time"] <= keys[-1]["time"]:
+            raise ValueError("Reframe key times must be strictly increasing")
+        keys.append(key)
+        state = {field: key[field] for field in ("zoom", "focus_x", "focus_y")}
+    clock = f"(on*{rate.denominator}/{rate.numerator})"
+
+    def expression(field: str) -> str:
+        result = f"{keys[-1][field]:.9f}"
+        for left, right in reversed(list(zip(keys, keys[1:]))):
+            progress = f"min(1,max(0,({clock}-{left['time']:.17g})/{right['time'] - left['time']:.17g}))"
+            if interpolation == "smooth":
+                progress = f"(({progress})*({progress})*(3-2*({progress})))"
+            value = f"{left[field]:.9f}" if interpolation == "hold" else f"({left[field]:.9f}+{right[field] - left[field]:.9f}*({progress}))"
+            result = f"if(lt({clock},{right['time']:.17g}),{value},{result})"
+        return result
+
+    return (
+        f"zoompan=z='{expression('zoom')}':x='(iw-iw/zoom)*({expression('focus_x')})':"
+        f"y='(ih-ih/zoom)*({expression('focus_y')})':d=1:s={width}x{height}:fps={rate},setsar=1"
+    )
+
+
+def build_reframe_filter(
+    spec: dict[str, Any] | None, *, width: int | None = None,
+    height: int | None = None, fps: str | None = None,
+) -> str:
+    """Return a static crop, or output-clock keyframes for the final composite."""
     if not spec:
         return ""
+    if "keyframes" in spec:
+        return _animated_reframe(spec, width, height, fps)
     zoom = float(spec.get("zoom", 1.0))
     focus_x = float(spec.get("focus_x", 0.5))
     focus_y = float(spec.get("focus_y", 0.5))
@@ -204,13 +260,16 @@ def build_treatment_filters(
     *,
     fallback_width: int,
     fallback_height: int,
+    fps: str | None = None,
     output_label: str = "[treated]",
 ) -> tuple[list[str], str, tuple[int, int]]:
     """Build filter-graph fragments for global focus and canvas treatment."""
     treatment = treatment or {}
     parts: list[str] = []
     current = input_label
-    reframe = build_reframe_filter(treatment.get("reframe"))
+    reframe = build_reframe_filter(
+        treatment.get("reframe"), width=fallback_width, height=fallback_height, fps=fps,
+    )
     if reframe:
         parts.append(f"{current}{reframe}[focused]")
         current = "[focused]"

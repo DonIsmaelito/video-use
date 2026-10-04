@@ -43,7 +43,8 @@ SOURCE_TREES = ("helpers", "skills", "references", "assets")
 SOURCE_FILES = ("SKILL.md", "LICENSE", "pyproject.toml", "experiments/useful_video_library.py",
                 "experiments/useful-library/REPLAY.md")
 BRAND_FILES = ("favicon.svg", "fonts/instrument-serif.ttf", "fonts/inter-regular.ttf",
-               "fonts/inter-semibold.ttf", "fonts/InstrumentSerif-OFL.txt", "fonts/Inter-OFL.txt")
+               "fonts/inter-semibold.ttf", "fonts/InstrumentSerif-OFL.txt", "fonts/Inter-OFL.txt",
+               "clients/chatgpt.svg", "clients/claude.svg", "clients/cursor.svg", "clients/brand-sources.json")
 SKIP_PARTS = {"node_modules", "__pycache__", ".git", ".venv", ".cache", ".pytest_cache", ".npm"}
 SAFE_ID = re.compile(r"[a-z0-9][a-z0-9_-]{0,99}")
 SOURCE_EXTENSIONS = {".py", ".mjs", ".js", ".cjs", ".jsx", ".tsx", ".ts", ".html", ".css",
@@ -163,6 +164,8 @@ Deliver exactly {brief['width']}×{brief['height']} at 30 fps for {brief['durati
 
 Retain editable source, reusable assets, exact dependency versions, edit/README.md with complete reproduction commands, edit/project.md, edit/provenance.json with licenses/source URLs and changes from the seed idea, edit/review.md with actual inspections and honest remaining limitations, edit/tool_gaps.json, and a valid normal edit/edl.json handoff. The public source archive includes authored code/docs and small images/fonts/3D assets; it excludes raw audio/video, nested archives, caches and private traces. Keep audio-generation source and full reproduction commands; for licensed source footage/audio keep permitted acquisition URLs and attribution. For a fully authored video the EDL may reference the authored finished film as one source; do not invent unsupported EDL fields. Do not claim to have listened to audio if only waveform/levels/transcription were inspected. All demonstration company names and data are fictional; preserve any source attribution required by the referenced open-source license. Report limitations honestly rather than self-assigning a quality score.
 
+Make the README replayable on a fresh machine outside /opt/video-use. Refer to the archive's root REPLAY.md and video-use-framework.json: clone the recorded public framework from https://github.com/DonIsmaelito/video-use and use its recorded commit/file hashes. Define the reader's framework and extracted-project paths. List native prerequisites and exact installed package versions for the engine actually used; a Manim project needs its Cairo/Pango/compiler/font setup, and LaTeX only if used. A browser project must show the exact npm ci location, Node/Chrome requirements and CHROME_PATH override; if using the framework runtime, run npm ci --prefix on that checkout's skills/motion-design/runtime, never assume an unbundled edit/runtime exists. Any extra GSAP or other project package must have a pinned install command and necessary package/lock files. Replace container-only absolute paths and helper imports with portable paths or a documented PYTHONPATH. Include source/audio regeneration or permitted reacquisition, render/composite order, and final QA. Verify every project-relative file referenced by these commands exists and is eligible for the public source archive; excluded media needs a complete regeneration/acquisition step. The README must not rely on private logs, credentials, undeclared global packages or the original container filesystem. For continuous edited-video framing, the shared treatment.reframe.keyframes path is documented in skills/video-workflows/continuous-reframing.md; use actual output seconds and existing renderer support rather than a fixed-frame-rate monkeypatch.
+
 Research and task-specific review checks:
 {needs}
 
@@ -238,14 +241,15 @@ def public_framework(source: dict) -> dict:
 
 
 def archive_source(project: Path, target: Path, *, framework: dict | None = None, replay: Path | None = None) -> dict:
-    excluded = SKIP_PARTS | {"verify", "frames", "frames.tmp", "clips_preview", "clips_graded", "downloads"}
+    excluded = SKIP_PARTS | {"verify", "frames", "frames.tmp", "clips_preview", "clips_graded", "downloads",
+                             "draft-media", "final-media", "partial_movie_files", "draft-verify", "draft2-verify"}
     files, total = 0, 0
     with zipfile.ZipFile(target, "w", zipfile.ZIP_DEFLATED) as archive:
         for path in sorted(project.rglob("*")):
             relative = path.relative_to(project)
             if (framework is not None and relative == Path("video-use-framework.json")) or (replay is not None and relative == Path("REPLAY.md")):
                 raise ValueError("Authored project conflicts with the reserved replay metadata filename")
-            if path.is_symlink() or not path.is_file() or any(part in excluded or part.startswith(".") for part in relative.parts):
+            if path.is_symlink() or not path.is_file() or any(part in excluded or part.startswith(".") or part.endswith(".render") for part in relative.parts):
                 continue
             legal_name = re.fullmatch(r"(?:.*[-_.])?(?:LICENSE|NOTICE|COPYING)", path.name, flags=re.IGNORECASE)
             if path.suffix.lower() not in SOURCE_EXTENSIONS and path.name.upper() != "README" and not legal_name:

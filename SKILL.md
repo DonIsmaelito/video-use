@@ -79,6 +79,7 @@ Helpers (`helpers/transcribe.py`, `helpers/render.py`, etc.) live alongside this
 - **`render.py <edl.json> -o <out>`** — per-segment extract → concat → overlays (PTS-shifted) → subtitles LAST. `--preview` for 720p fast. `--build-subtitles` to generate master.srt inline.
 - **`captions.py`** — configurable word-level caption chunking plus libass/PIL renderer selection. PIL is the fallback when ffmpeg lacks the subtitles filter and the path for pixel-specific caption styling.
 - **`visuals.py`** — reusable canvas treatments, per-range reframing, and style-neutral text/line/box/image graphic layers.
+- **[Continuous reframing](skills/video-workflows/continuous-reframing.md)** — bounded output-time zoom/focus keyframes under `treatment.reframe`, preserving motion across cuts before graphics and captions.
 - **`grade.py <in> -o <out>`** — ffmpeg filter chain grade. Presets + `--filter '<raw>'` for custom.
 
 For animations, create `<edit>/animations/slot_<id>/` with `Bash` and spawn a sub-agent via the `Agent` tool.
