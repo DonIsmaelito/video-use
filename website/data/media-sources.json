@@ -3278,5 +3278,141 @@
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-17-service-packages-881d4c60766b-bb9fda2d/poster.jpg"
       }
     ]
+  },
+  {
+    "id": "useful-19-fulfilment-flow",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-06",
+    "sourceRun": "useful-19-fulfilment-flow",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "1b678424b3c5f1b22ea634d19aab52f3e6305d20",
+    "frameworkArchiveSha256": "ea2897573a38d730fa73d0d677e961383c2b4f3e5d272e361cd940cf3bd4ebfc",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "aedadd6e9844684959303f4d9161668378467d93d9611b5e1cbaa93b55719c1d",
+    "promptSource": "Original Video Use brief and 3D scene. Modeling, studio-lighting and isometric-camera ideas inspired by MCP for Blender (MIT); built with Video Use’s selected runtime.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-19-fulfilment-flow-aedadd6e9844-521c604c/source.zip",
+    "editableSourceSha256": "4b6e760926059e1849a4aebd850f24c0f2b5ab68af668ccebd3e6772c4cc7306",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-06/useful-19-fulfilment-flow/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-19-fulfilment-flow-aedadd6e9844-521c604c/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-19-fulfilment-flow-aedadd6e9844-521c604c/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-19-fulfilment-flow-aedadd6e9844-521c604c/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-19-fulfilment-flow-aedadd6e9844-521c604c/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-19-fulfilment-flow-aedadd6e9844-521c604c/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-19-fulfilment-flow-aedadd6e9844-521c604c/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-19-fulfilment-flow-aedadd6e9844-521c604c/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-26-website-loop",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-07",
+    "sourceRun": "useful-26-website-loop",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "149dcd46f10a93fe235fdaf7bed359f92d9d7457",
+    "frameworkArchiveSha256": "feacb6e76a7387c076d8a0cac296d29b704e164550a1641b0d5754417d442007",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "07d4c5c3423e9167a86c67423955f6768836b9b72aaf9834d256a378d28e90c0",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from mifi/lossless-cut. No upstream prompt, implementation, or media copied.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-26-website-loop-07d4c5c3423e-698abca9/source.zip",
+    "editableSourceSha256": "8c0d9ab9633899df962d94ca821ec1130972b31c6f0a473c31857d1d54522b46",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-07/useful-26-website-loop/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-26-website-loop-07d4c5c3423e-698abca9/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-26-website-loop-07d4c5c3423e-698abca9/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-26-website-loop-07d4c5c3423e-698abca9/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-26-website-loop-07d4c5c3423e-698abca9/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-26-website-loop-07d4c5c3423e-698abca9/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-26-website-loop-07d4c5c3423e-698abca9/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-26-website-loop-07d4c5c3423e-698abca9/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-24-craft-process",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-07",
+    "sourceRun": "useful-24-craft-process",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "149dcd46f10a93fe235fdaf7bed359f92d9d7457",
+    "frameworkArchiveSha256": "feacb6e76a7387c076d8a0cac296d29b704e164550a1641b0d5754417d442007",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "5c368ee8b38cf4910fa67b1d54cbccf41ef8a9ca9086a75c27acc864e45b7cc1",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from WyattBlue/auto-editor. No upstream prompt, implementation, or media copied.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-24-craft-process-5c368ee8b38c-405564cd/source.zip",
+    "editableSourceSha256": "511bc233fe3c69f668c69824f4ece44de7b4e333cf6b6af7ea145fb332df20af",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-07/useful-24-craft-process/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-24-craft-process-5c368ee8b38c-405564cd/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-24-craft-process-5c368ee8b38c-405564cd/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-24-craft-process-5c368ee8b38c-405564cd/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-24-craft-process-5c368ee8b38c-405564cd/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-24-craft-process-5c368ee8b38c-405564cd/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-24-craft-process-5c368ee8b38c-405564cd/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-24-craft-process-5c368ee8b38c-405564cd/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-22-grade-comparison",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-06",
+    "sourceRun": "useful-22-grade-comparison",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "1b678424b3c5f1b22ea634d19aab52f3e6305d20",
+    "frameworkArchiveSha256": "ea2897573a38d730fa73d0d677e961383c2b4f3e5d272e361cd940cf3bd4ebfc",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "3baf3ad4fa517f93d0de532c77c9004d41b0f717c24543283c42656338921543",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from FFmpeg/FFmpeg. No upstream prompt, implementation, or media copied.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-22-grade-comparison-3baf3ad4fa51-d6ed90b4/source.zip",
+    "editableSourceSha256": "e712a7db0cf54108ae61f0d866c757e57e6b2f7ffdde37c9fcc54e8a5c26103c",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-06/useful-22-grade-comparison/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-22-grade-comparison-3baf3ad4fa51-d6ed90b4/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-22-grade-comparison-3baf3ad4fa51-d6ed90b4/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-22-grade-comparison-3baf3ad4fa51-d6ed90b4/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-22-grade-comparison-3baf3ad4fa51-d6ed90b4/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-22-grade-comparison-3baf3ad4fa51-d6ed90b4/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-22-grade-comparison-3baf3ad4fa51-d6ed90b4/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-22-grade-comparison-3baf3ad4fa51-d6ed90b4/poster.jpg"
+      }
+    ]
   }
 ]

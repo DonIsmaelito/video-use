@@ -484,6 +484,33 @@
     "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-18-code-fix-0bedcda84b7b-34d742d4/review.md"
   },
   {
+    "id": "useful-19-fulfilment-flow",
+    "title": "Show How an Order Moves",
+    "category": "Motion Design",
+    "description": "Use a miniature 3D scene to make a behind-the-scenes process easy to follow.",
+    "prompt": "Use Video Use to create a 24-second 1920×1080 true 3D process film for fictional shop Parcel & Pine. Build a compact isometric packing bench using original geometry. Follow one small coral order box through three physical actions: a product goes into the box, a blank label is applied, and the sealed box moves to an outgoing tray. Pair the actions with crisp labels “Pack”, “Label”, “Ready to go”. Start with the whole bench, move closer for the packing action, and finish with a clear full-scene view. Use pale wood, soft sage, coral and warm studio light. Animate actual object motion and contact shadows; do not replace the story with icons floating in front of a flat wall. End on “Every order, handled with care”. No delivery-time guarantees, courier logos, customer addresses or invented real shipment tracking. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Founders",
+      "Marketers",
+      "Product teams"
+    ],
+    "useCases": [
+      "Ecommerce",
+      "Process explainers",
+      "Training"
+    ],
+    "technique": "3d",
+    "sourceRepo": "https://github.com/ahujasid/mcp-for-blender",
+    "promptSource": "Original Video Use brief and 3D scene. Modeling, studio-lighting and isometric-camera ideas inspired by MCP for Blender (MIT); built with Video Use’s selected runtime.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-19-fulfilment-flow-aedadd6e9844-521c604c/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-19-fulfilment-flow-aedadd6e9844-521c604c/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-19-fulfilment-flow-aedadd6e9844-521c604c/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-19-fulfilment-flow-aedadd6e9844-521c604c/review.md"
+  },
+  {
     "id": "useful-20-science-broll",
     "title": "Turn B-roll into an Explainer",
     "category": "Video Edits",
@@ -509,6 +536,82 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-20-science-broll-7fac352b91d0-c341d415/poster.jpg",
     "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-20-science-broll-7fac352b91d0-c341d415/source.zip",
     "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-20-science-broll-7fac352b91d0-c341d415/review.md"
+  },
+  {
+    "id": "useful-22-grade-comparison",
+    "title": "Review a Color Grade",
+    "category": "Video Edits",
+    "description": "Compare an original licensed landscape shot with a restrained correction at exactly the same moment.",
+    "prompt": "Use Video Use to make a 20-second color-review reel from the licensed Mixkit river-under-a-bridge clip 1641. Choose one calm continuous source range by looking at the footage. Begin with a full-frame Original label, then introduce a vertical comparison wipe revealing a gently corrected version of the identical source frames. Settle into a split view labelled Original and Warm neutral, then finish on the corrected full frame for 3 seconds. Keep water, foliage, sky and bridge detail natural: modest exposure/white-balance correction, no dramatic teal-orange look, false HDR claim or crushed shadows. The two sides must remain frame-synchronized with the same crop and speed; only the stated grade changes. Retain a small movable dividing line and quiet neutral labels. Deliberately omit audio for this review export. State in the gallery that the input is licensed stock, and preserve the exact grade parameters, source time range and split/wipe animation as editable source. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+    "duration": 20,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Content creators",
+      "Designers"
+    ],
+    "useCases": [
+      "Client reviews",
+      "Color correction"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/FFmpeg/FFmpeg",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from FFmpeg/FFmpeg. No upstream prompt, implementation, or media copied.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-22-grade-comparison-3baf3ad4fa51-d6ed90b4/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-22-grade-comparison-3baf3ad4fa51-d6ed90b4/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-22-grade-comparison-3baf3ad4fa51-d6ed90b4/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-22-grade-comparison-3baf3ad4fa51-d6ed90b4/review.md"
+  },
+  {
+    "id": "useful-24-craft-process",
+    "title": "Tighten a Craft Process",
+    "category": "Video Edits",
+    "description": "Turn licensed pottery footage into a concise process study without inventing missing steps.",
+    "prompt": "Use Video Use to edit the licensed pottery clips 1973 and 1974 into a 20-second 4:5 process study titled Taking shape. Inspect the real hand movements first. Select an opening contact with the clay, a useful shaping movement and a settled view of the form, preserving the order within each source. Do not pretend two unrelated shots document an entire finished vessel or add unrecorded glazing, firing or finished-product stages. Use quiet warm typography reading Center, Shape, Refine only when the visible action supports that label; otherwise use a more literal short observation. Prefer clean action cuts and trim inactive holds. If a continuous repetitive movement benefits from speeding up, use a modest fixed speed, disclose it in the EDL, and return to real time before the action completes. Protect the hands and clay in the crop. End on a genuine clay detail for 3 seconds with Taking shape / A process study. Use a soft original procedural pulse or deliberate silence, not invented workshop room tone. Credit licensed stock in the gallery and source records. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+    "duration": 20,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": [
+      "Content creators",
+      "Marketers"
+    ],
+    "useCases": [
+      "Process videos",
+      "Maker portfolios"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/WyattBlue/auto-editor",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from WyattBlue/auto-editor. No upstream prompt, implementation, or media copied.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-24-craft-process-5c368ee8b38c-405564cd/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-24-craft-process-5c368ee8b38c-405564cd/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-24-craft-process-5c368ee8b38c-405564cd/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-24-craft-process-5c368ee8b38c-405564cd/review.md"
+  },
+  {
+    "id": "useful-26-website-loop",
+    "title": "Build a Quiet Website Loop",
+    "category": "Video Edits",
+    "description": "Turn licensed river footage into a subtle background loop with a checked seam.",
+    "prompt": "Use Video Use to make an 18-second silent website-background loop from licensed Mixkit river clip 1641. Inspect the real footage and choose a stable composition with moving water and a calm area that could sit behind webpage text. Preserve natural forward motion. Construct a short, subtle overlap between compatible end and beginning moments so repeated playback has no hard camera jump, exposure flash or obvious double bridge. Do not reverse the river, freeze the final image, add text, or insert a branded end card. This export is meant to loop quietly under a webpage. Keep the original color treatment restrained and protect useful water and foliage detail. Review at least two consecutive cycles around the seam, including the actual encoded last-to-first frame transition. Preserve the exact selected source range, overlap duration, blend curve and export settings. The gallery description must identify licensed stock; the downloadable source should reacquire the raw asset rather than redistribute it. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+    "duration": 18,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Designers",
+      "Founders",
+      "Marketers"
+    ],
+    "useCases": [
+      "Website backgrounds",
+      "Ambient loops"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/mifi/lossless-cut",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from mifi/lossless-cut. No upstream prompt, implementation, or media copied.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-26-website-loop-07d4c5c3423e-698abca9/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-26-website-loop-07d4c5c3423e-698abca9/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-26-website-loop-07d4c5c3423e-698abca9/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-26-website-loop-07d4c5c3423e-698abca9/review.md"
   },
   {
     "id": "whiplash-cinematic-story-edit",
