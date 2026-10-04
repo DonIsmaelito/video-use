@@ -444,7 +444,7 @@ def reference_context(state, project_id=None):
             "Combine the original query with the chosen reference and requested traits to make one representative motion snippet. "
             "Show the snippet, then ask whether to continue or what to change using a native question if available or a short chat question. "
             "Revise when requested; only the user's explicit approval unlocks the full film. Preserve compatible work. "
-            "References are inspiration, not a license to import their media."
+            "For a selected video, download and measure it before recreating the treatment with the user's content; do not substitute the reference itself for the output."
         )
     else:
         context["next_action"] = (
@@ -457,6 +457,13 @@ def reference_context(state, project_id=None):
             "If both research paths or suitable approved sources are unavailable, ask for a user reference or explicit delegation. "
             "Record that actual reply with action delegate; silence is not delegation."
         )
+    if status == "accepted":
+        from .reference_clone import clone_context
+
+        clone = clone_context(reference, project_id)
+        if clone:
+            context["clone"] = clone
+            context["next_action"] = clone["next_action"]
     return context
 
 
@@ -888,6 +895,14 @@ def register_references(mcp, store, muser, read, write):
             )
             if action != "select":
                 reference.pop("selected_references", None)
+        if action == "select":
+            from .reference_clone import selection_key
+
+            reference["clone"] = dict(
+                version=1, selection_key=selection_key(reference), media={}
+            )
+        else:
+            reference.pop("clone", None)
         state["intake"]["excerpt_review"] = {"status": "not_requested"}
         state["revision"] = int(state.get("revision", 0)) + 1
         reference["receipts"] = (

@@ -72,6 +72,9 @@ def require_production_intake(creative, operation, payload):
     if context["mode"] != "hands_on":
         return
     intake = creative["intake"]
+    from .reference_clone import require_clone_download
+
+    require_clone_download(creative, operation)
     if intake.get("excerpt_review", {}).get("status") == "approved":
         return
     if operation == "step":
@@ -580,6 +583,10 @@ class Manager:
         op = task["operation"]
         creative = self.store.get("creative", pid)
         require_production_intake(creative, op, a)
+        if op == "reference_download":
+            from .reference_clone import prepare_reference
+
+            return await prepare_reference(self, task, sb)
         direction = self.store.get("direction", pid)
         if isinstance(direction, dict) and direction.get("status") == "approved":
             # Preserve the selected design for future turns and restored workspaces.

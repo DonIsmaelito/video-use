@@ -221,7 +221,7 @@ def intake_context(state, project_id=None):
         elif review.get("status") == "changes_requested":
             action = "The user asked to refine the sample. Use feedback already supplied; if none says what should change, ask one focused content or style refinement question before revising. Do not invent a change. Show the revised short excerpt for explicit review before completing the video."
         else:
-            action = "Plan the full video from the original request, answered essentials, saved creation approach and selected reference traits; then make one short representative snippet from that plan. Show its playable preview once, then prepare show_video_checkpoint for one native Continue or Refine question about that exact clip. Wait before producing the complete video. Do not insert another style picker, script form or routine questionnaire; ask only if a real blocker remains."
+            action = "If references were selected, download them with prepare_video_reference and read video_use_guidance topic=reference-cloning. Inspect the actual source, measure its cut/motion/audio treatment and save edit/reference-breakdown.md with adaptations to the user's query. Plan the full video from the original request, answered essentials, saved creation approach and selected reference traits; then make one short representative snippet from that plan. Show its playable preview once, then prepare show_video_checkpoint for one native Continue or Refine question about that exact clip. Wait before producing the complete video. Do not insert another style picker, script form or routine questionnaire; ask only if a real blocker remains."
     else:
         phase, questions = "production", []
         action = (

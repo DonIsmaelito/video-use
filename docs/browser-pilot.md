@@ -36,9 +36,14 @@ This private pilot lets the assistant in a tester's Claude or ChatGPT account dr
 5. Save the user's choice or feedback. **Find another batch** starts fresh research
    with the same brief and preferences, excluding already shown works; it does not
    require a critique. Repeat until a choice or explicit delegation. A supplied direction
-   can explicitly delegate references. Plan the full story internally, then make one
-   representative snippet from the chosen references
-   **and the original request**, without another script/storyboard approval detour.
+   can explicitly delegate references. After selection, call `prepare_video_reference`
+   to download each chosen video into private project sources. Inspect its measured
+   metadata and contact sheet, then follow `video_use_guidance(topic="reference-cloning")`
+   to measure dense cut/motion/audio windows and save `edit/reference-breakdown.md`.
+   Clone the treatment with the original request's subject, copy and assets. Plan the
+   full story internally, then make one representative snippet without another
+   script/storyboard approval detour. Failed downloads remain blocked; accept an
+   uploaded copy through `source_object_id` or choose another accessible reference.
 6. Show one playable snippet, then one native **Continue / Refine** question.
    Save actual feedback, revise and review the snippet if needed. Only explicit
    acceptance unlocks the complete reviewed video. The same plain player follows

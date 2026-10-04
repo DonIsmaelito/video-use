@@ -68,6 +68,14 @@ def saved(pilot, project):
     return deepcopy(pilot[1].state.store.get("creative", project))
 
 
+def mark_downloaded(state):
+    """Emulate verified acquisition when testing later conversation checkpoints."""
+    direction = state["intake"]["reference_direction"]
+    for ref in direction["selected_references"]:
+        direction["clone"]["media"][ref["id"]] = dict(source={"path": "sources/reference.mp4"}, metadata={"sha256": "verified"})
+    return state
+
+
 def refs():
     return [
         dict(
@@ -391,6 +399,7 @@ def test_native_reference_choice_unlocks_snippet_but_never_full_video(pilot, pro
     )
     state = saved(pilot, project)
     assert intake_context(state)["phase"] == "excerpt_review"
+    mark_downloaded(state)
     require_production_intake(state, "step", {"production_stage": "excerpt"})
     with pytest.raises(ValueError):
         require_production_intake(state, "step", {"production_stage": "full_video"})
@@ -536,7 +545,11 @@ def test_explicit_selection_preserves_traits_but_requires_excerpt_review(
     state = saved(pilot, project)
     assert state["intake"]["excerpt_review"] == {"status": "not_requested"}
     assert intake_context(state)["phase"] == "excerpt_review"
+    with pytest.raises(ValueError, match="Download the selected"):
+        require_production_intake(state, "narrate", {})
+    mark_downloaded(state)
     require_production_intake(state, "narrate", {})
+    mark_downloaded(state)
     require_production_intake(state, "step", {"production_stage": "excerpt"})
     with pytest.raises(ValueError):
         require_production_intake(state, "step", {"production_stage": "full_video"})
@@ -1103,8 +1116,10 @@ def test_user_can_choose_early_without_waiting_for_remaining_sources(pilot, proj
         user_message="Use this one",
     )
     assert selected["reference_direction"]["status"] == "accepted"
+    with pytest.raises(ValueError, match="Download the selected"):
+        require_production_intake(saved(pilot, project), "step", {"production_stage": "excerpt"})
     require_production_intake(
-        saved(pilot, project), "step", {"production_stage": "excerpt"}
+        mark_downloaded(saved(pilot, project)), "step", {"production_stage": "excerpt"}
     )
     failure(
         pilot,

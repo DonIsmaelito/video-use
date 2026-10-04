@@ -32,8 +32,9 @@ No custom controls, copied videos or generated stand-ins. Counts require post-bo
 evidence, not oEmbed or guessed popularity.
 Plan the full arc from the brief and chosen visual treatment, make one representative
 snippet, and use `show_video_checkpoint` for native Continue/Refine about its plain
-player. Wait for acceptance, then finish in that same player. Choosing inspiration
-does not import source media. Use the overview for the complete flow.
+player. Wait for acceptance, then finish in that same player. After selection, call `prepare_video_reference` to download each chosen video.
+Read `video_use_guidance(topic="reference-cloning")`; inspect the saved source,
+measure its treatment and adapt it to the query before making the snippet. Use the overview for the complete flow.
 
 Pass `project_id`, a new `request_id`, stable `scene_id`, `note`, the current
 `creative_revision`, and `scene`. For the first sample, explicitly pass

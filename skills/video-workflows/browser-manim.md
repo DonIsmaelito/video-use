@@ -10,27 +10,18 @@ ordinary rendering needs no extra approval.
 
 Use Manim for geometry, mechanisms, equations and data relationships. Palette,
 scene count and visual premise follow the subject and user's direction.
-Search YouTube, TikTok and X sequentially for accessible examples that fit the
-brief and creation approach, preferring observed traction over niche studio reels.
-Inspect one candidate, use `inspect_social_reference` for attribution and available
-engagement, save `social_receipt_id` with `record_video_references` using
-`offer(more_expected=true)`, and show `new_link_cards` immediately through
-`show_video_reference` for a source thumbnail when available and an original source
-link. After each card, write one short explanation plus observed creator/views/likes/date;
-unknown counts stay unavailable. Then find and `append`
-the next candidate on the same round. Usually three useful choices, at most five.
-Finish with `more_expected=false` or `finish`, then ask ONE native question listing
-references, **Find another batch**, and **Give my input**; normal chat is the fallback.
-Another batch preserves preferences and avoids prior works; it needs no critique.
-Browser Harness supports public inspection in serial batches; inspect its captures,
-save `evidence_ids` and close when done. Stills do not prove motion or sound.
-Present source thumbnails and links without embed attempts or embed warnings.
-No custom controls, copied videos or generated stand-ins. Counts require post-bound
-evidence, not oEmbed or guessed popularity.
+Follow the overview's sequential reference search on YouTube, TikTok and X.
+Inspect and show each candidate immediately with `show_video_reference`, saving
+its evidence and observed attribution through `record_video_references`.
+Usually three useful choices, maximum five. Finish with one native choice:
+references, **Find another batch**, **Give my input**. Keep feedback across batches.
+Show source thumbnails and links; do not invent popularity, motion inspection or
+source playback. Stop research when the user selects a direction.
 Plan the full arc from the brief and chosen visual treatment, make one representative
 snippet, and use `show_video_checkpoint` for native Continue/Refine about its plain
-player. Wait for acceptance, then finish in that same player. Choosing inspiration
-does not import source media. Use the overview for the complete flow.
+player. Wait for acceptance, then finish in that same player. After selection, call `prepare_video_reference` to download each chosen video.
+Read `video_use_guidance(topic="reference-cloning")`; inspect the saved source,
+measure its treatment and adapt it to the query before making the snippet. Use the overview for the complete flow.
 
 ## Author less before the first useful preview
 

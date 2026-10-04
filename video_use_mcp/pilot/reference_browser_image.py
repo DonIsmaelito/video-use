@@ -60,6 +60,7 @@ def reference_browser_image():
         modal.Image.debian_slim(python_version="3.12")
         .apt_install(
             "chromium",
+            "ffmpeg",
             "fonts-dejavu-core",
             "fonts-liberation",
             "fonts-noto-core",
@@ -69,6 +70,8 @@ def reference_browser_image():
         # Research calls the core harness CLI inside this separate sandbox.
         .pip_install(
             "browser-harness==0.1.13",
+            "yt-dlp[default]==2026.8.19",
+            "deno==2.7.5",
             "cdp-use==1.4.5",
             "fetch-use==0.4.0",
             "pillow==12.3.0",
@@ -98,6 +101,11 @@ def reference_browser_image():
         .add_local_file(
             ROOT / "video_use_mcp" / "pilot" / "__init__.py",
             "/opt/video-use/video_use_mcp/pilot/__init__.py",
+            copy=True,
+        )
+        .add_local_file(
+            ROOT / "video_use_mcp" / "pilot" / "reference_download_worker.py",
+            "/opt/video-use/video_use_mcp/pilot/reference_download_worker.py",
             copy=True,
         )
         .add_local_file(

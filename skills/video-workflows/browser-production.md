@@ -56,6 +56,9 @@ original source link. Save observed `playback.url` and `playback.browser_request
 as source evidence. Sources without thumbnails retain their links; hero loops are
 labeled clips, not full videos. Do not download or generate a video copy just to
 preview. Questions/edits stay native; no purple controls.
+After selection, call `prepare_video_reference` for the selected videos. Read
+`video_use_guidance(topic="reference-cloning")`, inspect the downloaded sources,
+and measure their treatment before planning the adapted snippet.
 Plan the complete arc internally, then sample the chosen treatment and original
 content. Reuse the sample player through final delivery while it remains mounted.
 

@@ -17,6 +17,7 @@ from video_use_mcp.pilot.tests.test_intake_flow import (
 )
 from video_use_mcp.pilot.tests.test_reference_direction import (
     registry as registry,
+    mark_downloaded,
     refs,
     research,
 )
@@ -93,6 +94,9 @@ def test_native_references_then_reviewed_snippet_then_full_video(pilot):
     assert intake_context(state(pilot, pid))["phase"] == "excerpt_review"
     assert chosen["reference_direction"]["selected_ids"] == ["choice-2"]
     assert "question" not in chosen["reference_direction"]
+    with pytest.raises(ValueError, match="Download the selected"):
+        require_production_intake(state(pilot, pid), "step", {"production_stage": "excerpt"})
+    pilot[1].state.store.put("creative", pid, mark_downloaded(state(pilot, pid)))
     require_production_intake(
         state(pilot, pid), "step", {"production_stage": "excerpt"}
     )
