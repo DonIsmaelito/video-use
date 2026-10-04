@@ -351,6 +351,31 @@
     "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-16-question-answer-cut-a741c098b437-c59ea1e3/review.md"
   },
   {
+    "id": "social-19-weekend-roundup",
+    "title": "Make a weekend worth saving",
+    "category": "Video Edits",
+    "description": "A short inspiration reel connects outdoor movement, coffee and food with a consistent visual rhythm.",
+    "prompt": "Use Video Use to make a 20-second weekend inspiration reel from four real clips: an outdoor view, movement, a coffee moment and food. Open with the strongest moving image, cut on recognizable actions, and let the final image settle. Give the clips one considered color treatment without crushing detail. Use a licensed rhythmic bed and a few simple text cues that read with sound off. It is a moodboard of possibilities, not a claim that different people or places belong to one documented trip. Keep transitions clean and avoid travel facts, venue names or sponsored endorsements not supported by the footage. Use the footage or source URLs supplied in this chat and preserve the subject and intent of the query. Deliver a polished 1080×1920 vertical MP4 at 30 fps. Put the real footage first: a generous picture, a compact hook, captions readable on a phone, and very little unused matte. Keep important text away from the top 150px, bottom 300px and rightmost 120px used by social app controls. Keep source credits quiet and truthful. Preserve original voices, meaning and real reactions. Do not fabricate missing actions or quotes. Save editable cuts, caption timings, source URLs and replay instructions. In normal interactive use, show a short preview for approval before finishing the full edit.",
+    "duration": 20,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": [
+      "Content creators",
+      "Marketers"
+    ],
+    "useCases": [
+      "Social content",
+      "Short-form edits"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/browser-use/video-use",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-19-weekend-roundup-7ff64bc76dcb-43b7f77a/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-19-weekend-roundup-7ff64bc76dcb-43b7f77a/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-19-weekend-roundup-7ff64bc76dcb-43b7f77a/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-19-weekend-roundup-7ff64bc76dcb-43b7f77a/review.md"
+  },
+  {
     "title": "A calm browser tour",
     "duration": 27.6,
     "orientation": "landscape",

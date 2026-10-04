@@ -629,6 +629,35 @@ export function Gallery() {
                   </a>
                 </p>
               )}
+              {selected.id === 'social-19-weekend-roundup' && (
+                <p className="media-attribution">
+                  Music:{' '}
+                  <a
+                    href="https://freemusicarchive.org/music/John_Bartmann/retro-boogie/boogie-til-you-drop/"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Boogie Til You Drop
+                  </a>{' '}
+                  by{' '}
+                  <a
+                    href="https://johnbartmann.com/music"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    John Bartmann
+                  </a>{' '}
+                  ·{' '}
+                  <a
+                    href="https://creativecommons.org/licenses/by/4.0/"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    CC BY 4.0
+                  </a>
+                  . Edited excerpt and mix.
+                </p>
+              )}
             </div>
             <div className="detail-body">
               <DialogTitle className="detail-title">

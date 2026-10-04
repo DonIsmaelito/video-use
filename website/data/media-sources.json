@@ -4540,5 +4540,39 @@
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-16-question-answer-cut-a741c098b437-c59ea1e3/poster.jpg"
       }
     ]
+  },
+  {
+    "id": "social-19-weekend-roundup",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "social-18-20",
+    "sourceRun": "social-19-weekend-roundup",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "f2bb9548cc1d571c7807c625eb9d8b63e96d4b47",
+    "frameworkArchiveSha256": "0bf30014c5e7a7db8508f48d51d3b81d20d344c128a57f260e12eea620c721be",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "7ff64bc76dcb4d721b74ad2538f29e2f35a63548c7a5e7113d7559bd5b3da9af",
+    "promptSource": "Original Video Use short-form editing brief; source footage retains its credited license.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-19-weekend-roundup-7ff64bc76dcb-43b7f77a/source.zip",
+    "editableSourceSha256": "ede257c123235aadf475d523b1a213beafdab4bea1ccd479b44bfb0af3b6d8b6",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/social-18-20/social-19-weekend-roundup/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-19-weekend-roundup-7ff64bc76dcb-43b7f77a/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-19-weekend-roundup-7ff64bc76dcb-43b7f77a/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-19-weekend-roundup-7ff64bc76dcb-43b7f77a/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-19-weekend-roundup-7ff64bc76dcb-43b7f77a/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-19-weekend-roundup-7ff64bc76dcb-43b7f77a/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-19-weekend-roundup-7ff64bc76dcb-43b7f77a/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-19-weekend-roundup-7ff64bc76dcb-43b7f77a/poster.jpg"
+      }
+    ]
   }
 ]
