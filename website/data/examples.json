@@ -638,6 +638,31 @@
     "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-24-craft-process-5c368ee8b38c-405564cd/review.md"
   },
   {
+    "id": "useful-25-subject-reframe",
+    "title": "Keep a Subject in Portrait",
+    "category": "Video Edits",
+    "description": "Reframe licensed moving-dog footage for a vertical post while keeping the subject visible.",
+    "prompt": "Use Video Use to make a 16-second portrait reframing example from licensed Mixkit dachshund clip 10365. First inspect the dog’s actual path and choose the complete useful movement. Use the first 2 seconds to show the landscape shot fitted inside the portrait canvas with a subtle 9:16 crop guide, then show the selected movement at its original pace in the portrait crop, and finish with a 2-second held frame. Use the remaining time as a clean final crop/detail hold if the source action is shorter; never invent extra action or loop the run as if it happened twice. Animate the crop only when needed to keep the dog’s face, ears and paws comfortably visible. Movement should have anticipation and a small safe margin rather than jerk after the subject. Do not stretch the source or crop off the dog to fill the screen; if its complete body cannot fit a full-height portrait crop with margin, use a deliberately framed portrait matte for that moment. A single line, Keep the moment in frame, may appear in the opening only. Use deliberate silence. Credit the licensed stock and keep the actual crop keyframes or tracked bounds editable. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+    "duration": 16,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": [
+      "Content creators",
+      "Marketers"
+    ],
+    "useCases": [
+      "Social reframing",
+      "Pet content"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/google-ai-edge/mediapipe",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from google-ai-edge/mediapipe. No upstream prompt, implementation, or media copied.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-25-subject-reframe-ca53eb3632e8-b9262900/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-25-subject-reframe-ca53eb3632e8-b9262900/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-25-subject-reframe-ca53eb3632e8-b9262900/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-25-subject-reframe-ca53eb3632e8-b9262900/review.md"
+  },
+  {
     "id": "useful-26-website-loop",
     "title": "Build a Quiet Website Loop",
     "category": "Video Edits",
@@ -665,6 +690,31 @@
     "loop": true
   },
   {
+    "id": "useful-28-course-syllabus",
+    "title": "Preview a Course Syllabus",
+    "category": "Motion Design",
+    "description": "Show what learners will make and how three lessons build toward that result.",
+    "prompt": "Use Video Use to create a 24-second syllabus preview for an original fictional mini-course called Make a Useful Map. Keep one cream notebook spread on screen. A blank map develops across three named lessons: Choose a place, Show what matters, Guide the reader. At each step add an original visible artifact—a simple local-area outline, three clearly different place symbols, then a legend and route. Show that each lesson produces part of the final map. Do not imply this is a real geographic location or accurate navigation. Finish on the completed example map with Three short lessons. One map you can explain. Hold the result for 3 seconds. Use ink-blue linework, warm orange highlights, original vector icons and crisp lesson numbers. This is a course overview, not an event invitation; omit dates, ticket prices and enrollment promises. Keep lesson order, titles, symbols, legend and route editable. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Educators",
+      "Content creators"
+    ],
+    "useCases": [
+      "Course previews",
+      "Learning materials"
+    ],
+    "technique": "motion-design",
+    "sourceRepo": "https://github.com/motion-canvas/motion-canvas",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from motion-canvas/motion-canvas. No upstream prompt, implementation, or media copied.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-28-course-syllabus-23da51757642-797e2ef0/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-28-course-syllabus-23da51757642-797e2ef0/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-28-course-syllabus-23da51757642-797e2ef0/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-28-course-syllabus-23da51757642-797e2ef0/review.md"
+  },
+  {
     "id": "useful-29-faq-answer",
     "title": "Answer a Customer Question",
     "category": "Motion Design",
@@ -689,6 +739,31 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-29-faq-answer-dcdbb9db765c-181c9f6a/poster.jpg",
     "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-29-faq-answer-dcdbb9db765c-181c9f6a/source.zip",
     "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-29-faq-answer-dcdbb9db765c-181c9f6a/review.md"
+  },
+  {
+    "id": "useful-30-match-result",
+    "title": "Publish a Match Result",
+    "category": "Motion Design",
+    "description": "Build a clear score recap from editable fictional match events.",
+    "prompt": "Use Video Use to create a 20-second vertical result graphic for a fictional football match, North FC versus Harbor FC. Use original geometric club marks, never real club badges or player likenesses. Start at 0–0 and progress through these five events in order: North scores at 12 minutes, Harbor at 37, North at 51, Harbor at 69, North at 88. Keep the same central scoreboard throughout, animate only the team that scored, and place the corresponding minute on a compact timeline. The final result must be North 3–2 Harbor. End with Full time / North 3–2 Harbor and a small Illustrative match footer for 3 seconds. Use midnight blue, soft white and one vivid lime accent with restrained sports-broadcast motion. Do not claim this match occurred. Generate any short score accents originally and keep them quiet. Store the event list once and derive totals, minute markers and final copy from it. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+    "duration": 20,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": [
+      "Content creators",
+      "Marketers"
+    ],
+    "useCases": [
+      "Sports recaps",
+      "Community updates"
+    ],
+    "technique": "motion-design",
+    "sourceRepo": "https://github.com/motion-canvas/motion-canvas",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from motion-canvas/motion-canvas. No upstream prompt, implementation, or media copied.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-30-match-result-1c1a491cbb1e-73385504/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-30-match-result-1c1a491cbb1e-73385504/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-30-match-result-1c1a491cbb1e-73385504/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-30-match-result-1c1a491cbb1e-73385504/review.md"
   },
   {
     "id": "whiplash-cinematic-story-edit",

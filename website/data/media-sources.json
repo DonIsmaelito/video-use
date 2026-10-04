@@ -3516,5 +3516,107 @@
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-29-faq-answer-dcdbb9db765c-181c9f6a/poster.jpg"
       }
     ]
+  },
+  {
+    "id": "useful-25-subject-reframe",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-07",
+    "sourceRun": "useful-25-subject-reframe",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "149dcd46f10a93fe235fdaf7bed359f92d9d7457",
+    "frameworkArchiveSha256": "feacb6e76a7387c076d8a0cac296d29b704e164550a1641b0d5754417d442007",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "ca53eb3632e8dea4239b48758cc616d7a5022c5ffaeb13ebabcdfa926bf1e2bc",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from google-ai-edge/mediapipe. No upstream prompt, implementation, or media copied.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-25-subject-reframe-ca53eb3632e8-b9262900/source.zip",
+    "editableSourceSha256": "0cbb079a9d3cc6fdc4112483a054cec20d7233f616f8a45a085779d42c808a1c",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-07/useful-25-subject-reframe/repairs/repair-native-4k-20261004/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-25-subject-reframe-ca53eb3632e8-b9262900/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-25-subject-reframe-ca53eb3632e8-b9262900/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-25-subject-reframe-ca53eb3632e8-b9262900/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-25-subject-reframe-ca53eb3632e8-b9262900/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-25-subject-reframe-ca53eb3632e8-b9262900/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-25-subject-reframe-ca53eb3632e8-b9262900/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-25-subject-reframe-ca53eb3632e8-b9262900/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-28-course-syllabus",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-08",
+    "sourceRun": "useful-28-course-syllabus",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "c0d4e8da2eb788225c3283ec85928b7547cb1557",
+    "frameworkArchiveSha256": "59f3fdfbea2eabeb1d1e0dec485b88dadf2b7ac457fd03086482005e2bb3cf40",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "23da51757642703828209e963ad15439f4ba6bc7574394fce51db7fc6692dd34",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from motion-canvas/motion-canvas. No upstream prompt, implementation, or media copied.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-28-course-syllabus-23da51757642-797e2ef0/source.zip",
+    "editableSourceSha256": "522e40d6174024e48511a93bab2f9093e58a04c95b20748346ebb1bb9f60dc88",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-08/useful-28-course-syllabus/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-28-course-syllabus-23da51757642-797e2ef0/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-28-course-syllabus-23da51757642-797e2ef0/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-28-course-syllabus-23da51757642-797e2ef0/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-28-course-syllabus-23da51757642-797e2ef0/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-28-course-syllabus-23da51757642-797e2ef0/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-28-course-syllabus-23da51757642-797e2ef0/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-28-course-syllabus-23da51757642-797e2ef0/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-30-match-result",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "batch-08",
+    "sourceRun": "useful-30-match-result",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "medium",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "c0d4e8da2eb788225c3283ec85928b7547cb1557",
+    "frameworkArchiveSha256": "59f3fdfbea2eabeb1d1e0dec485b88dadf2b7ac457fd03086482005e2bb3cf40",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "1c1a491cbb1efe9394cb3ae03af61018aa58cc1a66dd0f8c4a578596536d5660",
+    "promptSource": "Original Video Use brief; conceptual workflow inspiration from motion-canvas/motion-canvas. No upstream prompt, implementation, or media copied.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-30-match-result-1c1a491cbb1e-73385504/source.zip",
+    "editableSourceSha256": "3457bcee81f304b1a45888618625f2287f495f125603813036297790b7de8944",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/batch-08/useful-30-match-result/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-30-match-result-1c1a491cbb1e-73385504/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-30-match-result-1c1a491cbb1e-73385504/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-30-match-result-1c1a491cbb1e-73385504/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-30-match-result-1c1a491cbb1e-73385504/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-30-match-result-1c1a491cbb1e-73385504/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-30-match-result-1c1a491cbb1e-73385504/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-30-match-result-1c1a491cbb1e-73385504/poster.jpg"
+      }
+    ]
   }
 ]
