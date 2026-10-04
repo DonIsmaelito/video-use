@@ -1,5 +1,80 @@
 [
   {
+    "title": "A calm browser tour",
+    "duration": 27.6,
+    "orientation": "landscape",
+    "audiences": [
+      "Content creators",
+      "Educators",
+      "Product teams"
+    ],
+    "useCases": [
+      "Tutorials",
+      "Browser workflows",
+      "Screen recordings"
+    ],
+    "promptKind": "Starter prompt",
+    "promptSource": "Starter prompt reconstructed from the archived final and saved edit plan; not the exact historical editing instruction.",
+    "technique": "video-editing",
+    "id": "screen-demo-fuji-browser-tour",
+    "category": "Video Edits",
+    "description": "A calm Google Earth walkthrough with a typed opening and smooth framing. Archived educational demo; silent.",
+    "prompt": "Use Video Use to turn my real browser recording into a calm 25–30 second educational walkthrough. Keep the task and subject already supplied in this chat. Open with a short, clearly authored typing animation of that task, then reveal the actual captured browser window over a restrained gradient background. Show the real search, its result, and the final navigation or interaction in order. Use one gentle push toward the complete input and hold through typing; keep the result mostly wide so the website's own movement remains clear. Cut only idle waits and use modest acceleration where it preserves readable actions. Keep panel-close and page transitions continuous. Enlarge the cursor only where its actual position is verifiable; preserve natural hidden intervals. Keep existing credits and attribution visible, and finish with a readable result hold. Use silence unless I provide cleared audio. Return a preview for review before completing the full edit; do not present the shortened video as the task's execution time.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/archived-screen-demos/20261004/screen-demo-fuji-browser-tour-20424afa10ed-5fda1b5f9ba0/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/archived-screen-demos/20261004/screen-demo-fuji-browser-tour-20424afa10ed-5fda1b5f9ba0/poster.jpg",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/archived-screen-demos/20261004/screen-demo-fuji-browser-tour-20424afa10ed-5fda1b5f9ba0/review.md"
+  },
+  {
+    "title": "Show an app workflow",
+    "duration": 20,
+    "orientation": "landscape",
+    "audiences": [
+      "Educators",
+      "Content creators",
+      "Product teams"
+    ],
+    "useCases": [
+      "Tutorials",
+      "Browser workflows",
+      "Screen recordings"
+    ],
+    "promptKind": "Starter prompt",
+    "promptSource": "Starter prompt reconstructed from the archived final and saved edit plan; not the exact historical editing instruction.",
+    "technique": "video-editing",
+    "id": "screen-demo-melody-app-workflow",
+    "category": "Video Edits",
+    "description": "Eight notes and three drum hits become a visible playback sequence in Chrome Music Lab. Archived visual tutorial; no app audio.",
+    "prompt": "Use Video Use to turn my real app recording into a concise 20-second visual workflow tutorial. Adapt to the app and task already given in this chat. Open with a brief authored typing animation of the task, then show the actual sequence of edits and the real preview or playback action. Keep each click and its visible change in order; shorten waiting without inventing actions or replacing the result. Frame the working area and controls together, crop only unused space, and use a calm dark background with a sustained view while the user works. Emphasize the captured cursor only where its position is verified. End with the completed state and a readable preview hold. If the recording contains no application audio, label it a visual demonstration and keep it silent; do not substitute unrelated music as if the app produced it. Preserve credits and private-data boundaries. Show a short preview for review before completing the full edit, and keep the original recording and timing map.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/archived-screen-demos/20261004/screen-demo-melody-app-workflow-db682dcf77b5-6775197f6927/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/archived-screen-demos/20261004/screen-demo-melody-app-workflow-db682dcf77b5-6775197f6927/poster.jpg",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/archived-screen-demos/20261004/screen-demo-melody-app-workflow-db682dcf77b5-6775197f6927/review.md"
+  },
+  {
+    "title": "Find and verify a source",
+    "duration": 20,
+    "orientation": "landscape",
+    "audiences": [
+      "Content creators",
+      "Educators",
+      "Designers"
+    ],
+    "useCases": [
+      "Tutorials",
+      "Source research",
+      "Browser workflows"
+    ],
+    "promptKind": "Starter prompt",
+    "promptSource": "Starter prompt reconstructed from the archived final and saved edit plan; not the exact historical editing instruction.",
+    "technique": "video-editing",
+    "id": "screen-demo-nasa-source-lookup",
+    "category": "Video Edits",
+    "description": "Follow a NASA image search through its title, identifier and creator credit. Archived educational demo; silent.",
+    "prompt": "Use Video Use to edit my actual browser research recording into a 20-second source-lookup tutorial. Keep the research topic from this chat. Begin with one concise typed task, then show the real sequence: enter the query, choose a relevant result, open its detail page, and hold on its title, identifier, creator credit and source. Keep the actual page pixels, loading transitions and pointer actions; remove only reviewed waits. Frame complete controls and let important source details stay readable. Use a restrained dark background and deliberate camera holds, with cursor emphasis only where the recording provides reliable position evidence. Retain third-party credits and make no download or rights-clearance claim unless the recording proves it. The opener is an authored illustration of the task, not a captured assistant conversation. Keep the edit silent unless cleared audio is supplied. Show a short preview for review before finishing, and preserve the original recording and cut mapping.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/archived-screen-demos/20261004/screen-demo-nasa-source-lookup-3db1b4e058d7-d51aa5228efb/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/archived-screen-demos/20261004/screen-demo-nasa-source-lookup-3db1b4e058d7-d51aa5228efb/poster.jpg",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/archived-screen-demos/20261004/screen-demo-nasa-source-lookup-3db1b4e058d7-d51aa5228efb/review.md"
+  },
+  {
     "id": "useful-01-launch-approvals",
     "title": "Launch a Product Feature",
     "category": "Motion Design",
