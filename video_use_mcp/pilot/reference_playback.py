@@ -1,4 +1,4 @@
-"""Play an observed source URL without copying or generating reference media."""
+"""Present verified source thumbnails and links without copying source video."""
 
 import hashlib
 import json
@@ -248,7 +248,7 @@ def _presentation_context(direction, current, reference):
     if status == "collecting":
         action += (
             "Then continue sequential research and append the next useful candidate to this round, or finish collection. "
-            "Do not ask the reference-choice question yet or replay earlier players."
+            "Do not ask the reference-choice question yet or redisplay earlier references."
         )
     elif status == "offered":
         action += (
@@ -280,7 +280,7 @@ def reference_player(store, uid, project_id, reference_id, round_id=""):
             "playback_status": "source_link", "coverage": "unavailable",
             "media": {**presentation, "media_type": "source_link", "title": reference["title"],
                       "source_url": source_url, "caption": "Open source"},
-            "next_action": next_action + " Playback does not select or approve a reference."}
+            "next_action": next_action + " Showing a reference does not select or approve it."}
     try:
         if reference.get("social_receipt_id"):
             social = validate_social_receipt(store, uid, project_id, reference["social_receipt_id"], reference["url"])
@@ -342,6 +342,38 @@ def reference_player(store, uid, project_id, reference_id, round_id=""):
     return data
 
 
+def reference_thumbnail_view(store, uid, project_id, reference_id, round_id=""):
+    """Reuse exact-source verification, but expose no playable source to the card.
+
+    Provider embed permission is irrelevant to displaying a verified thumbnail.
+    Keeping presentation separate preserves the browser evidence resolver while
+    ensuring source references never trigger an iframe or source-video request.
+    """
+    resolved = reference_player(store, uid, project_id, reference_id, round_id)
+    fields = (
+        "title", "source_url", "description", "attribution", "inspection",
+        "evidence_status", "provider", "poster_url", "duration_seconds",
+    )
+    media = {key: resolved["media"][key] for key in fields if key in resolved["media"]}
+    has_thumbnail = bool(media.get("poster_url"))
+    media.update(media_type="source_link", reference_display="thumbnail",
+                 caption="Video thumbnail" if has_thumbnail else "Source reference")
+    return {
+        "project_id": project_id, "reference_id": reference_id,
+        "round_id": resolved["round_id"], "follow_project": False,
+        "source_link": resolved["source_link"], "media": media,
+        "playback_status": "not_requested",
+        "coverage": "source_thumbnail" if has_thumbnail else "source_link",
+        "presentation_note": (
+            "Show the source thumbnail and original link. Open the original source to watch; "
+            "this card intentionally does not embed a player. A thumbnail is not motion inspection."
+            if has_thumbnail else
+            "No verified thumbnail is available. Show the original source link without a player."
+        ),
+        "next_action": resolved["next_action"],
+    }
+
+
 def register_reference_playback(mcp, store, muser, read):
     resource_meta = {"ui": {"prefersBorder": False, "csp": {
         "resourceDomains": list(MEDIA_ORIGINS + SOCIAL_RESOURCE_ORIGINS), "connectDomains": list(SOCIAL_CONNECT_ORIGINS),
@@ -358,9 +390,9 @@ def register_reference_playback(mcp, store, muser, read):
             raise ValueError("Unknown reference player version")
         return reference_card()
 
-    @mcp.tool(annotations=read, meta=REFERENCE_UI_META, title="Play source reference")
+    @mcp.tool(annotations=read, meta=REFERENCE_UI_META, title="Show reference thumbnail")
     async def show_video_reference(project_id: str, reference_id: str, round_id: str = "") -> CallToolResult:
-        """Show an offered source reference in a neutral player, before asking the user's choice. Always pass the round_id from the returned show_video_reference descriptor so an older offer cannot display a different film with a reused ID. Reads only saved references and owned social-metadata or Browser Harness receipts; never downloads, stores or generates source video. For YouTube, TikTok and X attach social_receipt_id from inspect_social_reference; it does not prove visual inspection or popularity. Otherwise save Reference.playback.url and playback.browser_request_id from the cited page's actual videos, embedded_players or provider links when offering references. Short source clips are labeled honestly. Unsupported or unverified media returns the original source link. Showing playback does not select a reference or approve production."""
-        data = reference_player(store, muser(), project_id, reference_id, round_id)
+        """Show a reference thumbnail, title, short explanation and original source link before asking the user's choice. No embedded source players: users open the source link to watch. Always pass round_id from the returned show_video_reference descriptor so an older offer cannot display a different film with a reused ID. Reads only saved references and owned social-metadata or Browser Harness receipts; never downloads, stores or generates source video. For YouTube, TikTok and X attach social_receipt_id from inspect_social_reference; metadata and thumbnails do not prove motion inspection or popularity. Without a verified supported thumbnail, display the source link and description. Introduce each reference briefly, then ask the native reference-choice question with Find another batch and Give my input. Showing a reference does not select it or approve production. Generated project samples and final videos use show_video_preview and remain playable in chat."""
+        data = reference_thumbnail_view(store, muser(), project_id, reference_id, round_id)
         metadata = await reference_poster_metadata(data["media"])
         return CallToolResult(content=[TextContent(type="text", text=json.dumps(data))], structuredContent=data, _meta=metadata)

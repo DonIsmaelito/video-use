@@ -346,7 +346,7 @@ for(const type of ['jpeg','webp']){
   assert(h.document.getElementById('reference-poster-status').textContent.includes('blocked the source thumbnail'));
   failed();assert(h.document.getElementById('reference-poster-status').textContent.includes('blocked the source thumbnail'),'a later generic load error preserves the known CSP cause');
   const reports=h.messages.filter(message=>message.content?.[0]?.text.startsWith('Reference thumbnail display:'));
-  assert.equal(reports.length,1);assert(reports[0].content[0].text.includes('UI version 3.1.0'));
+  assert.equal(reports.length,1);assert(reports[0].content[0].text.includes('UI version 3.2.0'));
   assert(!JSON.stringify(reports).includes('base64'));
   h.app.ontoolresult(result());assert.equal(h.document.getElementById('reference-poster-status').textContent,'');
 }
@@ -367,3 +367,73 @@ for(const blockedURI of ['data','data:']){
   assert(h.document.getElementById('reference-poster').hidden,'data image policy remains authoritative too');
 }
 console.log('PASS verified bounded private thumbnails render under image restrictions and failures report truthful deduplicated diagnostics');
+
+for(const media_type of ['source_link','text/html','video/mp4','video/webm','social/x']){
+  const h=host({context:{csp:{frameDomains:[]}}}),payload=withInlinePoster();
+  Object.assign(payload.structuredContent.media,{reference_display:'thumbnail',media_type,url:'https://source.test/never-load.mp4',post_id:'463440424141459456',truncated:true,duration:5,source_duration:600});
+  h.app.ontoolresult(payload);
+  assert.equal(h.document.querySelector('#media video,#media iframe,#media img,.social-post,head script[src]'),null,'thumbnail mode never mounts or requests any source player');
+  assert(h.document.getElementById('media').hidden);
+  const link=h.document.getElementById('reference-poster'),image=link.querySelector('img');
+  assert.equal(image.src,imageBytes,'verified thumbnail is requested immediately without an iframe failure');
+  image.onload();assert.equal(link.hidden,false);
+  assert.equal(h.document.getElementById('media-status').textContent,'Video thumbnail');
+  assert.equal(h.document.getElementById('source-playback-hint').textContent,'');
+  assert(h.document.getElementById('source-playback-hint').hidden);
+  assert(h.document.getElementById('excerpt').hidden,'a thumbnail is not labeled as a playable source excerpt');
+  assert(h.document.getElementById('download').hidden);
+  assert.equal(h.document.getElementById('source-reference').textContent,payload.structuredContent.media.title);
+  assert.equal(h.document.getElementById('reference-description').textContent,payload.structuredContent.media.description);
+  assert.equal(h.document.querySelectorAll('#visual button').length,0);
+  h.app.onhostcontextchanged({csp:{frameDomains:[]}});
+  cspViolation(h);
+  assert.equal(h.document.getElementById('source-playback-hint').textContent,'','host frame restrictions are irrelevant to thumbnail presentation');
+  await link.onclick();assert.equal(h.links[0].url,payload.structuredContent.media.source_url);
+  assert.equal(h.messages.length,0);assert.equal(h.calls.length,0);
+}
+{
+  const h=host(),payload=withInlinePoster();
+  h.app.ontoolresult(payload);assert(h.document.querySelector('#media iframe'));
+  payload.structuredContent.media.reference_display='thumbnail';
+  h.app.ontoolresult(payload);assert.equal(h.document.querySelector('#media iframe'),null,'changing only presentation mode tears down an existing iframe');
+  const image=h.document.querySelector('#reference-poster img');image.onload();
+  h.app.ontoolresult(payload);assert.equal(h.document.querySelector('#reference-poster img'),image,'repeat thumbnail results preserve the same decoded image');
+  delete payload.structuredContent.media.reference_display;
+  h.app.ontoolresult(payload);assert(h.document.querySelector('#media iframe'),'legacy playback still works after leaving thumbnail mode');
+  assert(h.document.getElementById('reference-poster').hidden);
+}
+for(const media of [
+  {media_type:'social/x',provider:'x',post_id:'463440424141459456',source_url:'https://x.com/Interior/status/463440424141459456'},
+  {media_type:'text/html',provider:'tiktok',embed_url:'https://www.tiktok.com/player/v1/6718335390845095173',source_url:'https://www.tiktok.com/@scout2015/video/6718335390845095173'},
+  {...withPoster().structuredContent.media,poster_url:'https://unverified.test/poster.jpg'},
+]){
+  const h=host();h.app.ontoolresult({structuredContent:{project_id:'p',media:{...media,reference_display:'thumbnail',title:'Original reference'}}});
+  assert.equal(h.document.querySelector('#media video,#media iframe,#media img,head script[src],#reference-poster img'),null);
+  assert(h.document.getElementById('media').hidden);assert(h.document.getElementById('reference-poster').hidden);
+  assert.equal(h.document.getElementById('source-reference').textContent,'Original reference');
+  assert.equal(h.document.getElementById('source-playback-hint').textContent,'');
+  assert.equal(h.document.getElementById('media-status').textContent,'Source reference');
+}
+{
+  const h=host(),payload=withInlinePoster();
+  Object.assign(payload.structuredContent.media,{media_type:'video/mp4',embed_url:undefined,url:'https://source.test/legacy.mp4'});
+  h.app.ontoolresult(payload);const source=h.document.querySelector('#media video');source.paused=false;source.ended=false;
+  payload.structuredContent.media.reference_display='thumbnail';h.app.ontoolresult(payload);
+  assert.equal(h.document.querySelector('#media video'),null,'thumbnail presentation immediately replaces even an already-playing legacy source video');
+  assert(h.document.querySelector('#reference-poster img'));
+}
+{
+  const h=host(),payload=withInlinePoster();payload.structuredContent.media.reference_display='thumbnail';h.app.ontoolresult(payload);
+  cspViolation(h,{effectiveDirective:'img-src',blockedURI:'data:'});
+  assert.equal(h.document.getElementById('reference-poster-status').textContent,'This chat blocked the source thumbnail. Open the original source.');
+  assert.equal(h.document.getElementById('source-playback-hint').textContent,'');
+  assert.equal(h.document.getElementById('source-reference').hidden,false);
+  h.app.ontoolresult(result('generated','p',{final:false,reference_display:'thumbnail'}));
+  const sample=h.document.querySelector('#media video');assert(sample?.controls,'the reference flag does not affect generated media without a source URL');
+  assert.equal(h.document.getElementById('media').hidden,false);assert(h.document.getElementById('reference-poster').hidden);
+  assert.equal(h.document.getElementById('reference-poster-status').textContent,'');
+  assert.equal(h.document.getElementById('media-status').textContent,'Sample');
+  h.app.ontoolresult(result('final','p'));assert(h.document.querySelector('#media video')?.controls);
+  assert.equal(h.document.getElementById('media-status').textContent,'Final video');
+}
+console.log('PASS explicit thumbnail references skip every source player and preserve generated sample and final playback');

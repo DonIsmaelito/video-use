@@ -12,7 +12,7 @@ import pytest
 from video_use_mcp.pilot.reference_direction import Reference
 from video_use_mcp.pilot.reference_playback import (
     FRAME_ORIGINS, MEDIA_ORIGINS, SOCIAL_RESOURCE_ORIGINS, SOCIAL_CONNECT_ORIGINS, REFERENCE_UI_URI, observed_playback,
-    reference_player, register_reference_playback,
+    reference_player, reference_thumbnail_view, register_reference_playback,
 )
 from video_use_mcp.store import Store
 
@@ -553,5 +553,51 @@ def test_thumbnail_bytes_are_app_metadata_and_never_model_visible(store, monkeyp
     assert result.meta == {"reference_poster": poster}
     assert "APP_ONLY_IMAGE_BYTES" not in str(result.structuredContent)
     assert "APP_ONLY_IMAGE_BYTES" not in str(result.content)
-    assert result.structuredContent["media"]["embed_url"].endswith("/abcdefghijk")
+    assert result.structuredContent["media"]["reference_display"] == "thumbnail"
+    assert "embed_url" not in result.structuredContent["media"]
     assert fetch.await_args.args[0]["poster_url"] == poster["source_url"]
+
+
+@pytest.mark.parametrize("embeddable", [True, False])
+def test_thumbnail_view_preserves_exact_source_without_playback_claims(store, embeddable):
+    save_reference(store, reference(url=YOUTUBE, social_receipt_id="social-receipt", playback=None))
+    store.put("social_reference", "social-receipt", {"owner": UID, "project": PID, "metadata": {
+        "canonical_url": YOUTUBE, "post_verified": True, "embeddable": embeddable,
+        "creator": {"name": "The creator"},
+    }})
+    before = deepcopy(store.get("creative", PID))
+    result = reference_thumbnail_view(store, UID, PID, "source-film", "round")
+    assert result["media"]["reference_display"] == "thumbnail"
+    assert result["media"]["poster_url"] == "https://i.ytimg.com/vi/abcdefghijk/hqdefault.jpg"
+    assert result["media"]["source_url"] == YOUTUBE
+    assert result["media"]["attribution"] == "The creator"
+    assert result["media"]["description"] == "Clear shape motion"
+    assert not {"url", "embed_url", "post_id", "script_url"}.intersection(result["media"])
+    assert not {"fallback_reason", "playback_note", "coverage_note"}.intersection(result)
+    assert result["playback_status"] == "not_requested"
+    assert result["coverage"] == "source_thumbnail"
+    assert store.get("creative", PID) == before
+    store.reserve.assert_not_called()
+    store.download.assert_not_called()
+    store.upload.assert_not_called()
+
+
+@pytest.mark.parametrize("url", [MEDIA, VIMEO, "https://x.com/Interior/status/463440424141459456"])
+def test_references_without_supported_thumbnail_remain_links_not_players(store, url):
+    save_reference(store, reference(url=url, playback={"url": url, "browser_request_id": "inspect-source"}))
+    save_receipt(store, page=url, media=url, kind="videos" if url == MEDIA else "links")
+    result = reference_thumbnail_view(store, UID, PID, "source-film", "round")
+    assert result["media"]["reference_display"] == "thumbnail"
+    assert result["media"]["source_url"] == url
+    assert not {"url", "embed_url", "post_id", "script_url"}.intersection(result["media"])
+    assert result["coverage"] == "source_link"
+    assert result["playback_status"] == "not_requested"
+
+
+def test_thumbnail_view_rejects_stale_round_and_unowned_project(store):
+    save_reference(store, reference())
+    with pytest.raises(ValueError, match="offer changed"):
+        reference_thumbnail_view(store, UID, PID, "source-film", "stale-round")
+    store.project.side_effect = PermissionError("Project not found")
+    with pytest.raises(PermissionError):
+        reference_thumbnail_view(store, "other-owner", PID, "source-film", "round")

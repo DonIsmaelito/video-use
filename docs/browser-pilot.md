@@ -24,13 +24,13 @@ This private pilot lets the assistant in a tester's Claude or ChatGPT account dr
    Explicit techniques are reused. Search YouTube, TikTok and X for approachable
    examples that fit this brief and technique. Inspect and present one candidate
    before searching for the next; usually offer three, with a maximum of five.
-4. Show each reference through `show_video_reference`: plain source streaming or
-   an official platform embed, with a linked title. Between players, explain the
+4. Show each reference through `show_video_reference`: a source thumbnail when
+   available and a linked title leading to the original source. After each card, explain the
    fit in one sentence and name the creator plus observed views/likes when available.
-   Unknown engagement stays unknown. No media is copied
-   or generated. Unsupported playback falls back to the original source link.
+   Unknown engagement stays unknown. No source video is copied or generated.
+   Sources without thumbnails retain their links. Do not attempt embeds or add embed warnings.
    Short hero clips are labeled as source clips, never as the full reference film.
-   Ask **one native question** with each reference, **Find another batch**, and
+   After the batch, ask **one native question** listing each reference, **Find another batch**, and
    **Give my input** as the last free-text option. Use one short chat question if the host cannot represent
    those options. No custom gallery, technical form or style picker.
 5. Save the user's choice or feedback. **Find another batch** starts fresh research
@@ -125,29 +125,20 @@ native question is returned only when collection ends. Record `another_batch` fo
 the user's actual request; each new batch excludes previous works, including URL
 aliases. Selecting an already shown candidate early also ends research.
 
-Platform embeds remain controlled by the source: private, deleted, region-limited
-or non-embeddable posts can fail. Keep the exact source link visible. Browser
-frames and oEmbed metadata do not establish that the assistant watched motion.
+`show_video_reference` presents a source thumbnail when available and an original
+source link, with the candidate description, verified creator/metrics and inspection
+limitations. The user opens the source link to watch. Do not attempt an embedded
+player or add embed warnings. A successful tool call does not establish that the
+user opened or watched the source. Browser frames and oEmbed metadata do not
+establish that the assistant watched motion.
 
-The host can also block nested players even when the declared `frameDomains`
-are correct; [this Claude issue](https://github.com/anthropics/claude-code/issues/59351)
-reports the same grey blocked-document symptom seen during testing. A successful
-`show_video_reference` call means a source/player address was resolved, not that
-the host displayed or played it. Test both allowed and denied `frame-src` policies,
-then check the actual signed-in host separately. The player collapses a frame only
-after an enforced CSP violation identifies that current frame or explicit host
-permissions exclude it; missing host information is not evidence of a denial.
-It retains the source link, candidate description, verified creator/metrics, and
-inspection limitations. Supported hosts receive a short model-context failure
-notice, not a fabricated user reply. No proxy or security-policy bypass is used.
-
-For a verified YouTube source, a blocked player displays the video's own thumbnail
-linked to its original watch page, labeled **Watch on YouTube**. This is an image
-fallback, not inline playback. Official oEmbed thumbnails are retained only from
+For a verified YouTube source, the card displays the video's own thumbnail linked
+to its original watch page, labeled **Watch on YouTube**. Official oEmbed thumbnails
+are retained only from
 `i.ytimg.com` with the exact verified video ID; older receipts use the standard
 public thumbnail path for that same ID. Only that image origin is added to the
 reference resource policy. Missing or failed images leave the normal source link
-without a blank media box. Hosts that permit the player keep the actual embed.
+without a blank media box.
 
 The reference tool also sends a bounded public JPEG/WebP thumbnail in result
 `_meta.reference_poster`, outside model-visible text and structured content. This
@@ -155,18 +146,17 @@ lets a newly loaded card show its image when external image requests are blocked
 but the host permits data images. Fetches accept only an exact-video `i.ytimg.com`
 thumbnail, no redirects or forwarded credentials, at most 128 KiB and four seconds.
 Only thumbnails are fetched, never the source video. The app checks the source
-identity and byte limit again; provider iframe restrictions remain unchanged.
+identity and byte limit again.
 
 Hosts may cache UI resources. Reference `resources/read` requests now record the
 requested and current resource versions in owner-only traces, without HTML or a
 guessed project association. An old cached card must be reloaded by the host to
 use new image behavior; deploying server code alone cannot change cached client
-JavaScript. Image failures produce a specific visible note and compact model
-context status, rather than silently losing the visual fallback.
+JavaScript. A missing thumbnail leaves the original source link available.
 
 `reference_playback.py` attaches the matching current-round candidate's `fit` to
-each media result. The UI renders it as plain text beneath that specific player,
-so explanations survive a skipped chat sentence or blocked frame. Unavailable
+each media result. The UI renders it as plain text beneath that specific reference
+card, so explanations survive a skipped chat sentence. Unavailable
 metrics remain absent, and metadata-only discovery stays labeled as such. The
 tool's next action distinguishes collecting, offered and already-selected rounds
 to keep explanations sequential and avoid premature or repeated choice questions.

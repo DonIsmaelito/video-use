@@ -51,10 +51,11 @@ a custom form. Record the actual answer with `record_video_answers`. Do not inve
 a native Claude or ChatGPT capability. `show_video_story` saves the plan internally
 without opening an editor; share only a useful short outline, not the technical
 EDL, internal IDs, revisions or JSON. Present online references through normal
-chat and `show_video_reference`: plain source playback with a clickable source.
-Save observed `playback.url` and `playback.browser_request_id`. Unsupported sources
-fall back to links; hero loops are labeled clips, not full videos. Do not download
-or generate a copy just to preview. Questions/edits stay native; no purple controls.
+chat and `show_video_reference`: a source thumbnail when available and a clickable
+original source link. Save observed `playback.url` and `playback.browser_request_id`
+as source evidence. Sources without thumbnails retain their links; hero loops are
+labeled clips, not full videos. Do not download or generate a video copy just to
+preview. Questions/edits stay native; no purple controls.
 Plan the complete arc internally, then sample the chosen treatment and original
 content. Reuse the sample player through final delivery while it remains mounted.
 
@@ -94,16 +95,18 @@ brief and creation approach, preferring observed traction over niche studio reel
 Inspect one candidate, use `inspect_social_reference` for attribution and available
 engagement, save `social_receipt_id` with `record_video_references` using
 `offer(more_expected=true)`, and show `new_link_cards` immediately through
-`show_video_reference`. Between embeds, write one short explanation plus observed
-creator/views/likes/date; unknown counts stay unavailable. Then find and `append`
+`show_video_reference` for a source thumbnail when available and an original source
+link. After each card, write one short explanation plus observed creator/views/likes/date;
+unknown counts stay unavailable. Then find and `append`
 the next candidate on the same round. Usually three useful choices, at most five.
 Finish with `more_expected=false` or `finish`, then ask ONE native question listing
 references, **Find another batch**, and **Give my input**; normal chat is the fallback.
 Another batch preserves preferences and avoids prior works; it needs no critique.
 Browser Harness supports public inspection in serial batches; inspect its captures,
 save `evidence_ids` and close when done. Stills do not prove motion or sound.
-Official embeds retain source links; no custom controls, copying or generated
-stand-ins. Counts require post-bound evidence, not oEmbed or guessed popularity.
+Present source thumbnails and links without embed attempts or embed warnings.
+No custom controls, copied videos or generated stand-ins. Counts require post-bound
+evidence, not oEmbed or guessed popularity.
 Plan the full arc from the brief and chosen visual treatment, make one representative
 snippet, and use `show_video_checkpoint` for native Continue/Refine about its plain
 player. Wait for acceptance, then finish in that same player. Choosing inspiration
@@ -128,7 +131,7 @@ Save each candidate's real `search_intent`, `search_queries`, evidence, fit,
 limitations and disposition in `record_video_references`. Offered references must
 match recommended candidates. `append` uses the current `round_id`, current
 creative revision and a new request ID. Reuse request IDs only for identical retries.
-Do not redisplay old source players. An explicit early choice can end collection.
+Do not redisplay old reference cards. An explicit early choice can end collection.
 When no additional suitable candidates are found, `finish` the collected batch
 rather than searching indefinitely. Optional `elapsed_seconds` is measured elapsed
 time, never an estimate from a desired speed target.

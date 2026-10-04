@@ -442,7 +442,7 @@ def test_sampled_media_evidence_can_cite_its_server_recorded_source_page(
     assert result["reference_direction"]["references"][0]["evidence_ids"] == ["capture"]
 
 
-def test_offered_source_playback_uses_owned_observation_and_stays_separate_from_choice(
+def test_offered_source_thumbnail_uses_owned_observation_and_stays_separate_from_choice(
     pilot, project
 ):
     store = pilot[1].state.store
@@ -490,8 +490,11 @@ def test_offered_source_playback_uses_owned_observation_and_stays_separate_from_
     }
     before = saved(pilot, project)
     playback = call(pilot, descriptor["name"], descriptor["arguments"])
-    assert playback["media"]["url"] == reference["playback"]["url"]
-    assert playback["coverage"] == "source_preview"
+    assert playback["media"]["source_url"] == reference["url"]
+    assert playback["media"]["reference_display"] == "thumbnail"
+    assert "url" not in playback["media"] and "embed_url" not in playback["media"]
+    assert playback["coverage"] == "source_link"
+    assert playback["playback_status"] == "not_requested"
     assert saved(pilot, project) == before
     assert playback["follow_project"] is False
     assert result["reference_direction"]["status"] == "offered"

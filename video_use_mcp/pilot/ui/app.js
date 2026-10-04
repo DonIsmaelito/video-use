@@ -1,5 +1,5 @@
 import { App, applyDocumentTheme } from "@modelcontextprotocol/ext-apps";
-const UI_VERSION='3.1.0';
+const UI_VERSION='3.2.0';
 const app = new App({ name: "Video preview", version: UI_VERSION });
 const $ = (id) => document.getElementById(id);
 let media, shown, mediaProject, pendingMedia, refreshState, refreshInFlight=false;
@@ -35,10 +35,15 @@ function settlePlayback(element){
   if(element!==$('media').firstElementChild || playing() || !pendingMedia)return;
   const next=pendingMedia;pendingMedia=null;render(next);
 }
+function thumbnailReference(next){return next?.reference_display==='thumbnail' && Boolean(next.source_url);}
+function mediaKey(next){
+  const key=next.object_id || next.embed_url || next.url || next.source_url;
+  return thumbnailReference(next)?'thumbnail:'+key:key;
+}
 function present(next){
   if(!next)return;
-  const key=next.object_id || next.embed_url || next.url;
-  if(shown!==key && playing()){
+  const key=mediaKey(next);
+  if(shown!==key && playing() && !(thumbnailReference(next) && media?.source_url)){
     pendingMedia=next;
     $('media-status').textContent=next.final===true?'Final video ready · updates after playback.':'New sample ready · updates after playback.';
   }else{pendingMedia=null;render(next);}
@@ -220,9 +225,9 @@ function referencePosterFailed(state,policyBlocked=false){
   if(tornDown || referencePoster!==state || state.status==='loaded')return;
   state.status='failed';state.policyBlocked=state.policyBlocked || policyBlocked;
   const link=$('reference-poster');link.hidden=true;link.replaceChildren();
-  $('media-status').textContent=media?.caption || 'Source reference';
+  $('media-status').textContent=thumbnailReference(media)?'Source reference':media?.caption || 'Source reference';
   $('reference-poster-status').textContent=state.policyBlocked
-    ? 'This chat blocked the source thumbnail too. Open the original source.'
+    ? `This chat blocked the source thumbnail${thumbnailReference(media)?'':' too'}. Open the original source.`
     : 'The source thumbnail could not load here. Open the original source.';
   const source=media?.source_url;
   if(source && !reportedPosterFailures.has(source) && app.getHostCapabilities?.()?.updateModelContext?.text){
@@ -256,7 +261,7 @@ function showReferencePoster(next){
   image.src=imageSource;
 }
 function blockedReference(element){
-  if(tornDown || !media?.source_url || element!==$('media').firstElementChild)return;
+  if(tornDown || !media?.source_url || thumbnailReference(media) || element!==$('media').firstElementChild)return;
   blockedEmbedKey=shown;$('media').hidden=true;
   $('source-playback-hint').hidden=false;
   $('source-playback-hint').textContent='This chat blocked the embedded player. Open the original source using the link above.';
@@ -308,14 +313,17 @@ globalThis.addEventListener?.('message',event=>{
 function render(next) {
   if (!next) return;
   media = next;
-  const key = next.object_id || next.embed_url || next.url || next.source_url;
+  const thumbnail=thumbnailReference(next),key=mediaKey(next);
   if (shown !== key) {
     blockedEmbedKey=undefined;
     clearReferencePoster();
-    const video = ['video/mp4','video/webm'].includes(next.media_type);
-    const embed=next.media_type === 'text/html' && next.embed_url;
-    const sourceOnly=next.media_type==='source_link';
-    const xPost=next.media_type==='social/x';
+    // Reference browsing deliberately uses a thumbnail and original source link.
+    // Never start a social widget, iframe or source video in this mode, even if
+    // an older tool result still carries playback fields.
+    const video = !thumbnail && ['video/mp4','video/webm'].includes(next.media_type);
+    const embed=!thumbnail && next.media_type === 'text/html' && next.embed_url;
+    const sourceOnly=thumbnail || next.media_type==='source_link';
+    const xPost=!thumbnail && next.media_type==='social/x';
     const element = document.createElement(sourceOnly?'span':xPost?'div':embed?'iframe':video?'video':'img');
     $('media').hidden=sourceOnly;
     if(xPost){element.className='social-post';element.setAttribute('aria-label','X source post');}
@@ -350,18 +358,19 @@ function render(next) {
     const text=source && typeof next[field]==='string'?next[field].trim():'';
     $(id).textContent=text;$(id).hidden=!text;
   }
-  const embedded=source && ['text/html','social/x'].includes(next.media_type);
+  const embedded=!thumbnail && source && ['text/html','social/x'].includes(next.media_type);
   $('source-playback-hint').textContent=embedded?'If playback does not load, open the original source using the link above.':'';
   $('source-playback-hint').hidden=!embedded;
-  if(blockedEmbedKey===shown || (next.embed_url && hostAllowsFrame(next.embed_url)===false))blockedReference($('media').firstElementChild);
+  if(thumbnail)showReferencePoster(next);
+  else if(blockedEmbedKey===shown || (next.embed_url && hostAllowsFrame(next.embed_url)===false))blockedReference($('media').firstElementChild);
   else if(source && next.media_type==='source_link')showReferencePoster(next);
   else clearReferencePoster();
   const downloadable=next.media_type==='video/mp4' && !source && Boolean(next.download_url || next.object_id);
   $('download').hidden=!downloadable;
   $('download').href=next.download_url || next.url || '';
-  $('media-status').textContent=source?(referencePoster?.status==='loaded'?'Video thumbnail':next.caption || 'Source video'):next.final===true?'Final video':next.media_type==='video/mp4'?'Sample':'';
-  $('excerpt').hidden=next.truncated!==true;
-  if(next.truncated===true){
+  $('media-status').textContent=source?(referencePoster?.status==='loaded'?'Video thumbnail':thumbnail?'Source reference':next.caption || 'Source video'):next.final===true?'Final video':next.media_type==='video/mp4'?'Sample':'';
+  $('excerpt').hidden=thumbnail || next.truncated!==true;
+  if(!thumbnail && next.truncated===true){
     const seconds=Number(next.duration),total=Number(next.source_duration);
     $('excerpt').textContent=Number.isFinite(seconds) && Number.isFinite(total)
       ? `Preview excerpt · ${Math.round(seconds)}s of ${Math.round(total)}s`

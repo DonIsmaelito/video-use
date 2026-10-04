@@ -18,16 +18,18 @@ brief and creation approach, preferring observed traction over niche studio reel
 Inspect one candidate, use `inspect_social_reference` for attribution and available
 engagement, save `social_receipt_id` with `record_video_references` using
 `offer(more_expected=true)`, and show `new_link_cards` immediately through
-`show_video_reference`. Between embeds, write one short explanation plus observed
-creator/views/likes/date; unknown counts stay unavailable. Then find and `append`
+`show_video_reference` for a source thumbnail when available and an original source
+link. After each card, write one short explanation plus observed creator/views/likes/date;
+unknown counts stay unavailable. Then find and `append`
 the next candidate on the same round. Usually three useful choices, at most five.
 Finish with `more_expected=false` or `finish`, then ask ONE native question listing
 references, **Find another batch**, and **Give my input**; normal chat is the fallback.
 Another batch preserves preferences and avoids prior works; it needs no critique.
 Browser Harness supports public inspection in serial batches; inspect its captures,
 save `evidence_ids` and close when done. Stills do not prove motion or sound.
-Official embeds retain source links; no custom controls, copying or generated
-stand-ins. Counts require post-bound evidence, not oEmbed or guessed popularity.
+Present source thumbnails and links without embed attempts or embed warnings.
+No custom controls, copied videos or generated stand-ins. Counts require post-bound
+evidence, not oEmbed or guessed popularity.
 Plan the full arc from the brief and chosen visual treatment, make one representative
 snippet, and use `show_video_checkpoint` for native Continue/Refine about its plain
 player. Wait for acceptance, then finish in that same player. Choosing inspiration
