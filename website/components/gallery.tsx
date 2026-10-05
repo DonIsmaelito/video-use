@@ -95,22 +95,35 @@ function VideoCard({
       data-orientation={example.orientation}
       aria-label={example.title}
     >
-      <button
-        type="button"
-        className={`video-frame ${example.orientation} ${cardStyles.frame}`}
-        onClick={open}
-        aria-label={'Watch ' + example.title + ' and view its prompt'}
-      >
-        <PreviewMedia
-          src={example.video}
-          poster={example.poster}
-          orientation={example.orientation}
-          suspended={suspended}
-        />
-        <span className={`video-duration ${cardStyles.duration}`}>
-          {formatDuration(example.duration)}
-        </span>
-      </button>
+      <div className={cardStyles.media}>
+        <button
+          type="button"
+          className={`video-frame ${example.orientation} ${cardStyles.frame}`}
+          onClick={open}
+          aria-label={'Watch ' + example.title + ' and view its prompt'}
+        >
+          <PreviewMedia
+            src={example.video}
+            poster={example.poster}
+            orientation={example.orientation}
+            suspended={suspended}
+          />
+          <span className={`video-duration ${cardStyles.duration}`}>
+            {formatDuration(example.duration)}
+          </span>
+        </button>
+        <div className={`card-actions ${cardStyles.actions}`}>
+          <button
+            className={'copy-card ' + (copied ? 'copied' : '')}
+            type="button"
+            onClick={copy}
+            aria-label={'Copy prompt for ' + example.title}
+          >
+            {copied ? <Check size={14} /> : <Copy size={14} />}{' '}
+            {copied ? 'Copied' : 'Copy Prompt'}
+          </button>
+        </div>
+      </div>
       <div className={cardStyles.footer}>
         <div className={cardStyles.heading}>
           <h3 className={cardStyles.title} title={example.title}>
@@ -126,25 +139,6 @@ function VideoCard({
           >
             <span>{like ? like.count.toLocaleString() : '–'}</span>
             <Heart size={17} fill={like?.liked ? 'currentColor' : 'none'} />
-          </button>
-        </div>
-        <div className={`card-actions ${cardStyles.actions}`}>
-          <button
-            className={'copy-card ' + (copied ? 'copied' : '')}
-            type="button"
-            onClick={copy}
-            aria-label={'Copy prompt for ' + example.title}
-          >
-            {copied ? <Check size={14} /> : <Copy size={14} />}{' '}
-            {copied ? 'Copied' : 'Copy Prompt'}
-          </button>
-          <button
-            type="button"
-            className="expand-card"
-            onClick={open}
-            aria-label={`Expand ${example.title}`}
-          >
-            <Maximize2 size={16} />
           </button>
         </div>
       </div>
