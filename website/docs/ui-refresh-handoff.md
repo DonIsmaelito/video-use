@@ -335,3 +335,17 @@ The production build, TypeScript/catalog checks, all30 importer tests and scoped
 Both checkouts contain the same four changed grid files after baseline guards; catalog/media/global styles and build configuration retain their verified hashes. The local cache-disabled build workaround did not change deployed configuration. Browser sessions and the local production server are stopped. No deployment remains in flight. Preserve this masonry layout in future releases: it supersedes the earlier proportional-row layout following the user's explicit clarification.
 
 Receipt and evidence: `/private/tmp/video-use-higgsfield-gallery-qa/release.json`, `live-layout.json`, `live-interactions.json`, `live-grid-1440.png`, `live-grid-320.png`, `live-formal.png` and `live-social-mobile.png`. The persistent site preference now records the clarified demo-grid layout.
+
+
+### Hover copy actions — in progress
+
+The user requested removal of the persistent Copy Prompt and expand controls below demo cards, with Copy Prompt returning on hover. This pass owns gallery.tsx, gallery-cards.module.css and its README bullet. The copy action moves over the media, reveals on hover or keyboard focus, and remains available on touch screens; clicking the video still opens the full player and prompt. Preserve the current masonry grid, titles, media, banner and carousel. One reviewed release will follow.
+
+
+### Hover copy actions — verified live
+
+Deployment **`95fc4baa-7340-4225-a7bb-8005f0df3ed3`** (provider `dpl_BTJ7dcLLqjGjT6LHdd7LzDyidtPh`) is READY at https://video-use.insforge.site. Source **`4b88d2b`** removes the persistent Copy Prompt row and the expand icon from all demo cards. `VideoCard` now places Copy Prompt over the media; existing hover/focus rules reveal it on desktop, and touch screens retain direct access. Clicking the video opens its existing full player/prompt. Titles and likes occupy a shorter footer. No catalog, media, masonry logic, banner, carousel or backend changes were made.
+
+The production build, TypeScript/catalog checks,30 importer tests and scoped lint passed. Local production geometry checks covered all137 cards at320/390/768/1024/1440/2200px, including no clipping/overlap, natural frame ratios,8px masonry gaps and empty/reset search behavior. Local and hosted focused browser checks verified hidden desktop actions at rest, hover reveal, copy clipboard content without opening the player, hiding after focus leaves, keyboard access, click-to-open and focus return, reduced motion and touch copying. No page errors occurred. Actual resting/hover desktop screenshots and local touch capture were inspected.
+
+All three owned files were synchronized to root with baseline guards. Persistent hosting environment names were verified; config remained byte-identical after the local cache-disabled build workaround. The gallery preference memory was updated to replace the previous persistent footer-actions requirement. Local QA server and isolated browsers are stopped; no deployment remains in flight. Evidence and receipt: `/private/tmp/video-use-hover-copy-qa/release.json`, `production-layout.json`, `live-actions.json`, `live-rest.png`, `live-hover.png` and `live-touch.png`.
