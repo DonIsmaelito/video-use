@@ -423,3 +423,17 @@ Deployment **`d2d161c8-c1fb-461a-84f6-ea5278f680b2`** (provider `dpl_HAtBhxvsjHo
 Production build, TypeScript/catalog checks, all 30 importer tests, lint and diff checks passed. Local review at 1440/390/320px confirmed first-section positioning, aligned Reset, no overflow, filter reset and search reset. Hosted desktop/mobile checks confirmed all 137 cards, 3D filtering and reset, no Browse heading, expanded Use case and no page errors. Local and live sidebar captures were inspected. Both checkouts contain matching changes, the catalog and deployment configuration are unchanged, and the local server and QA browsers are stopped. No deployment is in flight.
 
 Receipt and evidence: `/private/tmp/video-use-browse-heading-qa/release.json`, `local-review.json`, `live-review.json` and `live-sidebar-{1440,390}.png`. Preserve Video type as the first sidebar section in future releases.
+
+
+### Remove demo likes UI — in progress
+
+The user requested removal of the likes system inside the skill/demo containers. This pass owns the card and expanded-player like controls in gallery.tsx, their module/global styles, the now-unused use-gallery-likes.ts hook and related README guidance. It removes hearts/counts from both demo views and stops frontend like requests; existing database votes are retained. Preserve the newly released sidebar with Video type first, no duration labels, current banner, captions and all 137 examples. One reviewed deployment will follow.
+
+
+### Demo likes removed — verified live
+
+Deployment **`4a4b7865-a7ba-47e1-8ddf-6b86c5c13466`** (provider `dpl_BbQrx3Fh9MV6otwGJxp15hsTMto2`) is READY at https://video-use.insforge.site. Source **`9b90547`** on `feature/useful-video-library` removes the heart buttons and counts from all demo cards and expanded players. `Gallery` no longer loads or submits likes; the unused `use-gallery-likes.ts` client hook and like styles are deleted. This supersedes previous instructions to show persistent heart-and-count pills. The legacy server endpoint and stored votes remain available, with no frontend consumer.
+
+Build, TypeScript/catalog checks, all 30 importer tests, scoped lint and diff checks passed. Local and hosted review at 1440/390/320px confirmed 137 cards, zero like controls, zero like API requests, no duration labels, no clipped titles or page overflow, and no page errors. Desktop hover copying, phone copying, player prompt copying and share links passed. Live desktop, phone and player captures were inspected. The Video type-first sidebar, banner, featured captions and catalog were preserved. Reviewed source files were synchronized to the original checkout with baseline guards; the removal preference was saved to project memory. The local server and QA browsers are stopped, and no deployment is in flight.
+
+Receipt and evidence: `/private/tmp/video-use-remove-likes-qa/release.json`, `live-review.json`, `live-cards-1440.png`, `live-cards-390.png` and `live-player.png`.
