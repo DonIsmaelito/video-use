@@ -675,3 +675,18 @@ Deployment **`3d0e21f9-0899-44a1-be75-4cfbf0123b58`** (provider `dpl_2zHhrjUUMkv
 Build, TypeScript/catalog checks, 30 importer tests, lint, formatting and diff checks pass. Thirty actual-effect geometry scenarios pass resizing, filtering and empty results with no overlap or horizontal overflow. Local and hosted HTTP checks confirm one featured lead, all 137 cards, unchanged following order, responsive CSS, updated masonry client code and preserved prompt/provenance. Both checkouts match the committed three-file implementation. All media/catalog bytes and the minimal detail dialog are unchanged from 2409345. The browser runtime exposed no browser, so this release has no fresh browser screenshot or interactive review; the recorded verification is code, geometry and served assets. The exact historical editing prompt remains unrecovered; the displayed Starter prompt is reconstructed from the saved edit notes and was not rerun.
 
 No deployment remains in flight; the local server is stopped. Receipts: `/Users/ismaelito/Movies/Video Use Site Content 20261005/edit/screen-studio-large-card/`, including `deployment-output.json`, `live-review.json`, `layout-review.json` and `source-verification.json`.
+
+
+### Smaller Screen Studio lead card — in progress
+
+The user found the three-column lead too large. This pass reduces the desktop lead to two columns, retaining its 16:9 video and existing responsive packing. It owns only gallery-cards.module.css. Existing demos can fill the available space; blank containers are optional, not requested if unnecessary. Media, prompt, order and the detail dialog stay unchanged. No deployment is in flight. Evidence: `/Users/ismaelito/Movies/Video Use Site Content 20261005/edit/screen-studio-medium-card/`.
+
+
+### Smaller Screen Studio lead card — deployment starting
+
+The lead is now two of four columns on wide screens, down from three. At a 1124px gallery width it is 558px wide instead of 841px. Existing cards fill around it; no blank cards are necessary. Only the desktop CSS override was removed. Build, catalog checks, 30 importer tests, lint, formatting, existing layout scenarios and local served-asset checks pass. Source 9b02b03 is committed and both checkouts are synchronized. Root owns the upcoming deployment after 3d0e21f9. No fresh browser visual review is available in this session.
+
+
+### Smaller Screen Studio lead card — verified live
+
+Deployment **`7e19882c-f8a4-4669-9dc5-aae834086227`** is READY at https://video-use.insforge.site from source **`9b02b03`**. The lead now spans two desktop columns instead of three; all remaining demos fill around it, with no blank cards needed. Only four lines in gallery-cards.module.css changed. Build, catalog/import checks, lint, formatting, existing resize/filter geometry checks and local/live served-asset checks pass. All 137 demos, their order, media, prompts and the latest dialog are preserved. Browser visual review remains unavailable in this session. Both checkouts are synchronized; the source is pushed, the local server is stopped and no deployment remains in flight. Evidence: `/Users/ismaelito/Movies/Video Use Site Content 20261005/edit/screen-studio-medium-card/`.
