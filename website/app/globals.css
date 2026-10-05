@@ -309,11 +309,6 @@ summary {
 .featured-frame .preview-media .card-poster {
   object-fit: contain;
 }
-/* The Whiplash hero fills its tile; its full player retains the original frame. */
-.featured-frame-fill .preview-media video,
-.featured-frame-fill .preview-media .card-poster {
-  object-fit: cover;
-}
 .featured-watch {
   position: absolute;
   right: 16px;

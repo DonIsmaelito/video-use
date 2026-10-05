@@ -121,7 +121,7 @@ export function Gallery() {
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const manualText = useRef<HTMLTextAreaElement>(null);
   const visible = filterExamples(filters, galleryExamples);
-  // Keep the requested hero order explicit: MCP, Product Launches, Whiplash.
+  // Keep the hero order explicit: MCP, Product Launches, Movie Edit (Whiplash).
   const featuredExamples = examples.filter(
     (example) => example.id === 'whiplash-cinematic-story-edit',
   );
@@ -225,21 +225,16 @@ export function Gallery() {
         <FeaturedFilm
           media={productLaunch}
           title="Product Launches"
-          subtitle="Showcase your product with a launch film that stands out."
+          subtitle="Turn your product into a launch worth watching."
           suspended={selected !== null || !!manualCopy}
         />
         {featuredExamples.map((example) => (
           <article className="featured-card" key={example.id}>
             <button
               type="button"
-              className={
-                'featured-frame' +
-                (example.id === 'whiplash-cinematic-story-edit'
-                  ? ' featured-frame-fill'
-                  : '')
-              }
+              className="featured-frame"
               onClick={() => openExample(example)}
-              aria-label={`Watch ${example.title}`}
+              aria-label="Watch Movie Edit"
             >
               <PreviewMedia
                 src={example.video}
@@ -253,11 +248,9 @@ export function Gallery() {
             </button>
             <div className="featured-caption">
               <button type="button" onClick={() => openExample(example)}>
-                {example.title}
+                Movie Edit
               </button>
-              <span>
-                Turn raw footage into cinematic edits, cut to the beat.
-              </span>
+              <span>Turn movie clips into cinematic stories.</span>
             </div>
           </article>
         ))}

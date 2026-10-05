@@ -690,3 +690,8 @@ The lead is now two of four columns on wide screens, down from three. At a 1124p
 ### Smaller Screen Studio lead card — verified live
 
 Deployment **`7e19882c-f8a4-4669-9dc5-aae834086227`** is READY at https://video-use.insforge.site from source **`9b02b03`**. The lead now spans two desktop columns instead of three; all remaining demos fill around it, with no blank cards needed. Only four lines in gallery-cards.module.css changed. Build, catalog/import checks, lint, formatting, existing resize/filter geometry checks and local/live served-asset checks pass. All 137 demos, their order, media, prompts and the latest dialog are preserved. Browser visual review remains unavailable in this session. Both checkouts are synchronized; the source is pushed, the local server is stopped and no deployment remains in flight. Evidence: `/Users/ismaelito/Movies/Video Use Site Content 20261005/edit/screen-studio-medium-card/`.
+
+
+### Featured card copy and Movie Edit framing — in progress
+
+The user is defining the eight featured use cases incrementally. This pass owns the first three carousel captions in Gallery and McpFeature, removes the Whiplash-specific cover crop in globals.css, and documents the result. The first three titles are Video Use MCP, Product Launches and Movie Edit. Existing media stays; the remaining five slots stay empty. The gallery entry itself retains its Whiplash title and source records. This pass preserves the smaller two-column Screen Studio lead and the minimal detail dialog. No deployment has started. Evidence: `/private/tmp/video-use-featured-copy-qa/`.

@@ -41,7 +41,7 @@ export function McpFeature({ suspended = false }: { suspended?: boolean }) {
       </Link>
       <div className="featured-caption">
         <Link href="/mcp">Video Use MCP</Link>
-        <span>Create and edit videos in Claude, ChatGPT and Cursor.</span>
+        <span>Create and edit videos inside your AI chat.</span>
       </div>
     </article>
   );
