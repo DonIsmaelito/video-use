@@ -3,7 +3,7 @@
 import { useLayoutEffect, useRef, type ReactNode } from 'react';
 import styles from './gallery-cards.module.css';
 
-/** Pack the original card order into equal-width columns without cropping media. */
+/** Pack cards in order, reserving adjacent columns for the larger lead demo. */
 export function MasonryGallery({ children }: { children: ReactNode }) {
   const grid = useRef<HTMLDivElement>(null);
 
@@ -26,11 +26,25 @@ export function MasonryGallery({ children }: { children: ReactNode }) {
       container.dataset.masonry = 'true';
       // Read natural heights together before writing positions. ResizeObserver
       // also catches font changes and keeps controls inside their own card.
-      const heights = cards.map((card) => card.getBoundingClientRect().height);
-      const positions = heights.map((height) => {
-        const column = bottoms.indexOf(Math.min(...bottoms));
-        const top = bottoms[column];
-        bottoms[column] += height + gap;
+      const sizes = cards.map((card) => ({
+        height: card.getBoundingClientRect().height,
+        span: Math.min(
+          columns,
+          Math.max(
+            1,
+            Number.parseInt(
+              getComputedStyle(card).getPropertyValue('--gallery-span'),
+            ) || 1,
+          ),
+        ),
+      }));
+      const positions = sizes.map(({ height, span }) => {
+        const available = Array.from({ length: columns - span + 1 }, (_, i) =>
+          Math.max(...bottoms.slice(i, i + span)),
+        );
+        const top = Math.min(...available);
+        const column = available.indexOf(top);
+        bottoms.fill(top + height + gap, column, column + span);
         return { left: column * (width + gap), top };
       });
       cards.forEach((card, index) => {

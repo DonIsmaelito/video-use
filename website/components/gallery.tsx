@@ -72,6 +72,9 @@ function VideoCard({
     <article
       className={`video-card ${cardStyles.card}`}
       data-orientation={example.orientation}
+      data-featured={
+        example.id === 'screen-demo-fuji-browser-tour' || undefined
+      }
       aria-label={example.title}
     >
       <div className={cardStyles.media}>

@@ -1,4 +1,4 @@
-/* Higgsfield-style equal-width columns with natural-height media and 8px seams.
+/* Natural-height media with a larger lead card and 8px seams.
    The regular grid remains usable before the masonry enhancement hydrates. */
 .grid:global(.video-grid) {
   --gallery-columns: 2;
@@ -16,16 +16,22 @@
 .grid[data-masonry] > .card {
   position: absolute;
   width: calc(
-    (100% - (var(--gallery-columns) - 1) * 8px) / var(--gallery-columns)
+    (100% + 8px) * var(--gallery-span) / var(--gallery-columns) - 8px
   );
 }
 
 .card:global(.video-card) {
+  --gallery-span: 1;
   --media-ratio: 1.777777778;
+  grid-column: span var(--gallery-span);
   container-type: inline-size;
   min-width: 0;
   border-radius: 12px;
   background: #141414;
+}
+
+.card[data-featured='true'] {
+  --gallery-span: 2;
 }
 
 .card[data-orientation='portrait'] {
@@ -90,6 +96,10 @@
   text-transform: uppercase;
   text-wrap: balance;
   text-shadow: 0 2px 14px #0005;
+}
+
+.card[data-featured='true'] .title {
+  font-size: clamp(24px, 5cqi, 44px);
 }
 
 .copy:global(.copy-card) {
@@ -220,5 +230,9 @@
 @media (min-width: 1280px) {
   .grid:global(.video-grid) {
     --gallery-columns: 4;
+  }
+
+  .card[data-featured='true'] {
+    --gallery-span: 3;
   }
 }
