@@ -409,3 +409,17 @@ Deployment **`382c6646-3606-4c17-9859-3345067580a4`** (provider `dpl_6qibQXaDNFv
 Production build, TypeScript/catalog checks, 30 importer tests, scoped lint and diff checks passed. Hosted visual review at 1440px and 390px found all 137 cards, zero duration labels, all 137 like controls and no overflow or page errors. Hover Copy Prompt still reveals correctly. Desktop and phone gallery captures were inspected. The four changed files were synchronized to root with baseline guards; deployment configuration and catalog hashes were preserved. The no-duration-badges preference was saved. QA browser is closed; no local server or deployment is running.
 
 Receipt and evidence: `/private/tmp/video-use-hide-durations-qa/release.json`, `live-review.json`, `live-cards-1440.png` and `live-cards-390.png`.
+
+
+### Video type first in the sidebar — in progress
+
+The root agent is removing the redundant Browse heading block at the user's request. This pass owns the sidebar markup in gallery.tsx, its heading styles in globals.css and the README sidebar sentence. Video type will lead the sidebar directly; Reset will sit in that heading when filters are active. All existing filters, the permanently expanded Use case, gallery, featured carousel and banner stay in place. Both checkouts started with matching source; one reviewed release will follow. Please avoid deploying over this small pass.
+
+
+### Video type first in the sidebar — verified live
+
+Deployment **`d2d161c8-c1fb-461a-84f6-ea5278f680b2`** (provider `dpl_HAtBhxvsjHoQiUxk9m8i52yVCiGj`) is READY at https://video-use.insforge.site. The separate Browse heading block is removed. Video type is now the first sidebar section; the conditional Reset control sits alongside its legend and still clears all category, search and facet filters. The obsolete sidebar-title styles are removed. Use case stays expanded; the 137 clips, featured carousel, banner, likes and media are unchanged.
+
+Production build, TypeScript/catalog checks, all 30 importer tests, lint and diff checks passed. Local review at 1440/390/320px confirmed first-section positioning, aligned Reset, no overflow, filter reset and search reset. Hosted desktop/mobile checks confirmed all 137 cards, 3D filtering and reset, no Browse heading, expanded Use case and no page errors. Local and live sidebar captures were inspected. Both checkouts contain matching changes, the catalog and deployment configuration are unchanged, and the local server and QA browsers are stopped. No deployment is in flight.
+
+Receipt and evidence: `/private/tmp/video-use-browse-heading-qa/release.json`, `local-review.json`, `live-review.json` and `live-sidebar-{1440,390}.png`. Preserve Video type as the first sidebar section in future releases.

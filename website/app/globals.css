@@ -453,19 +453,19 @@ summary {
   border-right: 1px solid #242424;
   padding: 5px 20px 10px 0;
 }
-.sidebar-title {
+.facet-heading {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  font-weight: 500;
-  font-size: 13px;
+  width: 100%;
 }
-.sidebar-title button {
+.facet-heading button {
   color: #aaa;
   font-size: 12px;
+  font-weight: 500;
 }
-.sidebar-title button:hover {
+.facet-heading button:hover {
   color: #fff;
 }
 .facet-group {
@@ -1537,7 +1537,6 @@ summary {
     border-right: 0;
     border-bottom: 1px solid #242424;
   }
-  .sidebar-title,
   .library-sidebar > .facet-group {
     grid-column: 1 / -1;
   }

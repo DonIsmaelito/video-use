@@ -350,19 +350,19 @@ export function Gallery() {
             className="library-sidebar"
             aria-label="Refine examples"
           >
-            <div className="sidebar-title">
-              <span>Browse</span>
-              {hasFilters && (
-                <button
-                  type="button"
-                  onClick={() => updateFilters(defaultFilters)}
-                >
-                  Reset
-                </button>
-              )}
-            </div>
             <fieldset className="facet-group">
-              <legend>Video type</legend>
+              <legend className="facet-heading">
+                <span>Video type</span>
+                {hasFilters && (
+                  <button
+                    type="button"
+                    onClick={() => updateFilters(defaultFilters)}
+                    aria-label="Reset all filters"
+                  >
+                    Reset
+                  </button>
+                )}
+              </legend>
               {techniqueOptions.map((item) => {
                 const count = filterExamples({
                   ...filters,
