@@ -9,7 +9,6 @@ import {
   Copy,
   FolderCode,
   Link2,
-  Heart,
   Maximize2,
   Search,
   X,
@@ -28,10 +27,6 @@ import { FeaturedFilm } from '@/components/featured-film';
 import { FeaturedCarousel } from '@/components/featured-carousel';
 import { MasonryGallery } from '@/components/masonry-gallery';
 import productLaunch from '@/data/product-launch.json';
-import {
-  useGalleryLikes,
-  type LikeState,
-} from '@/components/use-gallery-likes';
 import { PreviewMedia } from '@/components/preview-media';
 import { TechniqueIcon } from '@/components/technique-icon';
 import cardStyles from '@/components/gallery-cards.module.css';
@@ -76,18 +71,12 @@ function VideoCard({
   copy,
   copied,
   suspended,
-  like,
-  liking,
-  toggleLike,
 }: {
   example: GalleryExample;
   open: () => void;
   copy: () => void;
   copied: boolean;
   suspended: boolean;
-  like?: LikeState;
-  liking: boolean;
-  toggleLike: () => void;
 }) {
   return (
     <article
@@ -126,19 +115,6 @@ function VideoCard({
           <h3 className={cardStyles.title} title={example.title}>
             {example.title}
           </h3>
-          <button
-            type="button"
-            className={`like-button ${cardStyles.like} ${like?.liked ? 'is-liked' : ''}`}
-            aria-label={`${like?.liked ? 'Unlike' : 'Like'} ${example.title}`}
-            aria-pressed={like?.liked ?? false}
-            aria-busy={liking}
-            title={like?.liked ? 'Unlike' : 'Like'}
-            disabled={liking}
-            onClick={toggleLike}
-          >
-            <Heart size={17} fill={like?.liked ? 'currentColor' : 'none'} />
-            <span>{like ? like.count.toLocaleString() : '–'}</span>
-          </button>
         </div>
       </div>
     </article>
@@ -155,7 +131,6 @@ export function Gallery() {
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const manualText = useRef<HTMLTextAreaElement>(null);
   const visible = filterExamples(filters, galleryExamples);
-  const { likes, pending, toggle } = useGalleryLikes(notify);
   // Keep the requested hero order explicit: MCP, Product Launches, Whiplash.
   const featuredExamples = examples.filter(
     (example) => example.id === 'whiplash-cinematic-story-edit',
@@ -195,15 +170,6 @@ export function Gallery() {
       );
     };
   }, [selected, manualCopy]);
-
-  function notify(text: string) {
-    setMessage(text);
-    if (timer.current) clearTimeout(timer.current);
-    timer.current = setTimeout(() => {
-      setMessage('');
-      setCopied('');
-    }, 2600);
-  }
 
   function writeLocation(
     nextFilters: Filters,
@@ -483,9 +449,6 @@ export function Gallery() {
                   }
                   copied={copied === example.id}
                   suspended={selected !== null || !!manualCopy}
-                  like={likes[example.id]}
-                  liking={pending.has(example.id)}
-                  toggleLike={() => toggle(example.id)}
                 />
               ))}
             </MasonryGallery>
@@ -685,22 +648,6 @@ export function Gallery() {
                     <Copy size={16} />
                   )}
                   {copied === selected.id ? 'Copied' : 'Copy Prompt'}
-                </button>
-                <button
-                  type="button"
-                  className={`detail-like ${likes[selected.id]?.liked ? 'is-liked' : ''}`}
-                  onClick={() => toggle(selected.id)}
-                  disabled={pending.has(selected.id)}
-                  aria-label={`${likes[selected.id]?.liked ? 'Unlike' : 'Like'} ${selected.title}`}
-                  aria-pressed={likes[selected.id]?.liked ?? false}
-                  aria-busy={pending.has(selected.id)}
-                  title={likes[selected.id]?.liked ? 'Unlike' : 'Like'}
-                >
-                  <Heart
-                    size={17}
-                    fill={likes[selected.id]?.liked ? 'currentColor' : 'none'}
-                  />
-                  {likes[selected.id]?.count.toLocaleString() ?? '–'}
                 </button>
                 <button
                   type="button"
