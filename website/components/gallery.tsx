@@ -3,16 +3,7 @@
 /* oxlint-disable jsx-a11y/media-has-caption -- These are original published media, some silent and some with burned captions. Do not invent caption tracks for existing videos. */
 
 import { useEffect, useRef, useState } from 'react';
-import {
-  ArrowUpRight,
-  Check,
-  Copy,
-  FolderCode,
-  Link2,
-  Maximize2,
-  Search,
-  X,
-} from 'lucide-react';
+import { Check, Copy, Maximize2, Search, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Disclosure } from '@/components/ui/disclosure';
 import {
@@ -21,7 +12,7 @@ import {
   DialogDescription,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { ConnectMcp } from '@/components/connect-mcp';
+import { DemoDetail } from '@/components/demo-detail';
 import { McpFeature } from '@/components/mcp-feature';
 import { FeaturedFilm } from '@/components/featured-film';
 import { FeaturedCarousel } from '@/components/featured-carousel';
@@ -36,12 +27,9 @@ import {
   categories,
   defaultFilters,
   examples,
-  exampleLink,
   facetOptions,
   filterExamples,
-  formatDuration,
   readGalleryQuery,
-  safeSourceUrl,
   techniqueLabel,
   techniqueOptions,
   writeGalleryQuery,
@@ -127,7 +115,6 @@ export function Gallery() {
   const [copied, setCopied] = useState('');
   const [message, setMessage] = useState('');
   const [manualCopy, setManualCopy] = useState('');
-  const [videoError, setVideoError] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const manualText = useRef<HTMLTextAreaElement>(null);
   const visible = filterExamples(filters, galleryExamples);
@@ -149,7 +136,6 @@ export function Gallery() {
       );
       setFilters(state.filters);
       setSelected(state.example);
-      setVideoError(false);
     }
     syncLocation();
     window.addEventListener('popstate', syncLocation);
@@ -220,7 +206,6 @@ export function Gallery() {
 
   function openExample(example: GalleryExample) {
     setSelected(example);
-    setVideoError(false);
     writeLocation(filters, example.id, true);
   }
 
@@ -480,258 +465,14 @@ export function Gallery() {
         }}
       >
         {selected && (
-          <DialogContent className="example-dialog">
-            <div className="detail-preview">
-              <div className={'dialog-video ' + selected.orientation}>
-                {!videoError ? (
-                  <video
-                    key={selected.id}
-                    src={selected.video}
-                    poster={selected.poster}
-                    controls
-                    playsInline
-                    autoPlay
-                    muted={selected.category === 'Motion Design'}
-                    loop={
-                      selected.loop ?? selected.category === 'Motion Design'
-                    }
-                    preload="metadata"
-                    onError={() => setVideoError(true)}
-                  />
-                ) : (
-                  <div className="video-error">
-                    <p>This preview couldn’t load.</p>
-                    <a href={selected.video} target="_blank" rel="noreferrer">
-                      Open the video directly <ArrowUpRight size={14} />
-                    </a>
-                  </div>
-                )}
-              </div>
-              <div className="detail-facts">
-                <span className="detail-technique">
-                  <TechniqueIcon technique={selected.technique} />
-                  {techniqueLabel(selected.technique)}
-                </span>
-                <span>{formatDuration(selected.duration)}</span>
-                <span>
-                  {selected.orientation === 'portrait'
-                    ? 'Portrait'
-                    : selected.orientation === 'square'
-                      ? 'Square'
-                      : 'Landscape'}
-                </span>
-              </div>
-              <div className="detail-workflow">
-                <a
-                  href="https://github.com/browser-use/video-use"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Video Use <ArrowUpRight size={12} />
-                </a>
-                <ConnectMcp label="Connect your chat" compact />
-              </div>
-              {[
-                'edit-velocity',
-                'edit-freeze_poster',
-                'edit-triptych',
-                'edit-after_dark',
-                'social-13-robot-hand-dialogue',
-                'social-14-robot-action',
-              ].includes(selected.id) && (
-                <p className="media-attribution">
-                  Modified excerpt from{' '}
-                  <a
-                    href="https://www.youtube.com/watch?v=R6MlUcmOul8"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Tears of Steel
-                  </a>{' '}
-                  · (CC) Blender Foundation |{' '}
-                  <a
-                    href="https://mango.blender.org/"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    mango.blender.org
-                  </a>{' '}
-                  ·{' '}
-                  <a
-                    href="https://creativecommons.org/licenses/by/3.0/"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    CC BY 3.0
-                  </a>
-                </p>
-              )}
-              {selected.id === 'social-12-spring-story' && (
-                <p className="media-attribution">
-                  Modified excerpt from{' '}
-                  <a
-                    href="https://studio.blender.org/projects/spring/pages/about/"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Spring
-                  </a>{' '}
-                  ·{' '}
-                  <a
-                    href="https://www.blender.org/foundation/"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Blender Foundation
-                  </a>{' '}
-                  ·{' '}
-                  <a
-                    href="https://creativecommons.org/licenses/by/4.0/"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    CC BY 4.0
-                  </a>
-                </p>
-              )}
-              {selected.id === 'social-19-weekend-roundup' && (
-                <p className="media-attribution">
-                  Music:{' '}
-                  <a
-                    href="https://freemusicarchive.org/music/John_Bartmann/retro-boogie/boogie-til-you-drop/"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Boogie Til You Drop
-                  </a>{' '}
-                  by{' '}
-                  <a
-                    href="https://johnbartmann.com/music"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    John Bartmann
-                  </a>{' '}
-                  ·{' '}
-                  <a
-                    href="https://creativecommons.org/licenses/by/4.0/"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    CC BY 4.0
-                  </a>
-                  . Edited excerpt and mix.
-                </p>
-              )}
-            </div>
-            <div className="detail-body">
-              <DialogTitle className="detail-title">
-                {selected.title}
-              </DialogTitle>
-              <DialogDescription className="sr-only">
-                {selected.description}
-              </DialogDescription>
-              <div className="detail-actions">
-                <button
-                  type="button"
-                  className="primary-button"
-                  onClick={() =>
-                    copyText(
-                      buildChatPrompt(selected),
-                      selected.id,
-                      'Prompt copied',
-                    )
-                  }
-                >
-                  {copied === selected.id ? (
-                    <Check size={16} />
-                  ) : (
-                    <Copy size={16} />
-                  )}
-                  {copied === selected.id ? 'Copied' : 'Copy Prompt'}
-                </button>
-                <button
-                  type="button"
-                  className="share-example"
-                  aria-label="Copy link to this example"
-                  onClick={() =>
-                    copyText(
-                      exampleLink(window.location.origin, selected.id),
-                      'link-' + selected.id,
-                      'Example link copied.',
-                    )
-                  }
-                >
-                  {copied === 'link-' + selected.id ? (
-                    <Check size={16} />
-                  ) : (
-                    <Link2 size={16} />
-                  )}
-                </button>
-              </div>
-              <div className="prompt-heading">
-                <h3>{selected.promptKind}</h3>
-              </div>
-              <textarea
-                className="prompt-text"
-                readOnly
-                rows={7}
-                aria-label="Complete prompt that will be copied"
-                value={buildChatPrompt(selected)}
-              />
-              <Disclosure
-                label="Details & sources"
-                icon={<FolderCode size={16} />}
-                className="source-disclosure"
-              >
-                <p className="detail-description">{selected.description}</p>
-                <div className="detail-audience">
-                  <span>Useful for</span>
-                  {selected.audiences.map((item) => (
-                    <span key={item}>{item}</span>
-                  ))}
-                </div>
-                {(selected.promptSource ||
-                  safeSourceUrl(selected.sourceRepo)) && (
-                  <p className="prompt-source">
-                    {selected.promptSource}
-                    {safeSourceUrl(selected.sourceRepo) && (
-                      <a
-                        href={safeSourceUrl(selected.sourceRepo)!}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        Open-source inspiration <ArrowUpRight size={11} />
-                      </a>
-                    )}
-                  </p>
-                )}
-                {(safeSourceUrl(selected.sourceArchive) ||
-                  safeSourceUrl(selected.reviewUrl)) && (
-                  <div className="project-resources">
-                    {safeSourceUrl(selected.sourceArchive) && (
-                      <a
-                        href={safeSourceUrl(selected.sourceArchive)!}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        Editable project <ArrowUpRight size={11} />
-                      </a>
-                    )}
-                    {safeSourceUrl(selected.reviewUrl) && (
-                      <a
-                        href={safeSourceUrl(selected.reviewUrl)!}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        Production notes <ArrowUpRight size={11} />
-                      </a>
-                    )}
-                  </div>
-                )}
-              </Disclosure>
-            </div>
-          </DialogContent>
+          <DemoDetail
+            key={selected.id}
+            example={selected}
+            copied={copied === selected.id}
+            onCopy={() =>
+              copyText(buildChatPrompt(selected), selected.id, 'Prompt copied')
+            }
+          />
         )}
       </Dialog>
       <Dialog

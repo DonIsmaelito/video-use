@@ -748,25 +748,11 @@ summary {
   line-height: 1.7;
   font-size: 13px;
 }
-/* Dialog actions are white; selected/confirmed actions use the brand accent. */
+/* Shared dialog backdrop and connection/launch controls. */
 [data-slot='dialog-overlay'] {
   background: #000b;
   backdrop-filter: blur(12px);
 }
-.example-dialog {
-  display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(320px, 1fr);
-  width: 1150px;
-  max-width: calc(100vw - 48px);
-  max-height: 90svh;
-  padding: 0;
-  gap: 0;
-  border: 1px solid #363636;
-  border-radius: 20px;
-  overflow: auto;
-  background: #141414;
-}
-.example-dialog > [data-slot='dialog-close'],
 .connect-dialog > [data-slot='dialog-close'],
 .launch-film-dialog > [data-slot='dialog-close'] {
   position: absolute;
@@ -779,87 +765,6 @@ summary {
   background: #111b;
   color: #fff;
   border: 1px solid #ffffff30;
-}
-.detail-preview {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  padding: 18px;
-  background: #0c0c0c;
-  justify-content: center;
-}
-.dialog-video {
-  position: relative;
-  width: 100%;
-  background: #000;
-  border-radius: 10px;
-  overflow: hidden;
-}
-.dialog-video.landscape {
-  aspect-ratio: 16/9;
-}
-.dialog-video.portrait {
-  height: 65svh;
-}
-.dialog-video.square {
-  aspect-ratio: 1;
-  max-height: 65svh;
-}
-.dialog-video video {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: contain;
-}
-.detail-facts {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 14px;
-  color: #999;
-  font-size: 11px;
-  padding: 18px 2px;
-}
-.detail-technique {
-  display: inline-flex;
-  gap: 7px;
-  align-items: center;
-  margin-right: auto;
-}
-.detail-workflow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 12px 2px 0;
-  border-top: 1px solid #252525;
-  color: #bbb;
-  font-size: 11px;
-}
-.detail-workflow > a {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-}
-.detail-workflow .connect-button {
-  padding: 8px 0;
-}
-.detail-body {
-  padding: 42px 28px 26px;
-  min-width: 0;
-}
-.detail-title {
-  font-size: 25px;
-  font-weight: 500;
-  line-height: 1.25;
-  letter-spacing: -0.7px;
-  text-wrap: balance;
-}
-.detail-actions {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  margin: 24px 0 30px;
 }
 .primary-button {
   display: inline-flex;
@@ -879,99 +784,6 @@ summary {
 .primary-button:hover {
   background: var(--accent);
   color: var(--accent-foreground);
-}
-.detail-actions .primary-button {
-  flex: 1;
-  padding: 12px;
-}
-.share-example {
-  height: 42px;
-  min-width: 42px;
-  padding: 0 10px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  border: 1px solid #3c3c3c;
-  border-radius: 10px;
-  font-size: 12px;
-  color: #ccc;
-}
-.prompt-heading {
-  margin-bottom: 10px;
-  color: #aaa;
-}
-.prompt-heading h3 {
-  font-size: 12px;
-  font-weight: 500;
-}
-.prompt-text {
-  width: 100%;
-  height: 215px;
-  padding: 14px;
-  border: 1px solid #303030;
-  border-radius: 10px;
-  background: #1b1b1b;
-  color: #d1d1d1;
-  font-size: 12px;
-  line-height: 1.8;
-  resize: vertical;
-}
-.source-disclosure {
-  margin-top: 20px;
-  border-top: 1px solid #2b2b2b;
-  padding-top: 18px;
-}
-.source-disclosure .disclosure-trigger {
-  color: #aaa;
-  font-size: 11px;
-}
-.detail-description {
-  margin-bottom: 14px;
-  color: #bbb;
-  font-size: 12px;
-  line-height: 1.75;
-}
-.detail-audience {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  font-size: 11px;
-  color: #aaa;
-  margin-bottom: 12px;
-}
-.detail-audience > span:not(:first-child) {
-  color: #eee;
-}
-.prompt-source {
-  font-size: 11px;
-  line-height: 1.8;
-  color: #aaa;
-}
-.prompt-source a,
-.project-resources a {
-  display: inline-flex;
-  gap: 5px;
-  align-items: center;
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-.project-resources {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  font-size: 11px;
-  margin-top: 14px;
-}
-.media-attribution {
-  color: #aaa;
-  font-size: 10px;
-  line-height: 1.7;
-  margin: 14px 2px 0;
-}
-.media-attribution a {
-  text-decoration: underline;
-  text-underline-offset: 3px;
 }
 .manual-copy-dialog {
   width: 520px;
@@ -1422,15 +1234,6 @@ summary {
   .video-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .example-dialog {
-    grid-template-columns: 1fr 1fr;
-  }
-  .detail-body {
-    padding: 40px 20px 24px;
-  }
-  .detail-actions {
-    flex-wrap: wrap;
-  }
 }
 @media (max-width: 700px) {
   .site-header {
@@ -1559,34 +1362,6 @@ summary {
     bottom: 91px;
     left: 12px;
     right: 12px;
-  }
-  .example-dialog {
-    display: block;
-    width: 600px;
-    max-width: calc(100vw - 20px);
-    border-radius: 16px;
-  }
-  .detail-preview {
-    padding: 12px;
-  }
-  .dialog-video.portrait {
-    height: 48svh;
-  }
-  .dialog-video.square {
-    max-height: 48svh;
-  }
-  .detail-body {
-    padding: 24px 20px;
-  }
-  .detail-title {
-    font-size: 22px;
-  }
-  .detail-actions {
-    flex-wrap: nowrap;
-    margin: 20px 0;
-  }
-  .prompt-text {
-    height: 170px;
   }
   .connect-dialog {
     padding: 28px 20px;
