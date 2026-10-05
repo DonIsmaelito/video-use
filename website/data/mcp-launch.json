@@ -1,26 +1,33 @@
 {
-  "src": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261004%2Fmcp-launch-orange%2Fc64c97f39e9b-autoplay.mp4?v=3c3f965ac8c441cdab2feae2ddc66683",
-  "video": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261004%2Fmcp-launch-orange%2Ff7e0647eb81f-final.mp4?v=6889f5df4d982b198b9913b1e8eac0ba",
-  "poster": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261004%2Fmcp-launch-orange%2F88432c78fc67-poster.jpg?v=1e2167ae8a16d3d60a72ed4837fa201d",
-  "duration": 12,
+  "src": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors%2F5a910f856f09-autoplay.mp4?v=45baad39f94cac58d7638c494121c3c5",
+  "video": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors%2Fb4bfc9f04fc3-final.mp4?v=60442e7794621b6c50ae98a22452500e",
+  "poster": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors%2F6a1783790a76-poster.jpg?v=cc28e7766ea145195ec34ec9631e9131",
+  "duration": 22.0,
+  "loop": true,
   "storage": {
     "autoplay.mp4": {
       "bucket": "site-media",
-      "key": "launches/20261004/mcp-launch-orange/c64c97f39e9b-autoplay.mp4",
-      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261004%2Fmcp-launch-orange%2Fc64c97f39e9b-autoplay.mp4?v=3c3f965ac8c441cdab2feae2ddc66683",
-      "sha256": "c64c97f39e9b1a1a408c5e7d63adb834bf73802e1220de31872898114b55d2c4"
+      "key": "launches/20261005/mcp-launch-connectors/5a910f856f09-autoplay.mp4",
+      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors%2F5a910f856f09-autoplay.mp4?v=45baad39f94cac58d7638c494121c3c5",
+      "sha256": "5a910f856f0968f2402bda81be35796f4fdc424ea4d474f08f889602ba7c3eac"
     },
     "final.mp4": {
       "bucket": "site-media",
-      "key": "launches/20261004/mcp-launch-orange/f7e0647eb81f-final.mp4",
-      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261004%2Fmcp-launch-orange%2Ff7e0647eb81f-final.mp4?v=6889f5df4d982b198b9913b1e8eac0ba",
-      "sha256": "f7e0647eb81f5c98fea87134c748aca026f6ba86da0d2c2d682f83aca68c6546"
+      "key": "launches/20261005/mcp-launch-connectors/b4bfc9f04fc3-final.mp4",
+      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors%2Fb4bfc9f04fc3-final.mp4?v=60442e7794621b6c50ae98a22452500e",
+      "sha256": "b4bfc9f04fc3043c5eca76d823b0c822d49bdaf509eb70e3418291e0c916ac21"
     },
     "poster.jpg": {
       "bucket": "site-media",
-      "key": "launches/20261004/mcp-launch-orange/88432c78fc67-poster.jpg",
-      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261004%2Fmcp-launch-orange%2F88432c78fc67-poster.jpg?v=1e2167ae8a16d3d60a72ed4837fa201d",
-      "sha256": "88432c78fc67b54e16c50ddccc354ac4e55b2e73664456d48d5b4a534ae205d8"
+      "key": "launches/20261005/mcp-launch-connectors/6a1783790a76-poster.jpg",
+      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors%2F6a1783790a76-poster.jpg?v=cc28e7766ea145195ec34ec9631e9131",
+      "sha256": "6a1783790a7696abf24bc7c2ce7e059af2818d12c13a583f8720db328e5a7820"
+    },
+    "source.zip": {
+      "bucket": "site-media",
+      "key": "launches/20261005/mcp-launch-connectors/85cb26ea3761-source.zip",
+      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors%2F85cb26ea3761-source.zip?v=d7366a0b993d07071d7471d1c5f9a127",
+      "sha256": "85cb26ea37618683dfcc890a923cc480266be6e177dfbc2081a035ccccefe842"
     }
   }
 }

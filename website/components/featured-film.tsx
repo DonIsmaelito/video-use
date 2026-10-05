@@ -17,6 +17,7 @@ type FilmMedia = {
   video: string;
   poster: string;
   duration: number;
+  loop?: boolean;
 };
 
 /** Promotional films keep their own player without changing the prompt library. */
@@ -110,6 +111,7 @@ export function FeaturedFilm({
               controls
               playsInline
               autoPlay
+              loop={media.loop}
               onError={() => setFailed(true)}
             />
           )}

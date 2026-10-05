@@ -437,3 +437,30 @@ Deployment **`4a4b7865-a7ba-47e1-8ddf-6b86c5c13466`** (provider `dpl_BbQrx3Fh9MV
 Build, TypeScript/catalog checks, all 30 importer tests, scoped lint and diff checks passed. Local and hosted review at 1440/390/320px confirmed 137 cards, zero like controls, zero like API requests, no duration labels, no clipped titles or page overflow, and no page errors. Desktop hover copying, phone copying, player prompt copying and share links passed. Live desktop, phone and player captures were inspected. The Video type-first sidebar, banner, featured captions and catalog were preserved. Reviewed source files were synchronized to the original checkout with baseline guards; the removal preference was saved to project memory. The local server and QA browsers are stopped, and no deployment is in flight.
 
 Receipt and evidence: `/private/tmp/video-use-remove-likes-qa/release.json`, `live-review.json`, `live-cards-1440.png`, `live-cards-390.png` and `live-player.png`.
+
+
+### MCP launch film remake — in progress
+
+The root Video Use agent is rebuilding the MCP launch film from the user's Glam reference frames: Browser Use logo and minimal MCP title, a drawn connector arrow to the official client marks, then a ChatGPT-style prompt composer typing/backspacing example requests and clicking Send before the loop returns. This pass owns `data/mcp-launch.json`, the MCP entry in `data/featured-media-sources.json`, and the README launch-film description. Editable motion outputs are under `/Users/ismaelito/Movies/Video Use MCP Launch 20261005/edit/`. Preserve the latest sidebar and removed likes UI. No gallery/layout edits are planned; one reviewed publication will follow.
+
+The film pass also owns the optional media loop flag in `components/featured-film.tsx`, so the MCP full player repeats the authored loop while the supplied Product Launches film keeps its normal playback behavior.
+
+
+### MCP launch film remake — ready for publication
+
+The reviewed 22-second film is now published to versioned InsForge storage. It uses the Browser Use mark and minimal title, a drawn connector arrow to Cursor/Claude/ChatGPT, then three typed/backspaced requests and a visible Send click. There is no result-footage scene; first/last authored frames match. The 1080p master is 610950 bytes, the 720p autoplay film 277032 bytes, and the editable source archive 980093 bytes. All published checksums and MP4 byte-range requests passed. Both website manifests and the optional full-player loop flag are synchronized across checkouts, preserving the previous film in provenance history.
+
+Production build, type/catalog checks, all 30 importer tests, lint and diff checks passed. Local desktop/phone browser checks at 1440/390/320px verified new media, autoplay, MCP navigation, reduced motion, full-player native looping, controls, focus return, no overflow, and unchanged Product Launches looping behavior. Local site captures were inspected. The root agent owns the imminent single deployment.
+
+
+### MCP launch film remake — verified live
+
+Deployment **`be059c32-dc4e-40b6-9622-cb67949dfee6`** (provider `dpl_6YZWbKyxKPFMQmjo8r2QB8yL7Q4j`) is READY at https://video-use.insforge.site. The homepage MCP feature and `/mcp` player now serve the new 22-second, 30fps loop: orange Browser Use mark and minimal MCP title, a drawn white arrow to the official Cursor/Claude/ChatGPT marks, then a charcoal ChatGPT-style composer typing and backspacing three requests. A cursor presses Send on the completed final request; the line clears and the exact opening returns. No result film or extra end card is appended. This replaces the prior 12-second composer/product-film treatment; the old film and provenance are preserved.
+
+The 1080p master, lightweight 720p preview, title poster and portable editable source archive are published under versioned `site-media/launches/20261005/mcp-launch-connectors/` keys. Both URLs and keys plus SHA256 hashes are saved in the media manifests. The optional `FilmMedia.loop` flag makes the full MCP player repeat, preserving normal Product Launches playback.
+
+Rendered-film review passed: all 660 frames decoded and played at normal speed with zero dropped frames/errors; every prompt has a readable complete hold, the typing anchor stays fixed, all seven press frames click the completed prompt, and forward/backward seeks reproduce identical states. First and last authored frames match exactly. Encoded transition and card-size proofs, an actual copy-edit replay and source archive integrity were checked.
+
+Build, type/catalog checks, all 30 importer tests, lint and diff checks passed. Local and hosted checks at 1440/390/320px passed homepage autoplay and navigation, the exact new 1920x1080 full-player media, native loop wrap, controls, reduced-motion pausing, focus return, no overflow and no page errors. Live hero and phone-player captures were inspected. The 137-entry gallery, Video type-first sidebar, removed likes UI, banner, carousel and other films retain their guarded source hashes. Both checkouts are synchronized; local servers and QA browsers are stopped, with no deployment in flight.
+
+Durable project, source and evidence: `/Users/ismaelito/Movies/Video Use MCP Launch 20261005/edit/`. See `qa/deployment.json`, `qa/live-review.json`, `qa/public-assets.json`, `publication.json`, and `animations/slot_mcp_launch/` for the final render and editable source ZIP. Future film edits should use this new project; the 20261004 project is retained as historical source.
