@@ -2,7 +2,7 @@
 
 import { useSyncExternalStore } from 'react';
 import Link from 'next/link';
-import { ArrowUpRight, PlugZap, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import styles from './mcp-announcement.module.css';
 
 const dismissalKey = 'video-use-mcp-announcement-v1';
@@ -48,15 +48,8 @@ export function McpAnnouncement() {
   return (
     <aside className={styles.banner} aria-label="Video Use MCP announcement">
       <div className={styles.inner}>
-        <span className={styles.badge} aria-hidden="true">
-          <PlugZap size={15} /> MCP
-        </span>
-        <p className={styles.message}>
-          <strong>Try Video Use MCP</strong>
-          <span>Make videos in your AI chat.</span>
-        </p>
-        <Link className={styles.cta} href="/mcp#setup">
-          Get started <ArrowUpRight size={14} />
+        <Link className={styles.message} href="/mcp#setup">
+          Try Video Use MCP
         </Link>
         <button
           className={styles.close}
@@ -64,7 +57,7 @@ export function McpAnnouncement() {
           aria-label="Dismiss MCP announcement"
           onClick={dismiss}
         >
-          <X size={18} />
+          <X size={16} />
         </button>
       </div>
     </aside>

@@ -134,11 +134,13 @@ function VideoCard({
             className={`like-button ${cardStyles.like} ${like?.liked ? 'is-liked' : ''}`}
             aria-label={`${like?.liked ? 'Unlike' : 'Like'} ${example.title}`}
             aria-pressed={like?.liked ?? false}
+            aria-busy={liking}
+            title={like?.liked ? 'Unlike' : 'Like'}
             disabled={liking}
             onClick={toggleLike}
           >
-            <span>{like ? like.count.toLocaleString() : '–'}</span>
             <Heart size={17} fill={like?.liked ? 'currentColor' : 'none'} />
+            <span>{like ? like.count.toLocaleString() : '–'}</span>
           </button>
         </div>
       </div>
@@ -694,6 +696,8 @@ export function Gallery() {
                   disabled={pending.has(selected.id)}
                   aria-label={`${likes[selected.id]?.liked ? 'Unlike' : 'Like'} ${selected.title}`}
                   aria-pressed={likes[selected.id]?.liked ?? false}
+                  aria-busy={pending.has(selected.id)}
+                  title={likes[selected.id]?.liked ? 'Unlike' : 'Like'}
                 >
                   <Heart
                     size={17}
