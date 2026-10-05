@@ -52,6 +52,7 @@ import {
 // Mix footage, product films and graphic work in the opening row without changing
 // the source catalog or its provenance. Filters and deep links still use all films.
 const openingIds = [
+  'screen-demo-fuji-browser-tour',
   'cloud-edit-travel',
   'useful-08-refill-product',
   'cloud-edit-podcast',

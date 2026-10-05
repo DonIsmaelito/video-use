@@ -380,7 +380,7 @@
     "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-20-tutorial-to-short-5a4f9ad7056f-0b8e512d/review.md"
   },
   {
-    "title": "Mount Fuji",
+    "title": "Screen Studio Style",
     "duration": 27.6,
     "orientation": "landscape",
     "audiences": ["Content creators", "Educators", "Product teams"],
@@ -390,11 +390,11 @@
     "technique": "video-editing",
     "id": "screen-demo-fuji-browser-tour",
     "category": "Video Edits",
-    "description": "A calm Google Earth walkthrough with a typed opening and smooth framing. Archived educational demo; silent.",
-    "prompt": "Use Video Use to turn my real browser recording into a calm 25–30 second educational walkthrough. Keep the task and subject already supplied in this chat. Open with a short, clearly authored typing animation of that task, then reveal the actual captured browser window over a restrained gradient background. Show the real search, its result, and the final navigation or interaction in order. Use one gentle push toward the complete input and hold through typing; keep the result mostly wide so the website's own movement remains clear. Cut only idle waits and use modest acceleration where it preserves readable actions. Keep panel-close and page transitions continuous. Enlarge the cursor only where its actual position is verifiable; preserve natural hidden intervals. Keep existing credits and attribution visible, and finish with a readable result hold. Use silence unless I provide cleared audio. Return a preview for review before completing the full edit; do not present the shortened video as the task's execution time.",
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/archived-screen-demos/20261004/screen-demo-fuji-browser-tour-20424afa10ed-5fda1b5f9ba0/final.mp4",
-    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/archived-screen-demos/20261004/screen-demo-fuji-browser-tour-20424afa10ed-5fda1b5f9ba0/poster.jpg",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/archived-screen-demos/20261004/screen-demo-fuji-browser-tour-20424afa10ed-5fda1b5f9ba0/review.md"
+    "description": "A real Google Earth recording becomes a polished Mount Fuji demo with a typed intro, smooth zoom and vivid blue-violet framing. Silent.",
+    "prompt": "Turn my screen recording into a polished 25–30 second demo with a Screen Studio-style finish.\n\nOpen with a short typing animation that introduces the task shown in my recording. Use a near-black prompt card on a vivid violet-to-blue background, then smoothly reveal the real screen capture on the same background.\n\nKeep the important actions in order. Remove idle waits and use modest speed-ups while keeping each action easy to follow. Gently push in toward the main input, hold through typing, then ease back to show the result. Emphasize the real cursor without changing where it clicks. Keep navigation and panel transitions smooth, UI text readable, and existing credits visible.\n\nEnd with a clear hold on the finished result. Keep it silent, and export a crisp 1080p landscape video.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/archived-screen-demos/20261004/screen-demo-fuji-browser-tour-20424afa10ed-24f712f0a435/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/archived-screen-demos/20261004/screen-demo-fuji-browser-tour-20424afa10ed-24f712f0a435/poster.jpg",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/archived-screen-demos/20261004/screen-demo-fuji-browser-tour-20424afa10ed-24f712f0a435/review.md"
   },
   {
     "title": "Chrome Music Lab",

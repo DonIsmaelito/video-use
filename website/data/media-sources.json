@@ -3997,23 +3997,23 @@
     "id": "screen-demo-fuji-browser-tour",
     "kind": "archived screen demo created with Video Use",
     "sourceRun": "x-demo-maker/fuji-smooth",
-    "production": "Archived x-demo-maker edit with a Video Use motion intro, recorded browser pixels and saved framing/cursor render evidence from September 2026. It predates the current MCP flow.",
+    "production": "Archived September 16, 2026 x-demo-maker fuji-smooth edit with a Video Use motion intro, real browser recording, saved edit plan and custom camera/cursor finishing. This is a Screen Studio-style treatment; it was not exported by Screen Studio or regenerated through the current MCP flow.",
     "promptSource": "Starter prompt reconstructed from the archived final and saved edit plan; not the exact historical editing instruction.",
     "sourceArchiveScope": "Published film and reconstructed starter prompt; editable project not included",
     "storage": "Cloudflare R2",
     "websiteSha256": "20424afa10eddd93279b030f9bcde9e4a7214bd1ca532864a16ac62064dc25e2",
-    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/archived-screen-demos/20261004/screen-demo-fuji-browser-tour-20424afa10ed-5fda1b5f9ba0/prompt.txt",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/archived-screen-demos/20261004/screen-demo-fuji-browser-tour-20424afa10ed-5fda1b5f9ba0/review.md",
-    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/archived-screen-demos/20261004/screen-demo-fuji-browser-tour-20424afa10ed-5fda1b5f9ba0/provenance.json",
-    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/archived-screen-demos/20261004/screen-demo-fuji-browser-tour-20424afa10ed-5fda1b5f9ba0/verification.json",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/archived-screen-demos/20261004/screen-demo-fuji-browser-tour-20424afa10ed-24f712f0a435/prompt.txt",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/archived-screen-demos/20261004/screen-demo-fuji-browser-tour-20424afa10ed-24f712f0a435/review.md",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/archived-screen-demos/20261004/screen-demo-fuji-browser-tour-20424afa10ed-24f712f0a435/provenance.json",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/archived-screen-demos/20261004/screen-demo-fuji-browser-tour-20424afa10ed-24f712f0a435/verification.json",
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/archived-screen-demos/20261004/screen-demo-fuji-browser-tour-20424afa10ed-5fda1b5f9ba0/final.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/archived-screen-demos/20261004/screen-demo-fuji-browser-tour-20424afa10ed-24f712f0a435/final.mp4"
       },
       {
         "field": "poster",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/archived-screen-demos/20261004/screen-demo-fuji-browser-tour-20424afa10ed-5fda1b5f9ba0/poster.jpg"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/archived-screen-demos/20261004/screen-demo-fuji-browser-tour-20424afa10ed-24f712f0a435/poster.jpg"
       }
     ]
   },
