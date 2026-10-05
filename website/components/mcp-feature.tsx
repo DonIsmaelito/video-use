@@ -1,4 +1,3 @@
-import { ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 import launch from '@/data/mcp-launch.json';
 import { PreviewMedia } from '@/components/preview-media';
@@ -42,9 +41,7 @@ export function McpFeature({ suspended = false }: { suspended?: boolean }) {
       </Link>
       <div className="featured-caption">
         <Link href="/mcp">Video Use MCP</Link>
-        <span>
-          Connect your chat <ArrowUpRight size={14} />
-        </span>
+        <span>Create and edit videos in Claude, ChatGPT and Cursor.</span>
       </div>
     </article>
   );

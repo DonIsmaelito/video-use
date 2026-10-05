@@ -1,44 +1,28 @@
 .banner {
   position: relative;
-  isolation: isolate;
-  width: calc(100% - var(--page-gutter) * 2);
-  max-width: calc(2400px - var(--page-gutter) * 2);
-  margin: 8px auto 0;
-  padding: 1px;
-  overflow: hidden;
-  border-radius: 999px;
-  color: #25160d;
-  background: #dda168;
-}
-
-/* Only the edge of this light is visible behind the opaque inner surface. */
-.banner::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 180px;
-  height: 80px;
-  background: radial-gradient(ellipse, #ffe0b7, transparent 70%);
-  offset-path: border-box;
-  offset-anchor: 50% 50%;
-  offset-rotate: 0deg;
-  animation: orbit 24s linear infinite;
-  pointer-events: none;
+  width: 100%;
+  color: #23160c;
+  background: linear-gradient(
+    100deg,
+    #ffc58b,
+    #f7a461 24%,
+    #ec8843 50%,
+    #f8b16d 76%,
+    #ffd198
+  );
+  background-size: 160% 100%;
+  background-position: 50% 50%;
+  animation: blend 24s ease-in-out infinite alternate;
 }
 
 .inner {
   position: relative;
-  z-index: 1;
   display: grid;
   place-items: center;
-  min-height: 54px;
-  padding: 12px 46px;
-  border-radius: inherit;
-  background:
-    radial-gradient(ellipse at 12% 0%, #e7ac7570, transparent 58%),
-    radial-gradient(ellipse at 88% 100%, #efb77750, transparent 50%),
-    linear-gradient(105deg, #cf763a, #c56b2f 48%, #dc9450);
+  min-height: 56px;
+  max-width: 2400px;
+  margin-inline: auto;
+  padding: 12px 64px;
 }
 
 .message {
@@ -62,9 +46,6 @@
 }
 
 .action {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
   color: #1d1007;
   font-weight: 700;
   white-space: nowrap;
@@ -75,22 +56,14 @@
   color: #000;
 }
 
-.action svg {
-  transition: transform 160ms;
-}
-
-.message:hover .action svg {
-  transform: translate(2px, -2px);
-}
-
 .close {
   position: absolute;
   top: 50%;
-  right: 10px;
+  right: var(--page-gutter);
   display: grid;
   place-items: center;
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   color: #57341d;
   transform: translateY(-50%);
@@ -109,15 +82,19 @@
   outline-offset: 2px;
 }
 
-@keyframes orbit {
+@keyframes blend {
+  from {
+    background-position: 0% 50%;
+  }
+
   to {
-    offset-distance: 100%;
+    background-position: 100% 50%;
   }
 }
 
 @media (max-width: 800px) {
   .inner {
-    padding: 10px 40px;
+    padding: 10px 52px;
   }
 
   .message {
@@ -137,20 +114,12 @@
   }
 }
 
-@media (max-width: 360px) {
-  .benefit {
-    font-size: 15px;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .banner::before {
+  .banner {
     animation: none;
-    opacity: 0.35;
   }
 
   .action,
-  .action svg,
   .close {
     transition: none;
   }

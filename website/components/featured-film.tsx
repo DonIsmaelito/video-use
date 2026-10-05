@@ -84,10 +84,7 @@ export function FeaturedFilm({
             <button type="button" onClick={watch}>
               {title}
             </button>
-            <span>
-              {subtitle}
-              <ArrowUpRight size={14} />
-            </span>
+            {subtitle && <span>{subtitle}</span>}
           </div>
         )}
       </div>

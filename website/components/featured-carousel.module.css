@@ -53,7 +53,7 @@
 .slide :global(.featured-caption) {
   align-items: flex-start;
   flex-direction: column;
-  gap: 0;
+  gap: 2px;
   padding: 12px 0 0;
 }
 
@@ -64,9 +64,9 @@
 }
 
 .slide :global(.featured-caption) > span {
-  display: flex;
-  font-size: 14px;
-  line-height: 24px;
+  display: block;
+  font-size: 15px;
+  line-height: 23px;
 }
 
 .placeholder:global(.featured-frame) {
@@ -135,7 +135,7 @@
   }
 
   .slide :global(.featured-caption) > span {
-    font-size: 12px;
+    font-size: 13px;
     line-height: 20px;
   }
 }

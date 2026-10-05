@@ -274,7 +274,7 @@ export function Gallery() {
         <FeaturedFilm
           media={productLaunch}
           title="Product Launches"
-          subtitle="Introduce what's next"
+          subtitle="Showcase your product with a launch film that stands out."
           suspended={selected !== null || !!manualCopy}
         />
         {featuredExamples.map((example) => (
@@ -305,7 +305,7 @@ export function Gallery() {
                 {example.title}
               </button>
               <span>
-                Find your rhythm <ArrowUpRight size={14} />
+                Turn raw footage into cinematic edits, cut to the beat.
               </span>
             </div>
           </article>
