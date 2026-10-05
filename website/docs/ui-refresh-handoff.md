@@ -712,3 +712,13 @@ Build, TypeScript/catalog checks, all 30 importer tests, lint, formatting and di
 ### Movie Edit preview crop restore — in progress
 
 The user prefers the earlier Whiplash crop. This pass restores only the Movie Edit hero video/poster cover fit in Gallery and globals.css, keeping all three new captions, existing media, eight slots and full dialog playback. Source ownership: gallery.tsx, globals.css and README.md. No deployment has started. Evidence: `/private/tmp/video-use-movie-crop-restore-qa/`.
+
+
+### Movie Edit preview crop restore — deployment starting
+
+Source **`d9a5406`** restores the earlier cover crop for the Movie Edit preview and its poster. New captions and the full player are unchanged. Production build, TypeScript, scoped lint/formatting and local desktop/phone review pass; inspected captures match the earlier tile-filling treatment. Both checkouts are synchronized. Root owns the following deployment after 435b064c. Evidence: `/private/tmp/video-use-movie-crop-restore-qa/`.
+
+
+### Movie Edit preview crop restore — verified live
+
+Deployment **`9e4ae083-de72-4193-b2c1-87c8a7138cd1`** (provider `dpl_CRPwHKBhoirbRhpbQMvb29hrXptG`) is READY at https://video-use.insforge.site from source **`d9a5406`** on `feature/useful-video-library`. The previous Whiplash cover crop is restored for the Movie Edit preview and poster. The newer captions, five blank slots and full-frame dialog are preserved; no media files changed. Production build, TypeScript, scoped lint/formatting and local/live browser checks at 1440 and 390px pass. The original film decodes, the video and poster use cover, captions remain correct, eight slots remain, and the demo opens and dismisses correctly without page errors or horizontal overflow. Desktop and phone local captures plus the live phone capture were inspected. Both checkouts match, the local server and QA browsers are closed, and no deployment remains in flight. Receipts: `/private/tmp/video-use-movie-crop-restore-qa/release.json` and `live-review.json`.
