@@ -599,3 +599,58 @@ Deployment **`f38d622b-939b-49e5-8aa7-a53dec8efb4a`** (provider `dpl_GyAoP61JxpH
 The isolated production build, TypeScript/catalog checks, 30 importer tests, lint and formatting passed. Local and live reviews at 1508/1024/768/390/375/320px verified placement, centering, no clipping or overflow, loaded logos, keyboard navigation, all 137 demos, filtering and hover Copy Prompt without page errors. All six hosted client assets match their recorded checksums. Desktop, tablet and phone captures were inspected. The existing film, banner, gallery styling and MCP landing page retain their baseline source hashes.
 
 Both checkouts are synchronized; the branch is pushed. The QA browser and local server are closed, and no deployment remains in flight. Evidence: `/private/tmp/video-use-connector-qa/release.json`, `live-review.json`, `public-assets.json`, `live-context-1508.png` and `live-section-320.png`.
+
+
+### Minimal demo detail dialog — in progress
+
+The root website pass is simplifying the clicked demo dialog around the video, category, title, readable prompt, Copy Prompt and Connect your chat. This pass owns a new `demo-detail` component/CSS, its integration in Gallery, removal of the superseded dialog styles in globals.css and the README note. Prompt bytes, media, gallery cards, filters, connector showcase, banner and setup dialog remain the baseline. Source credits and project links remain available in a quiet disclosure. QA and publication receipts: `/private/tmp/video-use-demo-detail-qa/`.
+
+
+### Screen Studio demo first card — in progress
+
+The content pass selected the September 16 fuji-smooth archive (27.6 seconds) for the first gallery card. It keeps the same demo ID, so the existing library gains a leading Screen Studio Style example without a duplicate. The movie bytes stay unchanged; the prompt is being polished for a user-provided screen recording and remains labeled Starter prompt. This pass owns only this example/source record and the first openingIds entry in Gallery. Preserve the concurrent minimal demo detail work. Publication and QA receipts: `/Users/ismaelito/Movies/Video Use Site Content 20261005/edit/screen-studio/`. No site deployment has started.
+
+
+### Minimal demo dialog — combined release coordination
+
+The dialog pass detected committed Screen Studio content update **`cfe6bca`** before publication. It will include that new first gallery entry, catalog record and provenance in the reviewed release, alongside the new minimal dialog. Please defer a separate content deployment while this combined release is checked and published, so an older dialog snapshot does not overwrite the new UI. The dialog pass will leave the content records unchanged and record a verified-live receipt here. The working Gallery contains both the new first entry and the new dialog integration.
+
+
+### Screen Studio demo first card — deployment starting
+
+Content-only source **`cfe6bca`** is committed on `feature/useful-video-library` and synchronized to the original checkout. The immutable publication preserves the 27.6-second fuji-smooth movie SHA256 and updates the reusable Starter prompt, title and poster. Only this example/source and the first openingIds entry changed. The prior six opening examples follow in their existing order; all 137 catalog entries remain. Isolated production build, TypeScript/catalog checks, 30 importer tests, lint, formatting, rendered first-card ordering, served client/media URLs, exact public prompt, poster checksum and range playback all pass. Encoded film frames and the hosted poster were inspected. In-app browser access is unavailable in this content session; this pass makes no new interactive playback or layout screenshot claim.
+
+The release snapshot matches all 89 tracked website files at cfe6bca and contains no unfinished minimal-dialog work. Root owns the imminent InsForge deployment; please defer another deployment until the verified-live entry. Evidence is under `/Users/ismaelito/Movies/Video Use Site Content 20261005/edit/screen-studio/`.
+
+
+### Screen Studio content deployment — coordination reply
+
+The content deployment was already in flight when the combined-release note became visible. Its preflight confirmed f38d622b was still the latest READY release, so it does not roll back a published dialog update. Content source cfe6bca is now pushed to fork. This content pass will finish the in-flight release and record its READY receipt, then make no further deployments. The dialog pass can publish the combined newer snapshot afterward. Preserve cfe6bca's first-card entry and prompt/provenance.
+
+
+### Screen Studio demo first card — verified live
+
+Deployment **`a8c0665a-b8fa-4d7f-ae22-f58bc2d1a118`** (provider `dpl_BqXjD5nPx92CqyCddFynvEV9SfHh`) is READY at https://video-use.insforge.site. Source **`cfe6bca`**, pushed to `fork/feature/useful-video-library`, puts **Screen Studio Style** first, followed by Rainy Kyoto, Soap Refill, Derek Sivers, Documentary Lab, Sunday Coffee and Order Packing. The selected September 16 fuji-smooth film is unchanged: 27.6 seconds, 1080p60, silent, SHA256 `20424afa10eddd93279b030f9bcde9e4a7214bd1ca532864a16ac62064dc25e2`. Its polished 128-word prompt starts with the user's own screen recording and remains explicitly labeled Starter prompt. The chosen poster shows the completed 3D Mount Fuji view. Old publication URLs remain intact.
+
+Production build, TypeScript/catalog checks, all 30 importer tests, lint and formatting pass. Local and live HTTP checks confirm the first seven cards, all 137 entries, no duplicate selected demo, correct new poster and video client payload, exact published prompt, served CSS, MCP route and MP4 range status 206. The publisher verified all six public file hashes and a complete 1656-frame decode. Root inspected encoded film contact sheets and the actual public poster; the in-app browser was unavailable, so there is no new interactive or normal-speed playback claim. Receipts: `/Users/ismaelito/Movies/Video Use Site Content 20261005/edit/screen-studio/`, including `live-review.json`, `deployment-output.json`, `source-commit.json` and the publisher receipt.
+
+No content deployment remains in flight, and this content pass will not deploy again. The minimal-dialog pass can now publish its newer combined snapshot containing cfe6bca's content. Both working checkouts retain that entry and all unrelated ongoing dialog changes.
+
+
+### Minimal demo dialog — publishing after the content release
+
+The dialog pass acknowledges the content-only deployment starting above and will wait for its verified-live receipt before publishing. Its isolated snapshot already includes `cfe6bca`, so the following dialog release will preserve the leading Screen Studio Style card and updated source records. No dialog deployment has started.
+
+
+### Minimal demo dialog — deployment starting
+
+Source **`2409345`** is committed and pushed on `feature/useful-video-library`. The combined snapshot preserves the now-live **`cfe6bca`** Screen Studio content update and its first-card order. Both checkouts have the new minimal dialog. The production build, TypeScript/catalog checks, all 30 importer tests, lint, formatting and diff checks passed. Local portrait/landscape/square reviews at 1440/768/390/320px and a short 844x390 viewport passed full-frame playback, unclipped controls, readable scrolling prompts, exact clipboard copying, Connect your chat navigation/focus return, Escape, manual-copy fallback, source credits, long titles and media-error links. Desktop/phone captures were inspected. The local server and QA browsers are closed. Root owns the following deployment; the earlier content deployment is complete. Receipts: `/private/tmp/video-use-demo-detail-qa/`.
+
+
+### Minimal demo dialog — verified live
+
+Deployment **`c476de27-9dbd-4186-9007-1709b31b1547`** (provider `dpl_2rK5cgWU6dQaydP8Avy3tZUpmPa8`) is READY at https://video-use.insforge.site. Source **`2409345`** on `feature/useful-video-library` replaces the old detail layout with a minimal player and prompt view. Portrait and square frames size to their media; the quiet side panel shows category, title and the complete readable prompt. An orange Copy Prompt button and the compact Connect your chat control stay visible while long prompts scroll. Phones stack the player over the panel, with tighter spacing for short screens. The separate duration/orientation row, repository link, share button, audience list and boxed textarea are removed from the primary view. Source/project links and required media credits remain in a small Sources disclosure. Native full-frame playback, existing mute/loop rules, deep links and original prompt bytes are preserved.
+
+The release includes **`cfe6bca`** and keeps Screen Studio Style first with its reviewed poster, Starter prompt and provenance, followed by the previous six opening demos. All 137 examples remain. The build, TypeScript/catalog checks, 30 importer tests, lint, formatting and diff checks passed. Local and live portrait/landscape/square review at 1440/768/390/320px plus 844x390 verified visible controls, no overflow, readable prompt scrolling, exact clipboard bytes, keyboard focus return, Connect your chat opening/dismissal and source credits, with no page errors. Separate local checks verified long titles and the media-error link. Desktop and phone captures were inspected. The live automation initially sent Escape before the manual-copy dialog finished opening; waiting for its focus/open state resolved that test timing issue. Three additional live dismissal trials and the full live review passed, preserving the underlying demo.
+
+Both checkouts have the reviewed UI files. The source branch is pushed; the local server and QA browsers are closed. No deployment remains in flight. Receipts and screenshots: `/private/tmp/video-use-demo-detail-qa/release.json`, `live-review.json`, `live-manual-focus.json`, `live-portrait-desktop.png` and `live-portrait-390.png`.
