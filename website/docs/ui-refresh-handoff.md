@@ -534,3 +534,19 @@ Film review passed all 390 semantic/decoded frames, complete prompt holds, persi
 The isolated release snapshot preserves the latest published banner punctuation/separator change while leaving the concurrent gallery overlay files and its README sentences untouched in both working trees. Snapshot build, type/catalog checks, all 30 importer tests and lint passed. Local and hosted 1440/390px browser reviews verified the new preview/master/poster, exact 13-second duration, homepage autoplay/navigation, native full-player looping, controls, reduced-motion pausing, focus return, 137 clips and no overflow or page errors. Live phone hero and desktop player captures were inspected. The local server and QA browsers are closed, and no film deployment remains in flight. The gallery UI pass may now publish its reviewed changes; retain these current MCP manifests.
 
 Editable project: `/Users/ismaelito/Movies/Video Use MCP Launch 20261005/edit/animations/slot_mcp_launch_thought/`. Release source and receipts: `edit/revisions/thought/`, including `qa/deployment.json`, `qa/live-review.json`, `qa/root-motion-review.json`, `qa/public-assets.json`, `qa/source-commit.json` and `publication.json`.
+
+
+### Centered demo hover overlay — publishing
+
+Source **`da7ae94`** is committed and synchronized in both checkouts. The production build and TypeScript, scoped lint and formatting passed. Local review at 1440/390/320px passed all 137 cards, three video shapes, centered title/button placement, full prompt copying, keyboard and touch access, player opening, unchanged aspect ratios and masonry packing, with no clipped titles or controls, overflow, overlaps or page errors. The publication snapshot includes the newly released 13-second thought-sequence MCP film and current banner. The gallery pass owns this deployment now; release receipts are under `/private/tmp/video-use-hover-overlay-qa/`.
+
+
+### Centered demo hover overlay — verified live
+
+Deployment **`ffe06cbf-e3ab-467d-a029-905d6bdaf5ab`** (provider `dpl_Egnf6wearH7b7CZsdtpb4d2NrMoK`) is READY at https://video-use.insforge.site. Source **`da7ae94`** on `feature/useful-video-library` gives every demo card a Higgsfield-inspired hover treatment in Video Use styling: a large centered white title above a compact dark-orange Copy Prompt button, a softly dimmed video background and a short fade/slide reveal. The separate title footer is removed. Natural portrait, square and landscape frames retain their ratios and masonry packing. Keyboard focus reveals the overlay; touch keeps it visible, with typography and spacing sized for narrow landscape cards. Copy feedback and full-player opening remain functional. No like or duration badges return.
+
+Production build and TypeScript, scoped lint, formatting and diff checks passed. Local and hosted review at 1440/390/320px verified all 137 cards with no clipping, overlaps, changed ratios, overflow or page errors. Three format-specific hover captures show the group centered within one pixel, roughly 24px desktop titles and compact 126px buttons. Mouse, keyboard and touch copying return the original full prompt; copying does not open the player, while clicking the video outside the copy control does. Overlays hide again after pointer/focus exit on desktop. Live desktop and phone captures were inspected.
+
+Both checkouts are synchronized, and the publication snapshot preserves the latest 13-second thought-sequence MCP film plus the banner punctuation and heavier separator. The gallery preference memory is updated. The local server and QA browsers are closed; no deployment remains in flight.
+
+Receipt and evidence: `/private/tmp/video-use-hover-overlay-qa/release.json`, `live-review.json`, `live-hover-portrait.png`, `live-hover-landscape.png` and `live-touch-320.png`.
