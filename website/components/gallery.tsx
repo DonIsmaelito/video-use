@@ -25,6 +25,7 @@ import { ConnectMcp } from '@/components/connect-mcp';
 import { McpFeature } from '@/components/mcp-feature';
 import { FeaturedFilm } from '@/components/featured-film';
 import { FeaturedCarousel } from '@/components/featured-carousel';
+import { McpConnections } from '@/components/mcp-connections';
 import { MasonryGallery } from '@/components/masonry-gallery';
 import productLaunch from '@/data/product-launch.json';
 import { PreviewMedia } from '@/components/preview-media';
@@ -272,6 +273,7 @@ export function Gallery() {
           </article>
         ))}
       </FeaturedCarousel>
+      <McpConnections />
       <section
         id="examples"
         className="gallery-section"

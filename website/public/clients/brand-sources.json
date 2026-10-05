@@ -27,6 +27,33 @@
       "archivePath": "General Logos/Cube/SVG/CUBE_2D_DARK.svg",
       "sha256": "cd0e3e5d8991a4cdd4577f8896cd063105207665165c73e25a1ff918dd367eb7",
       "usage": "Unmodified official mark identifying an MCP client. Trademark rights remain with its owner; not licensed under this repository MIT license. No endorsement or partnership is implied."
+    },
+    {
+      "file": "pi.svg",
+      "owner": "Pi",
+      "retrieved": "2026-10-05",
+      "sourcePage": "https://pi.dev/",
+      "sourceUrl": "https://pi.dev/favicon.svg?v=9ecf39d5-4916-44d8-bd58-d7e47eddede6",
+      "sha256": "d266b2c1d2c7bf169ca30d438963b176fba16fea6263b9ac30c8302f34ad7ce7",
+      "usage": "Unmodified official mark identifying an MCP client. Trademark rights remain with its owner; not licensed under this repository MIT license. No endorsement or partnership is implied."
+    },
+    {
+      "file": "hermes.png",
+      "owner": "Nous Research",
+      "retrieved": "2026-10-05",
+      "sourcePage": "https://hermes-agent.nousresearch.com/",
+      "sourceUrl": "https://hermes-agent.nousresearch.com/icon.png?icon.160vfo.zgihhn.png?dpl=dpl_5SwzN4E7oJQSXmmrcHwYz9EHkevZ",
+      "sha256": "5fbced606189c9bfc2925a16f8903333041cabbf1f8699fe9fe9b3e24504048f",
+      "usage": "Unmodified official mark identifying an MCP client. Trademark rights remain with its owner; not licensed under this repository MIT license. No endorsement or partnership is implied."
+    },
+    {
+      "file": "openclaw.svg",
+      "owner": "OpenClaw",
+      "retrieved": "2026-10-05",
+      "sourcePage": "https://openclaw.ai/press",
+      "sourceUrl": "https://openclaw.ai/favicon.svg",
+      "sha256": "fa7e2ec07ebfa696bcc8c27d7e36425cbb7b1772f6f7f04ce390cf5f1c35cf0e",
+      "usage": "Unmodified official mark identifying an MCP client. Trademark rights remain with its owner; not licensed under this repository MIT license. No endorsement or partnership is implied."
     }
   ]
 }
