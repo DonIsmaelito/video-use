@@ -98,23 +98,21 @@ function VideoCard({
             suspended={suspended}
           />
         </button>
-        <div className={`card-actions ${cardStyles.actions}`}>
-          <button
-            className={'copy-card ' + (copied ? 'copied' : '')}
-            type="button"
-            onClick={copy}
-            aria-label={'Copy prompt for ' + example.title}
-          >
-            {copied ? <Check size={14} /> : <Copy size={14} />}{' '}
-            {copied ? 'Copied' : 'Copy Prompt'}
-          </button>
-        </div>
-      </div>
-      <div className={cardStyles.footer}>
-        <div className={cardStyles.heading}>
-          <h3 className={cardStyles.title} title={example.title}>
-            {example.title}
-          </h3>
+        <div className={cardStyles.overlay}>
+          <div className={cardStyles.content}>
+            <h3 className={cardStyles.title} title={example.title}>
+              {example.title}
+            </h3>
+            <button
+              className={`copy-card ${cardStyles.copy} ${copied ? 'copied' : ''}`}
+              type="button"
+              onClick={copy}
+              aria-label={'Copy prompt for ' + example.title}
+            >
+              {copied ? <Check size={15} /> : <Copy size={15} />}
+              {copied ? 'Copied' : 'Copy Prompt'}
+            </button>
+          </div>
         </div>
       </div>
     </article>

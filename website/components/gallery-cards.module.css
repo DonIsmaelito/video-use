@@ -22,6 +22,7 @@
 
 .card:global(.video-card) {
   --media-ratio: 1.777777778;
+  container-type: inline-size;
   min-width: 0;
   border-radius: 12px;
   background: #141414;
@@ -41,53 +42,173 @@
 
 .frame:global(.video-frame) {
   aspect-ratio: var(--media-ratio);
-  border-radius: 12px 12px 0 0;
+  border-radius: 12px;
 }
 
 .frame:focus-visible {
   outline-offset: -3px;
 }
 
-.footer {
-  padding: 4px 10px 6px;
-}
-
-.heading {
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
   display: flex;
   align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: linear-gradient(180deg, #08080845, #08080899 48%, #08080873);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
   min-width: 0;
-  height: 36px;
+  transform: translateY(5px);
+  transition: transform 220ms ease;
 }
 
 .title {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-  flex: 1;
-  min-width: 0;
+  max-width: 100%;
   margin: 0;
   overflow: hidden;
+  color: #fff;
+  font-size: clamp(18px, 8.6cqi, 28px);
+  font-weight: 750;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  text-align: center;
+  text-transform: uppercase;
+  text-wrap: balance;
+  text-shadow: 0 2px 14px #0005;
+}
+
+.copy:global(.copy-card) {
+  flex: none;
+  height: 38px;
+  max-width: 100%;
+  gap: 7px;
+  padding-inline: 13px;
+  border: 1px solid color-mix(in srgb, var(--accent) 16%, transparent);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--accent) 17%, #14110e);
+  color: var(--accent);
   font-size: 12px;
-  line-height: 18px;
-  font-weight: 500;
+  font-weight: 650;
+  pointer-events: none;
+  transition:
+    background 160ms,
+    color 160ms,
+    border-color 160ms;
 }
 
-.actions:global(.card-actions) {
-  bottom: 10px;
-  left: 10px;
-  right: 10px;
+.copy:global(.copy-card) svg {
+  display: block;
+  flex-shrink: 0;
+  width: 15px;
+  height: 15px;
 }
 
-.actions :global(.copy-card) {
-  height: 36px;
-  border-radius: 8px;
-  font-size: 11px;
-  gap: 5px;
-  padding-inline: 6px;
+.copy:global(.copy-card):hover,
+.copy:global(.copy-card):focus-visible,
+.copy:global(.copy-card.copied) {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--accent-foreground);
 }
 
-.actions :global(.copy-card) svg {
-  display: none;
+.card:focus-within .overlay {
+  opacity: 1;
+}
+
+.card:focus-within .content {
+  transform: none;
+}
+
+.card:focus-within .copy {
+  pointer-events: auto;
+}
+
+@media (hover: hover) {
+  .card:hover .overlay {
+    opacity: 1;
+  }
+
+  .card:hover .content {
+    transform: none;
+  }
+
+  .card:hover .copy {
+    pointer-events: auto;
+  }
+}
+
+@media (hover: none) {
+  .overlay {
+    opacity: 1;
+    background: linear-gradient(180deg, #08080824, #08080880 48%, #08080845);
+  }
+
+  .content {
+    transform: none;
+  }
+
+  .copy:global(.copy-card) {
+    pointer-events: auto;
+  }
+}
+
+@container (max-width: 220px) {
+  .overlay {
+    padding: 12px;
+  }
+
+  .title {
+    -webkit-line-clamp: 3;
+    font-size: clamp(14px, 10cqi, 18px);
+    overflow-wrap: break-word;
+  }
+
+  .copy:global(.copy-card) {
+    height: 36px;
+    gap: 6px;
+    padding-inline: 10px;
+    font-size: 11px;
+  }
+
+  .card[data-orientation='landscape'] .overlay {
+    padding: 6px;
+  }
+
+  .card[data-orientation='landscape'] .content {
+    gap: 5px;
+  }
+
+  .card[data-orientation='landscape'] .title {
+    -webkit-line-clamp: 2;
+    font-size: clamp(13px, 8cqi, 17px);
+  }
+
+  .card[data-orientation='landscape'] .copy {
+    height: 30px;
+    gap: 5px;
+    padding-inline: 9px;
+    font-size: 11px;
+  }
+
+  .card[data-orientation='landscape'] .copy svg {
+    width: 12px;
+    height: 12px;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -99,17 +220,5 @@
 @media (min-width: 1280px) {
   .grid:global(.video-grid) {
     --gallery-columns: 4;
-  }
-}
-
-@media (max-width: 700px) {
-  .footer {
-    padding-inline: 8px;
-  }
-}
-
-@media (max-width: 380px) {
-  .actions :global(.copy-card) {
-    font-size: 10px;
   }
 }
