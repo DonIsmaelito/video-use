@@ -1,33 +1,33 @@
 {
-  "src": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors-175%2F3b8c52382ac9-autoplay.mp4?v=34a9332026e3e996915e91254f72eeef",
-  "video": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors-175%2F4f2023043ba6-final.mp4?v=1197af4048314924b2a477392e76af05",
-  "poster": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors%2F6a1783790a76-poster.jpg?v=cc28e7766ea145195ec34ec9631e9131",
-  "duration": 12.566667,
+  "src": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-thought%2F9c866cff6263-autoplay.mp4?v=1961750b8d489ec7e6c38911aa4dce15",
+  "video": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-thought%2Fb6f367626769-final.mp4?v=ef47fab172f47f5ba5eaf4dd64e222ff",
+  "poster": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-thought%2F6755f9961fc3-poster.jpg?v=781278a0d87130165dae71b2533daab0",
+  "duration": 13.0,
   "loop": true,
   "storage": {
     "autoplay.mp4": {
       "bucket": "site-media",
-      "key": "launches/20261005/mcp-launch-connectors-175/3b8c52382ac9-autoplay.mp4",
-      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors-175%2F3b8c52382ac9-autoplay.mp4?v=34a9332026e3e996915e91254f72eeef",
-      "sha256": "3b8c52382ac91006539b574097430449f274f885f876cf46e80729effe0f242d"
+      "key": "launches/20261005/mcp-launch-thought/9c866cff6263-autoplay.mp4",
+      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-thought%2F9c866cff6263-autoplay.mp4?v=1961750b8d489ec7e6c38911aa4dce15",
+      "sha256": "9c866cff6263816f2123fc875af8fc084e0d7296027fdfb060078977572cdce8"
     },
     "final.mp4": {
       "bucket": "site-media",
-      "key": "launches/20261005/mcp-launch-connectors-175/4f2023043ba6-final.mp4",
-      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors-175%2F4f2023043ba6-final.mp4?v=1197af4048314924b2a477392e76af05",
-      "sha256": "4f2023043ba63f2713a25a38a3502888bd3849334c01e203961320ec2926c714"
+      "key": "launches/20261005/mcp-launch-thought/b6f367626769-final.mp4",
+      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-thought%2Fb6f367626769-final.mp4?v=ef47fab172f47f5ba5eaf4dd64e222ff",
+      "sha256": "b6f3676267695736554f26668f01bb97fe593f6e3dda56c1882c98788670b8cc"
     },
     "poster.jpg": {
       "bucket": "site-media",
-      "key": "launches/20261005/mcp-launch-connectors/6a1783790a76-poster.jpg",
-      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors%2F6a1783790a76-poster.jpg?v=cc28e7766ea145195ec34ec9631e9131",
-      "sha256": "6a1783790a7696abf24bc7c2ce7e059af2818d12c13a583f8720db328e5a7820"
+      "key": "launches/20261005/mcp-launch-thought/6755f9961fc3-poster.jpg",
+      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-thought%2F6755f9961fc3-poster.jpg?v=781278a0d87130165dae71b2533daab0",
+      "sha256": "6755f9961fc3f108b3debc61f938a9b9d739a6cff8bd06dfe906ac010d2904b0"
     },
     "source.zip": {
       "bucket": "site-media",
-      "key": "launches/20261005/mcp-launch-connectors-175/cce08e0c5cc2-source.zip",
-      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors-175%2Fcce08e0c5cc2-source.zip?v=51bce2f5bf5d955848ebdb5da133c033",
-      "sha256": "cce08e0c5cc244959edb1ff8467cf327695c487f119a42b9789e16359a92e853"
+      "key": "launches/20261005/mcp-launch-thought/7921b03ac673-source.zip",
+      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-thought%2F7921b03ac673-source.zip?v=b778302104ee6273949dad0402597e4a",
+      "sha256": "7921b03ac673e7b66a940d2b279ffa9ce742fb493d489a0abfa745d0d4a2c15d"
     }
   }
 }

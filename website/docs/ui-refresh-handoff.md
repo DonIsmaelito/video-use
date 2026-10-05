@@ -480,3 +480,39 @@ Both media manifests now reference immutable assets under `site-media/launches/2
 Hosted checks at 1440px and 390px passed new homepage autoplay, MCP navigation, exact 12.566667-second 1080p playback, native looping, controls, reduced-motion pausing, focus return and no overflow or page errors. Live hero and phone-player captures were inspected. Product Launches retains its normal full-player behavior. The 137-clip catalog, Video type-first sidebar, removed likes UI and other guarded source files were preserved. Both checkouts are synchronized; the QA browser is closed and no deployment is in flight.
 
 Revision and evidence: `/Users/ismaelito/Movies/Video Use MCP Launch 20261005/edit/animations/slot_mcp_launch_175/`, including `qa-speed/deployment.json`, `qa-speed/live-review.json`, `qa-speed/public-assets.json`, `publication.json`, and the editable `source.zip`.
+
+
+### MCP introducing and thought sequence — in progress
+
+The root Video Use agent is revising the launch film at the user's request: a quick INTRODUCING opening, original white Browser Use mark, no protocol badge, a centered Browser Use mark with three arrows to the client logos below, suffix-only prompt changes, and a white word-by-word “Create and edit videos at the speed of thought” sequence immediately after Send. This pass owns the MCP media manifest, featured provenance and README description. Editable animation work is isolated in `Video Use MCP Launch 20261005/edit/animations/slot_mcp_launch_thought/`; publication receipts will be in `edit/revisions/thought/`. All earlier media versions are preserved. No other player or UI changes are planned. One reviewed deployment will follow; please avoid a conflicting deployment until the verified-live entry.
+
+
+### Announcement punctuation and separator — in progress
+
+The banner pass owns only `components/mcp-announcement.tsx` and `components/mcp-announcement.module.css`: remove the period after AI chat and give the decorative middle separator a thicker filled circle. Both checkouts will receive the reviewed change. The active MCP film thought revision owns publication; this banner pass will avoid a conflicting deployment and preserve all film assets. Please include the two banner files in the next reviewed website publication.
+
+
+### Announcement punctuation and separator — publishing independently
+
+Banner source `dc9fce8` is committed, pushed and synchronized in both checkouts. Local production build, lint, formatting and desktop/phone visual checks passed: no trailing period, a vertically centered 6px filled separator on desktop, and the existing stacked mobile copy. With no deployment currently in flight and the film revision still rendering, this pass is publishing an isolated snapshot of the currently live 1.75x film plus the two banner changes. This avoids pulling any unfinished film source into hosting. Please defer the thought-film deployment only until the following banner verified-live note; all newer film work remains untouched. Evidence is in `/private/tmp/video-use-banner-dot-qa/`.
+
+
+### Announcement punctuation and separator — verified live
+
+Deployment **`e55b2ee2-d055-4de0-97ab-1983a81f012e`** (provider `dpl_Ayo2R1k5xqjiD8RFXZhXXtYoUu9C`) is READY at https://video-use.insforge.site. Source **`dc9fce8`** on `feature/useful-video-library` removes the period after “Make videos in your AI chat” and replaces the small text separator with a filled 6px circle centered vertically beside the copy. `mcp-announcement.tsx` owns the text and decorative span; its CSS module owns the round separator. Existing banner color, typography, link and close behavior are unchanged. Mobile retains the two centered lines without a separator.
+
+The isolated production build and TypeScript, formatting and lint passed. Local and hosted 1440/390px checks verified the exact text, 6px desktop dot and vertical centering, hidden mobile dot, no overflow or page errors, setup navigation, dismissal persistence and focus return. Desktop and phone captures were inspected. Both banner files are synchronized in both checkouts. The current live 1.75x launch film and 137-entry gallery were preserved. The active thought-film revision can now publish; there is no banner deployment in flight, and the local server and QA browser are stopped. Leave its in-progress handoff notes intact.
+
+Evidence: `/private/tmp/video-use-banner-dot-qa/release.json`, `live-review.json`, `live-banner-1440.png` and `live-banner-390.png`.
+
+
+### Centered demo hover overlay — in progress
+
+The gallery UI pass owns `components/gallery.tsx` and `components/gallery-cards.module.css`: the user wants a Higgsfield-style centered, larger title over the media with a compact Copy Prompt button in the Video Use orange style. The title footer moves into the hover overlay; natural media proportions and masonry placement remain. Keyboard focus reveals the same controls; touch keeps them accessible. The README gallery-interaction sentences will be updated narrowly. This is an intentional concurrent change to gallery.tsx, which the thought-film revision protects by hash: preserve this reviewed change rather than restoring an older gallery baseline. No film manifests or animation sources are owned by this pass. One coordinated, reviewed publication will follow.
+
+
+### MCP introducing and thought sequence — release snapshot
+
+The 13-second film, 720p preview, white-logo poster and editable source archive are uploaded and byte-verified. All 390 semantic/decoded frames, normal playback, repeated seeks, the Send-to-word cut, card-size review and loop checks passed. Current MCP manifests are complete in both checkouts.
+
+The root film pass detected the active centered gallery overlay work after its production build/check/lint passed. To preserve that in-progress work, this film release uses an isolated snapshot of the latest committed website (including the verified banner punctuation/separator release) plus only the reviewed film manifest, provenance and README changes. No gallery working files are restored or overwritten, and the concurrent README gallery sentences stay in the working tree. The root film pass owns the imminent deployment; please defer another deployment until its verified-live entry, then include the newer film manifests with the gallery UI release. Snapshot and receipts are under `edit/revisions/thought/`. The gallery pass can continue editing its own files throughout.

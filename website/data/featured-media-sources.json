@@ -5,17 +5,18 @@
     {
       "id": "mcp-launch",
       "kind": "Original Video Use promotional motion design",
-      "duration": 12.566667,
+      "duration": 13.0,
       "referenceUrls": [
         "https://glam.ai/",
         "https://glam.ai/mcp"
       ],
-      "adaptation": "Original Browser Use identity, connector diagram and ChatGPT-style composer, following the user supplied Glam reference structure. Black white gray, Inter, and Browser Use orange #FE750E. The short requests type, hold and backspace; a cursor presses Send on the final complete request before the seamless return to the opening. Authored promotional illustration, not a recording of a live MCP call. No result footage or additional end card. Uniformly retimed to 1.75x from the approved 22-second edition at the user request.",
+      "adaptation": "Original Video Use film revised from the user supplied Glam reference structure. A quick white INTRODUCING opening leads into the original white Browser Use mark and minimal Video Use MCP identity. The centered mark connects downward to the three official client marks with individual arrows. A charcoal ChatGPT-style composer keeps the Create me a or Create me an prefix visible while replacing the request suffix. The final Send click cuts directly to white words spelling Create and edit videos at the speed of thought, then returns to the opening. The protocol badge is removed. Authored promotional illustration, not a recording of a live MCP call. No generated-result footage.",
       "authoredPrompts": [
         "Create me a product launch video.",
         "Create me a cinematic travel edit.",
         "Create me an animated explainer."
       ],
+      "closingSentence": "Create and edit videos at the speed of thought",
       "production": {
         "workflow": "Video Use motion-design",
         "renderer": "Deterministic HTML CSS SVG browser composition",
@@ -23,41 +24,35 @@
         "height": 1080,
         "fps": 30,
         "audio": "silent",
-        "loop": true,
-        "retime": {
-          "speed": 1.75,
-          "sourceDuration": 22,
-          "sourceMasterSha256": "b4bfc9f04fc3043c5eca76d823b0c822d49bdaf509eb70e3418291e0c916ac21",
-          "outputDuration": 12.566667
-        }
+        "loop": true
       },
       "storage": {
         "autoplay.mp4": {
           "bucket": "site-media",
-          "key": "launches/20261005/mcp-launch-connectors-175/3b8c52382ac9-autoplay.mp4",
-          "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors-175%2F3b8c52382ac9-autoplay.mp4?v=34a9332026e3e996915e91254f72eeef",
-          "sha256": "3b8c52382ac91006539b574097430449f274f885f876cf46e80729effe0f242d"
+          "key": "launches/20261005/mcp-launch-thought/9c866cff6263-autoplay.mp4",
+          "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-thought%2F9c866cff6263-autoplay.mp4?v=1961750b8d489ec7e6c38911aa4dce15",
+          "sha256": "9c866cff6263816f2123fc875af8fc084e0d7296027fdfb060078977572cdce8"
         },
         "final.mp4": {
           "bucket": "site-media",
-          "key": "launches/20261005/mcp-launch-connectors-175/4f2023043ba6-final.mp4",
-          "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors-175%2F4f2023043ba6-final.mp4?v=1197af4048314924b2a477392e76af05",
-          "sha256": "4f2023043ba63f2713a25a38a3502888bd3849334c01e203961320ec2926c714"
+          "key": "launches/20261005/mcp-launch-thought/b6f367626769-final.mp4",
+          "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-thought%2Fb6f367626769-final.mp4?v=ef47fab172f47f5ba5eaf4dd64e222ff",
+          "sha256": "b6f3676267695736554f26668f01bb97fe593f6e3dda56c1882c98788670b8cc"
         },
         "poster.jpg": {
           "bucket": "site-media",
-          "key": "launches/20261005/mcp-launch-connectors/6a1783790a76-poster.jpg",
-          "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors%2F6a1783790a76-poster.jpg?v=cc28e7766ea145195ec34ec9631e9131",
-          "sha256": "6a1783790a7696abf24bc7c2ce7e059af2818d12c13a583f8720db328e5a7820"
+          "key": "launches/20261005/mcp-launch-thought/6755f9961fc3-poster.jpg",
+          "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-thought%2F6755f9961fc3-poster.jpg?v=781278a0d87130165dae71b2533daab0",
+          "sha256": "6755f9961fc3f108b3debc61f938a9b9d739a6cff8bd06dfe906ac010d2904b0"
         },
         "source.zip": {
           "bucket": "site-media",
-          "key": "launches/20261005/mcp-launch-connectors-175/cce08e0c5cc2-source.zip",
-          "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors-175%2Fcce08e0c5cc2-source.zip?v=51bce2f5bf5d955848ebdb5da133c033",
-          "sha256": "cce08e0c5cc244959edb1ff8467cf327695c487f119a42b9789e16359a92e853"
+          "key": "launches/20261005/mcp-launch-thought/7921b03ac673-source.zip",
+          "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-thought%2F7921b03ac673-source.zip?v=b778302104ee6273949dad0402597e4a",
+          "sha256": "7921b03ac673e7b66a940d2b279ffa9ce742fb493d489a0abfa745d0d4a2c15d"
         }
       },
-      "sourceArchive": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors-175%2Fcce08e0c5cc2-source.zip?v=51bce2f5bf5d955848ebdb5da133c033",
+      "sourceArchive": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-thought%2F7921b03ac673-source.zip?v=b778302104ee6273949dad0402597e4a",
       "clientMarks": [
         {
           "file": "chatgpt.svg",
@@ -93,16 +88,17 @@
         "value": "#fe750e",
         "verified": "2026-10-04"
       },
+      "browserUseMarkColor": "#FFFFFF",
       "previousVersions": [
         {
           "id": "mcp-launch",
           "kind": "Original Video Use promotional motion design",
-          "duration": 22.0,
+          "duration": 12.566667,
           "referenceUrls": [
             "https://glam.ai/",
             "https://glam.ai/mcp"
           ],
-          "adaptation": "Original Browser Use identity, connector diagram and ChatGPT-style composer, following the user supplied Glam reference structure. Black white gray, Inter, and Browser Use orange #FE750E. The short requests type, hold and backspace; a cursor presses Send on the final complete request before the seamless return to the opening. Authored promotional illustration, not a recording of a live MCP call. No result footage or additional end card.",
+          "adaptation": "Original Browser Use identity, connector diagram and ChatGPT-style composer, following the user supplied Glam reference structure. Black white gray, Inter, and Browser Use orange #FE750E. The short requests type, hold and backspace; a cursor presses Send on the final complete request before the seamless return to the opening. Authored promotional illustration, not a recording of a live MCP call. No result footage or additional end card. Uniformly retimed to 1.75x from the approved 22-second edition at the user request.",
           "authoredPrompts": [
             "Create me a product launch video.",
             "Create me a cinematic travel edit.",
@@ -115,20 +111,26 @@
             "height": 1080,
             "fps": 30,
             "audio": "silent",
-            "loop": true
+            "loop": true,
+            "retime": {
+              "speed": 1.75,
+              "sourceDuration": 22,
+              "sourceMasterSha256": "b4bfc9f04fc3043c5eca76d823b0c822d49bdaf509eb70e3418291e0c916ac21",
+              "outputDuration": 12.566667
+            }
           },
           "storage": {
             "autoplay.mp4": {
               "bucket": "site-media",
-              "key": "launches/20261005/mcp-launch-connectors/5a910f856f09-autoplay.mp4",
-              "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors%2F5a910f856f09-autoplay.mp4?v=45baad39f94cac58d7638c494121c3c5",
-              "sha256": "5a910f856f0968f2402bda81be35796f4fdc424ea4d474f08f889602ba7c3eac"
+              "key": "launches/20261005/mcp-launch-connectors-175/3b8c52382ac9-autoplay.mp4",
+              "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors-175%2F3b8c52382ac9-autoplay.mp4?v=34a9332026e3e996915e91254f72eeef",
+              "sha256": "3b8c52382ac91006539b574097430449f274f885f876cf46e80729effe0f242d"
             },
             "final.mp4": {
               "bucket": "site-media",
-              "key": "launches/20261005/mcp-launch-connectors/b4bfc9f04fc3-final.mp4",
-              "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors%2Fb4bfc9f04fc3-final.mp4?v=60442e7794621b6c50ae98a22452500e",
-              "sha256": "b4bfc9f04fc3043c5eca76d823b0c822d49bdaf509eb70e3418291e0c916ac21"
+              "key": "launches/20261005/mcp-launch-connectors-175/4f2023043ba6-final.mp4",
+              "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors-175%2F4f2023043ba6-final.mp4?v=1197af4048314924b2a477392e76af05",
+              "sha256": "4f2023043ba63f2713a25a38a3502888bd3849334c01e203961320ec2926c714"
             },
             "poster.jpg": {
               "bucket": "site-media",
@@ -138,12 +140,12 @@
             },
             "source.zip": {
               "bucket": "site-media",
-              "key": "launches/20261005/mcp-launch-connectors/85cb26ea3761-source.zip",
-              "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors%2F85cb26ea3761-source.zip?v=d7366a0b993d07071d7471d1c5f9a127",
-              "sha256": "85cb26ea37618683dfcc890a923cc480266be6e177dfbc2081a035ccccefe842"
+              "key": "launches/20261005/mcp-launch-connectors-175/cce08e0c5cc2-source.zip",
+              "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors-175%2Fcce08e0c5cc2-source.zip?v=51bce2f5bf5d955848ebdb5da133c033",
+              "sha256": "cce08e0c5cc244959edb1ff8467cf327695c487f119a42b9789e16359a92e853"
             }
           },
-          "sourceArchive": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors%2F85cb26ea3761-source.zip?v=d7366a0b993d07071d7471d1c5f9a127",
+          "sourceArchive": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors-175%2Fcce08e0c5cc2-source.zip?v=51bce2f5bf5d955848ebdb5da133c033",
           "clientMarks": [
             {
               "file": "chatgpt.svg",
@@ -183,46 +185,134 @@
             {
               "id": "mcp-launch",
               "kind": "Original Video Use promotional motion design",
-              "duration": 12,
+              "duration": 22.0,
               "referenceUrls": [
                 "https://glam.ai/",
                 "https://glam.ai/mcp"
               ],
-              "adaptation": "One Inter family, monochrome composer, Browser Use orange (#FE750E) send action, no Browser Use marks. Authored prompt-to-video illustration, not a recording of a live MCP call.",
-              "resultFootage": {
-                "id": "useful-02-modular-desk",
-                "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-615152a4/final.mp4",
-                "sha256": "d8c7925327fda638d7b01038493b7678b5ab6683499fcc72c872fccc9d98e379",
-                "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-615152a4/source.zip",
-                "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-615152a4/review.md",
-                "role": "Existing Video Use original fictional product demonstration; excerpt from 11.9 to 18.7 seconds, no audio"
+              "adaptation": "Original Browser Use identity, connector diagram and ChatGPT-style composer, following the user supplied Glam reference structure. Black white gray, Inter, and Browser Use orange #FE750E. The short requests type, hold and backspace; a cursor presses Send on the final complete request before the seamless return to the opening. Authored promotional illustration, not a recording of a live MCP call. No result footage or additional end card.",
+              "authoredPrompts": [
+                "Create me a product launch video.",
+                "Create me a cinematic travel edit.",
+                "Create me an animated explainer."
+              ],
+              "production": {
+                "workflow": "Video Use motion-design",
+                "renderer": "Deterministic HTML CSS SVG browser composition",
+                "width": 1920,
+                "height": 1080,
+                "fps": 30,
+                "audio": "silent",
+                "loop": true
               },
               "storage": {
                 "autoplay.mp4": {
                   "bucket": "site-media",
-                  "key": "launches/20261004/mcp-launch-orange/c64c97f39e9b-autoplay.mp4",
-                  "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261004%2Fmcp-launch-orange%2Fc64c97f39e9b-autoplay.mp4?v=3c3f965ac8c441cdab2feae2ddc66683",
-                  "sha256": "c64c97f39e9b1a1a408c5e7d63adb834bf73802e1220de31872898114b55d2c4"
+                  "key": "launches/20261005/mcp-launch-connectors/5a910f856f09-autoplay.mp4",
+                  "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors%2F5a910f856f09-autoplay.mp4?v=45baad39f94cac58d7638c494121c3c5",
+                  "sha256": "5a910f856f0968f2402bda81be35796f4fdc424ea4d474f08f889602ba7c3eac"
                 },
                 "final.mp4": {
                   "bucket": "site-media",
-                  "key": "launches/20261004/mcp-launch-orange/f7e0647eb81f-final.mp4",
-                  "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261004%2Fmcp-launch-orange%2Ff7e0647eb81f-final.mp4?v=6889f5df4d982b198b9913b1e8eac0ba",
-                  "sha256": "f7e0647eb81f5c98fea87134c748aca026f6ba86da0d2c2d682f83aca68c6546"
+                  "key": "launches/20261005/mcp-launch-connectors/b4bfc9f04fc3-final.mp4",
+                  "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors%2Fb4bfc9f04fc3-final.mp4?v=60442e7794621b6c50ae98a22452500e",
+                  "sha256": "b4bfc9f04fc3043c5eca76d823b0c822d49bdaf509eb70e3418291e0c916ac21"
                 },
                 "poster.jpg": {
                   "bucket": "site-media",
-                  "key": "launches/20261004/mcp-launch-orange/88432c78fc67-poster.jpg",
-                  "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261004%2Fmcp-launch-orange%2F88432c78fc67-poster.jpg?v=1e2167ae8a16d3d60a72ed4837fa201d",
-                  "sha256": "88432c78fc67b54e16c50ddccc354ac4e55b2e73664456d48d5b4a534ae205d8"
+                  "key": "launches/20261005/mcp-launch-connectors/6a1783790a76-poster.jpg",
+                  "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors%2F6a1783790a76-poster.jpg?v=cc28e7766ea145195ec34ec9631e9131",
+                  "sha256": "6a1783790a7696abf24bc7c2ce7e059af2818d12c13a583f8720db328e5a7820"
+                },
+                "source.zip": {
+                  "bucket": "site-media",
+                  "key": "launches/20261005/mcp-launch-connectors/85cb26ea3761-source.zip",
+                  "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors%2F85cb26ea3761-source.zip?v=d7366a0b993d07071d7471d1c5f9a127",
+                  "sha256": "85cb26ea37618683dfcc890a923cc480266be6e177dfbc2081a035ccccefe842"
                 }
               },
+              "sourceArchive": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors%2F85cb26ea3761-source.zip?v=d7366a0b993d07071d7471d1c5f9a127",
+              "clientMarks": [
+                {
+                  "file": "chatgpt.svg",
+                  "owner": "OpenAI",
+                  "sourcePage": "https://openai.com/brand/",
+                  "sourceArchive": "https://cdn.openai.com/brand/openai-logos.zip",
+                  "archivePath": "OpenAI-logos/SVGs/OAI_OpenAI-Blossom_White.svg",
+                  "sha256": "01d158767c4eec0e47bd617e67759c33da0accd1438be1a8d29dfdb99ce87285",
+                  "usage": "Unmodified official mark identifying an MCP client. Trademark rights remain with its owner; not licensed under this repository MIT license. No endorsement or partnership is implied."
+                },
+                {
+                  "file": "claude.svg",
+                  "owner": "Anthropic",
+                  "sourcePage": "https://www.anthropic.com/news",
+                  "sourceArchive": "https://anthropic.com/press-kit",
+                  "archivePath": "Anthropic media resources/Anthropic logos/Claude logos/3 Claude Spark/SVG/Claude Spark - Clay.svg",
+                  "sha256": "6d53db4be375e899c937c26cf16684a80d6e869b1928d72b37748bef2560e219",
+                  "usage": "Unmodified official mark identifying an MCP client. Trademark rights remain with its owner; not licensed under this repository MIT license. No endorsement or partnership is implied."
+                },
+                {
+                  "file": "cursor.svg",
+                  "owner": "Anysphere",
+                  "sourcePage": "https://cursor.com/brand",
+                  "sourceArchive": "https://ptht05hbb1ssoooe.public.blob.vercel-storage.com/assets/brand/cursor-brand-assets.zip",
+                  "archivePath": "General Logos/Cube/SVG/CUBE_2D_DARK.svg",
+                  "sha256": "cd0e3e5d8991a4cdd4577f8896cd063105207665165c73e25a1ff918dd367eb7",
+                  "usage": "Unmodified official mark identifying an MCP client. Trademark rights remain with its owner; not licensed under this repository MIT license. No endorsement or partnership is implied."
+                }
+              ],
               "brandColor": {
                 "url": "https://browser-use.com/",
                 "cssVariable": "--pumpkin-500",
                 "value": "#fe750e",
                 "verified": "2026-10-04"
-              }
+              },
+              "previousVersions": [
+                {
+                  "id": "mcp-launch",
+                  "kind": "Original Video Use promotional motion design",
+                  "duration": 12,
+                  "referenceUrls": [
+                    "https://glam.ai/",
+                    "https://glam.ai/mcp"
+                  ],
+                  "adaptation": "One Inter family, monochrome composer, Browser Use orange (#FE750E) send action, no Browser Use marks. Authored prompt-to-video illustration, not a recording of a live MCP call.",
+                  "resultFootage": {
+                    "id": "useful-02-modular-desk",
+                    "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-615152a4/final.mp4",
+                    "sha256": "d8c7925327fda638d7b01038493b7678b5ab6683499fcc72c872fccc9d98e379",
+                    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-615152a4/source.zip",
+                    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-615152a4/review.md",
+                    "role": "Existing Video Use original fictional product demonstration; excerpt from 11.9 to 18.7 seconds, no audio"
+                  },
+                  "storage": {
+                    "autoplay.mp4": {
+                      "bucket": "site-media",
+                      "key": "launches/20261004/mcp-launch-orange/c64c97f39e9b-autoplay.mp4",
+                      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261004%2Fmcp-launch-orange%2Fc64c97f39e9b-autoplay.mp4?v=3c3f965ac8c441cdab2feae2ddc66683",
+                      "sha256": "c64c97f39e9b1a1a408c5e7d63adb834bf73802e1220de31872898114b55d2c4"
+                    },
+                    "final.mp4": {
+                      "bucket": "site-media",
+                      "key": "launches/20261004/mcp-launch-orange/f7e0647eb81f-final.mp4",
+                      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261004%2Fmcp-launch-orange%2Ff7e0647eb81f-final.mp4?v=6889f5df4d982b198b9913b1e8eac0ba",
+                      "sha256": "f7e0647eb81f5c98fea87134c748aca026f6ba86da0d2c2d682f83aca68c6546"
+                    },
+                    "poster.jpg": {
+                      "bucket": "site-media",
+                      "key": "launches/20261004/mcp-launch-orange/88432c78fc67-poster.jpg",
+                      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261004%2Fmcp-launch-orange%2F88432c78fc67-poster.jpg?v=1e2167ae8a16d3d60a72ed4837fa201d",
+                      "sha256": "88432c78fc67b54e16c50ddccc354ac4e55b2e73664456d48d5b4a534ae205d8"
+                    }
+                  },
+                  "brandColor": {
+                    "url": "https://browser-use.com/",
+                    "cssVariable": "--pumpkin-500",
+                    "value": "#fe750e",
+                    "verified": "2026-10-04"
+                  }
+                }
+              ]
             }
           ]
         }
