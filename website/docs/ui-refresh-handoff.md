@@ -585,3 +585,17 @@ Both checkouts are synchronized. The local server and QA browsers are stopped; n
 ### MCP connector showcase — in progress
 
 The root website pass is adding the requested Krea-inspired connector composition on the homepage between the featured launch-film carousel and the filterable demo library. The centered Browser Use mark will sit in a glowing white tile, with OpenAI and Claude nearest it and Cursor, Hermes, OpenClaw and Pi receding behind. This pass owns the new `mcp-connections` component/CSS, its single Gallery insertion, three official client assets/provenance and the matching README note. Existing media, banner, hover overlay, carousel and MCP page stay at the latest verified release. Review and deployment receipts will be under `/private/tmp/video-use-connector-qa/`.
+
+
+### MCP connector showcase — deployment starting
+
+Source **`4b8f03b`** is committed on `feature/useful-video-library` and guarded-synchronized to the original checkout. The isolated production build, TypeScript/catalog check, all 30 importer tests, lint and formatting passed. Desktop tiles match the reference's measured 52/64/76/104/76/64/52px sizing, 12px overlap, 32px white center corners, tiered blur and glow. Local 1508/1024/768/390/375/320px review passed exact centering, all six client marks, placement before the filters, all 137 demos, keyboard navigation to MCP, filtering and hover copying without overflow or page errors. Desktop, tablet and phone captures were inspected. New official Pi, Hermes and OpenClaw assets have verified provenance and checksums. The snapshot preserves the current launch film and gallery/banner sources. Root owns the imminent deployment; receipts are in `/private/tmp/video-use-connector-qa/`.
+
+
+### MCP connector showcase — verified live
+
+Deployment **`f38d622b-939b-49e5-8aa7-a53dec8efb4a`** (provider `dpl_GyAoP61JxpHWD6B5YzNNUs7fgjtA`) is READY at https://video-use.insforge.site. Source **`4b8f03b`** on `feature/useful-video-library` adds the requested Krea-style composition between the featured launch-video carousel and the demo filters. A softly fading 56px grid sits behind seven overlapping tiles: Browser Use in the glowing white center, OpenAI immediately left, Claude immediately right, then Cursor/Hermes and Pi/OpenClaw fading into the background. Tile sizes, corner radii, overlap, blur and glow follow the measured reference; the heading uses the site's Inter font. The center logo links to `/mcp`. All six client marks remain visible and centered on small phones.
+
+The isolated production build, TypeScript/catalog checks, 30 importer tests, lint and formatting passed. Local and live reviews at 1508/1024/768/390/375/320px verified placement, centering, no clipping or overflow, loaded logos, keyboard navigation, all 137 demos, filtering and hover Copy Prompt without page errors. All six hosted client assets match their recorded checksums. Desktop, tablet and phone captures were inspected. The existing film, banner, gallery styling and MCP landing page retain their baseline source hashes.
+
+Both checkouts are synchronized; the branch is pushed. The QA browser and local server are closed, and no deployment remains in flight. Evidence: `/private/tmp/video-use-connector-qa/release.json`, `live-review.json`, `public-assets.json`, `live-context-1508.png` and `live-section-320.png`.
