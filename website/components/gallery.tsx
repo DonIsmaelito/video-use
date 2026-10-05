@@ -19,6 +19,7 @@ import { FeaturedCarousel } from '@/components/featured-carousel';
 import { McpConnections } from '@/components/mcp-connections';
 import { MasonryGallery } from '@/components/masonry-gallery';
 import productLaunch from '@/data/product-launch.json';
+import featuredWorkflows from '@/data/featured-workflows.json';
 import { PreviewMedia } from '@/components/preview-media';
 import { TechniqueIcon } from '@/components/technique-icon';
 import cardStyles from '@/components/gallery-cards.module.css';
@@ -41,6 +42,11 @@ import {
 // the source catalog or its provenance. Filters and deep links still use all films.
 const openingIds = [
   'screen-demo-fuji-browser-tour',
+  'useful-52-show-then-do',
+  'useful-53-fold-zine-night',
+  'useful-51-cloud-seafloor',
+  'useful-55-solar-speedrun',
+  'useful-54-not-done-yet',
   'cloud-edit-travel',
   'useful-08-refill-product',
   'cloud-edit-podcast',
@@ -48,12 +54,21 @@ const openingIds = [
   'useful-09-cafe-promo',
   'useful-19-fulfilment-flow',
 ];
+const wideOpeningIds = new Set([
+  'useful-51-cloud-seafloor',
+  'useful-55-solar-speedrun',
+]);
 const galleryExamples = [
   ...openingIds.flatMap((id) =>
     examples.filter((example) => example.id === id),
   ),
   ...examples.filter((example) => !openingIds.includes(example.id)),
 ];
+// Featured captions describe the use case; each film keeps its own prompt and credits.
+const featuredExamples = featuredWorkflows.flatMap((workflow) => {
+  const example = examples.find((item) => item.id === workflow.exampleId);
+  return example ? [{ ...workflow, example }] : [];
+});
 
 function VideoCard({
   example,
@@ -75,6 +90,7 @@ function VideoCard({
       data-featured={
         example.id === 'screen-demo-fuji-browser-tour' || undefined
       }
+      data-wide={wideOpeningIds.has(example.id) || undefined}
       aria-label={example.title}
     >
       <div className={cardStyles.media}>
@@ -121,10 +137,6 @@ export function Gallery() {
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const manualText = useRef<HTMLTextAreaElement>(null);
   const visible = filterExamples(filters, galleryExamples);
-  // Keep the hero order explicit: MCP, Product Launches, Movie Edit (Whiplash).
-  const featuredExamples = examples.filter(
-    (example) => example.id === 'whiplash-cinematic-story-edit',
-  );
   const filterCount =
     filters.audiences.length +
     filters.useCases.length +
@@ -228,13 +240,16 @@ export function Gallery() {
           subtitle="Turn your product into a launch worth watching."
           suspended={selected !== null || !!manualCopy}
         />
-        {featuredExamples.map((example) => (
+        {featuredExamples.map(({ example, title, description, fit }) => (
           <article className="featured-card" key={example.id}>
             <button
               type="button"
-              className="featured-frame featured-frame-fill"
+              className={
+                'featured-frame' +
+                (fit === 'cover' ? ' featured-frame-fill' : '')
+              }
               onClick={() => openExample(example)}
-              aria-label="Watch Movie Edit"
+              aria-label={`Watch ${title}`}
             >
               <PreviewMedia
                 src={example.video}
@@ -248,9 +263,9 @@ export function Gallery() {
             </button>
             <div className="featured-caption">
               <button type="button" onClick={() => openExample(example)}>
-                Movie Edit
+                {title}
               </button>
-              <span>Turn movie clips into cinematic stories.</span>
+              <span>{description}</span>
             </div>
           </article>
         ))}

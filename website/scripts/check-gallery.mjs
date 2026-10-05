@@ -49,6 +49,21 @@ assert.ok(
   examples.length >= 16,
   'The initial gallery should include sixteen real examples',
 );
+const featuredWorkflows = require('../data/featured-workflows.json');
+assert.equal(featuredWorkflows.length + 2, 8, 'Keep eight featured use cases');
+assert.equal(
+  new Set(featuredWorkflows.map((item) => item.exampleId)).size,
+  featuredWorkflows.length,
+  'Each featured workflow needs a distinct reviewed example',
+);
+for (const workflow of featuredWorkflows) {
+  assert.ok(
+    examples.some((example) => example.id === workflow.exampleId),
+    `${workflow.title}: publish its reviewed example before featuring it`,
+  );
+  assert.ok(workflow.title.trim() && workflow.description.trim());
+  assert.ok(['cover', 'contain'].includes(workflow.fit));
+}
 assert.deepEqual(filterExamples('All examples'), examples);
 assert.equal(new Set(categories).size, categories.length);
 assert.deepEqual(

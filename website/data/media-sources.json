@@ -4744,5 +4744,175 @@
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/social-17-developer-insight-d37345dc6b3c-dd50ac9c/poster.jpg"
       }
     ]
+  },
+  {
+    "id": "useful-41-gaming-highlights",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "featured-five-20261005",
+    "sourceRun": "useful-41-gaming-highlights",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "high",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "5387d392c29b040afdec23f5b36ceb3b2e4d84a3",
+    "frameworkArchiveSha256": "e11cbf49715b8acbfb556dd26cde5b5c1a50842dc3583d5a9293baf02a323e1b",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "2b5a37520e41b09d7c1248744a3d4876ccabd596e8506732221945924cc3525a",
+    "promptSource": "Original Video Use featured-carousel brief authored for this production. No external prompt or game footage copied.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-41-gaming-highlights-2b5a37520e41-96682144/source.zip",
+    "editableSourceSha256": "e15dbe4ec992a8b6da5cafca0299024e9209508ac2d12a6a16eda5ddd6d9af4d",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/featured-five-20261005/useful-41-gaming-highlights/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-41-gaming-highlights-2b5a37520e41-96682144/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-41-gaming-highlights-2b5a37520e41-96682144/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-41-gaming-highlights-2b5a37520e41-96682144/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-41-gaming-highlights-2b5a37520e41-96682144/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-41-gaming-highlights-2b5a37520e41-96682144/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-41-gaming-highlights-2b5a37520e41-96682144/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-41-gaming-highlights-2b5a37520e41-96682144/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-42-social-recaps",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "featured-five-20261005",
+    "sourceRun": "useful-42-social-recaps",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "high",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "5387d392c29b040afdec23f5b36ceb3b2e4d84a3",
+    "frameworkArchiveSha256": "e11cbf49715b8acbfb556dd26cde5b5c1a50842dc3583d5a9293baf02a323e1b",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "db38c8ba843786c7e8a3db798115b1ca5bc1c2190cb3bfc3411357bf5e72b39b",
+    "promptSource": "Original Video Use featured-carousel brief authored for this production. All characters, location, sequence and artwork are fictional and newly authored.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-42-social-recaps-db38c8ba8437-8a8d4a88/source.zip",
+    "editableSourceSha256": "42444a94cee261aa9cf3b165014b29b1313d2d0541063fe4d8a554cdade73600",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/featured-five-20261005/useful-42-social-recaps/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-42-social-recaps-db38c8ba8437-8a8d4a88/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-42-social-recaps-db38c8ba8437-8a8d4a88/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-42-social-recaps-db38c8ba8437-8a8d4a88/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-42-social-recaps-db38c8ba8437-8a8d4a88/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-42-social-recaps-db38c8ba8437-8a8d4a88/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-42-social-recaps-db38c8ba8437-8a8d4a88/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-42-social-recaps-db38c8ba8437-8a8d4a88/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-43-product-ads",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "featured-five-20261005",
+    "sourceRun": "useful-43-product-ads",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "high",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "5387d392c29b040afdec23f5b36ceb3b2e4d84a3",
+    "frameworkArchiveSha256": "e11cbf49715b8acbfb556dd26cde5b5c1a50842dc3583d5a9293baf02a323e1b",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "30efb9088f6cacc137ce183e141c3afe939adc7ce7ee77197c0820dfe9752b21",
+    "promptSource": "Original Video Use creative brief written for the featured Product Ads film. No upstream prompt, third-party design or media copied.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-43-product-ads-30efb9088f6c-92dcd72f/source.zip",
+    "editableSourceSha256": "ba8870d482b46927bef6868ebcf5bd3f8ecff79013835bd369b9eb5e04c4a782",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/featured-five-20261005/useful-43-product-ads/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-43-product-ads-30efb9088f6c-92dcd72f/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-43-product-ads-30efb9088f6c-92dcd72f/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-43-product-ads-30efb9088f6c-92dcd72f/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-43-product-ads-30efb9088f6c-92dcd72f/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-43-product-ads-30efb9088f6c-92dcd72f/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-43-product-ads-30efb9088f6c-92dcd72f/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-43-product-ads-30efb9088f6c-92dcd72f/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-44-app-demos",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "featured-five-20261005",
+    "sourceRun": "useful-44-app-demos",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "high",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "5387d392c29b040afdec23f5b36ceb3b2e4d84a3",
+    "frameworkArchiveSha256": "e11cbf49715b8acbfb556dd26cde5b5c1a50842dc3583d5a9293baf02a323e1b",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "11a81b26eb7228ee169467f12db11df47f6e3c93aa922c0d23fe20766a2103a1",
+    "promptSource": "Original Video Use creative brief written for the featured App Demos film. All application identity, interface, poster, sample records and copy are fictional and newly authored.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-44-app-demos-11a81b26eb72-58fbaa91/source.zip",
+    "editableSourceSha256": "530d719bf01737e20c453e6726ac3845b0a60d8b38ae11b84ceceb9c2bb1e55c",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/featured-five-20261005/useful-44-app-demos/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-44-app-demos-11a81b26eb72-58fbaa91/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-44-app-demos-11a81b26eb72-58fbaa91/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-44-app-demos-11a81b26eb72-58fbaa91/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-44-app-demos-11a81b26eb72-58fbaa91/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-44-app-demos-11a81b26eb72-58fbaa91/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-44-app-demos-11a81b26eb72-58fbaa91/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-44-app-demos-11a81b26eb72-58fbaa91/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-45-visual-explainers",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "featured-five-20261005",
+    "sourceRun": "useful-45-visual-explainers",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "high",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "5387d392c29b040afdec23f5b36ceb3b2e4d84a3",
+    "frameworkArchiveSha256": "e11cbf49715b8acbfb556dd26cde5b5c1a50842dc3583d5a9293baf02a323e1b",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "f43a6707715b4bb6ee7ccb5afcf3ed28e077355468c0bb96d4ab955246cdf66b",
+    "promptSource": "Original Video Use teaching brief. Factual mechanism checked against primary manufacturer explanations on 2026-10-05; original wording, mathematical illustration, art and animation.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-45-visual-explainers-f43a6707715b-399e5e66/source.zip",
+    "editableSourceSha256": "b1c6239caf3890f4207a49240939951496fb6720121a8c05ac6813cd4ac2ff27",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/featured-five-20261005/useful-45-visual-explainers/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-45-visual-explainers-f43a6707715b-399e5e66/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-45-visual-explainers-f43a6707715b-399e5e66/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-45-visual-explainers-f43a6707715b-399e5e66/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-45-visual-explainers-f43a6707715b-399e5e66/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-45-visual-explainers-f43a6707715b-399e5e66/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-45-visual-explainers-f43a6707715b-399e5e66/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-45-visual-explainers-f43a6707715b-399e5e66/poster.jpg"
+      }
+    ]
   }
 ]

@@ -1,0 +1,38 @@
+[
+  {
+    "exampleId": "whiplash-cinematic-story-edit",
+    "title": "Movie Edit",
+    "description": "Turn movie clips into cinematic stories.",
+    "fit": "cover"
+  },
+  {
+    "exampleId": "useful-41-gaming-highlights",
+    "title": "Gaming Highlights",
+    "description": "Turn your best plays into highlights worth replaying.",
+    "fit": "contain"
+  },
+  {
+    "exampleId": "useful-42-social-recaps",
+    "title": "Social Recaps",
+    "description": "Make everyday moments worth watching again.",
+    "fit": "contain"
+  },
+  {
+    "exampleId": "useful-43-product-ads",
+    "title": "Product Ads",
+    "description": "Give your products a moment in the spotlight.",
+    "fit": "contain"
+  },
+  {
+    "exampleId": "useful-44-app-demos",
+    "title": "App Demos",
+    "description": "Show how your app works, one clear move at a time.",
+    "fit": "contain"
+  },
+  {
+    "exampleId": "useful-45-visual-explainers",
+    "title": "Visual Explainers",
+    "description": "Make big ideas easy to see and understand.",
+    "fit": "contain"
+  }
+]

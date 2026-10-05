@@ -1,4 +1,4 @@
-/* Natural-height media with a larger lead card and 8px seams.
+/* Natural-height media with selected wide cards and 8px seams.
    The regular grid remains usable before the masonry enhancement hydrates. */
 .grid:global(.video-grid) {
   --gallery-columns: 2;
@@ -30,7 +30,8 @@
   background: #141414;
 }
 
-.card[data-featured='true'] {
+.card[data-featured='true'],
+.card[data-wide='true'] {
   --gallery-span: 2;
 }
 
@@ -98,7 +99,8 @@
   text-shadow: 0 2px 14px #0005;
 }
 
-.card[data-featured='true'] .title {
+.card[data-featured='true'] .title,
+.card[data-wide='true'] .title {
   font-size: clamp(24px, 5cqi, 44px);
 }
 
@@ -225,10 +227,19 @@
   .grid:global(.video-grid) {
     --gallery-columns: 3;
   }
+
+  /* Keep adjacent portrait cards from leaving a hole in a three-column grid. */
+  .card[data-wide='true'] {
+    --gallery-span: 1;
+  }
 }
 
 @media (min-width: 1280px) {
   .grid:global(.video-grid) {
     --gallery-columns: 4;
+  }
+
+  .card[data-wide='true'] {
+    --gallery-span: 2;
   }
 }
