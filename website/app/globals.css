@@ -309,6 +309,11 @@ summary {
 .featured-frame .preview-media .card-poster {
   object-fit: contain;
 }
+/* The Movie Edit preview fills its tile; its full player keeps the entire frame. */
+.featured-frame-fill .preview-media video,
+.featured-frame-fill .preview-media .card-poster {
+  object-fit: cover;
+}
 .featured-watch {
   position: absolute;
   right: 16px;

@@ -232,7 +232,7 @@ export function Gallery() {
           <article className="featured-card" key={example.id}>
             <button
               type="button"
-              className="featured-frame"
+              className="featured-frame featured-frame-fill"
               onClick={() => openExample(example)}
               aria-label="Watch Movie Edit"
             >
