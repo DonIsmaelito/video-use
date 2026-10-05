@@ -19,7 +19,8 @@ workflows and the archived Whiplash edit. The separate MCP launch film runs for
   Creative prompts remain separate from the production wrapper. Inspiration,
   copied code, licensed footage and original artwork have distinct credits.
 - `experiments/useful_video_library.py` freezes the selected framework files,
-  starts at most four creative containers, collects output, runs encoded-media
+  starts up to four creative containers by default (an explicit
+  `--max-concurrency 1..8` selects another bound), collects output, runs encoded-media
   checks and packages source. Each film keeps its actual producer commit and
   file hashes after later shared-tool improvements.
 - `TOOL-GAPS.md` records which production findings became shared helpers and
@@ -35,6 +36,27 @@ workflows and the archived Whiplash edit. The separate MCP launch film runs for
   and builds the chat handoff. A copied example retains the existing request's
   subject, brand, audience, format and involvement choices. The MCP workflow
   still asks for snippet acceptance when that interaction mode requires it.
+
+## Explicit production settings
+
+For five simultaneous Astra high-effort films, validate first, then use the same
+settings for runtime verification and production:
+
+```sh
+uv run --extra mcp python -m experiments.useful_video_library validate --briefs /path/five.json --reasoning-effort high --max-concurrency 5
+uv run --extra mcp python -m experiments.useful_video_library verify --output /path/evidence --reasoning-effort high --max-concurrency 5
+uv run --extra mcp python -m experiments.useful_video_library run --briefs /path/five.json --batch featured-five --output /path/evidence --reasoning-effort high --max-concurrency 5
+```
+
+`validate` is offline; `verify`, `run`, and `repair` start paid workers and require
+Python 3.12. The default remains `gpt-6-astra` with medium reasoning and at most
+four briefs. A batch must fit its explicit concurrency limit (never more than
+eight); it does not silently queue an oversized batch. Each run, verification,
+and call record includes the model, reasoning effort and configured concurrency
+limit. These record execution settings, not a guarantee that every container
+started at the same instant. Repairs inherit the selected previous attempt's
+effort and concurrency unless explicitly overridden; older records without a
+concurrency field use four. Re-auditing leaves original producer settings intact.
 
 ## Review and replay
 

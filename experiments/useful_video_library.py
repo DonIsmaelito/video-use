@@ -38,6 +38,9 @@ VOLUME_NAME = "video-use-useful-library-20261003"
 APP_NAME = "video-use-useful-library"
 MODEL = "gpt-6-astra"
 EFFORT = "medium"
+REASONING_EFFORTS = ("low", "medium", "high", "xhigh")
+DEFAULT_CONCURRENCY = 4
+MAX_CONCURRENCY = 8
 CODEX_VERSION = "0.153.4"
 SOURCE_REPOSITORY = "https://github.com/DonIsmaelito/video-use"
 SOURCE_TREES = ("helpers", "skills", "references", "assets")
@@ -164,12 +167,29 @@ def normalize_brief(value: dict) -> dict:
     return brief
 
 
-def load_briefs(path: Path) -> list[dict]:
+def bounded_concurrency(value: int) -> int:
+    if isinstance(value, bool) or not isinstance(value, int) or not 1 <= value <= MAX_CONCURRENCY:
+        raise ValueError(f"Max concurrency must be an integer between 1 and {MAX_CONCURRENCY}")
+    return value
+
+
+def runtime_settings(*, reasoning_effort: str | None = None, max_concurrency: int | None = None,
+                     previous: dict | None = None) -> dict:
+    previous = previous or {}
+    effort = reasoning_effort if reasoning_effort is not None else previous.get("reasoning_effort", EFFORT)
+    if effort not in REASONING_EFFORTS:
+        raise ValueError("Unsupported reasoning effort")
+    concurrency = max_concurrency if max_concurrency is not None else previous.get("max_concurrency", DEFAULT_CONCURRENCY)
+    return {"model": MODEL, "reasoning_effort": effort, "max_concurrency": bounded_concurrency(concurrency)}
+
+
+def load_briefs(path: Path, *, max_concurrency: int = DEFAULT_CONCURRENCY) -> list[dict]:
+    limit = bounded_concurrency(max_concurrency)
     values = json.loads(path.read_text())
     if isinstance(values, dict):
         values = values.get("briefs")
-    if not isinstance(values, list) or not 1 <= len(values) <= 4:
-        raise ValueError("Select one to four explicit briefs for a batch")
+    if not isinstance(values, list) or not 1 <= len(values) <= limit:
+        raise ValueError(f"Select one to {limit} explicit briefs for a batch; use --max-concurrency to set the limit")
     briefs = [normalize_brief(value) for value in values]
     if len({brief["id"] for brief in briefs}) != len(briefs):
         raise ValueError("A batch cannot contain duplicate example IDs")
@@ -182,7 +202,7 @@ def technical_instructions(brief: dict, *, repair: str = "") -> str:
 
 Keep the original creative prompt unchanged in edit/creative-prompt.txt. The parent has already supplied the exact producer commit, public repository and file hashes in edit/video-use-framework.json; preserve and reference that identity. Do not replace it with a guessed GitHub default-branch baseline or claim the supplied helpers are absent at the recorded commit without checking its recorded files. All authored project assets belong inside edit/. The shared /opt/video-use framework is read-only by policy: never change it. When a useful new tool is missing, implement it under edit/tool-proposals/ with a README, minimal focused checks and a list of dependencies; use that local tool for this project. Record existing tools used, actual new tools and remaining gaps in edit/tool_gaps.json. The parent will review and integrate reusable tools into the branch and next container snapshot. Install any truly necessary extra package only into this project and pin its version; record the command and license. Do not push, deploy, publish, sign up, submit forms or spend on outside generation services.
 
-Installed: FFmpeg/FFprobe, Python with Manim/OpenCV/Pillow/numpy/librosa, LaTeX, Node22, Chromium, Three.js, Puppeteer and GSAP. Browser dependencies: /opt/video-use/skills/motion-design/runtime. Extra GSAP: /opt/video-use-extra/node_modules/gsap. Browser render: node /opt/video-use/helpers/motion_render.mjs your.html -o edit/final.mp4 --duration {brief['duration']} --width {brief['width']} --height {brief['height']} --fps 30 --deps /opt/video-use/skills/motion-design/runtime --chrome /usr/bin/chromium. Use absolute deterministic window.seek(seconds), local assets and motionReady; never wall-clock recording. For true 3D use real meshes, a perspective camera, lights and contact shadows (Three.js or installed Blender), never simulate the requested geometry with a flat slideshow. Existing Manim chapters, render_scene, media_sequence and assembly helpers remain available; choose the right engine. For films about Video Use itself, its actual logo, Instrument Serif and Inter fonts, and OFL licenses are in /opt/video-use/brand. Its public site is https://video-use.insforge.site and its palette is black #000000, near-white #f1f0ee and lavender #b28af7. Open-source prompt-inspiration repositories do not supply Video Use's logo. Fictional customer products should keep their own requested original branding.
+Installed: FFmpeg/FFprobe, Python with Manim/OpenCV/Pillow/numpy/librosa, LaTeX, Node22, Chromium, Three.js, Puppeteer and GSAP. Browser dependencies: /opt/video-use/skills/motion-design/runtime. Extra GSAP: /opt/video-use-extra/node_modules/gsap. Browser render: node /opt/video-use/helpers/motion_render.mjs your.html -o edit/final.mp4 --duration {brief['duration']} --width {brief['width']} --height {brief['height']} --fps 30 --deps /opt/video-use/skills/motion-design/runtime --chrome /usr/bin/chromium. Use absolute deterministic window.seek(seconds), local assets and motionReady; never wall-clock recording. For true 3D use real meshes, a perspective camera, lights and contact shadows (Three.js or installed Blender), never simulate the requested geometry with a flat slideshow. Existing Manim chapters, render_scene, media_sequence and assembly helpers remain available; choose the right engine. For films about Video Use itself, its actual logo, Instrument Serif and Inter fonts, and OFL licenses are in /opt/video-use/brand. Its public site is https://video-use.insforge.site and its palette is black #000000, near-white #f1f0ee and orange #FE750E. Open-source prompt-inspiration repositories do not supply Video Use's logo. Fictional customer products should keep their own requested original branding.
 
 Deliver exactly {brief['width']}×{brief['height']} at 30 fps for {brief['duration']} seconds ({round(brief['duration'] * 30)} frames), H.264 yuv420p with MP4 faststart, at edit/final.mp4. Match requested audio; when none is needed, avoid adding empty audio streams. Any requested sound must be original or licensed with source records. Existing original tap/slide synthesis: python /opt/video-use/helpers/tactile_audio.py edit/sound-events.json -o edit/assets/tactile.wav; read skills/motion-design/references/tactile-audio.md for the event contract. This creates procedural accents, not recorded Foley. Existing motion_audio.py analyzes a soundtrack and does not synthesize it. Draft at lower resolution first, inspect actual encoded frames with view_image including moving and settled states, opening, ending, then repair visible problems before the final render. Give reading and payoff frames time. A contact sheet existing on disk is not evidence that you inspected it. Final technical review: python /opt/video-use/helpers/motion_qa.py edit/final.mp4 --expect-width {brief['width']} --expect-height {brief['height']} --expect-fps 30 --expect-duration {brief['duration']} --output-dir edit/verify. Inspect its contact sheet and selected full-size encoded frames. Do not replace a specific useful brief with a generic slide deck. Wait for every render before ending; nothing continues automatically after your turn.
 
@@ -202,8 +222,9 @@ ORIGINAL CREATIVE PROMPT:
 """
 
 
-def codex_command(project: Path, last_message: Path) -> list[str]:
-    command = ["codex", "exec", "--model", MODEL, "-c", f'model_reasoning_effort="{EFFORT}"',
+def codex_command(project: Path, last_message: Path, *, reasoning_effort: str = EFFORT) -> list[str]:
+    settings = runtime_settings(reasoning_effort=reasoning_effort)
+    command = ["codex", "exec", "--model", settings["model"], "-c", f'model_reasoning_effort="{settings["reasoning_effort"]}"',
             "-c", "project_doc_max_bytes=0", "--ephemeral", "--ignore-user-config", "--skip-git-repo-check",
             "--dangerously-bypass-approvals-and-sandbox", "--json", "--color", "never",
             "--output-last-message", str(last_message), "-C", str(project)]
@@ -212,7 +233,8 @@ def codex_command(project: Path, last_message: Path) -> list[str]:
     return command + ["-"]
 
 
-def execute_agent(project: Path, evidence: Path, prompt: str, volume, timeout: int = 6800) -> int:
+def execute_agent(project: Path, evidence: Path, prompt: str, volume, timeout: int = 6800,
+                  *, reasoning_effort: str = EFFORT) -> int:
     # This path is outside the Volume. Never package it or expose its contents.
     raw = os.environ.get("CODEX_AUTH_JSON", "")
     if not raw:
@@ -228,7 +250,7 @@ def execute_agent(project: Path, evidence: Path, prompt: str, volume, timeout: i
     try:
         with (evidence / "codex.jsonl").open("w") as out, (evidence / "codex.stderr.log").open("w") as err:
             environment = {key: value for key, value in os.environ.items() if key != "CODEX_AUTH_JSON"}
-            process = subprocess.Popen(codex_command(project, evidence / "agent-final.txt"), stdin=subprocess.PIPE,
+            process = subprocess.Popen(codex_command(project, evidence / "agent-final.txt", reasoning_effort=reasoning_effort), stdin=subprocess.PIPE,
                                        stdout=out, stderr=err, text=True, start_new_session=True, env=environment)
             process.stdin.write(prompt)
             process.stdin.close()
@@ -370,7 +392,8 @@ def updated_audit_record(metadata: dict, audit: dict, source: dict, audited_at: 
     return result
 
 
-def runtime_app():
+def runtime_app(*, reasoning_effort: str = EFFORT, max_concurrency: int = DEFAULT_CONCURRENCY):
+    settings = runtime_settings(reasoning_effort=reasoning_effort, max_concurrency=max_concurrency)
     import modal
     from video_use_mcp.sandbox import worker_dependency_image, worker_image
 
@@ -395,7 +418,7 @@ def runtime_app():
     # turns cannot safely restart over an existing authored attempt. Reserve
     # nonpreemptible CPU/memory; explicit repairs preserve prior work instead.
     # https://modal.com/docs/guide/preemption (3x CPU/memory rate, not model cost)
-    options = dict(image=image, cpu=8, memory=16384, timeout=7200, max_containers=4, serialized=True, nonpreemptible=True,
+    options = dict(image=image, cpu=8, memory=16384, timeout=7200, max_containers=settings["max_concurrency"], serialized=True, nonpreemptible=True,
                    retries=0, volumes={"/results": volume}, secrets=[modal.Secret.from_name("video-use-codex")])
 
     @app.function(**options)
@@ -424,14 +447,14 @@ def runtime_app():
         (root / "technical-input.txt").write_text(prompt)
         write_json(root / "brief.json", brief)
         write_json(root / "framework.json", source)
-        metadata = {"batch": batch, "id": brief["id"], "attempt": attempt, "model": MODEL, "reasoning_effort": EFFORT,
+        metadata = {"batch": batch, "id": brief["id"], "attempt": attempt, **settings,
                     "codex_version": CODEX_VERSION, "container_id": os.environ.get("MODAL_TASK_ID"),
                     "started_at": time.time(), "status": "running", "runtime_sha256": source["runtime_sha256"],
                     "framework_commit": source["commit"], "framework_branch": source["branch"], "project": str(project)}
         write_json(root / "run.json", metadata)
         volume.commit()
         try:
-            metadata["exit_code"] = execute_agent(project, root, prompt, volume)
+            metadata["exit_code"] = execute_agent(project, root, prompt, volume, reasoning_effort=settings["reasoning_effort"])
             metadata["audit"] = audit_project(project, brief, root)
             metadata["status"] = "awaiting_review" if metadata["exit_code"] == 0 and metadata["audit"]["technical_pass"] else "needs_repair"
         except Exception as exc:
@@ -473,12 +496,12 @@ def runtime_app():
                             "--deps", str(REMOTE / "skills/motion-design/runtime"), "--chrome", "/usr/bin/chromium"],
                            stdout=log, stderr=subprocess.STDOUT, check=True, timeout=180)
         prompt = 'This is a minimal authorized container authentication smoke test. Run Python to write auth-smoke.json in the current directory containing exactly {"ok": true, "task": "video-use-container-smoke"}. Read no files, inspect no credentials or environment variables, use no network or other agents, then report done.'
-        code = execute_agent(project, root, prompt, volume, timeout=180)
+        code = execute_agent(project, root, prompt, volume, timeout=180, reasoning_effort=settings["reasoning_effort"])
         marker = project / "auth-smoke.json"
         authenticated = code == 0 and marker.is_file() and json.loads(marker.read_text()) == {"ok": True, "task": "video-use-container-smoke"}
         result = {"ok": authenticated, "auth_exit_code": code, "versions": versions,
                   "runtime_sha256": source["runtime_sha256"], "container_id": os.environ.get("MODAL_TASK_ID"),
-                  "path": str(root), "model": MODEL, "reasoning_effort": EFFORT}
+                  "path": str(root), **settings}
         write_json(root / "result.json", result)
         volume.commit()
         return result
@@ -601,13 +624,18 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--repair-file", type=Path)
     parser.add_argument("--output", type=Path, default=Path("/tmp/video-use-useful-library"))
     parser.add_argument("--include-logs", action="store_true")
+    parser.add_argument("--reasoning-effort", choices=REASONING_EFFORTS,
+                        help="Agent reasoning effort (default: medium; repairs inherit the prior attempt)")
+    parser.add_argument("--max-concurrency", type=int, choices=range(1, MAX_CONCURRENCY + 1),
+                        help="Maximum simultaneous briefs (default: 4; repairs inherit the prior attempt)")
     args = parser.parse_args(argv)
+    settings = runtime_settings(reasoning_effort=args.reasoning_effort, max_concurrency=args.max_concurrency)
     if args.mode in {"validate", "run"}:
         if not args.briefs:
             parser.error("--briefs is required")
-        briefs = load_briefs(args.briefs)
+        briefs = load_briefs(args.briefs, max_concurrency=settings["max_concurrency"])
         if args.mode == "validate":
-            print(json.dumps({"valid": True, "briefs": [{k: b[k] for k in ("id", "width", "height", "duration", "fps")} for b in briefs]}, indent=2))
+            print(json.dumps({"valid": True, **settings, "briefs": [{k: b[k] for k in ("id", "width", "height", "duration", "fps")} for b in briefs]}, indent=2))
             return 0
     if args.mode in {"status", "fetch", "run", "repair", "audit"}:
         if not args.batch:
@@ -630,6 +658,10 @@ def main(argv: list[str] | None = None) -> int:
         previous = args.attempt
         if previous == "latest":
             previous = remote_json(volume, f"{args.batch}/{args.id}/latest.json")["attempt"]
+        prior_root = attempt_root(args.batch, args.id, previous, root=Path("/"))
+        prior_metadata = remote_json(volume, str(prior_root / "run.json").lstrip("/"))
+        settings = runtime_settings(reasoning_effort=args.reasoning_effort, max_concurrency=args.max_concurrency,
+                                    previous=prior_metadata)
         repair = args.repair_file.read_text()
         if not repair.strip():
             parser.error("Repair instruction cannot be empty")
@@ -660,13 +692,14 @@ def main(argv: list[str] | None = None) -> int:
             parser.error("A production batch is already running; finish it before starting more containers")
     source = snapshot()
     args.output.mkdir(parents=True, exist_ok=True)
-    app, run_trial, verify_runtime, audit_attempt, image = runtime_app()
+    app, run_trial, verify_runtime, audit_attempt, image = runtime_app(
+        reasoning_effort=settings["reasoning_effort"], max_concurrency=settings["max_concurrency"])
     import modal
     with modal.enable_output(), app.run(detach=True):
         if args.mode == "verify":
             identifier = "verify-" + time.strftime("%Y%m%d-%H%M%S") + "-" + uuid.uuid4().hex[:6]
             call = verify_runtime.spawn(source, identifier)
-            write_json(args.output / "runtime-verify-call.json", {"call_id": call.object_id, "identifier": identifier, "app_id": app.app_id, "image_id": image.object_id, "source": source})
+            write_json(args.output / "runtime-verify-call.json", {"call_id": call.object_id, "identifier": identifier, "app_id": app.app_id, "image_id": image.object_id, "source": source, **settings})
             result = call.get()
             write_json(args.output / "runtime-verification.json", result)
             print(json.dumps(result, indent=2))
@@ -681,7 +714,7 @@ def main(argv: list[str] | None = None) -> int:
         else:
             attempt = "repair-" + time.strftime("%Y%m%d-%H%M%S")
             calls = [(brief["id"], run_trial.spawn(args.batch, brief, source, attempt, repair, previous))]
-        record = {"batch": args.batch, "app_id": app.app_id, "image_id": image.object_id, "source": source,
+        record = {"batch": args.batch, "app_id": app.app_id, "image_id": image.object_id, "source": source, **settings,
                   "calls": [{"id": name, "call_id": call.object_id} for name, call in calls]}
         write_json(args.output / (args.batch + "-calls.json"), record)
         print(json.dumps({key: value for key, value in record.items() if key != "source"}), flush=True)

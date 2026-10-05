@@ -1,6 +1,9 @@
 """Offline boundaries for the paid showcase runner; no Modal imports or jobs."""
 
 import json
+import io
+import sys
+from types import SimpleNamespace
 import zipfile
 from pathlib import Path
 
@@ -9,6 +12,7 @@ import pytest
 from experiments.useful_video_library import (
     archive_source, attempt_root, load_briefs, normalize_brief, snapshot,
     public_framework, technical_instructions, updated_audit_record, verify_snapshot,
+    bounded_concurrency, codex_command, main, runtime_settings,
 )
 
 
@@ -45,6 +49,119 @@ def test_only_four_distinct_explicit_briefs(tmp_path):
             load_briefs(path)
     path.write_text(json.dumps([brief(id=f"demo-{i}") for i in range(4)]))
     assert len(load_briefs(path)) == 4
+
+
+@pytest.mark.parametrize("count", [1, 5, 8])
+def test_explicit_concurrency_accepts_up_to_the_selected_limit(tmp_path, count):
+    path = tmp_path / "briefs.json"
+    path.write_text(json.dumps([brief(id=f"demo-{i}") for i in range(count)]))
+    assert len(load_briefs(path, max_concurrency=count)) == count
+    path.write_text(json.dumps([brief(id=f"demo-{i}") for i in range(count + 1)]))
+    with pytest.raises(ValueError, match="explicit briefs"):
+        load_briefs(path, max_concurrency=count)
+
+
+@pytest.mark.parametrize("value", [0, -1, 9, True, 5.5, "5"])
+def test_concurrency_rejects_invalid_values(value):
+    with pytest.raises(ValueError, match="integer between 1 and 8"):
+        bounded_concurrency(value)
+
+
+@pytest.mark.parametrize("arguments", [["--max-concurrency", "0"], ["--max-concurrency", "9"],
+                                       ["--max-concurrency", "1.5"], ["--reasoning-effort", "bogus"]])
+def test_cli_rejects_invalid_execution_settings_before_launch(arguments):
+    with pytest.raises(SystemExit) as exc:
+        main(["verify", *arguments])
+    assert exc.value.code == 2
+
+
+def test_cli_validates_five_high_effort_briefs_without_modal(tmp_path, capsys, monkeypatch):
+    monkeypatch.setitem(sys.modules, "modal", None)
+    path = tmp_path / "briefs.json"
+    path.write_text(json.dumps([brief(id=f"demo-{i}") for i in range(5)]))
+    assert main(["validate", "--briefs", str(path), "--max-concurrency", "5", "--reasoning-effort", "high"]) == 0
+    result = json.loads(capsys.readouterr().out)
+    assert (result["model"], result["reasoning_effort"], result["max_concurrency"]) == ("gpt-6-astra", "high", 5)
+    assert len(result["briefs"]) == 5
+
+
+def test_repair_settings_inherit_prior_attempt_without_rewriting_it():
+    prior = {"reasoning_effort": "high", "max_concurrency": 5}
+    assert runtime_settings(previous=prior) == {"model": "gpt-6-astra", **prior}
+    assert runtime_settings(previous=prior, reasoning_effort="medium", max_concurrency=2) == {
+        "model": "gpt-6-astra", "reasoning_effort": "medium", "max_concurrency": 2}
+    assert prior == {"reasoning_effort": "high", "max_concurrency": 5}
+    assert runtime_settings(previous={"reasoning_effort": "medium"})["max_concurrency"] == 4
+    assert 'model_reasoning_effort="medium"' in codex_command(Path("project"), Path("final.txt"))
+
+
+def test_execute_agent_passes_high_effort_to_the_actual_process(tmp_path, monkeypatch):
+    import experiments.useful_video_library as runner
+    commands = []
+    stdin = io.StringIO()
+    process = SimpleNamespace(stdin=stdin, poll=lambda: 0, returncode=0)
+    monkeypatch.setenv("CODEX_AUTH_JSON", '{"test": "not-real-auth"}')
+    monkeypatch.setattr(runner, "Path", lambda path: tmp_path / "auth" if path == "/root/.codex" else Path(path))
+    monkeypatch.setattr(runner.subprocess, "Popen", lambda command, **kwargs: commands.append(command) or process)
+    volume = SimpleNamespace(commit=lambda: None)
+    assert runner.execute_agent(tmp_path, tmp_path, "test", volume, reasoning_effort="high") == 0
+    assert 'model_reasoning_effort="high"' in commands[0]
+    assert commands[0][commands[0].index("--model") + 1] == "gpt-6-astra"
+    assert not (tmp_path / "auth/auth.json").exists()
+
+
+def test_worker_and_verification_use_and_record_selected_settings(tmp_path, monkeypatch):
+    import experiments.prepared_inputs as prepared
+    import experiments.useful_video_library as runner
+    options = {}
+    efforts = []
+
+    class Image:
+        def __getattr__(self, name):
+            return lambda *args, **kwargs: self
+
+    class App:
+        def __init__(self, name):
+            pass
+
+        def function(self, **kwargs):
+            def decorate(function):
+                options[function.__name__] = kwargs
+                return function
+            return decorate
+
+    volume = SimpleNamespace(commit=lambda: None, reload=lambda: None)
+    modal = SimpleNamespace(App=App, Volume=SimpleNamespace(from_name=lambda *a, **kw: volume),
+                            Secret=SimpleNamespace(from_name=lambda *a: "fake-secret"))
+    monkeypatch.setitem(sys.modules, "modal", modal)
+    monkeypatch.setitem(sys.modules, "video_use_mcp.sandbox", SimpleNamespace(
+        worker_dependency_image=lambda: Image(), worker_image=lambda **kwargs: Image()))
+    monkeypatch.setattr(runner, "verify_snapshot", lambda source: None)
+    monkeypatch.setattr(runner, "attempt_root", lambda batch, ident, attempt="original": tmp_path / batch / ident / attempt)
+    monkeypatch.setattr(runner, "Path", lambda path: tmp_path if path == "/results/verification" else Path(path))
+    monkeypatch.setattr(runner, "audit_project", lambda *args: {"technical_pass": True})
+    monkeypatch.setattr(prepared, "stage_inputs", lambda *args: None)
+    monkeypatch.setattr(runner.subprocess, "check_output", lambda *args, **kwargs: "mock version")
+    monkeypatch.setattr(runner.subprocess, "run", lambda *args, **kwargs: None)
+
+    def execute(project, evidence, prompt, volume, **kwargs):
+        efforts.append(kwargs["reasoning_effort"])
+        (project / "auth-smoke.json").write_text(json.dumps({"ok": True, "task": "video-use-container-smoke"}))
+        return 0
+
+    monkeypatch.setattr(runner, "execute_agent", execute)
+    _, trial, verify, _, _ = runner.runtime_app(reasoning_effort="high", max_concurrency=5)
+    assert options["run_trial"]["max_containers"] == 5
+    source = {"runtime_sha256": "a" * 64, "files": {}, "commit": "producer", "branch": "test"}
+    result = trial("batch", brief(), source)
+    repaired = trial("batch", brief(), source, "repair-1", "Repair the title", "original")
+    smoke = verify(source, "smoke")
+    assert efforts == ["high", "high", "high"]
+    for record in (result, repaired, smoke):
+        assert {key: record[key] for key in ("model", "reasoning_effort", "max_concurrency")} == {
+            "model": "gpt-6-astra", "reasoning_effort": "high", "max_concurrency": 5}
+    assert json.loads((tmp_path / "batch/demo-one/original/run.json").read_text())["reasoning_effort"] == "high"
+    assert json.loads((tmp_path / "smoke/result.json").read_text())["reasoning_effort"] == "high"
 
 
 def test_snapshot_excludes_secrets_caches_and_concurrent_website(tmp_path):
@@ -176,6 +293,8 @@ def test_prompt_is_preserved_and_proposals_stay_project_local():
     assert "edit/tool-proposals/" in prompt
     assert "never change it" in prompt
     assert "actual encoded frames with view_image" in prompt
+    assert "orange #FE750E" in prompt
+    assert "lavender #b28af7" not in prompt
 
 
 def test_verified_source_assets_reach_the_production_agent_without_substitution():
@@ -221,12 +340,16 @@ def test_source_replay_manifest_contains_only_public_producer_identity(tmp_path)
 
 def test_reaudit_preserves_producer_identity_and_rejects_running_attempt():
     producer = {"status": "needs_repair", "exit_code": 0, "finished_at": 100,
+                "model": "gpt-6-astra", "reasoning_effort": "high", "max_concurrency": 5,
                 "framework_commit": "original-commit", "runtime_sha256": "original-runtime"}
     updated = updated_audit_record(producer, {"technical_pass": True}, {"runtime_sha256": "audit-runtime"}, 200)
     assert updated["status"] == "awaiting_review"
     assert updated["framework_commit"] == "original-commit"
     assert updated["runtime_sha256"] == "original-runtime"
     assert updated["exit_code"] == 0
+    assert updated["model"] == producer["model"]
+    assert updated["reasoning_effort"] == "high"
+    assert updated["max_concurrency"] == 5
     assert updated["audit_framework_sha256"] == "audit-runtime"
     assert updated["audited_at"] == 200
     assert "audited_at" not in producer
