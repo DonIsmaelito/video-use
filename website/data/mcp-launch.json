@@ -1,21 +1,21 @@
 {
-  "src": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors%2F5a910f856f09-autoplay.mp4?v=45baad39f94cac58d7638c494121c3c5",
-  "video": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors%2Fb4bfc9f04fc3-final.mp4?v=60442e7794621b6c50ae98a22452500e",
+  "src": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors-175%2F3b8c52382ac9-autoplay.mp4?v=34a9332026e3e996915e91254f72eeef",
+  "video": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors-175%2F4f2023043ba6-final.mp4?v=1197af4048314924b2a477392e76af05",
   "poster": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors%2F6a1783790a76-poster.jpg?v=cc28e7766ea145195ec34ec9631e9131",
-  "duration": 22.0,
+  "duration": 12.566667,
   "loop": true,
   "storage": {
     "autoplay.mp4": {
       "bucket": "site-media",
-      "key": "launches/20261005/mcp-launch-connectors/5a910f856f09-autoplay.mp4",
-      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors%2F5a910f856f09-autoplay.mp4?v=45baad39f94cac58d7638c494121c3c5",
-      "sha256": "5a910f856f0968f2402bda81be35796f4fdc424ea4d474f08f889602ba7c3eac"
+      "key": "launches/20261005/mcp-launch-connectors-175/3b8c52382ac9-autoplay.mp4",
+      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors-175%2F3b8c52382ac9-autoplay.mp4?v=34a9332026e3e996915e91254f72eeef",
+      "sha256": "3b8c52382ac91006539b574097430449f274f885f876cf46e80729effe0f242d"
     },
     "final.mp4": {
       "bucket": "site-media",
-      "key": "launches/20261005/mcp-launch-connectors/b4bfc9f04fc3-final.mp4",
-      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors%2Fb4bfc9f04fc3-final.mp4?v=60442e7794621b6c50ae98a22452500e",
-      "sha256": "b4bfc9f04fc3043c5eca76d823b0c822d49bdaf509eb70e3418291e0c916ac21"
+      "key": "launches/20261005/mcp-launch-connectors-175/4f2023043ba6-final.mp4",
+      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors-175%2F4f2023043ba6-final.mp4?v=1197af4048314924b2a477392e76af05",
+      "sha256": "4f2023043ba63f2713a25a38a3502888bd3849334c01e203961320ec2926c714"
     },
     "poster.jpg": {
       "bucket": "site-media",
@@ -25,9 +25,9 @@
     },
     "source.zip": {
       "bucket": "site-media",
-      "key": "launches/20261005/mcp-launch-connectors/85cb26ea3761-source.zip",
-      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors%2F85cb26ea3761-source.zip?v=d7366a0b993d07071d7471d1c5f9a127",
-      "sha256": "85cb26ea37618683dfcc890a923cc480266be6e177dfbc2081a035ccccefe842"
+      "key": "launches/20261005/mcp-launch-connectors-175/cce08e0c5cc2-source.zip",
+      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-connectors-175%2Fcce08e0c5cc2-source.zip?v=51bce2f5bf5d955848ebdb5da133c033",
+      "sha256": "cce08e0c5cc244959edb1ff8467cf327695c487f119a42b9789e16359a92e853"
     }
   }
 }

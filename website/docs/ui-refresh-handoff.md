@@ -464,3 +464,19 @@ Rendered-film review passed: all 660 frames decoded and played at normal speed w
 Build, type/catalog checks, all 30 importer tests, lint and diff checks passed. Local and hosted checks at 1440/390/320px passed homepage autoplay and navigation, the exact new 1920x1080 full-player media, native loop wrap, controls, reduced-motion pausing, focus return, no overflow and no page errors. Live hero and phone-player captures were inspected. The 137-entry gallery, Video type-first sidebar, removed likes UI, banner, carousel and other films retain their guarded source hashes. Both checkouts are synchronized; local servers and QA browsers are stopped, with no deployment in flight.
 
 Durable project, source and evidence: `/Users/ismaelito/Movies/Video Use MCP Launch 20261005/edit/`. See `qa/deployment.json`, `qa/live-review.json`, `qa/public-assets.json`, `publication.json`, and `animations/slot_mcp_launch/` for the final render and editable source ZIP. Future film edits should use this new project; the 20261004 project is retained as historical source.
+
+
+### MCP film at 1.75x speed — in progress
+
+The root Video Use agent is uniformly retiming the approved 22-second launch film to approximately 12.6 seconds at the user requested 1.75x speed. This pass owns mcp-launch.json, the MCP provenance entry and README duration/copy only; no player or other UI changes are planned. Original design and the 22-second project remain preserved. Revision assets and receipts are under `Video Use MCP Launch 20261005/edit/animations/slot_mcp_launch_175/`. One verified release will follow.
+
+
+### MCP film at 1.75x speed — verified live
+
+Deployment **`4b88710e-e953-4bc1-b5fb-0fc961cd4c88`** (provider `dpl_4ey6whRNXbA2ZRWeKnKc9oV5tyWM`) is READY at https://video-use.insforge.site. The homepage feature and MCP page now use the approved film uniformly retimed to 1.75x: 12.566667 seconds, 377 frames at 30fps. The full master is 1920x1080 with a lightweight 1280x720 preview. The identity, connectors, three typed/backspaced requests, Send click and looping opening are preserved. The original 22-second cut remains available in the editable project and provenance history.
+
+Both media manifests now reference immutable assets under `site-media/launches/20261005/mcp-launch-connectors-175/`. The faster source archive includes the original timeline and a reproducible 1.75x FFmpeg retime. Full-byte asset hashes and MP4 range requests passed; normal-speed playback had zero dropped frames or errors and the encoded loop boundary passed review. Build, type/catalog checks, all 30 importer tests, lint and diff checks passed.
+
+Hosted checks at 1440px and 390px passed new homepage autoplay, MCP navigation, exact 12.566667-second 1080p playback, native looping, controls, reduced-motion pausing, focus return and no overflow or page errors. Live hero and phone-player captures were inspected. Product Launches retains its normal full-player behavior. The 137-clip catalog, Video type-first sidebar, removed likes UI and other guarded source files were preserved. Both checkouts are synchronized; the QA browser is closed and no deployment is in flight.
+
+Revision and evidence: `/Users/ismaelito/Movies/Video Use MCP Launch 20261005/edit/animations/slot_mcp_launch_175/`, including `qa-speed/deployment.json`, `qa-speed/live-review.json`, `qa-speed/public-assets.json`, `publication.json`, and the editable `source.zip`.
