@@ -21,7 +21,7 @@ from pathlib import Path
 
 VOLUME_NAME = "video-use-useful-library-20261003"
 SAFE_ID = re.compile(r"[a-z0-9][a-z0-9_-]{0,99}")
-SECRET_TEXT = re.compile(rb"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----|(?:sk-proj-|sk-ant-api|sk-|AKIA)[A-Za-z0-9_-]{16,}|\"(?:access_token|refresh_token)\"\s*:\s*\"[^\"]+")
+SECRET_TEXT = re.compile(rb"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----|(?:sk-proj-|sk-ant-api|sk-)[A-Za-z0-9_-]{16,}|(?<![A-Za-z0-9_])AKIA[A-Z0-9]{16}(?![A-Za-z0-9_])|\"(?:access_token|refresh_token)\"\s*:\s*\"[^\"]+")
 SOURCE_SUFFIXES = {".py", ".js", ".mjs", ".cjs", ".jsx", ".ts", ".tsx", ".html", ".css", ".scss",
                    ".json", ".toml", ".yaml", ".yml", ".txt", ".md", ".svg", ".png", ".jpg", ".jpeg", ".webp",
                    ".woff", ".woff2", ".ttf", ".otf", ".glb", ".gltf", ".obj", ".mtl", ".stl", ".blend",
@@ -31,11 +31,16 @@ DEPENDENCY_LOCK_NAMES = {"requirements.lock", "uv.lock", "poetry.lock", "Pipfile
 
 def contains_secret(stream) -> bool:
     tail = b""
-    for chunk in iter(lambda: stream.read(1024 * 1024), b""):
-        data = tail + chunk
-        if SECRET_TEXT.search(data):
+    chunk = stream.read(1024 * 1024)
+    while chunk:
+        following = stream.read(1024 * 1024)
+        # Include the next byte so a chunk edge cannot masquerade as the end
+        # of an AWS key embedded in a longer identifier or encoded font.
+        data = tail + chunk + following[:1]
+        if SECRET_TEXT.search(data, 1 if tail else 0):
             return True
-        tail = data[-16384:]
+        tail = (tail + chunk)[-16384:]
+        chunk = following
     return False
 
 
