@@ -7,8 +7,8 @@
   padding: 1px;
   overflow: hidden;
   border-radius: 999px;
-  color: #e4cab3;
-  background: #59402f;
+  color: #25160d;
+  background: #dda168;
 }
 
 /* Only the edge of this light is visible behind the opaque inner surface. */
@@ -19,7 +19,7 @@
   left: 0;
   width: 180px;
   height: 80px;
-  background: radial-gradient(ellipse, #d9aa7b, transparent 70%);
+  background: radial-gradient(ellipse, #ffe0b7, transparent 70%);
   offset-path: border-box;
   offset-anchor: 50% 50%;
   offset-rotate: 0deg;
@@ -32,23 +32,55 @@
   z-index: 1;
   display: grid;
   place-items: center;
-  min-height: 38px;
-  padding: 7px 46px;
+  min-height: 54px;
+  padding: 12px 46px;
   border-radius: inherit;
-  background: linear-gradient(105deg, #281c15, #38271c 50%, #281c15);
+  background:
+    radial-gradient(ellipse at 12% 0%, #e7ac7570, transparent 58%),
+    radial-gradient(ellipse at 88% 100%, #efb77750, transparent 50%),
+    linear-gradient(105deg, #cf763a, #c56b2f 48%, #dc9450);
 }
 
 .message {
-  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 20px;
   font-weight: 600;
-  line-height: 24px;
-  letter-spacing: 0.025em;
+  line-height: 28px;
+  letter-spacing: -0.025em;
   text-align: center;
+}
+
+.benefit {
+  color: #29170b;
+}
+
+.separator {
+  color: #6f3d1e;
+}
+
+.action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #1d1007;
+  font-weight: 700;
+  white-space: nowrap;
   transition: color 160ms;
 }
 
-.message:hover {
-  color: #f4dfce;
+.message:hover .action {
+  color: #000;
+}
+
+.action svg {
+  transition: transform 160ms;
+}
+
+.message:hover .action svg {
+  transform: translate(2px, -2px);
 }
 
 .close {
@@ -60,7 +92,7 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  color: #c4a289;
+  color: #57341d;
   transform: translateY(-50%);
   transition:
     color 160ms,
@@ -68,12 +100,12 @@
 }
 
 .close:hover {
-  color: #f4dfce;
-  background: #ffffff0a;
+  color: #1d1007;
+  background: #25160d0d;
 }
 
 .banner :focus-visible {
-  outline-color: #d9aa7b;
+  outline-color: #25160d;
   outline-offset: 2px;
 }
 
@@ -83,13 +115,42 @@
   }
 }
 
+@media (max-width: 800px) {
+  .inner {
+    padding: 10px 40px;
+  }
+
+  .message {
+    flex-direction: column;
+    gap: 2px;
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .separator {
+    display: none;
+  }
+
+  .action {
+    font-size: 18px;
+    line-height: 24px;
+  }
+}
+
+@media (max-width: 360px) {
+  .benefit {
+    font-size: 15px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .banner::before {
     animation: none;
     opacity: 0.35;
   }
 
-  .message,
+  .action,
+  .action svg,
   .close {
     transition: none;
   }
