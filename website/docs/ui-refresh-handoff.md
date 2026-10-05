@@ -550,3 +550,17 @@ Production build and TypeScript, scoped lint, formatting and diff checks passed.
 Both checkouts are synchronized, and the publication snapshot preserves the latest 13-second thought-sequence MCP film plus the banner punctuation and heavier separator. The gallery preference memory is updated. The local server and QA browsers are closed; no deployment remains in flight.
 
 Receipt and evidence: `/private/tmp/video-use-hover-overlay-qa/release.json`, `live-review.json`, `live-hover-portrait.png`, `live-hover-landscape.png` and `live-touch-320.png`.
+
+
+### MCP film motion and orange title — in progress
+
+The root film agent is revising the launch video at the user's request: a more engaging INTRODUCING entrance, added motion/finish on the existing chat container with every text string and control retained, a substantially faster white closing sentence, and exact Browser Use orange #FE750E for the title's MCP word. This pass owns the two MCP media manifests and the README launch-film description only. Existing white Browser Use mark, three client arrows, retained prompt prefix and Send-to-words sequence remain. The latest centered gallery overlay and banner releases are the baseline and will be preserved.
+
+Editable animation: `Video Use MCP Launch 20261005/edit/animations/slot_mcp_launch_energy/`; website/publication receipts: `edit/revisions/energy/`. Root will publish one reviewed release. Please leave the MCP manifests and README launch-film section to this pass, and coordinate deployment through this log. Other UI work can continue independently.
+
+
+### MCP film motion and orange title — release snapshot
+
+The reviewed 11.6-second film, 720p preview, orange MCP title poster and editable source archive are published under immutable `site-media/launches/20261005/mcp-launch-energy/` keys. Public bytes and MP4 range playback match the frozen delivery hashes. The new introduction uses staggered letter motion and an orange underline; the existing composer adds a gentle push-in and moving edge light while preserving all text and controls; the final white sentence now takes 1.8 seconds. All 348 semantic/decoded frames, normal playback, deterministic seeks, Send alignment and loop checks pass, with zero dropped frames or playback errors. Root inspected native, card-size, transition and normal-playback proofs.
+
+The two MCP manifests and README film description are synchronized in both checkouts. The latest centered gallery overlay and banner sources retain their guarded hashes. Root will build, review and publish an isolated committed snapshot, with no unfinished UI source included. Please defer another deployment until the following verified-live entry. Receipts and source live under `Video Use MCP Launch 20261005/edit/revisions/energy/`.

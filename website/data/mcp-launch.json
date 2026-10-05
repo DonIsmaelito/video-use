@@ -1,33 +1,33 @@
 {
-  "src": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-thought%2F9c866cff6263-autoplay.mp4?v=1961750b8d489ec7e6c38911aa4dce15",
-  "video": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-thought%2Fb6f367626769-final.mp4?v=ef47fab172f47f5ba5eaf4dd64e222ff",
-  "poster": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-thought%2F6755f9961fc3-poster.jpg?v=781278a0d87130165dae71b2533daab0",
-  "duration": 13.0,
+  "src": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-energy%2Fa656bbc2a4c1-autoplay.mp4?v=e4e2d4e1e6b9078c662e327ae04f6669",
+  "video": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-energy%2F2975d1ecb019-final.mp4?v=2c07a2ff77596b5cdb72c546aaffbcab",
+  "poster": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-energy%2Ffd7e05386ea9-poster.jpg?v=ba28f6e27a2bd88fea7e98c39d514cce",
+  "duration": 11.6,
   "loop": true,
   "storage": {
     "autoplay.mp4": {
       "bucket": "site-media",
-      "key": "launches/20261005/mcp-launch-thought/9c866cff6263-autoplay.mp4",
-      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-thought%2F9c866cff6263-autoplay.mp4?v=1961750b8d489ec7e6c38911aa4dce15",
-      "sha256": "9c866cff6263816f2123fc875af8fc084e0d7296027fdfb060078977572cdce8"
+      "key": "launches/20261005/mcp-launch-energy/a656bbc2a4c1-autoplay.mp4",
+      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-energy%2Fa656bbc2a4c1-autoplay.mp4?v=e4e2d4e1e6b9078c662e327ae04f6669",
+      "sha256": "a656bbc2a4c14a0700ee597e8a02d41ab18dc527f18035e19c7623bd98e606e9"
     },
     "final.mp4": {
       "bucket": "site-media",
-      "key": "launches/20261005/mcp-launch-thought/b6f367626769-final.mp4",
-      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-thought%2Fb6f367626769-final.mp4?v=ef47fab172f47f5ba5eaf4dd64e222ff",
-      "sha256": "b6f3676267695736554f26668f01bb97fe593f6e3dda56c1882c98788670b8cc"
+      "key": "launches/20261005/mcp-launch-energy/2975d1ecb019-final.mp4",
+      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-energy%2F2975d1ecb019-final.mp4?v=2c07a2ff77596b5cdb72c546aaffbcab",
+      "sha256": "2975d1ecb0196943ad811bd74b1089b5556569935fff8dbaa96fbc84e6bf2af4"
     },
     "poster.jpg": {
       "bucket": "site-media",
-      "key": "launches/20261005/mcp-launch-thought/6755f9961fc3-poster.jpg",
-      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-thought%2F6755f9961fc3-poster.jpg?v=781278a0d87130165dae71b2533daab0",
-      "sha256": "6755f9961fc3f108b3debc61f938a9b9d739a6cff8bd06dfe906ac010d2904b0"
+      "key": "launches/20261005/mcp-launch-energy/fd7e05386ea9-poster.jpg",
+      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-energy%2Ffd7e05386ea9-poster.jpg?v=ba28f6e27a2bd88fea7e98c39d514cce",
+      "sha256": "fd7e05386ea90cfb8430986d0f7e4d15338cab8183f0bec1b6a53b6137403d4e"
     },
     "source.zip": {
       "bucket": "site-media",
-      "key": "launches/20261005/mcp-launch-thought/7921b03ac673-source.zip",
-      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-thought%2F7921b03ac673-source.zip?v=b778302104ee6273949dad0402597e4a",
-      "sha256": "7921b03ac673e7b66a940d2b279ffa9ce742fb493d489a0abfa745d0d4a2c15d"
+      "key": "launches/20261005/mcp-launch-energy/49b67801d994-source.zip",
+      "url": "https://c6t3b5eb.us-west.insforge.app/api/storage/buckets/site-media/objects/launches%2F20261005%2Fmcp-launch-energy%2F49b67801d994-source.zip?v=2ee2edd18e4f1bd6a0443d147e9bdd4e",
+      "sha256": "49b67801d99495701aaac348230ac9224a2cea5ac74f5abaff43f46ff7e37911"
     }
   }
 }
