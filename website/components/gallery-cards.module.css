@@ -231,8 +231,4 @@
   .grid:global(.video-grid) {
     --gallery-columns: 4;
   }
-
-  .card[data-featured='true'] {
-    --gallery-span: 3;
-  }
 }
