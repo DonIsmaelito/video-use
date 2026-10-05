@@ -108,9 +108,6 @@ function VideoCard({
             orientation={example.orientation}
             suspended={suspended}
           />
-          <span className={`video-duration ${cardStyles.duration}`}>
-            {formatDuration(example.duration)}
-          </span>
         </button>
         <div className={`card-actions ${cardStyles.actions}`}>
           <button

@@ -655,21 +655,6 @@ summary {
     transform 0.2s;
   text-wrap: balance;
 }
-.video-duration {
-  position: absolute;
-  top: 14px;
-  left: 14px;
-  z-index: 4;
-  color: #e4e4e4;
-  background: #1116;
-  border-radius: 5px;
-  padding: 3px 6px;
-  font-size: 10px;
-  opacity: 0;
-  transition: opacity 0.2s;
-  pointer-events: none;
-  font-variant-numeric: tabular-nums;
-}
 .like-button {
   position: absolute;
   bottom: 69px;
@@ -766,9 +751,7 @@ summary {
 .video-card:hover .card-actions,
 .video-card:focus-within .card-actions,
 .video-card:hover .like-button,
-.video-card:focus-within .like-button,
-.video-card:hover .video-duration,
-.video-card:focus-within .video-duration {
+.video-card:focus-within .like-button {
   opacity: 1;
   transform: none;
   pointer-events: auto;
@@ -1614,11 +1597,6 @@ summary {
     bottom: 51px;
     right: 10px;
     font-size: 11px;
-  }
-  .video-duration {
-    left: 10px;
-    top: 10px;
-    font-size: 9px;
   }
   .example-dialog {
     display: block;

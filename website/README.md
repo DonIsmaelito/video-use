@@ -47,7 +47,7 @@ The production build explicitly uses Next.js's webpack builder, matching the loc
 
 Configure `INSFORGE_URL`, `INSFORGE_API_KEY`, and `LIKES_COOKIE_SECRET` in local and hosted server environments; see `.env.example`. None use a public framework prefix. The schema is recorded in `../migrations/20261004054241_gallery-likes.sql` and was tested in an isolated InsForge backend branch before being applied to the existing site project. Anonymous and authenticated clients have no direct table or RPC access; the server validates example IDs and the request origin. Retrying a like does not add another vote. Clearing browser cookies resets the anonymous identity.
 
-The compact card action copies the same full prompt as the detail dialog. Cards expose controls on hover and keyboard focus; touch devices show them continuously. Filters stay visible in the sidebar, and all existing category/search/facet/deep-link behavior is retained. The opening gallery order mixes film formats without changing the source catalog.
+The compact card action copies the same full prompt as the detail dialog. Card previews have no duration badges. Cards expose controls on hover and keyboard focus; touch devices show them continuously. Filters stay visible in the sidebar, and all existing category/search/facet/deep-link behavior is retained. The opening gallery order mixes film formats without changing the source catalog.
 
 Coordination and verification notes are in `docs/ui-refresh-handoff.md`.
 

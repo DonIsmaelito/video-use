@@ -48,13 +48,6 @@
   outline-offset: -3px;
 }
 
-.duration:global(.video-duration) {
-  top: 10px;
-  left: 10px;
-  opacity: 1;
-  background: #111b;
-}
-
 .footer {
   padding: 4px 10px 6px;
 }
