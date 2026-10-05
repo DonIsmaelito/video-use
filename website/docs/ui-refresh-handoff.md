@@ -384,3 +384,19 @@ Deployment **`e793d875-f8ec-48f4-a3a5-1e2c4bdfb9ba`** (provider `dpl_DGYQdMLePXV
 Build, TypeScript/catalog checks, all 30 importer tests and scoped lint passed. Local and hosted banner review covered 320/390/600/800/801/1440/2200px, including the responsive breakpoint: centered message, no unwanted wrapping, no close-button overlap and no page overflow. Setup navigation, dismissal after reload, focus return and reduced motion passed without page errors. Actual desktop and phone banner captures were inspected. The three owned files were synchronized with baseline guards; gallery, likes, catalog and build configuration are unchanged. Banner preference memory reflects the warmer orange and larger copy. Browsers and local server are stopped; no deployment is in flight.
 
 Receipt and evidence: `/private/tmp/video-use-banner-promotion-qa/release.json`, `live-review.json`, `live-banner-1440.png` and `live-banner-320.png`.
+
+
+### Reference banner and featured descriptions — in progress
+
+The user requested simple advertising descriptions instead of the arrow captions under the top cards and another closer pass on the supplied Higgsfield banner reference. This pass owns mcp-announcement.tsx and its CSS, mcp-feature.tsx, featured-film.tsx, featured-carousel.module.css, the featured subtitles in gallery.tsx, and their README bullets. The banner becomes a full-width flat strip with a softer orange blend and centered dark text; it retains the no-CTA-button preference and close control. Plain descriptive card captions replace tagline arrows. Gallery content, likes and carousel behavior remain.
+
+
+### Reference banner and featured descriptions — verified live
+
+Deployment **`2f337c33-cd50-4c05-829c-462c700317f0`** (provider `dpl_HCCRiihqMdCJAYT4SHECZ8eBFmbU`) is READY at https://video-use.insforge.site. Source **`153543a`** on `feature/useful-video-library` replaces the inset rounded announcement with a full-width flat orange strip flush with the page top and shared header, following the user's latest Higgsfield screenshot. A softer peach-to-orange blend drifts slowly behind centered dark 20px text; phones use two centered 16px/18px lines. The message links to MCP setup without a caption arrow or separate CTA button. The right-hand X, session dismissal, focus return and reduced motion remain. This supersedes the rounded capsule and border-orbit treatment.
+
+The three featured cards now have plain short advertising descriptions beneath their titles. MCP describes creating and editing videos in Claude, ChatGPT and Cursor; Product Launches describes showcasing a product with a launch film; Whiplash describes cinematic edits cut to the beat. Caption arrows are removed, text is slightly larger and stays visible on phones. Titles and media remain clickable; the independent carousel navigation arrows and eight-slot snapping behavior are preserved. No gallery catalog, media, likes or layout changes were made.
+
+Build, TypeScript/catalog checks, all 30 importer tests and scoped lint passed. Local and hosted review at 320/390/768/801/1440/2200px verified edge-to-edge banner geometry, no header gap, centered text, no overflow or close-button overlap, and visible descriptions wrapping beneath titles without clipping. Both featured players, MCP setup navigation, dismissal after reload, focus return and reduced motion passed without page errors. Live desktop and phone captures were inspected after visible media was ready. All seven owned files were synchronized with baseline guards; deployment configuration and protected gallery/likes/carousel behavior files retained their hashes. Banner and featured-carousel preference memories were updated. Local server and QA browsers are stopped; no deployment remains in flight.
+
+Receipt and evidence: `/private/tmp/video-use-banner-reference-qa/release.json`, `live-review.json`, `live-home-1440.png` and `live-home-390.png`.
