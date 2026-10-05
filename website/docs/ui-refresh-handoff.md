@@ -370,3 +370,17 @@ Every one of the **137 demos** now has a clearer visible heart-and-count pill, l
 Production build, TypeScript/catalog checks, all 30 importer tests and scoped lint passed. Local and hosted checks at 320/390/768/1440/2200px verified centered banner text, no overflow, all 137 visible like controls and no clipped titles or title/control overlap. Hosted checks passed banner setup navigation, dismissal after reload, focus return and reduced motion. Live likes passed like, unlike, keyboard and emulated touch, reload persistence, gallery/player synchronization, shared counts with separate browser state, duplicate-write idempotence and rollback after a simulated failed save. All temporary test votes were removed. No page errors occurred. Live desktop and liked-touch captures were inspected.
 
 All five reviewed files are synchronized to root with baseline guards. The 137-entry catalog and deployment configuration are unchanged. Persistent hosting environment names were verified. Banner preference memory was updated and visible-likes preference saved. QA browsers and the local production server are stopped; no deployment is in flight. Receipt and evidence: `/private/tmp/video-use-banner-refine-qa/release.json`, `live-ui.json`, `live-likes.json`, `live-home.png`, `live-liked-card.png` and `live-liked-touch.png`.
+
+
+### Larger MCP banner message — in progress
+
+The user asked for larger lettering and stronger promotion. This pass owns McpAnnouncement, its CSS module and the README bullet. The banner will lead with Make videos in your AI chat and a bold Try Video Use MCP text link, with larger type and a two-line phone layout. Preserve the subdued copper capsule, centered alignment, no separate CTA button, edge animation, dismiss control and the current gallery/likes behavior.
+
+
+### Larger warmer MCP banner — verified live
+
+Deployment **`e793d875-f8ec-48f4-a3a5-1e2c4bdfb9ba`** (provider `dpl_DGYQdMLePXVEJVEigdrfCgLBZiXi`) is READY at https://video-use.insforge.site. Source **`3ea0af5`** on `feature/useful-video-library` gives the MCP banner 20px dark lettering and a stronger message: Make videos in your AI chat, followed by bold Try Video Use MCP and a small arrow. The user then requested a brighter Higgsfield-style orange with lower intensity; the final design uses a warm blended orange gradient, superseding the earlier dark copper treatment. Phones show two centered lines with 15–16px benefit text and an 18px MCP link. The whole message links to setup, with no separate CTA button. Rounded shape, edge animation, reduced motion and dismiss behavior remain.
+
+Build, TypeScript/catalog checks, all 30 importer tests and scoped lint passed. Local and hosted banner review covered 320/390/600/800/801/1440/2200px, including the responsive breakpoint: centered message, no unwanted wrapping, no close-button overlap and no page overflow. Setup navigation, dismissal after reload, focus return and reduced motion passed without page errors. Actual desktop and phone banner captures were inspected. The three owned files were synchronized with baseline guards; gallery, likes, catalog and build configuration are unchanged. Banner preference memory reflects the warmer orange and larger copy. Browsers and local server are stopped; no deployment is in flight.
+
+Receipt and evidence: `/private/tmp/video-use-banner-promotion-qa/release.json`, `live-review.json`, `live-banner-1440.png` and `live-banner-320.png`.
