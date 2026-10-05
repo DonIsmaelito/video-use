@@ -49,10 +49,8 @@ export function McpAnnouncement() {
     <aside className={styles.banner} aria-label="Video Use MCP announcement">
       <div className={styles.inner}>
         <Link className={styles.message} href="/mcp#setup">
-          <span className={styles.benefit}>Make videos in your AI chat.</span>
-          <span className={styles.separator} aria-hidden="true">
-            ·
-          </span>
+          <span className={styles.benefit}>Make videos in your AI chat</span>
+          <span className={styles.separator} aria-hidden="true" />
           <span className={styles.action}>Try Video Use MCP</span>
         </Link>
         <button

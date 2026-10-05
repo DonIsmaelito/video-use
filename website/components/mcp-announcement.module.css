@@ -42,7 +42,11 @@
 }
 
 .separator {
-  color: #6f3d1e;
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #6f3d1e;
 }
 
 .action {
