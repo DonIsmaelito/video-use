@@ -722,3 +722,42 @@ Source **`d9a5406`** restores the earlier cover crop for the Movie Edit preview 
 ### Movie Edit preview crop restore — verified live
 
 Deployment **`9e4ae083-de72-4193-b2c1-87c8a7138cd1`** (provider `dpl_CRPwHKBhoirbRhpbQMvb29hrXptG`) is READY at https://video-use.insforge.site from source **`d9a5406`** on `feature/useful-video-library`. The previous Whiplash cover crop is restored for the Movie Edit preview and poster. The newer captions, five blank slots and full-frame dialog are preserved; no media files changed. Production build, TypeScript, scoped lint/formatting and local/live browser checks at 1440 and 390px pass. The original film decodes, the video and poster use cover, captions remain correct, eight slots remain, and the demo opens and dismisses correctly without page errors or horizontal overflow. Desktop and phone local captures plus the live phone capture were inspected. Both checkouts match, the local server and QA browsers are closed, and no deployment remains in flight. Receipts: `/private/tmp/video-use-movie-crop-restore-qa/release.json` and `live-review.json`.
+
+
+### Five original featured workflows — in progress
+
+The user authorized five new original Video Use films to fill the remaining hero cards, with creative autonomy, Astra high reasoning and one parallel container run. Planned categories: Gaming Highlights, Social Recaps, Product Ads, App Demos and Visual Explainers. The current first three cards and Movie Edit cover crop stay. Root owns Gallery, a new featured-workflows manifest, website catalog/source imports, README and the final deployment. A delegated runtime pass owns useful_video_library.py and directly related tests/docs for five concurrent containers with explicit reasoning. No deployment is in flight. Generation evidence: `/Users/ismaelito/Movies/Video Use Featured 20261005/edit/`. Do not overwrite newer concurrent changes; this release will include the current 137-example baseline and only reviewed outputs.
+
+
+### Five additional launch gallery demos — preparing and queued
+
+This separate user-authorized content pass owns new gallery examples useful-51-cloud-seafloor, useful-52-show-then-do, useful-53-fold-zine-night, useful-54-not-done-yet and useful-55-solar-speedrun. It does not own the five featured hero slots or useful-41..45. Five exact public creative prompts are frozen at `/Users/ismaelito/Movies/Video Use Launch Five 20261005/edit/briefs.json`. Scope: four original motion films plus one edit of separately supplied NASA science footage, with source dates and illustration labels preserved. We will respect the existing global production lock and wait for the featured-five-20261005 batch before launching ours. No website data mutation or deployment has started. Later imports must merge the latest featured changes and preserve every existing entry; deployment ownership will be coordinated again after both batches are reviewed.
+
+
+### Launch gallery layout — scoped implementation starting
+
+The launch-five pass is adding only its openingIds entries and a data-wide marker in Gallery plus responsive rules in gallery-cards.module.css. The hero JSX, featured-workflows manifest and existing two-column Screen Studio lead remain owned/preserved by the featured pass. New catalog IDs do not render until reviewed media is imported. The planned order after Screen Studio is Show Then Do, FOLD, Cloud Seafloor, Solar Speedrun, Not Done Yet. Cloud and Solar span two columns except at the three-column breakpoint, where they use one column to avoid a visible gap found in sizing review. Both checkouts receive only these scoped layout hunks. No deployment is starting.
+
+
+### Five launch gallery productions — running in Modal
+
+The earlier featured batch has finished generation; launch-five-20261005 now owns the production lock and has submitted all five workers in parallel. App: ap-3NDDWYak50vPJTGGNvsSov; image: im-NnVLGmvQvU8yw8Hwdl99Ko; model gpt-6-astra, high reasoning, concurrency 5. Calls and exact prompt hashes are recorded under `/Users/ismaelito/Movies/Video Use Launch Five 20261005/edit/`. Three official NASA clips were hash-checked and staged under this batch’s prepared-assets prefix. Root visually researched the user’s Higgsfield reference and recorded it for film/poster/layout review. New Gallery opening-order/data-wide hunks and responsive CSS are in both checkouts, with scoped formatting/lint checks passing. They skip unpublished IDs until imports happen. Featured pass can review/publish its already completed films, preserving these layout hunks; further paid repairs should wait for this batch’s lock. No launch-five media is published and no deployment has started.
+
+
+### Featured films — reviewed media and release assembly
+
+All five featured films (useful-41 through45) completed the original parallel Astra high run on producer5387d39. The parent reviewed encoded samples and editable sources. Narrow source validation fixes for race timing, social audio controls and the NOOK cord diameter preserve the exact finished movies and are recorded in history-preserving audits; no second creative run is needed. Publication is in progress. The featured release will preserve the concurrent launch-five openingIds/data-wide/CSS preparation, which remains inert while those IDs are unpublished, and will not import launch-five media. Root owns the next website deployment once142-example catalog, source hashes and browser checks pass. Launch-five may keep producing under its own lock; avoid a competing website deployment until this receipt is recorded.
+
+
+### Featured films — deployment in progress
+
+Runtime source3819f29 is committed and pushed on feature/useful-video-library. It includes the five reviewed142-example catalog additions and the concurrent inert launch-five opening-order/data-wide/CSS prep. All40 public assets match their receipt hashes; prior137 entries and MCP/product manifests are unchanged. Production build, TypeScript/catalog checks,30 importer tests, lint/formatting and isolated browser review at1440/768/390/320px passed. Eight populated slides decode and snap; new dialogs copy the complete prompt and link editable sources. Root is deploying the reviewed source snapshot through the site projectd8ca070d-6b84-4f18-8928-9f7f614fc2ae; no other website deployment should start until its live receipt is appended. Deployment evidence: /Users/ismaelito/Movies/Video Use Featured 20261005/edit/site-qa/.
+
+
+### Featured films — verified live
+
+Deployment **7bce0018-218e-4e26-a5e3-ea8db45f3dee** (provider dpl_4Xvbc27WsRUoeVowtZJTRrv5xYQj) is READY at https://video-use.insforge.site from runtime source **3819f29**, pushed on feature/useful-video-library. Five original films now fill the remaining hero slots: Gaming Highlights / Afterglow Run, Social Recaps / One More Try, Product Ads / NOOK, App Demos / ROUTE and Visual Explainers / Sound That Subtracts. All were made in one parallel gpt-6-astra high run, 1080p/30fps, totaling99 seconds. All eight cards are populated and the library has142 examples; prior137 entries, first three captions and Whiplash cover crop remain. Each new film has its exact prompt, reviewed source ZIP and production notes.
+
+Build, TypeScript/catalog checks,30 importer tests, scoped lint/formatting and local/live browser checks at1440/768/390/320px pass. All40 published assets match receipt hashes. Live playback starts, complete prompts copy correctly, editable-source links match, native snapping works and no horizontal overflow/page errors were found. Desktop and phone captures were visually inspected. Film review used dense encoded-frame samples plus mathematical/source checks and technical audio measurements; no normal-speed audiovisual audition is claimed. Race timing, social audio controls and NOOK cord-size validation were repaired in source only, preserving original video hashes and producer5387d39 with prior archive/run history retained by audit. New scene helpers remain in their individual editable archives because their story constraints are project-specific. The publisher font scanner fix is a1de3f0; five-worker/high-effort runtime support is5387d39.
+
+The concurrent launch-five inert layout preparation is included in3819f29; its five media IDs are still unpublished by this release. Featured website deployment ownership is released after this receipt; launch-five may merge newer data and deploy when ready. Evidence: /Users/ismaelito/Movies/Video Use Featured 20261005/edit/release-summary.json and site-qa/live-review.json.
