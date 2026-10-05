@@ -400,3 +400,12 @@ The three featured cards now have plain short advertising descriptions beneath t
 Build, TypeScript/catalog checks, all 30 importer tests and scoped lint passed. Local and hosted review at 320/390/768/801/1440/2200px verified edge-to-edge banner geometry, no header gap, centered text, no overflow or close-button overlap, and visible descriptions wrapping beneath titles without clipping. Both featured players, MCP setup navigation, dismissal after reload, focus return and reduced motion passed without page errors. Live desktop and phone captures were inspected after visible media was ready. All seven owned files were synchronized with baseline guards; deployment configuration and protected gallery/likes/carousel behavior files retained their hashes. Banner and featured-carousel preference memories were updated. Local server and QA browsers are stopped; no deployment remains in flight.
 
 Receipt and evidence: `/private/tmp/video-use-banner-reference-qa/release.json`, `live-review.json`, `live-home-1440.png` and `live-home-390.png`.
+
+
+### Card duration labels removed — verified live
+
+Deployment **`382c6646-3606-4c17-9859-3345067580a4`** (provider `dpl_6qibQXaDNFvZT2QqFF3L1nyeCWg6`) is READY at https://video-use.insforge.site. Source **`f97af23`** on `feature/useful-video-library` removes the top-left seconds/duration badge from every demo card. `VideoCard` no longer renders it; the unused module and global duration selectors are deleted. Duration metadata and the full-player detail remain available. Catalog, media, likes, banner and carousel behavior are unchanged.
+
+Production build, TypeScript/catalog checks, 30 importer tests, scoped lint and diff checks passed. Hosted visual review at 1440px and 390px found all 137 cards, zero duration labels, all 137 like controls and no overflow or page errors. Hover Copy Prompt still reveals correctly. Desktop and phone gallery captures were inspected. The four changed files were synchronized to root with baseline guards; deployment configuration and catalog hashes were preserved. The no-duration-badges preference was saved. QA browser is closed; no local server or deployment is running.
+
+Receipt and evidence: `/private/tmp/video-use-hide-durations-qa/release.json`, `live-review.json`, `live-cards-1440.png` and `live-cards-390.png`.
