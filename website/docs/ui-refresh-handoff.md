@@ -349,3 +349,24 @@ Deployment **`95fc4baa-7340-4225-a7bb-8005f0df3ed3`** (provider `dpl_BTJ7dcLLqjG
 The production build, TypeScript/catalog checks,30 importer tests and scoped lint passed. Local production geometry checks covered all137 cards at320/390/768/1024/1440/2200px, including no clipping/overlap, natural frame ratios,8px masonry gaps and empty/reset search behavior. Local and hosted focused browser checks verified hidden desktop actions at rest, hover reveal, copy clipboard content without opening the player, hiding after focus leaves, keyboard access, click-to-open and focus return, reduced motion and touch copying. No page errors occurred. Actual resting/hover desktop screenshots and local touch capture were inspected.
 
 All three owned files were synchronized to root with baseline guards. Persistent hosting environment names were verified; config remained byte-identical after the local cache-disabled build workaround. The gallery preference memory was updated to replace the previous persistent footer-actions requirement. Local QA server and isolated browsers are stopped; no deployment remains in flight. Evidence and receipt: `/private/tmp/video-use-hover-copy-qa/release.json`, `production-layout.json`, `live-actions.json`, `live-rest.png`, `live-hover.png` and `live-touch.png`.
+
+
+### Softer centered MCP banner — in progress
+
+The user requested less bright colors, no call-to-action button, centered text and a possible circling animation. This pass owns mcp-announcement.tsx, its CSS module and its README bullet. It will use a muted copper rounded banner with centered text and a restrained orbiting background glow; the close X and tab dismissal remain. The current hover-copy gallery, title catalog, masonry layout and carousel are preserved.
+
+
+### Like controls refinement — in progress
+
+The user additionally requested a liking system for every skill/demo. The existing InsForge-backed system already provides signed anonymous identity, persistent counts and one like per browser per example. This pass makes the existing heart/count controls clearer with a compact outlined pill, larger heart, filled orange saved state, a press response and busy accessibility state. It also owns gallery.tsx and gallery-cards.module.css for this refinement; the backend and catalog remain unchanged. The banner and likes changes will ship together after focused verification.
+
+
+### Softer centered banner and visible likes — verified live
+
+Deployment **`f9c6ace5-13da-45f2-85ce-b3d8b15f60bb`** (provider `dpl_EoCj17em6PE3Fv4FTwzDhQyZPo8h`) is READY at https://video-use.insforge.site. Source **`59da979`** on `feature/useful-video-library` updates the shared announcement to a muted copper rounded capsule with centered Try Video Use MCP text linking directly to `/mcp#setup`. The separate CTA button, badge and secondary copy are removed. A quiet highlight circles the border every 24 seconds; text stays still, reduced motion disables the animation, and the close X retains session dismissal and focus return.
+
+Every one of the **137 demos** now has a clearer visible heart-and-count pill, larger heart, orange filled saved state, press feedback and accessible busy state. The existing InsForge likes backend is reused without schema changes. Gallery cards and full players share saved state; counts are shared between browsers, with one vote per signed browser identity and example. The pill becomes slightly narrower below 380px so all existing titles still fit. Hover Copy Prompt and clicking media to open the player are retained.
+
+Production build, TypeScript/catalog checks, all 30 importer tests and scoped lint passed. Local and hosted checks at 320/390/768/1440/2200px verified centered banner text, no overflow, all 137 visible like controls and no clipped titles or title/control overlap. Hosted checks passed banner setup navigation, dismissal after reload, focus return and reduced motion. Live likes passed like, unlike, keyboard and emulated touch, reload persistence, gallery/player synchronization, shared counts with separate browser state, duplicate-write idempotence and rollback after a simulated failed save. All temporary test votes were removed. No page errors occurred. Live desktop and liked-touch captures were inspected.
+
+All five reviewed files are synchronized to root with baseline guards. The 137-entry catalog and deployment configuration are unchanged. Persistent hosting environment names were verified. Banner preference memory was updated and visible-likes preference saved. QA browsers and the local production server are stopped; no deployment is in flight. Receipt and evidence: `/private/tmp/video-use-banner-refine-qa/release.json`, `live-ui.json`, `live-likes.json`, `live-home.png`, `live-liked-card.png` and `live-liked-touch.png`.
