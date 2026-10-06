@@ -1305,17 +1305,17 @@
   },
   {
     "id": "useful-61-druski-entrance",
-    "title": "Every Group Has This Friend",
+    "title": "Druski and Friends",
     "category": "Video Edits",
-    "description": "Find the setup, dance and payoff inside a nine-hour stream.",
-    "prompt": "Use Video Use to make a 25-second comedy highlight from Kai Cenat’s stream with Kevin Hart and Druski: https://www.youtube.com/watch?v=CxiV-OgUyBs. Use the dance around 04:57.70–05:22.70. Open with the simple hook “Every group has this friend.” over the short lead-in, then let Druski’s committed dance and the room’s real response carry the joke. Keep the movement and reactions in their original order, including Kai joining the moment, and finish before the stream turns back to chat and technical housekeeping.\n\nKeep it landscape so we can see the dancer’s body and the other two reacting together. Preserve the live rhythm and the funniest gestures at normal speed. A single restrained punch-in is enough if it genuinely helps the final reaction; keep the dance wide and leave hands, faces and movement clear. Remove the opening hook after about two seconds. Use only sparse, accurate captions for a clearly intelligible payoff, without trying to subtitle the music or overlapping chants. Keep the stream’s own sound and natural color, gently level the audio, and add no replacement music or fake reactions. Deliver a 1920×1080 MP4 at 30 fps and the editable Video Use project.",
-    "duration": 25,
+    "description": "A moving dance poster opens a genuine comedy relay.",
+    "prompt": "Make a 28-second landscape comedy edit from this stream: https://www.youtube.com/watch?v=CxiV-OgUyBs.\n\nOpen with Druski's real full-body movement at 04:49–04:52. Turn those three seconds into a brief moving dance poster: use the exact hook “Every group has this friend.” in strong, readable type behind the people, with Druski's body and arms naturally passing in front. Give one movement a quick pair of faint echoes made from his actual earlier poses. Keep everyone's face, his feet and the room readable. The movement should stay at normal speed.\n\nClear the opening treatment, then jump a few seconds forward to 04:57.7–05:22.7. Preserve the actual order: Kevin dances toward the camera, then Druski, then Kai, followed by their real shared reaction. Let that sequence play continuously and keep the funniest expressions unobstructed.\n\nUse the stream's own music, voices and room sound, with only a tiny audio bridge at the single cut if needed. Keep the edit warm, sharp and playful, with restrained cream typography that works with Druski's red jersey. End on the genuine reaction; no added dialogue captions, fake reactions or outro card.",
+    "duration": 28,
     "promptKind": "Original prompt",
     "orientation": "landscape",
     "audiences": ["Content creators", "Social media teams"],
-    "useCases": ["YouTube to short clips", "Social content"],
+    "useCases": ["Comedy edits", "Subject cutouts", "Selective typography"],
     "technique": "video-editing",
-    "promptSource": "Original executed prompt, followed by a requested caption refinement. The editable project records both stages. Source footage and audio retain their creators’ rights.",
+    "promptSource": "Exact prompt executed for this rebuilt Video Use edit. The linked source footage and audio retain their creators’ rights.",
     "mediaCredits": [
       {
         "title": "Kai Cenat Druski & Kevin Hart FULL STREAM!",
@@ -1324,10 +1324,10 @@
         "changes": "Edited excerpt. Original footage and audio retain their creators’ rights."
       }
     ],
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-61-druski-entrance-7f43e6039357-9ee01ee1/final.mp4",
-    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-61-druski-entrance-7f43e6039357-9ee01ee1/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-61-druski-entrance-7f43e6039357-9ee01ee1/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-61-druski-entrance-7f43e6039357-9ee01ee1/review.md"
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-61-druski-entrance-ac27d9b06c89-8dc18ba9/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-61-druski-entrance-ac27d9b06c89-8dc18ba9/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-61-druski-entrance-ac27d9b06c89-8dc18ba9/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-61-druski-entrance-ac27d9b06c89-8dc18ba9/review.md"
   },
   {
     "id": "useful-62-speed-shaolin",
@@ -1445,15 +1445,15 @@
     "id": "useful-66-tank-workout",
     "title": "Tank Davis",
     "category": "Video Edits",
-    "description": "Turn a workout into a sharp athlete campaign.",
-    "prompt": "Use Video Use to make a 26-second vertical athlete edit from this official Gervonta “Tank” Davis workout: https://www.youtube.com/watch?v=ABBj66mV8BI\n\nOpen quietly on his focused close-up between the ropes, then bring the rhythm in with the first pad combination. Build through crisp combinations and defensive movement, and finish with the red-glove heavy-bag sequence. Keep decisive punches at normal speed and let the final combination resolve into his real gloves-down pause. Cut before the event promotion.\n\nGive it a restrained campaign feel: rich blacks, natural skin, sharp movement and red gloves as the color accent. Keep his head and working gloves visible in the native vertical frame. Use the real workout sound and source soundtrack coherently, with a quiet opening and a purposeful finish. Add a small “TANK DAVIS” name treatment over the last moving shot. Deliver a 1080×1920 MP4 at 30 fps and the editable Video Use project.",
-    "duration": 26,
+    "description": "Real workout footage becomes a layered boxing campaign.",
+    "prompt": "Turn this real Gervonta “Tank” Davis workout into a 30-second vertical boxing campaign: https://www.youtube.com/watch?v=ABBj66mV8BI. Use the training footage, beginning with his quiet close-up and ending on his real gloves-down reset. Give it a black, warm-ivory and red-glove visual identity, with photographic texture and bold condensed editorial type.\n\nMake four purposeful transformations. Early in the pad work, briefly hold a reset pose and fan out two cutouts of his actual earlier poses behind him, with the trainer still correctly in front; bring everything back into registration and resume the real movement. Give the separate recovery close-up a short controlled deceleration. Later, align the black-and-white pad glove and the red glove by their knuckle and cuff positions, then let the glove silhouette become a graphic aperture that carries us from pad work into the red-glove bag sequence. Build one powerful layered hero from the later red-glove guard: separate Tank, his near glove and the graphic background, place “TANK DAVIS” behind him, and use a small, deliberate depth move. Return every layer to the original frame before releasing into the next real frame and the final combination.\n\nKeep the punches and contact readable at their original speed. The held poses and graphic transitions should feel clearly editorial; do not invent punches, limbs, reactions or a victory. Use the source audio, keep real pad and bag impacts synchronized, and make clean sound dips or tails around the holds rather than adding fake hits. Keep text limited to the hero name, with no caption pills or motivational voice-over. Exclude the interview and event-promotion sections. Deliver 1080×1920 at 30 fps, with the editable project and exact source timing and mask provenance.",
+    "duration": 30,
     "promptKind": "Original prompt",
     "orientation": "portrait",
     "audiences": ["Content creators", "Sports fans", "Social media teams"],
-    "useCases": ["Sports highlights", "Athlete edits"],
+    "useCases": ["Sports edits", "Subject cutouts", "Motion matching"],
     "technique": "video-editing",
-    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "promptSource": "Exact prompt executed for this rebuilt Video Use edit. The linked source footage and audio retain their creators’ rights.",
     "mediaCredits": [
       {
         "title": "Gervonta Davis Shows Off His Skills for Media and Influencers | #TankRoach",
@@ -1462,10 +1462,10 @@
         "changes": "Edited excerpt. Original footage and audio retain their creators’ rights."
       }
     ],
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-66-tank-workout-9e78fbcbfc84-00066109/final.mp4",
-    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-66-tank-workout-9e78fbcbfc84-00066109/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-66-tank-workout-9e78fbcbfc84-00066109/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-66-tank-workout-9e78fbcbfc84-00066109/review.md"
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-66-tank-workout-570a8ead0750-1214d48c/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-66-tank-workout-570a8ead0750-1214d48c/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-66-tank-workout-570a8ead0750-1214d48c/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-66-tank-workout-570a8ead0750-1214d48c/review.md"
   },
   {
     "id": "useful-67-holloway-ten-seconds",
@@ -1675,17 +1675,17 @@
   },
   {
     "id": "useful-74-drew-editorial",
-    "title": "From Interview to Editorial",
+    "title": "Drew Beyond the Page",
     "category": "Video Edits",
-    "description": "Let a spoken word transform an interview into a magazine spread.",
-    "prompt": "Use Video Use to create a roughly 24-second portrait fashion editorial from Drew Starkey’s Esquire interview: https://www.youtube.com/watch?v=VULC3YTVmFs. Take his complete answer about wardrobe and physicality around 04:10–04:34, from “As an actor” through “thank you, Jonathan.” Keep his voice and timing natural.\n\nStart in the real interview with a small “COSTUME / CHARACTER” label. On the spoken word “silhouette,” expand SILHOUETTE into an oversized magazine headline and unfold three aligned, moving magazine panels showing three different real expressions from his answer. Let one show him explaining, one catch his small smile, and one hold his quieter, tilted-head response. Lift a clean cutout of his actual portrait across a panel edge and in front of the headline. Make this a visible spatial transformation with warm paper, black typography and burgundy accents. Let the composition hold, then fold it back into the moving interview before his modest fitting-room punchline.\n\nUse the live interview pane when the source introduces its own photo montage, and build our editorial layout from scratch. Preserve his real face, hair and clothes. Keep dialogue continuous, captions sparse and sound accents quiet. Deliver a 1080×1920 MP4 at 30 fps and an editable project containing the panel animation, source-derived portrait mask and exact timing.",
+    "description": "A spoken silhouette becomes a moving fashion editorial.",
+    "prompt": "Use Video Use to turn Drew Starkey’s answer about costume and character into a roughly 24-second portrait fashion editorial, using this Esquire interview: https://www.youtube.com/watch?v=VULC3YTVmFs. Keep the complete answer from “As an actor” through “thank you, Jonathan,” around 04:10.5–04:34.2. Preserve his voice, pauses and natural timing.\n\nBegin in the real interview with a small COSTUME / CHARACTER label. Let a quiet paper edge appear as he says “physicality.” On the spoken word “silhouette,” make the interview unfold into a designed magazine page: one large, moving portrait and two smaller moving expression windows, with strong proportions, warm paper, black type and an accent sampled from his burgundy jacket. Let his real hair, shoulders and gesturing hands cross the moving panel edges while his lower body stays inside the source panel. Build this from the interview footage; leave out the publisher’s photo montage.\n\nKeep the large portrait alive as he speaks. Match his head, eyes and shoulder placement when the real footage changes from the wider gesture to the closer expression. Make the page divisions move around his silhouette, with the SILHOUETTE headline integrated into the composition. Use actual source pixels and carefully refined moving masks; preserve his appearance, hand shapes and motion blur. Keep cropped shoulders or torso attached to a deliberate panel edge.\n\nLet the complete editorial composition read, then fold the secondary windows away and return the main portrait to the continuing interview before “I don’t know.” Let his fitting-room punchline and final thanks breathe. Keep captions selective, dialogue continuous and paper accents quiet. Deliver a 1080×1920 MP4 at 30 fps and an editable project with the exact source clocks, moving masks, pose-registration controls, panel animation, typography and audio decisions.",
     "duration": 23.7,
     "promptKind": "Original prompt",
     "orientation": "portrait",
     "audiences": ["Content creators", "Editors", "Fashion brands"],
-    "useCases": ["Celebrity edits", "Motion graphics", "Compositing"],
+    "useCases": ["Character edits", "Editorial motion", "Subject cutouts"],
     "technique": "video-editing",
-    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "promptSource": "Exact prompt executed for this rebuilt Video Use edit. The linked source footage and audio retain their creators’ rights.",
     "mediaCredits": [
       {
         "title": "Drew Starkey Chats Daniel Craig, 'Outer Banks,' And Loewe | Explain This | Esquire",
@@ -1694,10 +1694,10 @@
         "changes": "Edited excerpt. Original footage and source audio retain their creators’ rights."
       }
     ],
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-d84a31de2674-e5dd030b/final.mp4",
-    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-d84a31de2674-e5dd030b/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-d84a31de2674-e5dd030b/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-d84a31de2674-e5dd030b/review.md"
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-8c6eed0a732a-07efc3d4/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-8c6eed0a732a-07efc3d4/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-8c6eed0a732a-07efc3d4/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-8c6eed0a732a-07efc3d4/review.md"
   },
   {
     "id": "useful-75-leah-glambot",
@@ -1767,17 +1767,21 @@
   },
   {
     "id": "useful-77-muzan-panel",
-    "title": "From Anime to Ink",
+    "title": "Muzan Through the Page",
     "category": "Video Edits",
-    "description": "Build layered manga panels around real anime movement.",
-    "prompt": "Create a 20-second Muzan character edit that turns the anime into two animated manga panels, then releases each panel back into the original motion. Use this public clip of his arrival at the Ubuyashiki mansion: https://www.youtube.com/watch?v=09b_F5xjOvE. The scene is from Demon Slayer’s Hashira Training arc; use the arrival and close-ups around00:37–01:29, not the unrelated opening or uploader outro.\n\nOpen on the gate and his moving cape, then move into the shadowed face. Freeze that real close-up and separate the foreground mist, Muzan and the background into source-derived layers. Turn it into a strong black-and-white manga panel with a drawn border, restrained halftone and a subtle camera move through the layers. Keep his face and original linework recognizable. On the beat, restore color, remove the border and release the exact pose back into the animation.\n\nRepeat the idea once on the full-body pose beside the pond, with a different panel composition and a spare MUZAN title behind his silhouette. Let the original water, cape and mist create the atmosphere. Finish on his real moving frontal close-up. Use a dark instrumental pulse, controlled transitions and clean typography; each layered transformation should be readable before the next cut.\n\nDeliver a 1920×1080 MP4 at 30fps, plus the editable masks, layered compositions, camera moves, cut timing and credit metadata. Preserve the actual anime artwork; create the composition and motion around it.",
-    "duration": 20,
+    "description": "A moving cape opens one layered manga composition.",
+    "prompt": "Use Video Use to make a 22-second landscape Muzan edit from his arrival at the Ubuyashiki mansion: https://www.youtube.com/watch?v=09b_F5xjOvE. Use the gate, moving cape, shadowed face, pond-side pose and final frontal close-up around 00:37–01:29. Build one evolving manga spread from the real animation.\n\nBegin in color with the gate and cape. Let the cape's actual contour carry an animated black ink seam into the first panel. Freeze the shadowed face and turn the scene into charcoal-and-ivory linework with restrained halftone, changing the setting before the character. Give the separate character and setting layers a shallow depth move while keeping the original mist believable. Unfold that composition into two unequal panels: a large face study and a wider pond scene. Move the page's gutter past his source-derived silhouette so his cape visibly crosses the panel boundary. Place MUZAN once along the page edge; let the character and composition dominate.\n\nLet the pond panel expand back into full-color footage. Return its separated layers to the exact original pose before the next real frame moves. Add two brief, fading cape echoes from nearby real poses during that release, then clear the graphics and finish on his moving frontal close-up. Keep the face and original drawing intact; no invented anatomy or generated character images.\n\nUse deliberate framing to exclude the uploader's intro, outro and baked subtitles while keeping his face readable. MUZAN is the only added copy. Shape the pacing to a dark, credited instrumental score, with a held visual payoff between the fast transitions. Add no voiceover. Deliver a 1920×1080 MP4 at 30 fps and an editable project with the masks, panel choreography, exact source cuts and timing.",
+    "duration": 22,
     "promptKind": "Original prompt",
     "orientation": "landscape",
     "audiences": ["Editors", "Anime fans", "Content creators"],
-    "useCases": ["Character edits", "Motion graphics", "Compositing"],
+    "useCases": [
+      "Character edits",
+      "Layered compositing",
+      "Silhouette transitions"
+    ],
     "technique": "video-editing",
-    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "promptSource": "Exact prompt executed for this rebuilt Video Use edit. The linked source footage and audio retain their creators’ rights.",
     "mediaCredits": [
       {
         "title": "MUZAN ENTRY | Demon Slayer Season 4",
@@ -1794,10 +1798,10 @@
         "changes": "Excerpt edited and mixed for the film."
       }
     ],
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-94590b06e646-edd84bb7/final.mp4",
-    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-94590b06e646-edd84bb7/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-94590b06e646-edd84bb7/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-94590b06e646-edd84bb7/review.md"
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-a3e195737242-5d6d0dda/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-a3e195737242-5d6d0dda/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-a3e195737242-5d6d0dda/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-a3e195737242-5d6d0dda/review.md"
   },
   {
     "id": "useful-78-routine-rhythm",
