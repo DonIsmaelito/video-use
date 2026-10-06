@@ -5084,5 +5084,175 @@
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-55-solar-speedrun-99d3f0c2e974-2b5bff58/poster.jpg"
       }
     ]
+  },
+  {
+    "id": "useful-56-train-line",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "featured-retry-20261005",
+    "sourceRun": "useful-56-train-line",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "high",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "603fbfd5d092976d1db0d21b7b86ae251deeaeca",
+    "frameworkArchiveSha256": "e18b6ebe49b19784d59e13a90cea2c37b4eba2a1b01547576e6261fca8958d9f",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "a81be98663cea14b1a38901cf49fb7c2f2aec47c5815bae0b32a36b23f9d9d75",
+    "promptSource": "Fresh footage-first prompt authored for this retry; not adapted from the rejected procedural film.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-56-train-line-a81be98663ce-c8a6313d/source.zip",
+    "editableSourceSha256": "4b2f63fe42e5583618aebfc42c2cd78aeb357c2f8a0ab97bceda15c65e820e19",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/featured-retry-20261005/useful-56-train-line/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-56-train-line-a81be98663ce-c8a6313d/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-56-train-line-a81be98663ce-c8a6313d/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-56-train-line-a81be98663ce-c8a6313d/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-56-train-line-a81be98663ce-c8a6313d/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-56-train-line-a81be98663ce-c8a6313d/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-56-train-line-a81be98663ce-c8a6313d/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-56-train-line-a81be98663ce-c8a6313d/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-57-night-out",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "featured-retry-20261005",
+    "sourceRun": "useful-57-night-out",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "high",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "603fbfd5d092976d1db0d21b7b86ae251deeaeca",
+    "frameworkArchiveSha256": "e18b6ebe49b19784d59e13a90cea2c37b4eba2a1b01547576e6261fca8958d9f",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "c502b2c34a259ef6574119c1797c337d5fec32a4c1374cc6a5db7b568d16caba",
+    "promptSource": "Fresh footage-first prompt authored for this retry; source is a real JayByrd Films venue production, not invented footage.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-57-night-out-c502b2c34a25-36effe08/source.zip",
+    "editableSourceSha256": "f4174eedfc1436eb0331e2eebc73ae6c1205817c8a99468d41d1ee7c6e3097ae",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/featured-retry-20261005/useful-57-night-out/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-57-night-out-c502b2c34a25-36effe08/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-57-night-out-c502b2c34a25-36effe08/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-57-night-out-c502b2c34a25-36effe08/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-57-night-out-c502b2c34a25-36effe08/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-57-night-out-c502b2c34a25-36effe08/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-57-night-out-c502b2c34a25-36effe08/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-57-night-out-c502b2c34a25-36effe08/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-58-podcast-to-short",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "featured-retry-20261005",
+    "sourceRun": "useful-58-podcast-to-short",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "high",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "603fbfd5d092976d1db0d21b7b86ae251deeaeca",
+    "frameworkArchiveSha256": "e18b6ebe49b19784d59e13a90cea2c37b4eba2a1b01547576e6261fca8958d9f",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "3f5db5afdb55f5eda441e879302b90bfd7ce78fce13b69463627eb7b86e0c5f5",
+    "promptSource": "Original Video Use edit request, based on the public source interview and inspected source video frames; no generated speech or fictional app.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-58-podcast-to-short-3f5db5afdb55-a5663cbe/source.zip",
+    "editableSourceSha256": "25a1a13b8b0759097bcd2208ea9b0e0a0b4d05b88783832928e1595143602719",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/featured-retry-20261005/useful-58-podcast-to-short/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-58-podcast-to-short-3f5db5afdb55-a5663cbe/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-58-podcast-to-short-3f5db5afdb55-a5663cbe/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-58-podcast-to-short-3f5db5afdb55-a5663cbe/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-58-podcast-to-short-3f5db5afdb55-a5663cbe/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-58-podcast-to-short-3f5db5afdb55-a5663cbe/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-58-podcast-to-short-3f5db5afdb55-a5663cbe/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-58-podcast-to-short-3f5db5afdb55-a5663cbe/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-59-workflow-cutdown",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "featured-retry-20261005",
+    "sourceRun": "useful-59-workflow-cutdown",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "high",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "603fbfd5d092976d1db0d21b7b86ae251deeaeca",
+    "frameworkArchiveSha256": "e18b6ebe49b19784d59e13a90cea2c37b4eba2a1b01547576e6261fca8958d9f",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "06e5908696b142302eadc9a3637c09c7db51fd6a778dd1b1eac4ca3c3371d378",
+    "promptSource": "Original Video Use edit request based on official conference footage, its public English captions and inspected source frames.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-59-workflow-cutdown-06e5908696b1-3cc2a7cf/source.zip",
+    "editableSourceSha256": "4544e92566d91023cacb47466ca4191de741e382edd5212819c7b286356f2a3f",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/featured-retry-20261005/useful-59-workflow-cutdown/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-59-workflow-cutdown-06e5908696b1-3cc2a7cf/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-59-workflow-cutdown-06e5908696b1-3cc2a7cf/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-59-workflow-cutdown-06e5908696b1-3cc2a7cf/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-59-workflow-cutdown-06e5908696b1-3cc2a7cf/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-59-workflow-cutdown-06e5908696b1-3cc2a7cf/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-59-workflow-cutdown-06e5908696b1-3cc2a7cf/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-59-workflow-cutdown-06e5908696b1-3cc2a7cf/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-60-rocket-catch",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "featured-retry-20261005",
+    "sourceRun": "useful-60-rocket-catch",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "high",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "603fbfd5d092976d1db0d21b7b86ae251deeaeca",
+    "frameworkArchiveSha256": "e18b6ebe49b19784d59e13a90cea2c37b4eba2a1b01547576e6261fca8958d9f",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "73a6e4fe106c27092206533741b50ea2967a20bc45fc9574e88382112e849d5f",
+    "promptSource": "Original footage-led editorial prompt authored for the featured retry.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-60-rocket-catch-73a6e4fe106c-91ee561b/source.zip",
+    "editableSourceSha256": "38582fc62ce093d5224bd960c3376c822fbb745c20c30807a79fe9c11b3062a5",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/featured-retry-20261005/useful-60-rocket-catch/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-60-rocket-catch-73a6e4fe106c-91ee561b/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-60-rocket-catch-73a6e4fe106c-91ee561b/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-60-rocket-catch-73a6e4fe106c-91ee561b/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-60-rocket-catch-73a6e4fe106c-91ee561b/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-60-rocket-catch-73a6e4fe106c-91ee561b/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-60-rocket-catch-73a6e4fe106c-91ee561b/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-60-rocket-catch-73a6e4fe106c-91ee561b/poster.jpg"
+      }
+    ]
   }
 ]

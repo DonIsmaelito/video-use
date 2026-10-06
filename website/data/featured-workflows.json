@@ -6,33 +6,33 @@
     "fit": "cover"
   },
   {
-    "exampleId": "useful-41-gaming-highlights",
-    "title": "Gaming Highlights",
-    "description": "Turn your best plays into highlights worth replaying.",
+    "exampleId": "useful-56-train-line",
+    "title": "Sports Highlights",
+    "description": "Turn the best moment into the whole story.",
     "fit": "contain"
   },
   {
-    "exampleId": "useful-42-social-recaps",
-    "title": "Social Recaps",
-    "description": "Make everyday moments worth watching again.",
+    "exampleId": "useful-57-night-out",
+    "title": "Venue Reels",
+    "description": "Make your space the next place to be.",
     "fit": "contain"
   },
   {
-    "exampleId": "useful-43-product-ads",
-    "title": "Product Ads",
-    "description": "Give your products a moment in the spotlight.",
+    "exampleId": "useful-58-podcast-to-short",
+    "title": "Podcast Clips",
+    "description": "Turn a great conversation into a must-watch clip.",
     "fit": "contain"
   },
   {
-    "exampleId": "useful-44-app-demos",
-    "title": "App Demos",
-    "description": "Show how your app works, one clear move at a time.",
+    "exampleId": "useful-59-workflow-cutdown",
+    "title": "Demo Highlights",
+    "description": "Bring the best of your live demo into focus.",
     "fit": "contain"
   },
   {
-    "exampleId": "useful-45-visual-explainers",
-    "title": "Visual Explainers",
-    "description": "Make big ideas easy to see and understand.",
+    "exampleId": "useful-60-rocket-catch",
+    "title": "Mini Docs",
+    "description": "Tell a big story in a little time.",
     "fit": "contain"
   }
 ]

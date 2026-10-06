@@ -255,6 +255,7 @@ export function Gallery() {
                 src={example.video}
                 poster={example.poster}
                 orientation={example.orientation}
+                ambient={example.orientation === 'portrait' && fit !== 'cover'}
                 suspended={selected !== null || !!manualCopy}
               />
               <span className="featured-watch">
