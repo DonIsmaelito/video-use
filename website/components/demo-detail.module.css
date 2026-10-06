@@ -224,7 +224,16 @@
     max-width: calc(100vw - 24px);
     height: min(860px, calc(100svh - 24px));
     max-height: calc(100svh - 24px);
+    padding-top: 44px;
     border-radius: 14px;
+  }
+
+  .dialog > :global([data-slot='dialog-close']) {
+    top: 0;
+    right: 4px;
+    width: 44px;
+    height: 44px;
+    background: transparent;
   }
 
   .media {

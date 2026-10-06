@@ -1315,7 +1315,7 @@
     "audiences": ["Content creators", "Social media teams"],
     "useCases": ["YouTube to short clips", "Social content"],
     "technique": "video-editing",
-    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "promptSource": "Original executed prompt, followed by a requested caption refinement. The editable project records both stages. Source footage and audio retain their creators’ rights.",
     "mediaCredits": [
       {
         "title": "Kai Cenat Druski & Kevin Hart FULL STREAM!",
@@ -1324,10 +1324,10 @@
         "changes": "Edited excerpt. Original footage and audio retain their creators’ rights."
       }
     ],
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-61-druski-entrance-d445964ebe32-14f1e3b3/final.mp4",
-    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-61-druski-entrance-d445964ebe32-14f1e3b3/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-61-druski-entrance-d445964ebe32-14f1e3b3/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-61-druski-entrance-d445964ebe32-14f1e3b3/review.md"
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-61-druski-entrance-7f43e6039357-9ee01ee1/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-61-druski-entrance-7f43e6039357-9ee01ee1/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-61-druski-entrance-7f43e6039357-9ee01ee1/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-61-druski-entrance-7f43e6039357-9ee01ee1/review.md"
   },
   {
     "id": "useful-62-speed-shaolin",
@@ -1341,7 +1341,7 @@
     "audiences": ["Content creators", "Social media teams"],
     "useCases": ["YouTube to short clips", "Social content"],
     "technique": "video-editing",
-    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "promptSource": "Original executed prompt, followed by a requested caption refinement. The editable project records both stages. Source footage and audio retain their creators’ rights.",
     "mediaCredits": [
       {
         "title": "Becoming a Shaolin Monk in China 🥋🇨🇳 irl stream",
@@ -1350,10 +1350,10 @@
         "changes": "Edited excerpt. Original footage and audio retain their creators’ rights."
       }
     ],
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-62-speed-shaolin-8c98c19d57e2-52d77af1/final.mp4",
-    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-62-speed-shaolin-8c98c19d57e2-52d77af1/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-62-speed-shaolin-8c98c19d57e2-52d77af1/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-62-speed-shaolin-8c98c19d57e2-52d77af1/review.md"
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-62-speed-shaolin-cab7933db01e-f306f3ba/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-62-speed-shaolin-cab7933db01e-f306f3ba/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-62-speed-shaolin-cab7933db01e-f306f3ba/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-62-speed-shaolin-cab7933db01e-f306f3ba/review.md"
   },
   {
     "id": "useful-63-quenlin-verdict",
@@ -1367,7 +1367,7 @@
     "audiences": ["Content creators", "Social media teams"],
     "useCases": ["YouTube to short clips", "Social content"],
     "technique": "video-editing",
-    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "promptSource": "Original executed prompt, followed by a requested caption refinement. The editable project records both stages. Source footage and audio retain their creators’ rights.",
     "mediaCredits": [
       {
         "title": "THE $20,000 MUKBANG",
@@ -1376,10 +1376,10 @@
         "changes": "Edited excerpt. Original footage and source audio retain their creators’ rights."
       }
     ],
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-e82efa9eb917-b228825a/final.mp4",
-    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-e82efa9eb917-b228825a/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-e82efa9eb917-b228825a/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-e82efa9eb917-b228825a/review.md"
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-9e2536d5fc13-9bc0f561/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-9e2536d5fc13-9bc0f561/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-9e2536d5fc13-9bc0f561/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-9e2536d5fc13-9bc0f561/review.md"
   },
   {
     "id": "useful-64-billie-finneas",
@@ -1393,7 +1393,7 @@
     "audiences": ["Content creators", "Social media teams"],
     "useCases": ["YouTube to short clips", "Social content"],
     "technique": "video-editing",
-    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "promptSource": "Original executed prompt, followed by a requested caption refinement. The editable project records both stages. Source footage and audio retain their creators’ rights.",
     "mediaCredits": [
       {
         "title": "Billie Eilish vs. Finneas | Hot Ones Versus",
@@ -1402,10 +1402,10 @@
         "changes": "Edited excerpt. Original footage and source audio retain their creators’ rights."
       }
     ],
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-e0a0e17317fe-d1e59969/final.mp4",
-    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-e0a0e17317fe-d1e59969/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-e0a0e17317fe-d1e59969/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-e0a0e17317fe-d1e59969/review.md"
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-f21e52c466fd-1eaf7faa/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-f21e52c466fd-1eaf7faa/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-f21e52c466fd-1eaf7faa/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-f21e52c466fd-1eaf7faa/review.md"
   },
   {
     "id": "useful-65-andrew-amelia",
@@ -1419,7 +1419,7 @@
     "audiences": ["Content creators", "Social media teams", "Editors"],
     "useCases": ["Interview clips", "Social content"],
     "technique": "video-editing",
-    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "promptSource": "Original executed prompt, followed by a requested caption refinement. The editable project records both stages. Source footage and audio retain their creators’ rights.",
     "mediaCredits": [
       {
         "title": "ANDREW GARFIELD | CHICKEN SHOP DATE",
@@ -1436,10 +1436,10 @@
         "changes": "Excerpt edited and mixed under dialogue."
       }
     ],
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-65-andrew-amelia-9baf0236b660-3ac90527/final.mp4",
-    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-65-andrew-amelia-9baf0236b660-3ac90527/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-65-andrew-amelia-9baf0236b660-3ac90527/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-65-andrew-amelia-9baf0236b660-3ac90527/review.md"
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-65-andrew-amelia-e9ed0e835a4d-338895a0/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-65-andrew-amelia-e9ed0e835a4d-338895a0/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-65-andrew-amelia-e9ed0e835a4d-338895a0/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-65-andrew-amelia-e9ed0e835a4d-338895a0/review.md"
   },
   {
     "id": "useful-66-tank-workout",
@@ -1479,7 +1479,7 @@
     "audiences": ["Sports fans", "Content creators", "Editors"],
     "useCases": ["Sports breakdowns", "YouTube to short clips"],
     "technique": "video-editing",
-    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "promptSource": "Original executed prompt, followed by requested caption and AI narration refinements. The editable project records both stages. Source footage and audio retain their creators’ rights.",
     "mediaCredits": [
       {
         "title": "Макс Холлоуэй vs Джастин Гейджи | Полный бой",
@@ -1488,10 +1488,10 @@
         "changes": "Edited excerpt. Original footage and source audio retain their creators’ rights."
       }
     ],
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-67-holloway-ten-seconds-89d38fe641c3-04ec4f48/final.mp4",
-    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-67-holloway-ten-seconds-89d38fe641c3-04ec4f48/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-67-holloway-ten-seconds-89d38fe641c3-04ec4f48/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-67-holloway-ten-seconds-89d38fe641c3-04ec4f48/review.md"
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-67-holloway-ten-seconds-899fd95444ed-b2ffe772/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-67-holloway-ten-seconds-899fd95444ed-b2ffe772/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-67-holloway-ten-seconds-899fd95444ed-b2ffe772/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-67-holloway-ten-seconds-899fd95444ed-b2ffe772/review.md"
   },
   {
     "id": "useful-68-speed-kai-chained",
@@ -1505,7 +1505,7 @@
     "audiences": ["Content creators", "Streamers", "Social media teams"],
     "useCases": ["Gaming highlights", "YouTube to short clips"],
     "technique": "video-editing",
-    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "promptSource": "Original executed prompt, followed by a requested caption refinement. The editable project records both stages. Source footage and audio retain their creators’ rights.",
     "mediaCredits": [
       {
         "title": "⛓️CHAINED TOGETHER⛓️ ft. Kai Cenat",
@@ -1514,10 +1514,10 @@
         "changes": "Edited excerpt. Original footage and audio retain their creators’ rights."
       }
     ],
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-9270c78a91be-6e45fe08/final.mp4",
-    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-9270c78a91be-6e45fe08/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-9270c78a91be-6e45fe08/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-9270c78a91be-6e45fe08/review.md"
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-3f6ca87b4bf6-a60ea8a6/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-3f6ca87b4bf6-a60ea8a6/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-3f6ca87b4bf6-a60ea8a6/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-3f6ca87b4bf6-a60ea8a6/review.md"
   },
   {
     "id": "useful-69-meta-muse-glasses",
@@ -1525,13 +1525,13 @@
     "category": "Video Edits",
     "description": "Turn a keynote into one clear product story with real demos.",
     "prompt": "Edit a 46-second, 16:9 explainer about Muse coming to Meta’s AI glasses, using real footage from Meta’s official Connect 2026 keynote: https://www.youtube.com/watch?v=SdKFDIAGF24. Focus on 19:58–23:27, which contains the announcement, the live calendar demonstration, and the Oakley fitness film. Check factual wording against https://about.fb.com/news/2026/09/the-biggest-news-from-connect-2026/.\n\nStart immediately with a strong real shot of the glasses in use, then establish the keynote and build a clear story from the actual demonstration footage. Move between the presenter, the original stage display, first-person activity, and the fitness sequence. Keep existing interface graphics and source framing intact. Use clean cuts and a few short, readable editorial captions; no animated explainer scenes, invented interfaces, or replacement footage.\n\nUse a warm, conversational American narrator. Begin with this exact narration:\n“Meta wants your AI agent to go with you, through a pair of glasses. At Connect twenty twenty-six, it announced Muse for its AI glasses: an ongoing conversation, context from earlier chats, and tasks getting done in the background. On stage, Zuckerberg asks it to find time for a meeting.”\nThen let the complete original calendar response play clearly—the reply is around 20:57–21:02 in the keynote. Keep its real audio and do not narrate over it.\nContinue with:\n“Then Meta shows the same idea in a workout: training guidance through Oakley glasses, reminders between intervals, and a progress check when the session is done. The useful part is getting help while your hands are busy. Meta says Muse is coming to its glasses in the months ahead.”\nLet the real agent’s progress-result reply near 23:08–23:10 play toward the end, with the corresponding fitness footage and the person’s actual reaction. Give that final human moment a little breathing room.\n\nUse Scott Buckley’s “Origami” as a restrained instrumental bed: https://soundcloud.com/scottbuckley/origami-cc-by. Choose one coherent passage, keep it below the narrator, and lower it further for both genuine demo replies. Credit the composer and CC BY 4.0 license, with the source https://www.scottbuckley.com.au/library/origami/ and https://creativecommons.org/licenses/by/4.0/; note that the music was excerpted and mixed under narration.\n\nAdd accurate captions, “Meta Connect 2026” briefly over the stage shot, and a discreet “Meta demonstration” identifier during the fitness film. Finish over actual footage with “Muse on AI glasses · Rollout ahead.” Preserve the distinction between Meta’s announced rollout and current availability. Keep it useful, stylish and easy to follow, without a logo intro or a long end card.",
-    "duration": 46,
+    "duration": 47,
     "promptKind": "Original prompt",
     "orientation": "landscape",
     "audiences": ["Product teams", "Content creators", "Marketers"],
     "useCases": ["Product explainers", "Keynote highlights"],
     "technique": "video-editing",
-    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "promptSource": "Original executed prompt, followed by requested caption and AI narration refinements. The editable project records both stages. Source footage and audio retain their creators’ rights.",
     "mediaCredits": [
       {
         "title": "Meta Connect Keynote 2026",
@@ -1548,10 +1548,10 @@
         "changes": "Excerpt edited and mixed under the film."
       }
     ],
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-69-meta-muse-glasses-2e122be84b7f-d71984f7/final.mp4",
-    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-69-meta-muse-glasses-2e122be84b7f-d71984f7/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-69-meta-muse-glasses-2e122be84b7f-d71984f7/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-69-meta-muse-glasses-2e122be84b7f-d71984f7/review.md"
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-69-meta-muse-glasses-4e5ba35e68d1-76662495/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-69-meta-muse-glasses-4e5ba35e68d1-76662495/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-69-meta-muse-glasses-4e5ba35e68d1-76662495/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-69-meta-muse-glasses-4e5ba35e68d1-76662495/review.md"
   },
   {
     "id": "useful-70-pocket-4p",
@@ -1565,7 +1565,7 @@
     "audiences": ["Product teams", "Content creators", "Filmmakers"],
     "useCases": ["Product demos", "Camera sample reels"],
     "technique": "video-editing",
-    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "promptSource": "Original executed prompt, followed by a requested typography refinement. The editable project records both stages. Source footage and audio retain their creators’ rights.",
     "mediaCredits": [
       {
         "title": "DJI Osmo Pocket 4P — Here's What the Footage Actually Looks Like",
@@ -1582,10 +1582,308 @@
         "changes": "Excerpt edited and mixed under the film."
       }
     ],
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-70-pocket-4p-5a06da5813a8-cad5ac33/final.mp4",
-    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-70-pocket-4p-5a06da5813a8-cad5ac33/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-70-pocket-4p-5a06da5813a8-cad5ac33/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-70-pocket-4p-5a06da5813a8-cad5ac33/review.md"
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-70-pocket-4p-b1d0153c9753-0ca2af81/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-70-pocket-4p-b1d0153c9753-0ca2af81/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-70-pocket-4p-b1d0153c9753-0ca2af81/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-70-pocket-4p-b1d0153c9753-0ca2af81/review.md"
+  },
+  {
+    "id": "useful-71-whiskey",
+    "title": "Whiskey in Motion",
+    "category": "Video Edits",
+    "description": "Let the character’s movement carry every transition.",
+    "prompt": "Create a 20-second looping cinematic Agent Whiskey edit from this official Kingsman: The Golden Circle clip: https://www.youtube.com/watch?v=unhrG_oZefA\n\nOpen inside Pedro Pascal’s turning pose, move through the real close-body fight, then use the electric-lasso passage and approach to return to that exact turn. Briefly accelerate the approach and let the opening pose settle into slow motion. Keep the important contacts and exchanges at their original speed, with consistent screen direction and a rich, restrained cinematic finish. The ending and opening should join through consecutive frames of the same source shot.\n\nDesign two precise silhouette wipes using Whiskey’s actual turning shoulder and the jacket passing close to the camera. Let those moving contours reveal the next shot so the transitions feel carried by the fight. Rotoscope the real footage, preserve motion blur, and correct the masks frame by frame. Use no generic directional wipe, body morph or invented action.\n\nDuring the final close-combat beat, place one bold “WHISKEY” title behind his moving body. His hat, jacket and arms should naturally occlude the type, along with any other real foreground figure crossing it. Keep the word recognizable, and leave faces, hands and the important contact readable.\n\nPreserve coherent scene sound and tie sound accents to the actual movement, with a clean audio join around the loop. Keep the source’s cinematic framing and exclude the graphic climax and promotional material. Deliver the MP4 and an editable Video Use project with the exact source clocks, speed changes, motion mattes, title layers and audio decisions.",
+    "duration": 20,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": ["Editors", "Film fans", "Content creators"],
+    "useCases": ["Character edits", "Compositing", "Speed ramps"],
+    "technique": "video-editing",
+    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "mediaCredits": [
+      {
+        "title": "Agent Whiskey's (Pedro Pascal) Epic Diner Fight | Kingsman: The Golden Circle",
+        "creator": "Amazon Prime Video UK & IE",
+        "url": "https://www.youtube.com/watch?v=unhrG_oZefA",
+        "changes": "Edited excerpt. Original footage and source audio retain their creators’ rights."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-71-whiskey-ec76771cdcc3-0e3cf733/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-71-whiskey-ec76771cdcc3-0e3cf733/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-71-whiskey-ec76771cdcc3-0e3cf733/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-71-whiskey-ec76771cdcc3-0e3cf733/review.md"
+  },
+  {
+    "id": "useful-72-era-swap",
+    "title": "Same Move Different Era",
+    "category": "Video Edits",
+    "description": "Switch from Jordan to Edwards inside a single movement.",
+    "prompt": "Create a 26-second Michael Jordan / Anthony Edwards era-swap edit from this comparison: https://www.youtube.com/watch?v=5p2ZMBNDCPQ\n\nBuild three precise match cuts from the real paired plays: a baseline spin into a fadeaway, a powerful one-hand finish, and an inside finish around the defender. Each sequence begins with Jordan’s movement and switches to Edwards at the same gather or release phase, then lets Edwards’ real shot finish. Make the player’s scale, trunk position, active hand and ball line up across each switch, so the movement appears to carry through the change of era.\n\nUse careful crop, scale, position and timing adjustments. Preserve the actual bodies and ball paths. Keep the active limbs and basket readable, and inspect the frames immediately around all three swaps. Choose a better nearby action frame when needed instead of concealing a mismatch with a dissolve. Keep the pacing controlled and energetic, with only enough lead-in and follow-through to make each move clear.\n\nAt one swap, isolate Jordan with a real moving silhouette mask so the court changes a few frames before the player does. Remove the incoming player from that brief background plate to avoid doubled bodies. End with four seconds of the strongest pair playing side by side, with the shooting poses synchronized so the match becomes clear.\n\nUse a clean 16:9 presentation with restrained MJ / ANT identification and a small credit for Ball Film Studio’s comparison and the underlying NBA footage. Use an energetic instrumental with a clean pulse. Keep useful court accents only where they are clear; do not cut the comparison narrator into misleading fragments. Deliver the MP4 and an editable Video Use project containing all six source ranges, alignment frames, transformations and audio choices.",
+    "duration": 26,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": ["Sports fans", "Editors", "Content creators"],
+    "useCases": ["Match cuts", "Sports highlights", "Compositing"],
+    "technique": "video-editing",
+    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "mediaCredits": [
+      {
+        "title": "Anthony Edwards playing EXACTLY like Michael Jordan: Identical plays",
+        "creator": "Ball Film Studio",
+        "url": "https://www.youtube.com/watch?v=5p2ZMBNDCPQ",
+        "changes": "Edited excerpt. Original footage and source audio retain their creators’ rights."
+      },
+      {
+        "title": "Resonance",
+        "creator": "Scott Buckley",
+        "url": "https://www.scottbuckley.com.au/library/resonance/",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "changes": "Excerpt edited and mixed for the film."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-72-era-swap-23c893e4aee3-8e0a7a17/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-72-era-swap-23c893e4aee3-8e0a7a17/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-72-era-swap-23c893e4aee3-8e0a7a17/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-72-era-swap-23c893e4aee3-8e0a7a17/review.md"
+  },
+  {
+    "id": "useful-73-pacu-poster",
+    "title": "A Moving Poster",
+    "category": "Video Edits",
+    "description": "Turn a real racing-boat pose into a layered cinematic poster.",
+    "prompt": "Create a 15-second vertical edit from Lensa Rams's original Pacu Jalur video: https://www.tiktok.com/@lensa.rams/video/7458433897114635525. Make the child and the moving boat the stars, with one standout layered freeze poster.\n\nUse the real dance from about 6.30–15.53 seconds, then the clean final movement from 17.03–19.80 seconds. The camera briefly loses the child and a flag obscures the view between those sections; cut that interruption out with a simple match of the child's direction and pose. Keep the original motion speed. Gently track the child and bow to settle small framing jolts, while keeping the feet, decorated boat tip and surrounding rowers visible. Preserve the natural feeling of the boat approaching the camera.\n\nAt exactly 15.20 seconds in the source, insert a three-second freeze. Use that actual pose to build three masked layers: the child, the boat and near foreground, and the distant riverbank. Make a restrained camera move through these layers so the depth is visible. Keep the feet planted on the boat, retain fine hands/hat edges, and fill only the narrow background edges revealed by the movement. The child's face, body, clothes and boat must remain real source pixels.\n\nSet a large warm-white AURA title behind the child's silhouette, with a small “Pacu Jalur · Riau, Indonesia” line in the quiet water area. Leave the original Lensa Rams and TikTok marks unobstructed. Send one subtle ripple through the existing water below the bow; it should displace the river texture, with no effect on the child or boat. Keep the poster clean and readable at phone size. Return every layer to the exact original alignment before releasing the freeze, play a brief beat of the same pose moving again, then make the clean source cut into the final moving close view.\n\nUse the original clip's musical soundtrack at normal pitch, with a brief, tasteful duck or filter during the freeze and a clean finish. Do not replace it with another viral repost or describe it as isolated live river sound. Deliver exactly 15 seconds at 30 fps and 1080×1920. The source is 576×1024: resize it conventionally, preserve its honest texture, and do not invent detail or market it as 4K. Include editable masks, measured tracking, compositing code, exact cut timing and source/credit metadata, with reconstruction instructions rather than bundled original media.",
+    "duration": 15,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": ["Content creators", "Social media teams"],
+    "useCases": ["Tracking", "Compositing", "Social content"],
+    "technique": "video-editing",
+    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "mediaCredits": [
+      {
+        "title": "AKSI BOCIL PACU JALUR #pacujalur #viral #tradisi #budaya #fyp #tiktok #Indonesia ",
+        "creator": "Lensa Rams",
+        "url": "https://www.tiktok.com/@lensa.rams/video/7458433897114635525",
+        "changes": "Edited excerpt. Original footage and source audio retain their creators’ rights."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-73-pacu-poster-6c9f577cf742-aaf30bb6/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-73-pacu-poster-6c9f577cf742-aaf30bb6/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-73-pacu-poster-6c9f577cf742-aaf30bb6/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-73-pacu-poster-6c9f577cf742-aaf30bb6/review.md"
+  },
+  {
+    "id": "useful-74-drew-editorial",
+    "title": "From Interview to Editorial",
+    "category": "Video Edits",
+    "description": "Let a spoken word transform an interview into a magazine spread.",
+    "prompt": "Use Video Use to create a roughly 24-second portrait fashion editorial from Drew Starkey’s Esquire interview: https://www.youtube.com/watch?v=VULC3YTVmFs. Take his complete answer about wardrobe and physicality around 04:10–04:34, from “As an actor” through “thank you, Jonathan.” Keep his voice and timing natural.\n\nStart in the real interview with a small “COSTUME / CHARACTER” label. On the spoken word “silhouette,” expand SILHOUETTE into an oversized magazine headline and unfold three aligned, moving magazine panels showing three different real expressions from his answer. Let one show him explaining, one catch his small smile, and one hold his quieter, tilted-head response. Lift a clean cutout of his actual portrait across a panel edge and in front of the headline. Make this a visible spatial transformation with warm paper, black typography and burgundy accents. Let the composition hold, then fold it back into the moving interview before his modest fitting-room punchline.\n\nUse the live interview pane when the source introduces its own photo montage, and build our editorial layout from scratch. Preserve his real face, hair and clothes. Keep dialogue continuous, captions sparse and sound accents quiet. Deliver a 1080×1920 MP4 at 30 fps and an editable project containing the panel animation, source-derived portrait mask and exact timing.",
+    "duration": 23.7,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": ["Content creators", "Editors", "Fashion brands"],
+    "useCases": ["Celebrity edits", "Motion graphics", "Compositing"],
+    "technique": "video-editing",
+    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "mediaCredits": [
+      {
+        "title": "Drew Starkey Chats Daniel Craig, 'Outer Banks,' And Loewe | Explain This | Esquire",
+        "creator": "Esquire",
+        "url": "https://www.youtube.com/watch?v=VULC3YTVmFs",
+        "changes": "Edited excerpt. Original footage and source audio retain their creators’ rights."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-d84a31de2674-e5dd030b/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-d84a31de2674-e5dd030b/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-d84a31de2674-e5dd030b/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-d84a31de2674-e5dd030b/review.md"
+  },
+  {
+    "id": "useful-75-leah-glambot",
+    "title": "Behind the GlamBot",
+    "category": "Video Edits",
+    "description": "Transform a filming setup into a moving editorial cover.",
+    "prompt": "Use Video Use to make a 12-second portrait fashion edit of Leah Halton’s GlamBot moment, using the real behind-the-scenes clip https://www.tiktok.com/@sosydneyau/video/7441941488730230034 and the matching result https://www.tiktok.com/@tinderau/video/7442111898994085127.\n\nOpen on the camera rig and her poised stance. Cut on the beginning of her turn into the same gesture in the GlamBot result, letting its existing slow motion carry the hair and shoulder movement. Match her position and direction across the cut, with a clean change from the wide setup to the closer beauty shot.\n\nAt the strongest final look, freeze the real frame and turn it into our own editorial cover. Let “IN THE FRAME” arrive as oversized type behind her hair, with “LEAH HALTON” as the small cover line. Separate her actual hair and shoulder silhouette so it visibly overlaps the headline. Use the source’s reds and pinks, a restrained border and a little depth; let the completed cover settle. Then release the cover back into the exact moving pose for the final second. Preserve her real appearance and the source branding.\n\nUse a restrained instrumental pulse with one accent on the match and another on the cover. Deliver a 1080×1920 MP4 at 30 fps and the editable project, including the source-derived matte and freeze-frame layout.",
+    "duration": 12,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": ["Content creators", "Fashion brands", "Editors"],
+    "useCases": ["Match cuts", "Compositing", "Celebrity edits"],
+    "technique": "video-editing",
+    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "mediaCredits": [
+      {
+        "title": "New girl crush unlocked  #leahhalton #tiktokawards #sydney #australia #fyp ",
+        "creator": "sosydney",
+        "url": "https://www.tiktok.com/@sosydneyau/video/7441941488730230034",
+        "changes": "Edited excerpt. Original footage and source audio retain their creators’ rights."
+      },
+      {
+        "title": "Replying to @Katharina Travels ask and you shall recieve @leah halton @TikTok Australia #tiktokawards ",
+        "creator": "Tinder ‘Straya",
+        "url": "https://www.tiktok.com/@tinderau/video/7442111898994085127",
+        "changes": "Edited excerpt. Original footage and source audio retain their creators’ rights."
+      },
+      {
+        "title": "Neon",
+        "creator": "Scott Buckley",
+        "url": "https://www.scottbuckley.com.au/library/neon/",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "changes": "Excerpt edited and mixed for the film."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-75-leah-glambot-a286df9f1764-755b59e0/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-75-leah-glambot-a286df9f1764-755b59e0/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-75-leah-glambot-a286df9f1764-755b59e0/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-75-leah-glambot-a286df9f1764-755b59e0/review.md"
+  },
+  {
+    "id": "useful-76-doc-hudson",
+    "title": "The Hudson Hornet",
+    "category": "Video Edits",
+    "description": "Turn a quiet character into a racing legend.",
+    "prompt": "Create a 26-second racing reveal from the official Doc Hudson scene at Willy’s Butte: https://www.youtube.com/watch?v=sihN1MG6kA8\n\nMake it feel like discovering a racing legend. Begin with the Hornet detail and Doc’s quiet preparation, with a small “You forgot who he was” title, let his real acceleration break the calm, then follow the complete banked corner and finish with his confident pass through the dust. Keep the original animation and the full payoff of his movement.\n\nUse the dust from his launch as a precise transition mask into the next driving shot. The next scene should emerge through the real moving dust, with soft, believable edges and changing opacity. Track and correct the mask so it feels like part of the scene.\n\nAdd one restrained racing-line graphic during the wide view of the banked corner. Follow the path Doc actually takes and keep the line attached to the curved road as the camera moves. Doc and the real dust must naturally pass in front of it. Treat the line as an illustrative guide, with no speed readings or telemetry claims.\n\nOn the final pass, reveal a brief “HUDSON HORNET” title behind the car, then let Doc and the dust occlude it. Keep the car, warm desert light and engine sound as the focus. Preserve coherent source sound and screen direction, and exclude the promotional ending.\n\nUse only the source footage and editable compositing. Deliver the MP4 and a Video Use project with the exact source ranges, dust and car masks, tracked line controls, title layers and audio choices.",
+    "duration": 26,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": ["Editors", "Animation fans", "Content creators"],
+    "useCases": ["Character edits", "Compositing", "Motion tracking"],
+    "technique": "video-editing",
+    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "mediaCredits": [
+      {
+        "title": "Doc Hudson Races Through Willy's Butte | Pixar Cars | @disneyjr",
+        "creator": "Disney Jr. ",
+        "url": "https://www.youtube.com/watch?v=sihN1MG6kA8",
+        "changes": "Edited excerpt. Original footage and source audio retain their creators’ rights."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-76-doc-hudson-5eb6c082f844-70c63db6/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-76-doc-hudson-5eb6c082f844-70c63db6/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-76-doc-hudson-5eb6c082f844-70c63db6/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-76-doc-hudson-5eb6c082f844-70c63db6/review.md"
+  },
+  {
+    "id": "useful-77-muzan-panel",
+    "title": "From Anime to Ink",
+    "category": "Video Edits",
+    "description": "Build layered manga panels around real anime movement.",
+    "prompt": "Create a 20-second Muzan character edit that turns the anime into two animated manga panels, then releases each panel back into the original motion. Use this public clip of his arrival at the Ubuyashiki mansion: https://www.youtube.com/watch?v=09b_F5xjOvE. The scene is from Demon Slayer’s Hashira Training arc; use the arrival and close-ups around00:37–01:29, not the unrelated opening or uploader outro.\n\nOpen on the gate and his moving cape, then move into the shadowed face. Freeze that real close-up and separate the foreground mist, Muzan and the background into source-derived layers. Turn it into a strong black-and-white manga panel with a drawn border, restrained halftone and a subtle camera move through the layers. Keep his face and original linework recognizable. On the beat, restore color, remove the border and release the exact pose back into the animation.\n\nRepeat the idea once on the full-body pose beside the pond, with a different panel composition and a spare MUZAN title behind his silhouette. Let the original water, cape and mist create the atmosphere. Finish on his real moving frontal close-up. Use a dark instrumental pulse, controlled transitions and clean typography; each layered transformation should be readable before the next cut.\n\nDeliver a 1920×1080 MP4 at 30fps, plus the editable masks, layered compositions, camera moves, cut timing and credit metadata. Preserve the actual anime artwork; create the composition and motion around it.",
+    "duration": 20,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": ["Editors", "Anime fans", "Content creators"],
+    "useCases": ["Character edits", "Motion graphics", "Compositing"],
+    "technique": "video-editing",
+    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "mediaCredits": [
+      {
+        "title": "MUZAN ENTRY | Demon Slayer Season 4",
+        "creator": "GoJo Sensei ",
+        "url": "https://www.youtube.com/watch?v=09b_F5xjOvE",
+        "changes": "Edited excerpt. Original footage and source audio retain their creators’ rights."
+      },
+      {
+        "title": "Resonance",
+        "creator": "Scott Buckley",
+        "url": "https://www.scottbuckley.com.au/library/resonance/",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "changes": "Excerpt edited and mixed for the film."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-94590b06e646-edd84bb7/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-94590b06e646-edd84bb7/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-94590b06e646-edd84bb7/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-94590b06e646-edd84bb7/review.md"
+  },
+  {
+    "id": "useful-78-routine-rhythm",
+    "title": "The Routine Has a Rhythm",
+    "category": "Video Edits",
+    "description": "Compose a morning routine from its real sounds and shapes.",
+    "prompt": "Make a 30-second, 16:9 edit from Ashton Hall’s “The Morning Routine That Changed My Life Immediately”: https://www.youtube.com/watch?v=ec2NkaG9mnA. Make the routine feel tactile and beautifully timed: cap, pour, step, clink, movement, then stillness. Use real moving footage throughout.\n\nStart immediately on the close bottle-cap action and pouring water, then answer those sounds with a shoe landing, a moving weight stack and treadmill footfalls. For the first six seconds, let the actions make the rhythm before any added music enters. The original video has narration and music mixed over parts of the routine: extract or carefully isolate action sounds that really exist in this source, keep their physical events in sync, and avoid stray words or remnants of the old score. Do not invent foley and present it as native sound. If a selected event cannot be recovered cleanly, use another genuine event from the same video and document the substitution.\n\nBuild into the purple-lit balcony and gym footage. Give me one three-second split-screen with push-ups on one side and treadmill steps on the other: both panels should keep moving, with the body and foot impacts answering each other. Then make one deliberate circular match cut from the round watch face in the cable-handle close-up into the ice bowl. Track and align the real shapes; a short object-aligned circular mask can carry the transition. Keep it clean and physical, with no spinning frame, fake liquid or generated replacement footage.\n\nGive the face plunge room to land. Preserve the real approach, water contact, hold and release in one continuous source sequence, retaining its original camera-angle change. Let the pace open up here. Finish on the quiet black-mug detail, ending before the next source clock title appears. Keep the original color character, use restrained reframing, and add only a discreet Ashton Hall source credit. No motivational narration or health claims.\n\nAfter the first six seconds, bring in a restrained passage of “Neon” by Scott Buckley: https://www.scottbuckley.com.au/library/neon/ (CC BY 4.0). Keep the source actions in front, then fade the score away for the plunge and quiet ending. Include the track title, composer, source and license links, and a note that the excerpt was trimmed and mixed. Deliver 1920×1080 at 30 fps, the editable timeline, sound-event provenance and timing, split-screen layout, and tracked match-cut work. Include source acquisition and replay instructions; keep the acquired video and music outside the editable source archive.",
+    "duration": 30,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": ["Editors", "Content creators", "Social media teams"],
+    "useCases": ["Sound design", "Match cuts", "Lifestyle edits"],
+    "technique": "video-editing",
+    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "mediaCredits": [
+      {
+        "title": "The Morning Routine That Changed My Life Immediately",
+        "creator": "Ashton Hall",
+        "url": "https://www.youtube.com/watch?v=ec2NkaG9mnA",
+        "changes": "Edited excerpt. Original footage and source audio retain their creators’ rights."
+      },
+      {
+        "title": "Neon",
+        "creator": "Scott Buckley",
+        "url": "https://www.scottbuckley.com.au/library/neon/",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "changes": "Excerpt edited and mixed for the film."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-78-routine-rhythm-3e63f8450841-6cf50637/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-78-routine-rhythm-3e63f8450841-6cf50637/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-78-routine-rhythm-3e63f8450841-6cf50637/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-78-routine-rhythm-3e63f8450841-6cf50637/review.md"
+  },
+  {
+    "id": "useful-79-dubai-chocolate",
+    "title": "Made You Crave It",
+    "category": "Video Edits",
+    "description": "Turn a real tasting into a texture-led food commercial.",
+    "prompt": "Use Video Use to turn Maria Vehera’s original Dubai chocolate video into an 18-second portrait texture commercial: https://www.tiktok.com/@mariavehera257/video/7313986849104481538. Use only the first green-filled bar, keeping the real crack, dip, bite and expression.\n\nOpen on a tight chocolate cross-section, then return to the unwrapping. As her hands pull the bar apart, place a bold “CRUNCH” behind the real fingers. Freeze the strongest broken-bar frame and lift the actual chocolate and hands onto warm cream for a three-second product composition. Preserve the filling strands and painted coating. Separate product and hand masks so the fingers convincingly overlap the typography. Give the cutout a small movement and restrained shadow, then use the real hand contour as the masked transition that reveals the live footage again.\n\nLet the original dipping and bite carry the story, with brief “CREAM” and “KNAFEH” labels. Finish on a tight cross-section crop that connects directly to the opening, using the same bar and crop. Preserve the chocolate’s real color and shape, original handling and crunch. Keep transitions quiet, with no voiceover or invented testimonial. Deliver a 1080×1920 MP4 at 30 fps and the editable project containing the product cutout, moving hand masks, transition and loop timing.",
+    "duration": 18,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": ["Content creators", "Food brands", "Editors"],
+    "useCases": ["Product edits", "Compositing", "Food content"],
+    "technique": "video-editing",
+    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "mediaCredits": [
+      {
+        "title": "@fixdessertchocolatier WOW, JUST WOW!!! Can’t explain how good these are! When a chocolate, a dessert and a piece of art meet this is what you get! 🍫   \"Can't Get Knafeh of it,\"  \"Mind Your Own Busicoff,\" and \"Crazy Over Caramel.\"  Order on Instagram Chatfood or Deliveroo and let me know what’s your FIX? Instagram : fixdessertchocolatier #asmr #foodsounds #dubai #dubaidessert ",
+        "creator": "Mariavehera",
+        "url": "https://www.tiktok.com/@mariavehera257/video/7313986849104481538",
+        "changes": "Edited excerpt. Original footage and source audio retain their creators’ rights."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-79-dubai-chocolate-e1bbe50a3b05-4c443f16/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-79-dubai-chocolate-e1bbe50a3b05-4c443f16/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-79-dubai-chocolate-e1bbe50a3b05-4c443f16/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-79-dubai-chocolate-e1bbe50a3b05-4c443f16/review.md"
+  },
+  {
+    "id": "useful-80-han-toy-car",
+    "title": "Han Has a New Ride",
+    "category": "Video Edits",
+    "description": "Replace a movie car with a convincing absurdity.",
+    "prompt": "Use Video Use to make a 12-second visual-effects joke from Han’s car reveal in Tokyo Drift: https://www.youtube.com/watch?v=HJE1gqmfFDg. Use Sean’s approach and the reveal around 00:18–00:28, then Han’s relaxed “Get in” around 00:29.5–00:31.5.\n\nReplace the orange sports car with an absurdly oversized red-and-yellow children’s ride-on coupe, complete with rounded plastic bodywork and tiny wheels. Build the replacement as a rendered 3D prop. Keep Sean, Han, the other people, bicycles and the original camera movement real. The joke should come from Han treating this ridiculous car as completely normal.\n\nReconstruct the background wherever the original car would show, track the replacement into the moving shot, and match the low camera angle, overcast light, pavement contact shadows, reflections, grain and motion blur. Rotoscope Han and every passing person or bicycle in front of the new car. Keep his leaning pose believable against its bodywork. Let the full reveal play for several seconds so the viewer can inspect it; use one quiet toy-horn squeak when the vehicle becomes clear, then preserve the reaction and Han’s original line.\n\nKeep the cinematic framing and restrained color of the real scene. No explanatory title or end card. Deliver a 1920×1080 MP4 at 30 fps plus the editable model, camera/track data, clean-plate reconstruction, foreground masks and compositing code.",
+    "duration": 12,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": ["Editors", "Filmmakers", "Content creators"],
+    "useCases": ["Visual effects", "Compositing", "Scene edits"],
+    "technique": "video-editing",
+    "promptSource": "Original executed prompt, followed by picture and compositing refinements. The editable project records both stages. Source footage and audio retain their creators’ rights.",
+    "mediaCredits": [
+      {
+        "title": "Han picks up sean at school | Fast and furious: Tokyo drift (2006) | Movie CLIP HD",
+        "creator": "Flix10_ftbll ",
+        "url": "https://www.youtube.com/watch?v=HJE1gqmfFDg",
+        "changes": "Edited excerpt. Original footage and source audio retain their creators’ rights."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-80-han-toy-car-842dfe085532-c6f99f95/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-80-han-toy-car-842dfe085532-c6f99f95/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-80-han-toy-car-842dfe085532-c6f99f95/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-80-han-toy-car-842dfe085532-c6f99f95/review.md"
   },
   {
     "id": "whiplash-cinematic-story-edit",
