@@ -42,6 +42,16 @@ import {
 // the source catalog or its provenance. Filters and deep links still use all films.
 const openingIds = [
   'screen-demo-fuji-browser-tour',
+  'useful-73-pacu-poster',
+  'useful-74-drew-editorial',
+  'useful-72-era-swap',
+  'useful-71-whiskey',
+  'useful-75-leah-glambot',
+  'useful-79-dubai-chocolate',
+  'useful-76-doc-hudson',
+  'useful-77-muzan-panel',
+  'useful-78-routine-rhythm',
+  'useful-80-han-toy-car',
   'useful-66-tank-workout',
   'useful-65-andrew-amelia',
   'useful-61-druski-entrance',
@@ -60,6 +70,12 @@ const openingIds = [
   'useful-19-fulfilment-flow',
 ];
 const wideOpeningIds = new Set([
+  'useful-71-whiskey',
+  'useful-72-era-swap',
+  'useful-76-doc-hudson',
+  'useful-77-muzan-panel',
+  'useful-78-routine-rhythm',
+  'useful-80-han-toy-car',
   'useful-61-druski-entrance',
   'useful-62-speed-shaolin',
   'useful-67-holloway-ten-seconds',
