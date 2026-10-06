@@ -51,6 +51,40 @@ function DemoSources({ example }: { example: GalleryExample }) {
           Production notes <ArrowUpRight size={12} />
         </a>
       )}
+      {example.mediaCredits?.map((credit) => (
+        <p key={credit.url + credit.title}>
+          {safeSourceUrl(credit.url) ? (
+            <a
+              href={safeSourceUrl(credit.url)!}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {credit.title}
+            </a>
+          ) : (
+            credit.title
+          )}
+          {' · '}
+          {credit.creator}
+          {credit.license && (
+            <>
+              {' · '}
+              {safeSourceUrl(credit.licenseUrl) ? (
+                <a
+                  href={safeSourceUrl(credit.licenseUrl)!}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {credit.license}
+                </a>
+              ) : (
+                credit.license
+              )}
+            </>
+          )}
+          {credit.changes && <>. {credit.changes}</>}
+        </p>
+      ))}
       <MediaCredit example={example} />
     </Disclosure>
   );
@@ -171,6 +205,7 @@ export function DemoDetail({
     safeSourceUrl(example.sourceRepo) ||
     safeSourceUrl(example.sourceArchive) ||
     safeSourceUrl(example.reviewUrl) ||
+    example.mediaCredits?.length ||
     [
       'edit-velocity',
       'edit-freeze_poster',

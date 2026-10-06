@@ -187,7 +187,7 @@ def publish(approval: dict) -> dict:
         public_check = verify_public(base + "/final.mp4", approval["sha256"])
         if approval["id"] == "mcp-launch":
             verify_public(base + "/autoplay.mp4", hashes["autoplay.mp4"])
-    example_fields = ("id", "title", "category", "description", "prompt", "duration", "promptKind", "orientation", "audiences", "useCases", "technique", "sourceRepo", "promptSource")
+    example_fields = ("id", "title", "category", "description", "prompt", "duration", "promptKind", "orientation", "audiences", "useCases", "technique", "sourceRepo", "promptSource", "mediaCredits")
     example = {key: brief[key] for key in example_fields if key in brief}
     example.update(video=base + "/final.mp4", poster=base + "/poster.jpg", sourceArchive=base + "/source.zip", reviewUrl=base + "/review.md")
     source = {"id": brief["id"], "kind": "original useful workflow produced with Video Use", "sourceBatch": approval["batch"],

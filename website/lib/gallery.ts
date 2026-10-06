@@ -30,6 +30,14 @@ export type Example = {
   promptSource?: string;
   sourceArchive?: string;
   reviewUrl?: string;
+  mediaCredits?: {
+    title: string;
+    creator: string;
+    url: string;
+    license?: string;
+    licenseUrl?: string;
+    changes?: string;
+  }[];
 };
 
 export type GalleryExample = Example & {
