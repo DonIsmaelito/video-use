@@ -5934,5 +5934,175 @@
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-80-han-toy-car-842dfe085532-c6f99f95/poster.jpg"
       }
     ]
+  },
+  {
+    "id": "useful-81-speed-fast-travel",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "character-five-20261006",
+    "sourceRun": "useful-81-speed-fast-travel",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "high",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "053ca3cb7b553774cf4e4cf80a9e93b9d7006dc317442eb97b9741afb4876e0e",
+    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-053ca3cb7b55-dac4f0a8/source.zip",
+    "editableSourceSha256": "d9102758458257e501a0d51f4f1fa880ce42b396eace333a7dc0aafbb36a6bc8",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/character-five-20261006/useful-81-speed-fast-travel/repairs/handoff-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-053ca3cb7b55-dac4f0a8/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-053ca3cb7b55-dac4f0a8/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-053ca3cb7b55-dac4f0a8/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-053ca3cb7b55-dac4f0a8/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-053ca3cb7b55-dac4f0a8/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-053ca3cb7b55-dac4f0a8/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-053ca3cb7b55-dac4f0a8/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-84-wednesday-deadpan",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "character-five-20261006",
+    "sourceRun": "useful-84-wednesday-deadpan",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "high",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "b6b9e1615fb9e75b032c71c6d24249c75ca0bc8b76f75e5ac0d71b2c360e6c8a",
+    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-b6b9e1615fb9-dc1352c7/source.zip",
+    "editableSourceSha256": "e16588b96a39f15788e5bc6215f7c212fe794e1ccd1e8e816d6c2bef96039a9f",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/character-five-20261006/useful-84-wednesday-deadpan/repairs/handoff-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-b6b9e1615fb9-dc1352c7/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-b6b9e1615fb9-dc1352c7/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-b6b9e1615fb9-dc1352c7/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-b6b9e1615fb9-dc1352c7/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-b6b9e1615fb9-dc1352c7/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-b6b9e1615fb9-dc1352c7/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-b6b9e1615fb9-dc1352c7/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-83-spiderman-panels",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "character-five-20261006",
+    "sourceRun": "useful-83-spiderman-panels",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "high",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "ed612fa2d6b7553c31f0a482b1b46067426da1a93c13e56095ac600fd5e6e379",
+    "promptSource": "Exact original prompt submitted to Video Use. Subsequent editorial refinements are recorded separately in the downloadable project.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-ed612fa2d6b7-a1b73670/source.zip",
+    "editableSourceSha256": "7e352c7455c1766de0b7c5e9b77a620ccfe826acd7c0de9f9e436e60aaaa4dd3",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/character-five-20261006/useful-83-spiderman-panels/repairs/handoff-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-ed612fa2d6b7-a1b73670/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-ed612fa2d6b7-a1b73670/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-ed612fa2d6b7-a1b73670/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-ed612fa2d6b7-a1b73670/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-ed612fa2d6b7-a1b73670/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-ed612fa2d6b7-a1b73670/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-ed612fa2d6b7-a1b73670/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-85-rumi-double-life",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "character-five-20261006",
+    "sourceRun": "useful-85-rumi-double-life",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "high",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "6e3fef925d5034c13c0bc2a1a565f054dfeaa45245fcdd37737498770e31c9af",
+    "promptSource": "Exact original prompt submitted to Video Use. Subsequent editorial refinements are recorded separately in the downloadable project.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-6e3fef925d50-91ddb62f/source.zip",
+    "editableSourceSha256": "8e35cec652c67c87269f8ed4df266f0b6651eb14bb0ea26c8241df393ff2c03e",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/character-five-20261006/useful-85-rumi-double-life/repairs/handoff-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-6e3fef925d50-91ddb62f/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-6e3fef925d50-91ddb62f/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-6e3fef925d50-91ddb62f/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-6e3fef925d50-91ddb62f/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-6e3fef925d50-91ddb62f/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-6e3fef925d50-91ddb62f/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-6e3fef925d50-91ddb62f/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-82-curry-locked-in",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "character-five-20261006",
+    "sourceRun": "useful-82-curry-locked-in",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "high",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "15d83ed1087b11f4ac402634930e85cb5abd5a1178192eb93ae0cf3b8c73bd1b",
+    "promptSource": "Exact original prompt submitted to Video Use. Subsequent editorial refinements are recorded separately in the downloadable project.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-15d83ed1087b-9a1129d6/source.zip",
+    "editableSourceSha256": "0a9d9aec5e76fb4721d172acfb64854f9810e72106b100fa18e063d25d396cef",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/character-five-20261006/useful-82-curry-locked-in/repairs/equivalent-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-15d83ed1087b-9a1129d6/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-15d83ed1087b-9a1129d6/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-15d83ed1087b-9a1129d6/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-15d83ed1087b-9a1129d6/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-15d83ed1087b-9a1129d6/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-15d83ed1087b-9a1129d6/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-15d83ed1087b-9a1129d6/poster.jpg"
+      }
+    ]
   }
 ]

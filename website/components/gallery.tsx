@@ -42,6 +42,11 @@ import {
 // the source catalog or its provenance. Filters and deep links still use all films.
 const openingIds = [
   'screen-demo-fuji-browser-tour',
+  'useful-83-spiderman-panels',
+  'useful-85-rumi-double-life',
+  'useful-82-curry-locked-in',
+  'useful-81-speed-fast-travel',
+  'useful-84-wednesday-deadpan',
   'useful-73-pacu-poster',
   'useful-74-drew-editorial',
   'useful-72-era-swap',
@@ -70,6 +75,11 @@ const openingIds = [
   'useful-19-fulfilment-flow',
 ];
 const wideOpeningIds = new Set([
+  'useful-83-spiderman-panels',
+  'useful-85-rumi-double-life',
+  'useful-82-curry-locked-in',
+  'useful-81-speed-fast-travel',
+  'useful-84-wednesday-deadpan',
   'useful-71-whiskey',
   'useful-72-era-swap',
   'useful-76-doc-hudson',

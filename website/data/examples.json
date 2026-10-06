@@ -1886,6 +1886,156 @@
     "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-80-han-toy-car-842dfe085532-c6f99f95/review.md"
   },
   {
+    "id": "useful-81-speed-fast-travel",
+    "title": "Fast Travel with Speed",
+    "category": "Video Edits",
+    "description": "An ordinary house tour becomes an action sequence.",
+    "prompt": "Make a 40-second, 16:9 edit from IShowSpeed’s house tour with Tom Brady: https://www.youtube.com/watch?v=ofV7SLRf7dQ. Use the section from 5:50 to 7:35. The idea is FAST TRAVEL: an ordinary walk from dock to pool to gym suddenly gets action-film energy, with their real conversation providing the comedy.\n\nOpen with about three seconds of untreated footage as Speed says he can’t believe he stopped at Brady’s house. Then transform the walk. Place a large FAST TRAVEL headline into the dock scene with both men naturally passing in front of it. Sweep a clean band of light through the surroundings while their faces stay natural. Give Speed two fleeting after-images made from his actual walking poses, then rush through the real walk in three seconds. Use one consistent visual style and clean transitions.\n\nLet the pool exchange breathe. After “you don’t see these muscles right here?”, freeze the poolside two-shot around 7:08 for just over a second. Give Speed, Brady and the background a little separate depth, bring the same headline behind them, then return precisely to the original pose and continue moving.\n\nKeep the 225 conversation, their arrival at the gym, and Brady’s actual correction ending “It might take a minute.” End there, with his original voice and no end card. Use Scott Buckley’s credited “Neon” sparingly for the effects, duck it under speech, and let the final reply land dry. Limit dialogue captions to “It’s gonna be big” and “225”, timed to those words. Keep the daylight and pirate outfit recognizable; every pose and action must come from this footage.",
+    "duration": 40,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": ["Editors", "Content creators", "Film fans"],
+    "useCases": [
+      "Raw footage transformations",
+      "Subject cutouts",
+      "Speed ramps"
+    ],
+    "technique": "video-editing",
+    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "mediaCredits": [
+      {
+        "title": "irl stream in America 🇺🇸 Day 1 of 35 (Miami, FL)",
+        "creator": "IShowSpeed",
+        "url": "https://www.youtube.com/watch?v=ofV7SLRf7dQ",
+        "changes": "Edited excerpt with newly authored compositing and motion design. Original footage and audio retain their creators’ rights."
+      },
+      {
+        "title": "Neon",
+        "creator": "Scott Buckley",
+        "url": "https://www.scottbuckley.com.au/library/neon/",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "changes": "Excerpted and mixed under dialogue."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-053ca3cb7b55-dac4f0a8/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-053ca3cb7b55-dac4f0a8/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-053ca3cb7b55-dac4f0a8/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-053ca3cb7b55-dac4f0a8/review.md"
+  },
+  {
+    "id": "useful-82-curry-locked-in",
+    "title": "Curry Locked In",
+    "category": "Video Edits",
+    "description": "Turn a continuous warmup into a composed sports film.",
+    "prompt": "Turn the ordinary two-ball warmup in this Golden State Warriors video into a 40-second sports film called “LOCKED IN”: https://www.youtube.com/watch?v=LMJSpM-eRCc. Work from the continuous drill around 0:52–1:02, 1:06–1:22, 1:26–1:32 and 1:36–1:44. Keep the native landscape composition and the feeling of standing on the court behind Curry. Open with four completely unaltered seconds from around 0:52, including the original arena sound, so the transformation has a clear starting point.\n\nOn the next real bounce, let the arena become quieter and cooler while Curry, his shoes and the two basketballs retain their natural texture. Follow each ball separately with a short, tapered ivory or muted-gold trace made from its visible movement. Let small, flat accents touch the floor only at actual visible ball contacts. The marks should feel drawn onto the movement, with correct overlap around hands and legs; let them disappear when a ball is hidden. Preserve the curved wide-lens court instead of covering it in an artificial perspective grid.\n\nBuild the middle from the rhythm of the real handling: a clean cut on a matched body position, a restrained push closer, and one brief acceleration that returns to normal speed. Keep the action legible. Use the source frames for the speed change, without fabricating smoother motion. Let the real bounces and squeaks lead the sound, with room between the accents and no added voiceover.\n\nIn the closer passage around 1:26–1:32, turn one clear pose near 1:31 into a two-second motion study. Hold the actual picture, reveal two faint earlier poses from this same movement behind him, and place large, heavy condensed “LOCKED IN” lettering behind his body. Use warm ivory, a little gold and plenty of breathing room. Keep the live body and ball shapes crisp, his feet attached to the floor, and the arena readable. Bring the echoes and lettering back out, return to the identical held frame, then release into the next real source frame so the motion continues cleanly.\n\nFinish with the original handling around 1:36–1:44. Let the last bounces and his real forward step close the film as the graphics clear. This is a film about the routine: preserve the actual action and do not imply a scored basket, add a fake swish, or invent a ball flight. Keep the on-screen words to the title and, if useful, one small “Stephen Curry” identifier after the raw opening. Credit the Warriors’ 2025 source in the project and deliver the finished video with the exact prompt and editable effect, timing and sound decisions.",
+    "duration": 40,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": ["Editors", "Content creators", "Film fans"],
+    "useCases": [
+      "Raw footage transformations",
+      "Motion tracking",
+      "Sports edits"
+    ],
+    "technique": "video-editing",
+    "promptSource": "Exact original prompt submitted to Video Use. Subsequent editorial refinements are recorded separately in the downloadable project.",
+    "mediaCredits": [
+      {
+        "title": "Stephen Curry’s FULL Warmup Routine is Art",
+        "creator": "Golden State Warriors",
+        "url": "https://www.youtube.com/watch?v=LMJSpM-eRCc",
+        "changes": "Edited excerpt with newly authored compositing and motion design. Original footage and audio retain their creators’ rights."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-15d83ed1087b-9a1129d6/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-15d83ed1087b-9a1129d6/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-15d83ed1087b-9a1129d6/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-15d83ed1087b-9a1129d6/review.md"
+  },
+  {
+    "id": "useful-83-spiderman-panels",
+    "title": "Spider-Man Beyond the Panel",
+    "category": "Video Edits",
+    "description": "Spider-Man steps out of an original moving comic.",
+    "prompt": "Create a 36-second Spider-Man character edit from this official trailer: https://www.youtube.com/watch?v=62bIsvRcPv0\n\nBuild the film around a simple visual idea: he steps out of the comic panel and back into real motion. Start with the quiet stretching exchange near the end of the trailer, then turn the first confident pose into an original comic-book composition. Keep his face, hands and body readable.\n\nSeparate Spider-Man from the actual frame, draw an oversized panel behind him, and let his arm or shoulder overlap its border. Animate the background, frame and character at different depths for a brief camera move, then restore the exact original pose and continue the footage. Design the missing background deliberately so there is no duplicate body left behind. This should be a composition you create, not one of the trailer's existing title cards.\n\nUse two precise movement matches to move into the swinging shots: align a real hand gesture with the direction of a web, then carry the swing across an angled panel edge. A thin web line can pull the next panel open. Briefly accelerate the approach and hold a strong real pose; preserve the decisive physical action at normal speed. Make one transition follow his actual moving silhouette rather than using a generic screen wipe.\n\nGive the window-side close-up a second, quieter treatment: restrained ink texture, a large SPIDER-MAN wordmark behind the moving figure, and a clean breakout from the frame. Finish with a readable burst of original swinging action and return to the opening stretch for a discreet loop. Use scarlet, ink black and warm paper with crisp, spare typography. Let comic texture appear only during the authored panel moments.\n\nKeep a few complete original spoken lines and the real web/action sounds. Use compact dialogue captions with careful spacing and subtle contrast; keep faces and gestures clear. No new narration or borrowed reactions. Exclude studio logos, release cards and the trailer's promotional ending. Deliver a sharp landscape video and an editable project with the exact source cuts, pose matches, speed changes, masks, panel animation and sound decisions.",
+    "duration": 36,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": ["Editors", "Content creators", "Film fans"],
+    "useCases": ["Character edits", "Layered compositing", "Motion matching"],
+    "technique": "video-editing",
+    "promptSource": "Exact original prompt submitted to Video Use. Subsequent editorial refinements are recorded separately in the downloadable project.",
+    "mediaCredits": [
+      {
+        "title": "SPIDER-MAN: BRAND NEW DAY – New Trailer (4K)",
+        "creator": "Sony Pictures Entertainment",
+        "url": "https://www.youtube.com/watch?v=62bIsvRcPv0",
+        "changes": "Edited excerpt with newly authored compositing and motion design. Original footage and audio retain their creators’ rights."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-ed612fa2d6b7-a1b73670/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-ed612fa2d6b7-a1b73670/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-ed612fa2d6b7-a1b73670/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-ed612fa2d6b7-a1b73670/review.md"
+  },
+  {
+    "id": "useful-84-wednesday-deadpan",
+    "title": "Wednesday Deadpan",
+    "category": "Video Edits",
+    "description": "A dry exchange becomes a moving gothic editorial.",
+    "prompt": "Create a 40-second gothic character edit from Wednesday's airport-screening scene in this official Netflix clip: https://www.youtube.com/watch?v=Lxa8poQYRtc\n\nMake the dry conversation turn into an original moving editorial spread, then land the sunscreen joke. Open directly on the security officer's question about prohibited items and preserve Wednesday's complete deadpan reply. The pauses and eye contact matter; keep her performance readable.\n\nAt the end of the reply, let the last caption become the edge of a sharp black-and-ivory page. Freeze a strong Wednesday pose, separate her braids and coat from the room, and bring her forward through that page. Place one elegant oversized WEDNESDAY title behind her silhouette. Give the room, portrait and type a small independent depth move, then return precisely to moving footage. Preserve real gaps and hair edges; do not leave a second copy of her in the background.\n\nBuild a quick sequence from her actual gestures and the security-tray inserts inside sliding, asymmetrical magazine panels. Match the direction of an arm or object across each cut. Let one moving portrait overlap the panel boundaries while the other shots stay contained. Use restrained monochrome texture during the graphic sequence, with a single muted red accent. The new panel motion and cutouts should be clearly authored, not just the episode's existing quick cuts.\n\nGive Thing's real hand a short visual cameo: isolate it from the conveyor frame, let the fingers overlap an editorial edge, and use that contour to reveal the next shot. Return to the original airport framing for the sunscreen reveal, the officer's explanation and Wednesday's final reaction. End on the actual joke with no explanatory end card.\n\nUse stylish, compact dialogue captions with clear spacing and a soft shadow, avoiding oversized outlined words. Preserve the source dialogue, pauses and object sounds; a quiet dark pulse may support the graphic passage, then drop away for the joke. No AI narration or fabricated dialogue. Deliver a crisp landscape video and an editable project containing the source cuts, real subject masks, panel animation, typography, caption timing and audio mix.",
+    "duration": 40,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": ["Editors", "Content creators", "Film fans"],
+    "useCases": ["Character edits", "Editorial motion", "Selective captions"],
+    "technique": "video-editing",
+    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "mediaCredits": [
+      {
+        "title": "Wednesday: Season 2 | First 6 Minutes | Netflix",
+        "creator": "Netflix",
+        "url": "https://www.youtube.com/watch?v=Lxa8poQYRtc",
+        "changes": "Edited excerpt with newly authored compositing and motion design. Original footage and audio retain their creators’ rights."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-b6b9e1615fb9-dc1352c7/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-b6b9e1615fb9-dc1352c7/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-b6b9e1615fb9-dc1352c7/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-b6b9e1615fb9-dc1352c7/review.md"
+  },
+  {
+    "id": "useful-85-rumi-double-life",
+    "title": "Rumi Breaks the Cover",
+    "category": "Video Edits",
+    "description": "An editorial portrait opens into her hunter identity.",
+    "prompt": "Create a 32-second Rumi character film from Sony Pictures Animation’s original trailer: https://www.youtube.com/watch?v=3JTVQTk36R8. The visual idea is “break the cover”: her quiet robe portrait becomes an original moving editorial cover, and the pop-star image opens into her hunter identity.\n\nLet the opening portrait and its complete “It’s time” line register. Separate Rumi cleanly from that shot, build a warm-ivory and deep-violet cover around her, and set one large editable RUMI word partly behind her actual hair and shoulders. Use a brief, deliberate portrait hold while the cover’s layers tilt and separate. Make an eye-line and scale match into the real yellow-jacket portrait, preserving the source’s recognizable face, hands and props. Let the live stage footage play inside the cover, then have Rumi’s actual upper silhouette extend beyond its panel edge while the underlying performance remains registered.\n\nThe signature transformation should combine her real hunter silhouette, a foreground braid or arm sweep, and one diagonal graphic seam. Her movement pushes the seam open; a designed opaque panel completes the reveal into the actual fight. Keep the matte attached to the photographed movement, with clean braid edges and correct overlap. Let the ensuing action play at normal speed, with a single brief echo made from a real earlier Rumi pose if it strengthens the motion. Use 1:51.8–1:55.8 and 2:04–2:06 for the final action passages, stopping before the cat insert. Resolve the hunter image into the same cover structure for a clear final hero frame.\n\nUse confident typography, subtle layer shadows, restrained chrome-lavender highlights and small yellow-jacket accents. Compose on a 1920×1080 canvas at 30fps, preserving the source’s cinema framing inside intentional graphic panels. Keep native crowd occlusions and every visible hand, prop and action coherent. Source pixels, editable shapes and measured timing should drive the transformation; preserve faces and movement without generating hidden bodies or backgrounds. Treat the trailer’s existing sword glow, particles and cuts as source material. Exclude its native character, film-title and release cards, including the existing RUMI title. Use original designed music and impacts around complete retained source phrases, with no invented dialogue, voice imitation or lyric captions. Save the exact executed prompt, source credits and editable masks, timing and composition.",
+    "duration": 32,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": ["Editors", "Content creators", "Film fans"],
+    "useCases": [
+      "Character edits",
+      "Silhouette transitions",
+      "Panel animation"
+    ],
+    "technique": "video-editing",
+    "promptSource": "Exact original prompt submitted to Video Use. Subsequent editorial refinements are recorded separately in the downloadable project.",
+    "mediaCredits": [
+      {
+        "title": "KPop Demon Hunters | Official Trailer | Sony Animation",
+        "creator": "Sony Pictures Animation",
+        "url": "https://www.youtube.com/watch?v=3JTVQTk36R8",
+        "changes": "Edited excerpt with newly authored compositing and motion design. Original footage and audio retain their creators’ rights."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-6e3fef925d50-91ddb62f/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-6e3fef925d50-91ddb62f/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-6e3fef925d50-91ddb62f/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-6e3fef925d50-91ddb62f/review.md"
+  },
+  {
     "id": "whiplash-cinematic-story-edit",
     "title": "Whiplash",
     "category": "Video Edits",
