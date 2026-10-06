@@ -6,6 +6,7 @@ Local validation and status/fetch do not build images or start production:
   python -m experiments.useful_video_library run --briefs /path/four.json --batch batch-01 --output /path/evidence
   python -m experiments.useful_video_library status --batch batch-01
   python -m experiments.useful_video_library fetch --batch batch-01 --id example-id --output /path/evidence
+  python -m experiments.useful_video_library fetch --batch batch-01 --id example-id --output /path/evidence --review-only
   python -m experiments.useful_video_library repair --batch batch-01 --id example-id --repair-file /path/repair.txt --output /path/evidence
   python -m experiments.useful_video_library audit --batch batch-01 --id example-id --output /path/evidence
 
@@ -563,9 +564,96 @@ def read_status(batch: str, ident: str | None = None) -> list[dict]:
     return result
 
 
-def fetch_attempt(batch: str, ident: str, output: Path, attempt: str = "latest", include_logs: bool = False) -> Path:
+REVIEW_FILE_LIMIT = 5_000_000
+REVIEW_TOTAL_LIMIT = 20_000_000
+
+
+def fetch_review_attempt(volume, batch: str, ident: str, output: Path, attempt: str) -> Path:
+    """Fetch bounded review evidence only; never fall back to a full fetch."""
+    base = f"{safe_id(batch)}/{safe_id(ident)}"
+    consumed = 0
+
+    def read_bounded(item, limit: int) -> bytes:
+        nonlocal consumed
+        content = bytearray()
+        for data in volume.read_file(item.path):
+            if len(content) + len(data) > limit or consumed + len(data) > REVIEW_TOTAL_LIMIT:
+                raise ValueError("Review artifact exceeded its advertised size or download budget")
+            content.extend(data)
+            consumed += len(data)
+        if len(content) != item.size:
+            raise ValueError("Review artifact size changed during fetch")
+        return bytes(content)
+
+    def valid_size(item, limit: int) -> bool:
+        return type(item.size) is int and 0 <= item.size <= limit
+
+    if attempt == "latest":
+        pointer = next((item for item in volume.iterdir(base, recursive=False)
+                        if item.type.name == "FILE" and item.path.lstrip("/") == base + "/latest.json"), None)
+        if pointer is None:
+            attempt = "original"
+        else:
+            if not valid_size(pointer, min(64_000, REVIEW_FILE_LIMIT, REVIEW_TOTAL_LIMIT)):
+                raise ValueError("Latest attempt pointer exceeds the review lookup limit")
+            attempt = json.loads(read_bounded(pointer, pointer.size))["attempt"]
+    remote = attempt_root(batch, ident, attempt, root=Path("/"))
+    destination = output / safe_id(batch) / safe_id(ident) / safe_id(attempt)
+    destination.mkdir(parents=True, exist_ok=True)
+    handoff = {"README.md", "project.md", "provenance.json", "review.md", "tool_gaps.json", "edl.json",
+               "creative-prompt.txt", "PARENT_BRAND_CORRECTION.md", "video-use-framework.json"}
+    exact = {"run.json", "brief.json", "framework.json", "qa/qa.json", "qa/contact-sheet.jpg", "qa/poster.png"}
+    exact.update("project/edit/" + name for name in handoff)
+    proposal_code = {".py", ".mjs", ".js", ".cjs", ".ts", ".sh"}
+    proposal_docs = {"README.md", "README.txt", "LICENSE", "NOTICE", "COPYING", "requirements.txt",
+                     "pyproject.toml", "package.json", "package-lock.json"}
+    excluded = SKIP_PARTS | {"private", "logs", "traces", "cache", "frames", "downloads", "repairs", "audit-history"}
+    fetched, skipped = [], []
+    omitted = 0
+    for item in volume.iterdir(str(remote), recursive=True):
+        if item.type.name != "FILE":
+            continue
+        try:
+            relative = Path(item.path.lstrip("/")).relative_to(str(remote).lstrip("/"))
+        except ValueError:
+            continue
+        # No arbitrary top-level text/JSON, agent traces, source archives, assets or media.
+        if len(str(relative)) > 500 or any(part in excluded or part.startswith(".") for part in relative.parts):
+            continue
+        proposal = (relative.parts[:3] == ("project", "edit", "tool-proposals")
+                    and (relative.suffix in proposal_code or relative.name in proposal_docs))
+        if str(relative) not in exact and not proposal:
+            continue
+        reason = None
+        if not valid_size(item, REVIEW_FILE_LIMIT):
+            reason = "Exceeds the 5 MB review file limit or has no valid size"
+        elif item.size > REVIEW_TOTAL_LIMIT - consumed or len(fetched) >= 200:
+            reason = "Exceeds the 20 MB or 200 file review download budget"
+        if reason:
+            if len(skipped) < 100:
+                skipped.append({"path": str(relative), "reason": reason})
+            else:
+                omitted += 1
+            continue
+        content = read_bounded(item, item.size)
+        target = destination / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(content)
+        fetched.append({"path": str(relative), "size": len(content)})
+    write_json(destination / "fetch.json", {"review_only": True, "downloaded": fetched, "skipped": skipped,
+               "additional_skipped": omitted, "downloaded_bytes_including_lookup": consumed,
+               "file_limit_bytes": REVIEW_FILE_LIMIT, "total_download_limit_bytes": REVIEW_TOTAL_LIMIT})
+    return destination
+
+
+def fetch_attempt(batch: str, ident: str, output: Path, attempt: str = "latest", include_logs: bool = False,
+                  review_only: bool = False) -> Path:
+    if review_only and include_logs:
+        raise ValueError("--review-only cannot be combined with --include-logs")
     import modal
     volume = modal.Volume.from_name(VOLUME_NAME)
+    if review_only:
+        return fetch_review_attempt(volume, batch, ident, output, attempt)
     base = f"{safe_id(batch)}/{safe_id(ident)}"
     if attempt == "latest":
         try:
@@ -624,11 +712,15 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--repair-file", type=Path)
     parser.add_argument("--output", type=Path, default=Path("/tmp/video-use-useful-library"))
     parser.add_argument("--include-logs", action="store_true")
+    parser.add_argument("--review-only", action="store_true",
+                        help="Fetch only review documents, small QA images and proposal code (5 MB/file, 20 MB total); no video, audio, archives or logs")
     parser.add_argument("--reasoning-effort", choices=REASONING_EFFORTS,
                         help="Agent reasoning effort (default: medium; repairs inherit the prior attempt)")
     parser.add_argument("--max-concurrency", type=int, choices=range(1, MAX_CONCURRENCY + 1),
                         help="Maximum simultaneous briefs (default: 4; repairs inherit the prior attempt)")
     args = parser.parse_args(argv)
+    if args.review_only and (args.mode != "fetch" or args.include_logs):
+        parser.error("--review-only requires fetch and cannot be combined with --include-logs")
     settings = runtime_settings(reasoning_effort=args.reasoning_effort, max_concurrency=args.max_concurrency)
     if args.mode in {"validate", "run"}:
         if not args.briefs:
@@ -647,7 +739,8 @@ def main(argv: list[str] | None = None) -> int:
     if args.mode == "fetch":
         if not args.id:
             parser.error("--id is required")
-        print(fetch_attempt(args.batch, args.id, args.output, args.attempt, args.include_logs))
+        print(fetch_attempt(args.batch, args.id, args.output, args.attempt, args.include_logs,
+                            review_only=args.review_only))
         return 0
     if args.mode == "repair":
         if not args.id or not args.repair_file:
