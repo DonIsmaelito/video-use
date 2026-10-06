@@ -42,6 +42,16 @@ import {
 // the source catalog or its provenance. Filters and deep links still use all films.
 const openingIds = [
   'screen-demo-fuji-browser-tour',
+  'useful-66-tank-workout',
+  'useful-65-andrew-amelia',
+  'useful-61-druski-entrance',
+  'useful-70-pocket-4p',
+  'useful-63-quenlin-verdict',
+  'useful-64-billie-finneas',
+  'useful-62-speed-shaolin',
+  'useful-68-speed-kai-chained',
+  'useful-67-holloway-ten-seconds',
+  'useful-69-meta-muse-glasses',
   'cloud-edit-travel',
   'useful-08-refill-product',
   'cloud-edit-podcast',
@@ -49,7 +59,14 @@ const openingIds = [
   'useful-09-cafe-promo',
   'useful-19-fulfilment-flow',
 ];
-const wideOpeningIds = new Set<string>();
+const wideOpeningIds = new Set([
+  'useful-61-druski-entrance',
+  'useful-62-speed-shaolin',
+  'useful-67-holloway-ten-seconds',
+  'useful-68-speed-kai-chained',
+  'useful-69-meta-muse-glasses',
+  'useful-70-pocket-4p',
+]);
 const galleryExamples = [
   ...openingIds.flatMap((id) =>
     examples.filter((example) => example.id === id),

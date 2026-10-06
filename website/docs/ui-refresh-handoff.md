@@ -859,3 +859,10 @@ The user rejected launch-gallery IDs51–55 and explicitly requests ten actual-f
 ### Rejected launch gallery films removed live
 
 Deployment6e965785-3bb0-40a8-9bd8-8e1dc07c2e10 (provider dpl_C4F7wVcfFCqTVEUGS4DR6YxBQkCg) is READY at https://video-use.insforge.site from pushed source6e6183f. The visible catalog now has142 examples; rejected launch IDs51–55 are absent, including their old deep links. Every retained catalog record, featured56–60, source ledger and existing media remains unchanged. Build, TypeScript/catalog checks,30 import tests, lint, formatting and actual local/live Chromium checks at1440/1100/390/320px pass with no overlap, horizontal overflow or page errors. Root inspected desktop and phone gallery captures. Footage-ten retains ownership of the later reviewed ten-edit release; production has not started.
+
+
+### Footage ten production and next site assembly
+
+All ten actual sources acquired cloud-only, original source clocks retained, full decode passed. Native4K/portrait selection helper6a7ce64 is pushed. Source/music credits supportcd6e7fc is pushed; UI TypeScript/catalog and30 importer tests pass. Initial two workers failed before editing due expired cloud auth; current local login securely resynced and runtime authentication smoke passed. Real production runs five Astra high workers for61/62/65/66/68 in batchfootage-ten-20261005-production, appap-Z5Hd6eD9z3qcXGCv0bHmrt. Frozen prompts, exactinputhashes and separate failure evidence retained. No new film approved/published yet.
+
+Root retains production/release ownership; no competing deployment. Remaining63/64/67/69/70 are finalizing; every source is acquired and under encryptedR2backup. Independent audio/PTS audit found no acquisition or Scribe extraction offset; UFC uncertain ASR commentary timestamps will not drive synthetic shifts. Gallery will place allten below retainedScreenStudio, balancedportraitpairs and wideactionpanels. Existing142records and featured56–60 stay intact. Evidence: /Users/ismaelito/Movies/Video Use Footage Ten 20261005/edit/.
