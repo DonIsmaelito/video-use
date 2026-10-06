@@ -8,7 +8,9 @@ Usage:
   python experiments/source_relay.py --plan plan.json --batch my-batch --output receipts --validate-only
 
 A plan is 1–16 objects with id, public YouTube url, optional range [start,end]
-(max180seconds), speech boolean, and brief_id. Whole sources are <=360seconds.
+(max180seconds), speech boolean, native_quality boolean, and brief_id. Whole sources are <=360seconds.
+native_quality selects the largest available HTTPS video format, including4K;
+the default keeps H264 with a1080px short edge, including portrait sources.
 Local prerequisites: yt-dlp with a working JS runtime, ffmpeg, Modal and requests.
 The Modal video-use-elevenlabs secret supplies Scribe credentials only in cloud.
 Local output contains JSON/transcripts only. Cloud receipts include contact sheets.
@@ -51,10 +53,10 @@ def validate_spec(spec):
     if (
         not isinstance(spec, dict)
         or not {"id", "url"} <= set(spec)
-        or set(spec) - {"id", "url", "range", "speech", "brief_id", "reuse_video"}
+        or set(spec) - {"id", "url", "range", "speech", "native_quality", "brief_id", "reuse_video"}
     ):
         raise ValueError(
-            "Each source requires id/url and optional range/speech/brief_id/reuse_video"
+            "Each source requires id/url and optional range/speech/native_quality/brief_id/reuse_video"
         )
     for key in ("id", "brief_id"):
         if key in spec and (
@@ -90,6 +92,8 @@ def validate_spec(spec):
         raise ValueError("Select one explicit YouTube video URL")
     if "speech" in spec and type(spec["speech"]) is not bool:
         raise ValueError("speech must be boolean")
+    if "native_quality" in spec and type(spec["native_quality"]) is not bool:
+        raise ValueError("native_quality must be boolean")
     if "range" in spec:
         times = spec["range"]
         if (
@@ -138,8 +142,8 @@ def validate_plan(values):
     return specs
 
 
-def select_formats(info):
-    """Prefer 1080p H264 and original AAC audio; never fall back to a dubbed track silently."""
+def select_formats(info, *, native_quality=False):
+    """Select native video or H264 with a1080px short edge; preserve original AAC."""
     formats = [
         f
         for f in info.get("formats", [])
@@ -148,8 +152,12 @@ def select_formats(info):
     videos = [
         f
         for f in formats
-        if str(f.get("vcodec", "")).startswith("avc")
-        and 0 < (f.get("height") or 0) <= 1080
+        if f.get("vcodec") not in (None, "none")
+        and (f.get("height") or 0) > 0
+        and (native_quality or (
+            str(f.get("vcodec", "")).startswith("avc")
+            and min(f.get("width") or f["height"], f["height"]) <= 1080
+        ))
     ]
     audios = [
         f
@@ -157,7 +165,7 @@ def select_formats(info):
         if f.get("vcodec") == "none" and str(f.get("acodec", "")).startswith("mp4a")
     ]
     if not videos or not audios:
-        raise ValueError("Required H264 video and AAC audio formats are unavailable")
+        raise ValueError("Required video and original AAC audio formats are unavailable")
     video = max(
         videos,
         key=lambda f: (f.get("height") or 0, f.get("fps") or 0, f.get("tbr") or 0),
@@ -741,7 +749,7 @@ def stream_one(spec, url):
         raise ValueError(
             "Whole sources are limited to 360 seconds; select a bounded section"
         )
-    video, audio = select_formats(info)
+    video, audio = select_formats(info, native_quality=spec.get("native_quality", False))
     small = {k: info.get(k) for k in ("id", "title", "channel", "duration", "license")}
     small["selected_formats"] = [
         {

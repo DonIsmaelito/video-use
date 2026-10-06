@@ -37,6 +37,7 @@ def test_plan_and_source_clock_contract():
         {"range": [10, 0]},
         {"range": [0, 181]},
         {"speech": "yes"},
+        {"native_quality": "yes"},
         {"unknown": 1},
         {"reuse_video": {"source": "../secret", "bytes": 1, "sha256": "0" * 64}},
     ],
@@ -89,6 +90,25 @@ def test_stream_coverage_rejects_real_truncation_and_shifted_clock():
     for info in (probe(156.8), probe(208, 1), probe(float("nan")), {"streams": []}):
         with pytest.raises(ValueError):
             relay.validate_coverage(info, 208)
+
+
+def test_portrait_source_keeps_1080_short_edge():
+    base = {"protocol": "https", "url": "https://rr1.googlevideo.com/videoplayback"}
+    low = dict(base, vcodec="avc1", acodec="none", width=540, height=960)
+    native = dict(low, width=1080, height=1920)
+    audio = dict(base, vcodec="none", acodec="mp4a", format_note="original")
+    assert relay.select_formats({"formats": [low, native, audio]}) == (native, audio)
+
+
+def test_explicit_native_quality_keeps_4k_instead_of_h264_cap():
+    base = {"protocol": "https", "url": "https://rr1.googlevideo.com/videoplayback"}
+    hd = dict(base, vcodec="avc1", acodec="none", width=1920, height=1080)
+    uhd = dict(hd, vcodec="vp09", width=3840, height=2160)
+    audio = dict(base, vcodec="none", acodec="mp4a", format_note="original")
+    info = {"formats": [hd, uhd, audio]}
+    assert relay.select_formats(info) == (hd, audio)
+    assert relay.select_formats(info, native_quality=True) == (uhd, audio)
+    assert relay.validate_spec({"id": "native", "url": URL, "native_quality": True})["native_quality"]
 
 
 def test_http_range_integrity_and_no_disk(monkeypatch):
