@@ -4914,5 +4914,175 @@
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-45-visual-explainers-f43a6707715b-399e5e66/poster.jpg"
       }
     ]
+  },
+  {
+    "id": "useful-51-cloud-seafloor",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "launch-five-20261005",
+    "sourceRun": "useful-51-cloud-seafloor",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "high",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "1bf1456c15348a0528df95e0b6e6f6febfe5ffb6",
+    "frameworkArchiveSha256": "e11cbf49715b8acbfb556dd26cde5b5c1a50842dc3583d5a9293baf02a323e1b",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "1fa39f1deb682320da247bc45deb3e7acaf4c8a55c99c2bd7647e5224bb1a604",
+    "promptSource": "Original creative prompt written for this Video Use production and preserved exactly as submitted. Follow-up refinement enlarged the planned-project facts and clarified the cable route at small sizes; a final deterministic source edit smoothed the route transition. Details and original generation history are recorded in Production notes.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-51-cloud-seafloor-1fa39f1deb68-c277db40/source.zip",
+    "editableSourceSha256": "e4fd68d52f9ac2493dd8bd2af6ba136e35b61c57f904c1ff43ba2dd321f0df85",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/launch-five-20261005/useful-51-cloud-seafloor/repairs/repair-route-ramp-20261006-002312/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-51-cloud-seafloor-1fa39f1deb68-c277db40/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-51-cloud-seafloor-1fa39f1deb68-c277db40/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-51-cloud-seafloor-1fa39f1deb68-c277db40/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-51-cloud-seafloor-1fa39f1deb68-c277db40/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-51-cloud-seafloor-1fa39f1deb68-c277db40/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-51-cloud-seafloor-1fa39f1deb68-c277db40/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-51-cloud-seafloor-1fa39f1deb68-c277db40/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-52-show-then-do",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "launch-five-20261005",
+    "sourceRun": "useful-52-show-then-do",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "high",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "1bf1456c15348a0528df95e0b6e6f6febfe5ffb6",
+    "frameworkArchiveSha256": "e11cbf49715b8acbfb556dd26cde5b5c1a50842dc3583d5a9293baf02a323e1b",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "c316db25b452eddd7f1014d7ba67e0dcffa9146a266a1f815569d521be3fcfff",
+    "promptSource": "Original creative prompt written for this Video Use production and preserved exactly as submitted; factual and media sources are recorded in the editable project. Follow-up refinement repositioned the closing title for clear reading during the camera move; details are recorded in Production notes.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-52-show-then-do-c316db25b452-2210d1f3/source.zip",
+    "editableSourceSha256": "55330b0a2e7dfc7870f9e26b56163d62b22a175d5d3b08f0e4e0fc2d054d8c12",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/launch-five-20261005/useful-52-show-then-do/repairs/repair-20261006-000025/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-52-show-then-do-c316db25b452-2210d1f3/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-52-show-then-do-c316db25b452-2210d1f3/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-52-show-then-do-c316db25b452-2210d1f3/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-52-show-then-do-c316db25b452-2210d1f3/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-52-show-then-do-c316db25b452-2210d1f3/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-52-show-then-do-c316db25b452-2210d1f3/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-52-show-then-do-c316db25b452-2210d1f3/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-53-fold-zine-night",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "launch-five-20261005",
+    "sourceRun": "useful-53-fold-zine-night",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "high",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "1bf1456c15348a0528df95e0b6e6f6febfe5ffb6",
+    "frameworkArchiveSha256": "e11cbf49715b8acbfb556dd26cde5b5c1a50842dc3583d5a9293baf02a323e1b",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "108280b1e7a4fdb59bd35f66104a1765ed8900d010c87d3c16f480ff27978963",
+    "promptSource": "Original creative prompt written for this Video Use production and preserved exactly as submitted. Follow-up refinement developed the paper finish, closer hero framing and connected interior reveals; details are recorded in Production notes. The event is fictional.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-53-fold-zine-night-108280b1e7a4-620807f1/source.zip",
+    "editableSourceSha256": "15701031ecf740cf157940c4308f9d25349a443b10f0fc34747a507d0f0887eb",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/launch-five-20261005/useful-53-fold-zine-night/repairs/repair-20261006-000025/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-53-fold-zine-night-108280b1e7a4-620807f1/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-53-fold-zine-night-108280b1e7a4-620807f1/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-53-fold-zine-night-108280b1e7a4-620807f1/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-53-fold-zine-night-108280b1e7a4-620807f1/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-53-fold-zine-night-108280b1e7a4-620807f1/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-53-fold-zine-night-108280b1e7a4-620807f1/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-53-fold-zine-night-108280b1e7a4-620807f1/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-54-not-done-yet",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "launch-five-20261005",
+    "sourceRun": "useful-54-not-done-yet",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "high",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "1bf1456c15348a0528df95e0b6e6f6febfe5ffb6",
+    "frameworkArchiveSha256": "e11cbf49715b8acbfb556dd26cde5b5c1a50842dc3583d5a9293baf02a323e1b",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "f1bfe5c7b81087462fa2597fc25805c3c9806fb67406a5613f389c1567844053",
+    "promptSource": "Original creative prompt written for this Video Use production and preserved exactly as submitted. Follow-up refinement reduced the coarse fabric pattern while preserving the fine weave and original stitching sequence. A later source-only correction improved the editable project verification; details are recorded in Production notes.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-54-not-done-yet-f1bfe5c7b810-cce4d817/source.zip",
+    "editableSourceSha256": "588592509ef20bb31517f5b05138b97c5a83a1e01c6e951f35952fd7a425171f",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/launch-five-20261005/useful-54-not-done-yet/repairs/repair-20261006-000025/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-54-not-done-yet-f1bfe5c7b810-cce4d817/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-54-not-done-yet-f1bfe5c7b810-cce4d817/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-54-not-done-yet-f1bfe5c7b810-cce4d817/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-54-not-done-yet-f1bfe5c7b810-cce4d817/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-54-not-done-yet-f1bfe5c7b810-cce4d817/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-54-not-done-yet-f1bfe5c7b810-cce4d817/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-54-not-done-yet-f1bfe5c7b810-cce4d817/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-55-solar-speedrun",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "launch-five-20261005",
+    "sourceRun": "useful-55-solar-speedrun",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "high",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "1bf1456c15348a0528df95e0b6e6f6febfe5ffb6",
+    "frameworkArchiveSha256": "e11cbf49715b8acbfb556dd26cde5b5c1a50842dc3583d5a9293baf02a323e1b",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "99d3f0c2e974f7635634b28d30943687301486c8521f907f0e626357208df197",
+    "promptSource": "Original creative prompt preserved exactly as submitted to Video Use. Source media: NASA / Johns Hopkins APL / Naval Research Laboratory, plus NASA Goddard / Conceptual Image Lab / Brian Monroe. WISPR imagery is dated December 25, 2024; spacecraft and magnetic-field imagery are illustrations. Follow-up refinement raised the original soundtrack level, and the editable package received a verification-file correction. The picture edit is unchanged; Production notes record both refinements.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-55-solar-speedrun-99d3f0c2e974-2b5bff58/source.zip",
+    "editableSourceSha256": "07cc7cbc554b3d43b1cb1af7526ca1edf6fe27568c1ea8a79b20450948925ec1",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/launch-five-20261005/useful-55-solar-speedrun/repairs/repair-20261006-000025/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-55-solar-speedrun-99d3f0c2e974-2b5bff58/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-55-solar-speedrun-99d3f0c2e974-2b5bff58/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-55-solar-speedrun-99d3f0c2e974-2b5bff58/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-55-solar-speedrun-99d3f0c2e974-2b5bff58/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-55-solar-speedrun-99d3f0c2e974-2b5bff58/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-55-solar-speedrun-99d3f0c2e974-2b5bff58/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-55-solar-speedrun-99d3f0c2e974-2b5bff58/poster.jpg"
+      }
+    ]
   }
 ]

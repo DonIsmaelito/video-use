@@ -230,7 +230,12 @@ for (const file of files) {
     else {
       // Playback is curated website metadata and may postdate the publication receipt.
       const loop = example.loop ?? examples[index].loop;
-      examples[index] = { ...example, ...(loop === undefined ? {} : { loop }) };
+      const muted = example.muted ?? examples[index].muted;
+      examples[index] = {
+        ...example,
+        ...(loop === undefined ? {} : { loop }),
+        ...(muted === undefined ? {} : { muted }),
+      };
     }
   }
   const index = sources.findIndex((item) => item.id === source.id);

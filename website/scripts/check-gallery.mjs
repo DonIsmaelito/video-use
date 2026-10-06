@@ -257,6 +257,10 @@ for (const example of examples) {
     'Optional full-player loop metadata must be a boolean',
   );
   assert.ok(
+    example.muted === undefined || typeof example.muted === 'boolean',
+    'Optional full-player muted metadata must be a boolean',
+  );
+  assert.ok(
     example.audiences.length > 0 &&
       example.audiences.every(
         (item) => typeof item === 'string' && item.trim(),

@@ -761,3 +761,57 @@ Deployment **7bce0018-218e-4e26-a5e3-ea8db45f3dee** (provider dpl_4Xvbc27WsRUoeV
 Build, TypeScript/catalog checks,30 importer tests, scoped lint/formatting and local/live browser checks at1440/768/390/320px pass. All40 published assets match receipt hashes. Live playback starts, complete prompts copy correctly, editable-source links match, native snapping works and no horizontal overflow/page errors were found. Desktop and phone captures were visually inspected. Film review used dense encoded-frame samples plus mathematical/source checks and technical audio measurements; no normal-speed audiovisual audition is claimed. Race timing, social audio controls and NOOK cord-size validation were repaired in source only, preserving original video hashes and producer5387d39 with prior archive/run history retained by audit. New scene helpers remain in their individual editable archives because their story constraints are project-specific. The publisher font scanner fix is a1de3f0; five-worker/high-effort runtime support is5387d39.
 
 The concurrent launch-five inert layout preparation is included in3819f29; its five media IDs are still unpublished by this release. Featured website deployment ownership is released after this receipt; launch-five may merge newer data and deploy when ready. Evidence: /Users/ismaelito/Movies/Video Use Featured 20261005/edit/release-summary.json and site-qa/live-review.json.
+
+
+### Launch gallery films — reviewed originals and refinements
+
+All five launch-five-20261005 originals completed and passed technical delivery checks. Parent and delegated review inspected encoded frames and editable source archives. Concrete refinements are being started together under the existing global production lock: FOLD paper material/framing/interior reveal, Robot ending title collision, Tote coarse fabric pattern, Seafloor mobile-sized required facts and cable emphasis, and Solar soundtrack master level with video frames preserved. Exact original creative prompts stay byte-for-byte unchanged; each repair is a separate attempt with truthful current framework and original producer history. Current public source is1bf1456, including a1de3f0. Featured release is already live at7bce0018; its142-example catalog and hero manifest were saved as the pre-import baseline. No launch-five media has been published or imported, and no website deployment is starting. Evidence: `/Users/ismaelito/Movies/Video Use Launch Five 20261005/edit/production-refinements/`.
+
+
+### Featured films creative retry — research and source tests
+
+The user rejected all five useful-41 through45 featured films as dated and not popular modern use cases. This pass will replace the five featured slots with current footage-led YouTube workflows, using real yt-dlp acquisition and experimental editing where needed. First three hero entries and Movie Edit cover crop stay. Root owns new retry media and later featured-workflows manifest/catalog imports; no production or deployment has started, and the launch-five production lock and current website mutations remain untouched. Evidence: `/Users/ismaelito/Movies/Video Use Featured Retry 20261005/edit/`. New IDs will use useful-56 through60, leaving launch-five IDs51–55 alone. Coordinate deployment again once media is reviewed.
+
+
+### Featured retry storage constraint
+
+The user explicitly requires Cloudflare object storage for these videos to avoid local disk usage. Source acquisition and rendering stay in cloud containers; R2 will hold finished media and suitable source backups. Parent fetches only small review images and metadata, not MP4s or complete render caches. Verified redundant files from this run may be removed locally. Existing review publisher uses Modal secret video-use-r2; never export credentials into producer prompts.
+
+
+### Launch gallery final checks and next production lock
+
+Robot refinement is approved; Solar media is approved and its canonical editable ZIP received a source-only verification fix with audit history retained. Tote and Seafloor refinements are in parent review; FOLD is still rendering. One small deterministic Seafloor transition correction (smooth the abrupt cable opacity switch at8.5s) is being prepared locally and will need the next production lock immediately after the current launch-five repair app finishes. Please let this bounded final render complete before starting featured-retry generation. No website deployment is in flight. Launch-five owns only its five new media IDs, playback metadata support, and the previously coordinated gallery placement; it will preserve any newer featured-workflows data. Website delivery is still planned after all five reviews, import, build and browser checks.
+
+
+### Featured retry coordination and verified storage
+
+Featured retry will respect launch-five priority for its bounded final Seafloor render after the current repair batch. Real source acquisition is progressing independently through a no-file local network relay into cloud storage; whole-source audio coverage checks found truncation and fresh corrected inputs are being prepared. No creative retry workers or deployment have started. Review-only bounded fetch is committed d4dbb3b; encrypted R2 source archive and restore is603fbfd, both pushed. A real8.4MB Boris source archive passed authenticated upload/download verification without a local media file. Five upcoming featured IDs are56–60, replacing rejected41–45 in the showcase when ready.
+
+
+### Launch gallery publication and site assembly — next release
+
+The five launch demos have completed their creative refinements. Robot and Solar are approved; Tote is completing a source-only package audit and FOLD its final source review. The single deterministic Seafloor route-opacity render is running as app ap-mVaDvjcA7qsha25Bfb8Adc and retains the next production lock until it completes. No more paid creative work is planned for launch-five. This pass is assembling the next website release after reviewed publication and actual browser checks, preserving the current featured-workflows manifest and all newer catalog records. Please avoid a competing deployment until its release receipt. Existing data remain unchanged at142 examples for now. Evidence: /Users/ismaelito/Movies/Video Use Launch Five 20261005/edit/publication and site-integration.
+
+
+### Launch gallery production lock released
+
+The bounded deterministic Seafloor render and source package finalization completed as repair-route-ramp-20261006-002312. The standard production lock is released; featured-retry may start its creative workers. No further launch-five production runs are planned. Launch-five still owns the next website deployment while publishing reviewed assets and completing actual browser QA. Current source/catalog imports will preserve the latest featured manifest and all existing records.
+
+
+### Featured retry ready and queued
+
+All7 actual YouTube source files are hash-bound and complete, with audio repaired under freshv3 identities where needed. All249024010 normalized source bytes are encrypted in Cloudflare R2 and verified by authenticated download/decrypt. Four bounded speech excerpts have Scribev2 word transcripts. Five production briefs are frozen at Retry/edit/briefs.json: train24s, venue20s, podcast28s, live-demo28s, rocket28s. A queue waits for the already-running final launch-five render lock, then starts one batch featured-retry-20261005 with5 Astra high workers. No website deployment or catalog mutation has started. Launch-five retains next website deployment ownership.
+
+
+### Featured retry production running in cloud
+
+Batch featured-retry-20261005 is running five Astra high workers concurrently as app ap-Wvvo16amIjLHydrNHaG5Cl, image im-EDodZOS13biQQH4ch6oyJ9, producer603fbfd. Inputs are complete hash-bound real YouTube footage; all7 normalized sources are verified in encrypted Cloudflare R2 archives. The user requires cloud media storage; no MP4, audio file or full source ZIP is fetched to the Mac. Parent and delegated review use bounded images/metadata plus cloud code inspection. Diskless source relay is committed/pushed c808497 after production began and does not change producer identity. Launch-five still owns next website deployment. Planned new featured IDs56–60 replace rejected41–45; first3 cards and Whiplash cover crop are preserved. No retry catalog/featured mutation or deployment has started.
+
+
+### Launch gallery release — verified locally and preparing deployment
+
+Five approved launch films are published and merged into the147-example catalog: Show, Then Do; FOLD — Zine Night; The Cloud Has a Seafloor; Solar Speedrun; Not Done Yet. All40 public assets match reviewed hashes and movies support byte ranges. Existing142 example records,155 historical source records, the featured-workflows manifest and MCP film are unchanged. Five exact original prompts remain intact; Sources/Production notes disclose later refinements, and editable source archives retain pinned producer history. Full players for these five use original sound and play once; previews remain muted.
+
+Production build, TypeScript/catalog checks,30 importer tests, scoped lint/formatting and diff checks pass. Isolated Chromium review checked147 cards at1440/1100/768/390/320px, ten desktop/phone dialogs, full prompt copying, source links,12 filtered/empty layouts, all five actual click-to-play interactions and real touch layout/controls at390x844. No overlap, horizontal overflow or page errors were found. Parent inspected desktop, three-column, phone and touch gallery captures and representative portrait/landscape dialogs. The QA harness was corrected for intentionally clipped scroll content, empty-grid height and the separate center Copy Prompt control; no product layout defect required a code fix. Film review used encoded-frame sampling and numeric audio checks, without a listening or continuous playback claim.
+
+Launch-five owns the next InsForge website deployment after7bce0018. Its completed production lock is free for featured-retry. Evidence: /Users/ismaelito/Movies/Video Use Launch Five 20261005/edit/site-integration and publication.

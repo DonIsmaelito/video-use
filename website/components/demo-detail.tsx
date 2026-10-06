@@ -196,7 +196,7 @@ export function DemoDetail({
             controls
             playsInline
             autoPlay
-            muted={example.category === 'Motion Design'}
+            muted={example.muted ?? example.category === 'Motion Design'}
             loop={example.loop ?? example.category === 'Motion Design'}
             preload="metadata"
             aria-label={example.title}

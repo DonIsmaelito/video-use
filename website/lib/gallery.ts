@@ -18,6 +18,7 @@ export type Example = {
   poster: string;
   duration: number;
   loop?: boolean;
+  muted?: boolean;
   promptKind: string;
   orientation: string;
   audiences?: string[];

@@ -123,7 +123,7 @@ async function workspace(t) {
   );
   const old = social('useful-26-website-loop');
   const baseline = {
-    examples: [{ ...old.example, loop: true }],
+    examples: [{ ...old.example, loop: true, muted: false }],
     'media-sources': [old.source],
     'mcp-launch': { src: null, video: null, poster: null, duration: null },
   };
@@ -195,7 +195,7 @@ test('imports reviewed social edits and honest archives without changing older e
   assert.equal(new Set(updated.map((entry) => entry.id)).size, updated.length);
 });
 
-test('keeps legacy useful and MCP receipts compatible and preserves curated loop metadata', async (t) => {
+test('keeps legacy useful and MCP receipts compatible and preserves curated playback metadata', async (t) => {
   const w = await workspace(t);
   const old = social('useful-26-website-loop');
   delete old.approval;
@@ -208,6 +208,7 @@ test('keeps legacy useful and MCP receipts compatible and preserves curated loop
   const [examples, , launch] = (await w.current()).map(JSON.parse);
   assert.equal(examples.length, 1);
   assert.equal(examples[0].loop, true);
+  assert.equal(examples[0].muted, false);
   assert.deepEqual(launch, {
     src: mcp.assets['autoplay.mp4'],
     video: mcp.example.video,
