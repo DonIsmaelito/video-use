@@ -72,6 +72,9 @@ matching checkpoint. The command requires a new output directory. Failed runs
 leave `incomplete.json` and partial diagnostic masks, never a success manifest.
 A completed manifest records source clocks, original frame hashes, per-object
 mask hashes, checkpoint hash, package versions and backend implementation hashes.
+Its `model.builder_options` records the exact SAM2 builder settings and
+`model.mask_logit_threshold` records the strict output threshold. These fields
+are null for a custom injected backend, whose internal settings are unknown.
 Custom injected backends are explicitly identified and are not labeled as SAM2.
 
 ## Optional environment and review
@@ -87,11 +90,37 @@ The official Hiera Large checkpoint is available from
 [Meta's checkpoint host](https://dl.fbaipublicfiles.com/segment_anything_2/092824/sam2.1_hiera_large.pt).
 Keep model/code licensing and source-footage provenance separate.
 
-This adapter disables automatic hole postprocessing and uses a zero-logit
-threshold. It stages RGB JPEGs at quality100 with4:4:4sampling for SAM2, while
-retaining the original decoded-frame hashes. CUDA uses BF16 autocast; different
-GPU environments can change boundaries. Preserve accepted mask bytes rather
-than promising bit-identical future inference.
+The adapter calls the official builder with `apply_postprocessing=False` and
+these explicit `hydra_overrides_extra` settings:
+
+```text
+++model.fill_hole_area=0
+++model.sam_mask_decoder_extra_args.dynamic_multimask_via_stability=true
+++model.sam_mask_decoder_extra_args.dynamic_multimask_stability_delta=0.05
+++model.sam_mask_decoder_extra_args.dynamic_multimask_stability_thresh=0.98
+++model.binarize_mask_from_pts_for_mem_enc=true
+```
+
+The [pinned official video builder](https://github.com/facebookresearch/sam2/blob/2b90b9f5ceec907a1c18123530e92e794ad901a4/sam2/build_sam.py#L94-L133)
+normally enables both decoder/memory safeguards and small-hole filling together.
+The explicit options retain the safeguards while keeping hole filling disabled.
+Here `model.postprocessing=False` describes the builder flag, not the absence of
+the separately enabled stability fallback or memory binarization.
+
+When the single-mask prediction is unstable, the
+[official decoder](https://github.com/facebookresearch/sam2/blob/2b90b9f5ceec907a1c18123530e92e794ad901a4/sam2/modeling/sam/mask_decoder.py#L225-L269)
+can select the alternate mask with the highest predicted IoU. Stability compares
+areas above logit thresholds +0.05 and -0.05; a ratio below0.98 triggers the
+fallback. This is not98% object confidence or a guarantee of the correct subject.
+Clicked-frame mask binarization controls the mask stored for later memory
+encoding; it does not by itself repair an incorrect first-frame prediction.
+Review and correct poorly placed seeds or boxes even when fallback is enabled.
+
+Output PNGs use the strict binary test `logit > 0.0`, recorded separately from
+the stability settings. The adapter stages RGB JPEGs at quality100 with4:4:4
+sampling for SAM2, while retaining the original decoded-frame hashes. CUDA uses
+BF16 autocast; different GPU environments can change boundaries. Preserve
+accepted mask bytes rather than promising bit-identical future inference.
 
 Inspect actual mask edges over both light and dark backgrounds, gaps between
 limbs, foreground occlusions, fast motion and entry/exit. Save deliberate
