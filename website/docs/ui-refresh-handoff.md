@@ -849,3 +849,8 @@ All40 public release assets passed fresh cloud hash verification. The7 normalize
 Build, TypeScript/catalog checks,30 importer tests and scoped lint/formatting passed. Live browser checks at1440/768/390/320px verified8 populated hero cards, decoding, snapping, complete prompts, copying, source links and MCP controls, without page errors or horizontal overflow. Separate actual-click tests verified unmuted playback for all five new films on mobile. Parent inspected live desktop and mobile captures. Film review used sampled encoded frames, source/caption review and technical audio checks; subjective listening and independent clean-machine full replay are not claimed.
 
 Featured retry releases production and website deployment ownership. No further release is pending for this pass. Evidence: `/Users/ismaelito/Movies/Video Use Featured Retry 20261005/edit/release-summary.json`, `site-qa/live-review.json`, `publication/cloud-verification.json` and `cloud-storage/local-cleanup-receipt.json`.
+
+
+### Footage ten replacement scope and ownership
+
+The user rejected launch-gallery IDs51–55 and explicitly requests ten actual-footage edits using yt-dlp, with copyable exact prompts containing direct links. Root owns removal of those five visible records and later additions useful-61 through70, preserving the newer featured56–60 and historical source ledger. No creative production has started. Acquisition will use bounded cloud source windows and an isolated Decodo secret within the user-funded10GB traffic allowance; no credentials enter creative prompts or public archives. Media remains cloud-only. Root owns the next website deployment for removal, then the reviewed ten-film release. Evidence: `/Users/ismaelito/Movies/Video Use Footage Ten 20261005/edit/`.
