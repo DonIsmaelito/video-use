@@ -85,6 +85,9 @@ Helpers (`helpers/transcribe.py`, `helpers/render.py`, etc.) live alongside this
 - **[Color comparisons](skills/video-workflows/grade-comparison.md)** — a silent original/corrected wipe using one decoded frame clock, matching geometry and bounded RGB curves.
 - **[Moving privacy masks](skills/video-workflows/tracked-masks.md)** — explicit opaque rectangle tracks mapped through source cuts, with fixed-clock and encoded-frame coverage checks.
 - **[Silent replays](skills/video-workflows/silent-replays.md)** — bounded speed changes for sources without audio, with actual timestamp mapping and a separately identified derivative.
+- **[Authored clocks and pose matching](skills/video-workflows/edit-motion.md)** — exact picture ramps and holds, reviewed pose registration, and matching image/matte transforms.
+- **[Subject layers](skills/video-workflows/subject-layers.md)** — inspected cutouts, occluded artwork, silhouette reveals and authored parallax with explicit alpha and frame boundaries.
+- **[Optional subject masks](skills/video-workflows/subject-mattes.md)** — offline SAM2 authoring with source-bound frame hashes, explicit prompts and saved masks for ordinary replay.
 - **[Original ambient audio](skills/video-workflows/original-ambient-audio.md)** — deterministic tone beds and explicit soft pulses with exact PCM length and overlap headroom checks.
 - **`grade.py <in> -o <out>`** — ffmpeg filter chain grade. Presets + `--filter '<raw>'` for custom.
 
