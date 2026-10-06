@@ -23,6 +23,15 @@ from PIL import Image
 
 SHA = re.compile(r"[a-f0-9]{64}")
 CONFIGS = tuple(f"configs/sam2.1/sam2.1_hiera_{size}.yaml" for size in ("t", "s", "b+", "l"))
+# Keep official decoder/memory safeguards without enabling the builder's hole fill.
+SAM2_HYDRA_OVERRIDES = (
+    "++model.fill_hole_area=0",
+    "++model.sam_mask_decoder_extra_args.dynamic_multimask_via_stability=true",
+    "++model.sam_mask_decoder_extra_args.dynamic_multimask_stability_delta=0.05",
+    "++model.sam_mask_decoder_extra_args.dynamic_multimask_stability_thresh=0.98",
+    "++model.binarize_mask_from_pts_for_mem_enc=true",
+)
+MASK_LOGIT_THRESHOLD = 0.0
 
 
 def digest(path):
@@ -186,7 +195,7 @@ def sam2_masks(plan, frame_directory, checkpoint, model_config, device):
         raise RuntimeError("CUDA requested but unavailable; install the optional backend separately")
     predictor = build_sam2_video_predictor(
         model_config, str(checkpoint), device=device, apply_postprocessing=False,
-        hydra_overrides_extra=["++model.fill_hole_area=0"])
+        hydra_overrides_extra=list(SAM2_HYDRA_OVERRIDES))
     mixed = torch.autocast("cuda", dtype=torch.bfloat16) if device == "cuda" else nullcontext()
     with torch.inference_mode(), mixed:
         state = predictor.init_state(video_path=str(frame_directory), offload_video_to_cpu=True, offload_state_to_cpu=True)
@@ -205,7 +214,7 @@ def sam2_masks(plan, frame_directory, checkpoint, model_config, device):
             if not torch.isfinite(logits).all().item():
                 raise RuntimeError("SAM2 returned nonfinite mask logits")
             for index, ident in enumerate(ids):
-                yield int(frame), int(ident), ((logits[index, 0] > 0).cpu().numpy().astype(np.uint8) * 255)
+                yield int(frame), int(ident), ((logits[index, 0] > MASK_LOGIT_THRESHOLD).cpu().numpy().astype(np.uint8) * 255)
 
 
 def run(plan_path, output, *, checkpoint, checkpoint_sha256, model_config=CONFIGS[-1], device="cuda", backend=None):
@@ -275,7 +284,11 @@ def run(plan_path, output, *, checkpoint, checkpoint_sha256, model_config=CONFIG
                   "backend": {"name": f"{backend.__module__}.{backend.__qualname__}",
                               "sam2": backend is sam2_masks, "implementation_files": implementation},
                   "model": {"checkpoint_sha256": checkpoint_sha256, "config": model_config,
-                            "device": device, "versions": versions, "postprocessing": False,
+                            "device": device, "versions": versions,
+                            "postprocessing": False if backend is sam2_masks else None,
+                            "builder_options": {"apply_postprocessing": False,
+                                                "hydra_overrides_extra": list(SAM2_HYDRA_OVERRIDES)} if backend is sam2_masks else None,
+                            "mask_logit_threshold": MASK_LOGIT_THRESHOLD if backend is sam2_masks else None,
                             "input_conversion": "RGB JPEG quality100 4:4:4; original frame hashes retained"},
                   "masks": sorted(inventory, key=lambda x: (x["frame"], x["object_id"])),
                   "limits": "Binary segmentation seeds, not soft alpha or proof of a correct track. Inspect edges, occlusions and disappearance; save accepted corrections. Hidden backgrounds need separate authored plates. GPU results can vary across environments."}
