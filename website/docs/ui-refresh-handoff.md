@@ -854,3 +854,8 @@ Featured retry releases production and website deployment ownership. No further 
 ### Footage ten replacement scope and ownership
 
 The user rejected launch-gallery IDs51–55 and explicitly requests ten actual-footage edits using yt-dlp, with copyable exact prompts containing direct links. Root owns removal of those five visible records and later additions useful-61 through70, preserving the newer featured56–60 and historical source ledger. No creative production has started. Acquisition will use bounded cloud source windows and an isolated Decodo secret within the user-funded10GB traffic allowance; no credentials enter creative prompts or public archives. Media remains cloud-only. Root owns the next website deployment for removal, then the reviewed ten-film release. Evidence: `/Users/ismaelito/Movies/Video Use Footage Ten 20261005/edit/`.
+
+
+### Rejected launch gallery films removed live
+
+Deployment6e965785-3bb0-40a8-9bd8-8e1dc07c2e10 (provider dpl_C4F7wVcfFCqTVEUGS4DR6YxBQkCg) is READY at https://video-use.insforge.site from pushed source6e6183f. The visible catalog now has142 examples; rejected launch IDs51–55 are absent, including their old deep links. Every retained catalog record, featured56–60, source ledger and existing media remains unchanged. Build, TypeScript/catalog checks,30 import tests, lint, formatting and actual local/live Chromium checks at1440/1100/390/320px pass with no overlap, horizontal overflow or page errors. Root inspected desktop and phone gallery captures. Footage-ten retains ownership of the later reviewed ten-edit release; production has not started.
