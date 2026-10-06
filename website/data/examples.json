@@ -1304,6 +1304,290 @@
     "loop": false
   },
   {
+    "id": "useful-61-druski-entrance",
+    "title": "Every Group Has This Friend",
+    "category": "Video Edits",
+    "description": "Find the setup, dance and payoff inside a nine-hour stream.",
+    "prompt": "Use Video Use to make a 25-second comedy highlight from Kai Cenat’s stream with Kevin Hart and Druski: https://www.youtube.com/watch?v=CxiV-OgUyBs. Use the dance around 04:57.70–05:22.70. Open with the simple hook “Every group has this friend.” over the short lead-in, then let Druski’s committed dance and the room’s real response carry the joke. Keep the movement and reactions in their original order, including Kai joining the moment, and finish before the stream turns back to chat and technical housekeeping.\n\nKeep it landscape so we can see the dancer’s body and the other two reacting together. Preserve the live rhythm and the funniest gestures at normal speed. A single restrained punch-in is enough if it genuinely helps the final reaction; keep the dance wide and leave hands, faces and movement clear. Remove the opening hook after about two seconds. Use only sparse, accurate captions for a clearly intelligible payoff, without trying to subtitle the music or overlapping chants. Keep the stream’s own sound and natural color, gently level the audio, and add no replacement music or fake reactions. Deliver a 1920×1080 MP4 at 30 fps and the editable Video Use project.",
+    "duration": 25,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": ["Content creators", "Social media teams"],
+    "useCases": ["YouTube to short clips", "Social content"],
+    "technique": "video-editing",
+    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "mediaCredits": [
+      {
+        "title": "Kai Cenat Druski & Kevin Hart FULL STREAM!",
+        "creator": "Kai Cenat Live",
+        "url": "https://www.youtube.com/watch?v=CxiV-OgUyBs",
+        "changes": "Edited excerpt. Original footage and audio retain their creators’ rights."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-61-druski-entrance-d445964ebe32-14f1e3b3/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-61-druski-entrance-d445964ebe32-14f1e3b3/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-61-druski-entrance-d445964ebe32-14f1e3b3/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-61-druski-entrance-d445964ebe32-14f1e3b3/review.md"
+  },
+  {
+    "id": "useful-62-speed-shaolin",
+    "title": "The Horse Stance Test",
+    "category": "Video Edits",
+    "description": "Find one complete challenge inside a five-hour IRL stream.",
+    "prompt": "Use Video Use to turn this IShowSpeed China stream into a roughly 50-second challenge story: https://www.youtube.com/watch?v=zBL_5DkiXCk\n\nFind the horse-stance lesson around 2:24:55–2:25:45. Open with “Speed tries Shaolin training.” Show the instructor demonstrating how low to sit, the real correction, the challenge, Speed’s complete attempt and his immediate response. Let the contrast between the calm instructor and Speed’s effort make the scene funny. Finish on the actual answer and laugh before the next exercise.\n\nKeep the attempt at normal speed with its original counting, instructions and exertion audible. Preserve the wide composition so their legs and posture remain visible. Use a clean, natural finish and concise subtitles for the premise, key instructions and response. Let the pauses and effort breathe; the real counting is enough without an added timer. Deliver a 1920×1080 MP4 at 30 fps and an editable Video Use project.",
+    "duration": 49.7,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": ["Content creators", "Social media teams"],
+    "useCases": ["YouTube to short clips", "Social content"],
+    "technique": "video-editing",
+    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "mediaCredits": [
+      {
+        "title": "Becoming a Shaolin Monk in China 🥋🇨🇳 irl stream",
+        "creator": "IShowSpeed",
+        "url": "https://www.youtube.com/watch?v=zBL_5DkiXCk",
+        "changes": "Edited excerpt. Original footage and audio retain their creators’ rights."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-62-speed-shaolin-8c98c19d57e2-52d77af1/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-62-speed-shaolin-8c98c19d57e2-52d77af1/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-62-speed-shaolin-8c98c19d57e2-52d77af1/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-62-speed-shaolin-8c98c19d57e2-52d77af1/review.md"
+  },
+  {
+    "id": "useful-63-quenlin-verdict",
+    "title": "One Bite One Verdict",
+    "category": "Video Edits",
+    "description": "Compress a food episode into anticipation, one bite and a verdict.",
+    "prompt": "Use Video Use to make a 33-second vertical food-reaction edit from Quenlin Blackwell’s THE $20,000 MUKBANG: https://www.youtube.com/watch?v=wY4Dm_8z5EI. Focus on the grilled cheese burrito around 28:34–29:10, followed by its later verdict around 29:50–30:02. Open with a one-second glimpse of the skeptical expression after the bite, then return to the invitation to taste it and the dish identification. Keep the actual bite, the changing expression and the initial answer, then move clearly to the later conversation where they name that same burrito and give their verdict. Finish on the original sleepy punchline and its sound. Shorten the long chewing stretch and remove the unrelated conversation between these beats.\n\nUse steady 9:16 crops that keep the eater’s face, hands and burrito together. Stay on the real listener when that reaction helps; change framing at a conversational beat instead of chasing every word. Use sparse sentence-case captions for the dish and the decisive verdict. Keep the original voices, food sounds and existing source humor, with gentle leveling and a light corrective grade. Treat $20,000 as the episode title, not the price of this dish. Deliver a 1080×1920 MP4 at 30 fps and the editable Video Use project.",
+    "duration": 33.2,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": ["Content creators", "Social media teams"],
+    "useCases": ["YouTube to short clips", "Social content"],
+    "technique": "video-editing",
+    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "mediaCredits": [
+      {
+        "title": "THE $20,000 MUKBANG",
+        "creator": "Quenlin Blackwell",
+        "url": "https://www.youtube.com/watch?v=wY4Dm_8z5EI",
+        "changes": "Edited excerpt. Original footage and source audio retain their creators’ rights."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-e82efa9eb917-b228825a/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-e82efa9eb917-b228825a/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-e82efa9eb917-b228825a/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-e82efa9eb917-b228825a/review.md"
+  },
+  {
+    "id": "useful-64-billie-finneas",
+    "title": "Answer or Eat the Wing",
+    "category": "Video Edits",
+    "description": "Build sibling comedy through a question, refusal and spicy consequence.",
+    "prompt": "Use Video Use to make a 38-second vertical edit of Billie Eilish and Finneas in this official Hot Ones Versus episode: https://www.youtube.com/watch?v=-2yTzR9bULg. Start on the artist-ranking challenge around 08:22, keep the four names and Billie’s first reaction, then cut to her refusal and the death-wing alternative around 08:49. Follow that choice with the actual wing action around 09:15–09:27 and the heat reaction around 09:32–09:41. Keep these moments in their original order and finish on the shared suffering-but-fun payoff. Remove the repeated setup and unrelated banter between them.\n\nUse calm 9:16 crops from the show’s own coverage, keeping faces, the wing and the relevant hands visible. Preserve the native artist images as a brief complete insert if they cannot fit a portrait crop; use the verified names Tyler, the Creator, Lana Del Rey, Childish Gambino and Justin Bieber. Give viewers the four choices in a compact, readable graphic during the question. Keep real listener reactions and let the bite breathe. Briefly lower the background sound during the silent decision, then restore it quietly beneath the dialogue. Add only sparse, accurate sentence-case captions for the challenge, refusal and final payoff. Retain the original voices, pauses, laughter and visual style, with gentle audio leveling. Deliver a 1080×1920 MP4 at 30 fps and the editable Video Use project.",
+    "duration": 38,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": ["Content creators", "Social media teams"],
+    "useCases": ["YouTube to short clips", "Social content"],
+    "technique": "video-editing",
+    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "mediaCredits": [
+      {
+        "title": "Billie Eilish vs. Finneas | Hot Ones Versus",
+        "creator": "First We Feast",
+        "url": "https://www.youtube.com/watch?v=-2yTzR9bULg",
+        "changes": "Edited excerpt. Original footage and source audio retain their creators’ rights."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-e0a0e17317fe-d1e59969/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-e0a0e17317fe-d1e59969/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-e0a0e17317fe-d1e59969/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-e0a0e17317fe-d1e59969/review.md"
+  },
+  {
+    "id": "useful-65-andrew-amelia",
+    "title": "Without the Cameras",
+    "category": "Video Edits",
+    "description": "Shape one awkward exchange into a miniature rom-com scene.",
+    "prompt": "Use Video Use to make an exactly 26-second vertical edit from Andrew Garfield’s Chicken Shop Date with Amelia Dimoldenberg: https://www.youtube.com/watch?v=eFS5vxYlfY8. Use the exchange around 06:40–07:07 and begin directly on Andrew asking whether she really thinks that. Keep the immediate follow-up about dating without the show, Amelia’s uncertain answer, his qualified response and her final playful challenge together in their original order. Let the interruptions, pauses and eye contact do the work, and finish on that final line without adding a hold or an explanatory end card.\n\nUse the show’s existing camera changes with calm medium crops for 9:16. Keep full faces and room in the direction they are looking; preserve the actual listener shots when someone speaks off camera. Use sparse, accurate sentence-case captions for the central question, her uncertain answer and his response, retaining the uncertainty in what they say. Keep their natural voices, room tone and the show’s color, with subtle level matching. Add Scott Buckley’s “Moonlight” as a very quiet piano-and-strings bed, ducked beneath the conversation without a melodramatic swell. Put the music credit and license in the project README, with no outro. Deliver a 1080×1920 MP4 at 30 fps and the editable Video Use project.",
+    "duration": 26,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": ["Content creators", "Social media teams", "Editors"],
+    "useCases": ["Interview clips", "Social content"],
+    "technique": "video-editing",
+    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "mediaCredits": [
+      {
+        "title": "ANDREW GARFIELD | CHICKEN SHOP DATE",
+        "creator": "Amelia Dimoldenberg",
+        "url": "https://www.youtube.com/watch?v=eFS5vxYlfY8",
+        "changes": "Edited excerpt. Original footage and audio retain their creators’ rights."
+      },
+      {
+        "title": "Moonlight",
+        "creator": "Scott Buckley",
+        "url": "https://www.scottbuckley.com.au/library/moonlight/",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "changes": "Excerpt edited and mixed under dialogue."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-65-andrew-amelia-9baf0236b660-3ac90527/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-65-andrew-amelia-9baf0236b660-3ac90527/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-65-andrew-amelia-9baf0236b660-3ac90527/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-65-andrew-amelia-9baf0236b660-3ac90527/review.md"
+  },
+  {
+    "id": "useful-66-tank-workout",
+    "title": "Tank Davis",
+    "category": "Video Edits",
+    "description": "Turn a workout into a sharp athlete campaign.",
+    "prompt": "Use Video Use to make a 26-second vertical athlete edit from this official Gervonta “Tank” Davis workout: https://www.youtube.com/watch?v=ABBj66mV8BI\n\nOpen quietly on his focused close-up between the ropes, then bring the rhythm in with the first pad combination. Build through crisp combinations and defensive movement, and finish with the red-glove heavy-bag sequence. Keep decisive punches at normal speed and let the final combination resolve into his real gloves-down pause. Cut before the event promotion.\n\nGive it a restrained campaign feel: rich blacks, natural skin, sharp movement and red gloves as the color accent. Keep his head and working gloves visible in the native vertical frame. Use the real workout sound and source soundtrack coherently, with a quiet opening and a purposeful finish. Add a small “TANK DAVIS” name treatment over the last moving shot. Deliver a 1080×1920 MP4 at 30 fps and the editable Video Use project.",
+    "duration": 26,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": ["Content creators", "Sports fans", "Social media teams"],
+    "useCases": ["Sports highlights", "Athlete edits"],
+    "technique": "video-editing",
+    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "mediaCredits": [
+      {
+        "title": "Gervonta Davis Shows Off His Skills for Media and Influencers | #TankRoach",
+        "creator": "Premier Boxing Champions",
+        "url": "https://www.youtube.com/watch?v=ABBj66mV8BI",
+        "changes": "Edited excerpt. Original footage and audio retain their creators’ rights."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-66-tank-workout-9e78fbcbfc84-00066109/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-66-tank-workout-9e78fbcbfc84-00066109/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-66-tank-workout-9e78fbcbfc84-00066109/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-66-tank-workout-9e78fbcbfc84-00066109/review.md"
+  },
+  {
+    "id": "useful-67-holloway-ten-seconds",
+    "title": "Ten Seconds Left",
+    "category": "Video Edits",
+    "description": "Explain an iconic finish without cutting through the action.",
+    "prompt": "Create a 43-second, 16:9 breakdown of Max Holloway and Justin Gaethje’s final exchange at UFC 300, using this official full-fight video: https://www.youtube.com/watch?v=IJo4Qcnm6UU\n\nOpen on a freeze of Holloway’s invitation to the center with the actual round clock showing 0:10. Add “Ten seconds left” and use a calm stock narrator to say exactly: “With ten seconds left, Max Holloway points to the center. Justin Gaethje steps in, and they trade.”\n\nBriefly return to the lead-in with a small “Moments earlier” label, then play through the full final exchange and immediate aftermath at normal speed. Keep both fighters, their hand movements and the available round clock readable. Make no cuts, slow motion or added narration during the decisive exchange, and preserve its original audio timing.\n\nThen show exactly one short, clearly labeled half-speed replay with a restrained push-in. Use the narrator to say exactly: “On replay, Holloway’s right hand finishes the exchange. The official stoppage is four fifty-nine of round five.” If you show the official time, write “R5 · 4:59 elapsed.” Finish on the actual crowd, celebration and broadcast commentary.\n\nKeep the presentation clean and factual. Caption the new narration using its verified timing; do not generate captions for the source commentary from an unreliable automatic transcript. Preserve the source audio with the normal-speed footage and final reaction. Use the new narration for the freeze and replay, without stretching the broadcast voices. No invented commentary, fake impact sounds, extra replays, unrelated reactions, claims about the fighters’ thoughts, or lingering close-ups of the downed fighter.",
+    "duration": 43,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": ["Sports fans", "Content creators", "Editors"],
+    "useCases": ["Sports breakdowns", "YouTube to short clips"],
+    "technique": "video-editing",
+    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "mediaCredits": [
+      {
+        "title": "Макс Холлоуэй vs Джастин Гейджи | Полный бой",
+        "creator": "UFC Eurasia",
+        "url": "https://www.youtube.com/watch?v=IJo4Qcnm6UU",
+        "changes": "Edited excerpt. Original footage and source audio retain their creators’ rights."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-67-holloway-ten-seconds-89d38fe641c3-04ec4f48/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-67-holloway-ten-seconds-89d38fe641c3-04ec4f48/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-67-holloway-ten-seconds-89d38fe641c3-04ec4f48/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-67-holloway-ten-seconds-89d38fe641c3-04ec4f48/review.md"
+  },
+  {
+    "id": "useful-68-speed-kai-chained",
+    "title": "Accountability Bro",
+    "category": "Video Edits",
+    "description": "Keep the whole fall, then let the players explain themselves.",
+    "prompt": "Make a roughly 51-second gaming story from IShowSpeed and Kai Cenat playing Chained Together: https://www.youtube.com/watch?v=uw2AaFkmzOc\n\nUse their attempt to jump from the narrow red beam: keep the original jump instruction, the count-in, the complete jump and fall, and the genuine disagreement about “shift” versus “edge.” Let viewers see exactly what happened before emphasizing their reactions. Trim the repeated argument only after they have landed, then return to their real climb back onto the lower stone route. End on the actual “Accountability, bro” line as they regroup, without pretending they completed the course.\n\nKeep the entire decisive jump and fall uninterrupted at normal speed. Use a clean 16:9 frame with the full gameplay view as the largest element and the two original, synchronized facecams smaller in the top corners. Preserve both characters, the chain, the beam and the landing area. One brief enlargement of the facecams is enough after the landing; restore the full gameplay view for the recovery.\n\nUse concise captions for the key real lines and let the original game sound and conversation carry the edit. Bleep racial slurs and redact the matching caption words without replacing their speech. Keep the timing and humor natural: no borrowed reactions, invented subtitles, fake gameplay, added failure sounds, speed ramps, freeze frames or unrelated meme inserts.",
+    "duration": 50.7,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": ["Content creators", "Streamers", "Social media teams"],
+    "useCases": ["Gaming highlights", "YouTube to short clips"],
+    "technique": "video-editing",
+    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "mediaCredits": [
+      {
+        "title": "⛓️CHAINED TOGETHER⛓️ ft. Kai Cenat",
+        "creator": "IShowSpeed",
+        "url": "https://www.youtube.com/watch?v=uw2AaFkmzOc",
+        "changes": "Edited excerpt. Original footage and audio retain their creators’ rights."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-9270c78a91be-6e45fe08/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-9270c78a91be-6e45fe08/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-9270c78a91be-6e45fe08/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-9270c78a91be-6e45fe08/review.md"
+  },
+  {
+    "id": "useful-69-meta-muse-glasses",
+    "title": "Your Agent Hands Free",
+    "category": "Video Edits",
+    "description": "Turn a keynote into one clear product story with real demos.",
+    "prompt": "Edit a 46-second, 16:9 explainer about Muse coming to Meta’s AI glasses, using real footage from Meta’s official Connect 2026 keynote: https://www.youtube.com/watch?v=SdKFDIAGF24. Focus on 19:58–23:27, which contains the announcement, the live calendar demonstration, and the Oakley fitness film. Check factual wording against https://about.fb.com/news/2026/09/the-biggest-news-from-connect-2026/.\n\nStart immediately with a strong real shot of the glasses in use, then establish the keynote and build a clear story from the actual demonstration footage. Move between the presenter, the original stage display, first-person activity, and the fitness sequence. Keep existing interface graphics and source framing intact. Use clean cuts and a few short, readable editorial captions; no animated explainer scenes, invented interfaces, or replacement footage.\n\nUse a warm, conversational American narrator. Begin with this exact narration:\n“Meta wants your AI agent to go with you, through a pair of glasses. At Connect twenty twenty-six, it announced Muse for its AI glasses: an ongoing conversation, context from earlier chats, and tasks getting done in the background. On stage, Zuckerberg asks it to find time for a meeting.”\nThen let the complete original calendar response play clearly—the reply is around 20:57–21:02 in the keynote. Keep its real audio and do not narrate over it.\nContinue with:\n“Then Meta shows the same idea in a workout: training guidance through Oakley glasses, reminders between intervals, and a progress check when the session is done. The useful part is getting help while your hands are busy. Meta says Muse is coming to its glasses in the months ahead.”\nLet the real agent’s progress-result reply near 23:08–23:10 play toward the end, with the corresponding fitness footage and the person’s actual reaction. Give that final human moment a little breathing room.\n\nUse Scott Buckley’s “Origami” as a restrained instrumental bed: https://soundcloud.com/scottbuckley/origami-cc-by. Choose one coherent passage, keep it below the narrator, and lower it further for both genuine demo replies. Credit the composer and CC BY 4.0 license, with the source https://www.scottbuckley.com.au/library/origami/ and https://creativecommons.org/licenses/by/4.0/; note that the music was excerpted and mixed under narration.\n\nAdd accurate captions, “Meta Connect 2026” briefly over the stage shot, and a discreet “Meta demonstration” identifier during the fitness film. Finish over actual footage with “Muse on AI glasses · Rollout ahead.” Preserve the distinction between Meta’s announced rollout and current availability. Keep it useful, stylish and easy to follow, without a logo intro or a long end card.",
+    "duration": 46,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": ["Product teams", "Content creators", "Marketers"],
+    "useCases": ["Product explainers", "Keynote highlights"],
+    "technique": "video-editing",
+    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "mediaCredits": [
+      {
+        "title": "Meta Connect Keynote 2026",
+        "creator": "Meta",
+        "url": "https://www.youtube.com/watch?v=SdKFDIAGF24",
+        "changes": "Edited excerpt. Original footage and source audio retain their creators’ rights."
+      },
+      {
+        "title": "Origami",
+        "creator": "Scott Buckley",
+        "url": "https://www.scottbuckley.com.au/library/origami/",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "changes": "Excerpt edited and mixed under the film."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-69-meta-muse-glasses-2e122be84b7f-d71984f7/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-69-meta-muse-glasses-2e122be84b7f-d71984f7/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-69-meta-muse-glasses-2e122be84b7f-d71984f7/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-69-meta-muse-glasses-2e122be84b7f-d71984f7/review.md"
+  },
+  {
+    "id": "useful-70-pocket-4p",
+    "title": "Pocket Size City Scale",
+    "category": "Video Edits",
+    "description": "Build a camera reel around seven strong pieces of visual proof.",
+    "prompt": "Make a 28-second, 16:9 product-proof edit from DPReview’s actual DJI Osmo Pocket 4P sample film: https://www.youtube.com/watch?v=XyYw9resujk. Start on real footage immediately and use seven strong shots, with no narration.\n\nBuild this visual journey: colored-glass wall detail around 29–32.5s; the full colored structure around 37.8–41.3s; brick architecture around 43.7–47.2s; the explicitly labeled 60mm city detail around 51.2–55.2s; the pink house around 75–79s; the evening street around 106.4–110.4s; and the blue glass buildings around 113.2–118.7s. Let the final moving shot breathe for about five-and-a-half seconds. Trim on clean source shot boundaries and preserve the original motion at normal speed.\n\nKeep the full compositions and the original technical labels visible. This is a pre-production sample reel with graded, LUT-applied and standard-profile examples; do not present it as untouched camera-original footage. Introduce “DJI Osmo Pocket 4P” and “DPReview · Pre-production sample edit” quietly over the opening footage. Use the native 60mm label as proof of the medium-telephoto camera. Do not turn a crop into a lens switch or present different places as a controlled wide/tele comparison. Omit the 12× digital-zoom boat segment.\n\nUse purposeful straight cuts, no speed ramps, added sharpening, generated shots, or synthetic camera moves. Use a coherent instrumental passage from Scott Buckley’s “Origami”: https://soundcloud.com/scottbuckley/origami-cc-by. Credit Scott Buckley, the source https://www.scottbuckley.com.au/library/origami/, and CC BY 4.0 at https://creativecommons.org/licenses/by/4.0/, noting the excerpt and mix. Keep a small DPReview footage credit over the final image. Make the actual captured color, detail and movement the reason to watch.",
+    "duration": 28,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": ["Product teams", "Content creators", "Filmmakers"],
+    "useCases": ["Product demos", "Camera sample reels"],
+    "technique": "video-editing",
+    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "mediaCredits": [
+      {
+        "title": "DJI Osmo Pocket 4P — Here's What the Footage Actually Looks Like",
+        "creator": "DPReview TV",
+        "url": "https://www.youtube.com/watch?v=XyYw9resujk",
+        "changes": "Edited excerpt. Original footage and source audio retain their creators’ rights."
+      },
+      {
+        "title": "Origami",
+        "creator": "Scott Buckley",
+        "url": "https://www.scottbuckley.com.au/library/origami/",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "changes": "Excerpt edited and mixed under the film."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-70-pocket-4p-5a06da5813a8-cad5ac33/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-70-pocket-4p-5a06da5813a8-cad5ac33/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-70-pocket-4p-5a06da5813a8-cad5ac33/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-70-pocket-4p-5a06da5813a8-cad5ac33/review.md"
+  },
+  {
     "id": "whiplash-cinematic-story-edit",
     "title": "Whiplash",
     "category": "Video Edits",

@@ -5254,5 +5254,345 @@
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-60-rocket-catch-73a6e4fe106c-91ee561b/poster.jpg"
       }
     ]
+  },
+  {
+    "id": "useful-61-druski-entrance",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "footage-ten-20261005-production",
+    "sourceRun": "useful-61-druski-entrance",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "high",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "cd6e7fc92e6076823cbbc2fea204e92d532f3c14",
+    "frameworkArchiveSha256": "e18b6ebe49b19784d59e13a90cea2c37b4eba2a1b01547576e6261fca8958d9f",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "d445964ebe32d071634536667f2b615c60ef6604b1a1d3afcd58c4667793c51c",
+    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-61-druski-entrance-d445964ebe32-14f1e3b3/source.zip",
+    "editableSourceSha256": "a5721141f722390bfadf355b38e1da06ba1155235e9c8ead08a8c32ef3f50d12",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/footage-ten-20261005-production/useful-61-druski-entrance/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-61-druski-entrance-d445964ebe32-14f1e3b3/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-61-druski-entrance-d445964ebe32-14f1e3b3/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-61-druski-entrance-d445964ebe32-14f1e3b3/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-61-druski-entrance-d445964ebe32-14f1e3b3/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-61-druski-entrance-d445964ebe32-14f1e3b3/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-61-druski-entrance-d445964ebe32-14f1e3b3/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-61-druski-entrance-d445964ebe32-14f1e3b3/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-62-speed-shaolin",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "footage-ten-20261005-production",
+    "sourceRun": "useful-62-speed-shaolin",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "high",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "cd6e7fc92e6076823cbbc2fea204e92d532f3c14",
+    "frameworkArchiveSha256": "e18b6ebe49b19784d59e13a90cea2c37b4eba2a1b01547576e6261fca8958d9f",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "8c98c19d57e25a324118d48eebab9bb97585aee734732bac0f9646c0b77a1015",
+    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-62-speed-shaolin-8c98c19d57e2-52d77af1/source.zip",
+    "editableSourceSha256": "81348e509bc454e21a3725012d18ee042fcf2c0464fc04f7ab4ee5bef0f031b7",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/footage-ten-20261005-production/useful-62-speed-shaolin/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-62-speed-shaolin-8c98c19d57e2-52d77af1/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-62-speed-shaolin-8c98c19d57e2-52d77af1/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-62-speed-shaolin-8c98c19d57e2-52d77af1/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-62-speed-shaolin-8c98c19d57e2-52d77af1/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-62-speed-shaolin-8c98c19d57e2-52d77af1/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-62-speed-shaolin-8c98c19d57e2-52d77af1/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-62-speed-shaolin-8c98c19d57e2-52d77af1/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-63-quenlin-verdict",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "footage-ten-20261005-production",
+    "sourceRun": "useful-63-quenlin-verdict",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "high",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "d3f90e287f8fe8aec8c6c9969e49317a637afd83",
+    "frameworkArchiveSha256": "e18b6ebe49b19784d59e13a90cea2c37b4eba2a1b01547576e6261fca8958d9f",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "e82efa9eb917d2fb251147293bf98659ab9c7427ba078e224eb36b59d34c6936",
+    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-e82efa9eb917-b228825a/source.zip",
+    "editableSourceSha256": "8d633c45c7181649dd23a8f251f4bac060a95a483e34c8283745649b4f42f5e5",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/footage-ten-20261005-production/useful-63-quenlin-verdict/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-e82efa9eb917-b228825a/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-e82efa9eb917-b228825a/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-e82efa9eb917-b228825a/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-e82efa9eb917-b228825a/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-e82efa9eb917-b228825a/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-e82efa9eb917-b228825a/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-e82efa9eb917-b228825a/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-64-billie-finneas",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "footage-ten-20261005-production",
+    "sourceRun": "useful-64-billie-finneas",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "high",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "d3f90e287f8fe8aec8c6c9969e49317a637afd83",
+    "frameworkArchiveSha256": "e18b6ebe49b19784d59e13a90cea2c37b4eba2a1b01547576e6261fca8958d9f",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "e0a0e17317fe47bb730b6878db3baa1c748bab8dde83eea30d5f10b013b05924",
+    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-e0a0e17317fe-d1e59969/source.zip",
+    "editableSourceSha256": "94119b12eb7911d9879ab153bbe68a8c7a58a55d5e5636d3ca27205aa41a36a7",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/footage-ten-20261005-production/useful-64-billie-finneas/repairs/source-handoff-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-e0a0e17317fe-d1e59969/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-e0a0e17317fe-d1e59969/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-e0a0e17317fe-d1e59969/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-e0a0e17317fe-d1e59969/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-e0a0e17317fe-d1e59969/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-e0a0e17317fe-d1e59969/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-e0a0e17317fe-d1e59969/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-65-andrew-amelia",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "footage-ten-20261005-production",
+    "sourceRun": "useful-65-andrew-amelia",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "high",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "cd6e7fc92e6076823cbbc2fea204e92d532f3c14",
+    "frameworkArchiveSha256": "e18b6ebe49b19784d59e13a90cea2c37b4eba2a1b01547576e6261fca8958d9f",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "9baf0236b6609f689a4adac1a69aeb3d8008d097bdc961f43567b0f8e67d9ba1",
+    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-65-andrew-amelia-9baf0236b660-3ac90527/source.zip",
+    "editableSourceSha256": "eee82c28545053c78f2d47fc80de55709f694944e950e6ef0fa675e3fe726f4f",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/footage-ten-20261005-production/useful-65-andrew-amelia/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-65-andrew-amelia-9baf0236b660-3ac90527/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-65-andrew-amelia-9baf0236b660-3ac90527/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-65-andrew-amelia-9baf0236b660-3ac90527/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-65-andrew-amelia-9baf0236b660-3ac90527/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-65-andrew-amelia-9baf0236b660-3ac90527/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-65-andrew-amelia-9baf0236b660-3ac90527/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-65-andrew-amelia-9baf0236b660-3ac90527/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-66-tank-workout",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "footage-ten-20261005-production",
+    "sourceRun": "useful-66-tank-workout",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "high",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "cd6e7fc92e6076823cbbc2fea204e92d532f3c14",
+    "frameworkArchiveSha256": "e18b6ebe49b19784d59e13a90cea2c37b4eba2a1b01547576e6261fca8958d9f",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "9e78fbcbfc840398e5f33dffc887df2aef5a542d652d398588cea2d90f11bbea",
+    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-66-tank-workout-9e78fbcbfc84-00066109/source.zip",
+    "editableSourceSha256": "e0c60d1b51aaea3f82d7cd425d3ce094578c754191fa2f9fd50fbc14ef16022d",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/footage-ten-20261005-production/useful-66-tank-workout/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-66-tank-workout-9e78fbcbfc84-00066109/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-66-tank-workout-9e78fbcbfc84-00066109/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-66-tank-workout-9e78fbcbfc84-00066109/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-66-tank-workout-9e78fbcbfc84-00066109/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-66-tank-workout-9e78fbcbfc84-00066109/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-66-tank-workout-9e78fbcbfc84-00066109/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-66-tank-workout-9e78fbcbfc84-00066109/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-67-holloway-ten-seconds",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "footage-ten-20261005-production",
+    "sourceRun": "useful-67-holloway-ten-seconds",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "high",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "d3f90e287f8fe8aec8c6c9969e49317a637afd83",
+    "frameworkArchiveSha256": "e18b6ebe49b19784d59e13a90cea2c37b4eba2a1b01547576e6261fca8958d9f",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "89d38fe641c3ab1ebaf163311eb62bba717f30006fe87b7755e6c7d8b25af348",
+    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-67-holloway-ten-seconds-89d38fe641c3-04ec4f48/source.zip",
+    "editableSourceSha256": "6d8d17c723d3cdac751ef6de7ef9710ba49dc37637b6a0a78321d889a5a5cdf1",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/footage-ten-20261005-production/useful-67-holloway-ten-seconds/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-67-holloway-ten-seconds-89d38fe641c3-04ec4f48/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-67-holloway-ten-seconds-89d38fe641c3-04ec4f48/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-67-holloway-ten-seconds-89d38fe641c3-04ec4f48/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-67-holloway-ten-seconds-89d38fe641c3-04ec4f48/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-67-holloway-ten-seconds-89d38fe641c3-04ec4f48/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-67-holloway-ten-seconds-89d38fe641c3-04ec4f48/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-67-holloway-ten-seconds-89d38fe641c3-04ec4f48/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-68-speed-kai-chained",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "footage-ten-20261005-production",
+    "sourceRun": "useful-68-speed-kai-chained",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "high",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "cd6e7fc92e6076823cbbc2fea204e92d532f3c14",
+    "frameworkArchiveSha256": "e18b6ebe49b19784d59e13a90cea2c37b4eba2a1b01547576e6261fca8958d9f",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "9270c78a91befec4b1e6d32404f40a8851aefd82bd58e405f1a637e50b09c407",
+    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-9270c78a91be-6e45fe08/source.zip",
+    "editableSourceSha256": "70e04c8da5e98e79bbf65d61923399024a1b4f8c2e8f38c45c36e07a20922a2e",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/footage-ten-20261005-production/useful-68-speed-kai-chained/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-9270c78a91be-6e45fe08/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-9270c78a91be-6e45fe08/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-9270c78a91be-6e45fe08/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-9270c78a91be-6e45fe08/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-9270c78a91be-6e45fe08/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-9270c78a91be-6e45fe08/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-9270c78a91be-6e45fe08/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-69-meta-muse-glasses",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "footage-ten-20261005-production",
+    "sourceRun": "useful-69-meta-muse-glasses",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "high",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "d3f90e287f8fe8aec8c6c9969e49317a637afd83",
+    "frameworkArchiveSha256": "e18b6ebe49b19784d59e13a90cea2c37b4eba2a1b01547576e6261fca8958d9f",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "2e122be84b7fcb6df2734446a012517f0b8a132a6e3e3fed325f178ff37ba29f",
+    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-69-meta-muse-glasses-2e122be84b7f-d71984f7/source.zip",
+    "editableSourceSha256": "84a15850a97e653d39b1fe22283f209b2c75cd8b9a6bceb1aa2b73b75dd0f843",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/footage-ten-20261005-production/useful-69-meta-muse-glasses/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-69-meta-muse-glasses-2e122be84b7f-d71984f7/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-69-meta-muse-glasses-2e122be84b7f-d71984f7/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-69-meta-muse-glasses-2e122be84b7f-d71984f7/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-69-meta-muse-glasses-2e122be84b7f-d71984f7/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-69-meta-muse-glasses-2e122be84b7f-d71984f7/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-69-meta-muse-glasses-2e122be84b7f-d71984f7/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-69-meta-muse-glasses-2e122be84b7f-d71984f7/poster.jpg"
+      }
+    ]
+  },
+  {
+    "id": "useful-70-pocket-4p",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "footage-ten-20261005-production",
+    "sourceRun": "useful-70-pocket-4p",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "high",
+    "frameworkBranch": "feature/useful-video-library",
+    "frameworkCommit": "d3f90e287f8fe8aec8c6c9969e49317a637afd83",
+    "frameworkArchiveSha256": "e18b6ebe49b19784d59e13a90cea2c37b4eba2a1b01547576e6261fca8958d9f",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "5a06da5813a83e5366be5b3a58541a9642bf2f835fc12f2b900b45d25946f1cb",
+    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-70-pocket-4p-5a06da5813a8-cad5ac33/source.zip",
+    "editableSourceSha256": "512631460497ab751d8f2d0cfe5000f797069803852fbf356cb218e38c619659",
+    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "cloudProject": "video-use-useful-library-20261003/footage-ten-20261005-production/useful-70-pocket-4p/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-70-pocket-4p-5a06da5813a8-cad5ac33/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-70-pocket-4p-5a06da5813a8-cad5ac33/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-70-pocket-4p-5a06da5813a8-cad5ac33/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-70-pocket-4p-5a06da5813a8-cad5ac33/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-70-pocket-4p-5a06da5813a8-cad5ac33/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-70-pocket-4p-5a06da5813a8-cad5ac33/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-70-pocket-4p-5a06da5813a8-cad5ac33/poster.jpg"
+      }
+    ]
   }
 ]
