@@ -1,0 +1,134 @@
+.sector {
+  max-width: 1920px;
+  margin: 48px auto;
+  padding: 0 var(--page-gutter);
+  scroll-margin-top: 24px;
+}
+
+.heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.heading h2 {
+  font-family: var(--font-title);
+  font-size: clamp(24px, 2vw, 28px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.heading h2 a:hover {
+  color: #ff9b50;
+}
+.heading p {
+  margin-top: 8px;
+  color: #a0a0a0;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.count {
+  flex-shrink: 0;
+  padding-bottom: 3px;
+  color: #858585;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.window {
+  position: relative;
+  height: clamp(560px, 58vw, 800px);
+  overflow: clip;
+  isolation: isolate;
+}
+
+.fade {
+  position: absolute;
+  z-index: 4;
+  inset: auto -1px -1px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 210px;
+  padding: 0 16px 28px;
+  background: linear-gradient(transparent, var(--background) 78%);
+  pointer-events: none;
+}
+
+.viewAll {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 46px;
+  padding: 12px 22px;
+  border: 1px solid color-mix(in srgb, var(--accent) 32%, transparent);
+  border-radius: 10px;
+  background: var(--accent);
+  color: var(--accent-foreground);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  pointer-events: auto;
+  transition: background 160ms ease;
+}
+
+.viewAll:hover {
+  background: #ff923e;
+}
+
+@media (max-width: 767px) {
+  .sector {
+    margin-block: 36px;
+  }
+  .heading {
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .heading p {
+    font-size: 13px;
+    max-width: 300px;
+  }
+  .count {
+    padding-top: 6px;
+    font-size: 11px;
+  }
+  .window {
+    height: 520px;
+  }
+  .fade {
+    height: 180px;
+    padding-bottom: 20px;
+  }
+  .viewAll {
+    min-height: 44px;
+    font-size: 13px;
+    padding-inline: 18px;
+  }
+}
+
+@media (max-width: 420px) {
+  .heading {
+    flex-direction: column;
+    gap: 7px;
+  }
+  .count {
+    padding: 0;
+  }
+  .window {
+    height: 460px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .viewAll {
+    transition: none;
+  }
+}

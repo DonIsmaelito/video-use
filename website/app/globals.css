@@ -3,6 +3,14 @@
 @import 'shadcn/tailwind.css';
 
 @font-face {
+  font-family: 'Space Grotesk';
+  src: url('/fonts/space-grotesk-latin.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: Inter;
   src: url('/fonts/inter-regular.woff2') format('woff2');
   font-weight: 400;
@@ -37,7 +45,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-ui);
-  --font-heading: var(--font-ui);
+  --font-heading: var(--font-title);
   --font-mono: var(--font-code);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
@@ -58,6 +66,7 @@
 :root {
   color-scheme: dark;
   --font-display: 'Instrument Serif', Georgia, serif;
+  --font-title: 'Space Grotesk', Inter, Arial, sans-serif;
   --font-ui: Inter, Arial, sans-serif;
   --font-code: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --background: #090909;

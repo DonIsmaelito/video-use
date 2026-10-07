@@ -39,7 +39,95 @@ const {
   exampleLink,
   safeSourceUrl,
   buildChatPrompt,
+  facetOptions,
 } = exports;
+
+// The new collection routes must form an exhaustive, non-overlapping library.
+const sectorSource = await readFile(
+  new URL('../lib/sectors.ts', import.meta.url),
+  'utf8',
+);
+const sectorModule = ts.transpileModule(sectorSource, {
+  compilerOptions: {
+    module: ts.ModuleKind.CommonJS,
+    target: ts.ScriptTarget.ES2022,
+  },
+});
+const sectorExports = {};
+// oxlint-disable-next-line typescript/no-implied-eval
+new Function('require', 'exports', sectorModule.outputText)(
+  (specifier) => (specifier === '@/lib/gallery' ? exports : require(specifier)),
+  sectorExports,
+);
+const { sectors, getSectorExamples, getSectorPreview, sectorForExample } =
+  sectorExports;
+const assigned = sectors.flatMap((sector) => getSectorExamples(sector.id));
+assert.equal(
+  assigned.length,
+  examples.length,
+  'Every clip must belong to one collection',
+);
+assert.equal(
+  new Set(assigned.map((example) => example.id)).size,
+  examples.length,
+  'Collections must not overlap',
+);
+assert.deepEqual(
+  new Set(assigned.map((example) => example.id)),
+  new Set(examples.map((example) => example.id)),
+);
+for (const sector of sectors) {
+  const collection = getSectorExamples(sector.id);
+  const preview = getSectorPreview(sector.id);
+  assert.ok(
+    collection.length > 16,
+    'A preview must lead to a larger real collection',
+  );
+  assert.equal(preview.length, 16);
+  assert.equal(
+    new Set(preview.map((example) => example.id)).size,
+    preview.length,
+  );
+  assert.ok(
+    preview.every((example) => collection.includes(example)),
+    'Homepage teasers must come from their destination collection',
+  );
+  for (const query of ['product', 'motion', 'interview', 'football']) {
+    assert.ok(
+      filterExamples({ query }, collection).every(
+        (example) => sectorForExample(example) === sector.id,
+      ),
+      'Search must stay inside the selected collection',
+    );
+  }
+  for (const field of ['audiences', 'useCases']) {
+    assert.deepEqual(
+      new Set(facetOptions(field, collection)),
+      new Set(collection.flatMap((example) => example[field])),
+      'Collection filters must not include unrelated options',
+    );
+  }
+}
+for (const example of examples.filter(
+  (example) => example.category === 'Video Creation',
+)) {
+  assert.equal(
+    sectorForExample(example),
+    'video-editing',
+    'Legacy footage edits stay with edits regardless of their old category label',
+  );
+}
+assert.deepEqual(
+  filterExamples({ technique: '3d' }, getSectorExamples('video-editing')),
+  [],
+);
+assert.deepEqual(
+  filterExamples(
+    { technique: 'video-editing' },
+    getSectorExamples('video-creation'),
+  ),
+  [],
+);
 assert.equal(
   new Set(examples.map((example) => example.id)).size,
   examples.length,

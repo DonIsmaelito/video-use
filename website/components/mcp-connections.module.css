@@ -117,6 +117,7 @@
   max-width: 1200px;
   margin: 40px auto 0;
   color: #808080;
+  font-family: var(--font-title);
   font-size: 48px;
   font-weight: 400;
   line-height: 1.15;

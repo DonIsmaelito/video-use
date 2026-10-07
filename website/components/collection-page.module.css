@@ -1,0 +1,143 @@
+.hero {
+  position: relative;
+  max-width: 1920px;
+  margin: auto;
+  padding: 76px 32px 60px;
+  text-align: center;
+}
+.back {
+  position: absolute;
+  top: 20px;
+  left: var(--page-gutter);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #9b9b9b;
+  font-size: 12px;
+}
+.back:hover {
+  color: #fff;
+}
+.eyebrow {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+.hero h1 {
+  color: var(--accent);
+  font-family: var(--font-title);
+  font-size: clamp(36px, 4.4vw, 56px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.055em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+.context {
+  max-width: 680px;
+  margin: 20px auto 0;
+  color: #a0a0a0;
+  font-size: 16px;
+  line-height: 1.7;
+  text-wrap: pretty;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 28px;
+}
+.connect,
+.browse {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  border-radius: 9px;
+  padding: 12px 18px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.connect {
+  color: var(--accent-foreground);
+  background: var(--accent);
+}
+.connect:hover {
+  background: #ff923e;
+}
+.browse {
+  background: #202020;
+  border: 1px solid #303030;
+  color: #eee;
+}
+.browse:hover {
+  background: #2a2a2a;
+}
+.collections {
+  display: flex;
+  gap: 6px;
+  max-width: 1920px;
+  margin: auto;
+  padding: 0 var(--page-gutter) 16px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  border-bottom: 1px solid #252525;
+}
+.collections a {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 10px;
+  min-height: 40px;
+  padding: 10px 15px;
+  color: #9b9b9b;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+}
+.collections a:hover {
+  color: #fff;
+  background: #1a1a1a;
+}
+.collections a[aria-current='page'] {
+  color: var(--accent);
+  background: #fe750e14;
+}
+.collections span {
+  font-size: 11px;
+  opacity: 0.65;
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 767px) {
+  .hero {
+    padding: 64px var(--page-gutter) 36px;
+    text-align: left;
+  }
+  .hero h1 {
+    font-size: clamp(28px, 7.5vw, 36px);
+  }
+  .context {
+    margin-top: 16px;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+  .actions {
+    justify-content: flex-start;
+    margin-top: 22px;
+  }
+  .connect,
+  .browse {
+    padding-inline: 12px;
+    font-size: 12px;
+  }
+  .collections {
+    padding-bottom: 12px;
+  }
+  .collections a {
+    padding-inline: 12px;
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,110 @@
+.library:global(.gallery-section) {
+  max-width: 1920px;
+  padding-top: 24px;
+}
+.library :global(.library-toolbar) {
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.library :global(.filter-list) {
+  overflow-x: auto;
+  scrollbar-width: none;
+  max-width: 100%;
+}
+.library :global(.filter-pill) {
+  border-radius: 8px;
+  padding: 10px 13px;
+}
+.library :global(.filter-pill.active) {
+  color: var(--accent);
+  background: #fe750e14;
+}
+.library :global(.library-search) {
+  min-width: 180px;
+  max-width: 340px;
+  margin-left: auto;
+  border-radius: 9px;
+}
+.filters {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 10px 13px;
+  border: 1px solid #303030;
+  border-radius: 9px;
+  font-size: 13px;
+  color: #c0c0c0;
+}
+.filters:hover,
+.filters[aria-expanded='true'] {
+  background: #232323;
+  color: #fff;
+}
+.filters span {
+  color: var(--accent);
+  font-size: 11px;
+}
+.library :global(.library-layout) {
+  display: block;
+}
+.library :global(.library-sidebar) {
+  position: static;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  max-height: none;
+  padding: 24px;
+  margin-bottom: 24px;
+  border: 1px solid #292929;
+  border-radius: 12px;
+  background: #111;
+  overflow: visible;
+}
+.library :global(.facet-disclosure),
+.library :global(.facet-section) {
+  border: 0;
+  padding: 0;
+}
+.library :global(.facet-group) {
+  max-height: 240px;
+  overflow-y: auto;
+  padding-right: 10px;
+  scrollbar-width: thin;
+}
+.library :global(.library-sidebar) > :global(.facet-group) {
+  display: flex;
+  grid-column: auto;
+}
+.results {
+  display: block;
+  margin-bottom: 14px;
+  color: #858585;
+  font-size: 12px;
+}
+@media (max-width: 767px) {
+  .library :global(.filter-list) {
+    flex-basis: 100%;
+  }
+  .library :global(.library-search) {
+    margin-left: 0;
+    max-width: none;
+    min-width: 0;
+  }
+  .library :global(.library-sidebar) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 18px;
+    gap: 20px;
+  }
+  .library :global(.library-sidebar) > :global(.facet-group) {
+    grid-column: 1 / -1;
+    max-height: none;
+  }
+}
+@media (max-width: 420px) {
+  .library :global(.library-sidebar) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

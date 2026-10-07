@@ -61,12 +61,16 @@
 .slide :global(.featured-caption) > button {
   font-size: 16px;
   line-height: 24px;
+  font-family: var(--font-title);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
 }
 
 .slide :global(.featured-caption) > span {
   display: block;
-  font-size: 15px;
-  line-height: 23px;
+  font-size: 14px;
+  line-height: 22px;
 }
 
 .placeholder:global(.featured-frame) {

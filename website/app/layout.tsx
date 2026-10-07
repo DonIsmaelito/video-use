@@ -43,7 +43,7 @@ export default function RootLayout({
       <head>
         <link
           rel="preload"
-          href="/fonts/instrument-serif.woff2"
+          href="/fonts/space-grotesk-latin.woff2"
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"

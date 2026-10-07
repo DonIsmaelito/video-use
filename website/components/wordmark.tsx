@@ -6,7 +6,7 @@ export function Wordmark() {
       <div className="footer-links">
         <span>Made with Video Use.</span>
         <div>
-          <Link href="/#examples">Library</Link>
+          <Link href="/library">Library</Link>
           <Link href="/mcp">MCP</Link>
           <a
             href="https://github.com/browser-use/video-use"

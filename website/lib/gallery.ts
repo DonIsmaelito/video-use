@@ -180,8 +180,11 @@ export const examples: GalleryExample[] = (data as Example[]).map(
   enrichExample,
 );
 
-export function facetOptions(field: 'audiences' | 'useCases'): string[] {
-  return [...new Set(examples.flatMap((example) => example[field]))].sort(
+export function facetOptions(
+  field: 'audiences' | 'useCases',
+  source = examples,
+): string[] {
+  return [...new Set(source.flatMap((example) => example[field]))].sort(
     (a, b) => a.localeCompare(b),
   );
 }

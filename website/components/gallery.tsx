@@ -2,8 +2,15 @@
 
 /* oxlint-disable jsx-a11y/media-has-caption -- These are original published media, some silent and some with burned captions. Do not invent caption tracks for existing videos. */
 
-import { useEffect, useRef, useState } from 'react';
-import { Check, Copy, Maximize2, Search, X } from 'lucide-react';
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  Check,
+  Copy,
+  Maximize2,
+  Search,
+  SlidersHorizontal,
+  X,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Disclosure } from '@/components/ui/disclosure';
 import {
@@ -18,14 +25,21 @@ import { FeaturedFilm } from '@/components/featured-film';
 import { FeaturedCarousel } from '@/components/featured-carousel';
 import { McpConnections } from '@/components/mcp-connections';
 import { MasonryGallery } from '@/components/masonry-gallery';
+import { GallerySector } from '@/components/gallery-sector';
+import {
+  getSectorExamples,
+  getSectorPreview,
+  sectors,
+  type SectorId,
+} from '@/lib/sectors';
 import productLaunch from '@/data/product-launch.json';
 import featuredWorkflows from '@/data/featured-workflows.json';
 import { PreviewMedia } from '@/components/preview-media';
 import { TechniqueIcon } from '@/components/technique-icon';
 import cardStyles from '@/components/gallery-cards.module.css';
+import libraryStyles from '@/components/gallery-library.module.css';
 import {
   buildChatPrompt,
-  categories,
   defaultFilters,
   examples,
   facetOptions,
@@ -111,21 +125,24 @@ function VideoCard({
   copy,
   copied,
   suspended,
+  preview = false,
 }: {
   example: GalleryExample;
   open: () => void;
   copy: () => void;
   copied: boolean;
   suspended: boolean;
+  preview?: boolean;
 }) {
   return (
     <article
       className={`video-card ${cardStyles.card}`}
       data-orientation={example.orientation}
       data-featured={
-        example.id === 'screen-demo-fuji-browser-tour' || undefined
+        (!preview && example.id === 'screen-demo-fuji-browser-tour') ||
+        undefined
       }
-      data-wide={wideOpeningIds.has(example.id) || undefined}
+      data-wide={(!preview && wideOpeningIds.has(example.id)) || undefined}
       aria-label={example.title}
     >
       <div className={cardStyles.media}>
@@ -163,21 +180,38 @@ function VideoCard({
   );
 }
 
-export function Gallery() {
+export function Gallery({
+  sector,
+  browse = false,
+}: {
+  sector?: SectorId;
+  browse?: boolean;
+}) {
   const [filters, setFilters] = useState<Filters>(defaultFilters);
   const [selected, setSelected] = useState<GalleryExample | null>(null);
   const [copied, setCopied] = useState('');
   const [message, setMessage] = useState('');
   const [manualCopy, setManualCopy] = useState('');
+  const [showFilters, setShowFilters] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const manualText = useRef<HTMLTextAreaElement>(null);
-  const visible = filterExamples(filters, galleryExamples);
+  const source = useMemo(
+    () =>
+      sector ? getSectorExamples(sector, galleryExamples) : galleryExamples,
+    [sector],
+  );
+  const visible = filterExamples(filters, source);
+  const availableTechniques = techniqueOptions.filter((item) =>
+    source.some((example) => example.technique === item.value),
+  );
   const filterCount =
     filters.audiences.length +
     filters.useCases.length +
-    (filters.technique ? 1 : 0);
+    (filters.technique ? 1 : 0) +
+    (filters.category !== 'All examples' ? 1 : 0);
   const hasFilters =
     !!filterCount || !!filters.query || filters.category !== 'All examples';
+  const showLibrary = browse || !!sector || hasFilters;
 
   useEffect(() => {
     function syncLocation() {
@@ -185,7 +219,12 @@ export function Gallery() {
         new URLSearchParams(window.location.search),
       );
       setFilters(state.filters);
-      setSelected(state.example);
+      setSelected(
+        state.example &&
+          source.some((example) => example.id === state.example?.id)
+          ? state.example
+          : null,
+      );
     }
     syncLocation();
     window.addEventListener('popstate', syncLocation);
@@ -193,7 +232,7 @@ export function Gallery() {
       window.removeEventListener('popstate', syncLocation);
       if (timer.current) clearTimeout(timer.current);
     };
-  }, []);
+  }, [source]);
   useEffect(() => {
     if (manualCopy) manualText.current?.select();
   }, [manualCopy]);
@@ -267,244 +306,345 @@ export function Gallery() {
 
   return (
     <>
-      <FeaturedCarousel>
-        <McpFeature suspended={selected !== null || !!manualCopy} />
-        <FeaturedFilm
-          media={productLaunch}
-          title="Product Launches"
-          subtitle="Turn your product into a launch worth watching."
-          suspended={selected !== null || !!manualCopy}
-        />
-        {featuredExamples.map(({ example, title, description, fit }) => (
-          <article className="featured-card" key={example.id}>
-            <button
-              type="button"
-              className={
-                'featured-frame' +
-                (fit === 'cover' ? ' featured-frame-fill' : '')
-              }
-              onClick={() => openExample(example)}
-              aria-label={`Watch ${title}`}
-            >
-              <PreviewMedia
-                src={example.video}
-                poster={example.poster}
-                orientation={example.orientation}
-                ambient={example.orientation === 'portrait' && fit !== 'cover'}
-                suspended={selected !== null || !!manualCopy}
-              />
-              <span className="featured-watch">
-                <Maximize2 size={18} />
-              </span>
-            </button>
-            <div className="featured-caption">
-              <button type="button" onClick={() => openExample(example)}>
-                {title}
-              </button>
-              <span>{description}</span>
-            </div>
-          </article>
-        ))}
-      </FeaturedCarousel>
-      <McpConnections />
-      <section
-        id="examples"
-        className="gallery-section"
-        aria-labelledby="library-heading"
-      >
-        <h2 id="library-heading" className="sr-only">
-          Explore the video library
-        </h2>
-        <div className="library-toolbar">
-          <fieldset className="filter-list" aria-label="Filter by category">
-            {categories.map((item) => (
+      {!showLibrary && (
+        <FeaturedCarousel>
+          <McpFeature suspended={selected !== null || !!manualCopy} />
+          <FeaturedFilm
+            media={productLaunch}
+            title="Product Launches"
+            subtitle="Turn your product into a launch worth watching."
+            suspended={selected !== null || !!manualCopy}
+          />
+          {featuredExamples.map(({ example, title, description, fit }) => (
+            <article className="featured-card" key={example.id}>
               <button
-                key={item}
                 type="button"
                 className={
-                  'filter-pill ' + (filters.category === item ? 'active' : '')
+                  'featured-frame' +
+                  (fit === 'cover' ? ' featured-frame-fill' : '')
                 }
-                aria-pressed={filters.category === item}
-                onClick={() => updateFilters({ category: item })}
+                onClick={() => openExample(example)}
+                aria-label={`Watch ${title}`}
               >
-                {item === 'All examples' ? 'All' : item}
-              </button>
-            ))}
-          </fieldset>
-          <label className="library-search">
-            <Search size={16} />
-            <span className="sr-only">Search examples</span>
-            <input
-              type="search"
-              placeholder="Search prompts"
-              value={filters.query}
-              maxLength={200}
-              onChange={(event) => updateFilters({ query: event.target.value })}
-            />
-          </label>
-        </div>
-        <div className="library-layout">
-          <aside
-            id="library-filters"
-            className="library-sidebar"
-            aria-label="Refine examples"
-          >
-            <fieldset className="facet-group">
-              <legend className="facet-heading">
-                <span>Video type</span>
-                {hasFilters && (
-                  <button
-                    type="button"
-                    onClick={() => updateFilters(defaultFilters)}
-                    aria-label="Reset all filters"
-                  >
-                    Reset
-                  </button>
-                )}
-              </legend>
-              {techniqueOptions.map((item) => {
-                const count = filterExamples({
-                  ...filters,
-                  technique: item.value,
-                }).length;
-                return (
-                  <label className="facet-option" key={item.value}>
-                    <input
-                      type="checkbox"
-                      checked={filters.technique === item.value}
-                      onChange={() =>
-                        updateFilters({
-                          technique:
-                            filters.technique === item.value ? '' : item.value,
-                        })
-                      }
-                      disabled={!count && filters.technique !== item.value}
-                    />
-                    <span className="facet-label">
-                      <TechniqueIcon technique={item.value} />
-                      {item.label}
-                    </span>
-                    <span className="facet-count">{count}</span>
-                  </label>
-                );
-              })}
-            </fieldset>
-            {(['audiences', 'useCases'] as const).map((field) => {
-              const options = (
-                <fieldset className="facet-group">
-                  <legend className="sr-only">
-                    {field === 'audiences' ? 'By audience' : 'By use case'}
-                  </legend>
-                  {facetOptions(field).map((item) => {
-                    const count = filterExamples({
-                      ...filters,
-                      [field]: [item],
-                    }).length;
-                    return (
-                      <label className="facet-option" key={item}>
-                        <input
-                          type="checkbox"
-                          checked={filters[field].includes(item)}
-                          onChange={() => toggleFacet(field, item)}
-                          disabled={!count && !filters[field].includes(item)}
-                        />
-                        <span>{item}</span>
-                        <span className="facet-count">{count}</span>
-                      </label>
-                    );
-                  })}
-                </fieldset>
-              );
-
-              // Use cases stay expanded as a primary browsing control.
-              return field === 'useCases' ? (
-                <section
-                  key={field}
-                  className="facet-section"
-                  aria-labelledby="use-case-heading"
-                >
-                  <h3 id="use-case-heading">Use case</h3>
-                  {options}
-                </section>
-              ) : (
-                <Disclosure
-                  key={field}
-                  label="Audience"
-                  defaultOpen
-                  className="facet-disclosure"
-                >
-                  {options}
-                </Disclosure>
-              );
-            })}
-          </aside>
-          <div className="library-content">
-            <p className="sr-only" aria-live="polite">
-              {visible.length} examples
-            </p>
-            {filterCount > 0 && (
-              <div className="active-filters" aria-label="Active filters">
-                {filters.technique && (
-                  <button
-                    type="button"
-                    onClick={() => updateFilters({ technique: '' })}
-                  >
-                    {techniqueLabel(filters.technique)}
-                    <X size={11} />
-                  </button>
-                )}
-                {(['audiences', 'useCases'] as const).flatMap((field) =>
-                  filters[field].map((item) => (
-                    <button
-                      type="button"
-                      key={field + item}
-                      onClick={() => toggleFacet(field, item)}
-                    >
-                      {item}
-                      <X size={11} />
-                    </button>
-                  )),
-                )}
-              </div>
-            )}
-            <MasonryGallery>
-              {visible.map((example) => (
-                <VideoCard
-                  key={example.id}
-                  example={example}
-                  open={() => openExample(example)}
-                  copy={() =>
-                    copyText(
-                      buildChatPrompt(example),
-                      example.id,
-                      'Prompt copied',
-                    )
+                <PreviewMedia
+                  src={example.video}
+                  poster={example.poster}
+                  orientation={example.orientation}
+                  ambient={
+                    example.orientation === 'portrait' && fit !== 'cover'
                   }
-                  copied={copied === example.id}
                   suspended={selected !== null || !!manualCopy}
                 />
-              ))}
-            </MasonryGallery>
-            {!visible.length && (
-              <div className="empty-results">
-                <Search size={25} />
-                <h3>No matches.</h3>
-                <p>
-                  Try fewer filters or a different search, like “product” or
-                  “captions”.
-                </p>
-                <button
-                  type="button"
-                  className="primary-button"
-                  onClick={() => updateFilters(defaultFilters)}
-                >
-                  Show all examples
+                <span className="featured-watch">
+                  <Maximize2 size={18} />
+                </span>
+              </button>
+              <div className="featured-caption">
+                <button type="button" onClick={() => openExample(example)}>
+                  {title}
                 </button>
+                <span>{description}</span>
               </div>
-            )}
-          </div>
+            </article>
+          ))}
+        </FeaturedCarousel>
+      )}
+      {!showLibrary && (
+        <div id="examples">
+          {sectors.map((collection, index) => (
+            <Fragment key={collection.id}>
+              {index === 1 && <McpConnections />}
+              <GallerySector
+                sector={collection}
+                count={getSectorExamples(collection.id, galleryExamples).length}
+              >
+                <MasonryGallery>
+                  {getSectorPreview(collection.id, galleryExamples).map(
+                    (example) => (
+                      <VideoCard
+                        key={example.id}
+                        example={example}
+                        preview
+                        open={() => openExample(example)}
+                        copy={() =>
+                          copyText(
+                            buildChatPrompt(example),
+                            example.id,
+                            'Prompt copied',
+                          )
+                        }
+                        copied={copied === example.id}
+                        suspended={selected !== null || !!manualCopy}
+                      />
+                    ),
+                  )}
+                </MasonryGallery>
+              </GallerySector>
+            </Fragment>
+          ))}
         </div>
-      </section>
+      )}
+      {showLibrary && (
+        <section
+          id="examples"
+          className={`gallery-section ${libraryStyles.library}`}
+          aria-labelledby="library-heading"
+        >
+          <h2 id="library-heading" className="sr-only">
+            Explore the video library
+          </h2>
+          <div className="library-toolbar">
+            <fieldset className="filter-list" aria-label="Filter by video type">
+              <button
+                type="button"
+                className={
+                  'filter-pill ' +
+                  (!filters.technique && filters.category === 'All examples'
+                    ? 'active'
+                    : '')
+                }
+                aria-pressed={
+                  !filters.technique && filters.category === 'All examples'
+                }
+                onClick={() =>
+                  updateFilters({ technique: '', category: 'All examples' })
+                }
+              >
+                {sector === 'video-editing'
+                  ? 'All edits'
+                  : sector === 'video-creation'
+                    ? 'All creations'
+                    : 'All styles'}
+              </button>
+              {availableTechniques.length > 1 &&
+                availableTechniques.map((item) => (
+                  <button
+                    key={item.value}
+                    type="button"
+                    className={
+                      'filter-pill ' +
+                      (filters.technique === item.value ? 'active' : '')
+                    }
+                    aria-pressed={filters.technique === item.value}
+                    onClick={() =>
+                      updateFilters({
+                        technique: item.value,
+                        category: 'All examples',
+                      })
+                    }
+                  >
+                    {item.label}
+                  </button>
+                ))}
+            </fieldset>
+            <label className="library-search">
+              <Search size={16} />
+              <span className="sr-only">Search examples</span>
+              <input
+                type="search"
+                placeholder="Search videos and prompts"
+                value={filters.query}
+                maxLength={200}
+                onChange={(event) =>
+                  updateFilters({ query: event.target.value })
+                }
+              />
+            </label>
+            <button
+              type="button"
+              className={libraryStyles.filters}
+              aria-expanded={showFilters}
+              aria-controls="library-filters"
+              onClick={() => setShowFilters(!showFilters)}
+            >
+              <SlidersHorizontal size={16} /> Filters{' '}
+              {filterCount > 0 && <span>{filterCount}</span>}
+            </button>
+          </div>
+          <div className="library-layout">
+            <aside
+              id="library-filters"
+              className="library-sidebar"
+              aria-label="Refine examples"
+              hidden={!showFilters}
+            >
+              <fieldset className="facet-group">
+                <legend className="facet-heading">
+                  <span>Video type</span>
+                  {hasFilters && (
+                    <button
+                      type="button"
+                      onClick={() => updateFilters(defaultFilters)}
+                      aria-label="Reset all filters"
+                    >
+                      Reset
+                    </button>
+                  )}
+                </legend>
+                {availableTechniques.map((item) => {
+                  const count = filterExamples(
+                    {
+                      ...filters,
+                      technique: item.value,
+                    },
+                    source,
+                  ).length;
+                  return (
+                    <label className="facet-option" key={item.value}>
+                      <input
+                        type="checkbox"
+                        checked={filters.technique === item.value}
+                        onChange={() =>
+                          updateFilters({
+                            technique:
+                              filters.technique === item.value
+                                ? ''
+                                : item.value,
+                          })
+                        }
+                        disabled={!count && filters.technique !== item.value}
+                      />
+                      <span className="facet-label">
+                        <TechniqueIcon technique={item.value} />
+                        {item.label}
+                      </span>
+                      <span className="facet-count">{count}</span>
+                    </label>
+                  );
+                })}
+              </fieldset>
+              {(['audiences', 'useCases'] as const).map((field) => {
+                const options = (
+                  <fieldset className="facet-group">
+                    <legend className="sr-only">
+                      {field === 'audiences' ? 'By audience' : 'By use case'}
+                    </legend>
+                    {facetOptions(field, source).map((item) => {
+                      const count = filterExamples(
+                        {
+                          ...filters,
+                          [field]: [item],
+                        },
+                        source,
+                      ).length;
+                      return (
+                        <label className="facet-option" key={item}>
+                          <input
+                            type="checkbox"
+                            checked={filters[field].includes(item)}
+                            onChange={() => toggleFacet(field, item)}
+                            disabled={!count && !filters[field].includes(item)}
+                          />
+                          <span>{item}</span>
+                          <span className="facet-count">{count}</span>
+                        </label>
+                      );
+                    })}
+                  </fieldset>
+                );
+
+                // Use cases stay expanded as a primary browsing control.
+                return field === 'useCases' ? (
+                  <section
+                    key={field}
+                    className="facet-section"
+                    aria-labelledby="use-case-heading"
+                  >
+                    <h3 id="use-case-heading">Use case</h3>
+                    {options}
+                  </section>
+                ) : (
+                  <Disclosure
+                    key={field}
+                    label="Audience"
+                    defaultOpen
+                    className="facet-disclosure"
+                  >
+                    {options}
+                  </Disclosure>
+                );
+              })}
+            </aside>
+            <div className="library-content">
+              <output className={libraryStyles.results}>
+                {visible.length} {visible.length === 1 ? 'video' : 'videos'}
+                {hasFilters ? ' found' : ''}
+              </output>
+              {filterCount > 0 && (
+                <div className="active-filters" aria-label="Active filters">
+                  {filters.category !== 'All examples' && (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        updateFilters({ category: 'All examples' })
+                      }
+                    >
+                      {filters.category}
+                      <X size={11} />
+                    </button>
+                  )}
+                  {filters.technique && (
+                    <button
+                      type="button"
+                      onClick={() => updateFilters({ technique: '' })}
+                    >
+                      {techniqueLabel(filters.technique)}
+                      <X size={11} />
+                    </button>
+                  )}
+                  {(['audiences', 'useCases'] as const).flatMap((field) =>
+                    filters[field].map((item) => (
+                      <button
+                        type="button"
+                        key={field + item}
+                        onClick={() => toggleFacet(field, item)}
+                      >
+                        {item}
+                        <X size={11} />
+                      </button>
+                    )),
+                  )}
+                </div>
+              )}
+              <MasonryGallery>
+                {visible.map((example) => (
+                  <VideoCard
+                    key={example.id}
+                    example={example}
+                    open={() => openExample(example)}
+                    copy={() =>
+                      copyText(
+                        buildChatPrompt(example),
+                        example.id,
+                        'Prompt copied',
+                      )
+                    }
+                    copied={copied === example.id}
+                    suspended={selected !== null || !!manualCopy}
+                  />
+                ))}
+              </MasonryGallery>
+              {!visible.length && (
+                <div className="empty-results">
+                  <Search size={25} />
+                  <h3>No matches.</h3>
+                  <p>
+                    Try fewer filters or a different search, like “product” or
+                    “captions”.
+                  </p>
+                  <button
+                    type="button"
+                    className="primary-button"
+                    onClick={() => updateFilters(defaultFilters)}
+                  >
+                    Show all examples
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
       <Dialog
         open={selected !== null}
         onOpenChange={(isOpen) => {

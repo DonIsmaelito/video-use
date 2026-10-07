@@ -105,7 +105,7 @@ export default function McpPage() {
       <a className="skip-link" href="#mcp-how">
         Skip to how Video Use MCP works
       </a>
-      <SiteHeader />
+      <SiteHeader active="mcp" />
       <section className={styles.hero} aria-labelledby="mcp-heading">
         <span className={styles.badge}>
           <span /> Model Context Protocol
