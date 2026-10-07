@@ -8,6 +8,12 @@ from pathlib import Path
 from playwright.async_api import async_playwright
 
 
+class CheckLog(list):
+    def append(self, check):
+        super().append(check)
+        print(json.dumps(check), flush=True)
+
+
 async def moving(video):
     """A loaded poster or video element does not prove that frames are advancing."""
     await video.wait_for()
@@ -25,13 +31,70 @@ async def moving(video):
         clearInterval(timer);
         reject(new Error(JSON.stringify({
           time: video.currentTime, paused: video.paused, ready: video.readyState,
-          error: video.error?.message, muted: video.muted, autoplay: video.autoplay
+          error: video.error?.message, muted: video.muted, autoplay: video.autoplay,
+          src: video.currentSrc
         })));
       }, 20000);
     })""")
     assert await video.evaluate(
-        "v => v.muted && v.defaultMuted && v.playsInline && v.autoplay"
+        "v => v.muted && v.defaultMuted && v.playsInline && v.autoplay && v.loop && !v.controls"
     )
+
+
+async def visible_previews(scope):
+    """Check every visible container, including clips partly revealed at an edge."""
+    frames = scope.locator(".preview-media")
+    indices = await frames.evaluate_all("""frames => new Promise(resolve => {
+      if (!frames.length) return resolve([]);
+      const seen = new Set();
+      const visible = [];
+      const observer = new IntersectionObserver(entries => {
+        for (const entry of entries) {
+          seen.add(entry.target);
+          if (entry.isIntersecting && entry.intersectionRect.width > 16 &&
+              entry.intersectionRect.height > 16)
+            visible.push(frames.indexOf(entry.target));
+        }
+        if (seen.size === frames.length) {
+          observer.disconnect();
+          resolve(visible);
+        }
+      });
+      frames.forEach(frame => observer.observe(frame));
+    })""")
+    assert indices, "No visible preview containers found"
+    await asyncio.gather(*(moving(frames.nth(index).locator("video")) for index in indices))
+    return len(indices)
+
+
+async def looping(video):
+    """Watch two uninterrupted loops without changing the native playback clock."""
+    await moving(video)
+    await video.evaluate("""video => new Promise((resolve, reject) => {
+          let previous = video.currentTime;
+          let loops = 0;
+          const timer = setInterval(() => {
+            const time = video.currentTime;
+            if (previous > video.duration - 1 && time < 1) loops++;
+            previous = time;
+            if (loops >= 2 && !video.paused && time > 0 && video.readyState >= 2) {
+              clearInterval(timer);
+              clearTimeout(limit);
+              resolve();
+            }
+          }, 100);
+          const limit = setTimeout(() => {
+            clearInterval(timer);
+            reject(new Error(JSON.stringify({
+              message: 'Preview did not complete two natural loops', loops, src: video.currentSrc,
+              time: video.currentTime, duration: video.duration, paused: video.paused,
+              ended: video.ended, seeking: video.seeking, ready: video.readyState,
+              buffered: Array.from({length: video.buffered.length}, (_, i) =>
+                [video.buffered.start(i), video.buffered.end(i)])
+            })));
+          }, Math.max(60000, video.duration * 4000));
+        })""")
+    await moving(video)
 
 
 async def all_paused(page):
@@ -51,26 +114,44 @@ async def check_viewport(browser, engine, width, origin, report):
         page = await context.new_page()
         page.on("pageerror", lambda error: report["errors"].append(str(error)))
         await page.goto(origin, wait_until="domcontentloaded")
+        assert await page.locator(".preview-playback-toggle").count() == 0
         hero = page.locator(".featured-card .preview-media video").first
+        cards = page.locator(".featured-card")
+        for index in range(await cards.count()):
+            card = cards.nth(index)
+            await card.evaluate(
+                "e => e.scrollIntoView({block: 'nearest', inline: 'center', behavior: 'instant'})"
+            )
+            await moving(card.locator(".preview-media video"))
+        await cards.first.evaluate(
+            "e => e.scrollIntoView({block: 'nearest', inline: 'start', behavior: 'instant'})"
+        )
         await moving(hero)
+        report["checks"].append({
+            "engine": engine, "width": width, "featuredClips": await cards.count(),
+            "previewControls": False,
+        })
         for sector in ["video-editing", "video-creation", "3d-visuals"]:
             section = page.locator(f'[data-sector="{sector}"]')
             await section.evaluate(
                 "e => e.scrollIntoView({block: 'start', behavior: 'instant'})"
             )
-            await moving(section.locator("video").first)
+            count = await visible_previews(section)
             assert await hero.evaluate("v => v.paused")
+            if sector == "3d-visuals" and width == 1440:
+                await looping(section.locator("video").first)
+                report["checks"].append({"engine": engine, "uninterruptedNativeLoops": 2})
+            await section.evaluate(
+                "e => e.scrollIntoView({block: 'end', behavior: 'instant'})"
+            )
+            lower_count = await visible_previews(section)
             report["checks"].append(
-                {"engine": engine, "width": width, "autoplay": sector}
+                {"engine": engine, "width": width, "autoplay": sector,
+                 "visibleClipsAtTop": count, "visibleClipsAtBottom": lower_count}
             )
 
         await page.evaluate("scrollTo(0, 0)")
         await moving(hero)
-        await page.get_by_role("button", name="Pause video previews", exact=True).click()
-        await all_paused(page)
-        await page.get_by_role("button", name="Play video previews", exact=True).click()
-        await moving(hero)
-
         await page.get_by_role("button", name="Connect MCP", exact=True).click()
         await page.get_by_role("dialog").wait_for()
         await all_paused(page)
@@ -83,21 +164,27 @@ async def check_viewport(browser, engine, width, origin, report):
         await page.evaluate("dispatchEvent(new PageTransitionEvent('pageshow'))")
         await moving(hero)
 
-        await page.get_by_role("button", name="Pause video previews", exact=True).click()
-        await page.get_by_role("link", name="3D Visuals", exact=True).first.click()
-        await page.wait_for_url("**/3d-visuals")
+        for label, route in [("Video Editing", "/video-editing"),
+                             ("Video Creation", "/video-creation"),
+                             ("3D Visuals", "/3d-visuals")]:
+            await page.get_by_role("link", name=label, exact=True).first.click()
+            await page.wait_for_url(f"**{route}")
+            await page.locator(".video-card").first.scroll_into_view_if_needed()
+            count = await visible_previews(page)
+            assert await page.evaluate("document.documentElement.scrollWidth <= innerWidth")
+            report["checks"].append({"engine": engine, "width": width,
+                                     "route": route, "visibleClips": count})
+        await page.goto(origin + "/library", wait_until="domcontentloaded")
         await page.locator(".video-card").first.scroll_into_view_if_needed()
-        await page.wait_for_timeout(300)
-        await all_paused(page)
-        await page.get_by_role("button", name="Play video previews", exact=True).click()
-        await page.locator(".video-card").first.scroll_into_view_if_needed()
-        await moving(page.locator(".video-card video").first)
-        assert await page.evaluate("document.documentElement.scrollWidth <= innerWidth")
+        await visible_previews(page)
+        await page.goto(origin + "/mcp", wait_until="domcontentloaded")
+        await page.locator(".preview-media").first.scroll_into_view_if_needed()
+        await visible_previews(page)
         report["checks"].append({
             "engine": engine,
             "width": width,
-            "passed": ["scroll return", "pause and play", "modal pause and resume",
-                       "pageshow recovery", "choice across route navigation"],
+            "passed": ["scroll return", "modal pause and resume", "pageshow recovery",
+                       "autoplay across collection routes", "library and MCP previews"],
         })
     finally:
         await context.close()
@@ -112,13 +199,17 @@ async def check_motion_and_policy(browser, engine, origin, report):
         page.on("pageerror", lambda error: report["errors"].append(str(error)))
         await page.goto(origin, wait_until="domcontentloaded")
         await page.locator(".preview-media video").first.wait_for()
-        await page.wait_for_timeout(300)
-        await all_paused(page)
-        await page.get_by_role("button", name="Play video previews", exact=True).click()
         await moving(page.locator(".featured-card video").first)
+        for sector in ["video-editing", "video-creation", "3d-visuals"]:
+            section = page.locator(f'[data-sector="{sector}"]')
+            await section.evaluate(
+                "e => e.scrollIntoView({block: 'start', behavior: 'instant'})"
+            )
+            await visible_previews(section)
+        assert await page.locator(".preview-playback-toggle").count() == 0
         report["checks"].append({
             "engine": engine,
-            "reducedMotion": "paused by default and explicit play succeeds",
+            "reducedMotion": "all clip sectors autoplay without interaction or controls",
         })
     finally:
         await context.close()
@@ -148,12 +239,12 @@ async def check_motion_and_policy(browser, engine, origin, report):
         await page.goto(origin, wait_until="domcontentloaded")
         await page.locator(".preview-media video").first.wait_for()
         await page.wait_for_timeout(400)
-        await page.get_by_role("button", name="Play video previews", exact=True).click()
+        await page.locator(".featured-caption span").first.click()
         await moving(page.locator(".featured-card video").first)
-        await page.get_by_role("button", name="Pause video previews", exact=True).wait_for()
+        assert await page.locator(".preview-playback-toggle").count() == 0
         report["checks"].append({
             "engine": engine,
-            "blockedAutoplay": "trusted play control recovers without toggling back off",
+            "blockedAutoplay": "normal interaction recovers playback without a play button",
         })
     finally:
         await context.close()
@@ -183,7 +274,7 @@ if __name__ == "__main__":
     parser.add_argument("--chromium-executable", help="Optional installed Chromium path")
     parser.add_argument("--output", type=Path, help="Optional JSON evidence file")
     args = parser.parse_args()
-    report = {"origin": args.origin, "checks": [], "errors": []}
+    report = {"origin": args.origin, "checks": CheckLog(), "errors": []}
     try:
         asyncio.run(main(args, report))
         report["passed"] = True

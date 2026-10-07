@@ -74,3 +74,13 @@ This UI pass builds on the newer reviewed-media release `417da51` and preserves 
 
 
 Published the playback/promo follow-up at https://video-use.insforge.site in deployment `dcf05104-8173-4b30-9785-57e0067e5630` from source `bd19563`. Live Chromium and WebKit pass actual playback and recovery checks at 1440/390px. Header/promo layouts and MCP/detail dialogs pass at 1440/390/320px. All six routes return 200, every current video URL appears in the published client bundle, and the hosted Space Grotesk file matches its source. The user's Arc session was unavailable for direct inspection. Final receipt: `/tmp/video-use-playback-dots-20261007/release-summary.json`.
+
+
+## Automatic looping previews
+
+The user explicitly requested continuously playing videos inside every visible clip container, with no Play/Pause control. This supersedes the earlier shared-toggle behavior. `PreviewMedia` always enables muted inline autoplay and native looping when a container is visible. Reduced motion no longer turns clip previews into still posters; it continues to govern decorative CSS motion. Hidden tabs, offscreen clips and covered background videos can pause automatically and resume when visible again. `PreviewPlaybackProvider` is now headless and retries a browser rejection during ordinary trusted interactions, without exposing a control or storing a playback preference.
+
+This pass starts from the latest 172-film release `c258c2e`, preserving its catalog, original prompts, source records and all media URLs. The three collections contain 82 editing clips, 61 creations and 29 3D visuals.
+
+
+The production build, TypeScript/catalog checks, 30 importer tests, lint, formatting and diff checks pass. Chromium and WebKit at 1440/390px verify all eight featured clips, every visible container at both ends of each homepage sector, all collection/library/MCP routes, scroll return, dialog suspension/resumption, page restoration, autoplay with reduced motion and recovery during ordinary interaction. Each engine also observes two uninterrupted native loop boundaries on a visible clip. An initial test forced repeated end seeks and stalled in Chromium; the corrected check watches complete natural loops without altering playback time. Phone/header checks at 1440/390/320px confirm no playback control, no overflow and a working MCP dialog. Evidence: `/tmp/video-use-continuous-previews-20261007/`.

@@ -22,7 +22,7 @@ export function PreviewMedia({
   const video = useRef<HTMLVideoElement>(null);
   const wantsPlayback = useRef(false);
   const syncPlayback = useRef<() => void>(() => {});
-  const { enabled, register, reportBlocked } = usePreviewPlayback();
+  const { register, reportBlocked } = usePreviewPlayback();
   const [nearby, setNearby] = useState(false);
   const [visible, setVisible] = useState(false);
   const [playing, setPlaying] = useState(false);
@@ -59,14 +59,9 @@ export function PreviewMedia({
   useEffect(() => {
     const player = video.current;
     if (!player) return;
-    const sync = (allowPlayback = enabled) => {
+    const sync = () => {
       const shouldPlay =
-        visible &&
-        !suspended &&
-        !overlayOpen &&
-        !failed &&
-        !document.hidden &&
-        allowPlayback;
+        visible && !suspended && !overlayOpen && !failed && !document.hidden;
       wantsPlayback.current = shouldPlay;
       // Set both the HTML default and live property before requesting playback.
       // WebKit uses the muted/autoplay attributes for native scroll resumption.
@@ -88,7 +83,7 @@ export function PreviewMedia({
         setPlaying(false);
       }
     };
-    syncPlayback.current = () => sync();
+    syncPlayback.current = sync;
     const unregister = register(sync);
     const onVisibility = () => sync();
     sync();
@@ -109,7 +104,6 @@ export function PreviewMedia({
     suspended,
     overlayOpen,
     failed,
-    enabled,
     register,
     reportBlocked,
   ]);
@@ -145,7 +139,7 @@ export function PreviewMedia({
           ref={video}
           src={src}
           muted
-          autoPlay={enabled && visible && !suspended && !overlayOpen}
+          autoPlay={visible && !suspended && !overlayOpen}
           playsInline
           loop
           preload="metadata"
