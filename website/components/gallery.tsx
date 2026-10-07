@@ -25,6 +25,7 @@ import { FeaturedFilm } from '@/components/featured-film';
 import { FeaturedCarousel } from '@/components/featured-carousel';
 import { McpConnections } from '@/components/mcp-connections';
 import { McpDots } from '@/components/mcp-dots';
+import { ImessageFeature } from '@/components/imessage-feature';
 import { MasonryGallery } from '@/components/masonry-gallery';
 import { GallerySector } from '@/components/gallery-sector';
 import {
@@ -355,6 +356,7 @@ export function Gallery({
           ))}
         </FeaturedCarousel>
       )}
+      {!showLibrary && <ImessageFeature />}
       {!showLibrary && (
         <div id="examples">
           {sectors.map((collection) => (

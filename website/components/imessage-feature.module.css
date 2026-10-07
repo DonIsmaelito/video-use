@@ -1,0 +1,285 @@
+.section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 80px var(--page-gutter) 96px;
+}
+
+.inner {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.header {
+  margin: 0 auto 68px;
+  text-align: center;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.header h2 {
+  font-family: var(--font-title);
+  font-size: clamp(34px, 4vw, 52px);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+
+.header p {
+  margin-top: 16px;
+  color: #919191;
+  font-size: 17px;
+  line-height: 1.6;
+  text-wrap: balance;
+}
+
+.rows {
+  display: grid;
+  gap: 44px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  column-gap: clamp(56px, 8vw, 128px);
+}
+
+.phoneStage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  margin: 0;
+  isolation: isolate;
+}
+
+.phoneStage::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 6% -20%;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at 50% 52%,
+    color-mix(in srgb, var(--accent) 9%, transparent),
+    transparent 69%
+  );
+}
+
+.reverse .phoneStage::before {
+  background: radial-gradient(ellipse at 50% 52%, #ffffff09, transparent 69%);
+}
+
+.phone {
+  position: relative;
+  width: min(100%, 356px);
+  aspect-ratio: 762 / 1502;
+  isolation: isolate;
+  filter: drop-shadow(0 24px 24px #0005);
+}
+
+.screen {
+  position: absolute;
+  inset: 4.15% 8.15% 4.25%;
+  overflow: hidden;
+  border-radius: 16% / 7.4%;
+  background: #080808;
+}
+
+.conversation {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.frame {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  user-select: none;
+}
+
+.placeholder {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 30px;
+  color: #a0a0a0;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: center;
+  background: radial-gradient(ellipse at center, #1a1511, #0b0b0b 70%);
+}
+
+.placeholder svg {
+  color: var(--accent);
+}
+
+.placeholderNote {
+  color: #888;
+  font-size: 11px;
+}
+
+.context {
+  position: relative;
+  padding: 28px 0;
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 13px;
+  margin-bottom: 24px;
+  border: 1px solid #ffffff14;
+  border-radius: 999px;
+  color: #bbb;
+  background: #ffffff04;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.label svg {
+  color: var(--accent);
+}
+
+.context h3 {
+  font-family: var(--font-title);
+  font-size: clamp(34px, 3.6vw, 48px);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.045em;
+}
+
+.context h3 span {
+  color: #909090;
+}
+
+.context p {
+  max-width: 440px;
+  margin-top: 24px;
+  color: #a0a0a0;
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+.detail {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 30px;
+  color: #888;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.step {
+  flex: 0 0 auto;
+  color: var(--accent);
+  font-family: var(--font-code);
+  font-size: 10px;
+}
+
+@media (max-width: 1023px) {
+  .inner {
+    max-width: 880px;
+  }
+
+  .row {
+    column-gap: 40px;
+  }
+
+  .phone {
+    width: min(100%, 324px);
+  }
+
+  .context h3 {
+    font-size: 36px;
+  }
+
+  .context p {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 767px) {
+  .section {
+    padding-top: 60px;
+    padding-bottom: 72px;
+  }
+
+  .header {
+    margin-bottom: 46px;
+  }
+
+  .header h2 {
+    font-size: clamp(30px, 8.5vw, 40px);
+  }
+
+  .header p {
+    max-width: 280px;
+    margin: 14px auto 0;
+    font-size: 15px;
+  }
+
+  .rows {
+    gap: 64px;
+  }
+
+  .row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .phone {
+    width: min(100%, 330px);
+  }
+
+  .context {
+    width: min(100%, 420px);
+    margin: 0 auto;
+    padding: 0 8px;
+  }
+
+  .reverse .context {
+    grid-row: 2;
+  }
+
+  .label {
+    margin-bottom: 18px;
+  }
+
+  .context h3 {
+    font-size: clamp(30px, 8.4vw, 38px);
+  }
+
+  .context p {
+    margin-top: 18px;
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  .detail {
+    margin-top: 22px;
+  }
+}
