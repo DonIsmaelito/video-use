@@ -386,10 +386,7 @@ export function Gallery({
           {sectors.map((collection) => (
             <Fragment key={collection.id}>
               {collection.id === 'video-creation' && (
-                <McpConnections
-                  client={mcpClient}
-                  onClientChange={setMcpClient}
-                />
+                <McpConnections client={mcpClient} />
               )}
               {collection.id === '3d-visuals' && <McpDots />}
               <GallerySector

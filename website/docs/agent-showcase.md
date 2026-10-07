@@ -12,7 +12,7 @@ Syntax sources checked on 2026-10-07:
 - [OpenClaw MCP documentation](https://docs.openclaw.ai/tools/mcp): `openclaw mcp add video-use --url URL --transport streamable-http`, then `openclaw mcp login video-use` for OAuth.
 - [Hermes OAuth bootstrap documentation](https://hermes-agent.nousresearch.com/docs/getting-started/nix-setup/): `hermes mcp add video-use --url URL --auth oauth`. Its [MCP guide](https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp/) documents the HTTP and OAuth behavior.
 
-These are documented client setup recipes, not claims of an end-to-end authenticated test in each client. The hosted endpoint requires pilot access; the UI states this beside the setup. No installation, local agent configuration, account authorization or credentials are changed by this website work.
+These are documented client setup recipes, not claims of an end-to-end authenticated test in each client. The hosted endpoint requires pilot access; the MCP landing page explains the access requirements. No installation, local agent configuration, account authorization or credentials are changed by this website work.
 
 ## Verification
 
@@ -21,3 +21,9 @@ Production build, TypeScript/catalog validation, all 30 importer tests, lint, fo
 At 1440 and 390px all six destinations select their intended guide or command, all four setup values copy exactly, clipboard rejection selects the command, dialogs restore focus, and real preview frames advance before and after modal use. Separate phone touch checks pass for a setup card and fragment navigation. All collection/library routes and legacy root search hide the promotional rows after query hydration. The initial query-route assertion ran before hydration; waiting for the filtered library resolves the check. Evidence is in `/tmp/video-use-agent-row-20261007/`.
 
 Published at https://video-use.insforge.site in InsForge deployment `8669ceb3-9b04-40d8-8328-5ee9408facda` from source `b348f67`. Live layout checks pass at 1440/390/320px; all six destinations, exact command copying, clipboard fallback, focus restoration and actual video playback pass at 1440/390px. All six public pages, the Hermes artwork and both conversation PNGs return 200. The current 192-film catalog and source manifests are unchanged from release `e3c73bf`. Final receipt: `/tmp/video-use-agent-row-20261007/release-summary.json`.
+
+## Minimal command row
+
+The user requested a small shell and command only. `McpTerminal` now renders a single compact row with a terminal glyph, the exact command, and an icon-only copy button. Tabs, toolbar title, visible labels, instructions, guide links and the pilot note are removed from this homepage row. Full setup context remains on the MCP page and in the existing connection dialog. The OpenClaw, Hermes and Your agent cards still select the correct value before scrolling here. `McpCopy` adds a shell variant with horizontal command scrolling and keyboard focus on narrow screens, plus the existing exact-copy feedback and selectable fallback. Other copy variants retain their layout.
+
+The minimal shell passes the production build, lint, TypeScript/catalog validation and 30 importer tests. Chromium checks at 1440/390/320px confirm a 52px row, no tabs or explanatory text, one copy button, exact copying for all four values, agent-card selection, manual-copy fallback, keyboard navigation through long commands and no page overflow. Existing URL and code copy fields on the MCP page also pass. The optional local webpack cache hit the machine’s disk limit; the production build completed successfully, and only that generated cache was cleared. Evidence: `/tmp/video-use-minimal-shell-20261007/`.

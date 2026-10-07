@@ -82,6 +82,38 @@
   font-size: 11px;
   padding: 6px 0 2px;
 }
+
+.shell {
+  padding: 9px 12px 9px 16px;
+  border-color: #2b2b2b;
+  border-radius: 10px;
+  background: #101010;
+}
+
+.prompt {
+  flex: 0 0 16px;
+  color: #797979;
+}
+
+.shell .row input {
+  padding: 3px 0;
+  font-size: 12px;
+}
+
+.shell .row button {
+  flex-basis: 32px;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: transparent;
+  color: #aaa;
+}
+
+.shell .row button:hover {
+  background: #242424;
+  color: #fff;
+}
+
 @media (max-width: 600px) {
   .pill {
     padding-left: 13px;

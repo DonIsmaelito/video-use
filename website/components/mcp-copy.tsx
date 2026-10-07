@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useId, useRef, useState } from 'react';
-import { Check, Copy } from 'lucide-react';
+import { Check, Copy, Terminal } from 'lucide-react';
 import styles from './mcp-copy.module.css';
 
 /** Keep setup details selectable when clipboard permission is unavailable. */
@@ -9,10 +9,12 @@ export function McpCopy({
   value,
   label,
   code = false,
+  shell = false,
 }: {
   value: string;
   label: string;
   code?: boolean;
+  shell?: boolean;
 }) {
   const id = useId();
   const input = useRef<HTMLInputElement>(null);
@@ -50,9 +52,11 @@ export function McpCopy({
   }
 
   return (
-    <div className={`${styles.field} ${code ? styles.code : styles.pill}`}>
+    <div
+      className={`${styles.field} ${shell ? styles.shell : code ? styles.code : styles.pill}`}
+    >
       {code ? (
-        <span id={id} className={styles.label}>
+        <span id={id} className={shell ? 'sr-only' : styles.label}>
           {label}
         </span>
       ) : (
@@ -61,6 +65,9 @@ export function McpCopy({
         </label>
       )}
       <div className={styles.row}>
+        {shell && (
+          <Terminal className={styles.prompt} size={16} aria-hidden="true" />
+        )}
         {code ? (
           <pre ref={pre} tabIndex={-1} aria-labelledby={id}>
             {value}
