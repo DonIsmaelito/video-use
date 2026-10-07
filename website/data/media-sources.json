@@ -6112,5 +6112,180 @@
     ],
     "completionMode": "parent-directed deterministic Video Use completion",
     "initialAgentAttempt": "review-v2"
+  },
+  {
+    "id": "useful-87-squish-drop",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "creation-six-20261006",
+    "sourceRun": "useful-87-squish-drop",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "16fafc68c703da944b4d00a2dff520d833000278664c4da9d6f44e9f38b28800",
+    "promptSource": "Exact creative prompt used to author this original Video Use film. Trend research informed the concept; it is not source footage.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-87-squish-drop-16fafc68c703-22f8d359/source.zip",
+    "editableSourceSha256": "20a5fa924ed09fead31e70fa62e10e5ff7e0c76a6d6475e54502023108fce8fc",
+    "sourceArchiveScope": "Original editable code and licensed fonts; generated soundtrack is reproducible from its included source; dependency versions and replay instructions included",
+    "cloudProject": "video-use-useful-library-20261003/creation-six-20261006/useful-87-squish-drop/repairs/final-v3/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-87-squish-drop-16fafc68c703-22f8d359/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-87-squish-drop-16fafc68c703-22f8d359/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-87-squish-drop-16fafc68c703-22f8d359/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-87-squish-drop-16fafc68c703-22f8d359/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-87-squish-drop-16fafc68c703-22f8d359/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-87-squish-drop-16fafc68c703-22f8d359/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-87-squish-drop-16fafc68c703-22f8d359/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host agent authored the exact frozen Video Use prompt; deterministic renderer ran in Modal"
+  },
+  {
+    "id": "useful-88-rewind",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "creation-six-20261006",
+    "sourceRun": "useful-88-rewind",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "8aab9ba1bf6421eb980d6f1dd56b9c2d28d0f532c0a8d643e3b897141a85aa6f",
+    "promptSource": "Exact creative prompt used to author this original Video Use film. Trend research informed the concept; it is not source footage.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-88-rewind-8aab9ba1bf64-b97e6b3d/source.zip",
+    "editableSourceSha256": "0c678f4fd355fd499e851ef81bba56a742c4c887fec2556477d43294d40af13c",
+    "sourceArchiveScope": "Original editable code and licensed fonts; generated soundtrack is reproducible from its included source; dependency versions and replay instructions included",
+    "cloudProject": "video-use-useful-library-20261003/creation-six-20261006/useful-88-rewind/repairs/final-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-88-rewind-8aab9ba1bf64-b97e6b3d/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-88-rewind-8aab9ba1bf64-b97e6b3d/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-88-rewind-8aab9ba1bf64-b97e6b3d/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-88-rewind-8aab9ba1bf64-b97e6b3d/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-88-rewind-8aab9ba1bf64-b97e6b3d/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-88-rewind-8aab9ba1bf64-b97e6b3d/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-88-rewind-8aab9ba1bf64-b97e6b3d/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host agent authored the exact frozen Video Use prompt; deterministic renderer ran in Modal"
+  },
+  {
+    "id": "useful-86-ghosted",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "creation-six-20261006",
+    "sourceRun": "useful-86-ghosted",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "a587fc1133d62f9b38ac2dd0c716e67df24d706467e36027b40be696fd86b792",
+    "promptSource": "Exact creative prompt used to author this original Video Use film. Trend research informed the concept; it is not source footage.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-86-ghosted-a587fc1133d6-69e7b35d/source.zip",
+    "editableSourceSha256": "230e169741b42e53a4127ea6b6e05b93fecdbe78d7bbdb6cfb6915b748036702",
+    "sourceArchiveScope": "Original editable code and licensed fonts; generated soundtrack is reproducible from its included source; dependency versions and replay instructions included",
+    "cloudProject": "video-use-useful-library-20261003/creation-six-20261006/useful-86-ghosted/repairs/final-v2/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-86-ghosted-a587fc1133d6-69e7b35d/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-86-ghosted-a587fc1133d6-69e7b35d/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-86-ghosted-a587fc1133d6-69e7b35d/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-86-ghosted-a587fc1133d6-69e7b35d/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-86-ghosted-a587fc1133d6-69e7b35d/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-86-ghosted-a587fc1133d6-69e7b35d/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-86-ghosted-a587fc1133d6-69e7b35d/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host agent authored the exact frozen Video Use prompt; deterministic renderer ran in Modal"
+  },
+  {
+    "id": "useful-91-night-court",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "creation-six-20261006",
+    "sourceRun": "useful-91-night-court",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "8eae9e842dadfed70513e44309396c90ebe6b23dd43dea64a9b26fe5e35dca23",
+    "promptSource": "Exact creative prompt used to author this original Video Use film. Trend research informed the concept; it is not source footage.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-91-night-court-8eae9e842dad-fa01c1f2/source.zip",
+    "editableSourceSha256": "2941fc893a7c6dbaa7231c1449e7785e76cc9c2c402e2e935acc261a63e76ca8",
+    "sourceArchiveScope": "Original editable code and licensed fonts; generated soundtrack is reproducible from its included source; dependency versions and replay instructions included",
+    "cloudProject": "video-use-useful-library-20261003/creation-six-20261006/useful-91-night-court/repairs/final-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-91-night-court-8eae9e842dad-fa01c1f2/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-91-night-court-8eae9e842dad-fa01c1f2/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-91-night-court-8eae9e842dad-fa01c1f2/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-91-night-court-8eae9e842dad-fa01c1f2/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-91-night-court-8eae9e842dad-fa01c1f2/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-91-night-court-8eae9e842dad-fa01c1f2/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-91-night-court-8eae9e842dad-fa01c1f2/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host agent authored the exact frozen Video Use prompt; deterministic renderer ran in Modal"
+  },
+  {
+    "id": "useful-90-touch-grass",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "creation-six-20261006",
+    "sourceRun": "useful-90-touch-grass",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "1d301a105a45942914ed8f07063ff8d7e5b4902a1e7cd1501abe178b3cc23675",
+    "promptSource": "Exact creative prompt used to author this original Video Use film. Trend research informed the concept; it is not source footage.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-90-touch-grass-1d301a105a45-c6154df4/source.zip",
+    "editableSourceSha256": "fc612412d15c153ca6fdbcadbeb7fc628850a34581915082f4f98edbddeb578e",
+    "sourceArchiveScope": "Original editable code and licensed fonts; generated soundtrack is reproducible from its included source; dependency versions and replay instructions included",
+    "cloudProject": "video-use-useful-library-20261003/creation-six-20261006/useful-90-touch-grass/repairs/final-v2/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-90-touch-grass-1d301a105a45-c6154df4/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-90-touch-grass-1d301a105a45-c6154df4/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-90-touch-grass-1d301a105a45-c6154df4/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-90-touch-grass-1d301a105a45-c6154df4/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-90-touch-grass-1d301a105a45-c6154df4/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-90-touch-grass-1d301a105a45-c6154df4/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-90-touch-grass-1d301a105a45-c6154df4/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host agent authored the exact frozen Video Use prompt; deterministic renderer ran in Modal"
   }
 ]

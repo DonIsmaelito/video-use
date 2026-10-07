@@ -298,9 +298,9 @@ export function exampleLink(origin: string, exampleId: string): string {
 }
 
 export function buildChatPrompt(example: Example): string {
-  // Footage demos publish the exact request executed in Video Use.
-  const footageNumber = Number(/^useful-(\d+)-/.exec(example.id)?.[1]);
-  if (footageNumber >= 61 && footageNumber <= 85) return example.prompt;
+  // Reviewed footage and original films publish the exact Video Use request.
+  const reviewedNumber = Number(/^useful-(\d+)-/.exec(example.id)?.[1]);
+  if (reviewedNumber >= 61 && reviewedNumber <= 91) return example.prompt;
   return `${example.prompt}\n\nVideo Use example: ${exampleLink('https://video-use.insforge.site', example.id)}\n\nUse this workflow as my creative direction and adapt it to the subject, brand, format and length already requested in this chat. Skip searching for other reference videos. Preserve my involvement mode; in hands-on mode show a short snippet for approval before the full video.`;
 }
 

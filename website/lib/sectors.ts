@@ -73,6 +73,11 @@ const previewIds: Record<SectorId, string[]> = {
     'useful-61-druski-entrance',
   ],
   'video-creation': [
+    'useful-87-squish-drop',
+    'useful-88-rewind',
+    'useful-86-ghosted',
+    'useful-91-night-court',
+    'useful-90-touch-grass',
     'useful-07-workshop-invite',
     'useful-14-campaign-announcement',
     'useful-01-launch-approvals',

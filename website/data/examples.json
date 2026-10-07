@@ -2931,5 +2931,150 @@
     "duration": 8,
     "promptKind": "Starter prompt",
     "orientation": "landscape"
+  },
+  {
+    "id": "useful-87-squish-drop",
+    "title": "Squish Drop",
+    "category": "Motion Design",
+    "description": "Tactile beauty campaign. An original film created from a prompt.",
+    "prompt": "Make a 22-second vertical launch film for SQUISH, a fictional jelly beauty brand. The product is a small translucent pink cosmetic pot with a glossy rounded lid. Build the whole film around a satisfying material transformation: a pink jelly sphere compresses into a puck, stretches into a ribbon, and wraps around the pot as its label. Keep that pink material visibly continuous through the transformation.\n\nOpen in extreme close-up on the compression, so the first image already has tension. Pull back to reveal the pot, cut to one beautiful rim and lid detail, then let the lid settle onto the container with a soft bounce. The final hero should feel like a real campaign: the complete pot centered on a warm butter-yellow surface, its contact shadow grounded, SQUISH in large clean lettering behind it and “jelly, reimagined” below. Give the hero several seconds to register. Use rich translucent highlights, soft studio shadows, restrained typography and deliberate elastic timing. Build original soft percussion and squish-like synthetic accents around the visible contacts. No voiceover, extra products or invented health claims. Deliver 1080×1920 at 30 fps, the complete editable scene, and this exact prompt.",
+    "duration": 22,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": ["Content creators", "Designers", "Marketing teams"],
+    "useCases": ["Tactile beauty campaign", "Original video creation"],
+    "technique": "motion-design",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Exact creative prompt used to author this original Video Use film. Trend research informed the concept; it is not source footage.",
+    "mediaCredits": [
+      {
+        "title": "Creative trend research",
+        "creator": "Pinterest",
+        "url": "https://business.pinterest.com/en-gb/pdf/pinterest-predicts/2026-trend-report/",
+        "changes": "Concept research only. No media copied into this original film."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-87-squish-drop-16fafc68c703-22f8d359/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-87-squish-drop-16fafc68c703-22f8d359/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-87-squish-drop-16fafc68c703-22f8d359/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-87-squish-drop-16fafc68c703-22f8d359/review.md",
+    "muted": false,
+    "loop": false
+  },
+  {
+    "id": "useful-88-rewind",
+    "title": "2016 Is Calling",
+    "category": "Motion Design",
+    "description": "Nostalgia campaign. An original film created from a prompt.",
+    "prompt": "Create a 22-second original nostalgia film called “2016 Is Calling.” Make it feel like opening a digital time capsule, using a compact silver camera, wired earbuds, a scratched disc and bright graphic memories created specifically for this film. Begin on the camera's screen showing 2026. A rewind button is pressed, the date rolls back to 2016, and the camera lens expands until its circular shape becomes the disc. Carry the disc's circular highlight into a warm illustrated summer sun, then reveal that summer image as a print sliding from a stack of photographs. The earbud cable should connect the objects and eventually draw the word REWIND across the final composition.\n\nUse a designed collage of original illustration, tactile paper edges, crisp device details and selective chrome highlights. Let each shape match carry the viewer into the next image; avoid a random scrapbook slideshow. Alternate two quick transitions with a slower memory hold. Finish on a balanced still-life with the camera, disc and summer print, plus the small line “same feeling, new summer.” Add an original nostalgic electronic groove with camera-click and rewind accents; do not use an existing pop song. Deliver 1920×1080 at 30 fps with editable artwork, animation source and this exact prompt.",
+    "duration": 22,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": ["Content creators", "Designers", "Marketing teams"],
+    "useCases": ["Nostalgia campaign", "Original video creation"],
+    "technique": "motion-design",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Exact creative prompt used to author this original Video Use film. Trend research informed the concept; it is not source footage.",
+    "mediaCredits": [
+      {
+        "title": "Creative trend research",
+        "creator": "TikTok",
+        "url": "https://newsroom.tiktok.com/tiktoks-global-and-us-song-of-the-summer-2026-katy-perrys-the-one-that-got-away?lang=en",
+        "changes": "Concept research only. No media copied into this original film."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-88-rewind-8aab9ba1bf64-b97e6b3d/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-88-rewind-8aab9ba1bf64-b97e6b3d/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-88-rewind-8aab9ba1bf64-b97e6b3d/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-88-rewind-8aab9ba1bf64-b97e6b3d/review.md",
+    "muted": false,
+    "loop": false
+  },
+  {
+    "id": "useful-86-ghosted",
+    "title": "Ghosted at the Door",
+    "category": "Motion Design",
+    "description": "Halloween character comedy. An original film created from a prompt.",
+    "prompt": "Create an original 24-second vertical Halloween comedy called “Ghosted at the Door.” A little white sheet ghost tries to trick-or-treat at a very modern front door, but the smart doorbell cannot recognize a ghost. Make the ghost expressive through its eyes, posture and cloth silhouette. Establish the doorway, candy slot and ghost clearly, then show the doorbell's deadpan response: “No person detected.” Hold a short disappointed reaction. The ghost spots a cardboard delivery box, pulls it over itself and tries again. This time the display reads “Delivery detected,” the slot opens, and one wrapped candy drops into the box. Finish with the ghost peeking happily out of the box and a restrained GHOSTED title.\n\nGive it a polished animated-short look: midnight-blue porch, warm light through the door, ivory ghost, orange candy and tactile cardboard. Use a few purposeful wide, reaction and detail compositions. Keep the spatial relationships consistent, the action readable, and the joke clear with the sound off. Make the box disguise and candy payoff actual animated actions, not text describing them. Add original understated spooky music and precise bell, box and candy accents. No narration. Deliver 1080×1920 at 30 fps with an editable project and this exact prompt.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": ["Content creators", "Designers", "Marketing teams"],
+    "useCases": ["Halloween character comedy", "Original video creation"],
+    "technique": "motion-design",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Exact creative prompt used to author this original Video Use film. Trend research informed the concept; it is not source footage.",
+    "mediaCredits": [
+      {
+        "title": "Creative trend research",
+        "creator": "Netflix",
+        "url": "https://www.netflix.com/tudum/articles/kpop-demon-hunters-disguise-costumes",
+        "changes": "Concept research only. No media copied into this original film."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-86-ghosted-a587fc1133d6-69e7b35d/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-86-ghosted-a587fc1133d6-69e7b35d/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-86-ghosted-a587fc1133d6-69e7b35d/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-86-ghosted-a587fc1133d6-69e7b35d/review.md",
+    "muted": false,
+    "loop": false
+  },
+  {
+    "id": "useful-91-night-court",
+    "title": "Night Court",
+    "category": "Motion Design",
+    "description": "Sports culture event film. An original film created from a prompt.",
+    "prompt": "Create a 24-second original street-basketball event film for a fictional series called NIGHT COURT. Build the animation from the actual visual language of the game: the ball's curved black seams become court lines, one bounce supplies the rhythm, and the net gives the final release. Start close enough to see the orange ball texture, then pull back as it drops onto a midnight-blue court. Follow one readable bounce. Stretch the curved seam into a clean court diagram that folds up into a bold NIGHT COURT poster, with the ball passing in front of the lettering.\n\nUse one brief split composition to show the ball and hoop from complementary views, then reunite them for a single continuous shot of the ball falling through the net. Finish on the settled poster: bold cream typography, acid-yellow court marks and the orange ball, with the small line “the city plays after dark.” Make the typography, court geometry and ball movement work together, with clean masks and balanced compositions. Mix fast graphic transitions with enough time to read the key action. Use an original percussive beat built around synthetic bounce, sneaker-like squeak and net accents. No real team, athlete, league logo, invented score or event date. Deliver 1920×1080 at 30 fps, editable source and this exact prompt.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": ["Content creators", "Designers", "Marketing teams"],
+    "useCases": ["Sports culture event film", "Original video creation"],
+    "technique": "motion-design",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Exact creative prompt used to author this original Video Use film. Trend research informed the concept; it is not source footage.",
+    "mediaCredits": [
+      {
+        "title": "Creative trend research",
+        "creator": "Pinterest",
+        "url": "https://newsroom.pinterest.com/en-gb/news/summer-trend-report-2026/",
+        "changes": "Concept research only. No media copied into this original film."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-91-night-court-8eae9e842dad-fa01c1f2/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-91-night-court-8eae9e842dad-fa01c1f2/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-91-night-court-8eae9e842dad-fa01c1f2/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-91-night-court-8eae9e842dad-fa01c1f2/review.md",
+    "muted": false,
+    "loop": false
+  },
+  {
+    "id": "useful-90-touch-grass",
+    "title": "Touch Grass",
+    "category": "Motion Design",
+    "description": "Digital life social film. An original film created from a prompt.",
+    "prompt": "Create an original 22-second vertical motion-design film called TOUCH GRASS. A giant cursor is trapped in a clean off-white desktop by an escalating stack of notification windows. Establish the frustration quickly with three readable messages: “One more thing,” “Quick question,” and “Still there?” The cursor pushes against the edge of the top window, tears it open like paper, and discovers a vivid green landscape behind the screen.\n\nMake the transition one continuous physical idea: the torn paper edge opens into the hills, the cursor becomes a small white kite, and its trailing cable unwinds into a loose path through the grass. Let the restless opening give way to one calm, spacious landscape with gently moving blades, an oversized pale sun and the kite actually flying. Finish with large balanced TOUCH GRASS lettering integrated into that landscape and the small line “back in a bit.” Use original editorial illustration, crisp paper geometry and tactile shadows. Create original notification percussion that resolves into a softer musical ending; no narration or existing app logos. Deliver 1080×1920 at 30 fps with editable artwork, animation source and this exact prompt.",
+    "duration": 22,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": ["Content creators", "Designers", "Marketing teams"],
+    "useCases": ["Digital life social film", "Original video creation"],
+    "technique": "motion-design",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Exact creative prompt used to author this original Video Use film. Trend research informed the concept; it is not source footage.",
+    "mediaCredits": [
+      {
+        "title": "Creative trend research",
+        "creator": "Pinterest",
+        "url": "https://create.pinterest.com/en-gb/creators/trends/",
+        "changes": "Concept research only. No media copied into this original film."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-90-touch-grass-1d301a105a45-c6154df4/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-90-touch-grass-1d301a105a45-c6154df4/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-90-touch-grass-1d301a105a45-c6154df4/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-90-touch-grass-1d301a105a45-c6154df4/review.md",
+    "muted": false,
+    "loop": false
   }
 ]
