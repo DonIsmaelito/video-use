@@ -48,3 +48,9 @@ Actual video time advances for every visible preview at the top of all three col
 Published at https://video-use.insforge.site/#imessage from source `96e6dde1dc679b927ef780f94f526c85cd5c4631`. InsForge deployment `c4e11648-39e2-4a73-89a6-955d1ac64219` reached READY at 2026-10-07 07:13:20 UTC; provider deployment `dpl_cy24haYmzJWsKZD12iDcGKvHhS8v`. The release branch is `feature/useful-video-library` on the user's fork.
 
 Live Chromium and WebKit checks pass at 1440 and 390px for uncropped screenshots, original image hashes, keyboard/tap full-size links, seven sectors, placement, no overflow, actual mist animation and reduced motion. All visible videos advance through the three collection stops and resume at the featured row, without preview controls or page errors. All six public routes return HTTP 200. The deployment receipt and live evidence are in `/tmp/video-use-imessage-release-20261007/`.
+
+## Orange launch badge
+
+Added a centered NEW! badge above the iMessage heading at the user’s request. `ImessageFeature` renders a decorative sparkle beside the text; its CSS uses Browser Use orange, a warm gradient, bold italic Space Grotesk, a slight tilt, a soft glow and a periodic shimmer. Reduced motion disables the shimmer. The Messages icon and both original conversation screenshots remain in place.
+
+Production build and lint pass. The local production build temporarily disabled the webpack disk cache after the machine ran out of space, then restored the original Next configuration byte for byte. Chromium at 1440/1024/390/320px verifies centered placement above the heading, no overflow, the two phones, and reduced-motion behavior. Evidence: `/tmp/video-use-imessage-new-20261007/`.

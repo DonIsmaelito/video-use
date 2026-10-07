@@ -1,4 +1,4 @@
-import { ImagePlay, MessageCircle, ScanSearch } from 'lucide-react';
+import { ImagePlay, MessageCircle, ScanSearch, Sparkles } from 'lucide-react';
 import Image from 'next/image';
 import screenshots from '@/data/imessage-conversations.json';
 import styles from './imessage-feature.module.css';
@@ -69,6 +69,10 @@ export function ImessageFeature() {
     >
       <div className={styles.composition}>
         <header className={styles.header}>
+          <span className={styles.newBadge}>
+            <Sparkles size={13} aria-hidden="true" />
+            NEW!
+          </span>
           <h2 id="imessage-heading">
             Video Use{' '}
             <span className={styles.imessageLine}>
