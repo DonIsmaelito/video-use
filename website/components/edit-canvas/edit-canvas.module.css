@@ -1,0 +1,311 @@
+.scene {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  isolation: isolate;
+  container-type: inline-size;
+}
+
+.stage {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  container-type: size;
+  border-radius: inherit;
+  background: #121314;
+  --cycle: 16s;
+}
+
+.surface {
+  position: absolute;
+  inset: -7% -4%;
+  background-image:
+    linear-gradient(#ffffff05 1px, transparent 1px),
+    linear-gradient(90deg, #ffffff05 1px, transparent 1px);
+  background-size: 5cqw 5cqw;
+  transform: rotate(-8deg);
+  animation: drift var(--cycle) ease-in-out infinite;
+}
+
+.ruler {
+  position: absolute;
+  top: 13%;
+  right: -10%;
+  left: -10%;
+  height: 7px;
+  border-bottom: 1px solid #ffffff14;
+  background: repeating-linear-gradient(
+      90deg,
+      #ffffff30 0 1px,
+      transparent 1px 18px
+    )
+    0 0 / 100% 4px no-repeat;
+}
+
+.contactStrip {
+  position: absolute;
+  top: 24%;
+  left: -27%;
+  display: flex;
+  gap: 2.5cqw;
+  width: max-content;
+  animation: contactSlide var(--cycle) ease-in-out infinite;
+}
+
+.contactFrame {
+  width: 28cqw;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid #ffffff24;
+  border-radius: 3px;
+  background: #202020;
+  opacity: 0.55;
+}
+
+.contactFrame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.25) brightness(0.75);
+}
+
+.selected {
+  position: absolute;
+  z-index: 2;
+  top: 18%;
+  left: 50%;
+  width: min(54cqw, 108cqh);
+  aspect-ratio: 16 / 9;
+  border: 1px solid #fe750e;
+  transform: translateX(-50%);
+  animation: selectFrame var(--cycle) ease-in-out infinite;
+}
+
+.offsetFrame {
+  position: absolute;
+  z-index: -1;
+  inset: -7% -3% 7% 3%;
+  border: 1px solid #ffffff30;
+  background: #191919;
+  transform: rotate(3deg);
+}
+
+.shot {
+  position: absolute;
+  z-index: 1;
+  inset: 3px;
+  overflow: hidden;
+  background: #151515;
+  box-shadow: 0 12px 24px #0008;
+}
+
+.shot :global(.preview-media) {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+}
+
+.shot :global(.card-poster),
+.shot video {
+  object-fit: contain;
+}
+
+.handle {
+  position: absolute;
+  z-index: 3;
+  width: 5px;
+  height: 5px;
+  border: 1px solid #fe750e;
+  background: #151515;
+}
+
+.topLeft {
+  top: -3px;
+  left: -3px;
+}
+.topRight {
+  top: -3px;
+  right: -3px;
+}
+.bottomLeft {
+  bottom: -3px;
+  left: -3px;
+}
+.bottomRight {
+  bottom: -3px;
+  right: -3px;
+}
+
+.cropGuides {
+  position: absolute;
+  z-index: 2;
+  inset: 3px;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      90deg,
+      transparent calc(33.333% - 0.5px),
+      #ffffff36 33.333%,
+      transparent calc(33.333% + 0.5px),
+      transparent calc(66.666% - 0.5px),
+      #ffffff36 66.666%,
+      transparent calc(66.666% + 0.5px)
+    ),
+    linear-gradient(
+      transparent calc(33.333% - 0.5px),
+      #ffffff36 33.333%,
+      transparent calc(33.333% + 0.5px),
+      transparent calc(66.666% - 0.5px),
+      #ffffff36 66.666%,
+      transparent calc(66.666% + 0.5px)
+    );
+  opacity: 0;
+  animation: cropGuide var(--cycle) ease-in-out infinite;
+}
+
+.timeline {
+  position: absolute;
+  z-index: 3;
+  right: -15%;
+  bottom: 12%;
+  left: -15%;
+  height: 18%;
+  padding: 3px;
+  border-top: 1px solid #ffffff36;
+  border-bottom: 1px solid #ffffff20;
+  background: #121314;
+  box-shadow: 0 8px 20px #0004;
+}
+
+.timelineFrames {
+  display: flex;
+  width: max-content;
+  height: 100%;
+  gap: 3px;
+  animation: timelineSlide var(--cycle) ease-in-out infinite;
+}
+
+.timelineFrames img {
+  width: 10cqw;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.65);
+}
+
+.waveform {
+  display: block;
+  width: 100%;
+  height: 5cqh;
+  margin-top: 5px;
+  color: #b8b5ae;
+  opacity: 0.46;
+}
+
+.playhead {
+  position: absolute;
+  z-index: 4;
+  top: 11%;
+  bottom: 6%;
+  left: 62%;
+  width: 1px;
+  background: #fe750e;
+  animation: scan var(--cycle) ease-in-out infinite;
+}
+
+.playhead > span {
+  position: absolute;
+  top: -4px;
+  left: -3px;
+  width: 7px;
+  height: 10px;
+  background: #fe750e;
+  clip-path: polygon(0 0, 100% 0, 100% 68%, 50% 100%, 0 68%);
+}
+
+.edgeShade {
+  position: absolute;
+  z-index: 5;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    #101112b0,
+    transparent 15%,
+    transparent 85%,
+    #101112b0
+  );
+  box-shadow: inset 0 0 35px #0a0a0a5c;
+}
+
+.scene[data-running='false'] * {
+  animation-play-state: paused;
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: rotate(-8deg) translateY(1%);
+  }
+  50% {
+    transform: rotate(-5deg) translateY(-1%);
+  }
+}
+
+@keyframes contactSlide {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-10cqw);
+  }
+}
+
+@keyframes selectFrame {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-46%) translateY(-3%);
+  }
+}
+
+@keyframes cropGuide {
+  0%,
+  18%,
+  64%,
+  100% {
+    opacity: 0;
+  }
+  28%,
+  48% {
+    opacity: 0.55;
+  }
+}
+
+@keyframes timelineSlide {
+  0%,
+  100% {
+    transform: translateX(-7cqw);
+  }
+  50% {
+    transform: translateX(-26cqw);
+  }
+}
+
+@keyframes scan {
+  0%,
+  100% {
+    left: 35%;
+  }
+  50% {
+    left: 73%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage * {
+    animation: none;
+  }
+}
