@@ -27,49 +27,58 @@
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  justify-content: center;
+  min-width: 112px;
   overflow: hidden;
-  padding: 5px 11px;
-  margin-bottom: 16px;
-  border: 1px solid #ffb06a;
-  border-radius: 6px;
-  background: linear-gradient(125deg, #ffbb7a, var(--accent) 70%);
+  padding: 10px 24px;
+  margin-bottom: 20px;
+  border: 1px solid #ffd0a3;
+  border-radius: 9px;
+  background: linear-gradient(125deg, #ffd3a1, #ffae59 35%, var(--accent) 80%);
   box-shadow:
-    0 0 24px #fe750e38,
-    inset 0 1px 0 #ffffff40;
+    0 0 32px #fe750e55,
+    inset 0 1px 0 #ffffff85;
   color: #2b1000;
   font-family: var(--font-title);
-  font-size: 13px;
+  font-size: clamp(20px, 2vw, 22px);
   font-style: italic;
   font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: 0.03em;
+  line-height: 1.1;
+  letter-spacing: 0.06em;
   transform: rotate(-5deg);
 }
 
 .newBadge::after {
   content: '';
   position: absolute;
-  inset: -40% auto -40% -70%;
-  width: 50%;
-  background: linear-gradient(90deg, transparent, #ffffff70, transparent);
-  transform: skewX(-22deg);
-  animation: badgeShimmer 5s ease-in-out infinite;
+  inset: -45% auto -45% -75%;
+  width: 65%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #ffffff26 25%,
+    #ffffffc7 50%,
+    #ffffff26 75%,
+    transparent
+  );
+  transform: translateX(0) skewX(-22deg);
+  animation: badgeShimmer 3.8s ease-in-out -2.4s infinite;
   pointer-events: none;
 }
 
 @keyframes badgeShimmer {
   0%,
-  65% {
-    left: -70%;
+  52% {
+    transform: translateX(0) skewX(-22deg);
     opacity: 0;
   }
-  72% {
-    opacity: 1;
+  60%,
+  78% {
+    opacity: 0.95;
   }
-  90%,
+  88%,
   100% {
-    left: 140%;
+    transform: translateX(320%) skewX(-22deg);
     opacity: 0;
   }
 }
