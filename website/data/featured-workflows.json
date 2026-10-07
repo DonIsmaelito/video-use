@@ -6,33 +6,33 @@
     "fit": "cover"
   },
   {
-    "exampleId": "useful-56-train-line",
+    "exampleId": "useful-107-clear-space",
+    "title": "App Demos",
+    "description": "Show your app in action.",
+    "fit": "contain"
+  },
+  {
+    "exampleId": "useful-82-curry-locked-in",
     "title": "Sports Highlights",
-    "description": "Turn the best moment into the whole story.",
+    "description": "Turn sports footage into a focused edit.",
     "fit": "contain"
   },
   {
-    "exampleId": "useful-57-night-out",
-    "title": "Venue Reels",
-    "description": "Make your space the next place to be.",
+    "exampleId": "useful-109-mend-studio",
+    "title": "Brand Animations",
+    "description": "Bring your brand identity into motion.",
     "fit": "contain"
   },
   {
-    "exampleId": "useful-58-podcast-to-short",
-    "title": "Podcast Clips",
-    "description": "Turn a great conversation into a must-watch clip.",
+    "exampleId": "useful-81-speed-fast-travel",
+    "title": "Stream Clips",
+    "description": "Turn long streams into shareable clips.",
     "fit": "contain"
   },
   {
-    "exampleId": "useful-59-workflow-cutdown",
-    "title": "Demo Highlights",
-    "description": "Bring the best of your live demo into focus.",
-    "fit": "contain"
-  },
-  {
-    "exampleId": "useful-60-rocket-catch",
-    "title": "Mini Docs",
-    "description": "Tell a big story in a little time.",
+    "exampleId": "useful-98-refraction",
+    "title": "Animated Explainers",
+    "description": "Make complex ideas easy to understand.",
     "fit": "contain"
   }
 ]
