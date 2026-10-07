@@ -350,7 +350,9 @@ summary {
   padding: 14px 1px 0;
 }
 .featured-caption > a,
-.featured-caption > button {
+.featured-caption > button,
+.featured-caption > h3 {
+  margin: 0;
   font-size: 17px;
   font-weight: 600;
   letter-spacing: -0.35px;

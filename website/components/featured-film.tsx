@@ -27,12 +27,14 @@ export function FeaturedFilm({
   subtitle,
   suspended = false,
   standalone = false,
+  interactive = true,
 }: {
   media: FilmMedia;
   title: string;
   subtitle?: string;
   suspended?: boolean;
   standalone?: boolean;
+  interactive?: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -50,6 +52,24 @@ export function FeaturedFilm({
   function watch() {
     setFailed(false);
     setOpen(true);
+  }
+
+  if (!interactive) {
+    return (
+      <article className="featured-card product-launch-feature">
+        <div className="featured-frame">
+          <PreviewMedia
+            src={media.src}
+            poster={media.poster}
+            suspended={suspended}
+          />
+        </div>
+        <div className="featured-caption">
+          <h3>{title}</h3>
+          {subtitle && <span>{subtitle}</span>}
+        </div>
+      </article>
+    );
   }
 
   return (

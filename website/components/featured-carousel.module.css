@@ -58,7 +58,8 @@
 }
 
 .slide :global(.featured-caption) > a,
-.slide :global(.featured-caption) > button {
+.slide :global(.featured-caption) > button,
+.slide :global(.featured-caption) > h3 {
   font-size: 16px;
   line-height: 24px;
   font-family: var(--font-title);
@@ -133,7 +134,8 @@
   }
 
   .slide :global(.featured-caption) > a,
-  .slide :global(.featured-caption) > button {
+  .slide :global(.featured-caption) > button,
+  .slide :global(.featured-caption) > h3 {
     font-size: 15px;
     line-height: 22px;
   }

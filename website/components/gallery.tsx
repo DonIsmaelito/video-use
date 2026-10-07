@@ -6,7 +6,6 @@ import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import {
   Check,
   Copy,
-  Maximize2,
   Search,
   SlidersHorizontal,
   X,
@@ -344,17 +343,15 @@ export function Gallery({
             title="Product Launches"
             subtitle="Turn your product into a launch worth watching."
             suspended={selected !== null || !!manualCopy}
+            interactive={false}
           />
           {featuredExamples.map(({ example, title, description, fit }) => (
             <article className="featured-card" key={example.id}>
-              <button
-                type="button"
+              <div
                 className={
                   'featured-frame' +
                   (fit === 'cover' ? ' featured-frame-fill' : '')
                 }
-                onClick={() => openExample(example)}
-                aria-label={`Watch ${title}`}
               >
                 <PreviewMedia
                   src={example.video}
@@ -365,14 +362,9 @@ export function Gallery({
                   }
                   suspended={selected !== null || !!manualCopy}
                 />
-                <span className="featured-watch">
-                  <Maximize2 size={18} />
-                </span>
-              </button>
+              </div>
               <div className="featured-caption">
-                <button type="button" onClick={() => openExample(example)}>
-                  {title}
-                </button>
+                <h3>{title}</h3>
                 <span>{description}</span>
               </div>
             </article>
