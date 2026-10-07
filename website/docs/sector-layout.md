@@ -56,3 +56,7 @@ The user requested a third 3D collection and a Dots-style MCP interlude before d
 
 
 The final three-collection build passes TypeScript/catalog and disjoint-collection checks,30 importer tests, full lint, formatting, and diff checks. Browser verification covers all five browsing routes at1440/1024/768/390/320px, plus production-build checks at1440/390/320px. All167 clips are accounted for, with no horizontal overflow, overlapping cards, or page errors. View all, scoped search and filters, legacy links, exact prompt copying, player opening/closing, and the Dots promo connection dialog pass. The promo was also inspected at820px; touch navigation to3D and exact prompt copy pass at390/320px. Evidence is in /tmp/video-use-higgsfield-study-20261006/qa-three/ and qa-production/.
+
+## Live release
+
+Published at https://video-use.insforge.site in InsForge deployment `92b3a5a3-60ca-4f62-aa4d-eb743957cf1b` from source `6f207c3`. Live checks pass for all five browsing routes at1440/390/320px, the MCP connection CTA and copy action, and actual phone navigation/player/prompt-copy controls. All six public routes return200 and the hosted font matches its source hash.
