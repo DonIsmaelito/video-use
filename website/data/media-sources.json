@@ -7325,5 +7325,190 @@
     ],
     "authoringMode": "Host agent authored the exact frozen Video Use prompt; deterministic renderer ran in Modal",
     "audioStreams": 0
+  },
+  {
+    "id": "useful-112-marty-supreme",
+    "kind": "original edit of independently acquired source footage",
+    "sourceBatch": "edit-five-20261007",
+    "sourceRun": "useful-112-marty-supreme",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Footage-based edit authored with pinned Video Use helpers in Codex and rendered deterministically in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "d412ada1db3efc79b5b8196bfd47da507ecea11db751c07b044cd451af8ec24c",
+    "promptSource": "Exact prompt used to author this Video Use edit from the linked official A24 trailer. Source footage and sound retain their creators’ rights.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-112-marty-supreme-d412ada1db3e-d44f1a8d/source.zip",
+    "editableSourceSha256": "85ea9d9ca5ac1981f66508b3dab55263397b7037975fad4ae3a132bf31135d4b",
+    "sourceArchiveScope": "Original editable composition, source-bound masks, licensed fonts, pinned dependencies and replay instructions; original footage and audio reacquired separately from the credited source",
+    "cloudProject": "video-use-useful-library-20261003/edit-five-20261007/useful-112-marty-supreme/repairs/final-v4/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-112-marty-supreme-d412ada1db3e-d44f1a8d/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-112-marty-supreme-d412ada1db3e-d44f1a8d/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-112-marty-supreme-d412ada1db3e-d44f1a8d/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-112-marty-supreme-d412ada1db3e-d44f1a8d/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-112-marty-supreme-d412ada1db3e-d44f1a8d/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-112-marty-supreme-d412ada1db3e-d44f1a8d/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-112-marty-supreme-d412ada1db3e-d44f1a8d/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host-authored frozen prompt; deterministic Video Use helpers in Modal",
+    "runSha256": "6eb7a7ebc4842423e9098899cc22cbb8d7afc4c7aa9c6371b6783ec7f8c63c01",
+    "audioStreams": 1
+  },
+  {
+    "id": "useful-113-hamilton",
+    "kind": "original edit of independently acquired source footage",
+    "sourceBatch": "edit-five-20261007",
+    "sourceRun": "useful-113-hamilton",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Footage-based edit authored with pinned Video Use helpers in Codex and rendered deterministically in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "7a06e60b3d0f8aa0f1c836e7cec4ba70ac6b91fd74d1277831e43f7771384367",
+    "promptSource": "Original creative request frozen after actual source inspection and before edit authoring",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-113-hamilton-7a06e60b3d0f-0327f70d/source.zip",
+    "editableSourceSha256": "32eac67e25ced5460f89e3e4a76fd7a7c859d5527abfe0a7b470c01ecb92aa9c",
+    "sourceArchiveScope": "Original editable composition, source-bound masks, licensed fonts, pinned dependencies and replay instructions; original footage and audio reacquired separately from the credited source",
+    "cloudProject": "video-use-useful-library-20261003/edit-five-20261007/useful-113-hamilton/repairs/final-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-113-hamilton-7a06e60b3d0f-0327f70d/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-113-hamilton-7a06e60b3d0f-0327f70d/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-113-hamilton-7a06e60b3d0f-0327f70d/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-113-hamilton-7a06e60b3d0f-0327f70d/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-113-hamilton-7a06e60b3d0f-0327f70d/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-113-hamilton-7a06e60b3d0f-0327f70d/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-113-hamilton-7a06e60b3d0f-0327f70d/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host-authored exact frozen prompt; deterministic Video Use source-clock and layer composition in Modal",
+    "runSha256": "04fab665e41a8d333956292e35616ef16ba8e6a0d356d9b4b64c0b3913c401be",
+    "audioStreams": 1
+  },
+  {
+    "id": "useful-114-anime-impact",
+    "kind": "original edit of independently acquired source footage",
+    "sourceBatch": "edit-five-20261007",
+    "sourceRun": "useful-114-anime-impact",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Footage-based edit authored with pinned Video Use helpers in Codex and rendered deterministically in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "95dafe073eaa261fe26ae4219dbdf6e4cb7d068e0fe8d8c32797db0a0307a501",
+    "promptSource": "Authored after inspecting the official TOHO animation source",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-114-anime-impact-95dafe073eaa-53bbde32/source.zip",
+    "editableSourceSha256": "118cf88c1439ed8265a0aa73cfb9f87b0a4627928e913c40db23c5eb030ac296",
+    "sourceArchiveScope": "Original editable composition, source-bound masks, licensed fonts, pinned dependencies and replay instructions; original footage and audio reacquired separately from the credited source",
+    "cloudProject": "video-use-useful-library-20261003/edit-five-20261007/useful-114-anime-impact/repairs/final-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-114-anime-impact-95dafe073eaa-53bbde32/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-114-anime-impact-95dafe073eaa-53bbde32/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-114-anime-impact-95dafe073eaa-53bbde32/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-114-anime-impact-95dafe073eaa-53bbde32/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-114-anime-impact-95dafe073eaa-53bbde32/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-114-anime-impact-95dafe073eaa-53bbde32/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-114-anime-impact-95dafe073eaa-53bbde32/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host-authored exact frozen prompt; deterministic Video Use composition in Modal",
+    "runSha256": "f9ae6e4755b1166b0cf4918aceca7a7a4bb40dba411cd2e8537a3d9a0c0c0c11",
+    "audioStreams": 0
+  },
+  {
+    "id": "useful-115-sabrina",
+    "kind": "original edit of independently acquired source footage",
+    "sourceBatch": "edit-five-20261007",
+    "sourceRun": "useful-115-sabrina",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Footage-based edit authored with pinned Video Use helpers in Codex and rendered deterministically in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "552f81a368bfe12453760ff19455d3d8abebc6813d192f7eea74aa7797514f24",
+    "promptSource": "Original creative request frozen after actual source inspection and before edit authoring",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-115-sabrina-552f81a368bf-5217d779/source.zip",
+    "editableSourceSha256": "709ab778812ca2c3435e91ec0ec40e8c36d01e089c1bf8855c4245ccf288f860",
+    "sourceArchiveScope": "Original editable composition, source-bound masks, licensed fonts, pinned dependencies and replay instructions; original footage and audio reacquired separately from the credited source",
+    "cloudProject": "video-use-useful-library-20261003/edit-five-20261007/useful-115-sabrina/repairs/final-v3/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-115-sabrina-552f81a368bf-5217d779/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-115-sabrina-552f81a368bf-5217d779/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-115-sabrina-552f81a368bf-5217d779/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-115-sabrina-552f81a368bf-5217d779/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-115-sabrina-552f81a368bf-5217d779/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-115-sabrina-552f81a368bf-5217d779/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-115-sabrina-552f81a368bf-5217d779/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host-authored exact frozen prompt; deterministic Video Use source-clock and layer composition in Modal",
+    "runSha256": "7ee81459a65743da3eac7ec2ebdfeac53bf1b5c9ff517a8c069fc6a1dba94820",
+    "audioStreams": 1
+  },
+  {
+    "id": "useful-116-yuto",
+    "kind": "original edit of independently acquired source footage",
+    "sourceBatch": "edit-five-20261007",
+    "sourceRun": "useful-116-yuto",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Footage-based edit authored with pinned Video Use helpers in Codex and rendered deterministically in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "852c64e0d01d19d26508cd5aaa3d16be11bac7b236a26f1b0e90bd395a2ebfb1",
+    "promptSource": "Original prompt written after inspecting KEVIN PEREZ’s public source film",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-116-yuto-852c64e0d01d-b87d3b65/source.zip",
+    "editableSourceSha256": "7abfafab7983d3dce930d60eee1eec1cf604e301df8d9c3287963673c1e4e65b",
+    "sourceArchiveScope": "Original editable composition, source-bound masks, licensed fonts, pinned dependencies and replay instructions; original footage and audio reacquired separately from the credited source",
+    "cloudProject": "video-use-useful-library-20261003/edit-five-20261007/useful-116-yuto/repairs/final-v2/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-116-yuto-852c64e0d01d-b87d3b65/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-116-yuto-852c64e0d01d-b87d3b65/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-116-yuto-852c64e0d01d-b87d3b65/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-116-yuto-852c64e0d01d-b87d3b65/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-116-yuto-852c64e0d01d-b87d3b65/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-116-yuto-852c64e0d01d-b87d3b65/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-116-yuto-852c64e0d01d-b87d3b65/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host-authored frozen prompt; deterministic Video Use render in Modal",
+    "runSha256": "0f72ce6162cd70d4b41bef6bc0fcde446d4e2ebfd863cf08382275787e45812c",
+    "audioStreams": 1
   }
 ]

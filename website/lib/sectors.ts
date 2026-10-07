@@ -55,6 +55,11 @@ export function getSectorExamples(
 
 const previewIds: Record<SectorId, string[]> = {
   'video-editing': [
+    'useful-112-marty-supreme',
+    'useful-113-hamilton',
+    'useful-114-anime-impact',
+    'useful-115-sabrina',
+    'useful-116-yuto',
     'screen-demo-fuji-browser-tour',
     'useful-74-drew-editorial',
     'useful-83-spiderman-panels',

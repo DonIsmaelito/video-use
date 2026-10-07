@@ -3716,5 +3716,194 @@
     "promptMode": "exact",
     "muted": true,
     "loop": false
+  },
+  {
+    "id": "useful-112-marty-supreme",
+    "title": "Marty Supreme",
+    "category": "Video Edits",
+    "description": "A precise ball-to-glasses match cut opens into an original layered character portrait, then releases back into the rally.",
+    "prompt": "Create a 26-second landscape character edit of Marty Supreme using the official A24 trailer https://www.youtube.com/watch?v=s9gSuKaKcqM. Build one deliberate arc from his nighttime statement “I have a purpose” through table-tennis practice and competition to his real closing “Yeah, I do.” Center faces and protect the original wide film framing. Use the white ball and a glasses close-up for a precisely aligned circular match cut. Let that close-up stop on a sharp real portrait: isolate Marty from the source, open the frame into an original ivory and court-green editorial composition, bring in restrained “MARTY SUPREME” typography, and use a subtle depth move. Restore the exact portrait pose before returning to moving footage. Finish on his confident reply and a composed held image with the small title. Retain complete source words and synchronized practice impacts, with a restrained original percussive bed and a quiet portrait pause. Use small selective subtitles only for the opening statement and final exchange. Make the added framing, match cut, subject layers and timing clearly visible, with no random shot repetition, fake camera shake or borrowed trailer title cards.",
+    "duration": 26,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Editors",
+      "Content creators",
+      "Film fans"
+    ],
+    "useCases": [
+      "Character edits",
+      "Subject cutouts",
+      "Match cuts"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Exact prompt used to author this Video Use edit from the linked official A24 trailer. Source footage and sound retain their creators’ rights.",
+    "mediaCredits": [
+      {
+        "title": "Marty Supreme | Official Trailer HD | A24",
+        "creator": "A24",
+        "url": "https://www.youtube.com/watch?v=s9gSuKaKcqM",
+        "changes": "Source excerpts reordered, reframed and retimed, with new subject compositing, graphics and original percussive accents. Footage and source sound retain their creators’ rights."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-112-marty-supreme-d412ada1db3e-d44f1a8d/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-112-marty-supreme-d412ada1db3e-d44f1a8d/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-112-marty-supreme-d412ada1db3e-d44f1a8d/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-112-marty-supreme-d412ada1db3e-d44f1a8d/review.md",
+    "promptMode": "exact",
+    "muted": false,
+    "loop": false
+  },
+  {
+    "id": "useful-113-hamilton",
+    "title": "Hamilton",
+    "category": "Video Edits",
+    "description": "A continuous Hamilton onboard becomes a layered hairpin freeze, a precise three-view comparison, and a full-speed tunnel release.",
+    "prompt": "Create a polished 28-second landscape motorsport edit titled Hamilton from Formula 1's official Monaco FP2 onboard: https://www.formula1.com/en/video/2026-monaco-gp-fp2-onboard-with-lewis-hamilton-for-the-fastest-lap-of-friday-practice.1867183032554349713. Use the single continuous source passage from 23 to 43 seconds, preserving the relationship between Hamilton's steering, the hairpin and the drive into the tunnel. Begin with the real onboard and its engine sound inside a clean, centered frame. Decelerate smoothly into the actual source frame at 28 seconds, hold it, and build a restrained red-and-cream editorial hero with large HAMILTON typography passing behind the real car silhouette. A small curved directional mark should echo the visible left turn, without inventing a racing line, speed, steering angle or other telemetry. Let that same held image become the middle of a symmetrical three-panel comparison: entry at 26.5 seconds, rotation at 28 seconds, and exit at 30.5 seconds, using only these related source views and the labels ENTRY, ROTATION and EXIT. Merge the panels back into the exact held view, then accelerate smoothly into the uninterrupted original drive and let the tunnel provide the full-speed payoff. Keep required type readable and evenly spaced, retain source identity, use a subtle consistent grade, and make every transition follow the same cornering action. Keep the original engine audible, with gentle source-derived sound underneath the graphic hold and clean audio fades; add no narration or music. Deliver 1920 by 1080 at 30 fps, with editable source, exact source credits and replay instructions.",
+    "duration": 28,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Editors",
+      "Sports creators"
+    ],
+    "useCases": [
+      "Motorsport edits",
+      "Source footage transformations"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Original creative request frozen after actual source inspection and before edit authoring",
+    "mediaCredits": [
+      {
+        "title": "Formula 1 — Monaco FP2 Hamilton onboard",
+        "url": "https://www.formula1.com/en/video/2026-monaco-gp-fp2-onboard-with-lewis-hamilton-for-the-fastest-lap-of-friday-practice.1867183032554349713",
+        "creator": "Formula 1",
+        "role": "Official source footage and original engine audio",
+        "license": "Original rights retained by Formula 1; source is reacquired, not redistributed in the editable ZIP"
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-113-hamilton-7a06e60b3d0f-0327f70d/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-113-hamilton-7a06e60b3d0f-0327f70d/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-113-hamilton-7a06e60b3d0f-0327f70d/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-113-hamilton-7a06e60b3d0f-0327f70d/review.md",
+    "promptMode": "exact",
+    "muted": false,
+    "loop": false
+  },
+  {
+    "id": "useful-114-anime-impact",
+    "title": "Frieren",
+    "category": "Video Edits",
+    "description": "An ivory manga panel opens into a luminous Frieren passage and settles as a layered portrait.",
+    "prompt": "Create a 20-second, 1920×1080 silent character edit titled Frieren using TOHO animation’s official season 2 clean opening: https://www.youtube.com/watch?v=C0BG3B7aksU. Use the coherent passage from about 7.4 to 22.2 seconds: her cupped light, the surrounding luminous petals and staff, and the centered close-up as she brings her hands together. Begin with an elegant ivory-and-ink manga panel. Briefly separate the paper, border and inspected hands into subtle layered depth, then expand and restore color until the panel becomes the exact moving source shot. Keep the passage’s natural progression and use one upward graphic page tear to carry its light into a poised final portrait. Hold the ending briefly with a small refined FRIEREN name integrated into the paper. Preserve clear faces, original anatomy, and clean edges; use no unrelated inserts, duplicated bodies, large captions, narration, music, or audio stream. The newly authored paper depth, color reveal, tear and portrait layout must be visibly distinct from the source animation.",
+    "duration": 20,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Anime editors",
+      "Motion designers",
+      "Video creators"
+    ],
+    "useCases": [
+      "Character edit",
+      "Layered manga transition",
+      "Cinematic social video"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Authored after inspecting the official TOHO animation source",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-114-anime-impact-95dafe073eaa-53bbde32/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-114-anime-impact-95dafe073eaa-53bbde32/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-114-anime-impact-95dafe073eaa-53bbde32/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-114-anime-impact-95dafe073eaa-53bbde32/review.md",
+    "promptMode": "exact",
+    "muted": true,
+    "loop": false,
+    "mediaCredits": [
+      {
+        "title": "Frieren: Beyond Journey’s End — Season 2 opening",
+        "creator": "TOHO animation",
+        "url": "https://www.youtube.com/watch?v=C0BG3B7aksU",
+        "license": "Original rights retained by the credited creators",
+        "changes": "Original source animation reframed into a 20-second ink-and-paper composition with layered cutouts taken from the source. Audio removed."
+      }
+    ]
+  },
+  {
+    "id": "useful-115-sabrina",
+    "title": "Sabrina Carpenter",
+    "category": "Video Edits",
+    "description": "Turn a comedy exchange into a moving magazine cover.",
+    "prompt": "Create a polished 24-second landscape Sabrina Carpenter comedy edit from Vogue's The Short Report: https://www.youtube.com/watch?v=MbqZ9Su__c0.\n\nBuild the piece around Sabrina complimenting herself in two different characters. Open directly on the exchange beginning around 45.4 seconds: the anchor says she looks incredible, the reporter returns the compliment, and the anchor accepts it. Keep the dialogue and little reactions at their natural speed. Use restrained sentence-case captions for the strongest lines, with generous margins.\n\nLet the last word, INCREDIBLE, expand into an ivory-and-fuchsia magazine composition. Transform the source's existing split screen into a deliberately balanced pair of moving portrait panels, using the pink reporter and mint-jacket anchor. Keep the faces readable and the panel edges aligned. Follow with a large SABRINA CARPENTER editorial hero: isolate a smiling reporter frame near 38.8 seconds, retain her microphone and natural hair detail, and place the title behind her silhouette. Anchor the lower crop to a picture panel so the cutout never floats. Use a restrained layered camera move, then return the portrait precisely to its original footage and resume motion.\n\nFinish on the anchor's real punchline around 53.5–56.1 seconds: 'But enough about me. Back to today's news.' Retain the original dialogue and reuse a quiet instrumental passage from the source beneath the editorial middle, with clean audio fades. Add no generated voice. Keep the whole film coherent, confident and playful; avoid random extra shots, distorted faces, thick karaoke captions or an explanatory end card. Deliver 1920 by 1080 at 30 fps, the exact prompt, editable composition, source credits and replay instructions.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Content creators",
+      "Editors"
+    ],
+    "useCases": [
+      "Celebrity edits",
+      "Social content"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Original creative request frozen after actual source inspection and before edit authoring",
+    "mediaCredits": [
+      {
+        "title": "The Short Report With Sabrina Carpenter | Vogue",
+        "url": "https://www.youtube.com/watch?v=MbqZ9Su__c0",
+        "creator": "Vogue",
+        "role": "Original comedy footage and audio",
+        "license": "Original rights retained by Vogue and its licensors; source reacquired separately, not bundled in editable archive"
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-115-sabrina-552f81a368bf-5217d779/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-115-sabrina-552f81a368bf-5217d779/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-115-sabrina-552f81a368bf-5217d779/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-115-sabrina-552f81a368bf-5217d779/review.md",
+    "promptMode": "exact",
+    "muted": false,
+    "loop": false
+  },
+  {
+    "id": "useful-116-yuto",
+    "title": "Yuto",
+    "category": "Video Edits",
+    "description": "An original route-trace and moving-matte edit of one complete Hollywood 16 attempt and rollaway.",
+    "prompt": "Create a 20-second, 1920×1080 street-skate edit titled Yuto from KEVIN PEREZ’s original film YUTO HORIGOME AT HOLLYWOOD 16 (7AM Session): https://www.youtube.com/watch?v=hqyTRfVtQyw. Build one clear setup-to-rollaway sequence: the warm close-up around 24.2–27.6 seconds, the successful approach around 135.6–140.4, the complete front-angle trick around 144.75–148.75, and its rollaway around 151.0–155.8. Briefly hold the approach for a source-locked board-to-rail route drawing, then keep the entire front-wide takeoff, rail contact, landing and rollaway uninterrupted at native speed with the full action visible. Exclude the surrounding alternate-angle trick replays. Use concrete gray, ink black and signal red for precise route lines, one clean directional transition and restrained skate-poster typography. During the final moving rollaway, use an inspected, frame-matched cutout to place YUTO behind the real rider, then settle into a brief final hold. Keep the body, shoes and board in their original registration; preserve the real anatomy and camera framing. Retain synchronized source skateboard and ambient sound with clean fades, no added music or narration. The authored route freeze, transition and moving foreground typography must be clearly visible and polished.",
+    "duration": 20,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Video editors",
+      "Sports creators",
+      "Streetwear brands"
+    ],
+    "useCases": [
+      "Skate campaign",
+      "Athlete profile",
+      "Moving foreground typography"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Original prompt written after inspecting KEVIN PEREZ’s public source film",
+    "mediaCredits": [
+      {
+        "title": "YUTO HORIGOME AT HOLLYWOOD 16 (7AM Session)",
+        "creator": "KEVIN PEREZ",
+        "url": "https://www.youtube.com/watch?v=hqyTRfVtQyw",
+        "changes": "Selected one approach, complete native-speed front-wide trick and rollaway; added source-locked route hold, directional graphic, moving subject mask and typography; faded synchronized source sound."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-116-yuto-852c64e0d01d-b87d3b65/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-116-yuto-852c64e0d01d-b87d3b65/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-116-yuto-852c64e0d01d-b87d3b65/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-116-yuto-852c64e0d01d-b87d3b65/review.md",
+    "promptMode": "exact",
+    "muted": false,
+    "loop": false
   }
 ]

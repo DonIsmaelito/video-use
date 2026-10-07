@@ -58,6 +58,11 @@ import {
 // Mix footage, product films and graphic work in the opening row without changing
 // the source catalog or its provenance. Filters and deep links still use all films.
 const openingIds = [
+  'useful-112-marty-supreme',
+  'useful-113-hamilton',
+  'useful-114-anime-impact',
+  'useful-115-sabrina',
+  'useful-116-yuto',
   'screen-demo-fuji-browser-tour',
   'useful-83-spiderman-panels',
   'useful-85-rumi-double-life',
@@ -117,6 +122,11 @@ const openingIds = [
   'useful-19-fulfilment-flow',
 ];
 const wideOpeningIds = new Set([
+  'useful-112-marty-supreme',
+  'useful-113-hamilton',
+  'useful-114-anime-impact',
+  'useful-115-sabrina',
+  'useful-116-yuto',
   'useful-83-spiderman-panels',
   'useful-85-rumi-double-life',
   'useful-82-curry-locked-in',
