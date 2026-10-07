@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { ArrowUpRight, Terminal } from 'lucide-react';
 import { ConnectMcp } from '@/components/connect-mcp';
+import { PromptMotion } from '@/components/prompt-motion/prompt-motion';
 import type { McpSetupClient } from '@/lib/mcp-setup';
 import styles from './agent-shortcuts.module.css';
 
@@ -52,8 +53,7 @@ export function AgentShortcuts({
         Video Use in your favorite agent
       </h2>
       <div className={styles.layout}>
-        {/* Reserved for the user's next showcase film. Intentionally blank. */}
-        <div className={styles.showcase} aria-hidden="true" />
+        <PromptMotion className={styles.showcase} />
         <div className={styles.cards}>
           {agents.map((agent) => {
             const content = (
