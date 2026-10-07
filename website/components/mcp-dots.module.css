@@ -118,6 +118,9 @@
   background: var(--primary-hover);
   translate: 0 -1px;
 }
+.connect:focus-visible {
+  outline-color: var(--primary);
+}
 .characters {
   position: absolute;
   inset: 0;
