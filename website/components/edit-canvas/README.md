@@ -1,25 +1,25 @@
-# Wordless edit canvas
+# Scenic edit canvas
 
-## Exact revision request
+## Current request and preserved design
 
-“did not really like the design, try again please - the hero is boring and this just looks too AI generated, maybe here it is more about the design than the hero and text”
+“Okay i liked the design, could you make it into another video? possibly a more scenic? find a reference on youtube with the same zooming and flying, find one that is more scenic/possibly even fiction”
 
-This replaces the rejected orange sculpture, slogan and prompt box. The earlier version remains in git history at `fb8ee16`.
+The user approved the wordless editing composition. Preserve its existing geometry, orange crop guides, sixteen-second decorative animation, agent cards and viewport/dialog behavior. This revision only replaces the film and its dependent stills/waveform, with a footer credit link. The earlier bowling film is retained in git history at `2b8c0b2`.
 
-## Creative contract
+## Source and selection
 
-The panel is an editorial composition of real film frames: a wide contact strip runs behind a selected moving image, a closer strip and actual audio waveform cross the foreground, and an orange playhead passes through the layers. The shared angle and overlapping crops connect the parts into one editing surface. There is no headline, campaign copy, invented status text, send button, mascot, glow or 3D primitive. The six adjacent agent cards supply the context.
+The selected YouTube reference is **Iceland I Cinematic FPV flying 4k 2024** by **LHuFPV**: https://www.youtube.com/watch?v=lxk6XLZsdA0. Source time 03:04–03:28 is one continuous flight toward a moss-covered waterfall, around the drop and down the river. The original forward motion, full frame and color are preserved; no artificial zoom, hero copy, captions or extra controls are added. Its green cliffs, blue sky and moving water provide the scenic emphasis. The inspected Rocky Mountains reference was visually grayer; Blender’s Spring had fantasy scenery but less continuous first-person flight.
 
-The intended impression is a working film edit, with sharp orange selection marks, muted peripheral images and natural warm color in the selected shot. The key still is the complete layered composition at eight seconds. The motion is a restrained sixteen-second pan and return, with crop guides briefly appearing during the pass. A small projected editor and a stack of oversized logos were considered; the film-contact composition keeps the subject specific to video and makes photographic detail the focus.
+YouTube’s source metadata marks the 2024 upload Creative Commons Attribution with reuse allowed (CC BY 3.0). `footage.json` records the original URL, author, license, range and source/output hashes. `public/edit-canvas/credits.txt` contains attribution, a source link, license link and changes; the existing site footer links it as Footage credits. This does not imply authorship of the drone footage. Original source audio is excluded from playback.
 
 ## Assets and behavior
 
-`footage.json` references the already published gallery film **A Night at Bryant Lake Bowl**, ID `useful-57-night-out`. Its source receipt in `data/media-sources.json` identifies the original JayByrd Films venue production. The complete twenty-second frame sequence and embedded credits are retained in a silent 768×432 H.264 preview at 24fps. It uses CRF 27, yuv420p and fast-start metadata; the original gallery movie stays unchanged. The original URL and both source/preview hashes are retained in the manifest. The four local JPEGs are 640px frames extracted at 6, 10, 14 and 18 seconds; their hashes and the source hash are in the JSON. The waveform is 120 RMS energy measurements taken from the existing film's mono audio at 8kHz. No synthesized photography or new stock is involved. The delivery-only preview encode is about 90% smaller than the original 1920px film.
+The 24-second delivery is 768×432 H.264 at the source’s 25fps, yuv420p, CRF 26, with fast-start metadata and no audio stream. Its four 640×360 stills come from delivery seconds 2, 5, 13 and 19. The waveform uses 120 RMS measurements of the corresponding source audio at 8kHz. All five visual assets and the manifest were regenerated together, so no bowling imagery or waveform remains. Native looping returns directly to the waterfall approach; it is not described as a seamless spatial continuation.
 
-`EditCanvas` renders the composition and pauses CSS clocks while offscreen, hidden or behind a connection dialog. `PreviewMedia` provides the existing muted inline looping playback, poster fallback, viewport handling and autoplay retries. Reduced motion stops the decorative layers; the existing video playback behavior stays consistent with the user's request for continuously playing clips. No controls or extra focus stops are added. Only one extra video element is used, with its small preview served alongside the local posters.
+`EditCanvas` renders the approved composition and pauses CSS clocks while offscreen, hidden or behind a connection dialog. `PreviewMedia` retains muted inline autoplay, looping, poster fallback and autoplay retries. Reduced motion stops the decorative layers while keeping the existing user-requested video playback. Neither component’s runtime logic nor the composition’s CSS changed for this footage swap. The original gallery films and all catalog records stay separate.
 
 ## Replay and verification
 
-Run the site with its existing package lock and scroll to `#agents`. For a deterministic CSS frame, select `[data-edit-canvas]`, pause its `getAnimations({subtree:true})` and set each `currentTime` to the same milliseconds. Pause and seek its video separately to a stated source time, waiting for `seeked`. Reload before normal playback or pause/resume checks so manual animation-clock overrides cannot affect them. Source and choreography live in this directory; local stills are in `public/edit-canvas/`. QA evidence lives in `/tmp/video-use-edit-canvas-20261007/`.
+The source receipt, frozen EDL, downloaded source, reproducible `render.py` and encoded proof frames live in `/Users/ismaelito/Movies/Video Use Scenic Showcase 20261007/edit/`. Run that `render.py` to regenerate `delivery/`. It validates the source SHA-256, extracts the exact range, encodes once and measures the matching waveform. Website-ready assets are copied into `public/edit-canvas/`; its `footage.json` is copied into this directory.
 
-Check the full sixteen-second CSS sequence, film playback, viewport/dialog suspension, narrow and wide layouts, and media failure. Reject any pose where peripheral strips obscure most of the selected footage, or where decorative labels and typography creep back into the design.
+Run the website and scroll to `#agents` to review the composition. Check advancing silent video and end-to-start looping, the matching filmstrips, responsive panel geometry, six agent actions, poster failure, reduced motion and the footer credit. A dense encoded sequence is inspected separately from real-time browser transport; do not describe still-frame review as perceptual watching.

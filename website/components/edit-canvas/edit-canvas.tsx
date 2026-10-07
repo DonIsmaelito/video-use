@@ -6,7 +6,7 @@ import { PreviewMedia } from '@/components/preview-media';
 import footage from './footage.json';
 import styles from './edit-canvas.module.css';
 
-/** A wordless editing composition built from an existing gallery film. */
+/** A wordless editing composition built from credited scenic footage. */
 export function EditCanvas({ className }: { className?: string }) {
   const scene = useRef<HTMLElement>(null);
 
