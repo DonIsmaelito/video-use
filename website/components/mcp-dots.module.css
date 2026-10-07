@@ -91,11 +91,11 @@
   margin-top: 28px;
   padding: 12px 21px;
   border-radius: 12px;
-  background: linear-gradient(#ff8b2a, var(--accent));
+  background: var(--primary);
   box-shadow:
-    0 3px 0 #873805,
+    0 3px 0 #999,
     inset 0 1px 0 #ffffff26;
-  color: #1c1007;
+  color: var(--primary-foreground);
   font-size: 15px;
   font-weight: 600;
   transition:
@@ -113,7 +113,7 @@
   display: none;
 }
 .connect:hover {
-  background: #ff9c4c;
+  background: var(--primary-hover);
   translate: 0 -1px;
 }
 .characters {

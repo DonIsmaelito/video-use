@@ -62,11 +62,11 @@
   font-weight: 600;
 }
 .connect {
-  color: var(--accent-foreground);
-  background: var(--accent);
+  color: var(--primary-foreground);
+  background: var(--primary);
 }
 .connect:hover {
-  background: #ff923e;
+  background: var(--primary-hover);
 }
 .browse {
   background: #202020;
@@ -103,8 +103,8 @@
   background: #1a1a1a;
 }
 .collections a[aria-current='page'] {
-  color: var(--accent);
-  background: #fe750e14;
+  color: var(--primary-foreground);
+  background: var(--primary);
 }
 .collections span {
   font-size: 11px;

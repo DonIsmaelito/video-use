@@ -17,7 +17,7 @@ export function GallerySector({
   children: ReactNode;
 }) {
   const preview = useRef<HTMLDivElement>(null);
-  const viewAll = useRef<HTMLAnchorElement>(null);
+  const viewMore = useRef<HTMLAnchorElement>(null);
 
   useLayoutEffect(() => {
     const viewport = preview.current;
@@ -32,7 +32,7 @@ export function GallerySector({
         // A clipped card is a decorative teaser, never a hidden tab stop.
         const clipped = card.getBoundingClientRect().bottom > edge;
         if (clipped && card.contains(document.activeElement))
-          viewAll.current?.focus();
+          viewMore.current?.focus();
         card.inert = clipped;
         if (clipped) card.setAttribute('aria-hidden', 'true');
         else card.removeAttribute('aria-hidden');
@@ -76,7 +76,12 @@ export function GallerySector({
       <div className={styles.window} ref={preview}>
         {children}
         <div className={styles.fade}>
-          <Link href={sector.href} className={styles.viewAll} ref={viewAll}>
+          <Link
+            href={sector.href}
+            className={styles.viewMore}
+            ref={viewMore}
+            aria-label={`${sector.action} ${sector.title}`}
+          >
             {sector.action}
             <ArrowRight size={17} />
           </Link>

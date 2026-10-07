@@ -39,12 +39,12 @@
   height: 36px;
   place-items: center;
   border-radius: 50%;
-  background: #eee;
-  color: #141414;
+  background: var(--primary);
+  color: var(--primary-foreground);
   transition: background 0.15s;
 }
 .row button:hover {
-  background: var(--accent);
+  background: var(--primary-hover);
 }
 .code {
   position: relative;

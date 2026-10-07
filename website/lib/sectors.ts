@@ -9,7 +9,7 @@ export const sectors = [
     description: 'Turn your footage into something worth watching.',
     context:
       'Explore real footage edits, cinematic stories, sports highlights, and clips made to share. Find a direction, copy the prompt, and bring your own footage.',
-    action: 'View all video edits',
+    action: 'View More',
   },
   {
     id: 'video-creation',
@@ -19,7 +19,7 @@ export const sectors = [
     description: 'An idea, a prompt, a whole new world in motion.',
     context:
       'Explore original motion design, brand films, and visual explainers. Find a prompt, bring an idea, and make it your own.',
-    action: 'View all video creations',
+    action: 'View More',
   },
   {
     id: '3d-visuals',
@@ -29,7 +29,7 @@ export const sectors = [
     description: 'Give your ideas a little more dimension.',
     context:
       'Explore visual lessons in math, physics, and AI, original animated scenes, and dimensional product films. Find a visual you love and make it move your way.',
-    action: 'View all 3D visuals',
+    action: 'View More',
   },
 ] as const;
 

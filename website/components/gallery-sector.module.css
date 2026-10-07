@@ -61,17 +61,17 @@
   pointer-events: none;
 }
 
-.viewAll {
+.viewMore {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
   min-height: 46px;
   padding: 12px 22px;
-  border: 1px solid color-mix(in srgb, var(--accent) 32%, transparent);
+  border: 1px solid var(--primary);
   border-radius: 10px;
-  background: var(--accent);
-  color: var(--accent-foreground);
+  background: var(--primary);
+  color: var(--primary-foreground);
   font-size: 14px;
   font-weight: 600;
   line-height: 20px;
@@ -79,8 +79,8 @@
   transition: background 160ms ease;
 }
 
-.viewAll:hover {
-  background: #ff923e;
+.viewMore:hover {
+  background: var(--primary-hover);
 }
 
 @media (max-width: 767px) {
@@ -107,7 +107,7 @@
     height: 180px;
     padding-bottom: 20px;
   }
-  .viewAll {
+  .viewMore {
     min-height: 44px;
     font-size: 13px;
     padding-inline: 18px;
@@ -128,7 +128,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .viewAll {
+  .viewMore {
     transition: none;
   }
 }

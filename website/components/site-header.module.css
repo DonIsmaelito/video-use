@@ -26,13 +26,6 @@
 .navigation a[aria-current='page'] {
   color: var(--accent);
 }
-.header :global(.header-connect) {
-  background: var(--accent);
-  color: var(--accent-foreground);
-}
-.header :global(.header-connect):hover {
-  background: #ff923e;
-}
 @media (max-width: 600px) {
   .header :global(.header-repo) {
     width: 34px;

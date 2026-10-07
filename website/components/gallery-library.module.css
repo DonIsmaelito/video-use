@@ -17,8 +17,8 @@
   padding: 10px 13px;
 }
 .library :global(.filter-pill.active) {
-  color: var(--accent);
-  background: #fe750e14;
+  color: var(--primary-foreground);
+  background: var(--primary);
 }
 .library :global(.library-search) {
   min-width: 180px;

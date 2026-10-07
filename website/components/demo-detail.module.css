@@ -150,8 +150,8 @@
   min-height: 44px;
   padding: 12px 18px;
   border-radius: 9px;
-  background: var(--accent);
-  color: var(--accent-foreground);
+  background: var(--primary);
+  color: var(--primary-foreground);
   font-size: 13px;
   font-weight: 600;
   transition:
@@ -160,7 +160,7 @@
 }
 
 .copy:hover {
-  background: #ff8a32;
+  background: var(--primary-hover);
 }
 
 .copy:active {

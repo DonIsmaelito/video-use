@@ -111,10 +111,10 @@
   max-width: 100%;
   gap: 7px;
   padding-inline: 13px;
-  border: 1px solid color-mix(in srgb, var(--accent) 16%, transparent);
+  border: 1px solid var(--primary);
   border-radius: 10px;
-  background: color-mix(in srgb, var(--accent) 17%, #14110e);
-  color: var(--accent);
+  background: var(--primary);
+  color: var(--primary-foreground);
   font-size: 12px;
   font-weight: 650;
   pointer-events: none;
@@ -134,9 +134,9 @@
 .copy:global(.copy-card):hover,
 .copy:global(.copy-card):focus-visible,
 .copy:global(.copy-card.copied) {
-  border-color: var(--accent);
-  background: var(--accent);
-  color: var(--accent-foreground);
+  border-color: var(--primary-hover);
+  background: var(--primary-hover);
+  color: var(--primary-foreground);
 }
 
 .card:focus-within .overlay {
