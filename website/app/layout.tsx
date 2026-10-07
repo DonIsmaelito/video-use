@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { McpAnnouncement } from '@/components/mcp-announcement';
+import { PreviewPlaybackProvider } from '@/components/preview-playback';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -61,8 +62,10 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <McpAnnouncement />
-        {children}
+        <PreviewPlaybackProvider>
+          <McpAnnouncement />
+          {children}
+        </PreviewPlaybackProvider>
       </body>
     </html>
   );

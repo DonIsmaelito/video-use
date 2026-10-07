@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { repository } from '@/lib/gallery';
 import { getRepositoryStars } from '@/lib/github';
 import { ConnectMcp } from '@/components/connect-mcp';
+import { PreviewPlaybackToggle } from '@/components/preview-playback';
 import type { SectorId } from '@/lib/sectors';
 import styles from './site-header.module.css';
 
@@ -61,6 +62,7 @@ export async function SiteHeader({
         ))}
       </nav>
       <div className="header-actions">
+        <PreviewPlaybackToggle />
         <a
           className="header-repo"
           href={repository}

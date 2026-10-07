@@ -33,6 +33,35 @@
 .header :global(.header-connect):hover {
   background: #ff923e;
 }
+.header :global(.preview-playback-toggle) {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border: 1px solid #303030;
+  border-radius: 10px;
+  color: #aaa;
+  background: #161616;
+}
+.header :global(.preview-playback-toggle):hover,
+.header :global(.preview-playback-toggle[data-paused]) {
+  color: var(--accent);
+  border-color: #fe750e55;
+}
+@media (max-width: 600px) {
+  .header :global(.header-repo) {
+    width: 34px;
+    padding: 0;
+    flex-shrink: 0;
+  }
+  .header :global(.header-repo) span {
+    display: none;
+  }
+  .header :global(.header-actions) {
+    gap: 6px;
+  }
+}
 @media (max-width: 1180px) {
   .header:global(.site-header) {
     display: grid;

@@ -34,11 +34,11 @@ The three clip sectors each show up to sixteen curated examples, preserve their 
 | Video Editing | Existing footage edited into clips, stories, demos or highlights | 82 | `/video-editing` |
 | Video Creation | Original motion design and explainers | 56 | `/video-creation` |
 | 3D Animations & Visuals | 3D objects, materials, product animation and miniature worlds | 29 | `/3d-visuals` |
-| Complete library | Both collections | 167 | `/library` |
+| Complete library | All three collections | 167 | `/library` |
 
 Counts derive from `examples.json` through the existing enrichment helpers. The production technique determines membership, because five older footage edits carry a legacy Video Creation category. Source records, executed prompts, media URLs, and stable IDs are not rewritten to change the browsing hierarchy.
 
-`lib/sectors.ts` defines copy, membership and preview selection. The third collection uses the existing `3d` technique, leaving each clip in exactly one collection. `McpDots` adds original CSS characters, a warm glow, and a fading dot texture between Video Creation and 3D; its CTA opens the existing connection dialog. The earlier connector showcase remains between Editing and Creation. `GallerySector` implements the bounded preview, `CollectionPage` supplies the destination hero and navigation, and `Gallery` reuses filtering, copying, URL state, and `DemoDetail`. `facetOptions` accepts a source collection so filter choices and counts stay relevant. Root example links and old root filter URLs remain supported.
+`lib/sectors.ts` defines copy, membership and preview selection. The third collection uses the existing `3d` technique, leaving each clip in exactly one collection. `McpDots` adds original SVG characters, a pearl glow, and a fading dot texture between Video Creation and 3D; its CTA opens the existing connection dialog. The earlier connector showcase remains between Editing and Creation. `GallerySector` implements the bounded preview, `CollectionPage` supplies the destination hero and navigation, and `Gallery` reuses filtering, copying, URL state, and `DemoDetail`. `facetOptions` accepts a source collection so filter choices and counts stay relevant. Root example links and old root filter URLs remain supported.
 
 Space Grotesk is hosted locally for headings, hero labels and card titles; Inter remains the interface font. Section titles and actions use Browser Use orange `#fe750e`. Featured card widths remain 512/400/312px with 20px gaps. The masonry grid uses 8px gaps and 16px corners.
 
@@ -60,3 +60,14 @@ The final three-collection build passes TypeScript/catalog and disjoint-collecti
 ## Live release
 
 Published at https://video-use.insforge.site in InsForge deployment `92b3a5a3-60ca-4f62-aa4d-eb743957cf1b` from source `6f207c3`. Live checks pass for all five browsing routes at1440/390/320px, the MCP connection CTA and copy action, and actual phone navigation/player/prompt-copy controls. All six public routes return200 and the hosted font matches its source hash.
+
+
+## Preview playback and promotion second pass
+
+The user reported still previews in Arc. Clean Chromium and WebKit sessions could play the existing media, so the exact Arc failure was not reproduced. The prior reduced-motion layout checks intentionally suppressed previews and did not establish frame advancement. `PreviewMedia` now declares native muted inline autoplay, sets default and live mute state before play, resumes on visibility/page restoration, and reports autoplay rejections. `PreviewPlaybackProvider` shares an explicit Play/Pause choice across collection routes and retries inside a trusted user gesture. Reduced motion still starts quietly, with an explicit Play option.
+
+The revised Dots-style promotion uses original SVG mascots with distinct silhouettes and accessories, a pearl character inside the white heading, tighter character placement, pill labels and outlined cursors. Soft pearl lighting, lower dots and an orange beveled CTA bring the composition closer to the inspected reference. Phone layouts place the characters in two columns beneath the copy. No new package or external asset is required.
+
+Production build, TypeScript/catalog validation, 30 importer tests, lint, formatting and diff checks pass. The saved `scripts/check-preview-playback.py` verifies actual video time advancing in Chromium and WebKit at 1440 and 390px, all three sectors, scroll return, shared Play/Pause, modal pause/resume, the pageshow handler, route navigation, reduced motion and simulated autoplay rejection. Nine viewport layouts pass overflow and mascot/copy separation checks; production screenshots and MCP/detail dialogs pass at 1440, 390 and 320px. The phone click harness was corrected to target exposed footage instead of the separate Copy Prompt button. Evidence: `/tmp/video-use-playback-dots-20261007/`.
+
+This UI pass builds on the newer reviewed-media release `417da51` and preserves every catalog/source/media manifest byte for byte from that version.

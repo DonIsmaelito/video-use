@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import { usePreviewPlayback } from '@/components/preview-playback';
 
 /** Each card fetches media near the viewport and only plays while visible. */
 export function PreviewMedia({
@@ -20,6 +21,8 @@ export function PreviewMedia({
   const frame = useRef<HTMLDivElement>(null);
   const video = useRef<HTMLVideoElement>(null);
   const wantsPlayback = useRef(false);
+  const syncPlayback = useRef<() => void>(() => {});
+  const { enabled, register, reportBlocked } = usePreviewPlayback();
   const [nearby, setNearby] = useState(false);
   const [visible, setVisible] = useState(false);
   const [playing, setPlaying] = useState(false);
@@ -56,38 +59,60 @@ export function PreviewMedia({
   useEffect(() => {
     const player = video.current;
     if (!player) return;
-    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const sync = () => {
+    const sync = (allowPlayback = enabled) => {
       const shouldPlay =
         visible &&
         !suspended &&
         !overlayOpen &&
         !failed &&
         !document.hidden &&
-        !preference.matches;
+        allowPlayback;
       wantsPlayback.current = shouldPlay;
+      // Set both the HTML default and live property before requesting playback.
+      // WebKit uses the muted/autoplay attributes for native scroll resumption.
+      player.defaultMuted = true;
+      player.muted = true;
+      player.autoplay = shouldPlay;
       if (shouldPlay)
         player
           .play()
           .then(() => {
             if (!wantsPlayback.current) player.pause();
           })
-          .catch(() => {});
+          .catch((error: DOMException) => {
+            if (error.name === 'NotAllowedError' && wantsPlayback.current)
+              reportBlocked();
+          });
       else {
         player.pause();
         setPlaying(false);
       }
     };
+    syncPlayback.current = () => sync();
+    const unregister = register(sync);
+    const onVisibility = () => sync();
     sync();
-    document.addEventListener('visibilitychange', sync);
-    preference.addEventListener('change', sync);
+    document.addEventListener('visibilitychange', onVisibility);
+    window.addEventListener('pageshow', onVisibility);
     return () => {
       wantsPlayback.current = false;
+      player.autoplay = false;
       player.pause();
-      document.removeEventListener('visibilitychange', sync);
-      preference.removeEventListener('change', sync);
+      syncPlayback.current = () => {};
+      unregister();
+      document.removeEventListener('visibilitychange', onVisibility);
+      window.removeEventListener('pageshow', onVisibility);
     };
-  }, [nearby, visible, suspended, overlayOpen, failed]);
+  }, [
+    nearby,
+    visible,
+    suspended,
+    overlayOpen,
+    failed,
+    enabled,
+    register,
+    reportBlocked,
+  ]);
 
   return (
     <div
@@ -120,13 +145,13 @@ export function PreviewMedia({
           ref={video}
           src={src}
           muted
+          autoPlay={enabled && visible && !suspended && !overlayOpen}
           playsInline
           loop
           preload="metadata"
           aria-hidden="true"
-          onCanPlay={() => {
-            if (wantsPlayback.current) video.current?.play().catch(() => {});
-          }}
+          onCanPlay={() => syncPlayback.current()}
+          onLoadedData={() => syncPlayback.current()}
           onPlaying={() => {
             if (wantsPlayback.current) setPlaying(true);
             else video.current?.pause();
