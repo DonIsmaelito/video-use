@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import Image from 'next/image';
 import { ArrowUpRight, Check, Copy, Plug, Terminal } from 'lucide-react';
 import {
@@ -41,11 +41,13 @@ export function ConnectMcp({
   label = 'Connect Video Use',
   compact = false,
   initialClient = 'chatgpt',
+  children,
 }: {
   className?: string;
   label?: string;
   compact?: boolean;
   initialClient?: 'chatgpt' | 'claude' | 'cursor' | 'local';
+  children?: ReactNode;
 }) {
   const [open, setOpen] = useState(false);
   const [client, setClient] = useState<
@@ -101,14 +103,20 @@ export function ConnectMcp({
           setOpen(true);
         }}
         aria-label={
-          compact
-            ? 'Connect Video Use MCP to ChatGPT, Claude, Cursor, or your own agent'
-            : undefined
+          children
+            ? label
+            : compact
+              ? 'Connect Video Use MCP to ChatGPT, Claude, Cursor, or your own agent'
+              : undefined
         }
       >
-        {compact ? <AgentMarks compact /> : <Plug size={15} />}
-        <span>{label}</span>
-        {!compact && <ArrowUpRight size={15} />}
+        {children ?? (
+          <>
+            {compact ? <AgentMarks compact /> : <Plug size={15} />}
+            <span>{label}</span>
+            {!compact && <ArrowUpRight size={15} />}
+          </>
+        )}
       </button>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="connect-dialog">

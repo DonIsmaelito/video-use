@@ -23,18 +23,6 @@
   text-align: center;
 }
 
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 16px;
-  color: var(--accent);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
 .header h2 {
   font-family: var(--font-title);
   font-size: clamp(36px, 3.5vw, 48px);
@@ -43,8 +31,30 @@
   letter-spacing: -0.045em;
 }
 
-.header h2 span {
-  display: block;
+.imessageLine {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.17em;
+  white-space: nowrap;
+}
+
+.messageIcon {
+  display: inline-grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 0.72em;
+  height: 0.72em;
+  margin-left: 0.05em;
+  border-radius: 24%;
+  color: #fff;
+  background: linear-gradient(#68ec7c, #0fbd39);
+  box-shadow: inset 0 1px 0 #ffffff38;
+}
+
+.messageIcon svg {
+  width: 75%;
+  height: 75%;
 }
 
 .header p {
@@ -261,8 +271,8 @@
     line-height: 1.1;
   }
 
-  .header h2 span {
-    display: inline-block;
+  .imessageLine {
+    display: inline-flex;
   }
 
   .header p {

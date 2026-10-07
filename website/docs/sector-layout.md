@@ -25,9 +25,9 @@ The Genjutsu destination consists of an introductory hero, collection tabs, and 
 
 ## Video Use implementation
 
-The homepage has **seven content sectors**: featured workflows, Video Use in iMessage, Video Editing, the MCP connections promotion, Video Creation, the Dots-style MCP promotion, and 3D Animations & Visuals. Including the announcement strip, navigation, and footer gives **ten vertical modules** while the announcement is visible.
+The homepage has **eight content sectors**: featured workflows, agent shortcuts with a blank showcase panel, Video Use in iMessage, Video Editing, the MCP connections promotion, Video Creation, the Dots-style MCP promotion, and 3D Animations & Visuals. Including the announcement strip, navigation, and footer gives **eleven vertical modules** while the announcement is visible.
 
-The three clip sectors each show up to sixteen curated examples, preserve their natural aspect ratios, and end at a finite height. A fade returns the grid to the page background with a centered orange View all action. Any card whose controls fall below the usable preview edge is inert and hidden from assistive technology. The entire catalog remains available on the destination pages.
+The three clip sectors each show up to sixteen curated examples, preserve their natural aspect ratios, and end at a finite height. A fade returns the grid to the page background with a centered white View More action. Any card whose controls fall below the usable preview edge is inert and hidden from assistive technology. The entire catalog remains available on the destination pages.
 
 | Collection | Classification | Initial count | Route |
 | --- | --- | --- | --- |
@@ -40,7 +40,7 @@ Counts derive from `examples.json` through the existing enrichment helpers. The 
 
 `lib/sectors.ts` defines copy, membership and preview selection. The third collection uses the existing `3d` technique, leaving each clip in exactly one collection. `McpDots` adds original SVG characters, a pearl glow, and a fading dot texture between Video Creation and 3D; its CTA opens the existing connection dialog. The earlier connector showcase remains between Editing and Creation. `GallerySector` implements the bounded preview, `CollectionPage` supplies the destination hero and navigation, and `Gallery` reuses filtering, copying, URL state, and `DemoDetail`. `facetOptions` accepts a source collection so filter choices and counts stay relevant. Root example links and old root filter URLs remain supported.
 
-Space Grotesk is hosted locally for headings, hero labels and card titles; Inter remains the interface font. Section titles and actions use Browser Use orange `#fe750e`. Featured card widths remain 512/400/312px with 20px gaps. The masonry grid uses 8px gaps and 16px corners.
+Space Grotesk is hosted locally for headings, hero labels and card titles; Inter remains the interface font. Section titles use Browser Use orange `#fe750e`; primary actions are white. Featured card widths remain 512/400/312px with 20px gaps. The masonry grid uses 8px gaps and 16px corners.
 
 `npm run check` includes exhaustive/disjoint collection coverage, preview membership, scoped search and facets, and the five legacy classifications alongside existing catalog, prompt and importer validation.
 
@@ -87,3 +87,10 @@ The production build, TypeScript/catalog checks, 30 importer tests, lint, format
 
 
 Published automatic looping at https://video-use.insforge.site in deployment `05eb89e9-9804-4a72-8658-85b96c122cd7` from source `ec23407`. Live Chromium and WebKit repeat the complete 1440/390px playback suite, including every visible homepage container, all eight featured clips, all browsing routes, reduced-motion autoplay, normal-interaction recovery and two uninterrupted native loops. Header/MCP checks pass at 1440/390/320px. All six routes return 200 and all 172 current video URLs appear in the published bundle. The Play/Pause preview control is absent. Final receipt: `/tmp/video-use-continuous-previews-20261007/release-summary.json`.
+
+
+## Agent shortcuts and MCP command box
+
+The agent row follows Higgsfield’s large left panel / six compact right cards, visually inspected in Chromium on 2026-10-07. Its left panel is deliberately blank pending a film. The six cards are ChatGPT, Claude, Cursor, OpenClaw, Nous Research’s Hermes, and the user-selected Your agent. The first three open the appropriate existing connection guide; the last three select and scroll to their setup in the lower MCP promotion. That promotion remains after Video Editing and now includes copyable Claude Code, OpenClaw and Hermes commands plus a generic remote MCP URL. Official syntax sources and scope are in `agent-showcase.md`.
+
+The iMessage heading now pairs its name with a green Messages-style icon; the “A conversation away” eyebrow is removed. The Dots banner grows symmetrically between Creation and 3D, with tighter adjacent margins, larger type, artwork and action. Solid white cursor pointers are anchored directly to each sculpture and mirrored on the right.

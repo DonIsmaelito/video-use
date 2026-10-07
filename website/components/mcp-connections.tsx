@@ -1,8 +1,16 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { McpTerminal } from '@/components/mcp-terminal';
+import type { McpSetupClient } from '@/lib/mcp-setup';
 import styles from './mcp-connections.module.css';
 
-export function McpConnections() {
+export function McpConnections({
+  client,
+  onClientChange,
+}: {
+  client: McpSetupClient;
+  onClientChange: (client: McpSetupClient) => void;
+}) {
   return (
     <section
       className={styles.section}
@@ -85,6 +93,7 @@ export function McpConnections() {
       <h2 id="mcp-connections-heading" className={styles.heading}>
         <span>Video Use MCP.</span> Your video studio, inside your agent.
       </h2>
+      <McpTerminal client={client} onClientChange={onClientChange} />
     </section>
   );
 }

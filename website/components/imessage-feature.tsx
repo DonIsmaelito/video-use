@@ -69,12 +69,15 @@ export function ImessageFeature() {
     >
       <div className={styles.composition}>
         <header className={styles.header}>
-          <span className={styles.eyebrow}>
-            <MessageCircle size={15} aria-hidden="true" />
-            A conversation away
-          </span>
           <h2 id="imessage-heading">
-            Video Use <span>in iMessage</span>
+            Video Use{' '}
+            <span className={styles.imessageLine}>
+              in{' '}
+              <span className={styles.messageIcon} aria-hidden="true">
+                <MessageCircle fill="currentColor" strokeWidth={0} />
+              </span>{' '}
+              iMessage
+            </span>
           </h2>
           <p>
             <span>Your footage. Your ideas.</span>{' '}

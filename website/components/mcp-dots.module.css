@@ -1,13 +1,15 @@
 .section {
   max-width: 1920px;
-  margin: 60px auto;
+  margin: 24px auto;
   padding: 0 var(--page-gutter);
 }
 .banner {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  min-height: 400px;
+  display: grid;
+  place-items: center;
+  min-height: clamp(460px, 35vw, 550px);
   border-radius: 24px;
   background: #090a0b;
   box-shadow:
@@ -39,15 +41,15 @@
   position: relative;
   z-index: 2;
   width: fit-content;
-  max-width: 690px;
+  max-width: 850px;
   margin: 0 auto;
-  padding: 58px 16px 64px;
+  padding: 70px 16px;
   text-align: center;
 }
 .content h2 {
   color: #f8f8f7;
   font-family: var(--font-title);
-  font-size: clamp(36px, 4vw, 56px);
+  font-size: clamp(40px, 4.45vw, 68px);
   font-weight: 700;
   line-height: 1.08;
   letter-spacing: -0.055em;
@@ -63,22 +65,22 @@
 .pearl {
   display: inline-flex;
   flex: 0 0 auto;
-  width: 64px;
-  height: 64px;
+  width: 76px;
+  height: 76px;
   margin: -6px 0 -1px;
   transform: rotate(7deg);
 }
 .pearl svg,
-.sculpture svg {
+.sculpture > svg:not(.cursor) {
   width: 100%;
   height: 100%;
   overflow: visible;
 }
 .description {
-  max-width: 340px;
-  margin: 17px auto 0;
+  max-width: 400px;
+  margin: 22px auto 0;
   color: #95989b;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.5;
   text-wrap: balance;
 }
@@ -87,16 +89,16 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  min-height: 48px;
-  margin-top: 28px;
-  padding: 12px 21px;
+  min-height: 54px;
+  margin-top: 32px;
+  padding: 14px 25px;
   border-radius: 12px;
   background: var(--primary);
   box-shadow:
     0 3px 0 #999,
     inset 0 1px 0 #ffffff26;
   color: var(--primary-foreground);
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 600;
   transition:
     background 160ms,
@@ -104,8 +106,8 @@
 }
 .connect::before {
   content: '';
-  width: 21px;
-  height: 21px;
+  width: 24px;
+  height: 24px;
   background: currentColor;
   mask: url('/brand/browser-use.svg') center / contain no-repeat;
 }
@@ -126,76 +128,68 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 136px;
+  width: 164px;
   animation: float 7s ease-in-out infinite;
 }
 .label {
   position: relative;
   z-index: 1;
   border-radius: 999px;
-  padding: 6px 10px;
+  padding: 7px 12px;
   background: #ffffff1c;
   color: #f0f0ef;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   line-height: 1.1;
   white-space: nowrap;
   box-shadow: inset 0 1px 0 #ffffff05;
 }
 .sculpture {
+  position: relative;
   display: block;
-  width: 78px;
-  height: 78px;
-  margin-top: 3px;
+  width: 96px;
+  height: 96px;
+  margin-top: 5px;
 }
 .cursor {
   position: absolute;
-  color: #eee;
-  width: 22px;
-  height: 22px;
-  right: 9px;
-  top: 52px;
-  transform: rotate(80deg);
+  width: 28px;
+  height: 32px;
+  right: -18px;
+  top: 20%;
+  transform: rotate(-12deg);
+  filter: drop-shadow(0 2px 2px #0008);
 }
 .editor {
-  top: 96px;
-  left: 15.5%;
+  top: 64px;
+  left: 10%;
   rotate: -4deg;
 }
 .designer {
-  top: 26px;
-  right: 17%;
+  top: 64px;
+  right: 10%;
   rotate: 4deg;
   animation-delay: -1.5s;
 }
-.designer .cursor {
-  left: 9px;
-  top: 74px;
-  transform: rotate(-25deg);
+.designer .cursor,
+.storyteller .cursor {
+  right: auto;
+  left: -18px;
+  transform: scaleX(-1) rotate(-12deg);
 }
 .artist {
-  bottom: 72px;
-  left: 25%;
+  bottom: 64px;
+  left: 18%;
   flex-direction: column-reverse;
   rotate: 8deg;
   animation-delay: -3s;
 }
-.artist .cursor {
-  right: 13px;
-  top: 5px;
-  transform: rotate(180deg);
-}
 .storyteller {
-  bottom: 80px;
-  right: 20%;
+  bottom: 64px;
+  right: 18%;
   flex-direction: column-reverse;
   rotate: -5deg;
   animation-delay: -4.5s;
-}
-.storyteller .cursor {
-  left: 12px;
-  top: 4px;
-  transform: rotate(0deg);
 }
 @keyframes float {
   0%,
@@ -208,28 +202,28 @@
 }
 @media (max-width: 1280px) {
   .editor {
-    left: 8%;
+    left: 6%;
   }
   .designer {
-    right: 9%;
+    right: 6%;
   }
   .artist {
-    left: 16%;
+    left: 12%;
   }
   .storyteller {
-    right: 14%;
+    right: 12%;
   }
 }
 @media (max-width: 1000px) {
   .content {
-    padding: 42px 16px 0;
+    padding: 48px 16px 0;
   }
   .content h2 {
-    font-size: clamp(28px, 5.6vw, 48px);
+    font-size: clamp(28px, 5.8vw, 54px);
   }
   .pearl {
-    width: 54px;
-    height: 54px;
+    width: 62px;
+    height: 62px;
   }
   .characters {
     position: relative;
@@ -238,7 +232,7 @@
     justify-content: center;
     align-items: center;
     gap: 12px;
-    margin: 36px 20px 32px;
+    margin: 40px 20px 36px;
     padding-bottom: 4px;
   }
   .character {
@@ -250,64 +244,60 @@
   .storyteller {
     flex-direction: column;
   }
-  .artist .cursor,
-  .storyteller .cursor {
-    top: 74px;
-  }
   .label {
-    font-size: 10px;
+    font-size: 11px;
     padding-inline: 8px;
   }
 }
 @media (max-width: 600px) {
   .section {
-    margin-block: 36px;
+    margin-block: 20px;
   }
   .banner {
     border-radius: 20px;
   }
   .content {
-    padding-top: 32px;
+    padding-top: 38px;
   }
   .content h2 {
-    font-size: clamp(25px, 6.6vw, 36px);
+    font-size: clamp(25px, 6.8vw, 38px);
   }
   .titleLine {
     gap: 4px;
   }
   .pearl {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     margin: -3px 0 0;
   }
   .description {
     max-width: 280px;
-    font-size: 13px;
+    font-size: 14px;
     margin-top: 16px;
   }
   .connect {
     margin-top: 22px;
     min-height: 44px;
     padding: 10px 18px;
-    font-size: 13px;
+    font-size: 14px;
   }
   .characters {
     grid-template-columns: repeat(2, 120px);
-    gap: 8px 32px;
+    gap: 12px 32px;
     margin: 24px auto 28px;
     max-width: 290px;
   }
   .sculpture {
-    width: 68px;
-    height: 68px;
+    width: 78px;
+    height: 78px;
   }
   .artist,
   .storyteller {
     flex-direction: column-reverse;
   }
-  .artist .cursor,
-  .storyteller .cursor {
-    top: 2px;
+  .cursor {
+    width: 24px;
+    height: 28px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

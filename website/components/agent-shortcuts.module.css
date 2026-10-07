@@ -1,0 +1,173 @@
+.section {
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 36px var(--page-gutter) 12px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.86fr) minmax(0, 1fr);
+  gap: 20px;
+}
+
+.showcase {
+  min-width: 0;
+  border: 1px solid #292929;
+  border-radius: 18px;
+  background: #151515;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.card,
+.card:global(.connect-button) {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 20px;
+  min-width: 0;
+  min-height: 136px;
+  padding: 16px;
+  border: 1px solid #2d2d2d;
+  border-radius: 15px;
+  color: #f5f5f5;
+  background: #202020;
+  box-shadow: inset 0 0 0 2px #171717;
+  text-align: left;
+  text-decoration: none;
+  transition:
+    background 160ms,
+    border-color 160ms;
+}
+
+.card:hover {
+  border-color: #4d4d4d;
+  background: #292929;
+}
+
+.card:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+}
+
+.icon img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+/* The official OpenAI mark includes clear space around the symbol. */
+.icon img.openai {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  max-width: none;
+  transform: translate(-50%, -50%);
+}
+
+.arrow {
+  color: #737373;
+  transition: color 160ms;
+}
+
+.card:hover .arrow,
+.card:focus-visible .arrow {
+  color: #fff;
+}
+
+.copy {
+  display: grid;
+  flex: 1;
+  align-content: start;
+  gap: 5px;
+}
+
+.name {
+  font-family: var(--font-title);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+}
+
+.description {
+  color: #9b9b9b;
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+@media (max-width: 1100px) {
+  .layout {
+    grid-template-columns: minmax(0, 0.68fr) minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .cards {
+    gap: 10px;
+  }
+
+  .card,
+  .card:global(.connect-button) {
+    padding: 14px;
+  }
+}
+
+@media (max-width: 850px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .showcase {
+    aspect-ratio: 16 / 7;
+  }
+}
+
+@media (max-width: 540px) {
+  .section {
+    padding-top: 26px;
+  }
+
+  .showcase {
+    aspect-ratio: 16 / 9;
+    border-radius: 15px;
+  }
+
+  .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .card,
+  .card:global(.connect-button) {
+    gap: 16px;
+    min-height: 132px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .arrow {
+    transition: none;
+  }
+}

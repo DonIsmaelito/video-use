@@ -45,21 +45,22 @@ export function McpDots() {
               <span className={styles.label}>{character.role}</span>
               <span className={styles.sculpture}>
                 <McpMascot character={character.style} />
+                <svg
+                  className={styles.cursor}
+                  width="28"
+                  height="32"
+                  viewBox="0 0 28 32"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M5 3V25L11 19.5L15.5 29L20 26.8L15.5 17.5L24 17Z"
+                    fill="#fff"
+                    stroke="#151515"
+                    strokeWidth="1.5"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </span>
-              <svg
-                className={styles.cursor}
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <path
-                  d="M4 3L19 10L12 13L9 20L4 3Z"
-                  stroke="currentColor"
-                  strokeWidth="1.4"
-                  strokeLinejoin="round"
-                />
-              </svg>
             </div>
           ))}
         </div>

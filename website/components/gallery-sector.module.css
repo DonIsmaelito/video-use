@@ -5,6 +5,15 @@
   scroll-margin-top: 24px;
 }
 
+/* Let the expanded MCP banner occupy the space between these two collections. */
+.sector:has(+ :global([data-mcp-promo='dots'])) {
+  margin-bottom: 24px;
+}
+
+:global([data-mcp-promo='dots']) + .sector {
+  margin-top: 24px;
+}
+
 .heading {
   display: flex;
   align-items: flex-end;

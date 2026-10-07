@@ -23,6 +23,8 @@ import { DemoDetail } from '@/components/demo-detail';
 import { McpFeature } from '@/components/mcp-feature';
 import { FeaturedFilm } from '@/components/featured-film';
 import { FeaturedCarousel } from '@/components/featured-carousel';
+import { AgentShortcuts } from '@/components/agent-shortcuts';
+import type { McpSetupClient } from '@/lib/mcp-setup';
 import { McpConnections } from '@/components/mcp-connections';
 import { McpDots } from '@/components/mcp-dots';
 import { ImessageFeature } from '@/components/imessage-feature';
@@ -220,6 +222,7 @@ export function Gallery({
   const [message, setMessage] = useState('');
   const [manualCopy, setManualCopy] = useState('');
   const [showFilters, setShowFilters] = useState(false);
+  const [mcpClient, setMcpClient] = useState<McpSetupClient>('claude-code');
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const manualText = useRef<HTMLTextAreaElement>(null);
   const source = useMemo(
@@ -376,12 +379,18 @@ export function Gallery({
           ))}
         </FeaturedCarousel>
       )}
+      {!showLibrary && <AgentShortcuts onSelectAgent={setMcpClient} />}
       {!showLibrary && <ImessageFeature />}
       {!showLibrary && (
         <div id="examples">
           {sectors.map((collection) => (
             <Fragment key={collection.id}>
-              {collection.id === 'video-creation' && <McpConnections />}
+              {collection.id === 'video-creation' && (
+                <McpConnections
+                  client={mcpClient}
+                  onClientChange={setMcpClient}
+                />
+              )}
               {collection.id === '3d-visuals' && <McpDots />}
               <GallerySector
                 sector={collection}

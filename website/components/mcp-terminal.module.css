@@ -1,0 +1,139 @@
+.terminal {
+  position: relative;
+  max-width: 920px;
+  margin: 36px auto 0;
+  overflow: hidden;
+  border: 1px solid #2d2d2d;
+  border-radius: 18px;
+  background: #141414;
+  box-shadow: 0 16px 40px #0003;
+  scroll-margin-top: 100px;
+}
+
+.terminal:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 4px;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 16px 20px;
+  border-bottom: 1px solid #292929;
+}
+
+.title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #c7c7c7;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.title svg {
+  color: #898989;
+}
+
+.clients {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.clients button {
+  padding: 7px 10px;
+  border-radius: 6px;
+  color: #a8a8a8;
+  font-size: 12px;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+.clients button:hover {
+  background: #292929;
+  color: #fff;
+}
+
+.clients button[aria-pressed='true'] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.clients button:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.content {
+  padding: 20px 20px 0;
+}
+
+.instructions {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-top: 14px;
+  color: #a4a4a4;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.instructions p {
+  flex: 1 1 300px;
+}
+
+.instructions a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #d4d4d4;
+  text-decoration: none;
+}
+
+.instructions a:hover {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.access {
+  padding: 14px 20px 18px;
+  color: #858585;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+@media (max-width: 540px) {
+  .terminal {
+    margin-top: 28px;
+  }
+
+  .toolbar {
+    gap: 12px;
+    padding: 16px 12px 12px;
+  }
+
+  .clients {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .clients button {
+    padding: 10px 8px;
+  }
+
+  .content {
+    padding: 12px 12px 0;
+  }
+
+  .access {
+    padding: 14px 12px 16px;
+  }
+}
