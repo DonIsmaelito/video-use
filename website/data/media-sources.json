@@ -262,9 +262,9 @@
     "modelEvidence": "saved run trace",
     "sourceRun": "generated-20260906-bubbles",
     "sourceArtifact": "runs/generated-20260906-bubbles/final.mp4",
-    "promptSource": "exact saved prompt",
+    "promptSource": "Original creative request followed by the user-authorized silent-delivery revision. The encoded picture is preserved without re-encoding.",
     "storage": "Cloudflare R2",
-    "websiteSha256": "669347e6fcf8014291225d5de033ee660f172e3c40f7f5939eb924e877c22103",
+    "websiteSha256": "c18fb83bb5b2f4b189dc53293dc179876487f77d2e713d18c2cf4e4dcbe98505",
     "width": 1920,
     "height": 1080,
     "fullDecodePassed": true,
@@ -274,13 +274,31 @@
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/runs/generated-20260906-bubbles/final.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/generated-20260906-bubbles-c18fb83bb5b2f4b1/final.mp4"
       },
       {
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/explainers/20260915/bubbles-poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0,
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/generated-20260906-bubbles-c18fb83bb5b2f4b1/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/generated-20260906-bubbles-c18fb83bb5b2f4b1/verification.json",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/generated-20260906-bubbles-c18fb83bb5b2f4b1/creative-prompt.txt",
+    "silentDelivery": {
+      "originalVideo": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/runs/generated-20260906-bubbles/final.mp4",
+      "originalMovieSha256": "669347e6fcf8014291225d5de033ee660f172e3c40f7f5939eb924e877c22103",
+      "originalPrompt": "Make a short, beautiful explanation of why soap bubbles have rainbow colors.",
+      "originalReviewUrl": null,
+      "originalSourceArchive": null,
+      "originalSourceArchiveSha256": null,
+      "encodedVideoStreamSha256": "SHA256=8a82537e84b5dd9065593a23a6aff3078130f5184ec7290a45145f0e31ec9014",
+      "removedAudioStreams": 1,
+      "method": "FFmpeg video stream copy with every audio stream omitted",
+      "batch": "silent-fifteen-20261007",
+      "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/generated-20260906-bubbles-c18fb83bb5b2f4b1/verification.json"
+    },
+    "production": "Original gallery film; silent delivery removes all audio with the original encoded video stream preserved"
   },
   {
     "id": "lane-4-617badcfbde9",
@@ -289,9 +307,9 @@
     "modelEvidence": "docs/reference-candidates.md identifies this run as Fable high",
     "sourceRun": "lane-4-617badcfbde9",
     "sourceArtifact": "runs/lane-4-617badcfbde9/preview.mp4",
-    "promptSource": "reusable starter adapted from the delivered explanation; not the exact generating request",
+    "promptSource": "Original creative request followed by the user-authorized silent-delivery revision. The encoded picture is preserved without re-encoding.",
     "storage": "Cloudflare R2",
-    "websiteSha256": "c0a8f2d83ee2acd6cbf82041b71ee361ffcb164f401423e7998f80c1c038e593",
+    "websiteSha256": "5ba3da856fd3a1970459c936a043a618265b47274bc5199a0532e82f128e9b85",
     "width": 1920,
     "height": 1080,
     "fullDecodePassed": true,
@@ -301,13 +319,31 @@
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/runs/lane-4-617badcfbde9/preview.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/lane-4-617badcfbde9-5ba3da856fd3a197/final.mp4"
       },
       {
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/explainers/20260915/jet-poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0,
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/lane-4-617badcfbde9-5ba3da856fd3a197/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/lane-4-617badcfbde9-5ba3da856fd3a197/verification.json",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/lane-4-617badcfbde9-5ba3da856fd3a197/creative-prompt.txt",
+    "silentDelivery": {
+      "originalVideo": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/runs/lane-4-617badcfbde9/preview.mp4",
+      "originalMovieSha256": "c0a8f2d83ee2acd6cbf82041b71ee361ffcb164f401423e7998f80c1c038e593",
+      "originalPrompt": "Explain how a jet engine works using real footage and a continuous cutaway diagram. Show intake, compression, combustion, turbine work, and the faster exhaust that produces thrust.",
+      "originalReviewUrl": null,
+      "originalSourceArchive": null,
+      "originalSourceArchiveSha256": null,
+      "encodedVideoStreamSha256": "SHA256=3d1659ab4584b570961ab0d706d4a6eed9ce842800c5eeff11220341a6adefe1",
+      "removedAudioStreams": 1,
+      "method": "FFmpeg video stream copy with every audio stream omitted",
+      "batch": "silent-fifteen-20261007",
+      "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/lane-4-617badcfbde9-5ba3da856fd3a197/verification.json"
+    },
+    "production": "Original gallery film; silent delivery removes all audio with the original encoded video stream preserved"
   },
   {
     "id": "lane-1-6eca5ba640fc",
@@ -334,7 +370,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/explainers/20260915/gpu-poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "lane-1-1d556a445024",
@@ -343,9 +380,9 @@
     "modelEvidence": "saved Codex protocol identifies this run as Astra",
     "sourceRun": "lane-1-1d556a445024",
     "sourceArtifact": "runs/lane-1-1d556a445024/final.mp4",
-    "promptSource": "reusable starter adapted from the delivered explanation; not the exact generating request",
+    "promptSource": "Original creative request followed by the user-authorized silent-delivery revision. The encoded picture is preserved without re-encoding.",
     "storage": "Cloudflare R2",
-    "websiteSha256": "5fb40000ce6105ae64bf88f8b7a533bb13deecd9ebca2fb581d41904a2b0ee65",
+    "websiteSha256": "caeae5e6723c993688e2b93ae7a725c34578f52bde30ffb5d4d87e40a8ede764",
     "width": 1920,
     "height": 1080,
     "fullDecodePassed": true,
@@ -355,13 +392,31 @@
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/runs/lane-1-1d556a445024/final.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/lane-1-1d556a445024-caeae5e6723c9936/final.mp4"
       },
       {
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/explainers/20260915/diffusion-poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0,
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/lane-1-1d556a445024-caeae5e6723c9936/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/lane-1-1d556a445024-caeae5e6723c9936/verification.json",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/lane-1-1d556a445024-caeae5e6723c9936/creative-prompt.txt",
+    "silentDelivery": {
+      "originalVideo": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/runs/lane-1-1d556a445024/final.mp4",
+      "originalMovieSha256": "5fb40000ce6105ae64bf88f8b7a533bb13deecd9ebca2fb581d41904a2b0ee65",
+      "originalPrompt": "Create a beginner-friendly explainer about diffusion models. Show how adding noise creates training examples, how a network learns a correction, and how repeated denoising generates an image from fresh noise.",
+      "originalReviewUrl": null,
+      "originalSourceArchive": null,
+      "originalSourceArchiveSha256": null,
+      "encodedVideoStreamSha256": "SHA256=93ae39abebf86c3d0727c78306210967f0fdba7f25dd3e5caaa5d9e2895b72ce",
+      "removedAudioStreams": 1,
+      "method": "FFmpeg video stream copy with every audio stream omitted",
+      "batch": "silent-fifteen-20261007",
+      "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/lane-1-1d556a445024-caeae5e6723c9936/verification.json"
+    },
+    "production": "Original gallery film; silent delivery removes all audio with the original encoded video stream preserved"
   },
   {
     "id": "lane-1-ee1aba7e491f",
@@ -370,9 +425,9 @@
     "modelEvidence": "saved Codex protocol identifies this run as Astra",
     "sourceRun": "lane-1-ee1aba7e491f",
     "sourceArtifact": "runs/lane-1-ee1aba7e491f/final.mp4",
-    "promptSource": "reusable starter adapted from the delivered explanation; not the exact generating request",
+    "promptSource": "Original creative request followed by the user-authorized silent-delivery revision. The encoded picture is preserved without re-encoding.",
     "storage": "Cloudflare R2",
-    "websiteSha256": "0372fb1a6fccd80832f1ca67dd0b2817dbc7994d57dbc0708550346156671693",
+    "websiteSha256": "79ee3be3e9d49c4214f4b1efdee134548ba1fdae8e18295886652d2dd0b07b98",
     "width": 1920,
     "height": 1080,
     "fullDecodePassed": true,
@@ -382,13 +437,31 @@
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/runs/lane-1-ee1aba7e491f/final.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/lane-1-ee1aba7e491f-79ee3be3e9d49c42/final.mp4"
       },
       {
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/explainers/20260915/binary-poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0,
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/lane-1-ee1aba7e491f-79ee3be3e9d49c42/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/lane-1-ee1aba7e491f-79ee3be3e9d49c42/verification.json",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/lane-1-ee1aba7e491f-79ee3be3e9d49c42/creative-prompt.txt",
+    "silentDelivery": {
+      "originalVideo": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/runs/lane-1-ee1aba7e491f/final.mp4",
+      "originalMovieSha256": "0372fb1a6fccd80832f1ca67dd0b2817dbc7994d57dbc0708550346156671693",
+      "originalPrompt": "Make a concise narrated explainer of binary search. Show a target being found by repeatedly halving a sorted array, then connect the demonstration to searching one million items in at most twenty comparisons.",
+      "originalReviewUrl": null,
+      "originalSourceArchive": null,
+      "originalSourceArchiveSha256": null,
+      "encodedVideoStreamSha256": "SHA256=6dd713ec3b82bc8df249735072e71ca12677655817de97798ab8b366056bfd60",
+      "removedAudioStreams": 1,
+      "method": "FFmpeg video stream copy with every audio stream omitted",
+      "batch": "silent-fifteen-20261007",
+      "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/lane-1-ee1aba7e491f-79ee3be3e9d49c42/verification.json"
+    },
+    "production": "Original gallery film; silent delivery removes all audio with the original encoded video stream preserved"
   },
   {
     "id": "lane-4-abb5d572651b",
@@ -397,9 +470,9 @@
     "modelEvidence": "docs/reference-candidates.md identifies this run as Fable high",
     "sourceRun": "lane-4-abb5d572651b",
     "sourceArtifact": "runs/lane-4-abb5d572651b/preview.mp4",
-    "promptSource": "reusable starter adapted from the delivered explanation; not the exact generating request",
+    "promptSource": "Original creative request followed by the user-authorized silent-delivery revision. The encoded picture is preserved without re-encoding.",
     "storage": "Cloudflare R2",
-    "websiteSha256": "bb3117e6fa330c2d20e539d5040fdda4412e3cd8547ec6d9694e23cc9705bb22",
+    "websiteSha256": "26dd9370b1dc0a5b709582ccbd75b70d6c296ae7867c35ad9e032ad410078500",
     "width": 1920,
     "height": 1080,
     "fullDecodePassed": true,
@@ -409,13 +482,31 @@
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/runs/lane-4-abb5d572651b/preview.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/lane-4-abb5d572651b-26dd9370b1dc0a5b/final.mp4"
       },
       {
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/explainers/20260915/hash-poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0,
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/lane-4-abb5d572651b-26dd9370b1dc0a5b/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/lane-4-abb5d572651b-26dd9370b1dc0a5b/verification.json",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/lane-4-abb5d572651b-26dd9370b1dc0a5b/creative-prompt.txt",
+    "silentDelivery": {
+      "originalVideo": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/runs/lane-4-abb5d572651b/preview.mp4",
+      "originalMovieSha256": "bb3117e6fa330c2d20e539d5040fdda4412e3cd8547ec6d9694e23cc9705bb22",
+      "originalPrompt": "Explain how a hash map handles collisions with separate chaining. Keep the bucket array visible as two keys land at one index, preserve both entries, then demonstrate a lookup comparing full keys until it finds the right value.",
+      "originalReviewUrl": null,
+      "originalSourceArchive": null,
+      "originalSourceArchiveSha256": null,
+      "encodedVideoStreamSha256": "SHA256=5afcfdb4fdcdfb01b99973b1b4ae2695947f65658f3e218d68779beb3e6d384d",
+      "removedAudioStreams": 1,
+      "method": "FFmpeg video stream copy with every audio stream omitted",
+      "batch": "silent-fifteen-20261007",
+      "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/lane-4-abb5d572651b-26dd9370b1dc0a5b/verification.json"
+    },
+    "production": "Original gallery film; silent delivery removes all audio with the original encoded video stream preserved"
   },
   {
     "id": "cloud-motion-01-make-room",
@@ -446,7 +537,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-01-make-room/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "cloud-motion-02-night-shift",
@@ -477,7 +569,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-02-night-shift/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "cloud-motion-03-paper-current",
@@ -508,7 +601,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-03-paper-current/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "cloud-motion-04-little-weather",
@@ -539,7 +633,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-04-little-weather/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "cloud-motion-05-woven-signal",
@@ -570,7 +665,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-05-woven-signal/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "cloud-motion-06-ink-relay",
@@ -601,7 +697,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-06-ink-relay/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "cloud-motion-07-one-good-day",
@@ -632,7 +729,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-07-one-good-day/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "cloud-motion-08-shape-jazz",
@@ -663,7 +761,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-08-shape-jazz/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "11-rotary-telephone",
@@ -689,7 +788,8 @@
         "bytes": 35269,
         "sha256": "2b55acbecf3b552261a51b41fbb63eb450a65404e202505830b6105cfe8a6579"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "12-glass-staircase",
@@ -715,7 +815,8 @@
         "bytes": 24542,
         "sha256": "ceab7a76ddba67ed73a95be812e15b4ba356180e43330fb397622fbdd33f4c82"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "13-beach-umbrella",
@@ -741,7 +842,8 @@
         "bytes": 19347,
         "sha256": "18d95496d0556f2303c2011bc56b2e0b9c8a7e1067bcd052c6ecbd4da96a85ac"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "14-ink-octopus",
@@ -767,7 +869,8 @@
         "bytes": 29368,
         "sha256": "35435d5f409bfdfde22766844befdce34933f064630d4c394870c261dbdcda25"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "15-color-zipper",
@@ -793,7 +896,8 @@
         "bytes": 60213,
         "sha256": "bcdf0abe775105c0f5fd95107cb504d840da1dc1861f2fbb528d8493cdf0f049"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "01-paper-koi",
@@ -819,7 +923,8 @@
         "bytes": 40267,
         "sha256": "217e15573427dfcf37376d646e602e8b3c3fd090798af7ff691850df3bd58bf7"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "02-jelly-chair",
@@ -845,7 +950,8 @@
         "bytes": 28477,
         "sha256": "2bdc1a54afa8a1a33efb4f656c5b989c322f5828ac3fdde03a695b7c301eb941"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "03-chrome-beetle",
@@ -871,7 +977,8 @@
         "bytes": 38472,
         "sha256": "3aa943597044c143b99a768bde5eeed9f3c7073bf10e51732af575a317de7710"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "04-melt",
@@ -897,7 +1004,8 @@
         "bytes": 37044,
         "sha256": "75074d40d88c55262a1283ab4b22661c07dab3748b6135bef45317a64573c423"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "05-night-bloom",
@@ -949,7 +1057,8 @@
         "bytes": 24971,
         "sha256": "01a821bddb2d981386119af01ad93c959fe15b92be0a278b92126d8d273b7c44"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "07-blood-orange",
@@ -975,7 +1084,8 @@
         "bytes": 50614,
         "sha256": "fedeee7f9ed745cf856c6c4c114f3be6b4be9ba63d5aa42c3e699ee60ca0079e"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "08-toy-planet",
@@ -1001,7 +1111,8 @@
         "bytes": 30678,
         "sha256": "d4455120540d136cd388570eb158bd1053b616331f40e2d4f1654a29af1d9968"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "09-jellyfish",
@@ -1027,7 +1138,8 @@
         "bytes": 36320,
         "sha256": "6fd7bfcb31bac8e06ab079b995dc5f8132f00c9dca00c5cb8e530a9beccbf8c8"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "10-checker-zebra",
@@ -1053,7 +1165,8 @@
         "bytes": 30936,
         "sha256": "318c394a91887803b852b9f46267b1fa8d4012a3816e8afc76dcb84514a24e92"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "optical-assembly",
@@ -1077,7 +1190,8 @@
         "bytes": 35800,
         "sha256": "448f3cdcbace747ebb92384602b4e307724af8939ef6eefeb2d7cabbdf2e7d45"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "02-orbit",
@@ -1101,7 +1215,8 @@
         "bytes": 30798,
         "sha256": "d5621c3865ca03065b3aa5f13e408488592ecbda82166509889239d1cf733dc7"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "04-fold",
@@ -1125,7 +1240,8 @@
         "bytes": 47342,
         "sha256": "e8320ce99fe8aaa0e3495d7503560b1641d48e2961db9aa1c8fb27f9b51cc56e"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "05-flow",
@@ -1149,7 +1265,8 @@
         "bytes": 21061,
         "sha256": "550da21a509a71673aeb6ba2fc01a8f7adede915b121b7dbe5eeec22db035737"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "lane-3-efdc06d815f3",
@@ -1743,7 +1860,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/01-pressure-type-feceba8fa41f/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "local-motion-20260916-02-chromatic-weave",
@@ -1779,7 +1897,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/02-chromatic-weave-a393bfde7e4c/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "local-motion-20260916-03-slice-clock",
@@ -1815,7 +1934,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/03-slice-clock-0cfc967e0ec6/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "local-motion-20260916-04-ink-relay",
@@ -1851,7 +1971,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/04-ink-relay-8ef8e5449def/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "local-motion-20260916-05-elastic-grid",
@@ -1887,7 +2008,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/05-elastic-grid-b6f40de89453/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "local-motion-20260916-06-folded-arrows",
@@ -1923,7 +2045,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/06-folded-arrows-00014fd5a4b1/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "local-motion-20260916-07-typographic-tunnel",
@@ -1959,7 +2082,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/07-typographic-tunnel-9c973a1114e6/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "local-motion-20260916-08-orbit-score",
@@ -1995,7 +2119,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/08-orbit-score-53e87c61adae/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "local-motion-20260916-09-porcelain-bloom",
@@ -2031,7 +2156,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/09-porcelain-bloom-776489881f52/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "local-motion-20260916-10-ribbon-knot",
@@ -2067,7 +2193,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/10-ribbon-knot-4ef8b06d66ac/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "local-motion-20260916-11-magnetic-totem",
@@ -2103,7 +2230,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/11-magnetic-totem-1bdf67cf33df/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "local-motion-20260916-12-glass-tide",
@@ -2139,7 +2267,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/12-glass-tide-db03ccf02fe2/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "local-motion-20260916-13-cam-dance",
@@ -2175,7 +2304,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/13-cam-dance-f7e3b6e291c1/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "local-motion-20260916-14-pleated-sun",
@@ -2211,7 +2341,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/14-pleated-sun-181644098f06/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "local-motion-20260916-15-soft-landing",
@@ -2247,7 +2378,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/15-soft-landing-2ea2afa4aa8a/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "local-motion-20260916-16-orbital-rings",
@@ -2283,7 +2415,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/16-orbital-rings-c20f228cd49c/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "local-motion-20260916-17-night-tram",
@@ -2319,7 +2452,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/17-night-tram-1a152575892c/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "local-motion-20260916-18-lemon-press",
@@ -2355,7 +2489,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/18-lemon-press-c291b57fcc96/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "local-motion-20260916-19-paper-aviary",
@@ -2391,7 +2526,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/19-paper-aviary-cf159da0f07c/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "local-motion-20260916-20-tidal-postcard",
@@ -2427,7 +2563,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/20-tidal-postcard-fcbdfd8fb668/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "local-motion-20260916-21-matchbox-garden",
@@ -2463,7 +2600,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/21-matchbox-garden-8b15047f4c02/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "local-motion-20260916-22-lantern-parade",
@@ -2499,7 +2637,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/22-lantern-parade-e5bd479e7c1f/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "local-motion-20260916-23-tiny-observatory",
@@ -2535,7 +2674,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/23-tiny-observatory-b9b0e05b2fd9/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "local-motion-20260916-24-moon-laundromat",
@@ -2571,7 +2711,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/24-moon-laundromat-8189a3b6f9d8/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "useful-03-lead-routing",
@@ -2605,7 +2746,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-9b5e560c/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "useful-01-launch-approvals",
@@ -2617,29 +2759,43 @@
     "frameworkBranch": "feature/useful-video-library",
     "frameworkCommit": "5cf9d9bc8aff9c38a72bd61b74e8af0bfc464263",
     "frameworkArchiveSha256": "a594fd93961e45ce91c029090194d67f245d4347bdf95a9e2b133641553a9431",
-    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication; silent delivery removes all audio with the original encoded video stream preserved",
     "storage": "Cloudflare R2",
-    "websiteSha256": "86178a46412a09fd413fda793ff67e71871a019895442351382704ef8c380702",
-    "promptSource": "Original Video Use brief and implementation. Story structure inspired by Instavar Remotion Templates (MIT); fictional content and visual direction are new.",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-a39a9c32/source.zip",
-    "editableSourceSha256": "88d074371c8e48c8dbd24d90545f5d55447348d049e1fd0629359712aafb890f",
-    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "websiteSha256": "2e4903a1a67aabff5e4936cfe0daa55ff17db15c45b38b62b067db7adaac0ecb",
+    "promptSource": "Original creative request followed by the user-authorized silent-delivery revision. The encoded picture is preserved without re-encoding.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-01-launch-approvals-2e4903a1a67aabff/source.zip",
+    "editableSourceSha256": "f1c05bd52eb12b76dcda681515179a233410154479969278b45cd17478a55766",
+    "sourceArchiveScope": "Original editable project preserved with a silent export script, delivery prompt and verification record added",
     "cloudProject": "video-use-useful-library-20261003/batch-01/useful-01-launch-approvals/project/edit",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-a39a9c32/review.md",
-    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-a39a9c32/verification.json",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-01-launch-approvals-2e4903a1a67aabff/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-01-launch-approvals-2e4903a1a67aabff/verification.json",
     "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-a39a9c32/storyboard.jpg",
-    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-a39a9c32/creative-prompt.txt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-01-launch-approvals-2e4903a1a67aabff/creative-prompt.txt",
     "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-a39a9c32/provenance.json",
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-a39a9c32/final.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-01-launch-approvals-2e4903a1a67aabff/final.mp4"
       },
       {
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-a39a9c32/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0,
+    "silentDelivery": {
+      "originalVideo": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-a39a9c32/final.mp4",
+      "originalMovieSha256": "86178a46412a09fd413fda793ff67e71871a019895442351382704ef8c380702",
+      "originalPrompt": "Use Video Use to create a 22-second 1920×1080 product launch film for the fictional team app Loopboard. The new feature is one-click approvals. Open on three overlapping feedback threads with the headline “Still waiting for a yes?” At 4 seconds, gather the threads into one crisp approval request. Animate a cursor selecting Approve; the card changes from Pending to Approved and the board advances to Ready to publish. Follow with three tangible benefits—one owner, one decision, one clear next step—shown as part of the working interface, not a bullet slide. End on “Keep good work moving” and the Loopboard wordmark. Use warm ivory, deep navy, electric coral, editorial typography, restrained depth, elegant position changes and short, purposeful push-ins. Give the approved state and final CTA at least 2 seconds to read. Build an original fictional UI. Add quiet custom UI clicks and a light original pulse; no voiceover is necessary. Use Video Use and its current production helpers to create the finished video and editable source. Keep typography large, all content inside safe areas, and camera motion motivated by the message. Review representative rendered frames and the opening and ending before delivery. Use only original geometry, demo interfaces, and licensed assets. All company names and numbers in this example are fictional demonstration content.",
+      "originalReviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-a39a9c32/review.md",
+      "originalSourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-a39a9c32/source.zip",
+      "originalSourceArchiveSha256": "88d074371c8e48c8dbd24d90545f5d55447348d049e1fd0629359712aafb890f",
+      "encodedVideoStreamSha256": "SHA256=b8d636b1a0ca69625f90aa94d6d60ba527d24d9c1c545a5cc12919ca4c9481c2",
+      "removedAudioStreams": 1,
+      "method": "FFmpeg video stream copy with every audio stream omitted",
+      "batch": "silent-fifteen-20261007",
+      "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-01-launch-approvals-2e4903a1a67aabff/verification.json"
+    }
   },
   {
     "id": "useful-02-modular-desk",
@@ -2651,29 +2807,43 @@
     "frameworkBranch": "feature/useful-video-library",
     "frameworkCommit": "5cf9d9bc8aff9c38a72bd61b74e8af0bfc464263",
     "frameworkArchiveSha256": "a594fd93961e45ce91c029090194d67f245d4347bdf95a9e2b133641553a9431",
-    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication; silent delivery removes all audio with the original encoded video stream preserved",
     "storage": "Cloudflare R2",
-    "websiteSha256": "d8c7925327fda638d7b01038493b7678b5ab6683499fcc72c872fccc9d98e379",
-    "promptSource": "Original Video Use brief and 3D scene. Modeling, studio-lighting and isometric-camera ideas inspired by MCP for Blender (MIT); built with Video Use’s selected runtime.",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-615152a4/source.zip",
-    "editableSourceSha256": "c17fbf06b66d0378f5ef57e307f21906e4788e6c9b620c7d20aae27f4f7985b7",
-    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "websiteSha256": "c8ea5159ffce32f34e0a873f999434344ff8d365f8e16edc32329995d33a521a",
+    "promptSource": "Original creative request followed by the user-authorized silent-delivery revision. The encoded picture is preserved without re-encoding.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-02-modular-desk-c8ea5159ffce32f3/source.zip",
+    "editableSourceSha256": "3ea00f744263b10ac58448178e9f594385b23c490a614328b61c529078d55f04",
+    "sourceArchiveScope": "Original editable project preserved with a silent export script, delivery prompt and verification record added",
     "cloudProject": "video-use-useful-library-20261003/batch-01/useful-02-modular-desk/project/edit",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-615152a4/review.md",
-    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-615152a4/verification.json",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-02-modular-desk-c8ea5159ffce32f3/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-02-modular-desk-c8ea5159ffce32f3/verification.json",
     "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-615152a4/storyboard.jpg",
-    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-615152a4/creative-prompt.txt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-02-modular-desk-c8ea5159ffce32f3/creative-prompt.txt",
     "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-615152a4/provenance.json",
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-615152a4/final.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-02-modular-desk-c8ea5159ffce32f3/final.mp4"
       },
       {
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-615152a4/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0,
+    "silentDelivery": {
+      "originalVideo": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-615152a4/final.mp4",
+      "originalMovieSha256": "d8c7925327fda638d7b01038493b7678b5ab6683499fcc72c872fccc9d98e379",
+      "originalPrompt": "Use Video Use to make a 20-second 1920×1080 true 3D product film for Pebble, a fictional modular desktop organizer. Model an original soft-cornered tray, a pen cup and a phone rest from clean primitive geometry. Start with the three modules slightly separated over a warm studio surface; the camera makes a slow three-quarter arc so the real depth and contact shadows are clear. The pieces slide and seat into the tray one at a time. Label the corresponding benefits only when visible: “A place for the small things”, “Your tools within reach”, “A little room to focus”. Finish with the assembled organizer, a restrained 25-degree turn and “Pebble / Make space for your day”. Use matte terracotta, oat and charcoal, a large soft key light, realistic shadows, gentle bevels and quiet tactile sound accents. Keep labels as crisp post-composited type. No fake specifications, impossible joins or aimless orbiting. Hold the finished product for the last 3 seconds. Use Video Use and its current production helpers to create the finished video and editable source. Keep typography large, all content inside safe areas, and camera motion motivated by the message. Review representative rendered frames and the opening and ending before delivery. Use only original geometry, demo interfaces, and licensed assets. All company names and numbers in this example are fictional demonstration content.",
+      "originalReviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-615152a4/review.md",
+      "originalSourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-615152a4/source.zip",
+      "originalSourceArchiveSha256": "c17fbf06b66d0378f5ef57e307f21906e4788e6c9b620c7d20aae27f4f7985b7",
+      "encodedVideoStreamSha256": "SHA256=4821491730b53aa4bcf19324be24776d5f8f79d390560d1bf71f544e6a2970c8",
+      "removedAudioStreams": 1,
+      "method": "FFmpeg video stream copy with every audio stream omitted",
+      "batch": "silent-fifteen-20261007",
+      "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-02-modular-desk-c8ea5159ffce32f3/verification.json"
+    }
   },
   {
     "id": "mcp-launch",
@@ -2741,7 +2911,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-04-monthly-report-1086b0fa60ec-2b1b7c1b/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "useful-07-workshop-invite",
@@ -2753,29 +2924,43 @@
     "frameworkBranch": "feature/useful-video-library",
     "frameworkCommit": "33239f866b4c32a5cbf7b29b00a98c3682a17407",
     "frameworkArchiveSha256": "2bdf037ff6767b3253f47aaceda54278c8807f2acae169198e2cf668c92dde20",
-    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication; silent delivery removes all audio with the original encoded video stream preserved",
     "storage": "Cloudflare R2",
-    "websiteSha256": "1d9e78431ab14ee212b63dd7917f9f137c07681c1ccbd175a1a43608c99fccdf",
-    "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled.",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-07-workshop-invite-1d9e78431ab1-b32da676/source.zip",
-    "editableSourceSha256": "975e48f4ff7d23cb3034850eab451eef9fafe60871e3009233d80beff605ae94",
-    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "websiteSha256": "67731c34a096e221b13244cc03c098acfeb2ae08d59aebfff646ce18df385df8",
+    "promptSource": "Original creative request followed by the user-authorized silent-delivery revision. The encoded picture is preserved without re-encoding.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-07-workshop-invite-67731c34a096e221/source.zip",
+    "editableSourceSha256": "a63b99e40302d679016a789b4d7d8ee0f9fcdc357749b973c405a5be975759b0",
+    "sourceArchiveScope": "Original editable project preserved with a silent export script, delivery prompt and verification record added",
     "cloudProject": "video-use-useful-library-20261003/batch-02/useful-07-workshop-invite/project/edit",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-07-workshop-invite-1d9e78431ab1-b32da676/review.md",
-    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-07-workshop-invite-1d9e78431ab1-b32da676/verification.json",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-07-workshop-invite-67731c34a096e221/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-07-workshop-invite-67731c34a096e221/verification.json",
     "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-07-workshop-invite-1d9e78431ab1-b32da676/storyboard.jpg",
-    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-07-workshop-invite-1d9e78431ab1-b32da676/creative-prompt.txt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-07-workshop-invite-67731c34a096e221/creative-prompt.txt",
     "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-07-workshop-invite-1d9e78431ab1-b32da676/provenance.json",
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-07-workshop-invite-1d9e78431ab1-b32da676/final.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-07-workshop-invite-67731c34a096e221/final.mp4"
       },
       {
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-07-workshop-invite-1d9e78431ab1-b32da676/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0,
+    "silentDelivery": {
+      "originalVideo": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-07-workshop-invite-1d9e78431ab1-b32da676/final.mp4",
+      "originalMovieSha256": "1d9e78431ab14ee212b63dd7917f9f137c07681c1ccbd175a1a43608c99fccdf",
+      "originalPrompt": "Use Video Use to create an 18-second 1080×1920 social invitation for a fictional workshop called “Make Your First Mini Documentary”. Build the story from three original paper-like scene frames: a notebook outline, a simple shot list, and a tidy three-clip edit timeline. The copy is “A story worth telling”, then “Plan it. Shoot it. Shape it.” End with “Mini Documentary Lab / Saturday, 10 AM / Bring your phone”. Use a cobalt blue background, cream serif headlines, lime accent tape and clean sans-serif event details. Let the three scene frames form one editorial collage instead of a stack of generic cards. Keep the important event details on screen for the last 4 seconds. Use original paper rustles or quiet clicks if helpful. Include “Example event” discreetly so the showcase is not mistaken for a real scheduled workshop. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
+      "originalReviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-07-workshop-invite-1d9e78431ab1-b32da676/review.md",
+      "originalSourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-07-workshop-invite-1d9e78431ab1-b32da676/source.zip",
+      "originalSourceArchiveSha256": "975e48f4ff7d23cb3034850eab451eef9fafe60871e3009233d80beff605ae94",
+      "encodedVideoStreamSha256": "SHA256=4263e14e7d896ad2734b9308ddd3d13a7d4db7c7760eca55630bf2ef0affe8c9",
+      "removedAudioStreams": 1,
+      "method": "FFmpeg video stream copy with every audio stream omitted",
+      "batch": "silent-fifteen-20261007",
+      "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-07-workshop-invite-67731c34a096e221/verification.json"
+    }
   },
   {
     "id": "useful-05-screen-tutorial",
@@ -2843,7 +3028,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-06-fractions-lesson-45907805b9b1-70d97f00/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "whiplash-cinematic-story-edit",
@@ -2903,7 +3089,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-08-refill-product-af980ab60445-07f91453/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "useful-10-welcome-flow",
@@ -2915,29 +3102,43 @@
     "frameworkBranch": "feature/useful-video-library",
     "frameworkCommit": "eb577c717f93e11b1e13bda94d4c84ae1eea4c8f",
     "frameworkArchiveSha256": "385016abd05d80dea5b51b4921b9e685b9722a868656648161e3522e1ce7a29b",
-    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication; silent delivery removes all audio with the original encoded video stream preserved",
     "storage": "Cloudflare R2",
-    "websiteSha256": "cad3a8e631a2f557bf4869be926abebe84bdae77c53af1eb14a35d287d55c9e1",
-    "promptSource": "Original Video Use brief and implementation. Story structure inspired by Instavar Remotion Templates (MIT); fictional content and visual direction are new.",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-10-welcome-flow-cad3a8e631a2-0728abba/source.zip",
-    "editableSourceSha256": "060472e67eae20cf1e2645d4af9daa42c2df3db49b1f8f58138d393e392cf9c5",
-    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "websiteSha256": "e6b2502c5ad464057007290557d45a2b26e5b46eb6a661d72c4638409a61b846",
+    "promptSource": "Original creative request followed by the user-authorized silent-delivery revision. The encoded picture is preserved without re-encoding.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-10-welcome-flow-e6b2502c5ad46405/source.zip",
+    "editableSourceSha256": "ff2ba7fcc0861dc1c01e43f8ee1eaf2cc6352c44801d4b5dacf8c4a61bd3e02b",
+    "sourceArchiveScope": "Original editable project preserved with a silent export script, delivery prompt and verification record added",
     "cloudProject": "video-use-useful-library-20261003/batch-03/useful-10-welcome-flow/project/edit",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-10-welcome-flow-cad3a8e631a2-0728abba/review.md",
-    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-10-welcome-flow-cad3a8e631a2-0728abba/verification.json",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-10-welcome-flow-e6b2502c5ad46405/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-10-welcome-flow-e6b2502c5ad46405/verification.json",
     "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-10-welcome-flow-cad3a8e631a2-0728abba/storyboard.jpg",
-    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-10-welcome-flow-cad3a8e631a2-0728abba/creative-prompt.txt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-10-welcome-flow-e6b2502c5ad46405/creative-prompt.txt",
     "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-10-welcome-flow-cad3a8e631a2-0728abba/provenance.json",
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-10-welcome-flow-cad3a8e631a2-0728abba/final.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-10-welcome-flow-e6b2502c5ad46405/final.mp4"
       },
       {
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-10-welcome-flow-cad3a8e631a2-0728abba/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0,
+    "silentDelivery": {
+      "originalVideo": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-10-welcome-flow-cad3a8e631a2-0728abba/final.mp4",
+      "originalMovieSha256": "cad3a8e631a2f557bf4869be926abebe84bdae77c53af1eb14a35d287d55c9e1",
+      "originalPrompt": "Use Video Use to create a 24-second 1920×1080 welcome film for the fictional planning app Trail. The viewer should learn the first three things to do after joining. Start with an empty project titled “Spring launch”. Show a task being created, a teammate assigned, and a due date selected. Keep one continuous workspace on screen and move the camera only enough to read each action. The on-screen instruction copy is “Add the next task”, “Give it an owner”, “Set a clear date”. Finish with the populated board and “Your plan is ready to move”. Design an original clean UI with warm ivory, charcoal and saturated blue. Use the same task throughout so the viewer can follow the change. No floating abstract spheres, feature grids or unrelated promo language. The final completed state should be visible for 3 seconds. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
+      "originalReviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-10-welcome-flow-cad3a8e631a2-0728abba/review.md",
+      "originalSourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-10-welcome-flow-cad3a8e631a2-0728abba/source.zip",
+      "originalSourceArchiveSha256": "060472e67eae20cf1e2645d4af9daa42c2df3db49b1f8f58138d393e392cf9c5",
+      "encodedVideoStreamSha256": "SHA256=871d36a9afcce256fa93559d4570685f3b0bee4e751c361fcc7a99e562db1f32",
+      "removedAudioStreams": 1,
+      "method": "FFmpeg video stream copy with every audio stream omitted",
+      "batch": "silent-fifteen-20261007",
+      "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-10-welcome-flow-e6b2502c5ad46405/verification.json"
+    }
   },
   {
     "id": "useful-11-retry-webhook",
@@ -2971,7 +3172,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-11-retry-webhook-9a2aeef7c61f-03cde557/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "useful-12-research-summary",
@@ -3005,7 +3207,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-12-research-summary-e809aa823b25-003c95a7/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "useful-18-code-fix",
@@ -3039,7 +3242,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-18-code-fix-0bedcda84b7b-34d742d4/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "useful-14-campaign-announcement",
@@ -3073,7 +3277,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-14-campaign-announcement-058d104ad32c-ff37a4e2/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "useful-09-cafe-promo",
@@ -3175,7 +3380,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-15-venue-wayfinding-eafbcd2d30c6-669a86e1/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "useful-16-room-walkthrough",
@@ -3277,7 +3483,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-17-service-packages-881d4c60766b-bb9fda2d/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "useful-19-fulfilment-flow",
@@ -3311,7 +3518,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-19-fulfilment-flow-aedadd6e9844-521c604c/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "useful-26-website-loop",
@@ -3515,7 +3723,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-29-faq-answer-dcdbb9db765c-181c9f6a/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "useful-25-subject-reframe",
@@ -3583,7 +3792,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-28-course-syllabus-23da51757642-797e2ef0/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "useful-30-match-result",
@@ -3595,29 +3805,43 @@
     "frameworkBranch": "feature/useful-video-library",
     "frameworkCommit": "c0d4e8da2eb788225c3283ec85928b7547cb1557",
     "frameworkArchiveSha256": "59f3fdfbea2eabeb1d1e0dec485b88dadf2b7ac457fd03086482005e2bb3cf40",
-    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication; silent delivery removes all audio with the original encoded video stream preserved",
     "storage": "Cloudflare R2",
-    "websiteSha256": "1c1a491cbb1efe9394cb3ae03af61018aa58cc1a66dd0f8c4a578596536d5660",
-    "promptSource": "Original Video Use brief; conceptual workflow inspiration from motion-canvas/motion-canvas. No upstream prompt, implementation, or media copied.",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-30-match-result-1c1a491cbb1e-73385504/source.zip",
-    "editableSourceSha256": "3457bcee81f304b1a45888618625f2287f495f125603813036297790b7de8944",
-    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "websiteSha256": "1535c06734fa1ddc28722a301a21a0e981281a221a253d2fea75137132094e0d",
+    "promptSource": "Original creative request followed by the user-authorized silent-delivery revision. The encoded picture is preserved without re-encoding.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-30-match-result-1535c06734fa1ddc/source.zip",
+    "editableSourceSha256": "cc18c2c3bf4120a9d7db64b9eba0c05fc9515342c217bb1ab705317f52aff78e",
+    "sourceArchiveScope": "Original editable project preserved with a silent export script, delivery prompt and verification record added",
     "cloudProject": "video-use-useful-library-20261003/batch-08/useful-30-match-result/project/edit",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-30-match-result-1c1a491cbb1e-73385504/review.md",
-    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-30-match-result-1c1a491cbb1e-73385504/verification.json",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-30-match-result-1535c06734fa1ddc/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-30-match-result-1535c06734fa1ddc/verification.json",
     "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-30-match-result-1c1a491cbb1e-73385504/storyboard.jpg",
-    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-30-match-result-1c1a491cbb1e-73385504/creative-prompt.txt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-30-match-result-1535c06734fa1ddc/creative-prompt.txt",
     "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-30-match-result-1c1a491cbb1e-73385504/provenance.json",
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-30-match-result-1c1a491cbb1e-73385504/final.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-30-match-result-1535c06734fa1ddc/final.mp4"
       },
       {
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-30-match-result-1c1a491cbb1e-73385504/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0,
+    "silentDelivery": {
+      "originalVideo": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-30-match-result-1c1a491cbb1e-73385504/final.mp4",
+      "originalMovieSha256": "1c1a491cbb1efe9394cb3ae03af61018aa58cc1a66dd0f8c4a578596536d5660",
+      "originalPrompt": "Use Video Use to create a 20-second vertical result graphic for a fictional football match, North FC versus Harbor FC. Use original geometric club marks, never real club badges or player likenesses. Start at 0–0 and progress through these five events in order: North scores at 12 minutes, Harbor at 37, North at 51, Harbor at 69, North at 88. Keep the same central scoreboard throughout, animate only the team that scored, and place the corresponding minute on a compact timeline. The final result must be North 3–2 Harbor. End with Full time / North 3–2 Harbor and a small Illustrative match footer for 3 seconds. Use midnight blue, soft white and one vivid lime accent with restrained sports-broadcast motion. Do not claim this match occurred. Generate any short score accents originally and keep them quiet. Store the event list once and derive totals, minute markers and final copy from it. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+      "originalReviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-30-match-result-1c1a491cbb1e-73385504/review.md",
+      "originalSourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-30-match-result-1c1a491cbb1e-73385504/source.zip",
+      "originalSourceArchiveSha256": "3457bcee81f304b1a45888618625f2287f495f125603813036297790b7de8944",
+      "encodedVideoStreamSha256": "SHA256=e74638ebfc9d627465be2faf312fddf4cb51e4c7425988758fee8368183ff1ea",
+      "removedAudioStreams": 1,
+      "method": "FFmpeg video stream copy with every audio stream omitted",
+      "batch": "silent-fifteen-20261007",
+      "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-30-match-result-1535c06734fa1ddc/verification.json"
+    }
   },
   {
     "id": "useful-27-hiring-post",
@@ -3629,29 +3853,43 @@
     "frameworkBranch": "feature/useful-video-library",
     "frameworkCommit": "c0d4e8da2eb788225c3283ec85928b7547cb1557",
     "frameworkArchiveSha256": "59f3fdfbea2eabeb1d1e0dec485b88dadf2b7ac457fd03086482005e2bb3cf40",
-    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication; silent delivery removes all audio with the original encoded video stream preserved",
     "storage": "Cloudflare R2",
-    "websiteSha256": "243e29316944e9525fdaecde186578fe00386df0b74ac71e759d8f840c4b0f8d",
-    "promptSource": "Original Video Use brief; conceptual workflow inspiration from instavar/remotion-templates. No upstream prompt, implementation, or media copied.",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-27-hiring-post-243e29316944-2f6522de/source.zip",
-    "editableSourceSha256": "170cd02ef4cb9616f1ff40af818b66336712cc3d93eade516198ffee44d79aa9",
-    "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
+    "websiteSha256": "6a1e99b8c9595a707e537c26090a4faae0c37286e4ea63b4a9f1a29964dfa36a",
+    "promptSource": "Original creative request followed by the user-authorized silent-delivery revision. The encoded picture is preserved without re-encoding.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-27-hiring-post-6a1e99b8c9595a70/source.zip",
+    "editableSourceSha256": "86f5786ef28541ba35afbe9795f188c1a08c3d189f393386c7000043abdafcd8",
+    "sourceArchiveScope": "Original editable project preserved with a silent export script, delivery prompt and verification record added",
     "cloudProject": "video-use-useful-library-20261003/batch-08/useful-27-hiring-post/repairs/repair-cta-rule-20261004/project/edit",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-27-hiring-post-243e29316944-2f6522de/review.md",
-    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-27-hiring-post-243e29316944-2f6522de/verification.json",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-27-hiring-post-6a1e99b8c9595a70/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-27-hiring-post-6a1e99b8c9595a70/verification.json",
     "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-27-hiring-post-243e29316944-2f6522de/storyboard.jpg",
-    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-27-hiring-post-243e29316944-2f6522de/creative-prompt.txt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-27-hiring-post-6a1e99b8c9595a70/creative-prompt.txt",
     "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-27-hiring-post-243e29316944-2f6522de/provenance.json",
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-27-hiring-post-243e29316944-2f6522de/final.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-27-hiring-post-6a1e99b8c9595a70/final.mp4"
       },
       {
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-27-hiring-post-243e29316944-2f6522de/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0,
+    "silentDelivery": {
+      "originalVideo": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-27-hiring-post-243e29316944-2f6522de/final.mp4",
+      "originalMovieSha256": "243e29316944e9525fdaecde186578fe00386df0b74ac71e759d8f840c4b0f8d",
+      "originalPrompt": "Use Video Use to create a 20-second 4:5 hiring post for the fictional studio Common Ground. Open with We’re looking for a service designer, using confident editorial type on warm paper with one cobalt rule. Let a simple service-map line connect three concrete role details: Map the journey, Prototype the service, Work with the team. Resolve into a compact role panel reading Service designer / Remote within UK / Full time. End with Explore the role / commonground.example/jobs held for 4 seconds. Keep Example opening visible in a small readable footer throughout so this cannot be mistaken for a real vacancy. Do not invent salary, benefits, applicants, employee portraits or a real application destination. Use meaningful type/layout transitions and an original restrained click rhythm; avoid a generic feature-card grid. Make role, location, work pattern, capabilities and CTA editable in one content file. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+      "originalReviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-27-hiring-post-243e29316944-2f6522de/review.md",
+      "originalSourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-27-hiring-post-243e29316944-2f6522de/source.zip",
+      "originalSourceArchiveSha256": "170cd02ef4cb9616f1ff40af818b66336712cc3d93eade516198ffee44d79aa9",
+      "encodedVideoStreamSha256": "SHA256=275462e0182d5da2be47cc22d72cf128320cf5b413538dfa9f265a0ccb915a0e",
+      "removedAudioStreams": 1,
+      "method": "FFmpeg video stream copy with every audio stream omitted",
+      "batch": "silent-fifteen-20261007",
+      "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-27-hiring-post-6a1e99b8c9595a70/verification.json"
+    }
   },
   {
     "id": "useful-33-binary-search",
@@ -3685,7 +3923,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-33-binary-search-f1d52037f50f-9228c533/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "useful-32-break-even",
@@ -3719,7 +3958,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-32-break-even-75da812e978a-2c2285b6/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "useful-34-cache-expiry",
@@ -3753,7 +3993,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-34-cache-expiry-e5e44379cc31-116b7119/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "useful-31-service-status",
@@ -3787,7 +4028,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-31-service-status-9f210e68cc7b-ec42515f/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "useful-35-water-cycle",
@@ -3821,7 +4063,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-35-water-cycle-25510366e07a-9eb293a9/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "useful-36-support-triage",
@@ -3855,7 +4098,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-36-support-triage-01144968ba94-7f35ccfb/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "useful-37-product-dimensions",
@@ -3889,7 +4133,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-37-product-dimensions-a0575a02c024-6e55ca2e/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "useful-38-filter-replacement",
@@ -3923,7 +4168,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-38-filter-replacement-52ff73607d90-e25304d2/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "useful-39-kit-packing",
@@ -3957,7 +4203,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-39-kit-packing-370a387472dd-278d3398/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "useful-40-gear-ratio",
@@ -3991,7 +4238,8 @@
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-40-gear-ratio-db55403643e8-29d09420/poster.jpg"
       }
-    ]
+    ],
+    "audioStreams": 0
   },
   {
     "id": "screen-demo-fuji-browser-tour",
@@ -6123,30 +6371,44 @@
     "frameworkBranch": "feature/character-effects",
     "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
     "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
-    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication",
+    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication; silent delivery removes all audio with the original encoded video stream preserved",
     "storage": "Cloudflare R2",
-    "websiteSha256": "16fafc68c703da944b4d00a2dff520d833000278664c4da9d6f44e9f38b28800",
-    "promptSource": "Exact creative prompt used to author this original Video Use film. Trend research informed the concept; it is not source footage.",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-87-squish-drop-16fafc68c703-22f8d359/source.zip",
-    "editableSourceSha256": "20a5fa924ed09fead31e70fa62e10e5ff7e0c76a6d6475e54502023108fce8fc",
-    "sourceArchiveScope": "Original editable code and licensed fonts; generated soundtrack is reproducible from its included source; dependency versions and replay instructions included",
+    "websiteSha256": "638e37e22db4c8c94d1266c86126c46bae2c43e8e590b105c400c97065a4d042",
+    "promptSource": "Original creative request followed by the user-authorized silent-delivery revision. The encoded picture is preserved without re-encoding.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-87-squish-drop-638e37e22db4c8c9/source.zip",
+    "editableSourceSha256": "12cc64f154a12564f34a0a814812f65de1996e9bbba90fd7cbf0974f6c8d316b",
+    "sourceArchiveScope": "Original editable project preserved with a silent export script, delivery prompt and verification record added",
     "cloudProject": "video-use-useful-library-20261003/creation-six-20261006/useful-87-squish-drop/repairs/final-v3/project/edit",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-87-squish-drop-16fafc68c703-22f8d359/review.md",
-    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-87-squish-drop-16fafc68c703-22f8d359/verification.json",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-87-squish-drop-638e37e22db4c8c9/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-87-squish-drop-638e37e22db4c8c9/verification.json",
     "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-87-squish-drop-16fafc68c703-22f8d359/storyboard.jpg",
-    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-87-squish-drop-16fafc68c703-22f8d359/creative-prompt.txt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-87-squish-drop-638e37e22db4c8c9/creative-prompt.txt",
     "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-87-squish-drop-16fafc68c703-22f8d359/provenance.json",
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-87-squish-drop-16fafc68c703-22f8d359/final.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-87-squish-drop-638e37e22db4c8c9/final.mp4"
       },
       {
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-87-squish-drop-16fafc68c703-22f8d359/poster.jpg"
       }
     ],
-    "authoringMode": "Host agent authored the exact frozen Video Use prompt; deterministic renderer ran in Modal"
+    "authoringMode": "Host agent authored the exact frozen Video Use prompt; deterministic renderer ran in Modal",
+    "audioStreams": 0,
+    "silentDelivery": {
+      "originalVideo": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-87-squish-drop-16fafc68c703-22f8d359/final.mp4",
+      "originalMovieSha256": "16fafc68c703da944b4d00a2dff520d833000278664c4da9d6f44e9f38b28800",
+      "originalPrompt": "Make a 22-second vertical launch film for SQUISH, a fictional jelly beauty brand. The product is a small translucent pink cosmetic pot with a glossy rounded lid. Build the whole film around a satisfying material transformation: a pink jelly sphere compresses into a puck, stretches into a ribbon, and wraps around the pot as its label. Keep that pink material visibly continuous through the transformation.\n\nOpen in extreme close-up on the compression, so the first image already has tension. Pull back to reveal the pot, cut to one beautiful rim and lid detail, then let the lid settle onto the container with a soft bounce. The final hero should feel like a real campaign: the complete pot centered on a warm butter-yellow surface, its contact shadow grounded, SQUISH in large clean lettering behind it and “jelly, reimagined” below. Give the hero several seconds to register. Use rich translucent highlights, soft studio shadows, restrained typography and deliberate elastic timing. Build original soft percussion and squish-like synthetic accents around the visible contacts. No voiceover, extra products or invented health claims. Deliver 1080×1920 at 30 fps, the complete editable scene, and this exact prompt.",
+      "originalReviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-87-squish-drop-16fafc68c703-22f8d359/review.md",
+      "originalSourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-87-squish-drop-16fafc68c703-22f8d359/source.zip",
+      "originalSourceArchiveSha256": "20a5fa924ed09fead31e70fa62e10e5ff7e0c76a6d6475e54502023108fce8fc",
+      "encodedVideoStreamSha256": "SHA256=977ec7f2965876290a1a5578c3e7df1d005a37753d53ee972971a63742fc902c",
+      "removedAudioStreams": 1,
+      "method": "FFmpeg video stream copy with every audio stream omitted",
+      "batch": "silent-fifteen-20261007",
+      "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-87-squish-drop-638e37e22db4c8c9/verification.json"
+    }
   },
   {
     "id": "useful-88-rewind",
@@ -6158,30 +6420,44 @@
     "frameworkBranch": "feature/character-effects",
     "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
     "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
-    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication",
+    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication; silent delivery removes all audio with the original encoded video stream preserved",
     "storage": "Cloudflare R2",
-    "websiteSha256": "8aab9ba1bf6421eb980d6f1dd56b9c2d28d0f532c0a8d643e3b897141a85aa6f",
-    "promptSource": "Exact creative prompt used to author this original Video Use film. Trend research informed the concept; it is not source footage.",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-88-rewind-8aab9ba1bf64-b97e6b3d/source.zip",
-    "editableSourceSha256": "0c678f4fd355fd499e851ef81bba56a742c4c887fec2556477d43294d40af13c",
-    "sourceArchiveScope": "Original editable code and licensed fonts; generated soundtrack is reproducible from its included source; dependency versions and replay instructions included",
+    "websiteSha256": "4b5fb278895b5bb2f4909b4f472af27bcfa9bf2c3538d6da4ff76c29e962dd4a",
+    "promptSource": "Original creative request followed by the user-authorized silent-delivery revision. The encoded picture is preserved without re-encoding.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-88-rewind-4b5fb278895b5bb2/source.zip",
+    "editableSourceSha256": "4bebf60b1e29dbecda8e0e990c4d6b5f275c2e077c267521994f2192f3b7b029",
+    "sourceArchiveScope": "Original editable project preserved with a silent export script, delivery prompt and verification record added",
     "cloudProject": "video-use-useful-library-20261003/creation-six-20261006/useful-88-rewind/repairs/final-v1/project/edit",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-88-rewind-8aab9ba1bf64-b97e6b3d/review.md",
-    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-88-rewind-8aab9ba1bf64-b97e6b3d/verification.json",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-88-rewind-4b5fb278895b5bb2/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-88-rewind-4b5fb278895b5bb2/verification.json",
     "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-88-rewind-8aab9ba1bf64-b97e6b3d/storyboard.jpg",
-    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-88-rewind-8aab9ba1bf64-b97e6b3d/creative-prompt.txt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-88-rewind-4b5fb278895b5bb2/creative-prompt.txt",
     "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-88-rewind-8aab9ba1bf64-b97e6b3d/provenance.json",
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-88-rewind-8aab9ba1bf64-b97e6b3d/final.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-88-rewind-4b5fb278895b5bb2/final.mp4"
       },
       {
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-88-rewind-8aab9ba1bf64-b97e6b3d/poster.jpg"
       }
     ],
-    "authoringMode": "Host agent authored the exact frozen Video Use prompt; deterministic renderer ran in Modal"
+    "authoringMode": "Host agent authored the exact frozen Video Use prompt; deterministic renderer ran in Modal",
+    "audioStreams": 0,
+    "silentDelivery": {
+      "originalVideo": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-88-rewind-8aab9ba1bf64-b97e6b3d/final.mp4",
+      "originalMovieSha256": "8aab9ba1bf6421eb980d6f1dd56b9c2d28d0f532c0a8d643e3b897141a85aa6f",
+      "originalPrompt": "Create a 22-second original nostalgia film called “2016 Is Calling.” Make it feel like opening a digital time capsule, using a compact silver camera, wired earbuds, a scratched disc and bright graphic memories created specifically for this film. Begin on the camera's screen showing 2026. A rewind button is pressed, the date rolls back to 2016, and the camera lens expands until its circular shape becomes the disc. Carry the disc's circular highlight into a warm illustrated summer sun, then reveal that summer image as a print sliding from a stack of photographs. The earbud cable should connect the objects and eventually draw the word REWIND across the final composition.\n\nUse a designed collage of original illustration, tactile paper edges, crisp device details and selective chrome highlights. Let each shape match carry the viewer into the next image; avoid a random scrapbook slideshow. Alternate two quick transitions with a slower memory hold. Finish on a balanced still-life with the camera, disc and summer print, plus the small line “same feeling, new summer.” Add an original nostalgic electronic groove with camera-click and rewind accents; do not use an existing pop song. Deliver 1920×1080 at 30 fps with editable artwork, animation source and this exact prompt.",
+      "originalReviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-88-rewind-8aab9ba1bf64-b97e6b3d/review.md",
+      "originalSourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-88-rewind-8aab9ba1bf64-b97e6b3d/source.zip",
+      "originalSourceArchiveSha256": "0c678f4fd355fd499e851ef81bba56a742c4c887fec2556477d43294d40af13c",
+      "encodedVideoStreamSha256": "SHA256=872e92cf0d2cfaa3e570634c3343aa2500677e552c953d7abec83e290352a5e3",
+      "removedAudioStreams": 1,
+      "method": "FFmpeg video stream copy with every audio stream omitted",
+      "batch": "silent-fifteen-20261007",
+      "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-88-rewind-4b5fb278895b5bb2/verification.json"
+    }
   },
   {
     "id": "useful-86-ghosted",
@@ -6193,30 +6469,44 @@
     "frameworkBranch": "feature/character-effects",
     "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
     "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
-    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication",
+    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication; silent delivery removes all audio with the original encoded video stream preserved",
     "storage": "Cloudflare R2",
-    "websiteSha256": "a587fc1133d62f9b38ac2dd0c716e67df24d706467e36027b40be696fd86b792",
-    "promptSource": "Exact creative prompt used to author this original Video Use film. Trend research informed the concept; it is not source footage.",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-86-ghosted-a587fc1133d6-69e7b35d/source.zip",
-    "editableSourceSha256": "230e169741b42e53a4127ea6b6e05b93fecdbe78d7bbdb6cfb6915b748036702",
-    "sourceArchiveScope": "Original editable code and licensed fonts; generated soundtrack is reproducible from its included source; dependency versions and replay instructions included",
+    "websiteSha256": "f01fed280a451277bebfbccb0cbf2fb39310be643b23e6c3e085aa7e4c0221ca",
+    "promptSource": "Original creative request followed by the user-authorized silent-delivery revision. The encoded picture is preserved without re-encoding.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-86-ghosted-f01fed280a451277/source.zip",
+    "editableSourceSha256": "e112be21ab31a34af41e85c4a3a5b813b3c2938cfb28a3129762fd13dabe3450",
+    "sourceArchiveScope": "Original editable project preserved with a silent export script, delivery prompt and verification record added",
     "cloudProject": "video-use-useful-library-20261003/creation-six-20261006/useful-86-ghosted/repairs/final-v2/project/edit",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-86-ghosted-a587fc1133d6-69e7b35d/review.md",
-    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-86-ghosted-a587fc1133d6-69e7b35d/verification.json",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-86-ghosted-f01fed280a451277/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-86-ghosted-f01fed280a451277/verification.json",
     "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-86-ghosted-a587fc1133d6-69e7b35d/storyboard.jpg",
-    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-86-ghosted-a587fc1133d6-69e7b35d/creative-prompt.txt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-86-ghosted-f01fed280a451277/creative-prompt.txt",
     "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-86-ghosted-a587fc1133d6-69e7b35d/provenance.json",
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-86-ghosted-a587fc1133d6-69e7b35d/final.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-86-ghosted-f01fed280a451277/final.mp4"
       },
       {
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-86-ghosted-a587fc1133d6-69e7b35d/poster.jpg"
       }
     ],
-    "authoringMode": "Host agent authored the exact frozen Video Use prompt; deterministic renderer ran in Modal"
+    "authoringMode": "Host agent authored the exact frozen Video Use prompt; deterministic renderer ran in Modal",
+    "audioStreams": 0,
+    "silentDelivery": {
+      "originalVideo": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-86-ghosted-a587fc1133d6-69e7b35d/final.mp4",
+      "originalMovieSha256": "a587fc1133d62f9b38ac2dd0c716e67df24d706467e36027b40be696fd86b792",
+      "originalPrompt": "Create an original 24-second vertical Halloween comedy called “Ghosted at the Door.” A little white sheet ghost tries to trick-or-treat at a very modern front door, but the smart doorbell cannot recognize a ghost. Make the ghost expressive through its eyes, posture and cloth silhouette. Establish the doorway, candy slot and ghost clearly, then show the doorbell's deadpan response: “No person detected.” Hold a short disappointed reaction. The ghost spots a cardboard delivery box, pulls it over itself and tries again. This time the display reads “Delivery detected,” the slot opens, and one wrapped candy drops into the box. Finish with the ghost peeking happily out of the box and a restrained GHOSTED title.\n\nGive it a polished animated-short look: midnight-blue porch, warm light through the door, ivory ghost, orange candy and tactile cardboard. Use a few purposeful wide, reaction and detail compositions. Keep the spatial relationships consistent, the action readable, and the joke clear with the sound off. Make the box disguise and candy payoff actual animated actions, not text describing them. Add original understated spooky music and precise bell, box and candy accents. No narration. Deliver 1080×1920 at 30 fps with an editable project and this exact prompt.",
+      "originalReviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-86-ghosted-a587fc1133d6-69e7b35d/review.md",
+      "originalSourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-86-ghosted-a587fc1133d6-69e7b35d/source.zip",
+      "originalSourceArchiveSha256": "230e169741b42e53a4127ea6b6e05b93fecdbe78d7bbdb6cfb6915b748036702",
+      "encodedVideoStreamSha256": "SHA256=e49229f41e2617ceb777a422770c3c2324564717400a4bc0b8526c6e48bde873",
+      "removedAudioStreams": 1,
+      "method": "FFmpeg video stream copy with every audio stream omitted",
+      "batch": "silent-fifteen-20261007",
+      "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-86-ghosted-f01fed280a451277/verification.json"
+    }
   },
   {
     "id": "useful-91-night-court",
@@ -6228,30 +6518,44 @@
     "frameworkBranch": "feature/character-effects",
     "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
     "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
-    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication",
+    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication; silent delivery removes all audio with the original encoded video stream preserved",
     "storage": "Cloudflare R2",
-    "websiteSha256": "8eae9e842dadfed70513e44309396c90ebe6b23dd43dea64a9b26fe5e35dca23",
-    "promptSource": "Exact creative prompt used to author this original Video Use film. Trend research informed the concept; it is not source footage.",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-91-night-court-8eae9e842dad-fa01c1f2/source.zip",
-    "editableSourceSha256": "2941fc893a7c6dbaa7231c1449e7785e76cc9c2c402e2e935acc261a63e76ca8",
-    "sourceArchiveScope": "Original editable code and licensed fonts; generated soundtrack is reproducible from its included source; dependency versions and replay instructions included",
+    "websiteSha256": "adca78f9250ea174ee86d32bfb892361cd39f079fe313d6eae9583b96acfed52",
+    "promptSource": "Original creative request followed by the user-authorized silent-delivery revision. The encoded picture is preserved without re-encoding.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-91-night-court-adca78f9250ea174/source.zip",
+    "editableSourceSha256": "a71353450b94ecf97460b584000cea851b0e4409d868ff4d00a00306fa49799b",
+    "sourceArchiveScope": "Original editable project preserved with a silent export script, delivery prompt and verification record added",
     "cloudProject": "video-use-useful-library-20261003/creation-six-20261006/useful-91-night-court/repairs/final-v1/project/edit",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-91-night-court-8eae9e842dad-fa01c1f2/review.md",
-    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-91-night-court-8eae9e842dad-fa01c1f2/verification.json",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-91-night-court-adca78f9250ea174/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-91-night-court-adca78f9250ea174/verification.json",
     "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-91-night-court-8eae9e842dad-fa01c1f2/storyboard.jpg",
-    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-91-night-court-8eae9e842dad-fa01c1f2/creative-prompt.txt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-91-night-court-adca78f9250ea174/creative-prompt.txt",
     "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-91-night-court-8eae9e842dad-fa01c1f2/provenance.json",
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-91-night-court-8eae9e842dad-fa01c1f2/final.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-91-night-court-adca78f9250ea174/final.mp4"
       },
       {
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-91-night-court-8eae9e842dad-fa01c1f2/poster.jpg"
       }
     ],
-    "authoringMode": "Host agent authored the exact frozen Video Use prompt; deterministic renderer ran in Modal"
+    "authoringMode": "Host agent authored the exact frozen Video Use prompt; deterministic renderer ran in Modal",
+    "audioStreams": 0,
+    "silentDelivery": {
+      "originalVideo": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-91-night-court-8eae9e842dad-fa01c1f2/final.mp4",
+      "originalMovieSha256": "8eae9e842dadfed70513e44309396c90ebe6b23dd43dea64a9b26fe5e35dca23",
+      "originalPrompt": "Create a 24-second original street-basketball event film for a fictional series called NIGHT COURT. Build the animation from the actual visual language of the game: the ball's curved black seams become court lines, one bounce supplies the rhythm, and the net gives the final release. Start close enough to see the orange ball texture, then pull back as it drops onto a midnight-blue court. Follow one readable bounce. Stretch the curved seam into a clean court diagram that folds up into a bold NIGHT COURT poster, with the ball passing in front of the lettering.\n\nUse one brief split composition to show the ball and hoop from complementary views, then reunite them for a single continuous shot of the ball falling through the net. Finish on the settled poster: bold cream typography, acid-yellow court marks and the orange ball, with the small line “the city plays after dark.” Make the typography, court geometry and ball movement work together, with clean masks and balanced compositions. Mix fast graphic transitions with enough time to read the key action. Use an original percussive beat built around synthetic bounce, sneaker-like squeak and net accents. No real team, athlete, league logo, invented score or event date. Deliver 1920×1080 at 30 fps, editable source and this exact prompt.",
+      "originalReviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-91-night-court-8eae9e842dad-fa01c1f2/review.md",
+      "originalSourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-91-night-court-8eae9e842dad-fa01c1f2/source.zip",
+      "originalSourceArchiveSha256": "2941fc893a7c6dbaa7231c1449e7785e76cc9c2c402e2e935acc261a63e76ca8",
+      "encodedVideoStreamSha256": "SHA256=444e9454d57a511a347283d9102b98cf1341933d889d1e47abb608fb0a69907e",
+      "removedAudioStreams": 1,
+      "method": "FFmpeg video stream copy with every audio stream omitted",
+      "batch": "silent-fifteen-20261007",
+      "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-91-night-court-adca78f9250ea174/verification.json"
+    }
   },
   {
     "id": "useful-90-touch-grass",
@@ -6263,29 +6567,583 @@
     "frameworkBranch": "feature/character-effects",
     "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
     "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
-    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication",
+    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication; silent delivery removes all audio with the original encoded video stream preserved",
     "storage": "Cloudflare R2",
-    "websiteSha256": "1d301a105a45942914ed8f07063ff8d7e5b4902a1e7cd1501abe178b3cc23675",
-    "promptSource": "Exact creative prompt used to author this original Video Use film. Trend research informed the concept; it is not source footage.",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-90-touch-grass-1d301a105a45-c6154df4/source.zip",
-    "editableSourceSha256": "fc612412d15c153ca6fdbcadbeb7fc628850a34581915082f4f98edbddeb578e",
-    "sourceArchiveScope": "Original editable code and licensed fonts; generated soundtrack is reproducible from its included source; dependency versions and replay instructions included",
+    "websiteSha256": "8fb5ded0c129128fac7adebcde57c006aba5b7d1af880ce8b3aec2ac1e5c7002",
+    "promptSource": "Original creative request followed by the user-authorized silent-delivery revision. The encoded picture is preserved without re-encoding.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-90-touch-grass-8fb5ded0c129128f/source.zip",
+    "editableSourceSha256": "905c21a760d439dc2a4024edb6961f2efd2d304acd5bb69d6b5004876834798b",
+    "sourceArchiveScope": "Original editable project preserved with a silent export script, delivery prompt and verification record added",
     "cloudProject": "video-use-useful-library-20261003/creation-six-20261006/useful-90-touch-grass/repairs/final-v2/project/edit",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-90-touch-grass-1d301a105a45-c6154df4/review.md",
-    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-90-touch-grass-1d301a105a45-c6154df4/verification.json",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-90-touch-grass-8fb5ded0c129128f/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-90-touch-grass-8fb5ded0c129128f/verification.json",
     "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-90-touch-grass-1d301a105a45-c6154df4/storyboard.jpg",
-    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-90-touch-grass-1d301a105a45-c6154df4/creative-prompt.txt",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-90-touch-grass-8fb5ded0c129128f/creative-prompt.txt",
     "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-90-touch-grass-1d301a105a45-c6154df4/provenance.json",
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-90-touch-grass-1d301a105a45-c6154df4/final.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-90-touch-grass-8fb5ded0c129128f/final.mp4"
       },
       {
         "field": "poster",
         "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-90-touch-grass-1d301a105a45-c6154df4/poster.jpg"
       }
     ],
-    "authoringMode": "Host agent authored the exact frozen Video Use prompt; deterministic renderer ran in Modal"
+    "authoringMode": "Host agent authored the exact frozen Video Use prompt; deterministic renderer ran in Modal",
+    "audioStreams": 0,
+    "silentDelivery": {
+      "originalVideo": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-90-touch-grass-1d301a105a45-c6154df4/final.mp4",
+      "originalMovieSha256": "1d301a105a45942914ed8f07063ff8d7e5b4902a1e7cd1501abe178b3cc23675",
+      "originalPrompt": "Create an original 22-second vertical motion-design film called TOUCH GRASS. A giant cursor is trapped in a clean off-white desktop by an escalating stack of notification windows. Establish the frustration quickly with three readable messages: “One more thing,” “Quick question,” and “Still there?” The cursor pushes against the edge of the top window, tears it open like paper, and discovers a vivid green landscape behind the screen.\n\nMake the transition one continuous physical idea: the torn paper edge opens into the hills, the cursor becomes a small white kite, and its trailing cable unwinds into a loose path through the grass. Let the restless opening give way to one calm, spacious landscape with gently moving blades, an oversized pale sun and the kite actually flying. Finish with large balanced TOUCH GRASS lettering integrated into that landscape and the small line “back in a bit.” Use original editorial illustration, crisp paper geometry and tactile shadows. Create original notification percussion that resolves into a softer musical ending; no narration or existing app logos. Deliver 1080×1920 at 30 fps with editable artwork, animation source and this exact prompt.",
+      "originalReviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-90-touch-grass-1d301a105a45-c6154df4/review.md",
+      "originalSourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-90-touch-grass-1d301a105a45-c6154df4/source.zip",
+      "originalSourceArchiveSha256": "fc612412d15c153ca6fdbcadbeb7fc628850a34581915082f4f98edbddeb578e",
+      "encodedVideoStreamSha256": "SHA256=eb9eb907d404634237436f7de29aa9f29437b2051d6cc857c7c0ddc770272716",
+      "removedAudioStreams": 1,
+      "method": "FFmpeg video stream copy with every audio stream omitted",
+      "batch": "silent-fifteen-20261007",
+      "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-90-touch-grass-8fb5ded0c129128f/verification.json"
+    }
+  },
+  {
+    "id": "useful-96-change-perspective",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "silent-fifteen-20261007",
+    "sourceRun": "useful-96-change-perspective",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "d606c87109adb30e210ca58e7f014bbd84764f28d87d1817cb04c98eb895894e",
+    "promptSource": "Original prompt frozen before authoring",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-96-change-perspective-d606c87109ad-483e0f26/source.zip",
+    "editableSourceSha256": "116ecb7edeed4948f8ccb29ae24d8f9ec96c699b62aea2acffb8c1db4c89b7f2",
+    "sourceArchiveScope": "Original editable code, licensed assets, dependency versions and replay instructions; the final film has no audio stream",
+    "cloudProject": "video-use-useful-library-20261003/silent-fifteen-20261007/useful-96-change-perspective/repairs/final-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-96-change-perspective-d606c87109ad-483e0f26/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-96-change-perspective-d606c87109ad-483e0f26/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-96-change-perspective-d606c87109ad-483e0f26/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-96-change-perspective-d606c87109ad-483e0f26/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-96-change-perspective-d606c87109ad-483e0f26/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-96-change-perspective-d606c87109ad-483e0f26/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-96-change-perspective-d606c87109ad-483e0f26/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host agent authored the exact frozen Video Use prompt; deterministic renderer ran in Modal",
+    "audioStreams": 0
+  },
+  {
+    "id": "useful-94-world-in-page",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "silent-fifteen-20261007",
+    "sourceRun": "useful-94-world-in-page",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "beeffb5aad19ca5fbd2a75d47a46cd2d11676868e846e3685d456889f33d88c6",
+    "promptSource": "Original prompt frozen before authoring",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-94-world-in-page-beeffb5aad19-645f8995/source.zip",
+    "editableSourceSha256": "f7bfd01648e51a7a3bd4964c7e56aa54810dea9e73f11cf8af47d689b4101acf",
+    "sourceArchiveScope": "Original editable code, licensed assets, dependency versions and replay instructions; the final film has no audio stream",
+    "cloudProject": "video-use-useful-library-20261003/silent-fifteen-20261007/useful-94-world-in-page/repairs/final-v3/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-94-world-in-page-beeffb5aad19-645f8995/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-94-world-in-page-beeffb5aad19-645f8995/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-94-world-in-page-beeffb5aad19-645f8995/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-94-world-in-page-beeffb5aad19-645f8995/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-94-world-in-page-beeffb5aad19-645f8995/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-94-world-in-page-beeffb5aad19-645f8995/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-94-world-in-page-beeffb5aad19-645f8995/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host agent authored the exact frozen Video Use prompt; deterministic renderer ran in Modal",
+    "audioStreams": 0
+  },
+  {
+    "id": "useful-93-inside-lens",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "silent-fifteen-20261007",
+    "sourceRun": "useful-93-inside-lens",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "0f24e813a8957e3548a47d01bb2da1befb3ed4256cd41ce53fccd7184b32b1c4",
+    "promptSource": "Original prompt frozen before authoring",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-93-inside-lens-0f24e813a895-4ebf3ec2/source.zip",
+    "editableSourceSha256": "6903f2c21a352a6f5f8e8f1086a27540290f6c4805ac8096614edfc4ef3c517b",
+    "sourceArchiveScope": "Original editable code, licensed assets, dependency versions and replay instructions; the final film has no audio stream",
+    "cloudProject": "video-use-useful-library-20261003/silent-fifteen-20261007/useful-93-inside-lens/repairs/final-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-93-inside-lens-0f24e813a895-4ebf3ec2/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-93-inside-lens-0f24e813a895-4ebf3ec2/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-93-inside-lens-0f24e813a895-4ebf3ec2/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-93-inside-lens-0f24e813a895-4ebf3ec2/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-93-inside-lens-0f24e813a895-4ebf3ec2/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-93-inside-lens-0f24e813a895-4ebf3ec2/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-93-inside-lens-0f24e813a895-4ebf3ec2/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host agent authored the exact frozen Video Use prompt; deterministic renderer ran in Modal",
+    "audioStreams": 0
+  },
+  {
+    "id": "useful-92-type-flight",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "silent-fifteen-20261007",
+    "sourceRun": "useful-92-type-flight",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "55296e6d3914117ec444c07b928cba561d02b477a086267731ae8429423cf93f",
+    "promptSource": "Original prompt frozen before authoring",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-92-type-flight-55296e6d3914-5a489abf/source.zip",
+    "editableSourceSha256": "b3277b85f835762d0086fa917a124e8c2deadb734a421107cbf5238d9f339929",
+    "sourceArchiveScope": "Original editable code, licensed assets, dependency versions and replay instructions; the final film has no audio stream",
+    "cloudProject": "video-use-useful-library-20261003/silent-fifteen-20261007/useful-92-type-flight/repairs/final-v2/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-92-type-flight-55296e6d3914-5a489abf/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-92-type-flight-55296e6d3914-5a489abf/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-92-type-flight-55296e6d3914-5a489abf/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-92-type-flight-55296e6d3914-5a489abf/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-92-type-flight-55296e6d3914-5a489abf/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-92-type-flight-55296e6d3914-5a489abf/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-92-type-flight-55296e6d3914-5a489abf/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host agent authored the exact frozen Video Use prompt; deterministic renderer ran in Modal",
+    "audioStreams": 0
+  },
+  {
+    "id": "useful-95-format-shift",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "silent-fifteen-20261007",
+    "sourceRun": "useful-95-format-shift",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "c37664d4562a31fa4783048a12e7ca377ae4138f6a5600a04165532c04a865c3",
+    "promptSource": "Original prompt frozen before authoring",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-95-format-shift-c37664d4562a-7624beb7/source.zip",
+    "editableSourceSha256": "468e27ed1cf142b98bcc602b2669e123e0d9e390bf7d7b83e74b95826c99ac52",
+    "sourceArchiveScope": "Original editable code, licensed assets, dependency versions and replay instructions; the final film has no audio stream",
+    "cloudProject": "video-use-useful-library-20261003/silent-fifteen-20261007/useful-95-format-shift/repairs/final-v2/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-95-format-shift-c37664d4562a-7624beb7/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-95-format-shift-c37664d4562a-7624beb7/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-95-format-shift-c37664d4562a-7624beb7/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-95-format-shift-c37664d4562a-7624beb7/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-95-format-shift-c37664d4562a-7624beb7/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-95-format-shift-c37664d4562a-7624beb7/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-95-format-shift-c37664d4562a-7624beb7/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host agent authored the exact frozen Video Use prompt; deterministic renderer ran in Modal",
+    "audioStreams": 0
+  },
+  {
+    "id": "useful-103-mecha-assembly",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "silent-fifteen-20261007",
+    "sourceRun": "useful-103-mecha-assembly",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "4d36f488f9d20770aab4fdf1e0759d716da0f091088836ea5c687f256db058b2",
+    "promptSource": "Exact creative prompt used to author this original Video Use film. No franchise artwork or source footage used.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-103-mecha-assembly-4d36f488f9d2-fe708527/source.zip",
+    "editableSourceSha256": "a1667dd3d49cd3334b3f236044c1c20ba30673381fb7fc54da1e9b5ebbeaa14d",
+    "sourceArchiveScope": "Original editable code, licensed assets, dependency versions and replay instructions; the final film has no audio stream",
+    "cloudProject": "video-use-useful-library-20261003/silent-fifteen-20261007/useful-103-mecha-assembly/repairs/final-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-103-mecha-assembly-4d36f488f9d2-fe708527/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-103-mecha-assembly-4d36f488f9d2-fe708527/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-103-mecha-assembly-4d36f488f9d2-fe708527/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-103-mecha-assembly-4d36f488f9d2-fe708527/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-103-mecha-assembly-4d36f488f9d2-fe708527/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-103-mecha-assembly-4d36f488f9d2-fe708527/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-103-mecha-assembly-4d36f488f9d2-fe708527/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host agent authored the exact frozen Video Use prompt; deterministic renderer ran in Modal",
+    "audioStreams": 0
+  },
+  {
+    "id": "useful-97-determinant",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "silent-fifteen-20261007",
+    "sourceRun": "useful-97-determinant",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "78dea41e9bb6bec1052c4666076da466c136b9d66a2febd634beca7d9dc5ddf3",
+    "promptSource": "Original Video Use creative brief",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-97-determinant-78dea41e9bb6-1852c713/source.zip",
+    "editableSourceSha256": "f25d2de30813b66d1da89c02dbc79cc0c16380dc0dfccc2eb206f651769ee8e2",
+    "sourceArchiveScope": "Original editable code, licensed assets, dependency versions and replay instructions; the final film has no audio stream",
+    "cloudProject": "video-use-useful-library-20261003/silent-fifteen-20261007/useful-97-determinant/repairs/final-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-97-determinant-78dea41e9bb6-1852c713/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-97-determinant-78dea41e9bb6-1852c713/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-97-determinant-78dea41e9bb6-1852c713/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-97-determinant-78dea41e9bb6-1852c713/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-97-determinant-78dea41e9bb6-1852c713/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-97-determinant-78dea41e9bb6-1852c713/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-97-determinant-78dea41e9bb6-1852c713/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host agent authored frozen prompt; deterministic Manim renderer ran in Modal",
+    "audioStreams": 0
+  },
+  {
+    "id": "useful-104-spirit-train",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "silent-fifteen-20261007",
+    "sourceRun": "useful-104-spirit-train",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "4867ed9f8eb6bb1b04c9615802a9f3f4de3c1f04258bf642c3c9cfccec0501a5",
+    "promptSource": "Exact creative prompt used to author this original Video Use film. No franchise artwork or source footage used.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-104-spirit-train-4867ed9f8eb6-7a05f8f6/source.zip",
+    "editableSourceSha256": "bf17fda22ee87630ed743d911d45da1d71470d646760ac75941c12abfc6cbbe0",
+    "sourceArchiveScope": "Original editable code, licensed assets, dependency versions and replay instructions; the final film has no audio stream",
+    "cloudProject": "video-use-useful-library-20261003/silent-fifteen-20261007/useful-104-spirit-train/repairs/final-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-104-spirit-train-4867ed9f8eb6-7a05f8f6/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-104-spirit-train-4867ed9f8eb6-7a05f8f6/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-104-spirit-train-4867ed9f8eb6-7a05f8f6/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-104-spirit-train-4867ed9f8eb6-7a05f8f6/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-104-spirit-train-4867ed9f8eb6-7a05f8f6/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-104-spirit-train-4867ed9f8eb6-7a05f8f6/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-104-spirit-train-4867ed9f8eb6-7a05f8f6/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host agent authored the exact frozen Video Use prompt; deterministic renderer ran in Modal",
+    "audioStreams": 0
+  },
+  {
+    "id": "useful-100-attention",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "silent-fifteen-20261007",
+    "sourceRun": "useful-100-attention",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "0d9c613708f653710c47c8c3c4a18070e71e009018f8589b1b81e2e8230952f0",
+    "promptSource": "Original Video Use creative brief",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-100-attention-0d9c613708f6-269fbfe9/source.zip",
+    "editableSourceSha256": "e4917f7a458bf8fef6f6c518949537c6685958c89b0f375c3dcce326ea18e883",
+    "sourceArchiveScope": "Original editable code, licensed assets, dependency versions and replay instructions; the final film has no audio stream",
+    "cloudProject": "video-use-useful-library-20261003/silent-fifteen-20261007/useful-100-attention/repairs/final-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-100-attention-0d9c613708f6-269fbfe9/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-100-attention-0d9c613708f6-269fbfe9/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-100-attention-0d9c613708f6-269fbfe9/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-100-attention-0d9c613708f6-269fbfe9/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-100-attention-0d9c613708f6-269fbfe9/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-100-attention-0d9c613708f6-269fbfe9/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-100-attention-0d9c613708f6-269fbfe9/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host agent authored frozen prompt; deterministic Manim renderer ran in Modal",
+    "audioStreams": 0
+  },
+  {
+    "id": "useful-106-water-dragon",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "silent-fifteen-20261007",
+    "sourceRun": "useful-106-water-dragon",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "70583af41fb9bb5076b6422c8edfae90a83aed8ba0d66c0033745b72a911916a",
+    "promptSource": "Exact creative prompt used to author this original Video Use film. No franchise artwork or source footage used.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-106-water-dragon-70583af41fb9-39f51f9a/source.zip",
+    "editableSourceSha256": "6bd4553012bd03a177437e86435334e486f8d02f0e1929103d618f1ce931f90d",
+    "sourceArchiveScope": "Original editable code, licensed assets, dependency versions and replay instructions; the final film has no audio stream",
+    "cloudProject": "video-use-useful-library-20261003/silent-fifteen-20261007/useful-106-water-dragon/repairs/final-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-106-water-dragon-70583af41fb9-39f51f9a/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-106-water-dragon-70583af41fb9-39f51f9a/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-106-water-dragon-70583af41fb9-39f51f9a/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-106-water-dragon-70583af41fb9-39f51f9a/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-106-water-dragon-70583af41fb9-39f51f9a/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-106-water-dragon-70583af41fb9-39f51f9a/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-106-water-dragon-70583af41fb9-39f51f9a/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host agent authored the exact frozen Video Use prompt; deterministic renderer ran in Modal",
+    "audioStreams": 0
+  },
+  {
+    "id": "useful-98-refraction",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "silent-fifteen-20261007",
+    "sourceRun": "useful-98-refraction",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "75f7ba17f98e06eb93beedd0a620911410274057b758ff0a114fb7f76fc24e2d",
+    "promptSource": "Original Video Use creative brief",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-98-refraction-75f7ba17f98e-d2db5d4f/source.zip",
+    "editableSourceSha256": "5997cb961934f5b161b48403aeccf9b776a058e4934552e43d501ab63f58612b",
+    "sourceArchiveScope": "Original editable code, licensed assets, dependency versions and replay instructions; the final film has no audio stream",
+    "cloudProject": "video-use-useful-library-20261003/silent-fifteen-20261007/useful-98-refraction/repairs/final-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-98-refraction-75f7ba17f98e-d2db5d4f/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-98-refraction-75f7ba17f98e-d2db5d4f/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-98-refraction-75f7ba17f98e-d2db5d4f/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-98-refraction-75f7ba17f98e-d2db5d4f/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-98-refraction-75f7ba17f98e-d2db5d4f/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-98-refraction-75f7ba17f98e-d2db5d4f/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-98-refraction-75f7ba17f98e-d2db5d4f/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host agent authored frozen prompt; deterministic Manim renderer ran in Modal",
+    "audioStreams": 0
+  },
+  {
+    "id": "useful-102-rooftop-courier",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "silent-fifteen-20261007",
+    "sourceRun": "useful-102-rooftop-courier",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "af1b9bddc999c612c2e45d6976814a5b50e9d3c6d445fdd19744a814ccd0170a",
+    "promptSource": "Exact creative prompt used to author this original Video Use film. No franchise artwork or source footage used.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-102-rooftop-courier-af1b9bddc999-72da295b/source.zip",
+    "editableSourceSha256": "378bbabd5798e16af53a4a034d9dd319bd1ff364ad1988b06549613627cdae35",
+    "sourceArchiveScope": "Original editable code, licensed assets, dependency versions and replay instructions; the final film has no audio stream",
+    "cloudProject": "video-use-useful-library-20261003/silent-fifteen-20261007/useful-102-rooftop-courier/repairs/final-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-102-rooftop-courier-af1b9bddc999-72da295b/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-102-rooftop-courier-af1b9bddc999-72da295b/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-102-rooftop-courier-af1b9bddc999-72da295b/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-102-rooftop-courier-af1b9bddc999-72da295b/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-102-rooftop-courier-af1b9bddc999-72da295b/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-102-rooftop-courier-af1b9bddc999-72da295b/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-102-rooftop-courier-af1b9bddc999-72da295b/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host agent authored the exact frozen Video Use prompt; deterministic renderer ran in Modal",
+    "audioStreams": 0
+  },
+  {
+    "id": "useful-101-gradient-descent",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "silent-fifteen-20261007",
+    "sourceRun": "useful-101-gradient-descent",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "6559081d2322571b24f6baeb85f41342eb9578ce96573a9adbfdc2d431cd6828",
+    "promptSource": "Original Video Use creative brief",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-101-gradient-descent-6559081d2322-ec02f759/source.zip",
+    "editableSourceSha256": "7c714f8e28451ee91d8290fb269cb2b8119b56ee27025e976d0ff793b4bcb902",
+    "sourceArchiveScope": "Original editable code, licensed assets, dependency versions and replay instructions; the final film has no audio stream",
+    "cloudProject": "video-use-useful-library-20261003/silent-fifteen-20261007/useful-101-gradient-descent/repairs/final-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-101-gradient-descent-6559081d2322-ec02f759/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-101-gradient-descent-6559081d2322-ec02f759/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-101-gradient-descent-6559081d2322-ec02f759/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-101-gradient-descent-6559081d2322-ec02f759/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-101-gradient-descent-6559081d2322-ec02f759/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-101-gradient-descent-6559081d2322-ec02f759/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-101-gradient-descent-6559081d2322-ec02f759/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host agent authored frozen prompt; deterministic Manim renderer ran in Modal",
+    "audioStreams": 0
+  },
+  {
+    "id": "useful-105-sword-dojo",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "silent-fifteen-20261007",
+    "sourceRun": "useful-105-sword-dojo",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "2fb6e4de139712726d38697ae4acc4c1d045cf31e55a7f88a0c892d1b911465b",
+    "promptSource": "Exact creative prompt used to author this original Video Use film. No franchise artwork or source footage used.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-105-sword-dojo-2fb6e4de1397-735ceb89/source.zip",
+    "editableSourceSha256": "9b0a74dfbe41e3cdeef62943b76a7e97ae442d1b7e58be3dd033a22a9da81dd8",
+    "sourceArchiveScope": "Original editable code, licensed assets, dependency versions and replay instructions; the final film has no audio stream",
+    "cloudProject": "video-use-useful-library-20261003/silent-fifteen-20261007/useful-105-sword-dojo/repairs/final-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-105-sword-dojo-2fb6e4de1397-735ceb89/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-105-sword-dojo-2fb6e4de1397-735ceb89/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-105-sword-dojo-2fb6e4de1397-735ceb89/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-105-sword-dojo-2fb6e4de1397-735ceb89/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-105-sword-dojo-2fb6e4de1397-735ceb89/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-105-sword-dojo-2fb6e4de1397-735ceb89/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-105-sword-dojo-2fb6e4de1397-735ceb89/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host agent authored the exact frozen Video Use prompt; deterministic renderer ran in Modal",
+    "audioStreams": 0
+  },
+  {
+    "id": "useful-99-angular-momentum",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "silent-fifteen-20261007",
+    "sourceRun": "useful-99-angular-momentum",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "906e31bcc7e38af13ef07f4f565af70cd26557343851e40cb4be1ecae57d0281",
+    "promptSource": "Original Video Use creative brief",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-99-angular-momentum-906e31bcc7e3-35760a74/source.zip",
+    "editableSourceSha256": "ffe92e00bb0afdb0056a926bc81e0cf92d53a74c2780f34640b99ec6627efff3",
+    "sourceArchiveScope": "Original editable code, licensed assets, dependency versions and replay instructions; the final film has no audio stream",
+    "cloudProject": "video-use-useful-library-20261003/silent-fifteen-20261007/useful-99-angular-momentum/repairs/final-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-99-angular-momentum-906e31bcc7e3-35760a74/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-99-angular-momentum-906e31bcc7e3-35760a74/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-99-angular-momentum-906e31bcc7e3-35760a74/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-99-angular-momentum-906e31bcc7e3-35760a74/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-99-angular-momentum-906e31bcc7e3-35760a74/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-99-angular-momentum-906e31bcc7e3-35760a74/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-99-angular-momentum-906e31bcc7e3-35760a74/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host agent authored frozen prompt; deterministic Manim renderer ran in Modal",
+    "audioStreams": 0
   }
 ]

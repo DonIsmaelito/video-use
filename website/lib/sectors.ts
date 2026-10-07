@@ -28,7 +28,7 @@ export const sectors = [
     href: '/3d-visuals',
     description: 'Give your ideas a little more dimension.',
     context:
-      'Explore playful objects, tactile materials, product animations, and impossible little worlds. Find a visual you love and make it move your way.',
+      'Explore visual lessons in math, physics, and AI, original animated scenes, and dimensional product films. Find a visual you love and make it move your way.',
     action: 'View all 3D visuals',
   },
 ] as const;
@@ -73,6 +73,11 @@ const previewIds: Record<SectorId, string[]> = {
     'useful-61-druski-entrance',
   ],
   'video-creation': [
+    'useful-96-change-perspective',
+    'useful-94-world-in-page',
+    'useful-93-inside-lens',
+    'useful-92-type-flight',
+    'useful-95-format-shift',
     'useful-87-squish-drop',
     'useful-88-rewind',
     'useful-86-ghosted',
@@ -94,6 +99,16 @@ const previewIds: Record<SectorId, string[]> = {
     'cloud-motion-07-one-good-day',
   ],
   '3d-visuals': [
+    'useful-103-mecha-assembly',
+    'useful-97-determinant',
+    'useful-104-spirit-train',
+    'useful-100-attention',
+    'useful-106-water-dragon',
+    'useful-98-refraction',
+    'useful-102-rooftop-courier',
+    'useful-101-gradient-descent',
+    'useful-105-sword-dojo',
+    'useful-99-angular-momentum',
     '11-rotary-telephone',
     'useful-08-refill-product',
     'local-motion-20260916-10-ribbon-knot',

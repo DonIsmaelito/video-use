@@ -353,6 +353,10 @@ for (const example of examples) {
   assert.ok(['Original prompt', 'Starter prompt'].includes(example.promptKind));
   assert.ok(Number.isFinite(example.duration) && example.duration > 0);
   assert.ok(
+    ['portrait', 'landscape', 'square'].includes(example.orientation),
+    `${example.id} must use a canonical orientation for correct framing`,
+  );
+  assert.ok(
     example.loop === undefined || typeof example.loop === 'boolean',
     'Optional full-player loop metadata must be a boolean',
   );

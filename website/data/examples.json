@@ -435,7 +435,7 @@
     "title": "Loopboard Approvals",
     "category": "Motion Design",
     "description": "Turn a feature announcement into a short product story with a clear before and after.",
-    "prompt": "Use Video Use to create a 22-second 1920×1080 product launch film for the fictional team app Loopboard. The new feature is one-click approvals. Open on three overlapping feedback threads with the headline “Still waiting for a yes?” At 4 seconds, gather the threads into one crisp approval request. Animate a cursor selecting Approve; the card changes from Pending to Approved and the board advances to Ready to publish. Follow with three tangible benefits—one owner, one decision, one clear next step—shown as part of the working interface, not a bullet slide. End on “Keep good work moving” and the Loopboard wordmark. Use warm ivory, deep navy, electric coral, editorial typography, restrained depth, elegant position changes and short, purposeful push-ins. Give the approved state and final CTA at least 2 seconds to read. Build an original fictional UI. Add quiet custom UI clicks and a light original pulse; no voiceover is necessary. Use Video Use and its current production helpers to create the finished video and editable source. Keep typography large, all content inside safe areas, and camera motion motivated by the message. Review representative rendered frames and the opening and ending before delivery. Use only original geometry, demo interfaces, and licensed assets. All company names and numbers in this example are fictional demonstration content.",
+    "prompt": "Use Video Use to create a 22-second 1920×1080 product launch film for the fictional team app Loopboard. The new feature is one-click approvals. Open on three overlapping feedback threads with the headline “Still waiting for a yes?” At 4 seconds, gather the threads into one crisp approval request. Animate a cursor selecting Approve; the card changes from Pending to Approved and the board advances to Ready to publish. Follow with three tangible benefits—one owner, one decision, one clear next step—shown as part of the working interface, not a bullet slide. End on “Keep good work moving” and the Loopboard wordmark. Use warm ivory, deep navy, electric coral, editorial typography, restrained depth, elegant position changes and short, purposeful push-ins. Give the approved state and final CTA at least 2 seconds to read. Build an original fictional UI. Add quiet custom UI clicks and a light original pulse; no voiceover is necessary. Use Video Use and its current production helpers to create the finished video and editable source. Keep typography large, all content inside safe areas, and camera motion motivated by the message. Review representative rendered frames and the opening and ending before delivery. Use only original geometry, demo interfaces, and licensed assets. All company names and numbers in this example are fictional demonstration content.\n\nFinal delivery: Export this version completely silent. Remove every audio stream from the finished movie. Do not include music, speech, sound effects, noise, or an empty audio track. Preserve all picture frames, visual timing, dimensions, and frame rate.",
     "duration": 22,
     "promptKind": "Original prompt",
     "orientation": "landscape",
@@ -443,18 +443,20 @@
     "useCases": ["Product launches", "Feature announcements"],
     "technique": "motion-design",
     "sourceRepo": "https://github.com/instavar/remotion-templates",
-    "promptSource": "Original Video Use brief and implementation. Story structure inspired by Instavar Remotion Templates (MIT); fictional content and visual direction are new.",
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-a39a9c32/final.mp4",
+    "promptSource": "Original creative request followed by the user-authorized silent-delivery revision. The encoded picture is preserved without re-encoding.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-01-launch-approvals-2e4903a1a67aabff/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-a39a9c32/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-a39a9c32/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-01-launch-approvals-86178a46412a-a39a9c32/review.md"
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-01-launch-approvals-2e4903a1a67aabff/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-01-launch-approvals-2e4903a1a67aabff/review.md",
+    "muted": true,
+    "promptMode": "exact"
   },
   {
     "id": "useful-02-modular-desk",
     "title": "Desk Organizer",
     "category": "Motion Design",
     "description": "A 3D assembly film turns an everyday product’s parts into its main selling point.",
-    "prompt": "Use Video Use to make a 20-second 1920×1080 true 3D product film for Pebble, a fictional modular desktop organizer. Model an original soft-cornered tray, a pen cup and a phone rest from clean primitive geometry. Start with the three modules slightly separated over a warm studio surface; the camera makes a slow three-quarter arc so the real depth and contact shadows are clear. The pieces slide and seat into the tray one at a time. Label the corresponding benefits only when visible: “A place for the small things”, “Your tools within reach”, “A little room to focus”. Finish with the assembled organizer, a restrained 25-degree turn and “Pebble / Make space for your day”. Use matte terracotta, oat and charcoal, a large soft key light, realistic shadows, gentle bevels and quiet tactile sound accents. Keep labels as crisp post-composited type. No fake specifications, impossible joins or aimless orbiting. Hold the finished product for the last 3 seconds. Use Video Use and its current production helpers to create the finished video and editable source. Keep typography large, all content inside safe areas, and camera motion motivated by the message. Review representative rendered frames and the opening and ending before delivery. Use only original geometry, demo interfaces, and licensed assets. All company names and numbers in this example are fictional demonstration content.",
+    "prompt": "Use Video Use to make a 20-second 1920×1080 true 3D product film for Pebble, a fictional modular desktop organizer. Model an original soft-cornered tray, a pen cup and a phone rest from clean primitive geometry. Start with the three modules slightly separated over a warm studio surface; the camera makes a slow three-quarter arc so the real depth and contact shadows are clear. The pieces slide and seat into the tray one at a time. Label the corresponding benefits only when visible: “A place for the small things”, “Your tools within reach”, “A little room to focus”. Finish with the assembled organizer, a restrained 25-degree turn and “Pebble / Make space for your day”. Use matte terracotta, oat and charcoal, a large soft key light, realistic shadows, gentle bevels and quiet tactile sound accents. Keep labels as crisp post-composited type. No fake specifications, impossible joins or aimless orbiting. Hold the finished product for the last 3 seconds. Use Video Use and its current production helpers to create the finished video and editable source. Keep typography large, all content inside safe areas, and camera motion motivated by the message. Review representative rendered frames and the opening and ending before delivery. Use only original geometry, demo interfaces, and licensed assets. All company names and numbers in this example are fictional demonstration content.\n\nFinal delivery: Export this version completely silent. Remove every audio stream from the finished movie. Do not include music, speech, sound effects, noise, or an empty audio track. Preserve all picture frames, visual timing, dimensions, and frame rate.",
     "duration": 20,
     "promptKind": "Original prompt",
     "orientation": "landscape",
@@ -462,11 +464,13 @@
     "useCases": ["Product launches", "Ecommerce", "Product explainers"],
     "technique": "3d",
     "sourceRepo": "https://github.com/ahujasid/mcp-for-blender",
-    "promptSource": "Original Video Use brief and 3D scene. Modeling, studio-lighting and isometric-camera ideas inspired by MCP for Blender (MIT); built with Video Use’s selected runtime.",
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-615152a4/final.mp4",
+    "promptSource": "Original creative request followed by the user-authorized silent-delivery revision. The encoded picture is preserved without re-encoding.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-02-modular-desk-c8ea5159ffce32f3/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-615152a4/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-615152a4/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-02-modular-desk-d8c7925327fd-615152a4/review.md"
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-02-modular-desk-c8ea5159ffce32f3/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-02-modular-desk-c8ea5159ffce32f3/review.md",
+    "muted": true,
+    "promptMode": "exact"
   },
   {
     "id": "useful-03-lead-routing",
@@ -485,7 +489,8 @@
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-9b5e560c/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-9b5e560c/poster.jpg",
     "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-9b5e560c/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-9b5e560c/review.md"
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-03-lead-routing-a03dfab79c39-9b5e560c/review.md",
+    "muted": true
   },
   {
     "id": "useful-04-monthly-report",
@@ -504,7 +509,8 @@
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-04-monthly-report-1086b0fa60ec-2b1b7c1b/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-04-monthly-report-1086b0fa60ec-2b1b7c1b/poster.jpg",
     "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-04-monthly-report-1086b0fa60ec-2b1b7c1b/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-04-monthly-report-1086b0fa60ec-2b1b7c1b/review.md"
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-04-monthly-report-1086b0fa60ec-2b1b7c1b/review.md",
+    "muted": true
   },
   {
     "id": "useful-05-screen-tutorial",
@@ -542,14 +548,15 @@
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-06-fractions-lesson-45907805b9b1-70d97f00/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-06-fractions-lesson-45907805b9b1-70d97f00/poster.jpg",
     "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-06-fractions-lesson-45907805b9b1-70d97f00/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-06-fractions-lesson-45907805b9b1-70d97f00/review.md"
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-06-fractions-lesson-45907805b9b1-70d97f00/review.md",
+    "muted": true
   },
   {
     "id": "useful-07-workshop-invite",
     "title": "Documentary Lab",
     "category": "Motion Design",
     "description": "Make a mobile-first event announcement with a useful promise and a readable invitation.",
-    "prompt": "Use Video Use to create an 18-second 1080×1920 social invitation for a fictional workshop called “Make Your First Mini Documentary”. Build the story from three original paper-like scene frames: a notebook outline, a simple shot list, and a tidy three-clip edit timeline. The copy is “A story worth telling”, then “Plan it. Shoot it. Shape it.” End with “Mini Documentary Lab / Saturday, 10 AM / Bring your phone”. Use a cobalt blue background, cream serif headlines, lime accent tape and clean sans-serif event details. Let the three scene frames form one editorial collage instead of a stack of generic cards. Keep the important event details on screen for the last 4 seconds. Use original paper rustles or quiet clicks if helpful. Include “Example event” discreetly so the showcase is not mistaken for a real scheduled workshop. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
+    "prompt": "Use Video Use to create an 18-second 1080×1920 social invitation for a fictional workshop called “Make Your First Mini Documentary”. Build the story from three original paper-like scene frames: a notebook outline, a simple shot list, and a tidy three-clip edit timeline. The copy is “A story worth telling”, then “Plan it. Shoot it. Shape it.” End with “Mini Documentary Lab / Saturday, 10 AM / Bring your phone”. Use a cobalt blue background, cream serif headlines, lime accent tape and clean sans-serif event details. Let the three scene frames form one editorial collage instead of a stack of generic cards. Keep the important event details on screen for the last 4 seconds. Use original paper rustles or quiet clicks if helpful. Include “Example event” discreetly so the showcase is not mistaken for a real scheduled workshop. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.\n\nFinal delivery: Export this version completely silent. Remove every audio stream from the finished movie. Do not include music, speech, sound effects, noise, or an empty audio track. Preserve all picture frames, visual timing, dimensions, and frame rate.",
     "duration": 18,
     "promptKind": "Original prompt",
     "orientation": "portrait",
@@ -557,11 +564,13 @@
     "useCases": ["Event promotion", "Social content", "Courses"],
     "technique": "motion-design",
     "sourceRepo": "https://github.com/veedstudio/open-edit",
-    "promptSource": "Original Video Use brief and implementation. Editing/creation workflow inspiration: OpenEdit (Apache-2.0). No OpenEdit prompt or code is bundled.",
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-07-workshop-invite-1d9e78431ab1-b32da676/final.mp4",
+    "promptSource": "Original creative request followed by the user-authorized silent-delivery revision. The encoded picture is preserved without re-encoding.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-07-workshop-invite-67731c34a096e221/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-07-workshop-invite-1d9e78431ab1-b32da676/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-07-workshop-invite-1d9e78431ab1-b32da676/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-07-workshop-invite-1d9e78431ab1-b32da676/review.md"
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-07-workshop-invite-67731c34a096e221/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-07-workshop-invite-67731c34a096e221/review.md",
+    "muted": true,
+    "promptMode": "exact"
   },
   {
     "id": "useful-08-refill-product",
@@ -580,7 +589,8 @@
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-08-refill-product-af980ab60445-07f91453/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-08-refill-product-af980ab60445-07f91453/poster.jpg",
     "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-08-refill-product-af980ab60445-07f91453/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-08-refill-product-af980ab60445-07f91453/review.md"
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-08-refill-product-af980ab60445-07f91453/review.md",
+    "muted": true
   },
   {
     "id": "useful-09-cafe-promo",
@@ -606,7 +616,7 @@
     "title": "Trail Onboarding",
     "category": "Motion Design",
     "description": "Guide a new customer from an empty workspace to their first useful result.",
-    "prompt": "Use Video Use to create a 24-second 1920×1080 welcome film for the fictional planning app Trail. The viewer should learn the first three things to do after joining. Start with an empty project titled “Spring launch”. Show a task being created, a teammate assigned, and a due date selected. Keep one continuous workspace on screen and move the camera only enough to read each action. The on-screen instruction copy is “Add the next task”, “Give it an owner”, “Set a clear date”. Finish with the populated board and “Your plan is ready to move”. Design an original clean UI with warm ivory, charcoal and saturated blue. Use the same task throughout so the viewer can follow the change. No floating abstract spheres, feature grids or unrelated promo language. The final completed state should be visible for 3 seconds. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.",
+    "prompt": "Use Video Use to create a 24-second 1920×1080 welcome film for the fictional planning app Trail. The viewer should learn the first three things to do after joining. Start with an empty project titled “Spring launch”. Show a task being created, a teammate assigned, and a due date selected. Keep one continuous workspace on screen and move the camera only enough to read each action. The on-screen instruction copy is “Add the next task”, “Give it an owner”, “Set a clear date”. Finish with the populated board and “Your plan is ready to move”. Design an original clean UI with warm ivory, charcoal and saturated blue. Use the same task throughout so the viewer can follow the change. No floating abstract spheres, feature grids or unrelated promo language. The final completed state should be visible for 3 seconds. Produce the finished MP 4 and editable source with the current Video Use workflow. Review rendered frames for typography, safe areas, unintended intersections and a readable final frame. Build original assets unless a licensed source is specified; use only licensed or original audio. The copy and product names in this brief are fictional demonstration content.\n\nFinal delivery: Export this version completely silent. Remove every audio stream from the finished movie. Do not include music, speech, sound effects, noise, or an empty audio track. Preserve all picture frames, visual timing, dimensions, and frame rate.",
     "duration": 24,
     "promptKind": "Original prompt",
     "orientation": "landscape",
@@ -614,11 +624,13 @@
     "useCases": ["Onboarding", "Tutorials", "Product explainers"],
     "technique": "motion-design",
     "sourceRepo": "https://github.com/instavar/remotion-templates",
-    "promptSource": "Original Video Use brief and implementation. Story structure inspired by Instavar Remotion Templates (MIT); fictional content and visual direction are new.",
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-10-welcome-flow-cad3a8e631a2-0728abba/final.mp4",
+    "promptSource": "Original creative request followed by the user-authorized silent-delivery revision. The encoded picture is preserved without re-encoding.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-10-welcome-flow-e6b2502c5ad46405/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-10-welcome-flow-cad3a8e631a2-0728abba/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-10-welcome-flow-cad3a8e631a2-0728abba/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-10-welcome-flow-cad3a8e631a2-0728abba/review.md"
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-10-welcome-flow-e6b2502c5ad46405/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-10-welcome-flow-e6b2502c5ad46405/review.md",
+    "muted": true,
+    "promptMode": "exact"
   },
   {
     "id": "useful-11-retry-webhook",
@@ -637,7 +649,8 @@
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-11-retry-webhook-9a2aeef7c61f-03cde557/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-11-retry-webhook-9a2aeef7c61f-03cde557/poster.jpg",
     "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-11-retry-webhook-9a2aeef7c61f-03cde557/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-11-retry-webhook-9a2aeef7c61f-03cde557/review.md"
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-11-retry-webhook-9a2aeef7c61f-03cde557/review.md",
+    "muted": true
   },
   {
     "id": "useful-12-research-summary",
@@ -656,7 +669,8 @@
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-12-research-summary-e809aa823b25-003c95a7/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-12-research-summary-e809aa823b25-003c95a7/poster.jpg",
     "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-12-research-summary-e809aa823b25-003c95a7/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-12-research-summary-e809aa823b25-003c95a7/review.md"
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-12-research-summary-e809aa823b25-003c95a7/review.md",
+    "muted": true
   },
   {
     "id": "useful-13-launch-highlights",
@@ -694,7 +708,8 @@
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-14-campaign-announcement-058d104ad32c-ff37a4e2/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-14-campaign-announcement-058d104ad32c-ff37a4e2/poster.jpg",
     "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-14-campaign-announcement-058d104ad32c-ff37a4e2/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-14-campaign-announcement-058d104ad32c-ff37a4e2/review.md"
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-14-campaign-announcement-058d104ad32c-ff37a4e2/review.md",
+    "muted": true
   },
   {
     "id": "useful-15-venue-wayfinding",
@@ -713,7 +728,8 @@
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-15-venue-wayfinding-eafbcd2d30c6-669a86e1/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-15-venue-wayfinding-eafbcd2d30c6-669a86e1/poster.jpg",
     "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-15-venue-wayfinding-eafbcd2d30c6-669a86e1/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-15-venue-wayfinding-eafbcd2d30c6-669a86e1/review.md"
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-15-venue-wayfinding-eafbcd2d30c6-669a86e1/review.md",
+    "muted": true
   },
   {
     "id": "useful-16-room-walkthrough",
@@ -751,7 +767,8 @@
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-17-service-packages-881d4c60766b-bb9fda2d/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-17-service-packages-881d4c60766b-bb9fda2d/poster.jpg",
     "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-17-service-packages-881d4c60766b-bb9fda2d/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-17-service-packages-881d4c60766b-bb9fda2d/review.md"
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-17-service-packages-881d4c60766b-bb9fda2d/review.md",
+    "muted": true
   },
   {
     "id": "useful-18-code-fix",
@@ -770,7 +787,8 @@
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-18-code-fix-0bedcda84b7b-34d742d4/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-18-code-fix-0bedcda84b7b-34d742d4/poster.jpg",
     "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-18-code-fix-0bedcda84b7b-34d742d4/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-18-code-fix-0bedcda84b7b-34d742d4/review.md"
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-18-code-fix-0bedcda84b7b-34d742d4/review.md",
+    "muted": true
   },
   {
     "id": "useful-19-fulfilment-flow",
@@ -789,7 +807,8 @@
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-19-fulfilment-flow-aedadd6e9844-521c604c/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-19-fulfilment-flow-aedadd6e9844-521c604c/poster.jpg",
     "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-19-fulfilment-flow-aedadd6e9844-521c604c/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-19-fulfilment-flow-aedadd6e9844-521c604c/review.md"
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-19-fulfilment-flow-aedadd6e9844-521c604c/review.md",
+    "muted": true
   },
   {
     "id": "useful-20-science-broll",
@@ -930,7 +949,7 @@
     "title": "Service Designer Role",
     "category": "Motion Design",
     "description": "Turn a role brief into a readable social hiring post with a clear next step.",
-    "prompt": "Use Video Use to create a 20-second 4:5 hiring post for the fictional studio Common Ground. Open with We’re looking for a service designer, using confident editorial type on warm paper with one cobalt rule. Let a simple service-map line connect three concrete role details: Map the journey, Prototype the service, Work with the team. Resolve into a compact role panel reading Service designer / Remote within UK / Full time. End with Explore the role / commonground.example/jobs held for 4 seconds. Keep Example opening visible in a small readable footer throughout so this cannot be mistaken for a real vacancy. Do not invent salary, benefits, applicants, employee portraits or a real application destination. Use meaningful type/layout transitions and an original restrained click rhythm; avoid a generic feature-card grid. Make role, location, work pattern, capabilities and CTA editable in one content file. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+    "prompt": "Use Video Use to create a 20-second 4:5 hiring post for the fictional studio Common Ground. Open with We’re looking for a service designer, using confident editorial type on warm paper with one cobalt rule. Let a simple service-map line connect three concrete role details: Map the journey, Prototype the service, Work with the team. Resolve into a compact role panel reading Service designer / Remote within UK / Full time. End with Explore the role / commonground.example/jobs held for 4 seconds. Keep Example opening visible in a small readable footer throughout so this cannot be mistaken for a real vacancy. Do not invent salary, benefits, applicants, employee portraits or a real application destination. Use meaningful type/layout transitions and an original restrained click rhythm; avoid a generic feature-card grid. Make role, location, work pattern, capabilities and CTA editable in one content file. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.\n\nFinal delivery: Export this version completely silent. Remove every audio stream from the finished movie. Do not include music, speech, sound effects, noise, or an empty audio track. Preserve all picture frames, visual timing, dimensions, and frame rate.",
     "duration": 20,
     "promptKind": "Original prompt",
     "orientation": "portrait",
@@ -938,11 +957,13 @@
     "useCases": ["Hiring", "Social announcements"],
     "technique": "motion-design",
     "sourceRepo": "https://github.com/instavar/remotion-templates",
-    "promptSource": "Original Video Use brief; conceptual workflow inspiration from instavar/remotion-templates. No upstream prompt, implementation, or media copied.",
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-27-hiring-post-243e29316944-2f6522de/final.mp4",
+    "promptSource": "Original creative request followed by the user-authorized silent-delivery revision. The encoded picture is preserved without re-encoding.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-27-hiring-post-6a1e99b8c9595a70/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-27-hiring-post-243e29316944-2f6522de/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-27-hiring-post-243e29316944-2f6522de/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-27-hiring-post-243e29316944-2f6522de/review.md"
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-27-hiring-post-6a1e99b8c9595a70/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-27-hiring-post-6a1e99b8c9595a70/review.md",
+    "muted": true,
+    "promptMode": "exact"
   },
   {
     "id": "useful-28-course-syllabus",
@@ -961,7 +982,8 @@
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-28-course-syllabus-23da51757642-797e2ef0/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-28-course-syllabus-23da51757642-797e2ef0/poster.jpg",
     "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-28-course-syllabus-23da51757642-797e2ef0/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-28-course-syllabus-23da51757642-797e2ef0/review.md"
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-28-course-syllabus-23da51757642-797e2ef0/review.md",
+    "muted": true
   },
   {
     "id": "useful-29-faq-answer",
@@ -980,14 +1002,15 @@
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-29-faq-answer-dcdbb9db765c-181c9f6a/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-29-faq-answer-dcdbb9db765c-181c9f6a/poster.jpg",
     "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-29-faq-answer-dcdbb9db765c-181c9f6a/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-29-faq-answer-dcdbb9db765c-181c9f6a/review.md"
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-29-faq-answer-dcdbb9db765c-181c9f6a/review.md",
+    "muted": true
   },
   {
     "id": "useful-30-match-result",
     "title": "North vs Harbor",
     "category": "Motion Design",
     "description": "Build a clear score recap from editable fictional match events.",
-    "prompt": "Use Video Use to create a 20-second vertical result graphic for a fictional football match, North FC versus Harbor FC. Use original geometric club marks, never real club badges or player likenesses. Start at 0–0 and progress through these five events in order: North scores at 12 minutes, Harbor at 37, North at 51, Harbor at 69, North at 88. Keep the same central scoreboard throughout, animate only the team that scored, and place the corresponding minute on a compact timeline. The final result must be North 3–2 Harbor. End with Full time / North 3–2 Harbor and a small Illustrative match footer for 3 seconds. Use midnight blue, soft white and one vivid lime accent with restrained sports-broadcast motion. Do not claim this match occurred. Generate any short score accents originally and keep them quiet. Store the event list once and derive totals, minute markers and final copy from it. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.",
+    "prompt": "Use Video Use to create a 20-second vertical result graphic for a fictional football match, North FC versus Harbor FC. Use original geometric club marks, never real club badges or player likenesses. Start at 0–0 and progress through these five events in order: North scores at 12 minutes, Harbor at 37, North at 51, Harbor at 69, North at 88. Keep the same central scoreboard throughout, animate only the team that scored, and place the corresponding minute on a compact timeline. The final result must be North 3–2 Harbor. End with Full time / North 3–2 Harbor and a small Illustrative match footer for 3 seconds. Use midnight blue, soft white and one vivid lime accent with restrained sports-broadcast motion. Do not claim this match occurred. Generate any short score accents originally and keep them quiet. Store the event list once and derive totals, minute markers and final copy from it. Use the current Video Use workflow and existing documented engines. Deliver the finished MP4 and editable source. Inspect actual encoded frames, transitions, safe areas, and the ending; preserve the exact dependency locks, source credits, and local replay commands. Use original or explicitly licensed assets and audio. When adapting this example to an existing request, retain the user’s subject, brand, intended audience, format, and length; this example supplies a structure while preserving their context.\n\nFinal delivery: Export this version completely silent. Remove every audio stream from the finished movie. Do not include music, speech, sound effects, noise, or an empty audio track. Preserve all picture frames, visual timing, dimensions, and frame rate.",
     "duration": 20,
     "promptKind": "Original prompt",
     "orientation": "portrait",
@@ -995,11 +1018,13 @@
     "useCases": ["Sports recaps", "Community updates"],
     "technique": "motion-design",
     "sourceRepo": "https://github.com/motion-canvas/motion-canvas",
-    "promptSource": "Original Video Use brief; conceptual workflow inspiration from motion-canvas/motion-canvas. No upstream prompt, implementation, or media copied.",
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-30-match-result-1c1a491cbb1e-73385504/final.mp4",
+    "promptSource": "Original creative request followed by the user-authorized silent-delivery revision. The encoded picture is preserved without re-encoding.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-30-match-result-1535c06734fa1ddc/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-30-match-result-1c1a491cbb1e-73385504/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-30-match-result-1c1a491cbb1e-73385504/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-30-match-result-1c1a491cbb1e-73385504/review.md"
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-30-match-result-1535c06734fa1ddc/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-30-match-result-1535c06734fa1ddc/review.md",
+    "muted": true,
+    "promptMode": "exact"
   },
   {
     "id": "useful-31-service-status",
@@ -1018,7 +1043,8 @@
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-31-service-status-9f210e68cc7b-ec42515f/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-31-service-status-9f210e68cc7b-ec42515f/poster.jpg",
     "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-31-service-status-9f210e68cc7b-ec42515f/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-31-service-status-9f210e68cc7b-ec42515f/review.md"
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-31-service-status-9f210e68cc7b-ec42515f/review.md",
+    "muted": true
   },
   {
     "id": "useful-32-break-even",
@@ -1037,7 +1063,8 @@
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-32-break-even-75da812e978a-2c2285b6/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-32-break-even-75da812e978a-2c2285b6/poster.jpg",
     "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-32-break-even-75da812e978a-2c2285b6/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-32-break-even-75da812e978a-2c2285b6/review.md"
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-32-break-even-75da812e978a-2c2285b6/review.md",
+    "muted": true
   },
   {
     "id": "useful-33-binary-search",
@@ -1056,7 +1083,8 @@
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-33-binary-search-f1d52037f50f-9228c533/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-33-binary-search-f1d52037f50f-9228c533/poster.jpg",
     "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-33-binary-search-f1d52037f50f-9228c533/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-33-binary-search-f1d52037f50f-9228c533/review.md"
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-33-binary-search-f1d52037f50f-9228c533/review.md",
+    "muted": true
   },
   {
     "id": "useful-34-cache-expiry",
@@ -1075,7 +1103,8 @@
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-34-cache-expiry-e5e44379cc31-116b7119/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-34-cache-expiry-e5e44379cc31-116b7119/poster.jpg",
     "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-34-cache-expiry-e5e44379cc31-116b7119/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-34-cache-expiry-e5e44379cc31-116b7119/review.md"
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-34-cache-expiry-e5e44379cc31-116b7119/review.md",
+    "muted": true
   },
   {
     "id": "useful-35-water-cycle",
@@ -1094,7 +1123,8 @@
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-35-water-cycle-25510366e07a-9eb293a9/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-35-water-cycle-25510366e07a-9eb293a9/poster.jpg",
     "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-35-water-cycle-25510366e07a-9eb293a9/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-35-water-cycle-25510366e07a-9eb293a9/review.md"
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-35-water-cycle-25510366e07a-9eb293a9/review.md",
+    "muted": true
   },
   {
     "id": "useful-36-support-triage",
@@ -1113,7 +1143,8 @@
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-36-support-triage-01144968ba94-7f35ccfb/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-36-support-triage-01144968ba94-7f35ccfb/poster.jpg",
     "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-36-support-triage-01144968ba94-7f35ccfb/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-36-support-triage-01144968ba94-7f35ccfb/review.md"
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-36-support-triage-01144968ba94-7f35ccfb/review.md",
+    "muted": true
   },
   {
     "id": "useful-37-product-dimensions",
@@ -1132,7 +1163,8 @@
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-37-product-dimensions-a0575a02c024-6e55ca2e/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-37-product-dimensions-a0575a02c024-6e55ca2e/poster.jpg",
     "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-37-product-dimensions-a0575a02c024-6e55ca2e/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-37-product-dimensions-a0575a02c024-6e55ca2e/review.md"
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-37-product-dimensions-a0575a02c024-6e55ca2e/review.md",
+    "muted": true
   },
   {
     "id": "useful-38-filter-replacement",
@@ -1151,7 +1183,8 @@
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-38-filter-replacement-52ff73607d90-e25304d2/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-38-filter-replacement-52ff73607d90-e25304d2/poster.jpg",
     "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-38-filter-replacement-52ff73607d90-e25304d2/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-38-filter-replacement-52ff73607d90-e25304d2/review.md"
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-38-filter-replacement-52ff73607d90-e25304d2/review.md",
+    "muted": true
   },
   {
     "id": "useful-39-kit-packing",
@@ -1170,7 +1203,8 @@
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-39-kit-packing-370a387472dd-278d3398/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-39-kit-packing-370a387472dd-278d3398/poster.jpg",
     "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-39-kit-packing-370a387472dd-278d3398/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-39-kit-packing-370a387472dd-278d3398/review.md"
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-39-kit-packing-370a387472dd-278d3398/review.md",
+    "muted": true
   },
   {
     "id": "useful-40-gear-ratio",
@@ -1189,7 +1223,8 @@
     "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-40-gear-ratio-db55403643e8-29d09420/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-40-gear-ratio-db55403643e8-29d09420/poster.jpg",
     "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-40-gear-ratio-db55403643e8-29d09420/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-40-gear-ratio-db55403643e8-29d09420/review.md"
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-40-gear-ratio-db55403643e8-29d09420/review.md",
+    "muted": true
   },
   {
     "id": "useful-56-train-line",
@@ -2162,7 +2197,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/01-pressure-type-feceba8fa41f/poster.jpg",
     "duration": 10,
     "promptKind": "Starter prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "local-motion-20260916-02-chromatic-weave",
@@ -2174,7 +2210,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/02-chromatic-weave-a393bfde7e4c/poster.jpg",
     "duration": 10,
     "promptKind": "Starter prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "local-motion-20260916-03-slice-clock",
@@ -2186,7 +2223,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/03-slice-clock-0cfc967e0ec6/poster.jpg",
     "duration": 10,
     "promptKind": "Starter prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "local-motion-20260916-04-ink-relay",
@@ -2198,7 +2236,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/04-ink-relay-8ef8e5449def/poster.jpg",
     "duration": 10,
     "promptKind": "Starter prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "local-motion-20260916-05-elastic-grid",
@@ -2210,7 +2249,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/05-elastic-grid-b6f40de89453/poster.jpg",
     "duration": 10,
     "promptKind": "Starter prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "local-motion-20260916-06-folded-arrows",
@@ -2222,7 +2262,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/06-folded-arrows-00014fd5a4b1/poster.jpg",
     "duration": 10,
     "promptKind": "Starter prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "local-motion-20260916-07-typographic-tunnel",
@@ -2234,7 +2275,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/07-typographic-tunnel-9c973a1114e6/poster.jpg",
     "duration": 10,
     "promptKind": "Starter prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "local-motion-20260916-08-orbit-score",
@@ -2246,7 +2288,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/08-orbit-score-53e87c61adae/poster.jpg",
     "duration": 10,
     "promptKind": "Starter prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "local-motion-20260916-09-porcelain-bloom",
@@ -2258,7 +2301,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/09-porcelain-bloom-776489881f52/poster.jpg",
     "duration": 10,
     "promptKind": "Starter prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "local-motion-20260916-10-ribbon-knot",
@@ -2270,7 +2314,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/10-ribbon-knot-4ef8b06d66ac/poster.jpg",
     "duration": 10,
     "promptKind": "Starter prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "local-motion-20260916-11-magnetic-totem",
@@ -2282,7 +2327,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/11-magnetic-totem-1bdf67cf33df/poster.jpg",
     "duration": 10,
     "promptKind": "Starter prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "local-motion-20260916-12-glass-tide",
@@ -2294,7 +2340,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/12-glass-tide-db03ccf02fe2/poster.jpg",
     "duration": 10,
     "promptKind": "Starter prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "local-motion-20260916-13-cam-dance",
@@ -2306,7 +2353,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/13-cam-dance-f7e3b6e291c1/poster.jpg",
     "duration": 10,
     "promptKind": "Starter prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "local-motion-20260916-14-pleated-sun",
@@ -2318,7 +2366,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/14-pleated-sun-181644098f06/poster.jpg",
     "duration": 10,
     "promptKind": "Starter prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "local-motion-20260916-15-soft-landing",
@@ -2330,7 +2379,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/15-soft-landing-2ea2afa4aa8a/poster.jpg",
     "duration": 10,
     "promptKind": "Starter prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "local-motion-20260916-16-orbital-rings",
@@ -2342,7 +2392,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/16-orbital-rings-c20f228cd49c/poster.jpg",
     "duration": 10,
     "promptKind": "Starter prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "local-motion-20260916-17-night-tram",
@@ -2354,7 +2405,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/17-night-tram-1a152575892c/poster.jpg",
     "duration": 10,
     "promptKind": "Starter prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "local-motion-20260916-18-lemon-press",
@@ -2366,7 +2418,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/18-lemon-press-c291b57fcc96/poster.jpg",
     "duration": 10,
     "promptKind": "Starter prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "local-motion-20260916-19-paper-aviary",
@@ -2378,7 +2431,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/19-paper-aviary-cf159da0f07c/poster.jpg",
     "duration": 10,
     "promptKind": "Starter prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "local-motion-20260916-20-tidal-postcard",
@@ -2390,7 +2444,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/20-tidal-postcard-fcbdfd8fb668/poster.jpg",
     "duration": 10,
     "promptKind": "Starter prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "local-motion-20260916-21-matchbox-garden",
@@ -2402,7 +2457,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/21-matchbox-garden-8b15047f4c02/poster.jpg",
     "duration": 10,
     "promptKind": "Starter prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "local-motion-20260916-22-lantern-parade",
@@ -2414,7 +2470,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/22-lantern-parade-e5bd479e7c1f/poster.jpg",
     "duration": 10,
     "promptKind": "Starter prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "local-motion-20260916-23-tiny-observatory",
@@ -2426,7 +2483,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/23-tiny-observatory-b9b0e05b2fd9/poster.jpg",
     "duration": 10,
     "promptKind": "Starter prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "local-motion-20260916-24-moon-laundromat",
@@ -2438,7 +2496,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-local/20260916/24-moon-laundromat-8189a3b6f9d8/poster.jpg",
     "duration": 10,
     "promptKind": "Starter prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "cloud-motion-01-make-room",
@@ -2450,7 +2509,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-01-make-room/poster.jpg",
     "duration": 14,
     "promptKind": "Original prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "cloud-motion-02-night-shift",
@@ -2462,7 +2522,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-02-night-shift/poster.jpg",
     "duration": 16,
     "promptKind": "Original prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "cloud-motion-03-paper-current",
@@ -2474,7 +2535,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-03-paper-current/poster.jpg",
     "duration": 18,
     "promptKind": "Original prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "cloud-motion-04-little-weather",
@@ -2486,7 +2548,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-04-little-weather/poster.jpg",
     "duration": 15,
     "promptKind": "Original prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "cloud-motion-05-woven-signal",
@@ -2498,7 +2561,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-05-woven-signal/poster.jpg",
     "duration": 12,
     "promptKind": "Original prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "cloud-motion-06-ink-relay",
@@ -2510,7 +2574,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-06-ink-relay/poster.jpg",
     "duration": 15,
     "promptKind": "Original prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "cloud-motion-07-one-good-day",
@@ -2522,7 +2587,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-07-one-good-day/poster.jpg",
     "duration": 18,
     "promptKind": "Original prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "cloud-motion-08-shape-jazz",
@@ -2534,7 +2600,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion-cloud/20260915/cloud-motion-08-shape-jazz/poster.jpg",
     "duration": 14,
     "promptKind": "Original prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "11-rotary-telephone",
@@ -2546,7 +2613,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/11-rotary-telephone-2b55acbecf3b5522.jpg",
     "duration": 8,
     "promptKind": "Original prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "12-glass-staircase",
@@ -2558,7 +2626,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/12-glass-staircase-ceab7a76ddba67ed.jpg",
     "duration": 8,
     "promptKind": "Original prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "13-beach-umbrella",
@@ -2570,7 +2639,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/13-beach-umbrella-18d95496d0556f23.jpg",
     "duration": 8,
     "promptKind": "Original prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "14-ink-octopus",
@@ -2582,7 +2652,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/14-ink-octopus-35435d5f409bfdfd.jpg",
     "duration": 8,
     "promptKind": "Original prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "15-color-zipper",
@@ -2594,7 +2665,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/15-color-zipper-bcdf0abe775105c0.jpg",
     "duration": 8,
     "promptKind": "Original prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "01-paper-koi",
@@ -2606,7 +2678,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/01-paper-koi-217e15573427dfcf.jpg",
     "duration": 8,
     "promptKind": "Original prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "02-jelly-chair",
@@ -2618,7 +2691,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/02-jelly-chair-2bdc1a54afa8a1a3.jpg",
     "duration": 8,
     "promptKind": "Original prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "03-chrome-beetle",
@@ -2630,7 +2704,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/03-chrome-beetle-3aa943597044c143.jpg",
     "duration": 8,
     "promptKind": "Original prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "04-melt",
@@ -2642,7 +2717,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/04-melt-75074d40d88c5526.jpg",
     "duration": 8,
     "promptKind": "Original prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "06-satin-bow",
@@ -2654,7 +2730,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/06-satin-bow-01a821bddb2d9813.jpg",
     "duration": 8,
     "promptKind": "Original prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "07-blood-orange",
@@ -2666,7 +2743,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/07-blood-orange-fedeee7f9ed745cf.jpg",
     "duration": 8,
     "promptKind": "Original prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "08-toy-planet",
@@ -2678,7 +2756,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/08-toy-planet-d4455120540d136c.jpg",
     "duration": 8,
     "promptKind": "Original prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "09-jellyfish",
@@ -2690,7 +2769,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/09-jellyfish-6fd7bfcb31bac8e0.jpg",
     "duration": 8,
     "promptKind": "Original prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "10-checker-zebra",
@@ -2702,7 +2782,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/10-checker-zebra-318c394a91887803.jpg",
     "duration": 8,
     "promptKind": "Original prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "02-orbit",
@@ -2714,31 +2795,40 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/02-orbit-d5621c3865ca0306.jpg",
     "duration": 16,
     "promptKind": "Starter prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "generated-20260906-bubbles",
     "title": "Soap Bubble Colors",
     "category": "Explainers",
     "description": "Macro bubble imagery connects to a clear thin-film interference diagram.",
-    "prompt": "Make a short, beautiful explanation of why soap bubbles have rainbow colors.",
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/runs/generated-20260906-bubbles/final.mp4",
+    "prompt": "Make a short, beautiful explanation of why soap bubbles have rainbow colors.\n\nFinal delivery: Export this version completely silent. Remove every audio stream from the finished movie. Do not include music, speech, sound effects, noise, or an empty audio track. Preserve all picture frames, visual timing, dimensions, and frame rate.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/generated-20260906-bubbles-c18fb83bb5b2f4b1/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/explainers/20260915/bubbles-poster.jpg",
     "duration": 22.5,
     "promptKind": "Original prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true,
+    "promptMode": "exact",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/generated-20260906-bubbles-c18fb83bb5b2f4b1/review.md",
+    "promptSource": "Original creative request followed by the user-authorized silent-delivery revision. The encoded picture is preserved without re-encoding."
   },
   {
     "id": "lane-4-617badcfbde9",
     "title": "Jet Engines",
     "category": "Explainers",
     "description": "Real engine footage leads into a persistent animated cross-section.",
-    "prompt": "Explain how a jet engine works using real footage and a continuous cutaway diagram. Show intake, compression, combustion, turbine work, and the faster exhaust that produces thrust.",
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/runs/lane-4-617badcfbde9/preview.mp4",
+    "prompt": "Explain how a jet engine works using real footage and a continuous cutaway diagram. Show intake, compression, combustion, turbine work, and the faster exhaust that produces thrust.\n\nFinal delivery: Export this version completely silent. Remove every audio stream from the finished movie. Do not include music, speech, sound effects, noise, or an empty audio track. Preserve all picture frames, visual timing, dimensions, and frame rate.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/lane-4-617badcfbde9-5ba3da856fd3a197/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/explainers/20260915/jet-poster.jpg",
     "duration": 40.034,
     "promptKind": "Starter prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true,
+    "promptMode": "exact",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/lane-4-617badcfbde9-5ba3da856fd3a197/review.md",
+    "promptSource": "Original creative request followed by the user-authorized silent-delivery revision. The encoded picture is preserved without re-encoding."
   },
   {
     "id": "lane-1-6eca5ba640fc",
@@ -2750,43 +2840,56 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/explainers/20260915/gpu-poster.jpg",
     "duration": 32,
     "promptKind": "Starter prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "lane-1-1d556a445024",
     "title": "Diffusion Models",
     "category": "Explainers",
     "description": "A small image becomes noise, then a learned denoising process builds a new sample.",
-    "prompt": "Create a beginner-friendly explainer about diffusion models. Show how adding noise creates training examples, how a network learns a correction, and how repeated denoising generates an image from fresh noise.",
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/runs/lane-1-1d556a445024/final.mp4",
+    "prompt": "Create a beginner-friendly explainer about diffusion models. Show how adding noise creates training examples, how a network learns a correction, and how repeated denoising generates an image from fresh noise.\n\nFinal delivery: Export this version completely silent. Remove every audio stream from the finished movie. Do not include music, speech, sound effects, noise, or an empty audio track. Preserve all picture frames, visual timing, dimensions, and frame rate.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/lane-1-1d556a445024-caeae5e6723c9936/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/explainers/20260915/diffusion-poster.jpg",
     "duration": 46.08,
     "promptKind": "Starter prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true,
+    "promptMode": "exact",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/lane-1-1d556a445024-caeae5e6723c9936/review.md",
+    "promptSource": "Original creative request followed by the user-authorized silent-delivery revision. The encoded picture is preserved without re-encoding."
   },
   {
     "id": "lane-1-ee1aba7e491f",
     "title": "Binary Search",
     "category": "Explainers",
     "description": "A sorted array makes each comparison and discarded half visible.",
-    "prompt": "Make a concise narrated explainer of binary search. Show a target being found by repeatedly halving a sorted array, then connect the demonstration to searching one million items in at most twenty comparisons.",
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/runs/lane-1-ee1aba7e491f/final.mp4",
+    "prompt": "Make a concise narrated explainer of binary search. Show a target being found by repeatedly halving a sorted array, then connect the demonstration to searching one million items in at most twenty comparisons.\n\nFinal delivery: Export this version completely silent. Remove every audio stream from the finished movie. Do not include music, speech, sound effects, noise, or an empty audio track. Preserve all picture frames, visual timing, dimensions, and frame rate.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/lane-1-ee1aba7e491f-79ee3be3e9d49c42/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/explainers/20260915/binary-poster.jpg",
     "duration": 20.032,
     "promptKind": "Starter prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true,
+    "promptMode": "exact",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/lane-1-ee1aba7e491f-79ee3be3e9d49c42/review.md",
+    "promptSource": "Original creative request followed by the user-authorized silent-delivery revision. The encoded picture is preserved without re-encoding."
   },
   {
     "id": "lane-4-abb5d572651b",
     "title": "Hash Collisions",
     "category": "Explainers",
     "description": "Follow two keys into one bucket and compare them along a linked chain.",
-    "prompt": "Explain how a hash map handles collisions with separate chaining. Keep the bucket array visible as two keys land at one index, preserve both entries, then demonstrate a lookup comparing full keys until it finds the right value.",
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/runs/lane-4-abb5d572651b/preview.mp4",
+    "prompt": "Explain how a hash map handles collisions with separate chaining. Keep the bucket array visible as two keys land at one index, preserve both entries, then demonstrate a lookup comparing full keys until it finds the right value.\n\nFinal delivery: Export this version completely silent. Remove every audio stream from the finished movie. Do not include music, speech, sound effects, noise, or an empty audio track. Preserve all picture frames, visual timing, dimensions, and frame rate.",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/lane-4-abb5d572651b-26dd9370b1dc0a5b/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/explainers/20260915/hash-poster.jpg",
     "duration": 45.035,
     "promptKind": "Starter prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true,
+    "promptMode": "exact",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/lane-4-abb5d572651b-26dd9370b1dc0a5b/review.md",
+    "promptSource": "Original creative request followed by the user-authorized silent-delivery revision. The encoded picture is preserved without re-encoding."
   },
   {
     "id": "cloud-edit-podcast",
@@ -2822,7 +2925,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/04-fold-e8320ce99fe8aaa0.jpg",
     "duration": 16,
     "promptKind": "Starter prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "cloud-edit-comedy",
@@ -2882,7 +2986,8 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/05-flow-550da21a509a7167.jpg",
     "duration": 15,
     "promptKind": "Starter prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "cloud-edit-messi",
@@ -2930,14 +3035,15 @@
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/motion/2026-09-14/optical-assembly-448f3cdcbace747e.jpg",
     "duration": 8,
     "promptKind": "Starter prompt",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "muted": true
   },
   {
     "id": "useful-87-squish-drop",
     "title": "Squish Drop",
     "category": "Motion Design",
     "description": "Tactile beauty campaign. An original film created from a prompt.",
-    "prompt": "Make a 22-second vertical launch film for SQUISH, a fictional jelly beauty brand. The product is a small translucent pink cosmetic pot with a glossy rounded lid. Build the whole film around a satisfying material transformation: a pink jelly sphere compresses into a puck, stretches into a ribbon, and wraps around the pot as its label. Keep that pink material visibly continuous through the transformation.\n\nOpen in extreme close-up on the compression, so the first image already has tension. Pull back to reveal the pot, cut to one beautiful rim and lid detail, then let the lid settle onto the container with a soft bounce. The final hero should feel like a real campaign: the complete pot centered on a warm butter-yellow surface, its contact shadow grounded, SQUISH in large clean lettering behind it and “jelly, reimagined” below. Give the hero several seconds to register. Use rich translucent highlights, soft studio shadows, restrained typography and deliberate elastic timing. Build original soft percussion and squish-like synthetic accents around the visible contacts. No voiceover, extra products or invented health claims. Deliver 1080×1920 at 30 fps, the complete editable scene, and this exact prompt.",
+    "prompt": "Make a 22-second vertical launch film for SQUISH, a fictional jelly beauty brand. The product is a small translucent pink cosmetic pot with a glossy rounded lid. Build the whole film around a satisfying material transformation: a pink jelly sphere compresses into a puck, stretches into a ribbon, and wraps around the pot as its label. Keep that pink material visibly continuous through the transformation.\n\nOpen in extreme close-up on the compression, so the first image already has tension. Pull back to reveal the pot, cut to one beautiful rim and lid detail, then let the lid settle onto the container with a soft bounce. The final hero should feel like a real campaign: the complete pot centered on a warm butter-yellow surface, its contact shadow grounded, SQUISH in large clean lettering behind it and “jelly, reimagined” below. Give the hero several seconds to register. Use rich translucent highlights, soft studio shadows, restrained typography and deliberate elastic timing. Build original soft percussion and squish-like synthetic accents around the visible contacts. No voiceover, extra products or invented health claims. Deliver 1080×1920 at 30 fps, the complete editable scene, and this exact prompt.\n\nFinal delivery: Export this version completely silent. Remove every audio stream from the finished movie. Do not include music, speech, sound effects, noise, or an empty audio track. Preserve all picture frames, visual timing, dimensions, and frame rate.",
     "duration": 22,
     "promptKind": "Original prompt",
     "orientation": "portrait",
@@ -2945,7 +3051,7 @@
     "useCases": ["Tactile beauty campaign", "Original video creation"],
     "technique": "motion-design",
     "sourceRepo": "https://github.com/DonIsmaelito/video-use",
-    "promptSource": "Exact creative prompt used to author this original Video Use film. Trend research informed the concept; it is not source footage.",
+    "promptSource": "Original creative request followed by the user-authorized silent-delivery revision. The encoded picture is preserved without re-encoding.",
     "mediaCredits": [
       {
         "title": "Creative trend research",
@@ -2954,19 +3060,20 @@
         "changes": "Concept research only. No media copied into this original film."
       }
     ],
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-87-squish-drop-16fafc68c703-22f8d359/final.mp4",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-87-squish-drop-638e37e22db4c8c9/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-87-squish-drop-16fafc68c703-22f8d359/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-87-squish-drop-16fafc68c703-22f8d359/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-87-squish-drop-16fafc68c703-22f8d359/review.md",
-    "muted": false,
-    "loop": false
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-87-squish-drop-638e37e22db4c8c9/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-87-squish-drop-638e37e22db4c8c9/review.md",
+    "muted": true,
+    "loop": false,
+    "promptMode": "exact"
   },
   {
     "id": "useful-88-rewind",
     "title": "2016 Is Calling",
     "category": "Motion Design",
     "description": "Nostalgia campaign. An original film created from a prompt.",
-    "prompt": "Create a 22-second original nostalgia film called “2016 Is Calling.” Make it feel like opening a digital time capsule, using a compact silver camera, wired earbuds, a scratched disc and bright graphic memories created specifically for this film. Begin on the camera's screen showing 2026. A rewind button is pressed, the date rolls back to 2016, and the camera lens expands until its circular shape becomes the disc. Carry the disc's circular highlight into a warm illustrated summer sun, then reveal that summer image as a print sliding from a stack of photographs. The earbud cable should connect the objects and eventually draw the word REWIND across the final composition.\n\nUse a designed collage of original illustration, tactile paper edges, crisp device details and selective chrome highlights. Let each shape match carry the viewer into the next image; avoid a random scrapbook slideshow. Alternate two quick transitions with a slower memory hold. Finish on a balanced still-life with the camera, disc and summer print, plus the small line “same feeling, new summer.” Add an original nostalgic electronic groove with camera-click and rewind accents; do not use an existing pop song. Deliver 1920×1080 at 30 fps with editable artwork, animation source and this exact prompt.",
+    "prompt": "Create a 22-second original nostalgia film called “2016 Is Calling.” Make it feel like opening a digital time capsule, using a compact silver camera, wired earbuds, a scratched disc and bright graphic memories created specifically for this film. Begin on the camera's screen showing 2026. A rewind button is pressed, the date rolls back to 2016, and the camera lens expands until its circular shape becomes the disc. Carry the disc's circular highlight into a warm illustrated summer sun, then reveal that summer image as a print sliding from a stack of photographs. The earbud cable should connect the objects and eventually draw the word REWIND across the final composition.\n\nUse a designed collage of original illustration, tactile paper edges, crisp device details and selective chrome highlights. Let each shape match carry the viewer into the next image; avoid a random scrapbook slideshow. Alternate two quick transitions with a slower memory hold. Finish on a balanced still-life with the camera, disc and summer print, plus the small line “same feeling, new summer.” Add an original nostalgic electronic groove with camera-click and rewind accents; do not use an existing pop song. Deliver 1920×1080 at 30 fps with editable artwork, animation source and this exact prompt.\n\nFinal delivery: Export this version completely silent. Remove every audio stream from the finished movie. Do not include music, speech, sound effects, noise, or an empty audio track. Preserve all picture frames, visual timing, dimensions, and frame rate.",
     "duration": 22,
     "promptKind": "Original prompt",
     "orientation": "landscape",
@@ -2974,7 +3081,7 @@
     "useCases": ["Nostalgia campaign", "Original video creation"],
     "technique": "motion-design",
     "sourceRepo": "https://github.com/DonIsmaelito/video-use",
-    "promptSource": "Exact creative prompt used to author this original Video Use film. Trend research informed the concept; it is not source footage.",
+    "promptSource": "Original creative request followed by the user-authorized silent-delivery revision. The encoded picture is preserved without re-encoding.",
     "mediaCredits": [
       {
         "title": "Creative trend research",
@@ -2983,19 +3090,20 @@
         "changes": "Concept research only. No media copied into this original film."
       }
     ],
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-88-rewind-8aab9ba1bf64-b97e6b3d/final.mp4",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-88-rewind-4b5fb278895b5bb2/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-88-rewind-8aab9ba1bf64-b97e6b3d/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-88-rewind-8aab9ba1bf64-b97e6b3d/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-88-rewind-8aab9ba1bf64-b97e6b3d/review.md",
-    "muted": false,
-    "loop": false
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-88-rewind-4b5fb278895b5bb2/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-88-rewind-4b5fb278895b5bb2/review.md",
+    "muted": true,
+    "loop": false,
+    "promptMode": "exact"
   },
   {
     "id": "useful-86-ghosted",
     "title": "Ghosted at the Door",
     "category": "Motion Design",
     "description": "Halloween character comedy. An original film created from a prompt.",
-    "prompt": "Create an original 24-second vertical Halloween comedy called “Ghosted at the Door.” A little white sheet ghost tries to trick-or-treat at a very modern front door, but the smart doorbell cannot recognize a ghost. Make the ghost expressive through its eyes, posture and cloth silhouette. Establish the doorway, candy slot and ghost clearly, then show the doorbell's deadpan response: “No person detected.” Hold a short disappointed reaction. The ghost spots a cardboard delivery box, pulls it over itself and tries again. This time the display reads “Delivery detected,” the slot opens, and one wrapped candy drops into the box. Finish with the ghost peeking happily out of the box and a restrained GHOSTED title.\n\nGive it a polished animated-short look: midnight-blue porch, warm light through the door, ivory ghost, orange candy and tactile cardboard. Use a few purposeful wide, reaction and detail compositions. Keep the spatial relationships consistent, the action readable, and the joke clear with the sound off. Make the box disguise and candy payoff actual animated actions, not text describing them. Add original understated spooky music and precise bell, box and candy accents. No narration. Deliver 1080×1920 at 30 fps with an editable project and this exact prompt.",
+    "prompt": "Create an original 24-second vertical Halloween comedy called “Ghosted at the Door.” A little white sheet ghost tries to trick-or-treat at a very modern front door, but the smart doorbell cannot recognize a ghost. Make the ghost expressive through its eyes, posture and cloth silhouette. Establish the doorway, candy slot and ghost clearly, then show the doorbell's deadpan response: “No person detected.” Hold a short disappointed reaction. The ghost spots a cardboard delivery box, pulls it over itself and tries again. This time the display reads “Delivery detected,” the slot opens, and one wrapped candy drops into the box. Finish with the ghost peeking happily out of the box and a restrained GHOSTED title.\n\nGive it a polished animated-short look: midnight-blue porch, warm light through the door, ivory ghost, orange candy and tactile cardboard. Use a few purposeful wide, reaction and detail compositions. Keep the spatial relationships consistent, the action readable, and the joke clear with the sound off. Make the box disguise and candy payoff actual animated actions, not text describing them. Add original understated spooky music and precise bell, box and candy accents. No narration. Deliver 1080×1920 at 30 fps with an editable project and this exact prompt.\n\nFinal delivery: Export this version completely silent. Remove every audio stream from the finished movie. Do not include music, speech, sound effects, noise, or an empty audio track. Preserve all picture frames, visual timing, dimensions, and frame rate.",
     "duration": 24,
     "promptKind": "Original prompt",
     "orientation": "portrait",
@@ -3003,7 +3111,7 @@
     "useCases": ["Halloween character comedy", "Original video creation"],
     "technique": "motion-design",
     "sourceRepo": "https://github.com/DonIsmaelito/video-use",
-    "promptSource": "Exact creative prompt used to author this original Video Use film. Trend research informed the concept; it is not source footage.",
+    "promptSource": "Original creative request followed by the user-authorized silent-delivery revision. The encoded picture is preserved without re-encoding.",
     "mediaCredits": [
       {
         "title": "Creative trend research",
@@ -3012,19 +3120,20 @@
         "changes": "Concept research only. No media copied into this original film."
       }
     ],
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-86-ghosted-a587fc1133d6-69e7b35d/final.mp4",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-86-ghosted-f01fed280a451277/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-86-ghosted-a587fc1133d6-69e7b35d/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-86-ghosted-a587fc1133d6-69e7b35d/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-86-ghosted-a587fc1133d6-69e7b35d/review.md",
-    "muted": false,
-    "loop": false
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-86-ghosted-f01fed280a451277/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-86-ghosted-f01fed280a451277/review.md",
+    "muted": true,
+    "loop": false,
+    "promptMode": "exact"
   },
   {
     "id": "useful-91-night-court",
     "title": "Night Court",
     "category": "Motion Design",
     "description": "Sports culture event film. An original film created from a prompt.",
-    "prompt": "Create a 24-second original street-basketball event film for a fictional series called NIGHT COURT. Build the animation from the actual visual language of the game: the ball's curved black seams become court lines, one bounce supplies the rhythm, and the net gives the final release. Start close enough to see the orange ball texture, then pull back as it drops onto a midnight-blue court. Follow one readable bounce. Stretch the curved seam into a clean court diagram that folds up into a bold NIGHT COURT poster, with the ball passing in front of the lettering.\n\nUse one brief split composition to show the ball and hoop from complementary views, then reunite them for a single continuous shot of the ball falling through the net. Finish on the settled poster: bold cream typography, acid-yellow court marks and the orange ball, with the small line “the city plays after dark.” Make the typography, court geometry and ball movement work together, with clean masks and balanced compositions. Mix fast graphic transitions with enough time to read the key action. Use an original percussive beat built around synthetic bounce, sneaker-like squeak and net accents. No real team, athlete, league logo, invented score or event date. Deliver 1920×1080 at 30 fps, editable source and this exact prompt.",
+    "prompt": "Create a 24-second original street-basketball event film for a fictional series called NIGHT COURT. Build the animation from the actual visual language of the game: the ball's curved black seams become court lines, one bounce supplies the rhythm, and the net gives the final release. Start close enough to see the orange ball texture, then pull back as it drops onto a midnight-blue court. Follow one readable bounce. Stretch the curved seam into a clean court diagram that folds up into a bold NIGHT COURT poster, with the ball passing in front of the lettering.\n\nUse one brief split composition to show the ball and hoop from complementary views, then reunite them for a single continuous shot of the ball falling through the net. Finish on the settled poster: bold cream typography, acid-yellow court marks and the orange ball, with the small line “the city plays after dark.” Make the typography, court geometry and ball movement work together, with clean masks and balanced compositions. Mix fast graphic transitions with enough time to read the key action. Use an original percussive beat built around synthetic bounce, sneaker-like squeak and net accents. No real team, athlete, league logo, invented score or event date. Deliver 1920×1080 at 30 fps, editable source and this exact prompt.\n\nFinal delivery: Export this version completely silent. Remove every audio stream from the finished movie. Do not include music, speech, sound effects, noise, or an empty audio track. Preserve all picture frames, visual timing, dimensions, and frame rate.",
     "duration": 24,
     "promptKind": "Original prompt",
     "orientation": "landscape",
@@ -3032,7 +3141,7 @@
     "useCases": ["Sports culture event film", "Original video creation"],
     "technique": "motion-design",
     "sourceRepo": "https://github.com/DonIsmaelito/video-use",
-    "promptSource": "Exact creative prompt used to author this original Video Use film. Trend research informed the concept; it is not source footage.",
+    "promptSource": "Original creative request followed by the user-authorized silent-delivery revision. The encoded picture is preserved without re-encoding.",
     "mediaCredits": [
       {
         "title": "Creative trend research",
@@ -3041,19 +3150,20 @@
         "changes": "Concept research only. No media copied into this original film."
       }
     ],
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-91-night-court-8eae9e842dad-fa01c1f2/final.mp4",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-91-night-court-adca78f9250ea174/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-91-night-court-8eae9e842dad-fa01c1f2/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-91-night-court-8eae9e842dad-fa01c1f2/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-91-night-court-8eae9e842dad-fa01c1f2/review.md",
-    "muted": false,
-    "loop": false
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-91-night-court-adca78f9250ea174/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-91-night-court-adca78f9250ea174/review.md",
+    "muted": true,
+    "loop": false,
+    "promptMode": "exact"
   },
   {
     "id": "useful-90-touch-grass",
     "title": "Touch Grass",
     "category": "Motion Design",
     "description": "Digital life social film. An original film created from a prompt.",
-    "prompt": "Create an original 22-second vertical motion-design film called TOUCH GRASS. A giant cursor is trapped in a clean off-white desktop by an escalating stack of notification windows. Establish the frustration quickly with three readable messages: “One more thing,” “Quick question,” and “Still there?” The cursor pushes against the edge of the top window, tears it open like paper, and discovers a vivid green landscape behind the screen.\n\nMake the transition one continuous physical idea: the torn paper edge opens into the hills, the cursor becomes a small white kite, and its trailing cable unwinds into a loose path through the grass. Let the restless opening give way to one calm, spacious landscape with gently moving blades, an oversized pale sun and the kite actually flying. Finish with large balanced TOUCH GRASS lettering integrated into that landscape and the small line “back in a bit.” Use original editorial illustration, crisp paper geometry and tactile shadows. Create original notification percussion that resolves into a softer musical ending; no narration or existing app logos. Deliver 1080×1920 at 30 fps with editable artwork, animation source and this exact prompt.",
+    "prompt": "Create an original 22-second vertical motion-design film called TOUCH GRASS. A giant cursor is trapped in a clean off-white desktop by an escalating stack of notification windows. Establish the frustration quickly with three readable messages: “One more thing,” “Quick question,” and “Still there?” The cursor pushes against the edge of the top window, tears it open like paper, and discovers a vivid green landscape behind the screen.\n\nMake the transition one continuous physical idea: the torn paper edge opens into the hills, the cursor becomes a small white kite, and its trailing cable unwinds into a loose path through the grass. Let the restless opening give way to one calm, spacious landscape with gently moving blades, an oversized pale sun and the kite actually flying. Finish with large balanced TOUCH GRASS lettering integrated into that landscape and the small line “back in a bit.” Use original editorial illustration, crisp paper geometry and tactile shadows. Create original notification percussion that resolves into a softer musical ending; no narration or existing app logos. Deliver 1080×1920 at 30 fps with editable artwork, animation source and this exact prompt.\n\nFinal delivery: Export this version completely silent. Remove every audio stream from the finished movie. Do not include music, speech, sound effects, noise, or an empty audio track. Preserve all picture frames, visual timing, dimensions, and frame rate.",
     "duration": 22,
     "promptKind": "Original prompt",
     "orientation": "portrait",
@@ -3061,7 +3171,7 @@
     "useCases": ["Digital life social film", "Original video creation"],
     "technique": "motion-design",
     "sourceRepo": "https://github.com/DonIsmaelito/video-use",
-    "promptSource": "Exact creative prompt used to author this original Video Use film. Trend research informed the concept; it is not source footage.",
+    "promptSource": "Original creative request followed by the user-authorized silent-delivery revision. The encoded picture is preserved without re-encoding.",
     "mediaCredits": [
       {
         "title": "Creative trend research",
@@ -3070,11 +3180,401 @@
         "changes": "Concept research only. No media copied into this original film."
       }
     ],
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-90-touch-grass-1d301a105a45-c6154df4/final.mp4",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-90-touch-grass-8fb5ded0c129128f/final.mp4",
     "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-90-touch-grass-1d301a105a45-c6154df4/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-90-touch-grass-1d301a105a45-c6154df4/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-90-touch-grass-1d301a105a45-c6154df4/review.md",
-    "muted": false,
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-90-touch-grass-8fb5ded0c129128f/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/silent-collections/20261007/useful-90-touch-grass-8fb5ded0c129128f/review.md",
+    "muted": true,
+    "loop": false,
+    "promptMode": "exact"
+  },
+  {
+    "id": "useful-96-change-perspective",
+    "title": "MAKE · A Matter of Perspective",
+    "category": "Motion Design",
+    "description": "Actual solid rectangular fragments form a bespoke geometric MAKE letter construction.",
+    "prompt": "Create a complete 25-second silent landscape film about a real three-dimensional anamorphic sculpture. Begin close among scattered red-orange sculptural fragments suspended over a pale gallery floor. Let the camera travel around their differing depths so the individual pieces feel physical and initially unreadable. Guide the camera to one precise viewpoint where the same solid fragments align into the bold word MAKE. Hold the alignment long enough to recognize it, briefly orbit away to reveal the dimensional trick, then return to the exact readable view for the ending. Build the word from actual 3D geometry rather than a flat title overlay. Use a restrained gallery aesthetic, strong shadows and one unmistakable payoff. Deliver no audio stream of any kind.",
+    "duration": 25,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": ["Designers", "Creative studios"],
+    "useCases": ["Brand identity film", "Anamorphic sculpture"],
+    "technique": "motion-design",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Original prompt frozen before authoring",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-96-change-perspective-d606c87109ad-483e0f26/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-96-change-perspective-d606c87109ad-483e0f26/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-96-change-perspective-d606c87109ad-483e0f26/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-96-change-perspective-d606c87109ad-483e0f26/review.md",
+    "promptMode": "exact",
+    "muted": true,
+    "loop": false
+  },
+  {
+    "id": "useful-94-world-in-page",
+    "title": "A World in a Page",
+    "category": "Motion Design",
+    "description": "A teal cloth-like book opens around its actual spine.",
+    "prompt": "Create a complete 26-second silent portrait film in which a beautiful teal book opens and a paper page physically unfolds into a miniature architectural world. Raise warm ivory and ochre cut-paper facades, hinged roofs, a central tower and a connecting bridge in an intelligible sequence, with every part attached to the page. Move close enough to enjoy the small architectural details, then reveal the whole miniature city standing on the open book. Reverse the construction in a deliberate order, refold the page and close the book on the title A WORLD IN A PAGE. Use tactile paper, clean architectural alignment, soft studio light and a calm but surprising sense of scale. Deliver no audio stream of any kind.",
+    "duration": 26,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": ["Publishers", "Designers"],
+    "useCases": ["Editorial film", "Paper architecture"],
+    "technique": "motion-design",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Original prompt frozen before authoring",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-94-world-in-page-beeffb5aad19-645f8995/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-94-world-in-page-beeffb5aad19-645f8995/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-94-world-in-page-beeffb5aad19-645f8995/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-94-world-in-page-beeffb5aad19-645f8995/review.md",
+    "promptMode": "exact",
+    "muted": true,
+    "loop": false
+  },
+  {
+    "id": "useful-93-inside-lens",
+    "title": "APERTURE",
+    "category": "Motion Design",
+    "description": "A fictional optical assembly is the hero.",
+    "prompt": "Create a complete 26-second silent cinematic product film for an original fictional camera lens named APERTURE in landscape. Reveal its dark machined barrel, then separate it along its optical axis into purposeful metal rings, curved glass elements and a working multi-blade iris. Use a considered camera move and a restrained light path to show how these parts belong together. Give the exploded view a strong readable hold, show the iris closing and opening, and reassemble every component into a satisfying final lens hero. Use graphite, polished aluminum and subtle violet optical coatings on a dark studio background. Keep product copy minimal and make no real-world performance claims. Deliver no audio stream of any kind.",
+    "duration": 26,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": ["Product designers", "Filmmakers"],
+    "useCases": ["Product film", "Optical visualization"],
+    "technique": "motion-design",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Original prompt frozen before authoring",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-93-inside-lens-0f24e813a895-4ebf3ec2/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-93-inside-lens-0f24e813a895-4ebf3ec2/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-93-inside-lens-0f24e813a895-4ebf3ec2/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-93-inside-lens-0f24e813a895-4ebf3ec2/review.md",
+    "promptMode": "exact",
+    "muted": true,
+    "loop": false
+  },
+  {
+    "id": "useful-92-type-flight",
+    "title": "FLIGHT",
+    "category": "Motion Design",
+    "description": "Six printed sheets are the opening typography and the persistent objects.",
+    "prompt": "Create a complete 24-second silent opening-title film called FLIGHT in landscape. Begin with six large black letters printed across ivory paper on a warm studio floor. Let the letter-bearing sheets visibly crease into six original origami gliders, then lift and bank together in a carefully choreographed flock. Move through a close view of the folded paper and a wider airy flight, then resolve into a clean FLIGHT title composition beneath the gliders. Use warm ivory, ink black and a restrained vermilion accent, tactile paper, generous negative space and physically connected folds. Make the transformation and final title the memorable moments. Deliver no audio stream of any kind.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": ["Designers", "Filmmakers"],
+    "useCases": ["Opening title", "Typography film"],
+    "technique": "motion-design",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Original prompt frozen before authoring",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-92-type-flight-55296e6d3914-5a489abf/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-92-type-flight-55296e6d3914-5a489abf/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-92-type-flight-55296e6d3914-5a489abf/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-92-type-flight-55296e6d3914-5a489abf/review.md",
+    "promptMode": "exact",
+    "muted": true,
+    "loop": false
+  },
+  {
+    "id": "useful-95-format-shift",
+    "title": "FRAME · One Idea",
+    "category": "Motion Design",
+    "description": "One persistent coral ribbon loop, cobalt field and ivory ONE IDEA typography are recomposed through aspect changes.",
+    "prompt": "Create a complete 24-second silent landscape campaign film for a fictional creative video tool called FRAME. Show one original composition, built around a sculptural coral ribbon loop, bold ivory ONE IDEA typography and a cobalt field. Keep those same visual elements continuous as a visible canvas changes from landscape to portrait to square: the subject resizes, the typography reflows and the spacing is intentionally recomposed. Make each format feel designed rather than cropped. Finish by presenting the three coherent versions together and the concise line One idea. Every frame. Use precise motion and a polished editorial finish, without feature claims, fake interface controls or unrelated effects. Deliver no audio stream of any kind.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": ["Video creators", "Design teams"],
+    "useCases": ["Fictional product campaign", "Format adaptation"],
+    "technique": "motion-design",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Original prompt frozen before authoring",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-95-format-shift-c37664d4562a-7624beb7/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-95-format-shift-c37664d4562a-7624beb7/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-95-format-shift-c37664d4562a-7624beb7/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-95-format-shift-c37664d4562a-7624beb7/review.md",
+    "promptMode": "exact",
+    "muted": true,
+    "loop": false
+  },
+  {
+    "id": "useful-103-mecha-assembly",
+    "title": "The Waking Guardian",
+    "category": "Motion Design",
+    "description": "Hinged ceramic armor assembles around a guardian core before its eyes awaken.",
+    "prompt": "Create an original, wordless, 24-second anime-inspired 3D mechanical character reveal. In a dark industrial chamber, a compact guardian bust is assembled visibly: torso armor closes around its glowing core on real hinges, cheek armor folds against a faceted helmet, and a paired crown locks into place. The eye slit then activates and the completed guardian makes a restrained hero turn toward the camera. Use ivory ceramic armor, deep graphite mechanics and ember-orange illumination, dimensional geometry with crisp cel-shaded highlights, motivated close and wide framing and an unmistakable assembly-to-awakening payoff. No extra floating pieces, text, logos, franchise designs or audio of any kind.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": ["motion designers", "game studios", "filmmakers"],
+    "useCases": [
+      "character reveal",
+      "game teaser",
+      "mechanical assembly sequence"
+    ],
+    "technique": "3d",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Exact creative prompt used to author this original Video Use film. No franchise artwork or source footage used.",
+    "mediaCredits": [],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-103-mecha-assembly-4d36f488f9d2-fe708527/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-103-mecha-assembly-4d36f488f9d2-fe708527/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-103-mecha-assembly-4d36f488f9d2-fe708527/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-103-mecha-assembly-4d36f488f9d2-fe708527/review.md",
+    "promptMode": "exact",
+    "muted": true,
+    "loop": false
+  },
+  {
+    "id": "useful-97-determinant",
+    "title": "The Shape of a Determinant",
+    "category": "Explainers",
+    "description": "The Shape of a Determinant — a silent, numerically verified 3D lesson.",
+    "prompt": "Create a polished, completely silent 24-second 1920×1080 30 fps 3D mathematics film titled “The Shape of a Determinant”. On a midnight-blue field, keep one translucent mint unit cube alive throughout. Establish volume 1, stretch its x direction to twice the length so volume becomes 2, then shear the top sideways without changing its height or volume. Use visible unit divisions, a restrained coral transformation arrow, and a fixed volume readout derived from the actual transformation matrix. A purposeful small camera change should reveal that the final object is a parallelepiped. Finish with the sheared solid and the readable conclusion “Shape changes. Volume stays 2.” and “Volume = |det A|”. Geometry first, very little text, clean Inter typography, no slide resets, no decorative objects. Include no narration, music, sound effects, or audio stream.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": ["math teachers", "students", "technical creators"],
+    "useCases": ["linear algebra lesson", "math course teaser"],
+    "technique": "3d",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Original Video Use creative brief",
+    "mediaCredits": [
+      {
+        "label": "Scientific source",
+        "url": "https://ocw.mit.edu/ans7870/18/18.013a/textbook/chapter05/section04.html"
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-97-determinant-78dea41e9bb6-1852c713/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-97-determinant-78dea41e9bb6-1852c713/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-97-determinant-78dea41e9bb6-1852c713/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-97-determinant-78dea41e9bb6-1852c713/review.md",
+    "promptMode": "exact",
+    "muted": true,
+    "loop": false
+  },
+  {
+    "id": "useful-104-spirit-train",
+    "title": "Last Light Station",
+    "category": "Motion Design",
+    "description": "A train crosses a flooded causeway and reveals a quiet spirit passenger.",
+    "prompt": "Create an original, wordless, 26-second anime-inspired 3D atmospheric establishing scene. A tiny teal-and-cream electric train crosses a reflective flooded causeway beneath a rose-lavender dusk sky, heading toward a luminous amber station. Follow the train with a cinematic camera, show it slowing beside the platform, then move through its open passenger doorway to reveal one small original moon-faced spirit in a saffron cloak seated inside. The spirit gently turns toward the station light as the journey ends. Use real dimensional architecture, readable train construction, layered water reflections and cel-shaded materials. No text, logos, franchise characters or audio of any kind.",
+    "duration": 26,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": ["filmmakers", "animators", "storyboard artists"],
+    "useCases": [
+      "atmospheric establishing shot",
+      "travel interlude",
+      "fantasy scene reveal"
+    ],
+    "technique": "3d",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Exact creative prompt used to author this original Video Use film. No franchise artwork or source footage used.",
+    "mediaCredits": [],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-104-spirit-train-4867ed9f8eb6-7a05f8f6/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-104-spirit-train-4867ed9f8eb6-7a05f8f6/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-104-spirit-train-4867ed9f8eb6-7a05f8f6/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-104-spirit-train-4867ed9f8eb6-7a05f8f6/review.md",
+    "promptMode": "exact",
+    "muted": true,
+    "loop": false
+  },
+  {
+    "id": "useful-100-attention",
+    "title": "Attention Is a Mixture",
+    "category": "Explainers",
+    "description": "Attention Is a Mixture — a silent, numerically verified 3D lesson.",
+    "prompt": "Create a polished, completely silent 24-second 1920×1080 30 fps 3D AI teaching film titled “Attention Is a Mixture”. Clearly label this a toy single-head example. Show one query and three keys producing already-scaled query–key scores [2, 1, 0]. Transform those scores through softmax into the computed normalized weights [0.665, 0.245, 0.090], whose unrounded values sum to 1. Keep each key’s color attached to its weight and to its value vector. On a clean 3D set of orthogonal axes, use value vectors v₁ = (1,0,0), v₂ = (0,1,0), and v₃ = (0,0,1). Scale the three vectors by their weights, assemble them head to tail, and reveal the resulting vector (0.665, 0.245, 0.090). End with the small relationship “output = Σ weight × value” and “One query. A weighted mixture.” Use an aubergine-black background with cyan, peach, and lavender semantic colors, restrained readable Inter typography, a purposeful stable isometric camera, and no brain or token-understanding metaphor. Include no narration, music, sound effects, or audio stream.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": ["AI educators", "developers", "students"],
+    "useCases": ["transformer lesson", "AI fundamentals"],
+    "technique": "3d",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Original Video Use creative brief",
+    "mediaCredits": [
+      {
+        "label": "Scientific source",
+        "url": "https://papers.nips.cc/paper/7181-attention-is-all-you-need.pdf"
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-100-attention-0d9c613708f6-269fbfe9/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-100-attention-0d9c613708f6-269fbfe9/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-100-attention-0d9c613708f6-269fbfe9/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-100-attention-0d9c613708f6-269fbfe9/review.md",
+    "promptMode": "exact",
+    "muted": true,
+    "loop": false
+  },
+  {
+    "id": "useful-106-water-dragon",
+    "title": "The Lantern Keeper",
+    "category": "Motion Design",
+    "description": "A connected water dragon coils around a lantern and returns to a reflecting pool.",
+    "prompt": "Create an original, wordless, 24-second anime-inspired 3D water-effects film. In a dark reflecting pool, a single turquoise ribbon of water rises, continuously gathers into one coherent serpentine dragon with a tapered flowing body, paired horns and a clear face, then coils gracefully around a floating amber lantern. The dragon lowers its head toward the lantern, circles it once and dissolves continuously back into water while the lantern remains glowing. Use sculpted dimensional cel-shaded water, silver highlights, deep ink-blue surroundings and a camera that reveals the coil in depth. Keep one connected creature and a clear transformation, gesture and release. No text, logos, franchise creatures or audio of any kind.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": ["visual effects artists", "animators", "filmmakers"],
+    "useCases": [
+      "stylized effects showcase",
+      "fantasy trailer insert",
+      "liquid character transformation"
+    ],
+    "technique": "3d",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Exact creative prompt used to author this original Video Use film. No franchise artwork or source footage used.",
+    "mediaCredits": [],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-106-water-dragon-70583af41fb9-39f51f9a/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-106-water-dragon-70583af41fb9-39f51f9a/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-106-water-dragon-70583af41fb9-39f51f9a/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-106-water-dragon-70583af41fb9-39f51f9a/review.md",
+    "promptMode": "exact",
+    "muted": true,
+    "loop": false
+  },
+  {
+    "id": "useful-98-refraction",
+    "title": "Why Light Bends",
+    "category": "Explainers",
+    "description": "Why Light Bends — a silent, numerically verified 3D lesson.",
+    "prompt": "Create a polished, completely silent 24-second 1920×1080 30 fps 3D physics film titled “Why Light Bends”. Reveal a clean transparent glass half-space below an air–glass interface, then turn the camera square to the plane containing the incoming and refracted rays so the angles are true on screen. Draw a warm gold incident ray at 45 degrees to the dashed surface normal. Continue the ray into glass with n = 1.50, bending toward that normal to the independently calculated 28.13 degrees. Draw both angle arcs from the normal, never the surface. Keep air n = 1.00 and glass n = 1.50 readable and show the compact Snell relationship n₁ sin θ₁ = n₂ sin θ₂. A faint straight-ahead guide should make the bend visible. End on “Into glass. Toward the normal.” Use a deep glacier-blue palette, precise geometry, restrained Inter typography, one persistent diagram, and no unsupported light-speed animation. Include no narration, music, sound effects, or audio stream.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": ["physics teachers", "students", "science communicators"],
+    "useCases": ["optics lesson", "STEM demonstration"],
+    "technique": "3d",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Original Video Use creative brief",
+    "mediaCredits": [
+      {
+        "label": "Scientific source",
+        "url": "https://openstax.org/books/university-physics-volume-3/pages/1-3-refraction"
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-98-refraction-75f7ba17f98e-d2db5d4f/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-98-refraction-75f7ba17f98e-d2db5d4f/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-98-refraction-75f7ba17f98e-d2db5d4f/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-98-refraction-75f7ba17f98e-d2db5d4f/review.md",
+    "promptMode": "exact",
+    "muted": true,
+    "loop": false
+  },
+  {
+    "id": "useful-102-rooftop-courier",
+    "title": "Moonbound Courier",
+    "category": "Motion Design",
+    "description": "A masked courier makes one moonlit rooftop leap and lands beside a lantern.",
+    "prompt": "Create an original, wordless, 24-second anime-inspired 3D rooftop action film. A single masked courier in a cream hood, indigo suit and coral scarf watches a lantern across a rooftop gap, lowers into an anticipatory crouch, makes one clear arcing leap and lands on the opposite roof before standing beside the warm lantern. Use real dimensional buildings and strong city parallax, faceted cel-shaded character geometry, a deep blue moonlit sky and restrained coral accents. Frame the full jump and landing clearly, give the scarf a trailing follow-through, and end on a composed moonlit hero pose. No text, logos, franchise characters or audio of any kind.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": ["filmmakers", "animators", "game studios"],
+    "useCases": [
+      "anime trailer insert",
+      "character action proof",
+      "cinematic transition"
+    ],
+    "technique": "3d",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Exact creative prompt used to author this original Video Use film. No franchise artwork or source footage used.",
+    "mediaCredits": [],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-102-rooftop-courier-af1b9bddc999-72da295b/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-102-rooftop-courier-af1b9bddc999-72da295b/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-102-rooftop-courier-af1b9bddc999-72da295b/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-102-rooftop-courier-af1b9bddc999-72da295b/review.md",
+    "promptMode": "exact",
+    "muted": true,
+    "loop": false
+  },
+  {
+    "id": "useful-101-gradient-descent",
+    "title": "Follow the Slope",
+    "category": "Explainers",
+    "description": "Follow the Slope — a silent, numerically verified 3D lesson.",
+    "prompt": "Create a polished, completely silent 24-second 1920×1080 30 fps 3D mathematics and AI film titled “Follow the Slope”. Build the actual quadratic loss surface f(x,y) = 0.5x² + y² as an elegant dark-teal wire-mesh bowl with subtle shaded faces. Start a warm gold point at (2,1), where f = 3.00. Reveal the local negative-gradient direction and take explicit discrete updates p ← p − 0.25∇f(p). Animate six computed steps down the same surface, leaving a thin gold path and small landing markers; show the changing loss from the actual current position. Keep a ghost of the starting point and reveal a small floor projection so the 3D movement is understandable. Use a calm purposeful isometric camera, clear x/y axes, little readable text, and finish on “Use the slope. Reduce the loss.” with the final loss rounded to 0.0636. Mark it as a toy quadratic example and do not imply the behavior proves convergence for every loss. Include no narration, music, sound effects, or audio stream.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": ["AI educators", "math students", "developers"],
+    "useCases": ["optimization lesson", "machine learning fundamentals"],
+    "technique": "3d",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Original Video Use creative brief",
+    "mediaCredits": [
+      {
+        "label": "Scientific source",
+        "url": "https://www.cs.cornell.edu/courses/cs4780/2015fa/web/lecturenotes/lecturenote07.html"
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-101-gradient-descent-6559081d2322-ec02f759/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-101-gradient-descent-6559081d2322-ec02f759/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-101-gradient-descent-6559081d2322-ec02f759/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-101-gradient-descent-6559081d2322-ec02f759/review.md",
+    "promptMode": "exact",
+    "muted": true,
+    "loop": false
+  },
+  {
+    "id": "useful-105-sword-dojo",
+    "title": "One Quiet Cut",
+    "category": "Motion Design",
+    "description": "A grounded swordsman draws once and makes one deliberate cut in a timber dojo.",
+    "prompt": "Create an original, wordless, 24-second anime-inspired 3D sword performance inside an empty timber dojo. One masked swordsman in a charcoal hakama and restrained rust-red sash holds a sheathed blade, settles into a grounded stance, draws it once in a deliberate readable motion and completes one clean horizontal cut. A brief pale-gold crescent traces the blade path, then dissolves as the character recovers into a balanced still pose. Use dimensional timber beams and paper screens, warm side light, clean cel-shaded geometry and carefully attached hands, sword and sheath. Show anticipation, contact with the floor and cloth follow-through without extra limbs or stray geometry. No text, logos, franchise characters or audio of any kind.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": ["animators", "game studios", "filmmakers"],
+    "useCases": [
+      "action animation study",
+      "cinematic sword insert",
+      "combat silhouette reference"
+    ],
+    "technique": "3d",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Exact creative prompt used to author this original Video Use film. No franchise artwork or source footage used.",
+    "mediaCredits": [],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-105-sword-dojo-2fb6e4de1397-735ceb89/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-105-sword-dojo-2fb6e4de1397-735ceb89/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-105-sword-dojo-2fb6e4de1397-735ceb89/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-105-sword-dojo-2fb6e4de1397-735ceb89/review.md",
+    "promptMode": "exact",
+    "muted": true,
+    "loop": false
+  },
+  {
+    "id": "useful-99-angular-momentum",
+    "title": "Pull In Spin Up",
+    "category": "Explainers",
+    "description": "Pull In Spin Up — a silent, numerically verified 3D lesson.",
+    "prompt": "Create a polished, completely silent 24-second 1920×1080 30 fps 3D physics film titled “Pull In. Spin Up.” Show two identical ideal point masses on opposite ends of a massless radial guide, spinning around a clearly visible vertical axis with zero external torque. Begin with radius r = 1.00 and angular speed ω = 1.00 rad/s. Pull both masses smoothly inward to r = 0.50, compute I = 2mr² continuously for m = 1, and increase angular speed to ω = 4.00 rad/s so L = Iω stays 2.00. Preserve angular continuity through the motion. Keep the initial radius ring as a faint reference and display a compact linked radius, inertia, and angular-speed readout. A persistent angular-momentum bar must remain constant while the rotor visibly speeds up. Use a dark ink and lavender palette with warm peach masses, an elegant shallow overhead camera, and a final visual statement “Half the radius. Four times the spin.” Explicitly mark the ideal point-mass model. Include no narration, music, sound effects, or audio stream.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": ["physics teachers", "students", "science communicators"],
+    "useCases": ["mechanics lesson", "conservation laws explainer"],
+    "technique": "3d",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Original Video Use creative brief",
+    "mediaCredits": [
+      {
+        "label": "Scientific source",
+        "url": "https://openstax.org/books/university-physics-volume-1/pages/11-3-conservation-of-angular-momentum"
+      },
+      {
+        "label": "Scientific source",
+        "url": "https://openstax.org/books/physics/pages/8-2-conservation-of-momentum"
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-99-angular-momentum-906e31bcc7e3-35760a74/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-99-angular-momentum-906e31bcc7e3-35760a74/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-99-angular-momentum-906e31bcc7e3-35760a74/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-99-angular-momentum-906e31bcc7e3-35760a74/review.md",
+    "promptMode": "exact",
+    "muted": true,
     "loop": false
   }
 ]

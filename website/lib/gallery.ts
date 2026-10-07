@@ -20,6 +20,7 @@ export type Example = {
   loop?: boolean;
   muted?: boolean;
   promptKind: string;
+  promptMode?: 'exact';
   orientation: string;
   audiences?: string[];
   audience?: string;
@@ -298,6 +299,7 @@ export function exampleLink(origin: string, exampleId: string): string {
 }
 
 export function buildChatPrompt(example: Example): string {
+  if (example.promptMode === 'exact') return example.prompt;
   // Reviewed footage and original films publish the exact Video Use request.
   const reviewedNumber = Number(/^useful-(\d+)-/.exec(example.id)?.[1]);
   if (reviewedNumber >= 61 && reviewedNumber <= 91) return example.prompt;
