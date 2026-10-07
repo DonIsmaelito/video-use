@@ -56,3 +56,10 @@ Added a centered NEW! badge above the iMessage heading at the user’s request. 
 Production build and lint pass. The local production build temporarily disabled the webpack disk cache after the machine ran out of space, then restored the original Next configuration byte for byte. Chromium at 1440/1024/390/320px verifies centered placement above the heading, no overflow, the two phones, and reduced-motion behavior. Evidence: `/tmp/video-use-imessage-new-20261007/`.
 
 Published the orange badge with the minimal MCP shell at https://video-use.insforge.site in deployment `c609d328-4763-424b-8370-7bf7ed70b874` from source `9b7374d`, including the latest passive featured-preview release `990db1e`. Live badge checks pass at 1440/1024/390/320px, including reduced motion. Receipt: `/tmp/video-use-imessage-new-20261007/release-summary.json`.
+
+
+## Larger badge with shine
+
+The user prefers a larger NEW! badge and its shiny surface over a sparkle icon. `ImessageFeature` now renders text only. `.newBadge` has a 112px minimum width, 20–22px lettering, increased padding and a brighter orange gradient/glow. `badgeShimmer` sweeps a wider white highlight across it every 3.8 seconds using a transform. Reduced motion retains the glossy background while stopping the sweep.
+
+Deployed from `726ad6e` in InsForge release `f0abfc66-495e-4a00-8ec4-870ad602f2d5` at https://video-use.insforge.site/#imessage. Build and lint pass. Local and live Chromium checks at 1440, 1024, 390 and 320px verify centered placement, clearance above the heading, no overflow, intact phone images/links, an advancing animation clock and reduced-motion behavior. Desktop, phone and shine captures were visually inspected. Evidence: `/private/tmp/video-use-imessage-shine-20261007/release-summary.json`.

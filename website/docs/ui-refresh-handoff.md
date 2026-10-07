@@ -1124,3 +1124,8 @@ All 3,540 final encoded frames were inspected in 118 chronological pages plus en
 Production build, type/catalog validation, all 30 importer tests, lint and whitespace checks pass. Local and live Chromium checks pass at 320, 390, 768, 1100 and 1440px, including all five players at desktop/phone widths, exact prompt copying, archive links, five real desktop clicks and five phone-emulated taps, advancing muted previews, no card overlaps and no page errors. Actual desktop and phone captures were inspected. Six hosted routes and all 197 catalog movie URLs are present. Four changed runtime files were synchronized into the root checkout using original-file hash guards.
 
 Evidence and immutable movie/archive hashes: `/Users/ismaelito/Movies/Video Use Edit Five 20261007/edit/release-summary.json`. All source acquisition and heavy rendering stayed in Modal/R2. This pass is complete and releases website deployment ownership.
+
+
+### Larger iMessage launch badge verified live
+
+The NEW! badge is larger, with 20–22px text, a 112px minimum width and a brighter moving shine. The sparkle icon is removed. `components/imessage-feature.tsx` changes the badge content; its CSS module owns the size, gradient, glow and 3.8-second highlight. Deployment `f0abfc66-495e-4a00-8ec4-870ad602f2d5` is READY from `726ad6e`. Build, lint, local/live responsive checks at 1440/1024/390/320px, real animation timing and reduced motion pass. Actual desktop, phone and shine captures were inspected. Only these two runtime files changed and were synchronized with original-file guards. Evidence: `/private/tmp/video-use-imessage-shine-20261007/release-summary.json`. This pass is complete and releases website deployment ownership.
