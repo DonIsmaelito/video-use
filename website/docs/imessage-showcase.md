@@ -42,3 +42,9 @@ The orange mist pass is verified in Chromium at 1440, 390 and 320px and WebKit a
 The supplied assets pass the production build, lint, TypeScript/catalog validation, all 30 importer checks and diff checks. Production browser checks pass in Chromium at 1440, 1024, 390 and 320px, and WebKit at 1440 and 390px. Both screenshots decode, preserve their aspect ratio, and match the original PNG hashes. Desktop keyboard activation and phone taps open each original in a new tab. The section follows the featured carousel and precedes Editing, bringing the content-sector count to seven. There is no horizontal overflow or browser page error. Reduced motion retains the halo and disables the decorative mist.
 
 Actual video time advances for every visible preview at the top of all three collections in both engines at desktop and phone widths: Editing 10/6, Creation 8/6, and 3D 15/9. Featured playback resumes after scrolling back. No preview Play/Pause control is present. Evidence, reviewed screenshots and the focused browser checker are in `/tmp/video-use-imessage-release-20261007/`.
+
+## Live release
+
+Published at https://video-use.insforge.site/#imessage from source `96e6dde1dc679b927ef780f94f526c85cd5c4631`. InsForge deployment `c4e11648-39e2-4a73-89a6-955d1ac64219` reached READY at 2026-10-07 07:13:20 UTC; provider deployment `dpl_cy24haYmzJWsKZD12iDcGKvHhS8v`. The release branch is `feature/useful-video-library` on the user's fork.
+
+Live Chromium and WebKit checks pass at 1440 and 390px for uncropped screenshots, original image hashes, keyboard/tap full-size links, seven sectors, placement, no overflow, actual mist animation and reduced motion. All visible videos advance through the three collection stops and resume at the featured row, without preview controls or page errors. All six public routes return HTTP 200. The deployment receipt and live evidence are in `/tmp/video-use-imessage-release-20261007/`.
