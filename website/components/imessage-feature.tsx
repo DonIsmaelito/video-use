@@ -13,12 +13,18 @@ type ConversationScreenshot = {
 function ConversationPhone({
   screenshot,
   label,
+  side,
 }: {
   screenshot: ConversationScreenshot | null;
   label: string;
+  side: 'left' | 'right';
 }) {
   return (
-    <figure className={styles.phoneStage} aria-label={label}>
+    <figure
+      className={`${styles.phoneStage} ${styles[side]}`}
+      aria-label={label}
+      aria-describedby={side === 'left' ? 'imessage-edit' : 'imessage-create'}
+    >
       <div className={styles.phone}>
         <div className={styles.screen}>
           {screenshot ? (
@@ -28,7 +34,7 @@ function ConversationPhone({
               width={screenshot.width}
               height={screenshot.height}
               alt={screenshot.alt}
-              sizes="(max-width: 375px) 240px, 300px"
+              sizes="(max-width: 540px) 30vw, (max-width: 1023px) 154px, 240px"
               loading="lazy"
               decoding="async"
             />
@@ -46,7 +52,7 @@ function ConversationPhone({
           width={762}
           height={1502}
           alt=""
-          sizes="(max-width: 375px) 290px, (max-width: 1023px) 330px, 356px"
+          sizes="(max-width: 540px) 36vw, (max-width: 1023px) 184px, 286px"
           aria-hidden="true"
           loading="lazy"
           decoding="async"
@@ -72,74 +78,66 @@ export function ImessageFeature() {
       className={styles.section}
       aria-labelledby="imessage-heading"
     >
-      <div className={styles.inner}>
+      <div className={styles.composition}>
         <header className={styles.header}>
           <span className={styles.eyebrow}>
             <MessageCircle size={15} aria-hidden="true" />
             A conversation away
           </span>
-          <h2 id="imessage-heading">Video Use in iMessage</h2>
-          <p>Your footage. Your ideas. One conversation.</p>
+          <h2 id="imessage-heading">
+            Video Use <span>in iMessage</span>
+          </h2>
+          <p>
+            <span>Your footage. Your ideas.</span>{' '}
+            <span>One conversation.</span>
+          </p>
         </header>
 
-        <div className={styles.rows}>
-          <article className={styles.row} aria-labelledby="imessage-edit">
-            <ConversationPhone
-              screenshot={screenshots.cameraRoll}
-              label="Editing from your camera roll"
-            />
-            <div className={styles.context}>
-              <span className={styles.label}>
-                <ImagePlay size={16} aria-hidden="true" />
-                Edit your footage
-              </span>
-              <h3 id="imessage-edit">
-                Your camera roll.
-                <br />
-                <span>Your next video.</span>
-              </h3>
-              <p>
-                Share clips from your camera roll and say what you have in mind.
-                Video Use finds the moments, makes the edit, and sends it back
-                in iMessage.
-              </p>
-              <div className={styles.detail}>
-                <span className={styles.step}>01</span>
-                Your footage, with the context to make it yours.
-              </div>
-            </div>
+        <ConversationPhone
+          screenshot={screenshots.cameraRoll}
+          label="Editing from your camera roll"
+          side="left"
+        />
+
+        <div className={styles.contexts}>
+          <article className={styles.context} aria-labelledby="imessage-edit">
+            <span className={styles.label}>
+              <ImagePlay size={16} aria-hidden="true" />
+              Edit your footage
+            </span>
+            <h3 id="imessage-edit">
+              Your camera roll.
+              <br />
+              <span>Your next video.</span>
+            </h3>
+            <p>
+              Share clips from your camera roll. Video Use finds the moments,
+              makes the edit, and sends your video back in iMessage.
+            </p>
           </article>
 
-          <article
-            className={`${styles.row} ${styles.reverse}`}
-            aria-labelledby="imessage-create"
-          >
-            <div className={styles.context}>
-              <span className={styles.label}>
-                <ScanSearch size={16} aria-hidden="true" />
-                Create from an idea
-              </span>
-              <h3 id="imessage-create">
-                Send the idea.
-                <br />
-                <span>Find the direction.</span>
-              </h3>
-              <p>
-                Describe the video you want to make. Video Use searches the web
-                for references, helps you choose a direction, and creates with
-                you in the same conversation.
-              </p>
-              <div className={styles.detail}>
-                <span className={styles.step}>02</span>
-                References, creation, and revisions. Keep texting.
-              </div>
-            </div>
-            <ConversationPhone
-              screenshot={screenshots.references}
-              label="Creating with visual references"
-            />
+          <article className={styles.context} aria-labelledby="imessage-create">
+            <span className={styles.label}>
+              <ScanSearch size={16} aria-hidden="true" />
+              Create from an idea
+            </span>
+            <h3 id="imessage-create">
+              Send the idea.
+              <br />
+              <span>Find the look.</span>
+            </h3>
+            <p>
+              Send an idea. Video Use finds references on the web, helps shape
+              the direction, and creates your video in iMessage.
+            </p>
           </article>
         </div>
+
+        <ConversationPhone
+          screenshot={screenshots.references}
+          label="Creating with visual references"
+          side="right"
+        />
       </div>
     </section>
   );

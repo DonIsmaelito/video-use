@@ -2,16 +2,24 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  padding: 80px var(--page-gutter) 96px;
+  padding: 56px var(--page-gutter) 64px;
 }
 
-.inner {
-  max-width: 1120px;
+.composition {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr) clamp(320px, 34vw, 440px)
+    minmax(0, 1fr);
+  align-items: center;
+  gap: 32px clamp(24px, 3vw, 44px);
+  max-width: 1240px;
   margin: 0 auto;
 }
 
 .header {
-  margin: 0 auto 68px;
+  grid-column: 2;
+  grid-row: 1;
+  align-self: end;
   text-align: center;
 }
 
@@ -19,9 +27,9 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
   color: var(--accent);
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -29,36 +37,33 @@
 
 .header h2 {
   font-family: var(--font-title);
-  font-size: clamp(34px, 4vw, 52px);
+  font-size: clamp(36px, 3.5vw, 48px);
   font-weight: 500;
-  line-height: 1.1;
+  line-height: 1.04;
   letter-spacing: -0.045em;
-  text-wrap: balance;
+}
+
+.header h2 span {
+  display: block;
 }
 
 .header p {
-  margin-top: 16px;
+  max-width: 280px;
+  margin: 16px auto 0;
   color: #919191;
-  font-size: 17px;
+  font-size: 14px;
   line-height: 1.6;
   text-wrap: balance;
 }
 
-.rows {
-  display: grid;
-  gap: 44px;
-}
-
-.row {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: center;
-  column-gap: clamp(56px, 8vw, 128px);
+.header p span {
+  display: block;
 }
 
 .phoneStage {
   position: relative;
   display: grid;
+  grid-row: 1 / span 2;
   place-items: center;
   min-width: 0;
   margin: 0;
@@ -69,25 +74,35 @@
   content: '';
   position: absolute;
   z-index: -1;
-  inset: 6% -20%;
+  inset: 4% -12%;
   pointer-events: none;
   background: radial-gradient(
     ellipse at 50% 52%,
-    color-mix(in srgb, var(--accent) 9%, transparent),
+    color-mix(in srgb, var(--accent) 8%, transparent),
     transparent 69%
   );
 }
 
-.reverse .phoneStage::before {
-  background: radial-gradient(ellipse at 50% 52%, #ffffff09, transparent 69%);
+.left {
+  --phone-tilt: -10deg;
+  --phone-yaw: 8deg;
+  grid-column: 1;
+}
+
+.right {
+  --phone-tilt: 10deg;
+  --phone-yaw: -8deg;
+  grid-column: 3;
 }
 
 .phone {
   position: relative;
-  width: min(100%, 356px);
+  width: min(100%, clamp(216px, 21vw, 286px));
   aspect-ratio: 762 / 1502;
   isolation: isolate;
-  filter: drop-shadow(0 24px 24px #0005);
+  transform: perspective(1400px) rotateY(var(--phone-yaw))
+    rotateZ(var(--phone-tilt));
+  filter: drop-shadow(0 20px 24px #0005);
 }
 
 .screen {
@@ -122,10 +137,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 16px;
-  padding: 30px;
+  gap: 14px;
+  padding: 20px;
   color: #a0a0a0;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 1.5;
   text-align: center;
   background: radial-gradient(ellipse at center, #1a1511, #0b0b0b 70%);
@@ -137,38 +152,51 @@
 
 .placeholderNote {
   color: #888;
-  font-size: 11px;
+  font-size: 10px;
+}
+
+.contexts {
+  display: grid;
+  grid-column: 2;
+  grid-row: 2;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-self: start;
+  gap: 24px;
 }
 
 .context {
-  position: relative;
-  padding: 28px 0;
+  min-width: 0;
+  text-align: center;
 }
 
 .label {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 9px 13px;
-  margin-bottom: 24px;
+  gap: 6px;
+  padding: 7px 9px;
+  margin-bottom: 14px;
   border: 1px solid #ffffff14;
   border-radius: 999px;
   color: #bbb;
   background: #ffffff04;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 500;
+  white-space: nowrap;
 }
 
 .label svg {
+  flex-shrink: 0;
+  width: 13px;
+  height: 13px;
   color: var(--accent);
 }
 
 .context h3 {
   font-family: var(--font-title);
-  font-size: clamp(34px, 3.6vw, 48px);
+  font-size: clamp(20px, 1.8vw, 24px);
   font-weight: 500;
-  line-height: 1.1;
-  letter-spacing: -0.045em;
+  line-height: 1.18;
+  letter-spacing: -0.04em;
 }
 
 .context h3 span {
@@ -176,110 +204,117 @@
 }
 
 .context p {
-  max-width: 440px;
-  margin-top: 24px;
+  margin-top: 14px;
   color: #a0a0a0;
-  font-size: 17px;
-  line-height: 1.8;
-}
-
-.detail {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: 30px;
-  color: #888;
-  font-size: 11px;
-  line-height: 1.7;
-}
-
-.step {
-  flex: 0 0 auto;
-  color: var(--accent);
-  font-family: var(--font-code);
-  font-size: 10px;
+  font-size: 13px;
+  line-height: 1.75;
 }
 
 @media (max-width: 1023px) {
-  .inner {
-    max-width: 880px;
-  }
-
-  .row {
-    column-gap: 40px;
-  }
-
-  .phone {
-    width: min(100%, 324px);
-  }
-
-  .context h3 {
-    font-size: 36px;
-  }
-
-  .context p {
-    font-size: 15px;
-  }
-}
-
-@media (max-width: 767px) {
   .section {
-    padding-top: 60px;
-    padding-bottom: 72px;
+    padding-top: 44px;
+    padding-bottom: 48px;
+  }
+
+  .composition {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 32px;
+    max-width: 540px;
   }
 
   .header {
-    margin-bottom: 46px;
+    grid-column: 1 / -1;
   }
 
   .header h2 {
-    font-size: clamp(30px, 8.5vw, 40px);
+    font-size: clamp(30px, 7vw, 40px);
+    line-height: 1.1;
+  }
+
+  .header h2 span {
+    display: inline-block;
   }
 
   .header p {
-    max-width: 280px;
-    margin: 14px auto 0;
-    font-size: 15px;
+    max-width: none;
+    margin-top: 12px;
   }
 
-  .rows {
-    gap: 64px;
+  .header p span {
+    display: inline-block;
   }
 
-  .row {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 24px;
-  }
-
-  .phone {
-    width: min(100%, 330px);
-  }
-
-  .context {
-    width: min(100%, 420px);
-    margin: 0 auto;
-    padding: 0 8px;
-  }
-
-  .reverse .context {
+  .phoneStage {
     grid-row: 2;
   }
 
-  .label {
-    margin-bottom: 18px;
+  .left {
+    --phone-tilt: -8deg;
+    --phone-yaw: 6deg;
+  }
+
+  .right {
+    --phone-tilt: 8deg;
+    --phone-yaw: -6deg;
+    grid-column: 2;
+  }
+
+  .phone {
+    width: min(100%, 36vw, 184px);
+  }
+
+  .contexts {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    gap: 24px;
+    margin-top: 6px;
   }
 
   .context h3 {
-    font-size: clamp(30px, 8.4vw, 38px);
+    font-size: clamp(18px, 5.5vw, 24px);
   }
 
   .context p {
-    margin-top: 18px;
-    font-size: 15px;
-    line-height: 1.75;
+    margin-top: 12px;
   }
 
-  .detail {
-    margin-top: 22px;
+  .placeholder {
+    gap: 10px;
+    padding: 14px;
+    font-size: 10px;
+  }
+
+  .placeholder svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .placeholderNote {
+    font-size: 8px;
+  }
+}
+
+@media (max-width: 374px) {
+  .composition {
+    column-gap: 24px;
+  }
+
+  .contexts {
+    gap: 16px;
+  }
+
+  .label {
+    gap: 4px;
+    padding: 6px;
+    font-size: 9px;
+  }
+
+  .label svg {
+    width: 11px;
+    height: 11px;
+  }
+
+  .context p {
+    font-size: 12px;
   }
 }
