@@ -70,17 +70,60 @@
   isolation: isolate;
 }
 
-.phoneStage::before {
+.phoneStage::before,
+.phoneStage::after {
   content: '';
   position: absolute;
   z-index: -1;
-  inset: 4% -12%;
+  inset: -8% -26%;
   pointer-events: none;
-  background: radial-gradient(
-    ellipse at 50% 52%,
-    color-mix(in srgb, var(--accent) 8%, transparent),
-    transparent 69%
+  mask-image: radial-gradient(
+    ellipse 50% 50% at 50% 50%,
+    #000 36%,
+    transparent 100%
   );
+}
+
+.phoneStage::before {
+  background: radial-gradient(
+    ellipse 48% 44% at 50% 52%,
+    color-mix(in srgb, var(--accent) 32%, transparent),
+    color-mix(in srgb, var(--accent) 12%, transparent) 44%,
+    transparent 100%
+  );
+}
+
+.phoneStage::after {
+  background:
+    radial-gradient(
+      ellipse 58% 28% at 26% 70%,
+      color-mix(in srgb, var(--accent) 38%, transparent),
+      transparent 72%
+    ),
+    radial-gradient(
+      ellipse 44% 20% at 76% 38%,
+      color-mix(in srgb, var(--accent) 24%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 62% 24% at 54% 84%,
+      color-mix(in srgb, var(--accent) 28%, transparent),
+      transparent 74%
+    );
+  filter: blur(22px);
+  opacity: 0.7;
+  animation: mistDrift 16s ease-in-out infinite alternate;
+}
+
+@keyframes mistDrift {
+  from {
+    opacity: 0.5;
+    transform: translate3d(-4%, 3%, 0) rotate(-7deg) scale(0.95);
+  }
+  to {
+    opacity: 0.85;
+    transform: translate3d(4%, -3%, 0) rotate(7deg) scale(1.05);
+  }
 }
 
 .left {
@@ -93,6 +136,11 @@
   --phone-tilt: 10deg;
   --phone-yaw: -8deg;
   grid-column: 3;
+}
+
+.right::after {
+  animation-delay: -7s;
+  animation-direction: alternate-reverse;
 }
 
 .phone {
@@ -316,5 +364,13 @@
 
   .context p {
     font-size: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .phoneStage::after {
+    animation: none;
+    opacity: 0.7;
+    transform: none;
   }
 }
