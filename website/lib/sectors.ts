@@ -73,6 +73,8 @@ const previewIds: Record<SectorId, string[]> = {
     'useful-61-druski-entrance',
   ],
   'video-creation': [
+    'useful-107-clear-space',
+    'useful-108-off-the-grid',
     'useful-96-change-perspective',
     'useful-94-world-in-page',
     'useful-93-inside-lens',
@@ -99,6 +101,9 @@ const previewIds: Record<SectorId, string[]> = {
     'cloud-motion-07-one-good-day',
   ],
   '3d-visuals': [
+    'useful-109-mend-studio',
+    'useful-110-orbit-scent',
+    'useful-111-side-quest',
     'useful-103-mecha-assembly',
     'useful-97-determinant',
     'useful-104-spirit-train',

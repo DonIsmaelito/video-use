@@ -7145,5 +7145,185 @@
     ],
     "authoringMode": "Host agent authored frozen prompt; deterministic Manim renderer ran in Modal",
     "audioStreams": 0
+  },
+  {
+    "id": "useful-107-clear-space",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "new-paths-five-20261007",
+    "sourceRun": "useful-107-clear-space",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "4e62e92ba38b29b42e61ddc15baee1c8aa247208835113a4c5ce8d86629567db",
+    "promptSource": "Original creative request frozen before authoring",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-107-clear-space-4e62e92ba38b-5dc75a85/source.zip",
+    "editableSourceSha256": "ca77939ab4d29af7c8b292c4ac1be7420716b3eef2b17617c125611653413b63",
+    "sourceArchiveScope": "Original editable code, licensed assets, dependency versions and replay instructions; the final film has no audio stream",
+    "cloudProject": "video-use-useful-library-20261003/new-paths-five-20261007/useful-107-clear-space/repairs/final-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-107-clear-space-4e62e92ba38b-5dc75a85/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-107-clear-space-4e62e92ba38b-5dc75a85/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-107-clear-space-4e62e92ba38b-5dc75a85/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-107-clear-space-4e62e92ba38b-5dc75a85/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-107-clear-space-4e62e92ba38b-5dc75a85/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-107-clear-space-4e62e92ba38b-5dc75a85/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-107-clear-space-4e62e92ba38b-5dc75a85/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host agent authored the exact frozen Video Use prompt; deterministic renderer ran in Modal",
+    "audioStreams": 0
+  },
+  {
+    "id": "useful-108-off-the-grid",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "new-paths-five-20261007",
+    "sourceRun": "useful-108-off-the-grid",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "d15417cc5149914e9da86e4bb682389d1cb63f5ee63df9330559e6982f37b561",
+    "promptSource": "Original creative request frozen before authoring",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-108-off-the-grid-d15417cc5149-d43dff6a/source.zip",
+    "editableSourceSha256": "2ce365b2de78b9b612f2fc358a0453c55a3564170f43cef78d1b430826bd393c",
+    "sourceArchiveScope": "Original editable code, licensed assets, dependency versions and replay instructions; the final film has no audio stream",
+    "cloudProject": "video-use-useful-library-20261003/new-paths-five-20261007/useful-108-off-the-grid/repairs/final-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-108-off-the-grid-d15417cc5149-d43dff6a/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-108-off-the-grid-d15417cc5149-d43dff6a/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-108-off-the-grid-d15417cc5149-d43dff6a/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-108-off-the-grid-d15417cc5149-d43dff6a/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-108-off-the-grid-d15417cc5149-d43dff6a/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-108-off-the-grid-d15417cc5149-d43dff6a/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-108-off-the-grid-d15417cc5149-d43dff6a/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host agent authored the exact frozen Video Use prompt; deterministic renderer ran in Modal",
+    "audioStreams": 0
+  },
+  {
+    "id": "useful-109-mend-studio",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "new-paths-five-20261007",
+    "sourceRun": "useful-109-mend-studio",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "67dd031d01ff8bea4f94b13e9883d3818b3ddf3517ae8393ee1c69b0269d57e9",
+    "promptSource": "Original creative request frozen before authoring",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-109-mend-studio-67dd031d01ff-d301ca67/source.zip",
+    "editableSourceSha256": "54ad06bf53ea1196c2ddf8b55cc43db58635b8597115214a5868fe406339aa2d",
+    "sourceArchiveScope": "Original editable code, licensed assets, dependency versions and replay instructions; the final film has no audio stream",
+    "cloudProject": "video-use-useful-library-20261003/new-paths-five-20261007/useful-109-mend-studio/repairs/final-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-109-mend-studio-67dd031d01ff-d301ca67/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-109-mend-studio-67dd031d01ff-d301ca67/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-109-mend-studio-67dd031d01ff-d301ca67/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-109-mend-studio-67dd031d01ff-d301ca67/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-109-mend-studio-67dd031d01ff-d301ca67/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-109-mend-studio-67dd031d01ff-d301ca67/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-109-mend-studio-67dd031d01ff-d301ca67/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host agent authored the exact frozen Video Use prompt; deterministic renderer ran in Modal",
+    "audioStreams": 0
+  },
+  {
+    "id": "useful-110-orbit-scent",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "new-paths-five-20261007",
+    "sourceRun": "useful-110-orbit-scent",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "4d65cd18ca67a806fe9a93cd3b2b867135bae2010f6e0bc175dc15f1a4636485",
+    "promptSource": "Original creative request frozen before authoring",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-110-orbit-scent-4d65cd18ca67-48ad609e/source.zip",
+    "editableSourceSha256": "5bdaa2d1331e17c0b699b56e03a9e14319ddb1aa616f59231f2d8874e9bfdbf1",
+    "sourceArchiveScope": "Original editable code, licensed assets, dependency versions and replay instructions; the final film has no audio stream",
+    "cloudProject": "video-use-useful-library-20261003/new-paths-five-20261007/useful-110-orbit-scent/repairs/final-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-110-orbit-scent-4d65cd18ca67-48ad609e/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-110-orbit-scent-4d65cd18ca67-48ad609e/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-110-orbit-scent-4d65cd18ca67-48ad609e/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-110-orbit-scent-4d65cd18ca67-48ad609e/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-110-orbit-scent-4d65cd18ca67-48ad609e/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-110-orbit-scent-4d65cd18ca67-48ad609e/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-110-orbit-scent-4d65cd18ca67-48ad609e/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host agent authored the exact frozen Video Use prompt; deterministic renderer ran in Modal",
+    "audioStreams": 0
+  },
+  {
+    "id": "useful-111-side-quest",
+    "kind": "original useful workflow produced with Video Use",
+    "sourceBatch": "new-paths-five-20261007",
+    "sourceRun": "useful-111-side-quest",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Original project authored with Video Use in Codex and rendered deterministically in Modal; no model was invoked inside the render worker; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "a53ab8363e0f9c34f9d024dfaa12ea0b1d4c6ed5a40ea949eb232e6e8733d443",
+    "promptSource": "Original creative request frozen before authoring",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-111-side-quest-a53ab8363e0f-9a74ba1d/source.zip",
+    "editableSourceSha256": "9d0fd73ee5388ecd272a8ab437ed03ca57b6f44c411e14bcb2685a58eb2d4581",
+    "sourceArchiveScope": "Original editable code, licensed assets, dependency versions and replay instructions; the final film has no audio stream",
+    "cloudProject": "video-use-useful-library-20261003/new-paths-five-20261007/useful-111-side-quest/repairs/final-v2/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-111-side-quest-a53ab8363e0f-9a74ba1d/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-111-side-quest-a53ab8363e0f-9a74ba1d/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-111-side-quest-a53ab8363e0f-9a74ba1d/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-111-side-quest-a53ab8363e0f-9a74ba1d/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-111-side-quest-a53ab8363e0f-9a74ba1d/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-111-side-quest-a53ab8363e0f-9a74ba1d/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-111-side-quest-a53ab8363e0f-9a74ba1d/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host agent authored the exact frozen Video Use prompt; deterministic renderer ran in Modal",
+    "audioStreams": 0
   }
 ]

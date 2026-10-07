@@ -3576,5 +3576,145 @@
     "promptMode": "exact",
     "muted": true,
     "loop": false
+  },
+  {
+    "id": "useful-107-clear-space",
+    "title": "Clear Space",
+    "category": "Motion Design",
+    "description": "A scattered workspace becomes one focused, refractive glass interface.",
+    "prompt": "Create a polished 24-second silent concept film for an original focus app called Clear Space. Begin with a small, intentionally cluttered group of task cards on a vivid blue and lavender workspace. A clear glass lens sweeps across them, visibly bending the artwork beneath it while keeping the important words readable. Let the lens expand into a floating interface; the scattered cards settle into three neat tasks, then one selected task expands into a calm focus timer. Make the state changes causally connected, with the same chosen task surviving every transformation. Use real-looking refraction, crisp edges, generous spacing and precise, fast transitions that resolve into deliberate holds. Finish with the uncluttered interface and the small line “One thing at a time.” Keep it an original product concept, with no copied operating-system controls or real-app claims. Deliver the entire film with no audio stream.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Product designers",
+      "Marketers"
+    ],
+    "useCases": [
+      "Product concept films",
+      "Interface motion"
+    ],
+    "technique": "motion-design",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Original creative request frozen before authoring",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-107-clear-space-4e62e92ba38b-5dc75a85/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-107-clear-space-4e62e92ba38b-5dc75a85/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-107-clear-space-4e62e92ba38b-5dc75a85/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-107-clear-space-4e62e92ba38b-5dc75a85/review.md",
+    "promptMode": "exact",
+    "muted": true,
+    "loop": false
+  },
+  {
+    "id": "useful-108-off-the-grid",
+    "title": "Off the Grid",
+    "category": "Motion Design",
+    "description": "A rigid digital grid becomes a tactile, animated print poster.",
+    "prompt": "Make a complete 22-second silent portrait motion poster titled OFF THE GRID. Start with those words precisely locked into a strict black grid. Have one orange letter push out of its cell and pull the grid apart into strips of paper. Carry the same letterforms through a lively sequence of oversized type, torn-paper windows and two-color print registration, using cobalt, warm orange and a pale paper ground. The strips should become the next composition instead of disappearing between unrelated layouts. Give the film one distinctive printmaking moment: two offset ink layers align and reveal the finished title. End on a beautifully balanced poster reading OFF THE GRID, with the small line “Make something offline.” Use restrained paper grain, expressive but readable typography, clean margins and at least one held hero composition. No generic glitch noise, rapid flashing, photographs, sound effects, music or audio stream.",
+    "duration": 22,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": [
+      "Designers",
+      "Content creators"
+    ],
+    "useCases": [
+      "Editorial identities",
+      "Social campaigns"
+    ],
+    "technique": "motion-design",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Original creative request frozen before authoring",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-108-off-the-grid-d15417cc5149-d43dff6a/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-108-off-the-grid-d15417cc5149-d43dff6a/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-108-off-the-grid-d15417cc5149-d43dff6a/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-108-off-the-grid-d15417cc5149-d43dff6a/review.md",
+    "promptMode": "exact",
+    "muted": true,
+    "loop": false
+  },
+  {
+    "id": "useful-109-mend-studio",
+    "title": "MEND · Made of Thread",
+    "category": "Motion Design",
+    "description": "One strand becomes a dimensional embroidered identity.",
+    "prompt": "Create a 24-second silent fashion identity film for a fictional studio called MEND. Begin in a close macro view of one cobalt thread crossing a warm orange fabric surface. Follow a simple needle and thread as successive stitches build the word MEND into a real-looking embroidered patch. Make the individual threads catch the light; the design must acquire visible raised volume instead of appearing as a flat printed texture. Move through a close detail of the stitches, then pull back to reveal the completed patch centered on a dark workwear fabric panel. The same fabric, thread colors and letter geometry must persist between shots. Use tactile woven detail, precise stitch placement, strong side lighting and a clean final composition with the small caption “Made of thread.” Favor a few purposeful camera moves over constant spinning. Keep the needle attached to the current stitching action, show an intentional finished edge, and export no audio stream of any kind.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Fashion brands",
+      "Designers"
+    ],
+    "useCases": [
+      "Material storytelling",
+      "Brand films"
+    ],
+    "technique": "3d",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Original creative request frozen before authoring",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-109-mend-studio-67dd031d01ff-d301ca67/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-109-mend-studio-67dd031d01ff-d301ca67/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-109-mend-studio-67dd031d01ff-d301ca67/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-109-mend-studio-67dd031d01ff-d301ca67/review.md",
+    "promptMode": "exact",
+    "muted": true,
+    "loop": false
+  },
+  {
+    "id": "useful-110-orbit-scent",
+    "title": "ORBIT · A Different Atmosphere",
+    "category": "Motion Design",
+    "description": "An opalescent perfume bottle turns a moving highlight into its signature.",
+    "prompt": "Create an original 24-second silent luxury product film for a fictional perfume called ORBIT. Design one unmistakable perfume bottle with an opalescent glass body, a visible neck and a sculptural ring-shaped cap. Open very close on a moving band of light refracting through the glass. Follow that band as the camera reveals the complete bottle, then let the ring cap lift just enough to reveal the atomizer while remaining aligned above the neck. Use one controlled orbit to show the changing pearlescent color and glass thickness, then reseat the cap and resolve into a centered hero frame with ORBIT and “A different atmosphere.” Keep the geometry and label consistent throughout, with grounded contact shadows, restrained reflective surfaces and an icy blue, pearl and deep-violet palette. This should feel like a finished beauty campaign with a recognizable product, rather than a collection of floating abstract objects. No real fragrance claims, brand logos, narration, music, effects or audio track.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "portrait",
+    "audiences": [
+      "Beauty brands",
+      "Marketers"
+    ],
+    "useCases": [
+      "Product campaigns",
+      "Material direction"
+    ],
+    "technique": "3d",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Original creative request frozen before authoring",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-110-orbit-scent-4d65cd18ca67-48ad609e/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-110-orbit-scent-4d65cd18ca67-48ad609e/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-110-orbit-scent-4d65cd18ca67-48ad609e/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-110-orbit-scent-4d65cd18ca67-48ad609e/review.md",
+    "promptMode": "exact",
+    "muted": true,
+    "loop": false
+  },
+  {
+    "id": "useful-111-side-quest",
+    "title": "SIDE QUEST · Beyond the Pixel",
+    "category": "Motion Design",
+    "description": "A flat pixel scene reveals a complete voxel world in one camera move.",
+    "prompt": "Make a 24-second silent original game teaser called SIDE QUEST. Begin with what appears to be a clean, flat pixel-art scene: one small courier robot, a short broken bridge and a glowing parcel across the gap. Let the robot notice the parcel, prepare and make one readable jump across the missing span. At the apex, use a continuous camera turn to reveal that the pixels are actually solid colored voxels in a miniature three-dimensional world. Preserve the robot silhouette, exact platform positions and action through the change of view; do not replace the scene with a different model. Show a grounded landing, the robot picking up the parcel, and a final wide view of the little world. Build the title SIDE QUEST from a separate tidy row of voxel letters at the end, with enough time to read it. Use a distinctive ink-blue, coral and mint palette, soft directional light and deliberate squash-free articulated motion. No franchise characters, arbitrary particle showers, sound or audio stream.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Game developers",
+      "Designers"
+    ],
+    "useCases": [
+      "Game teasers",
+      "Dimensional reveals"
+    ],
+    "technique": "3d",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Original creative request frozen before authoring",
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-111-side-quest-a53ab8363e0f-9a74ba1d/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-111-side-quest-a53ab8363e0f-9a74ba1d/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-111-side-quest-a53ab8363e0f-9a74ba1d/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-111-side-quest-a53ab8363e0f-9a74ba1d/review.md",
+    "promptMode": "exact",
+    "muted": true,
+    "loop": false
   }
 ]
