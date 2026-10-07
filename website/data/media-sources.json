@@ -5326,68 +5326,68 @@
   {
     "id": "useful-63-quenlin-verdict",
     "kind": "original useful workflow produced with Video Use",
-    "sourceBatch": "footage-ten-20261005-production",
+    "sourceBatch": "quality-review-20261006",
     "sourceRun": "useful-63-quenlin-verdict",
     "model": "gpt-6-astra",
     "reasoningEffort": "high",
-    "frameworkBranch": "feature/useful-video-library",
-    "frameworkCommit": "d3f90e287f8fe8aec8c6c9969e49317a637afd83",
-    "frameworkArchiveSha256": "e18b6ebe49b19784d59e13a90cea2c37b4eba2a1b01547576e6261fca8958d9f",
-    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication; followed by the requested caption refinement.",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
     "storage": "Cloudflare R2",
-    "websiteSha256": "9e2536d5fc13be18165f66421a2d1f8c6f830b3c859cd67aab5b030c8f6f24ab",
-    "promptSource": "Original executed prompt, followed by a requested caption refinement. The editable project records both stages. Source footage and audio retain their creators’ rights.",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-9e2536d5fc13-9bc0f561/source.zip",
-    "editableSourceSha256": "4c73018f93ca558a8070f3c30ed7813f13b8d01b293ca708f0218772b78f2f7a",
+    "websiteSha256": "590cfa185ea745fe6e0ab72d3bdda39d2b1b3711127c3d914bb8842d7b5cc3e6",
+    "promptSource": "Exact prompt executed for this reviewed Video Use edit. The linked source footage and audio retain their creators’ rights.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-590cfa185ea7-f9605539/source.zip",
+    "editableSourceSha256": "3c15409688ae49dc3f50028eac7ea9fbabfa2d929412cb775b2d6ad5ea8eb997",
     "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
-    "cloudProject": "video-use-useful-library-20261003/footage-ten-20261005-production/useful-63-quenlin-verdict/repairs/caption-polish-v1/project/edit",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-9e2536d5fc13-9bc0f561/review.md",
-    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-9e2536d5fc13-9bc0f561/verification.json",
-    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-9e2536d5fc13-9bc0f561/storyboard.jpg",
-    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-9e2536d5fc13-9bc0f561/creative-prompt.txt",
-    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-9e2536d5fc13-9bc0f561/provenance.json",
+    "cloudProject": "video-use-useful-library-20261003/quality-review-20261006/useful-63-quenlin-verdict/repairs/review-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-590cfa185ea7-f9605539/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-590cfa185ea7-f9605539/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-590cfa185ea7-f9605539/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-590cfa185ea7-f9605539/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-590cfa185ea7-f9605539/provenance.json",
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-9e2536d5fc13-9bc0f561/final.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-590cfa185ea7-f9605539/final.mp4"
       },
       {
         "field": "poster",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-9e2536d5fc13-9bc0f561/poster.jpg"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-590cfa185ea7-f9605539/poster.jpg"
       }
     ]
   },
   {
     "id": "useful-64-billie-finneas",
     "kind": "original useful workflow produced with Video Use",
-    "sourceBatch": "footage-ten-20261005-production",
+    "sourceBatch": "quality-review-20261006",
     "sourceRun": "useful-64-billie-finneas",
     "model": "gpt-6-astra",
     "reasoningEffort": "high",
-    "frameworkBranch": "feature/useful-video-library",
-    "frameworkCommit": "d3f90e287f8fe8aec8c6c9969e49317a637afd83",
-    "frameworkArchiveSha256": "e18b6ebe49b19784d59e13a90cea2c37b4eba2a1b01547576e6261fca8958d9f",
-    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication; followed by the requested caption refinement.",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
     "storage": "Cloudflare R2",
-    "websiteSha256": "f21e52c466fdf1be0fd58524ef8de44fc58cdc012cf16e5484855a35a153ba53",
-    "promptSource": "Original executed prompt, followed by a requested caption refinement. The editable project records both stages. Source footage and audio retain their creators’ rights.",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-f21e52c466fd-1eaf7faa/source.zip",
-    "editableSourceSha256": "ccba2cedd8304fe7ae367b0e1f279f1a163d7cff18219a8ab7a1836af3419c58",
+    "websiteSha256": "eff03acbc45d605d46d42b796e2b322f2556fa8daf9c410a6db576acad66912f",
+    "promptSource": "Exact prompt executed for this reviewed Video Use edit. The linked source footage and audio retain their creators’ rights.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-eff03acbc45d-a51e1ea3/source.zip",
+    "editableSourceSha256": "988babff48993a57a89d1572800a87f70ed60ca69e5a7688fbc12ed208636b29",
     "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
-    "cloudProject": "video-use-useful-library-20261003/footage-ten-20261005-production/useful-64-billie-finneas/repairs/caption-polish-v1/project/edit",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-f21e52c466fd-1eaf7faa/review.md",
-    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-f21e52c466fd-1eaf7faa/verification.json",
-    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-f21e52c466fd-1eaf7faa/storyboard.jpg",
-    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-f21e52c466fd-1eaf7faa/creative-prompt.txt",
-    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-f21e52c466fd-1eaf7faa/provenance.json",
+    "cloudProject": "video-use-useful-library-20261003/quality-review-20261006/useful-64-billie-finneas/repairs/review-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-eff03acbc45d-a51e1ea3/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-eff03acbc45d-a51e1ea3/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-eff03acbc45d-a51e1ea3/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-eff03acbc45d-a51e1ea3/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-eff03acbc45d-a51e1ea3/provenance.json",
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-f21e52c466fd-1eaf7faa/final.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-eff03acbc45d-a51e1ea3/final.mp4"
       },
       {
         "field": "poster",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-f21e52c466fd-1eaf7faa/poster.jpg"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-eff03acbc45d-a51e1ea3/poster.jpg"
       }
     ]
   },
@@ -5496,36 +5496,38 @@
   {
     "id": "useful-68-speed-kai-chained",
     "kind": "original useful workflow produced with Video Use",
-    "sourceBatch": "footage-ten-20261005-production",
+    "sourceBatch": "quality-review-20261006",
     "sourceRun": "useful-68-speed-kai-chained",
     "model": "gpt-6-astra",
     "reasoningEffort": "high",
-    "frameworkBranch": "feature/useful-video-library",
-    "frameworkCommit": "cd6e7fc92e6076823cbbc2fea204e92d532f3c14",
-    "frameworkArchiveSha256": "e18b6ebe49b19784d59e13a90cea2c37b4eba2a1b01547576e6261fca8958d9f",
-    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication; followed by the requested caption refinement.",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Video Use agent-authored project completed through parent-directed deterministic Video Use rendering and checks in Modal after the original worker reached its usage limit; no additional model call; exact encoded output reviewed before publication",
     "storage": "Cloudflare R2",
-    "websiteSha256": "3f6ca87b4bf65988d7b04cc850401f112188c35ee9f48155b6572a1eed2bc50a",
-    "promptSource": "Original executed prompt, followed by a requested caption refinement. The editable project records both stages. Source footage and audio retain their creators’ rights.",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-3f6ca87b4bf6-a60ea8a6/source.zip",
-    "editableSourceSha256": "f0b69ea38793e92d39cb5dcbaad517ff52adaec80924079862903bfd88b17f8b",
+    "websiteSha256": "ed648fd55ba5470a9951d82bcd02495d476f5997a61667e7f40a2d7275871d10",
+    "promptSource": "Exact prompt executed for this reviewed Video Use edit. The linked source footage and audio retain their creators’ rights.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-ed648fd55ba5-0e63e67f/source.zip",
+    "editableSourceSha256": "598b4e279854d51dd527e06d6081ac39b45a369cd25ec5569d3906bff5d74b3c",
     "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
-    "cloudProject": "video-use-useful-library-20261003/footage-ten-20261005-production/useful-68-speed-kai-chained/repairs/repair-captions-v2/project/edit",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-3f6ca87b4bf6-a60ea8a6/review.md",
-    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-3f6ca87b4bf6-a60ea8a6/verification.json",
-    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-3f6ca87b4bf6-a60ea8a6/storyboard.jpg",
-    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-3f6ca87b4bf6-a60ea8a6/creative-prompt.txt",
-    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-3f6ca87b4bf6-a60ea8a6/provenance.json",
+    "cloudProject": "video-use-useful-library-20261003/quality-review-20261006/useful-68-speed-kai-chained/repairs/parent-completion-v2/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-ed648fd55ba5-0e63e67f/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-ed648fd55ba5-0e63e67f/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-ed648fd55ba5-0e63e67f/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-ed648fd55ba5-0e63e67f/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-ed648fd55ba5-0e63e67f/provenance.json",
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-3f6ca87b4bf6-a60ea8a6/final.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-ed648fd55ba5-0e63e67f/final.mp4"
       },
       {
         "field": "poster",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-3f6ca87b4bf6-a60ea8a6/poster.jpg"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-ed648fd55ba5-0e63e67f/poster.jpg"
       }
-    ]
+    ],
+    "completionMode": "parent-directed deterministic Video Use completion",
+    "initialAgentAttempt": "review-v2"
   },
   {
     "id": "useful-69-meta-muse-glasses",
@@ -5632,34 +5634,34 @@
   {
     "id": "useful-72-era-swap",
     "kind": "original useful workflow produced with Video Use",
-    "sourceBatch": "footage-twenty-20261005-production",
+    "sourceBatch": "quality-review-20261006",
     "sourceRun": "useful-72-era-swap",
     "model": "gpt-6-astra",
     "reasoningEffort": "high",
-    "frameworkBranch": "feature/useful-video-library",
-    "frameworkCommit": "d3f90e287f8fe8aec8c6c9969e49317a637afd83",
-    "frameworkArchiveSha256": "e18b6ebe49b19784d59e13a90cea2c37b4eba2a1b01547576e6261fca8958d9f",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
     "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
     "storage": "Cloudflare R2",
-    "websiteSha256": "23c893e4aee381b372f0209cb058c2d0ac064b58b1425f881d82779e42eca4f1",
-    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-72-era-swap-23c893e4aee3-8e0a7a17/source.zip",
-    "editableSourceSha256": "e5de27ecc63749389f260193f6128f463e0ccfd5dddb7fb897b331121047ab01",
+    "websiteSha256": "5069693aa0510a28416f62441511c8b2b7bd5dadd833932d6029049a5dffd45b",
+    "promptSource": "Exact prompt executed for this reviewed Video Use edit. The linked source footage and audio retain their creators’ rights.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-72-era-swap-5069693aa051-0d6c7e85/source.zip",
+    "editableSourceSha256": "f632de9c781206f7e99c639ac8283866368faba5c3932fba417d10a5961ca3a8",
     "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
-    "cloudProject": "video-use-useful-library-20261003/footage-twenty-20261005-production/useful-72-era-swap/repairs/repair-matte-v1/project/edit",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-72-era-swap-23c893e4aee3-8e0a7a17/review.md",
-    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-72-era-swap-23c893e4aee3-8e0a7a17/verification.json",
-    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-72-era-swap-23c893e4aee3-8e0a7a17/storyboard.jpg",
-    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-72-era-swap-23c893e4aee3-8e0a7a17/creative-prompt.txt",
-    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-72-era-swap-23c893e4aee3-8e0a7a17/provenance.json",
+    "cloudProject": "video-use-useful-library-20261003/quality-review-20261006/useful-72-era-swap/repairs/review-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-72-era-swap-5069693aa051-0d6c7e85/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-72-era-swap-5069693aa051-0d6c7e85/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-72-era-swap-5069693aa051-0d6c7e85/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-72-era-swap-5069693aa051-0d6c7e85/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-72-era-swap-5069693aa051-0d6c7e85/provenance.json",
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-72-era-swap-23c893e4aee3-8e0a7a17/final.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-72-era-swap-5069693aa051-0d6c7e85/final.mp4"
       },
       {
         "field": "poster",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-72-era-swap-23c893e4aee3-8e0a7a17/poster.jpg"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-72-era-swap-5069693aa051-0d6c7e85/poster.jpg"
       }
     ]
   },
@@ -5700,36 +5702,38 @@
   {
     "id": "useful-74-drew-editorial",
     "kind": "original useful workflow produced with Video Use",
-    "sourceBatch": "remix-pass-20261006",
+    "sourceBatch": "quality-review-20261006",
     "sourceRun": "useful-74-drew-editorial",
     "model": "gpt-6-astra",
     "reasoningEffort": "high",
     "frameworkBranch": "feature/character-effects",
     "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
     "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
-    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "production": "Video Use agent-authored project completed through parent-directed deterministic Video Use rendering and checks in Modal after the original worker reached its usage limit; no additional model call; exact encoded output reviewed before publication",
     "storage": "Cloudflare R2",
-    "websiteSha256": "9934df162d3bfa4c8ff0436b0b2cf763f14de3157aba2db7586297da05c2a5be",
-    "promptSource": "Exact prompt executed for this rebuilt Video Use edit. The linked source footage and audio retain their creators’ rights.",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-9934df162d3b-519ff66e/source.zip",
-    "editableSourceSha256": "e4ccbb72e65d4691b1d8f3c5d1b49733ab7b8bfac47a0b4989c1f0e242123ffb",
+    "websiteSha256": "a2fb6bf45c151ee950fdbe38e8efc990950f2aa81d87aebc23dab332ca71fa2e",
+    "promptSource": "Exact prompt executed for this reviewed Video Use edit. The linked source footage and audio retain their creators’ rights.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-a2fb6bf45c15-7a41f3fd/source.zip",
+    "editableSourceSha256": "1f222f8cce6173ba616a678b26771fcd646458f93ff725e6abe7dcd3e44234c6",
     "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
-    "cloudProject": "video-use-useful-library-20261003/remix-pass-20261006/useful-74-drew-editorial/repairs/aspect-v1/project/edit",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-9934df162d3b-519ff66e/review.md",
-    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-9934df162d3b-519ff66e/verification.json",
-    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-9934df162d3b-519ff66e/storyboard.jpg",
-    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-9934df162d3b-519ff66e/creative-prompt.txt",
-    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-9934df162d3b-519ff66e/provenance.json",
+    "cloudProject": "video-use-useful-library-20261003/quality-review-20261006/useful-74-drew-editorial/repairs/parent-completion-v2/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-a2fb6bf45c15-7a41f3fd/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-a2fb6bf45c15-7a41f3fd/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-a2fb6bf45c15-7a41f3fd/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-a2fb6bf45c15-7a41f3fd/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-a2fb6bf45c15-7a41f3fd/provenance.json",
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-9934df162d3b-519ff66e/final.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-a2fb6bf45c15-7a41f3fd/final.mp4"
       },
       {
         "field": "poster",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-9934df162d3b-519ff66e/poster.jpg"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-a2fb6bf45c15-7a41f3fd/poster.jpg"
       }
-    ]
+    ],
+    "completionMode": "parent-directed deterministic Video Use completion",
+    "initialAgentAttempt": "review-v1"
   },
   {
     "id": "useful-75-leah-glambot",
@@ -5802,36 +5806,38 @@
   {
     "id": "useful-77-muzan-panel",
     "kind": "original useful workflow produced with Video Use",
-    "sourceBatch": "remix-pass-20261006",
+    "sourceBatch": "quality-review-20261006",
     "sourceRun": "useful-77-muzan-panel",
     "model": "gpt-6-astra",
     "reasoningEffort": "high",
     "frameworkBranch": "feature/character-effects",
     "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
     "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
-    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "production": "Video Use agent-authored project completed through parent-directed deterministic Video Use rendering and checks in Modal after the original worker reached its usage limit; no additional model call; exact encoded output reviewed before publication",
     "storage": "Cloudflare R2",
-    "websiteSha256": "a3e195737242dd9baa7e5c19d814898be2eba2de57862f0749feaed6a3768fa9",
-    "promptSource": "Exact prompt executed for this rebuilt Video Use edit. The linked source footage and audio retain their creators’ rights.",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-a3e195737242-5d6d0dda/source.zip",
-    "editableSourceSha256": "574ea39cae1c5f064c73d6dcbc4cc26458cebe0b229edc257891be871dbd4afe",
+    "websiteSha256": "0ca6af0a8ef9f387ab450d3c73e286ef696a3bdf2a37be783e461ff33d3ecf88",
+    "promptSource": "Exact prompt executed for this reviewed Video Use edit. The linked source footage and audio retain their creators’ rights.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-0ca6af0a8ef9-f88d2d91/source.zip",
+    "editableSourceSha256": "70a484679b619894fab4332f3934e09aee3d09226890c7a371f44be0dcad1995",
     "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
-    "cloudProject": "video-use-useful-library-20261003/remix-pass-20261006/useful-77-muzan-panel/repairs/handoff-v1/project/edit",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-a3e195737242-5d6d0dda/review.md",
-    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-a3e195737242-5d6d0dda/verification.json",
-    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-a3e195737242-5d6d0dda/storyboard.jpg",
-    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-a3e195737242-5d6d0dda/creative-prompt.txt",
-    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-a3e195737242-5d6d0dda/provenance.json",
+    "cloudProject": "video-use-useful-library-20261003/quality-review-20261006/useful-77-muzan-panel/repairs/parent-completion-v2/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-0ca6af0a8ef9-f88d2d91/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-0ca6af0a8ef9-f88d2d91/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-0ca6af0a8ef9-f88d2d91/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-0ca6af0a8ef9-f88d2d91/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-0ca6af0a8ef9-f88d2d91/provenance.json",
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-a3e195737242-5d6d0dda/final.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-0ca6af0a8ef9-f88d2d91/final.mp4"
       },
       {
         "field": "poster",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-a3e195737242-5d6d0dda/poster.jpg"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-0ca6af0a8ef9-f88d2d91/poster.jpg"
       }
-    ]
+    ],
+    "completionMode": "parent-directed deterministic Video Use completion",
+    "initialAgentAttempt": "review-v1"
   },
   {
     "id": "useful-78-routine-rhythm",
@@ -5870,34 +5876,34 @@
   {
     "id": "useful-79-dubai-chocolate",
     "kind": "original useful workflow produced with Video Use",
-    "sourceBatch": "footage-twenty-20261005-production",
+    "sourceBatch": "quality-review-20261006",
     "sourceRun": "useful-79-dubai-chocolate",
     "model": "gpt-6-astra",
     "reasoningEffort": "high",
-    "frameworkBranch": "feature/useful-video-library",
-    "frameworkCommit": "0c537003e2cd23b6998ec59b4846f6a0dd97d44f",
-    "frameworkArchiveSha256": "e18b6ebe49b19784d59e13a90cea2c37b4eba2a1b01547576e6261fca8958d9f",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
     "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
     "storage": "Cloudflare R2",
-    "websiteSha256": "e1bbe50a3b053a1cdea1dadda1094e01932d2ba41822e2237f195941af1d054f",
-    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-79-dubai-chocolate-e1bbe50a3b05-4c443f16/source.zip",
-    "editableSourceSha256": "33598d33bf812792883aaeb852cf087bc01c4c556031e39f176b012e22df8582",
+    "websiteSha256": "fc5ac9114f7081f4eafaee4f5b50a259c7bf7a396155e9a247c093274dd31ff9",
+    "promptSource": "Exact prompt executed for this reviewed Video Use edit. The linked source footage and audio retain their creators’ rights.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-79-dubai-chocolate-fc5ac9114f70-89a69ad2/source.zip",
+    "editableSourceSha256": "13ee79f4627c7e2db65c021de4cd831c6ba69bb8ea5d4b33e681ff7ad1d1c469",
     "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
-    "cloudProject": "video-use-useful-library-20261003/footage-twenty-20261005-production/useful-79-dubai-chocolate/project/edit",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-79-dubai-chocolate-e1bbe50a3b05-4c443f16/review.md",
-    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-79-dubai-chocolate-e1bbe50a3b05-4c443f16/verification.json",
-    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-79-dubai-chocolate-e1bbe50a3b05-4c443f16/storyboard.jpg",
-    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-79-dubai-chocolate-e1bbe50a3b05-4c443f16/creative-prompt.txt",
-    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-79-dubai-chocolate-e1bbe50a3b05-4c443f16/provenance.json",
+    "cloudProject": "video-use-useful-library-20261003/quality-review-20261006/useful-79-dubai-chocolate/repairs/review-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-79-dubai-chocolate-fc5ac9114f70-89a69ad2/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-79-dubai-chocolate-fc5ac9114f70-89a69ad2/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-79-dubai-chocolate-fc5ac9114f70-89a69ad2/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-79-dubai-chocolate-fc5ac9114f70-89a69ad2/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-79-dubai-chocolate-fc5ac9114f70-89a69ad2/provenance.json",
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-79-dubai-chocolate-e1bbe50a3b05-4c443f16/final.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-79-dubai-chocolate-fc5ac9114f70-89a69ad2/final.mp4"
       },
       {
         "field": "poster",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-79-dubai-chocolate-e1bbe50a3b05-4c443f16/poster.jpg"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-79-dubai-chocolate-fc5ac9114f70-89a69ad2/poster.jpg"
       }
     ]
   },
@@ -5938,7 +5944,7 @@
   {
     "id": "useful-81-speed-fast-travel",
     "kind": "original useful workflow produced with Video Use",
-    "sourceBatch": "character-five-20261006",
+    "sourceBatch": "quality-review-20261006",
     "sourceRun": "useful-81-speed-fast-travel",
     "model": "gpt-6-astra",
     "reasoningEffort": "high",
@@ -5947,32 +5953,32 @@
     "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
     "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
     "storage": "Cloudflare R2",
-    "websiteSha256": "053ca3cb7b553774cf4e4cf80a9e93b9d7006dc317442eb97b9741afb4876e0e",
-    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-053ca3cb7b55-dac4f0a8/source.zip",
-    "editableSourceSha256": "d9102758458257e501a0d51f4f1fa880ce42b396eace333a7dc0aafbb36a6bc8",
+    "websiteSha256": "749519964071dd656024fffe287640a3585572eab9d79f2d30c1a834c8498502",
+    "promptSource": "Exact prompt executed for this reviewed Video Use edit. The linked source footage and audio retain their creators’ rights.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-749519964071-8b5d334a/source.zip",
+    "editableSourceSha256": "c243763539158f0121629d5deb033bbfdf25c38227af4e86860eba8f277c2cb1",
     "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
-    "cloudProject": "video-use-useful-library-20261003/character-five-20261006/useful-81-speed-fast-travel/repairs/handoff-v1/project/edit",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-053ca3cb7b55-dac4f0a8/review.md",
-    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-053ca3cb7b55-dac4f0a8/verification.json",
-    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-053ca3cb7b55-dac4f0a8/storyboard.jpg",
-    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-053ca3cb7b55-dac4f0a8/creative-prompt.txt",
-    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-053ca3cb7b55-dac4f0a8/provenance.json",
+    "cloudProject": "video-use-useful-library-20261003/quality-review-20261006/useful-81-speed-fast-travel/repairs/review-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-749519964071-8b5d334a/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-749519964071-8b5d334a/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-749519964071-8b5d334a/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-749519964071-8b5d334a/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-749519964071-8b5d334a/provenance.json",
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-053ca3cb7b55-dac4f0a8/final.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-749519964071-8b5d334a/final.mp4"
       },
       {
         "field": "poster",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-053ca3cb7b55-dac4f0a8/poster.jpg"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-749519964071-8b5d334a/poster.jpg"
       }
     ]
   },
   {
     "id": "useful-84-wednesday-deadpan",
     "kind": "original useful workflow produced with Video Use",
-    "sourceBatch": "character-five-20261006",
+    "sourceBatch": "quality-review-20261006",
     "sourceRun": "useful-84-wednesday-deadpan",
     "model": "gpt-6-astra",
     "reasoningEffort": "high",
@@ -5981,25 +5987,25 @@
     "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
     "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
     "storage": "Cloudflare R2",
-    "websiteSha256": "b6b9e1615fb9e75b032c71c6d24249c75ca0bc8b76f75e5ac0d71b2c360e6c8a",
-    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-b6b9e1615fb9-dc1352c7/source.zip",
-    "editableSourceSha256": "e16588b96a39f15788e5bc6215f7c212fe794e1ccd1e8e816d6c2bef96039a9f",
+    "websiteSha256": "fb30c062059a387c707035ec9c3ae5f5602f9af9b06747d33393b72911c92a1c",
+    "promptSource": "Exact prompt executed for this reviewed Video Use edit. The linked source footage and audio retain their creators’ rights.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-fb30c062059a-57d260be/source.zip",
+    "editableSourceSha256": "9b9225dae3b71723f83af186e6e464e8b44e1f0ece362b5814e5b117858c0007",
     "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
-    "cloudProject": "video-use-useful-library-20261003/character-five-20261006/useful-84-wednesday-deadpan/repairs/handoff-v1/project/edit",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-b6b9e1615fb9-dc1352c7/review.md",
-    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-b6b9e1615fb9-dc1352c7/verification.json",
-    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-b6b9e1615fb9-dc1352c7/storyboard.jpg",
-    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-b6b9e1615fb9-dc1352c7/creative-prompt.txt",
-    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-b6b9e1615fb9-dc1352c7/provenance.json",
+    "cloudProject": "video-use-useful-library-20261003/quality-review-20261006/useful-84-wednesday-deadpan/repairs/review-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-fb30c062059a-57d260be/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-fb30c062059a-57d260be/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-fb30c062059a-57d260be/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-fb30c062059a-57d260be/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-fb30c062059a-57d260be/provenance.json",
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-b6b9e1615fb9-dc1352c7/final.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-fb30c062059a-57d260be/final.mp4"
       },
       {
         "field": "poster",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-b6b9e1615fb9-dc1352c7/poster.jpg"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-fb30c062059a-57d260be/poster.jpg"
       }
     ]
   },
@@ -6040,7 +6046,7 @@
   {
     "id": "useful-85-rumi-double-life",
     "kind": "original useful workflow produced with Video Use",
-    "sourceBatch": "character-five-20261006",
+    "sourceBatch": "quality-review-20261006",
     "sourceRun": "useful-85-rumi-double-life",
     "model": "gpt-6-astra",
     "reasoningEffort": "high",
@@ -6049,60 +6055,62 @@
     "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
     "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
     "storage": "Cloudflare R2",
-    "websiteSha256": "6e3fef925d5034c13c0bc2a1a565f054dfeaa45245fcdd37737498770e31c9af",
-    "promptSource": "Exact original prompt submitted to Video Use. Subsequent editorial refinements are recorded separately in the downloadable project.",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-6e3fef925d50-91ddb62f/source.zip",
-    "editableSourceSha256": "8e35cec652c67c87269f8ed4df266f0b6651eb14bb0ea26c8241df393ff2c03e",
+    "websiteSha256": "308bf2f97cf400788036bf6a573452558c08a8147ee5a8fdc49e5a5d134be5c3",
+    "promptSource": "Exact prompt executed for this reviewed Video Use edit. The linked source footage and audio retain their creators’ rights.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-308bf2f97cf4-049e3dad/source.zip",
+    "editableSourceSha256": "0dda1e48c2d89c4528acaa7e8f96881b95394409fc25d76f57b44cb24c3dba40",
     "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
-    "cloudProject": "video-use-useful-library-20261003/character-five-20261006/useful-85-rumi-double-life/repairs/handoff-v1/project/edit",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-6e3fef925d50-91ddb62f/review.md",
-    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-6e3fef925d50-91ddb62f/verification.json",
-    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-6e3fef925d50-91ddb62f/storyboard.jpg",
-    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-6e3fef925d50-91ddb62f/creative-prompt.txt",
-    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-6e3fef925d50-91ddb62f/provenance.json",
+    "cloudProject": "video-use-useful-library-20261003/quality-review-20261006/useful-85-rumi-double-life/repairs/review-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-308bf2f97cf4-049e3dad/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-308bf2f97cf4-049e3dad/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-308bf2f97cf4-049e3dad/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-308bf2f97cf4-049e3dad/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-308bf2f97cf4-049e3dad/provenance.json",
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-6e3fef925d50-91ddb62f/final.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-308bf2f97cf4-049e3dad/final.mp4"
       },
       {
         "field": "poster",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-6e3fef925d50-91ddb62f/poster.jpg"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-308bf2f97cf4-049e3dad/poster.jpg"
       }
     ]
   },
   {
     "id": "useful-82-curry-locked-in",
     "kind": "original useful workflow produced with Video Use",
-    "sourceBatch": "character-five-20261006",
+    "sourceBatch": "quality-review-20261006",
     "sourceRun": "useful-82-curry-locked-in",
     "model": "gpt-6-astra",
     "reasoningEffort": "high",
     "frameworkBranch": "feature/character-effects",
     "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
     "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
-    "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
+    "production": "Video Use agent-authored project completed through parent-directed deterministic Video Use rendering and checks in Modal after the original worker reached its usage limit; no additional model call; exact encoded output reviewed before publication",
     "storage": "Cloudflare R2",
-    "websiteSha256": "15d83ed1087b11f4ac402634930e85cb5abd5a1178192eb93ae0cf3b8c73bd1b",
-    "promptSource": "Exact original prompt submitted to Video Use. Subsequent editorial refinements are recorded separately in the downloadable project.",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-15d83ed1087b-9a1129d6/source.zip",
-    "editableSourceSha256": "0a9d9aec5e76fb4721d172acfb64854f9810e72106b100fa18e063d25d396cef",
+    "websiteSha256": "d0b76c23b2cd44029daad007434c274acbdb6642cddd3af1a7e805d2dac598a3",
+    "promptSource": "Exact prompt executed for this reviewed Video Use edit. The linked source footage and audio retain their creators’ rights.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-d0b76c23b2cd-30f8d8ca/source.zip",
+    "editableSourceSha256": "6fc5248026d79c3e6f59386b1bd1c33018133a61a59702acd21b8ccb5d6c1649",
     "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
-    "cloudProject": "video-use-useful-library-20261003/character-five-20261006/useful-82-curry-locked-in/repairs/equivalent-v1/project/edit",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-15d83ed1087b-9a1129d6/review.md",
-    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-15d83ed1087b-9a1129d6/verification.json",
-    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-15d83ed1087b-9a1129d6/storyboard.jpg",
-    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-15d83ed1087b-9a1129d6/creative-prompt.txt",
-    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-15d83ed1087b-9a1129d6/provenance.json",
+    "cloudProject": "video-use-useful-library-20261003/quality-review-20261006/useful-82-curry-locked-in/repairs/parent-completion-v2/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-d0b76c23b2cd-30f8d8ca/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-d0b76c23b2cd-30f8d8ca/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-d0b76c23b2cd-30f8d8ca/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-d0b76c23b2cd-30f8d8ca/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-d0b76c23b2cd-30f8d8ca/provenance.json",
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-15d83ed1087b-9a1129d6/final.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-d0b76c23b2cd-30f8d8ca/final.mp4"
       },
       {
         "field": "poster",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-15d83ed1087b-9a1129d6/poster.jpg"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-d0b76c23b2cd-30f8d8ca/poster.jpg"
       }
-    ]
+    ],
+    "completionMode": "parent-directed deterministic Video Use completion",
+    "initialAgentAttempt": "review-v2"
   }
 ]

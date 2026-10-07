@@ -1359,15 +1359,15 @@
     "id": "useful-63-quenlin-verdict",
     "title": "One Bite One Verdict",
     "category": "Video Edits",
-    "description": "Compress a food episode into anticipation, one bite and a verdict.",
-    "prompt": "Use Video Use to make a 33-second vertical food-reaction edit from Quenlin Blackwell’s THE $20,000 MUKBANG: https://www.youtube.com/watch?v=wY4Dm_8z5EI. Focus on the grilled cheese burrito around 28:34–29:10, followed by its later verdict around 29:50–30:02. Open with a one-second glimpse of the skeptical expression after the bite, then return to the invitation to taste it and the dish identification. Keep the actual bite, the changing expression and the initial answer, then move clearly to the later conversation where they name that same burrito and give their verdict. Finish on the original sleepy punchline and its sound. Shorten the long chewing stretch and remove the unrelated conversation between these beats.\n\nUse steady 9:16 crops that keep the eater’s face, hands and burrito together. Stay on the real listener when that reaction helps; change framing at a conversational beat instead of chasing every word. Use sparse sentence-case captions for the dish and the decisive verdict. Keep the original voices, food sounds and existing source humor, with gentle leveling and a light corrective grade. Treat $20,000 as the episode title, not the price of this dish. Deliver a 1080×1920 MP4 at 30 fps and the editable Video Use project.",
-    "duration": 33.2,
+    "description": "The real burrito bite, changing expression and later verdict in one tighter portrait story.",
+    "prompt": "Use Video Use to make a 28.4-second portrait food-reaction edit from Quenlin Blackwell’s THE $20,000 MUKBANG: https://www.youtube.com/watch?v=wY4Dm_8z5EI.\n\nOpen directly on the invitation to try the grilled cheese burrito and its name, around 28:34. Keep the brief sauce request, then the actual bite and changing expression. Let the real rollercoaster remark and first answer play together. Cut clearly to the later conversation around 29:53, beginning with the complete cheese complaint and continuing through the verdict that names the same burrito. Finish on the original sleepy punchline and its sound.\n\nUse steady 9:16 crops that keep faces, hands and the burrito visible. Preserve the real listener shots and natural reaction timing. Add a quiet “Later” label at the time jump, and use sparse, warm-white sentence-case captions for the dish and decisive verdict, revealing each phrase with the actual speech. Keep the original voices, food sounds and source humor, with gentle leveling and a light corrective grade. Treat $20,000 as the episode title, not the dish’s price. Deliver a 1080×1920 MP4 at 30 fps and the editable project.",
+    "duration": 28.4,
     "promptKind": "Original prompt",
     "orientation": "portrait",
     "audiences": ["Content creators", "Social media teams"],
     "useCases": ["YouTube to short clips", "Social content"],
     "technique": "video-editing",
-    "promptSource": "Original executed prompt, followed by a requested caption refinement. The editable project records both stages. Source footage and audio retain their creators’ rights.",
+    "promptSource": "Exact prompt executed for this reviewed Video Use edit. The linked source footage and audio retain their creators’ rights.",
     "mediaCredits": [
       {
         "title": "THE $20,000 MUKBANG",
@@ -1376,16 +1376,16 @@
         "changes": "Edited excerpt. Original footage and source audio retain their creators’ rights."
       }
     ],
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-9e2536d5fc13-9bc0f561/final.mp4",
-    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-9e2536d5fc13-9bc0f561/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-9e2536d5fc13-9bc0f561/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-9e2536d5fc13-9bc0f561/review.md"
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-590cfa185ea7-f9605539/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-590cfa185ea7-f9605539/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-590cfa185ea7-f9605539/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-63-quenlin-verdict-590cfa185ea7-f9605539/review.md"
   },
   {
     "id": "useful-64-billie-finneas",
     "title": "Answer or Eat the Wing",
     "category": "Video Edits",
-    "description": "Build sibling comedy through a question, refusal and spicy consequence.",
+    "description": "A ranking dilemma becomes a real wing challenge, with a coherent portrait layout.",
     "prompt": "Use Video Use to make a 38-second vertical edit of Billie Eilish and Finneas in this official Hot Ones Versus episode: https://www.youtube.com/watch?v=-2yTzR9bULg. Start on the artist-ranking challenge around 08:22, keep the four names and Billie’s first reaction, then cut to her refusal and the death-wing alternative around 08:49. Follow that choice with the actual wing action around 09:15–09:27 and the heat reaction around 09:32–09:41. Keep these moments in their original order and finish on the shared suffering-but-fun payoff. Remove the repeated setup and unrelated banter between them.\n\nUse calm 9:16 crops from the show’s own coverage, keeping faces, the wing and the relevant hands visible. Preserve the native artist images as a brief complete insert if they cannot fit a portrait crop; use the verified names Tyler, the Creator, Lana Del Rey, Childish Gambino and Justin Bieber. Give viewers the four choices in a compact, readable graphic during the question. Keep real listener reactions and let the bite breathe. Briefly lower the background sound during the silent decision, then restore it quietly beneath the dialogue. Add only sparse, accurate sentence-case captions for the challenge, refusal and final payoff. Retain the original voices, pauses, laughter and visual style, with gentle audio leveling. Deliver a 1080×1920 MP4 at 30 fps and the editable Video Use project.",
     "duration": 38,
     "promptKind": "Original prompt",
@@ -1393,7 +1393,7 @@
     "audiences": ["Content creators", "Social media teams"],
     "useCases": ["YouTube to short clips", "Social content"],
     "technique": "video-editing",
-    "promptSource": "Original executed prompt, followed by a requested caption refinement. The editable project records both stages. Source footage and audio retain their creators’ rights.",
+    "promptSource": "Exact prompt executed for this reviewed Video Use edit. The linked source footage and audio retain their creators’ rights.",
     "mediaCredits": [
       {
         "title": "Billie Eilish vs. Finneas | Hot Ones Versus",
@@ -1402,10 +1402,10 @@
         "changes": "Edited excerpt. Original footage and source audio retain their creators’ rights."
       }
     ],
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-f21e52c466fd-1eaf7faa/final.mp4",
-    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-f21e52c466fd-1eaf7faa/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-f21e52c466fd-1eaf7faa/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-f21e52c466fd-1eaf7faa/review.md"
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-eff03acbc45d-a51e1ea3/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-eff03acbc45d-a51e1ea3/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-eff03acbc45d-a51e1ea3/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-64-billie-finneas-eff03acbc45d-a51e1ea3/review.md"
   },
   {
     "id": "useful-65-andrew-amelia",
@@ -1497,15 +1497,15 @@
     "id": "useful-68-speed-kai-chained",
     "title": "Accountability Bro",
     "category": "Video Edits",
-    "description": "Keep the whole fall, then let the players explain themselves.",
-    "prompt": "Make a roughly 51-second gaming story from IShowSpeed and Kai Cenat playing Chained Together: https://www.youtube.com/watch?v=uw2AaFkmzOc\n\nUse their attempt to jump from the narrow red beam: keep the original jump instruction, the count-in, the complete jump and fall, and the genuine disagreement about “shift” versus “edge.” Let viewers see exactly what happened before emphasizing their reactions. Trim the repeated argument only after they have landed, then return to their real climb back onto the lower stone route. End on the actual “Accountability, bro” line as they regroup, without pretending they completed the course.\n\nKeep the entire decisive jump and fall uninterrupted at normal speed. Use a clean 16:9 frame with the full gameplay view as the largest element and the two original, synchronized facecams smaller in the top corners. Preserve both characters, the chain, the beam and the landing area. One brief enlargement of the facecams is enough after the landing; restore the full gameplay view for the recovery.\n\nUse concise captions for the key real lines and let the original game sound and conversation carry the edit. Bleep racial slurs and redact the matching caption words without replacing their speech. Keep the timing and humor natural: no borrowed reactions, invented subtitles, fake gameplay, added failure sounds, speed ramps, freeze frames or unrelated meme inserts.",
-    "duration": 50.7,
+    "description": "A complete failed jump, one real argument, and the honest recovery.",
+    "prompt": "Make a 30.9-second landscape gaming story from IShowSpeed and Kai Cenat playing Chained Together: https://www.youtube.com/watch?v=uw2AaFkmzOc.\n\nOpen on the real shift-jump instruction, then move directly to their actual three-two-one count. Keep that count, the complete jump, the fall and the landing together at normal speed. Let viewers understand the mistake before the argument. After they land, keep one genuine “you said edge” accusation and one “I said shift” reply, then cut to their real climb back onto the lower stone route. Finish on “Accountability, bro.” Preserve the order and meaning of what happened; they have not completed the course.\n\nKeep the full gameplay as the largest part of a clean 16:9 frame, with both original facecams synchronized in the top corners. Briefly emphasize the real facecam reactions only after landing, then restore the full gameplay for recovery. Use concise warm-white captions with restrained emphasis on the actual edge/shift disagreement. Keep the original game sound and voices, bleep racial slurs and redact those caption words. No fake reactions, added failure sounds, speed ramps, freeze frames or meme inserts.",
+    "duration": 30.9,
     "promptKind": "Original prompt",
     "orientation": "landscape",
     "audiences": ["Content creators", "Streamers", "Social media teams"],
     "useCases": ["Gaming highlights", "YouTube to short clips"],
     "technique": "video-editing",
-    "promptSource": "Original executed prompt, followed by a requested caption refinement. The editable project records both stages. Source footage and audio retain their creators’ rights.",
+    "promptSource": "Exact prompt executed for this reviewed Video Use edit. The linked source footage and audio retain their creators’ rights.",
     "mediaCredits": [
       {
         "title": "⛓️CHAINED TOGETHER⛓️ ft. Kai Cenat",
@@ -1514,10 +1514,10 @@
         "changes": "Edited excerpt. Original footage and audio retain their creators’ rights."
       }
     ],
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-3f6ca87b4bf6-a60ea8a6/final.mp4",
-    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-3f6ca87b4bf6-a60ea8a6/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-3f6ca87b4bf6-a60ea8a6/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-3f6ca87b4bf6-a60ea8a6/review.md"
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-ed648fd55ba5-0e63e67f/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-ed648fd55ba5-0e63e67f/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-ed648fd55ba5-0e63e67f/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-68-speed-kai-chained-ed648fd55ba5-0e63e67f/review.md"
   },
   {
     "id": "useful-69-meta-muse-glasses",
@@ -1617,15 +1617,15 @@
     "id": "useful-72-era-swap",
     "title": "Same Move Different Era",
     "category": "Video Edits",
-    "description": "Switch from Jordan to Edwards inside a single movement.",
-    "prompt": "Create a 26-second Michael Jordan / Anthony Edwards era-swap edit from this comparison: https://www.youtube.com/watch?v=5p2ZMBNDCPQ\n\nBuild three precise match cuts from the real paired plays: a baseline spin into a fadeaway, a powerful one-hand finish, and an inside finish around the defender. Each sequence begins with Jordan’s movement and switches to Edwards at the same gather or release phase, then lets Edwards’ real shot finish. Make the player’s scale, trunk position, active hand and ball line up across each switch, so the movement appears to carry through the change of era.\n\nUse careful crop, scale, position and timing adjustments. Preserve the actual bodies and ball paths. Keep the active limbs and basket readable, and inspect the frames immediately around all three swaps. Choose a better nearby action frame when needed instead of concealing a mismatch with a dissolve. Keep the pacing controlled and energetic, with only enough lead-in and follow-through to make each move clear.\n\nAt one swap, isolate Jordan with a real moving silhouette mask so the court changes a few frames before the player does. Remove the incoming player from that brief background plate to avoid doubled bodies. End with four seconds of the strongest pair playing side by side, with the shooting poses synchronized so the match becomes clear.\n\nUse a clean 16:9 presentation with restrained MJ / ANT identification and a small credit for Ball Film Studio’s comparison and the underlying NBA footage. Use an energetic instrumental with a clean pulse. Keep useful court accents only where they are clear; do not cut the comparison narrator into misleading fragments. Deliver the MP4 and an editable Video Use project containing all six source ranges, alignment frames, transformations and audio choices.",
-    "duration": 26,
+    "description": "Three real plays connect two eras through movement and deliberate composition.",
+    "prompt": "Create a 24-second Michael Jordan / Anthony Edwards basketball edit from this comparison: https://www.youtube.com/watch?v=5p2ZMBNDCPQ\n\nMake their shared movement recognizable through three real paired plays: a baseline fadeaway, a one-hand finish and an inside finish around the defender. Build a compact progression from Jordan’s gather into Edwards’ continuation, with enough of each real play to understand the move and its outcome. Let the ball, active hand and direction of movement motivate the change of era.\n\nGive the strongest compatible pair one crisp same-action cut. Select the source frames carefully and use crop, uniform scale, position and modest timing adjustments to keep the ball and shooting gesture in a consistent part of the frame. Preserve each player’s real proportions and camera perspective. The cut should feel purposeful and readable; do not force two different bodies into an identical silhouette.\n\nFor the pairs whose camera angles differ, make the comparison a designed transition: open a brief, balanced pair of level frames, show both players at the corresponding gather or release phase, then let Edwards’ frame expand cleanly into the continuing real play. Match the apparent player scale as closely as the footage allows, align the active hands within their frames, and keep equal outer margins and a deliberate gutter. Use concise MJ / ANT labels. The paired moment should bridge one action into the next, not interrupt it with a static explanation. Keep the real ball and basket visible, and avoid leaving a frozen player pasted onto the other court.\n\nUse one coherent dark-and-ivory sports-editorial layout, with small, readable move labels and clear player identification. Cut redundant approach and post-shot waiting. End with four seconds of the strongest pair playing side by side, synchronized at the shooting phase, so the viewer can see the resemblance and the genuine differences for themselves.\n\nUse a continuous rhythmic instrumental, retaining the credit for Resonance by Scott Buckley under CC BY 4.0. Keep any useful court sound only where it is clean; omit the comparison narrator. Preserve the source attribution to Ball Film Studio and the underlying NBA footage. No invented ball flight, scoring outcome, body morph or perspective warp. Deliver 1920×1080 at 30 fps and an editable Video Use project with this exact prompt, source ranges, phase markers, transforms and audio decisions.",
+    "duration": 24,
     "promptKind": "Original prompt",
     "orientation": "landscape",
     "audiences": ["Sports fans", "Editors", "Content creators"],
     "useCases": ["Match cuts", "Sports highlights", "Compositing"],
     "technique": "video-editing",
-    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "promptSource": "Exact prompt executed for this reviewed Video Use edit. The linked source footage and audio retain their creators’ rights.",
     "mediaCredits": [
       {
         "title": "Anthony Edwards playing EXACTLY like Michael Jordan: Identical plays",
@@ -1642,10 +1642,10 @@
         "changes": "Excerpt edited and mixed for the film."
       }
     ],
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-72-era-swap-23c893e4aee3-8e0a7a17/final.mp4",
-    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-72-era-swap-23c893e4aee3-8e0a7a17/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-72-era-swap-23c893e4aee3-8e0a7a17/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-72-era-swap-23c893e4aee3-8e0a7a17/review.md"
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-72-era-swap-5069693aa051-0d6c7e85/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-72-era-swap-5069693aa051-0d6c7e85/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-72-era-swap-5069693aa051-0d6c7e85/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-72-era-swap-5069693aa051-0d6c7e85/review.md"
   },
   {
     "id": "useful-73-pacu-poster",
@@ -1677,7 +1677,7 @@
     "id": "useful-74-drew-editorial",
     "title": "Drew Beyond the Page",
     "category": "Video Edits",
-    "description": "A spoken silhouette becomes a moving fashion editorial.",
+    "description": "A word-led magazine page, with proportion-preserving moving expression windows.",
     "prompt": "Use Video Use to turn Drew Starkey’s answer about costume and character into a roughly 24-second portrait fashion editorial, using this Esquire interview: https://www.youtube.com/watch?v=VULC3YTVmFs. Keep the complete answer from “As an actor” through “thank you, Jonathan,” around 04:10.5–04:34.2. Preserve his voice, pauses and natural timing.\n\nBegin in the real interview with a small COSTUME / CHARACTER label. Let a quiet paper edge appear as he says “physicality.” On the spoken word “silhouette,” make the interview unfold into a designed magazine page: one large, moving portrait and two smaller moving expression windows, with strong proportions, warm paper, black type and an accent sampled from his burgundy jacket. Let his real hair, shoulders and gesturing hands cross the moving panel edges while his lower body stays inside the source panel. Build this from the interview footage; leave out the publisher’s photo montage.\n\nKeep the large portrait alive as he speaks. Match his head, eyes and shoulder placement when the real footage changes from the wider gesture to the closer expression. Make the page divisions move around his silhouette, with the SILHOUETTE headline integrated into the composition. Use actual source pixels and carefully refined moving masks; preserve his appearance, hand shapes and motion blur. Keep cropped shoulders or torso attached to a deliberate panel edge.\n\nLet the complete editorial composition read, then fold the secondary windows away and return the main portrait to the continuing interview before “I don’t know.” Let his fitting-room punchline and final thanks breathe. Keep captions selective, dialogue continuous and paper accents quiet. Deliver a 1080×1920 MP4 at 30 fps and an editable project with the exact source clocks, moving masks, pose-registration controls, panel animation, typography and audio decisions.",
     "duration": 23.7,
     "promptKind": "Original prompt",
@@ -1685,7 +1685,7 @@
     "audiences": ["Content creators", "Editors", "Fashion brands"],
     "useCases": ["Character edits", "Editorial motion", "Subject cutouts"],
     "technique": "video-editing",
-    "promptSource": "Exact prompt executed for this rebuilt Video Use edit. The linked source footage and audio retain their creators’ rights.",
+    "promptSource": "Exact prompt executed for this reviewed Video Use edit. The linked source footage and audio retain their creators’ rights.",
     "mediaCredits": [
       {
         "title": "Drew Starkey Chats Daniel Craig, 'Outer Banks,' And Loewe | Explain This | Esquire",
@@ -1694,10 +1694,10 @@
         "changes": "Edited excerpt. Original footage and source audio retain their creators’ rights."
       }
     ],
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-9934df162d3b-519ff66e/final.mp4",
-    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-9934df162d3b-519ff66e/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-9934df162d3b-519ff66e/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-9934df162d3b-519ff66e/review.md"
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-a2fb6bf45c15-7a41f3fd/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-a2fb6bf45c15-7a41f3fd/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-a2fb6bf45c15-7a41f3fd/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-a2fb6bf45c15-7a41f3fd/review.md"
   },
   {
     "id": "useful-75-leah-glambot",
@@ -1769,9 +1769,9 @@
     "id": "useful-77-muzan-panel",
     "title": "Muzan Through the Page",
     "category": "Video Edits",
-    "description": "A moving cape opens one layered manga composition.",
-    "prompt": "Use Video Use to make a 22-second landscape Muzan edit from his arrival at the Ubuyashiki mansion: https://www.youtube.com/watch?v=09b_F5xjOvE. Use the gate, moving cape, shadowed face, pond-side pose and final frontal close-up around 00:37–01:29. Build one evolving manga spread from the real animation.\n\nBegin in color with the gate and cape. Let the cape's actual contour carry an animated black ink seam into the first panel. Freeze the shadowed face and turn the scene into charcoal-and-ivory linework with restrained halftone, changing the setting before the character. Give the separate character and setting layers a shallow depth move while keeping the original mist believable. Unfold that composition into two unequal panels: a large face study and a wider pond scene. Move the page's gutter past his source-derived silhouette so his cape visibly crosses the panel boundary. Place MUZAN once along the page edge; let the character and composition dominate.\n\nLet the pond panel expand back into full-color footage. Return its separated layers to the exact original pose before the next real frame moves. Add two brief, fading cape echoes from nearby real poses during that release, then clear the graphics and finish on his moving frontal close-up. Keep the face and original drawing intact; no invented anatomy or generated character images.\n\nUse deliberate framing to exclude the uploader's intro, outro and baked subtitles while keeping his face readable. MUZAN is the only added copy. Shape the pacing to a dark, credited instrumental score, with a held visual payoff between the fast transitions. Add no voiceover. Deliver a 1920×1080 MP4 at 30 fps and an editable project with the masks, panel choreography, exact source cuts and timing.",
-    "duration": 22,
+    "description": "A real cape opens one evolving manga spread and returns to motion.",
+    "prompt": "Create a 20-second cinematic manga edit of Muzan from this source: https://www.youtube.com/watch?v=09b_F5xjOvE\n\nBuild one continuous idea: his real cape opens into a manga page, the shadowed face becomes its large portrait, and the pond scene expands out of the page back into the original moving footage. Use the gate approach, cape movement, shadow face, pond entrance and frontal close from the source. Keep the sequence compact and ominous, with a direct connection from the cape to the portrait.\n\nLet the real cape contour introduce charcoal ink and warm ivory paper. Separate the actual figure from its background, preserve the hair and cape edges, and give the held portrait a small, controlled sense of depth. Keep enough real facial detail to read the eyes and expression; use a restrained crop that respects the footage’s original resolution.\n\nDevelop that portrait into one evolving spread: a large face panel and a smaller wide pond panel, aligned on a clean, level layout. Move the gutter deliberately past the real cape silhouette so part of the figure crosses the panel boundary. Leave purposeful negative space and add MUZAN once as a small editorial label. Hold long enough to understand the image, then let the pond panel open to the full frame.\n\nReturn the figure and background to their exact source positions before the pond scene resumes. Let two brief echoes from Muzan’s own earlier cape poses disappear into the real movement, and finish with the clean moving frontal close. Keep the charcoal, ivory and cool source colors coherent throughout, with no extra flash montage, captions or invented character imagery.\n\nUse the credited dark instrumental Resonance by Scott Buckley under CC BY 4.0, with a continuous musical phrase and any retained source ambience in its true timing. No voiceover. Deliver 1920×1080 at 30 fps and an editable Video Use project with this exact prompt, source clocks, figure masks, layout controls and music credit.",
+    "duration": 20,
     "promptKind": "Original prompt",
     "orientation": "landscape",
     "audiences": ["Editors", "Anime fans", "Content creators"],
@@ -1781,7 +1781,7 @@
       "Silhouette transitions"
     ],
     "technique": "video-editing",
-    "promptSource": "Exact prompt executed for this rebuilt Video Use edit. The linked source footage and audio retain their creators’ rights.",
+    "promptSource": "Exact prompt executed for this reviewed Video Use edit. The linked source footage and audio retain their creators’ rights.",
     "mediaCredits": [
       {
         "title": "MUZAN ENTRY | Demon Slayer Season 4",
@@ -1798,10 +1798,10 @@
         "changes": "Excerpt edited and mixed for the film."
       }
     ],
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-a3e195737242-5d6d0dda/final.mp4",
-    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-a3e195737242-5d6d0dda/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-a3e195737242-5d6d0dda/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-a3e195737242-5d6d0dda/review.md"
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-0ca6af0a8ef9-f88d2d91/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-0ca6af0a8ef9-f88d2d91/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-0ca6af0a8ef9-f88d2d91/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-77-muzan-panel-0ca6af0a8ef9-f88d2d91/review.md"
   },
   {
     "id": "useful-78-routine-rhythm",
@@ -1841,15 +1841,15 @@
     "id": "useful-79-dubai-chocolate",
     "title": "Made You Crave It",
     "category": "Video Edits",
-    "description": "Turn a real tasting into a texture-led food commercial.",
-    "prompt": "Use Video Use to turn Maria Vehera’s original Dubai chocolate video into an 18-second portrait texture commercial: https://www.tiktok.com/@mariavehera257/video/7313986849104481538. Use only the first green-filled bar, keeping the real crack, dip, bite and expression.\n\nOpen on a tight chocolate cross-section, then return to the unwrapping. As her hands pull the bar apart, place a bold “CRUNCH” behind the real fingers. Freeze the strongest broken-bar frame and lift the actual chocolate and hands onto warm cream for a three-second product composition. Preserve the filling strands and painted coating. Separate product and hand masks so the fingers convincingly overlap the typography. Give the cutout a small movement and restrained shadow, then use the real hand contour as the masked transition that reveals the live footage again.\n\nLet the original dipping and bite carry the story, with brief “CREAM” and “KNAFEH” labels. Finish on a tight cross-section crop that connects directly to the opening, using the same bar and crop. Preserve the chocolate’s real color and shape, original handling and crunch. Keep transitions quiet, with no voiceover or invented testimonial. Deliver a 1080×1920 MP4 at 30 fps and the editable project containing the product cutout, moving hand masks, transition and loop timing.",
+    "description": "Real chocolate texture becomes a composed product moment.",
+    "prompt": "Create an 18-second vertical chocolate edit from Maria Vehera’s original Dubai chocolate video: https://www.tiktok.com/@mariavehera257/video/7313986849104481538\n\nMake the first green-filled bar irresistible through its real texture: begin on the exposed filling, build through the unwrapping and actual crack, then turn the broken bar into a composed product poster. Use only this first bar. Keep the hands, chocolate edges and knafeh filling exactly as photographed.\n\nHold the real broken-bar pose for three seconds against warm cream. Separate the hands and visible product accurately, move them together as one connected composition, and give the bar a prominent place near the center of the portrait frame. Set one bold CRUNCH in deep cocoa behind the fingers and chocolate. Balance the lettering and product with purposeful space above and below, a soft contact shadow and a small controlled movement. Keep both hands naturally attached to the bar.\n\nReturn to the footage through a precise matching pose: bring the hands and bar back to their original position and scale, clear the title, and restore the real background softly behind that registered foreground. Continue with the next real movement. Keep the foreground sharp and stable throughout the return, with the face fully clear when it reappears.\n\nUse one complete dip-and-bite moment and a brief reaction, then give the remaining attention to the green filling and crisp shell through well-chosen close crops of the real footage. Use only the short words CREAM and KNAFEH when their textures are visible. Keep the pacing compact; avoid repeated bites and long chewing passages. Finish on the same close cross-section framing as the opening so the visual loop feels intentional.\n\nUse the original handling, break and bite sounds at their true moments, with clean joins and a restrained sound bed from the same scene beneath the held poster where recoverable. Keep any spoken phrase complete if it remains. No invented crunch, voiceover, extra slogan or ingredient claim. Preserve creator attribution. Deliver 1080×1920 at 30 fps, retaining the honest detail of the source, plus an editable Video Use project with this exact prompt, source clocks, masks, typography and audio choices.",
     "duration": 18,
     "promptKind": "Original prompt",
     "orientation": "portrait",
     "audiences": ["Content creators", "Food brands", "Editors"],
     "useCases": ["Product edits", "Compositing", "Food content"],
     "technique": "video-editing",
-    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "promptSource": "Exact prompt executed for this reviewed Video Use edit. The linked source footage and audio retain their creators’ rights.",
     "mediaCredits": [
       {
         "title": "@fixdessertchocolatier WOW, JUST WOW!!! Can’t explain how good these are! When a chocolate, a dessert and a piece of art meet this is what you get! 🍫   \"Can't Get Knafeh of it,\"  \"Mind Your Own Busicoff,\" and \"Crazy Over Caramel.\"  Order on Instagram Chatfood or Deliveroo and let me know what’s your FIX? Instagram : fixdessertchocolatier #asmr #foodsounds #dubai #dubaidessert ",
@@ -1858,10 +1858,10 @@
         "changes": "Edited excerpt. Original footage and source audio retain their creators’ rights."
       }
     ],
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-79-dubai-chocolate-e1bbe50a3b05-4c443f16/final.mp4",
-    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-79-dubai-chocolate-e1bbe50a3b05-4c443f16/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-79-dubai-chocolate-e1bbe50a3b05-4c443f16/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-79-dubai-chocolate-e1bbe50a3b05-4c443f16/review.md"
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-79-dubai-chocolate-fc5ac9114f70-89a69ad2/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-79-dubai-chocolate-fc5ac9114f70-89a69ad2/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-79-dubai-chocolate-fc5ac9114f70-89a69ad2/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-79-dubai-chocolate-fc5ac9114f70-89a69ad2/review.md"
   },
   {
     "id": "useful-80-han-toy-car",
@@ -1893,9 +1893,9 @@
     "id": "useful-81-speed-fast-travel",
     "title": "Fast Travel with Speed",
     "category": "Video Edits",
-    "description": "An ordinary house tour becomes an action sequence.",
-    "prompt": "Make a 40-second, 16:9 edit from IShowSpeed’s house tour with Tom Brady: https://www.youtube.com/watch?v=ofV7SLRf7dQ. Use the section from 5:50 to 7:35. The idea is FAST TRAVEL: an ordinary walk from dock to pool to gym suddenly gets action-film energy, with their real conversation providing the comedy.\n\nOpen with about three seconds of untreated footage as Speed says he can’t believe he stopped at Brady’s house. Then transform the walk. Place a large FAST TRAVEL headline into the dock scene with both men naturally passing in front of it. Sweep a clean band of light through the surroundings while their faces stay natural. Give Speed two fleeting after-images made from his actual walking poses, then rush through the real walk in three seconds. Use one consistent visual style and clean transitions.\n\nLet the pool exchange breathe. After “you don’t see these muscles right here?”, freeze the poolside two-shot around 7:08 for just over a second. Give Speed, Brady and the background a little separate depth, bring the same headline behind them, then return precisely to the original pose and continue moving.\n\nKeep the 225 conversation, their arrival at the gym, and Brady’s actual correction ending “It might take a minute.” End there, with his original voice and no end card. Use Scott Buckley’s credited “Neon” sparingly for the effects, duck it under speech, and let the final reply land dry. Limit dialogue captions to “It’s gonna be big” and “225”, timed to those words. Keep the daylight and pirate outfit recognizable; every pose and action must come from this footage.",
-    "duration": 40,
+    "description": "An ordinary house-tour walk becomes an action entrance, ending on Brady’s dry correction.",
+    "prompt": "Turn this ordinary walk with IShowSpeed and Tom Brady into a 27-second landscape edit called FAST TRAVEL: https://www.youtube.com/watch?v=ofV7SLRf7dQ. Use the house-tour section from about 5:50 to 7:35, keeping their real conversation as the joke.\n\nStart with roughly three seconds of untreated footage and Speed's complete line about stopping at Brady's house. Then make the walk feel like an action-film entrance. Plant one bold FAST TRAVEL headline in the dock scene, balanced between the two men, with their real moving silhouettes passing in front of it. Keep their faces and Speed's pirate outfit prominent. Sweep a cool band of light through the surroundings, protecting their natural skin tones. Let exactly two brief echoes of Speed's actual earlier poses trail his movement, then gather back into the live figure as the real walk accelerates toward the pool. The headline, light, echoes and acceleration should form one connected transformation.\n\nMake the pool stop brief: retain the initial surprise, then move to the invitation to the gym. Keep Speed's complete muscles joke and the real 225 exchange. At the end of his muscles line, hold the actual two-shot for less than a second and separate the two men and background into a small depth move. Return to precisely the same pose before the conversation continues. Do not repeat the headline or turn this into another title card.\n\nSkip the repeated request to start the tour with a rep. Arrive at the gym on Speed noticing the setup, then preserve Brady's full correction ending with his actual line about it taking a minute. Let that reply land dry and end in the real room, with no slogan or end card.\n\nKeep all retained speech at normal speed with complete words and natural joins. Use the credited Scott Buckley track Neon only to support the transformation, duck it clearly under conversation and remove it for the ending. Limit added dialogue text to the real phrases about it being big and 225, timed to the words. Every body pose and environment must come from the footage. Deliver 1920×1080 at 30 fps with source-bound masks, registered layer transforms, editable source/audio cuts and this exact prompt.",
+    "duration": 27,
     "promptKind": "Original prompt",
     "orientation": "landscape",
     "audiences": ["Editors", "Content creators", "Film fans"],
@@ -1905,7 +1905,7 @@
       "Speed ramps"
     ],
     "technique": "video-editing",
-    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "promptSource": "Exact prompt executed for this reviewed Video Use edit. The linked source footage and audio retain their creators’ rights.",
     "mediaCredits": [
       {
         "title": "irl stream in America 🇺🇸 Day 1 of 35 (Miami, FL)",
@@ -1922,18 +1922,18 @@
         "changes": "Excerpted and mixed under dialogue."
       }
     ],
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-053ca3cb7b55-dac4f0a8/final.mp4",
-    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-053ca3cb7b55-dac4f0a8/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-053ca3cb7b55-dac4f0a8/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-053ca3cb7b55-dac4f0a8/review.md"
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-749519964071-8b5d334a/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-749519964071-8b5d334a/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-749519964071-8b5d334a/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-81-speed-fast-travel-749519964071-8b5d334a/review.md"
   },
   {
     "id": "useful-82-curry-locked-in",
     "title": "Curry Locked In",
     "category": "Video Edits",
-    "description": "Turn a continuous warmup into a composed sports film.",
-    "prompt": "Turn the ordinary two-ball warmup in this Golden State Warriors video into a 40-second sports film called “LOCKED IN”: https://www.youtube.com/watch?v=LMJSpM-eRCc. Work from the continuous drill around 0:52–1:02, 1:06–1:22, 1:26–1:32 and 1:36–1:44. Keep the native landscape composition and the feeling of standing on the court behind Curry. Open with four completely unaltered seconds from around 0:52, including the original arena sound, so the transformation has a clear starting point.\n\nOn the next real bounce, let the arena become quieter and cooler while Curry, his shoes and the two basketballs retain their natural texture. Follow each ball separately with a short, tapered ivory or muted-gold trace made from its visible movement. Let small, flat accents touch the floor only at actual visible ball contacts. The marks should feel drawn onto the movement, with correct overlap around hands and legs; let them disappear when a ball is hidden. Preserve the curved wide-lens court instead of covering it in an artificial perspective grid.\n\nBuild the middle from the rhythm of the real handling: a clean cut on a matched body position, a restrained push closer, and one brief acceleration that returns to normal speed. Keep the action legible. Use the source frames for the speed change, without fabricating smoother motion. Let the real bounces and squeaks lead the sound, with room between the accents and no added voiceover.\n\nIn the closer passage around 1:26–1:32, turn one clear pose near 1:31 into a two-second motion study. Hold the actual picture, reveal two faint earlier poses from this same movement behind him, and place large, heavy condensed “LOCKED IN” lettering behind his body. Use warm ivory, a little gold and plenty of breathing room. Keep the live body and ball shapes crisp, his feet attached to the floor, and the arena readable. Bring the echoes and lettering back out, return to the identical held frame, then release into the next real source frame so the motion continues cleanly.\n\nFinish with the original handling around 1:36–1:44. Let the last bounces and his real forward step close the film as the graphics clear. This is a film about the routine: preserve the actual action and do not imply a scored basket, add a fake swish, or invent a ball flight. Keep the on-screen words to the title and, if useful, one small “Stephen Curry” identifier after the raw opening. Credit the Warriors’ 2025 source in the project and deliver the finished video with the exact prompt and editable effect, timing and sound decisions.",
-    "duration": 40,
+    "description": "An ordinary warm-up becomes a focused, rhythmic sports film.",
+    "prompt": "Turn this Stephen Curry warm-up into a 26-second landscape sports film: https://www.youtube.com/watch?v=LMJSpM-eRCc\n\nMake a simple gym drill feel intensely focused. Start on a clean, readable crossover, then introduce a bold LOCKED IN composition within the first three seconds. Keep Curry large enough to recognize, center the title and his stance on the same axis, and let his real silhouette pass in front of the lettering. Add a small Stephen Curry credit. Resolve the treatment back into the exact live pose so the movement continues naturally.\n\nBuild one compact progression using different moments of the real drill: establish the whole body, move closer to the hands and ball, then return wide for a stronger crossover. Cut on completed bounces and changes of direction. Let each action read; avoid repeating the same movement to fill time. Use a short acceleration between actions, with the important ball contact and footwork at normal speed.\n\nConnect the effects to his control of the ball. Briefly darken and cool the gym behind his moving silhouette, draw short restrained traces that follow the actual visible ball positions, and use one pair of faint echoes taken from his own earlier poses during the strongest crossover. Keep the body, ball and court aligned through every treatment. Let these details build together rather than stopping for separate demonstrations.\n\nEnd on one clear, planted pose from the footage and a brief balanced LOCKED IN hold. Keep the film rhythmic using the original gym sound, with clean audio joins and audible real bounces. Do not invent a shot, basket, ball flight or crowd reaction. No voiceover or extra slogans. Deliver 1920×1080 at 30 fps and an editable project with this exact prompt.",
+    "duration": 26,
     "promptKind": "Original prompt",
     "orientation": "landscape",
     "audiences": ["Editors", "Content creators", "Film fans"],
@@ -1943,7 +1943,7 @@
       "Sports edits"
     ],
     "technique": "video-editing",
-    "promptSource": "Exact original prompt submitted to Video Use. Subsequent editorial refinements are recorded separately in the downloadable project.",
+    "promptSource": "Exact prompt executed for this reviewed Video Use edit. The linked source footage and audio retain their creators’ rights.",
     "mediaCredits": [
       {
         "title": "Stephen Curry’s FULL Warmup Routine is Art",
@@ -1952,10 +1952,10 @@
         "changes": "Edited excerpt with newly authored compositing and motion design. Original footage and audio retain their creators’ rights."
       }
     ],
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-15d83ed1087b-9a1129d6/final.mp4",
-    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-15d83ed1087b-9a1129d6/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-15d83ed1087b-9a1129d6/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-15d83ed1087b-9a1129d6/review.md"
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-d0b76c23b2cd-30f8d8ca/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-d0b76c23b2cd-30f8d8ca/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-d0b76c23b2cd-30f8d8ca/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-82-curry-locked-in-d0b76c23b2cd-30f8d8ca/review.md"
   },
   {
     "id": "useful-83-spiderman-panels",
@@ -1987,15 +1987,15 @@
     "id": "useful-84-wednesday-deadpan",
     "title": "Wednesday Deadpan",
     "category": "Video Edits",
-    "description": "A dry exchange becomes a moving gothic editorial.",
-    "prompt": "Create a 40-second gothic character edit from Wednesday's airport-screening scene in this official Netflix clip: https://www.youtube.com/watch?v=Lxa8poQYRtc\n\nMake the dry conversation turn into an original moving editorial spread, then land the sunscreen joke. Open directly on the security officer's question about prohibited items and preserve Wednesday's complete deadpan reply. The pauses and eye contact matter; keep her performance readable.\n\nAt the end of the reply, let the last caption become the edge of a sharp black-and-ivory page. Freeze a strong Wednesday pose, separate her braids and coat from the room, and bring her forward through that page. Place one elegant oversized WEDNESDAY title behind her silhouette. Give the room, portrait and type a small independent depth move, then return precisely to moving footage. Preserve real gaps and hair edges; do not leave a second copy of her in the background.\n\nBuild a quick sequence from her actual gestures and the security-tray inserts inside sliding, asymmetrical magazine panels. Match the direction of an arm or object across each cut. Let one moving portrait overlap the panel boundaries while the other shots stay contained. Use restrained monochrome texture during the graphic sequence, with a single muted red accent. The new panel motion and cutouts should be clearly authored, not just the episode's existing quick cuts.\n\nGive Thing's real hand a short visual cameo: isolate it from the conveyor frame, let the fingers overlap an editorial edge, and use that contour to reveal the next shot. Return to the original airport framing for the sunscreen reveal, the officer's explanation and Wednesday's final reaction. End on the actual joke with no explanatory end card.\n\nUse stylish, compact dialogue captions with clear spacing and a soft shadow, avoiding oversized outlined words. Preserve the source dialogue, pauses and object sounds; a quiet dark pulse may support the graphic passage, then drop away for the joke. No AI narration or fabricated dialogue. Deliver a crisp landscape video and an editable project containing the source cuts, real subject masks, panel animation, typography, caption timing and audio mix.",
-    "duration": 40,
+    "description": "A dry airport exchange becomes one gothic editorial spread, then lands the sunscreen joke.",
+    "prompt": "Create a 30-second landscape character edit from Wednesday's airport-screening scene in this official Netflix clip: https://www.youtube.com/watch?v=Lxa8poQYRtc\n\nOpen immediately on the officer's complete prohibited-items question and Wednesday's complete deadpan reply. Let the dry delivery and eye contact do the work. Keep their speech at its original speed and preserve every word.\n\nWhen her reply lands, turn the picture into one concise black-and-ivory editorial spread. Bring a strong, real Wednesday portrait forward through a sharp page edge, with a large elegant WEDNESDAY title behind her braids and coat. Balance the portrait and headline on one clear axis, keep her face prominent, and give the room, portrait and type a restrained depth move. Use one muted red accent. Keep this whole graphic bridge under three seconds; it should connect the conversation, with no extra montage or second talking portrait.\n\nLet Thing's actual hand carry the spread back into the airport scene. Briefly isolate the real fingers across the page edge, then expand their contour into the next live shot. Match the hand's position, scale and pose at the handoff so there is only one hand, and complete the reveal before returning to normal framing. Use the actual source pixels and clean source-bound masks.\n\nReturn directly to the sunscreen reveal. Keep the officer's question, Wednesday's curious denial, the complete 3.4-ounce explanation and her final sunscreen reaction. Tighten only the long silent gaps between complete lines, retaining enough pause for the joke. End on her actual reaction for a short beat, without an end card.\n\nUse readable ivory dialogue captions in short phrases, with a soft shadow and minimal edge. They should read clearly on a phone without covering faces or props. Keep native voices and object sounds; a quiet dark pulse may support the brief graphic bridge and must clear for the joke. No new narration, invented dialogue or generated body parts. Deliver 1920×1080 at 30 fps with an editable project and this exact prompt.",
+    "duration": 30,
     "promptKind": "Original prompt",
     "orientation": "landscape",
     "audiences": ["Editors", "Content creators", "Film fans"],
     "useCases": ["Character edits", "Editorial motion", "Selective captions"],
     "technique": "video-editing",
-    "promptSource": "Exact prompt used to make this Video Use edit from the linked original footage. Source footage and audio retain their creators’ rights.",
+    "promptSource": "Exact prompt executed for this reviewed Video Use edit. The linked source footage and audio retain their creators’ rights.",
     "mediaCredits": [
       {
         "title": "Wednesday: Season 2 | First 6 Minutes | Netflix",
@@ -2004,18 +2004,18 @@
         "changes": "Edited excerpt with newly authored compositing and motion design. Original footage and audio retain their creators’ rights."
       }
     ],
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-b6b9e1615fb9-dc1352c7/final.mp4",
-    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-b6b9e1615fb9-dc1352c7/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-b6b9e1615fb9-dc1352c7/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-b6b9e1615fb9-dc1352c7/review.md"
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-fb30c062059a-57d260be/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-fb30c062059a-57d260be/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-fb30c062059a-57d260be/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-84-wednesday-deadpan-fb30c062059a-57d260be/review.md"
   },
   {
     "id": "useful-85-rumi-double-life",
     "title": "Rumi Breaks the Cover",
     "category": "Video Edits",
-    "description": "An editorial portrait opens into her hunter identity.",
-    "prompt": "Create a 32-second Rumi character film from Sony Pictures Animation’s original trailer: https://www.youtube.com/watch?v=3JTVQTk36R8. The visual idea is “break the cover”: her quiet robe portrait becomes an original moving editorial cover, and the pop-star image opens into her hunter identity.\n\nLet the opening portrait and its complete “It’s time” line register. Separate Rumi cleanly from that shot, build a warm-ivory and deep-violet cover around her, and set one large editable RUMI word partly behind her actual hair and shoulders. Use a brief, deliberate portrait hold while the cover’s layers tilt and separate. Make an eye-line and scale match into the real yellow-jacket portrait, preserving the source’s recognizable face, hands and props. Let the live stage footage play inside the cover, then have Rumi’s actual upper silhouette extend beyond its panel edge while the underlying performance remains registered.\n\nThe signature transformation should combine her real hunter silhouette, a foreground braid or arm sweep, and one diagonal graphic seam. Her movement pushes the seam open; a designed opaque panel completes the reveal into the actual fight. Keep the matte attached to the photographed movement, with clean braid edges and correct overlap. Let the ensuing action play at normal speed, with a single brief echo made from a real earlier Rumi pose if it strengthens the motion. Use 1:51.8–1:55.8 and 2:04–2:06 for the final action passages, stopping before the cat insert. Resolve the hunter image into the same cover structure for a clear final hero frame.\n\nUse confident typography, subtle layer shadows, restrained chrome-lavender highlights and small yellow-jacket accents. Compose on a 1920×1080 canvas at 30fps, preserving the source’s cinema framing inside intentional graphic panels. Keep native crowd occlusions and every visible hand, prop and action coherent. Source pixels, editable shapes and measured timing should drive the transformation; preserve faces and movement without generating hidden bodies or backgrounds. Treat the trailer’s existing sword glow, particles and cuts as source material. Exclude its native character, film-title and release cards, including the existing RUMI title. Use original designed music and impacts around complete retained source phrases, with no invented dialogue, voice imitation or lyric captions. Save the exact executed prompt, source credits and editable masks, timing and composition.",
-    "duration": 32,
+    "description": "A live portrait breaks through an editorial cover into Rumi’s hunter identity.",
+    "prompt": "Create a tightly paced, 27-second Rumi character film from Sony Pictures Animation's original trailer: https://www.youtube.com/watch?v=3JTVQTk36R8. The idea is “break the cover”: the quiet robe portrait becomes a designed editorial image, then the pop star breaks through into her hunter identity.\n\nLet the opening portrait and the complete original “It's time” line register. Build a warm-ivory and deep-violet cover around her real silhouette, with one large editable RUMI word behind her hair and shoulders. Give the layers a brief, deliberate separation, then match her eye line and face scale into the moving yellow-jacket portrait. Preserve the actual hands, cup and recognizable expression.\n\nMove into one concise live-stage passage. Make Rumi prominent inside a substantial performance panel, then let her actual upper silhouette cross its top edge while the picture underneath stays exactly registered. Reframe the live picture and foreground together. Keep the real crowd occlusion and lower body inside the panel; do not invent the hidden parts. Give the performer and typography a clear, balanced hierarchy without an empty upper half or a tiny figure. Continue directly toward the hunter reveal instead of repeating the arena sequence.\n\nUse her actual hunter pose, moving braid and arm to push open a diagonal seam in the same cover. Let an opaque graphic panel finish the reveal immediately into the real fight. This should be one quick connected transformation, without a separate bare-title pause. Keep the visible weapon, braid and fingers clean and preserve every real source crop against a canvas or panel boundary.\n\nLet the following action play at normal speed. Retain the plane and later combat passages around 1:51.8–1:55.8 and 2:04–2:06, stopping before the cat insert. Resolve into the same hunter-cover structure for a clear final hero hold of about two seconds.\n\nUse confident typography, restrained chrome-lavender highlights and small yellow accents. Preserve the source's cinema framing inside intentional panels and keep subject masks attached to the actual frame and motion. Treat the trailer's sword glow, particles and cuts as source material; the cover, registration, breakout and seam reveal should be visibly new work. Exclude all native character, film-title and release cards. Use an original designed score and restrained impacts around complete retained source phrases. No invented dialogue, voice imitation, lyric captions or generated bodies/backgrounds. Deliver 1920×1080 at 30 fps with the exact prompt, source credits, editable masks, timing, composition and audio.",
+    "duration": 27,
     "promptKind": "Original prompt",
     "orientation": "landscape",
     "audiences": ["Editors", "Content creators", "Film fans"],
@@ -2025,7 +2025,7 @@
       "Panel animation"
     ],
     "technique": "video-editing",
-    "promptSource": "Exact original prompt submitted to Video Use. Subsequent editorial refinements are recorded separately in the downloadable project.",
+    "promptSource": "Exact prompt executed for this reviewed Video Use edit. The linked source footage and audio retain their creators’ rights.",
     "mediaCredits": [
       {
         "title": "KPop Demon Hunters | Official Trailer | Sony Animation",
@@ -2034,10 +2034,10 @@
         "changes": "Edited excerpt with newly authored compositing and motion design. Original footage and audio retain their creators’ rights."
       }
     ],
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-6e3fef925d50-91ddb62f/final.mp4",
-    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-6e3fef925d50-91ddb62f/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-6e3fef925d50-91ddb62f/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-6e3fef925d50-91ddb62f/review.md"
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-308bf2f97cf4-049e3dad/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-308bf2f97cf4-049e3dad/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-308bf2f97cf4-049e3dad/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-85-rumi-double-life-308bf2f97cf4-049e3dad/review.md"
   },
   {
     "id": "whiplash-cinematic-story-edit",
