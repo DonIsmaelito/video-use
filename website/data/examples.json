@@ -1694,10 +1694,10 @@
         "changes": "Edited excerpt. Original footage and source audio retain their creators’ rights."
       }
     ],
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-8c6eed0a732a-07efc3d4/final.mp4",
-    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-8c6eed0a732a-07efc3d4/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-8c6eed0a732a-07efc3d4/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-8c6eed0a732a-07efc3d4/review.md"
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-9934df162d3b-519ff66e/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-9934df162d3b-519ff66e/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-9934df162d3b-519ff66e/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-9934df162d3b-519ff66e/review.md"
   },
   {
     "id": "useful-75-leah-glambot",
@@ -1961,15 +1961,15 @@
     "id": "useful-83-spiderman-panels",
     "title": "Spider-Man Beyond the Panel",
     "category": "Video Edits",
-    "description": "Spider-Man steps out of an original moving comic.",
-    "prompt": "Create a 36-second Spider-Man character edit from this official trailer: https://www.youtube.com/watch?v=62bIsvRcPv0\n\nBuild the film around a simple visual idea: he steps out of the comic panel and back into real motion. Start with the quiet stretching exchange near the end of the trailer, then turn the first confident pose into an original comic-book composition. Keep his face, hands and body readable.\n\nSeparate Spider-Man from the actual frame, draw an oversized panel behind him, and let his arm or shoulder overlap its border. Animate the background, frame and character at different depths for a brief camera move, then restore the exact original pose and continue the footage. Design the missing background deliberately so there is no duplicate body left behind. This should be a composition you create, not one of the trailer's existing title cards.\n\nUse two precise movement matches to move into the swinging shots: align a real hand gesture with the direction of a web, then carry the swing across an angled panel edge. A thin web line can pull the next panel open. Briefly accelerate the approach and hold a strong real pose; preserve the decisive physical action at normal speed. Make one transition follow his actual moving silhouette rather than using a generic screen wipe.\n\nGive the window-side close-up a second, quieter treatment: restrained ink texture, a large SPIDER-MAN wordmark behind the moving figure, and a clean breakout from the frame. Finish with a readable burst of original swinging action and return to the opening stretch for a discreet loop. Use scarlet, ink black and warm paper with crisp, spare typography. Let comic texture appear only during the authored panel moments.\n\nKeep a few complete original spoken lines and the real web/action sounds. Use compact dialogue captions with careful spacing and subtle contrast; keep faces and gestures clear. No new narration or borrowed reactions. Exclude studio logos, release cards and the trailer's promotional ending. Deliver a sharp landscape video and an editable project with the exact source cuts, pose matches, speed changes, masks, panel animation and sound decisions.",
-    "duration": 36,
+    "description": "A confident comic-book hero, one action run and a clean final cover.",
+    "prompt": "Create a 22-second landscape Spider-Man character promo from this official trailer: https://www.youtube.com/watch?v=62bIsvRcPv0\n\nMake it feel like one finished comic-book film. Open briefly on the stretching setup, then turn his first confident pose into a strong hero cover. Bring in a large, beautifully spaced SPIDER-MAN title within the first three seconds. Center the title and figure on the same visual axis, let his head or shoulders overlap the lettering, and give the red panel equal side margins and a level baseline. Use scarlet, ink black and warm paper. The frame should feel complete and immediately recognizable, with a prominent figure and no vacant upper half.\n\nLet the cover resolve into the exact original pose and continue the real stretching exchange once. Keep the useful complete lines and natural gestures, then build into one short action passage: the alley action, followed by a clean run of swinging footage that leads toward the window scene. Use each action shot once. Cut on readable movement and carry direction and visual scale across the cuts; choose a clean cut whenever two poses do not match naturally.\n\nFinish on the window-side “You just have to trust me” exchange. Turn that moment into a second composed cover: a large SPIDER-MAN wordmark, his real silhouette extending beyond a level panel, restrained paper depth, and balanced spacing. Preserve the complete warning and trust line, then let the final composition settle briefly. The ending should feel like the payoff to the opening rather than another effect demonstration.\n\nUse minimal, fast transitions and a consistent panel geometry. Keep the character, borders and typography aligned through the moving states as well as the holds. Avoid angled frames that expose stray wedges of footage, repeated swings, an extra stretching reprise or a forced loop. Keep the decisive action at normal speed and faces, hands and silhouettes readable.\n\nKeep the original dialogue and action sounds over a subtle continuous rhythm, with clean audio joins. Use a few restrained dialogue captions below the picture, with no extra narration or slogans. Exclude studio logos, release cards and the trailer’s promotional ending. Deliver 1920×1080 at 30 fps, with the editable project and this exact prompt.",
+    "duration": 22,
     "promptKind": "Original prompt",
     "orientation": "landscape",
     "audiences": ["Editors", "Content creators", "Film fans"],
-    "useCases": ["Character edits", "Layered compositing", "Motion matching"],
+    "useCases": ["Character edits", "Layered compositing", "Editorial pacing"],
     "technique": "video-editing",
-    "promptSource": "Exact original prompt submitted to Video Use. Subsequent editorial refinements are recorded separately in the downloadable project.",
+    "promptSource": "Exact prompt executed for this rebuilt Video Use edit. The linked source footage and audio retain their creators’ rights.",
     "mediaCredits": [
       {
         "title": "SPIDER-MAN: BRAND NEW DAY – New Trailer (4K)",
@@ -1978,10 +1978,10 @@
         "changes": "Edited excerpt with newly authored compositing and motion design. Original footage and audio retain their creators’ rights."
       }
     ],
-    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-ed612fa2d6b7-a1b73670/final.mp4",
-    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-ed612fa2d6b7-a1b73670/poster.jpg",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-ed612fa2d6b7-a1b73670/source.zip",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-ed612fa2d6b7-a1b73670/review.md"
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-f58674673303-047cc0b9/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-f58674673303-047cc0b9/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-f58674673303-047cc0b9/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-f58674673303-047cc0b9/review.md"
   },
   {
     "id": "useful-84-wednesday-deadpan",

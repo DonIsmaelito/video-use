@@ -5709,25 +5709,25 @@
     "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
     "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
     "storage": "Cloudflare R2",
-    "websiteSha256": "8c6eed0a732a3fd51baf20eab78e8d3ac2246bd2853334b576c0a1557bd91c8d",
+    "websiteSha256": "9934df162d3bfa4c8ff0436b0b2cf763f14de3157aba2db7586297da05c2a5be",
     "promptSource": "Exact prompt executed for this rebuilt Video Use edit. The linked source footage and audio retain their creators’ rights.",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-8c6eed0a732a-07efc3d4/source.zip",
-    "editableSourceSha256": "aefa522b56c1f0511bd016379e62e6efe453dcd7d6cfc58aa76a24e29641c94f",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-9934df162d3b-519ff66e/source.zip",
+    "editableSourceSha256": "e4ccbb72e65d4691b1d8f3c5d1b49733ab7b8bfac47a0b4989c1f0e242123ffb",
     "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
-    "cloudProject": "video-use-useful-library-20261003/remix-pass-20261006/useful-74-drew-editorial/repairs/layout-v1/project/edit",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-8c6eed0a732a-07efc3d4/review.md",
-    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-8c6eed0a732a-07efc3d4/verification.json",
-    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-8c6eed0a732a-07efc3d4/storyboard.jpg",
-    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-8c6eed0a732a-07efc3d4/creative-prompt.txt",
-    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-8c6eed0a732a-07efc3d4/provenance.json",
+    "cloudProject": "video-use-useful-library-20261003/remix-pass-20261006/useful-74-drew-editorial/repairs/aspect-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-9934df162d3b-519ff66e/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-9934df162d3b-519ff66e/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-9934df162d3b-519ff66e/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-9934df162d3b-519ff66e/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-9934df162d3b-519ff66e/provenance.json",
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-8c6eed0a732a-07efc3d4/final.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-9934df162d3b-519ff66e/final.mp4"
       },
       {
         "field": "poster",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-8c6eed0a732a-07efc3d4/poster.jpg"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-74-drew-editorial-9934df162d3b-519ff66e/poster.jpg"
       }
     ]
   },
@@ -6015,25 +6015,25 @@
     "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
     "production": "Independent Video Use agent and render in Modal; encoded output reviewed before publication",
     "storage": "Cloudflare R2",
-    "websiteSha256": "ed612fa2d6b7553c31f0a482b1b46067426da1a93c13e56095ac600fd5e6e379",
-    "promptSource": "Exact original prompt submitted to Video Use. Subsequent editorial refinements are recorded separately in the downloadable project.",
-    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-ed612fa2d6b7-a1b73670/source.zip",
-    "editableSourceSha256": "7e352c7455c1766de0b7c5e9b77a620ccfe826acd7c0de9f9e436e60aaaa4dd3",
+    "websiteSha256": "f58674673303ee6cee245ec4bd8f568eb8a0fcb331749ae9c7de0376979d897c",
+    "promptSource": "Exact prompt executed for this rebuilt Video Use edit. The linked source footage and audio retain their creators’ rights.",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-f58674673303-047cc0b9/source.zip",
+    "editableSourceSha256": "7ece90a749587ada4a3053bd09996f232c4e00407dc5095a9e6d31fdb318837c",
     "sourceArchiveScope": "Editable project and small assets; raw downloaded footage, private traces and caches excluded",
-    "cloudProject": "video-use-useful-library-20261003/character-five-20261006/useful-83-spiderman-panels/repairs/handoff-v1/project/edit",
-    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-ed612fa2d6b7-a1b73670/review.md",
-    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-ed612fa2d6b7-a1b73670/verification.json",
-    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-ed612fa2d6b7-a1b73670/storyboard.jpg",
-    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-ed612fa2d6b7-a1b73670/creative-prompt.txt",
-    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-ed612fa2d6b7-a1b73670/provenance.json",
+    "cloudProject": "video-use-useful-library-20261003/character-five-20261006/useful-83-spiderman-panels/repairs/polish-22-v2/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-f58674673303-047cc0b9/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-f58674673303-047cc0b9/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-f58674673303-047cc0b9/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-f58674673303-047cc0b9/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-f58674673303-047cc0b9/provenance.json",
     "websiteAssets": [
       {
         "field": "video",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-ed612fa2d6b7-a1b73670/final.mp4"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-f58674673303-047cc0b9/final.mp4"
       },
       {
         "field": "poster",
-        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-ed612fa2d6b7-a1b73670/poster.jpg"
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-83-spiderman-panels-f58674673303-047cc0b9/poster.jpg"
       }
     ]
   },
