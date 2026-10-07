@@ -17,7 +17,6 @@ export function Wordmark() {
           </a>
         </div>
       </div>
-      <p className="footer-wordmark">VIDEO USE</p>
     </footer>
   );
 }

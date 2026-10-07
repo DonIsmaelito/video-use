@@ -1146,7 +1146,7 @@ summary {
   margin-top: 24px;
   font-size: 11px;
 }
-/* A quiet white sign-off keeps the footer minimal. */
+/* Compact footer links and attribution. */
 .site-footer {
   padding: 20px var(--page-gutter) 0;
   margin: auto;
@@ -1170,16 +1170,6 @@ summary {
 }
 .footer-links a:hover {
   color: var(--accent);
-}
-.footer-wordmark {
-  color: #e9e9e9;
-  font-size: clamp(72px, 17.3vw, 350px);
-  line-height: 0.8;
-  letter-spacing: -0.075em;
-  font-weight: 600;
-  white-space: nowrap;
-  margin-top: 28px;
-  text-align: center;
 }
 @media (min-width: 1800px) {
   .video-grid {
@@ -1386,10 +1376,6 @@ summary {
   }
   .footer-links > div {
     gap: 14px;
-  }
-  .footer-wordmark {
-    font-size: 17vw;
-    margin-top: 10px;
   }
 }
 @media (max-width: 420px) {
