@@ -1142,3 +1142,12 @@ The encoded clip was inspected in 48 half-second samples across its full duratio
 Source, frozen EDL, reproducible `render.py`, delivery, media review and site QA: `/Users/ismaelito/Movies/Video Use Scenic Showcase 20261007/edit/`. Scoped files/assets were synchronized into the shared root using baseline hash guards; unrelated work is preserved. Hosted verification follows.
 
 The scenic release also incorporates the concurrent larger iMessage badge release `007c232`. Its final build includes that committed update and the compact credit label; the existing iMessage files were not edited by this task.
+
+
+### Scenic agent showcase verified live
+
+Deployment **5be71f7e-8fe4-476c-8029-12a898de6a6d** (provider **dpl_7bk2Ck4QbeTsKwiNzwrTS57WnXdU**) is READY at https://video-use.insforge.site from source **e08ab4e**, pushed to `feature/useful-video-library`. The approved editing composition now plays a 24-second scenic Iceland FPV excerpt by LHuFPV, sourced from https://www.youtube.com/watch?v=lxk6XLZsdA0 at 03:04–03:28. Its four filmstrip frames and waveform match the new excerpt. The footer’s compact Credits link opens source attribution, the CC BY 3.0 license and modification details.
+
+Local and hosted isolated Chromium checks pass at six widths from 320 to 2048px, including advancing muted inline playback, all six agent actions, a full natural video loop, hidden/offscreen/dialog suspension, reduced decorative motion, poster fallback and no page errors or overflow. Fifty-one elapsed samples cover the video cycle; the encoded film was independently inspected in 48 half-second frames. Actual hosted desktop/phone and narrow-footer captures were inspected. All six published assets, including attribution, match their local hashes. The final production build includes the concurrent larger iMessage badge `007c232`; type/catalog checks, all 30 importer tests and lint pass. All 197 gallery entries, prior movie URLs, playback implementation and approved composition CSS remain unchanged.
+
+Evidence: `/Users/ismaelito/Movies/Video Use Scenic Showcase 20261007/edit/release-summary.json`, with frozen EDL, source receipt, reproducible render, media review and hosted verification alongside it. Owned runtime files/assets and appended notes are synchronized to the root checkout; unrelated work is preserved. This footage swap is complete and releases website deployment ownership.
