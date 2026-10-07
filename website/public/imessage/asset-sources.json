@@ -4,6 +4,24 @@
     "referencePage": "https://family.co/",
     "retrievedAt": "2026-10-07",
     "sha256": "fe713f3d01b250a605933ba082a8553ac75424755bb071540e587b1bb3b76d79",
-    "use": "Unmodified front-facing phone frame requested by the user from the Send section. Chat screenshots are supplied separately."
+    "use": "Unmodified front-facing phone frame requested by the user from the Send section."
+  },
+  "video-use_1.png": {
+    "source": "User-provided iMessage screenshot",
+    "originalFile": "video-use_1.png",
+    "receivedAt": "2026-10-07",
+    "width": 1179,
+    "height": 2327,
+    "sha256": "4ce26437c93f0a461bbd11d15e37cf9b863e633afb435054322765253ec5b2aa",
+    "use": "Unmodified editing conversation in the left phone. Shows a timing revision and returned video."
+  },
+  "video-use_2.png": {
+    "source": "User-provided iMessage screenshot",
+    "originalFile": "video-use_2.png",
+    "receivedAt": "2026-10-07",
+    "width": 1179,
+    "height": 2347,
+    "sha256": "276a214206bf49f9ada82ac4e4aedb966478c81ac60622b92331c7870a35f9b5",
+    "use": "Unmodified reference conversation in the right phone. Shows a Linear reference and a Browser Use creation request."
   }
 }

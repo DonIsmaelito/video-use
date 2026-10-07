@@ -15,7 +15,7 @@ function ConversationPhone({
   label,
   side,
 }: {
-  screenshot: ConversationScreenshot | null;
+  screenshot: ConversationScreenshot;
   label: string;
   side: 'left' | 'right';
 }) {
@@ -26,26 +26,24 @@ function ConversationPhone({
       aria-describedby={side === 'left' ? 'imessage-edit' : 'imessage-create'}
     >
       <div className={styles.phone}>
-        <div className={styles.screen}>
-          {screenshot ? (
-            <Image
-              className={styles.conversation}
-              src={screenshot.src}
-              width={screenshot.width}
-              height={screenshot.height}
-              alt={screenshot.alt}
-              sizes="(max-width: 540px) 30vw, (max-width: 1023px) 154px, 240px"
-              loading="lazy"
-              decoding="async"
-            />
-          ) : (
-            <div className={styles.placeholder} aria-hidden="true">
-              <MessageCircle size={38} strokeWidth={1.25} />
-              <span>{label}</span>
-              <span className={styles.placeholderNote}>Chat screenshot</span>
-            </div>
-          )}
-        </div>
+        <a
+          className={styles.screen}
+          href={screenshot.src}
+          target="_blank"
+          rel="noopener"
+          aria-label={`${label} — view full-size conversation in a new tab`}
+        >
+          <Image
+            className={styles.conversation}
+            src={screenshot.src}
+            width={screenshot.width}
+            height={screenshot.height}
+            alt={screenshot.alt}
+            sizes="(max-width: 540px) 30vw, (max-width: 1023px) 154px, 240px"
+            loading="lazy"
+            decoding="async"
+          />
+        </a>
         <Image
           className={styles.frame}
           src="/imessage/iphone-frame.png"
@@ -63,15 +61,6 @@ function ConversationPhone({
 }
 
 export function ImessageFeature() {
-  // The real conversations are still to be supplied. Keep the draft local until
-  // both screenshots are present; never publish invented chat content.
-  if (
-    process.env.NODE_ENV === 'production' &&
-    (!screenshots.cameraRoll || !screenshots.references)
-  ) {
-    return null;
-  }
-
   return (
     <section
       id="imessage"

@@ -25,7 +25,7 @@ The Genjutsu destination consists of an introductory hero, collection tabs, and 
 
 ## Video Use implementation
 
-The homepage has **six content sectors**: featured workflows, Video Editing, the MCP connections promotion, Video Creation, the Dots-style MCP promotion, and 3D Animations & Visuals. Including the announcement strip, navigation, and footer gives **nine vertical modules** while the announcement is visible.
+The homepage has **seven content sectors**: featured workflows, Video Use in iMessage, Video Editing, the MCP connections promotion, Video Creation, the Dots-style MCP promotion, and 3D Animations & Visuals. Including the announcement strip, navigation, and footer gives **ten vertical modules** while the announcement is visible.
 
 The three clip sectors each show up to sixteen curated examples, preserve their natural aspect ratios, and end at a finite height. A fade returns the grid to the page background with a centered orange View all action. Any card whose controls fall below the usable preview edge is inert and hidden from assistive technology. The entire catalog remains available on the destination pages.
 
