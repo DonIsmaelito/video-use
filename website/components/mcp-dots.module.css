@@ -127,11 +127,14 @@
   pointer-events: none;
 }
 .character {
+  --character-tilt: 0deg;
+  --cursor-bearing: 0deg;
   position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 164px;
+  rotate: var(--character-tilt);
   animation: float 7s ease-in-out infinite;
 }
 .label {
@@ -159,39 +162,43 @@
   width: 28px;
   height: 32px;
   right: -18px;
-  top: 20%;
-  transform: rotate(-12deg);
+  top: calc(50% - 16px);
+  /* The SVG points at -117deg; compensate for its shape and mascot tilt. */
+  transform: rotate(calc(117deg + var(--cursor-bearing) - var(--character-tilt)));
   filter: drop-shadow(0 2px 2px #0008);
 }
 .editor {
+  --character-tilt: -4deg;
+  --cursor-bearing: 16deg;
   top: 64px;
   left: 10%;
-  rotate: -4deg;
 }
 .designer {
+  --character-tilt: 4deg;
+  --cursor-bearing: 164deg;
   top: 64px;
   right: 10%;
-  rotate: 4deg;
   animation-delay: -1.5s;
 }
 .designer .cursor,
 .storyteller .cursor {
   right: auto;
   left: -18px;
-  transform: scaleX(-1) rotate(-12deg);
 }
 .artist {
+  --character-tilt: 8deg;
+  --cursor-bearing: -24deg;
   bottom: 64px;
   left: 18%;
   flex-direction: column-reverse;
-  rotate: 8deg;
   animation-delay: -3s;
 }
 .storyteller {
+  --character-tilt: -5deg;
+  --cursor-bearing: -156deg;
   bottom: 64px;
   right: 18%;
   flex-direction: column-reverse;
-  rotate: -5deg;
   animation-delay: -4.5s;
 }
 @keyframes float {
@@ -242,6 +249,27 @@
     position: relative;
     inset: auto;
     width: 100%;
+  }
+  /* All four mascots sit below the hero at this size. */
+  .editor {
+    --cursor-bearing: -55deg;
+  }
+  .designer {
+    --cursor-bearing: -80deg;
+  }
+  .artist {
+    --cursor-bearing: -100deg;
+  }
+  .storyteller {
+    --cursor-bearing: -125deg;
+  }
+  .designer .cursor {
+    right: -18px;
+    left: auto;
+  }
+  .artist .cursor {
+    right: auto;
+    left: -18px;
   }
   .artist,
   .storyteller {
@@ -301,6 +329,23 @@
   .cursor {
     width: 24px;
     height: 28px;
+    top: calc(50% - 14px);
+  }
+  .editor,
+  .artist {
+    --cursor-bearing: -84deg;
+  }
+  .designer,
+  .storyteller {
+    --cursor-bearing: -96deg;
+  }
+  .designer .cursor {
+    right: auto;
+    left: -18px;
+  }
+  .artist .cursor {
+    right: -18px;
+    left: auto;
   }
 }
 @media (prefers-reduced-motion: reduce) {
