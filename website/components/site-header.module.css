@@ -33,7 +33,7 @@
 .header :global(.header-connect):hover {
   background: #ff923e;
 }
-@media (max-width: 1000px) {
+@media (max-width: 1180px) {
   .header:global(.site-header) {
     display: grid;
     grid-template-columns: 1fr auto;

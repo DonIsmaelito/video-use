@@ -49,7 +49,7 @@ export function CollectionPage({ sectorId }: { sectorId?: SectorId }) {
             href={item.href}
             aria-current={sector?.id === item.id ? 'page' : undefined}
           >
-            {item.title}
+            {item.id === '3d-visuals' ? item.shortTitle : item.title}
             <span>{getSectorExamples(item.id).length}</span>
           </Link>
         ))}

@@ -48,6 +48,7 @@ export async function SiteHeader({
             href: '/video-creation',
             label: 'Video Creation',
           },
+          { id: '3d-visuals', href: '/3d-visuals', label: '3D Visuals' },
           { id: 'mcp', href: '/mcp', label: 'MCP' },
         ].map((item) => (
           <Link

@@ -24,6 +24,7 @@ import { McpFeature } from '@/components/mcp-feature';
 import { FeaturedFilm } from '@/components/featured-film';
 import { FeaturedCarousel } from '@/components/featured-carousel';
 import { McpConnections } from '@/components/mcp-connections';
+import { McpDots } from '@/components/mcp-dots';
 import { MasonryGallery } from '@/components/masonry-gallery';
 import { GallerySector } from '@/components/gallery-sector';
 import {
@@ -351,9 +352,10 @@ export function Gallery({
       )}
       {!showLibrary && (
         <div id="examples">
-          {sectors.map((collection, index) => (
+          {sectors.map((collection) => (
             <Fragment key={collection.id}>
-              {index === 1 && <McpConnections />}
+              {collection.id === 'video-creation' && <McpConnections />}
+              {collection.id === '3d-visuals' && <McpDots />}
               <GallerySector
                 sector={collection}
                 count={getSectorExamples(collection.id, galleryExamples).length}
@@ -414,7 +416,9 @@ export function Gallery({
                   ? 'All edits'
                   : sector === 'video-creation'
                     ? 'All creations'
-                    : 'All styles'}
+                    : sector === '3d-visuals'
+                      ? 'All 3D visuals'
+                      : 'All styles'}
               </button>
               {availableTechniques.length > 1 &&
                 availableTechniques.map((item) => (

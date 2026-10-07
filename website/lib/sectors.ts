@@ -18,8 +18,18 @@ export const sectors = [
     href: '/video-creation',
     description: 'An idea, a prompt, a whole new world in motion.',
     context:
-      'Explore original motion design, 3D animation, product films, and visual explainers. Find a prompt, bring an idea, and make it your own.',
+      'Explore original motion design, brand films, and visual explainers. Find a prompt, bring an idea, and make it your own.',
     action: 'View all video creations',
+  },
+  {
+    id: '3d-visuals',
+    title: '3D Animations & Visuals',
+    shortTitle: '3D Visuals',
+    href: '/3d-visuals',
+    description: 'Give your ideas a little more dimension.',
+    context:
+      'Explore playful objects, tactile materials, product animations, and impossible little worlds. Find a visual you love and make it move your way.',
+    action: 'View all 3D visuals',
   },
 ] as const;
 
@@ -31,9 +41,9 @@ export type SectorId = Sector['id'];
 export function sectorForExample(
   example: Pick<GalleryExample, 'technique'>,
 ): SectorId {
-  return example.technique === 'video-editing'
-    ? 'video-editing'
-    : 'video-creation';
+  if (example.technique === 'video-editing') return 'video-editing';
+  if (example.technique === '3d') return '3d-visuals';
+  return 'video-creation';
 }
 
 export function getSectorExamples(
@@ -63,22 +73,38 @@ const previewIds: Record<SectorId, string[]> = {
     'useful-61-druski-entrance',
   ],
   'video-creation': [
-    '11-rotary-telephone',
     'useful-07-workshop-invite',
-    'useful-08-refill-product',
     'useful-14-campaign-announcement',
-    'local-motion-20260916-10-ribbon-knot',
     'useful-01-launch-approvals',
     'useful-03-lead-routing',
     'useful-30-match-result',
-    '02-jelly-chair',
-    'useful-19-fulfilment-flow',
     'useful-04-monthly-report',
     'useful-27-hiring-post',
     'local-motion-20260916-02-chromatic-weave',
-    'useful-02-modular-desk',
     'useful-35-water-cycle',
     '01-paper-koi',
+    'cloud-motion-01-make-room',
+    'cloud-motion-02-night-shift',
+    'cloud-motion-06-ink-relay',
+    'cloud-motion-07-one-good-day',
+  ],
+  '3d-visuals': [
+    '11-rotary-telephone',
+    'useful-08-refill-product',
+    'local-motion-20260916-10-ribbon-knot',
+    '02-jelly-chair',
+    'useful-02-modular-desk',
+    'local-motion-20260916-09-porcelain-bloom',
+    '03-chrome-beetle',
+    'useful-37-product-dimensions',
+    'local-motion-20260916-12-glass-tide',
+    '08-toy-planet',
+    'useful-19-fulfilment-flow',
+    '06-satin-bow',
+    'local-motion-20260916-16-orbital-rings',
+    '07-blood-orange',
+    'optical-assembly',
+    '04-fold',
   ],
 };
 

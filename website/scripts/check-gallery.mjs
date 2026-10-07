@@ -61,6 +61,14 @@ new Function('require', 'exports', sectorModule.outputText)(
 );
 const { sectors, getSectorExamples, getSectorPreview, sectorForExample } =
   sectorExports;
+assert.equal(sectors.length, 3, 'Keep three distinct clip collections');
+assert.deepEqual(
+  getSectorExamples('3d-visuals').map((example) => example.id),
+  examples
+    .filter((example) => example.technique === '3d')
+    .map((example) => example.id),
+  'Every 3D example belongs to its own collection',
+);
 const assigned = sectors.flatMap((sector) => getSectorExamples(sector.id));
 assert.equal(
   assigned.length,
@@ -119,6 +127,10 @@ for (const example of examples.filter(
 }
 assert.deepEqual(
   filterExamples({ technique: '3d' }, getSectorExamples('video-editing')),
+  [],
+);
+assert.deepEqual(
+  filterExamples({ technique: '3d' }, getSectorExamples('video-creation')),
   [],
 );
 assert.deepEqual(
