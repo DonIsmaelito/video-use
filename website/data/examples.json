@@ -4302,5 +4302,202 @@
     "promptMode": "exact",
     "muted": false,
     "loop": false
+  },
+  {
+    "id": "useful-131-superman",
+    "title": "Superman",
+    "category": "Video Edits",
+    "description": "A rescue story becomes a cinematic character film with a source-bound silhouette, title depth and a seamless return to motion.",
+    "prompt": "Create a cohesive 24-second Superman character edit from DC’s official teaser: https://www.youtube.com/watch?v=uhUht6vAsMY. Build a small story around receiving help and giving it: Superman calls for Krypto in the snow, Krypto comes to him, and Superman protects the child in the street. The finished piece should feel like a film, not a succession of effect demonstrations.\n\nOpen on the real whistle and compress Krypto’s approach with a smooth increase in playback speed. Keep their meeting and the complete “Krypto. Home. Take me home.” exchange readable, with restrained cinematic subtitles. Remove the teaser’s intervening promotional cards. Carry the red cape into the street rescue, preserving the child and the protective gesture.\n\nAt the strongest rescue pose, briefly turn the shot into a cinematic moving poster. Keep Superman, the child and cape sharply isolated from that exact source frame. Let the background fall back into darker, softer depth while a large, carefully spaced “SUPERMAN” title appears behind the silhouette. Use a subtle push, maintain the original registration and keep faces and hands intact. Return to that same pose and let the actual rescue footage move again, then resolve into the existing flight through the clouds. Use cool snow, deep blue and the real cape’s red as the palette; no comic panels, extra slogans, invented dialogue or generated footage. Keep original score and scene sound, with clean fades at edits. Deliver 1920×1080 at 30 fps, the exact prompt, source credits and an editable Video Use project.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Editors",
+      "Entertainment creators",
+      "Social media teams"
+    ],
+    "useCases": [
+      "Character edits",
+      "Film promos"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Frozen after actual source frame and cached word-level Scribe inspection, before authored creative render",
+    "mediaCredits": [
+      {
+        "title": "Superman | Official Teaser Trailer",
+        "creator": "DC / Warner Bros.",
+        "url": "https://www.youtube.com/watch?v=uhUht6vAsMY",
+        "license": "Original footage and soundtrack remain copyrighted by their respective owners; excluded from the editable code archive",
+        "changes": "Original short-form editorial selection, timing, typography and animated compositing; no endorsement or original-footage ownership claimed."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-131-superman-25de916cc478-65a69979/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-131-superman-25de916cc478-65a69979/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-131-superman-25de916cc478-65a69979/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-131-superman-25de916cc478-65a69979/review.md",
+    "promptMode": "exact",
+    "muted": false,
+    "loop": false
+  },
+  {
+    "id": "useful-130-roundest-object",
+    "title": "Silicon Sphere",
+    "category": "Video Edits",
+    "description": "An interview becomes a visual explanation with a moving sphere-to-Earth comparison and source-aligned typography.",
+    "prompt": "Create a polished 20.6-second science edit from Veritasium’s original “World’s Roundest Object!”: https://www.youtube.com/watch?v=ZMByI4s-D-Y. Make the real silicon sphere and the interview’s Earth-size comparison understandable through a designed visual explanation.\n\nBegin with Derek asking “Are you ready?” and introducing the one-kilogram sphere of silicon-28 atoms. Cut to his question about the Earth being round, then retain the expert’s complete explanation: if this sphere were the size of the Earth, its highest mountain and lowest valley would be about 14 metres apart. Remove the repeated start of that explanation, preserve the short pause after the answer, and finish on Derek’s genuine “shockingly round” reaction. Use the actual voices; do not add narration or make claims about today’s definition of the kilogram.\n\nKeep the opening human and full-frame. Add a discreet “Silicon sphere” identification, then let the macro shot move into an aligned comparison layout: the real sphere on the left and an original, slowly turning globe illustration on the right. Connect their circular forms with a restrained scaling gesture. Label the illustration “Scaled to Earth’s size”; reveal a confident “14 m” only when that figure is spoken, with “highest mountain to lowest valley” beneath it. Treat the globe as a conceptual illustration, not a measured terrain map. Use a warm off-white field, deep blue typography, generous margins and readable sentence-case captions. Expand the real interview back to full-frame for the final reaction. Preserve the original quiet sound and word-safe dialogue cuts, with no additional music. Deliver 1920×1080 at 30 fps, the exact prompt, credited source and editable Video Use project.",
+    "duration": 20.6,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Educators",
+      "Creators",
+      "Editors"
+    ],
+    "useCases": [
+      "Science explainers",
+      "Interview overlays"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Frozen after actual source frame and cached word-level Scribe inspection, before authored creative render",
+    "mediaCredits": [
+      {
+        "title": "World's Roundest Object!",
+        "creator": "Veritasium",
+        "url": "https://www.youtube.com/watch?v=ZMByI4s-D-Y",
+        "license": "Original footage and soundtrack remain copyrighted by their respective owners; excluded from the editable code archive",
+        "changes": "Original short-form editorial selection, timing, typography and animated compositing; no endorsement or original-footage ownership claimed."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-130-roundest-object-1c348d8a64ca-f7c00923/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-130-roundest-object-1c348d8a64ca-f7c00923/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-130-roundest-object-1c348d8a64ca-f7c00923/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-130-roundest-object-1c348d8a64ca-f7c00923/review.md",
+    "promptMode": "exact",
+    "muted": false,
+    "loop": false
+  },
+  {
+    "id": "useful-127-the-ridge",
+    "title": "The Ridge",
+    "category": "Video Edits",
+    "description": "A mountain-bike film becomes a tight action story with a layered summit poster, readable stunts and a quiet shoreline finish.",
+    "prompt": "Create a 28-second cinematic action edit from Danny MacAskill: The Ridge by Cut Media: https://www.youtube.com/watch?v=xQ_IQS3VKjA. Turn the film into a compact ride from exposed summit to shoreline, with a clear beginning, escalating movement and a quiet finish. Keep the original wide framing so the bike, landing and scale of the landscape remain understandable.\n\nOpen on the wide ridge traverse with a brief speed ramp, then cut to the close-up of the shoe and wheel. Give the backlit summit pose a short editorial poster treatment: freeze the real frame, separate Danny and the rock from the sky, trace the photographed silhouette once with a fine warm-white line, and add a large, clean “THE RIDGE” title beside him. Add a small “Danny MacAskill” credit and “Cuillin Ridge / Isle of Skye” location. Use a restrained parallax move, then settle back onto the exact original frame and resume its movement.\n\nFollow with the complete ledge hop, a short point-of-view passage along the narrow ridge, the exposed rock-slab descent, and the jump across the water. Cut with the direction of the bike and let the decisive actions play continuously at the source’s playback speed. Keep graphics off those movements. Finish with Danny sitting beside his bike at the water, plus a small name treatment. Preserve the source’s photographic color and cinematic letterbox; avoid dense captions or invented performance statistics.\n\nCarry one continuous passage of the source’s existing music mix beneath the re-cut, with short clean cut fades and a soft finish. No added narration. Deliver 1920×1080 at 30 fps, the exact prompt, original source credits and an editable Video Use project.",
+    "duration": 28,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Creators",
+      "Editors",
+      "Marketing teams"
+    ],
+    "useCases": [
+      "Sports edits",
+      "Action films"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Frozen after decoded original source frames and candidate-window inspection before creative rendering",
+    "mediaCredits": [
+      {
+        "title": "Danny Macaskill: The Ridge",
+        "creator": "Danny MacAskill / Cut Media",
+        "url": "https://www.youtube.com/watch?v=xQ_IQS3VKjA",
+        "license": "Original footage and audio rights remain with their respective owners; no third-party rights granted by the editable-code license",
+        "changes": "New selection, pacing, source-bound silhouette compositing, contour highlight, typography and original-source music excerpt."
+      },
+      {
+        "title": "Blackbird from GRIT",
+        "creator": "Martyn Bennett / Real World Records",
+        "url": "https://realworldrecords.com/videos/danny-macaskill-the-ridge/",
+        "license": "Original music present in Cut Media’s source mix; rights remain with the rights holders",
+        "changes": "A continuous excerpt from the existing source film mix accompanies this editorial demo."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-127-the-ridge-38250a7dd81a-f097fc9e/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-127-the-ridge-38250a7dd81a-f097fc9e/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-127-the-ridge-38250a7dd81a-f097fc9e/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-127-the-ridge-38250a7dd81a-f097fc9e/review.md",
+    "promptMode": "exact",
+    "muted": false,
+    "loop": false
+  },
+  {
+    "id": "useful-129-walnut-heist",
+    "title": "Walnut Heist",
+    "category": "Video Edits",
+    "description": "A viral squirrel challenge becomes a miniature heist, with a moving route diagram, synchronized lock detail and a real walnut payoff.",
+    "prompt": "Create a polished 24–25-second mini heist from Mark Rober’s original Backyard Squirrel Maze 2.0: https://www.youtube.com/watch?v=DTvS9lvRxZ8. Use the real squirrels and the original obstacle-course footage, rather than recreating the animals. Tease a squirrel inside an air duct, establish the walnut vault and the nine-part challenge with Rober’s original introduction, then show a short vent passage, the successful laser-maze exit, and the vault opening. Work from the introduction around 0:07–0:13, the vents around 12:59–13:03, the laser-maze finish around 15:13–15:21, and the vault payoff around 15:46–15:52. Select the exact word-safe boundaries from the source audio.\n\nMake this feel like a tiny, designed heist film. Open with a large two-line WALNUT HEIST title beside a tightly framed moving image. Use warm ivory, deep forest green and one muted gold accent. Transform that opening into a clean footage-and-route composition: draw an original schematic connecting VENTS, LASERS and VAULT, and advance its highlight when the corresponding action appears. Treat this as the last three stages of a nine-part course, not a literal map of all nine obstacles. Keep the animal fully readable through the actual attempts.\n\nAt the lock, briefly show the complete shot beside a synchronized close detail from that exact frame. Register the detail to the visible lock, reset the crop at the source camera cut, then let the main picture expand smoothly to fill the screen as the door opens. Keep the spill of real walnuts continuous at normal speed and finish on that payoff. Use only a few short, verbatim caption phrases in a reserved, aligned position; avoid bouncing words and labels over the squirrel. Preserve Rober’s genuine narration and the existing source music and effects, with clean fades at edits. Add no synthetic voice, invented animal dialogue, music or sound effects. Deliver a 1920×1080, 30 fps film, a silent preview, the exact prompt, source credits and an editable project.",
+    "duration": 24.4,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Creators",
+      "Science communicators"
+    ],
+    "useCases": [
+      "Mini documentaries",
+      "Challenge edits",
+      "Visual storytelling"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Exact prompt frozen after source-frame and word-level transcript inspection",
+    "mediaCredits": [
+      {
+        "title": "Backyard Squirrel Maze 2.0 – The Walnut Heist",
+        "creator": "Mark Rober",
+        "url": "https://www.youtube.com/watch?v=DTvS9lvRxZ8",
+        "license": "Rights retained by the source publisher and original audio rightsholders; no reuse license grant verified.",
+        "changes": "Shortened and recomposed source footage with original route graphics, synchronized detail crops and selective verbatim captions. Existing source narration, music and effects retained."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-129-walnut-heist-a501330ccb88-2ff05d70/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-129-walnut-heist-a501330ccb88-2ff05d70/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-129-walnut-heist-a501330ccb88-2ff05d70/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-129-walnut-heist-a501330ccb88-2ff05d70/review.md",
+    "promptMode": "exact",
+    "muted": false,
+    "loop": false
+  },
+  {
+    "id": "useful-128-robot-dance",
+    "title": "Robot Dance",
+    "category": "Video Edits",
+    "description": "A real robot performance becomes a centered poster with layered silhouettes, then returns to the choreography.",
+    "prompt": "Create a short, roughly 26-second landscape performance edit using Boston Dynamics’ “Do You Love Me?”: https://www.youtube.com/watch?v=fn3KWM1kuAw. Use the actual dancing robots from this source, with their full bodies and real choreography readable.\n\nStart directly with Atlas dancing into an arms-out jump. Freeze that airborne pose, separate the robot cleanly from the warehouse, and bring it into the center of a warm cream composition. Spread two smaller cobalt silhouettes of that same pose symmetrically to the sides. Place a large, minimal “ROBOT DANCE” title behind the real foreground subject. Make this one confident poster transformation: clear negative space, balanced spacing, visible hands and feet, and a short hold long enough to appreciate the pose. Return the cutout to its original position and let the same performance resume.\n\nFollow with a short turning passage, then open a centered vertical reveal into the group choreography with Spot and the two Atlas robots. Let the final group passage play wide and uninterrupted so the real movement supplies the payoff. Finish on the group’s clean crouch, before another robot enters the edge of the shot. Keep the original colors and camera framing outside the graphic interlude, with no crop that hides the action. Use one continuous excerpt of the source music with brief entry and exit fades, no added voiceover or dialogue captions. Do not add invented technical claims or generate robot movements. Deliver 1920×1080 at 30 fps, the exact prompt, credited source and an editable Video Use project.",
+    "duration": 26.3,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Creators",
+      "Editors",
+      "Technology teams"
+    ],
+    "useCases": [
+      "Performance edits",
+      "Technology showcases"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Frozen after inspecting actual source frames and a source-bound mask before creative rendering",
+    "mediaCredits": [
+      {
+        "title": "Do You Love Me?",
+        "creator": "Boston Dynamics; original soundtrack by The Contours",
+        "url": "https://www.youtube.com/watch?v=fn3KWM1kuAw",
+        "license": "Original footage and soundtrack remain the property of their respective rights holders",
+        "changes": "Original editorial selection, graphic poster, source-bound silhouette echoes, typography and a centered transition using Video Use."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-128-robot-dance-079457e45b3b-952f9340/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-128-robot-dance-079457e45b3b-952f9340/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-128-robot-dance-079457e45b3b-952f9340/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-128-robot-dance-079457e45b3b-952f9340/review.md",
+    "promptMode": "exact",
+    "muted": false,
+    "loop": false
   }
 ]

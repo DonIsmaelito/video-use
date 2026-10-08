@@ -7880,5 +7880,190 @@
     "authoringMode": "Host-authored exact frozen prompt with pinned Video Use source clocks and compositing in Modal",
     "runSha256": "01d6c17a5c132c0bad58e0851ef3826096425f2cf561d42edfcec6e722df3806",
     "audioStreams": 1
+  },
+  {
+    "id": "useful-131-superman",
+    "kind": "original edit of independently acquired source footage",
+    "sourceBatch": "traction-five-20261008",
+    "sourceRun": "useful-131-superman",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Footage-based edit authored with pinned Video Use helpers in Codex and rendered deterministically in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "25de916cc478e1cb3ff71c42cd0c886e7a9f28b6d7a8e7f9feb8f47a3da2d371",
+    "promptSource": "Frozen after actual source frame and cached word-level Scribe inspection, before authored creative render",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-131-superman-25de916cc478-65a69979/source.zip",
+    "editableSourceSha256": "fb80cb89d750e67577ed9ad1b69109a409618e7032c4d3d8b06aa9eae2803997",
+    "sourceArchiveScope": "Original editable composition, source-bound masks, licensed fonts, pinned dependencies and replay instructions; original footage and audio reacquired separately from the credited source",
+    "cloudProject": "video-use-useful-library-20261003/traction-five-20261008/useful-131-superman/repairs/final-v2/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-131-superman-25de916cc478-65a69979/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-131-superman-25de916cc478-65a69979/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-131-superman-25de916cc478-65a69979/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-131-superman-25de916cc478-65a69979/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-131-superman-25de916cc478-65a69979/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-131-superman-25de916cc478-65a69979/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-131-superman-25de916cc478-65a69979/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host-authored exact frozen prompt with pinned Video Use source clocks and compositing in Modal",
+    "runSha256": "fa696c749d14ee2ba002fc710162d02195bd0cfb12932226e62caaecce794eda",
+    "audioStreams": 1
+  },
+  {
+    "id": "useful-130-roundest-object",
+    "kind": "original edit of independently acquired source footage",
+    "sourceBatch": "traction-five-20261008",
+    "sourceRun": "useful-130-roundest-object",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Footage-based edit authored with pinned Video Use helpers in Codex and rendered deterministically in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "1c348d8a64caa3125044bbe005afcc15f6a325a476d1299a7b76fb4f9753e578",
+    "promptSource": "Frozen after actual source frame and cached word-level Scribe inspection, before authored creative render",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-130-roundest-object-1c348d8a64ca-f7c00923/source.zip",
+    "editableSourceSha256": "290a0d8164c9ad02905578b53b3e700622dc44fab25e2d93a987f2d56f522b16",
+    "sourceArchiveScope": "Original editable composition, source-bound masks, licensed fonts, pinned dependencies and replay instructions; original footage and audio reacquired separately from the credited source",
+    "cloudProject": "video-use-useful-library-20261003/traction-five-20261008/useful-130-roundest-object/repairs/final-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-130-roundest-object-1c348d8a64ca-f7c00923/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-130-roundest-object-1c348d8a64ca-f7c00923/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-130-roundest-object-1c348d8a64ca-f7c00923/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-130-roundest-object-1c348d8a64ca-f7c00923/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-130-roundest-object-1c348d8a64ca-f7c00923/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-130-roundest-object-1c348d8a64ca-f7c00923/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-130-roundest-object-1c348d8a64ca-f7c00923/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host-authored exact frozen prompt with pinned Video Use source clocks and compositing in Modal",
+    "runSha256": "78a71b9b9094aa95e51ea4df8b39a8bedb02c9b706369313bb25d79f5e57c160",
+    "audioStreams": 1
+  },
+  {
+    "id": "useful-127-the-ridge",
+    "kind": "original edit of independently acquired source footage",
+    "sourceBatch": "traction-five-20261008",
+    "sourceRun": "useful-127-the-ridge",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Footage-based edit authored with pinned Video Use helpers in Codex and rendered deterministically in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "38250a7dd81a4ba14b5681bf6fc28c37b992e6d2f2e5c1afc4bf8707da035b3d",
+    "promptSource": "Frozen after decoded original source frames and candidate-window inspection before creative rendering",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-127-the-ridge-38250a7dd81a-f097fc9e/source.zip",
+    "editableSourceSha256": "3fadfb42c0500cf88c459d20fdc1a6783d67d3461fbaf4fd0a27d2321a93aedb",
+    "sourceArchiveScope": "Original editable composition, source-bound masks, licensed fonts, pinned dependencies and replay instructions; original footage and audio reacquired separately from the credited source",
+    "cloudProject": "video-use-useful-library-20261003/traction-five-20261008/useful-127-the-ridge/repairs/final-v2/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-127-the-ridge-38250a7dd81a-f097fc9e/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-127-the-ridge-38250a7dd81a-f097fc9e/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-127-the-ridge-38250a7dd81a-f097fc9e/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-127-the-ridge-38250a7dd81a-f097fc9e/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-127-the-ridge-38250a7dd81a-f097fc9e/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-127-the-ridge-38250a7dd81a-f097fc9e/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-127-the-ridge-38250a7dd81a-f097fc9e/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host-authored exact frozen prompt with pinned Video Use source clocks and compositing in Modal",
+    "runSha256": "bca887c8555e5d62d9b9357b255d8b9fed549de34b2b72f8a7999a1b05bdb912",
+    "audioStreams": 1
+  },
+  {
+    "id": "useful-129-walnut-heist",
+    "kind": "original edit of independently acquired source footage",
+    "sourceBatch": "traction-five-20261008",
+    "sourceRun": "useful-129-walnut-heist",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Footage-based edit authored with pinned Video Use helpers in Codex and rendered deterministically in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "a501330ccb88d7fb85aa854b970c874225836a67b9578b01fb94534ceec12321",
+    "promptSource": "Exact prompt frozen after source-frame and word-level transcript inspection",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-129-walnut-heist-a501330ccb88-2ff05d70/source.zip",
+    "editableSourceSha256": "4bd947d0b1313371d71763cd4983210f72858f7a27b64a084ef2a2603a31359e",
+    "sourceArchiveScope": "Original editable composition, source-bound masks, licensed fonts, pinned dependencies and replay instructions; original footage and audio reacquired separately from the credited source",
+    "cloudProject": "video-use-useful-library-20261003/traction-five-20261008/useful-129-walnut-heist/repairs/final-v2/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-129-walnut-heist-a501330ccb88-2ff05d70/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-129-walnut-heist-a501330ccb88-2ff05d70/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-129-walnut-heist-a501330ccb88-2ff05d70/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-129-walnut-heist-a501330ccb88-2ff05d70/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-129-walnut-heist-a501330ccb88-2ff05d70/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-129-walnut-heist-a501330ccb88-2ff05d70/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-129-walnut-heist-a501330ccb88-2ff05d70/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host-authored exact frozen prompt with pinned Video Use source clocks and compositing in Modal",
+    "runSha256": "0d0af1295f4bc1d1a635b6104ae2cdf911ef98becc89b8f8f3ed353eea4bb365",
+    "audioStreams": 1
+  },
+  {
+    "id": "useful-128-robot-dance",
+    "kind": "original edit of independently acquired source footage",
+    "sourceBatch": "traction-five-20261008",
+    "sourceRun": "useful-128-robot-dance",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Footage-based edit authored with pinned Video Use helpers in Codex and rendered deterministically in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "079457e45b3bbd597c887b4b438f4a1126e5c419057b99f0c1dbede65e1415ec",
+    "promptSource": "Frozen after inspecting actual source frames and a source-bound mask before creative rendering",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-128-robot-dance-079457e45b3b-952f9340/source.zip",
+    "editableSourceSha256": "afbf10b96faf50e3052ba8287f2ccebd8c7e2cea9d1472b35f0c01c23cc661a6",
+    "sourceArchiveScope": "Original editable composition, source-bound masks, licensed fonts, pinned dependencies and replay instructions; original footage and audio reacquired separately from the credited source",
+    "cloudProject": "video-use-useful-library-20261003/traction-five-20261008/useful-128-robot-dance/repairs/final-v2/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-128-robot-dance-079457e45b3b-952f9340/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-128-robot-dance-079457e45b3b-952f9340/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-128-robot-dance-079457e45b3b-952f9340/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-128-robot-dance-079457e45b3b-952f9340/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-128-robot-dance-079457e45b3b-952f9340/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-128-robot-dance-079457e45b3b-952f9340/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-128-robot-dance-079457e45b3b-952f9340/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host-authored exact frozen prompt with pinned Video Use source clocks and compositing in Modal",
+    "runSha256": "e5ef854d52956211e590ff85cbed90650f7792030ae2b10e7f6ffcc910ae2c66",
+    "audioStreams": 1
   }
 ]
