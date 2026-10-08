@@ -55,6 +55,11 @@ export function getSectorExamples(
 
 const previewIds: Record<SectorId, string[]> = {
   'video-editing': [
+    'useful-136-interstellar',
+    'useful-132-scrambled-eggs',
+    'useful-133-gymkhana',
+    'useful-135-parkour',
+    'useful-134-water-balloon',
     'useful-131-superman',
     'useful-130-roundest-object',
     'useful-127-the-ridge',

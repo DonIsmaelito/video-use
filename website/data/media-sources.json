@@ -8065,5 +8065,190 @@
     "authoringMode": "Host-authored exact frozen prompt with pinned Video Use source clocks and compositing in Modal",
     "runSha256": "e5ef854d52956211e590ff85cbed90650f7792030ae2b10e7f6ffcc910ae2c66",
     "audioStreams": 1
+  },
+  {
+    "id": "useful-136-interstellar",
+    "kind": "original edit of independently acquired source footage",
+    "sourceBatch": "different-five-20261008",
+    "sourceRun": "useful-136-interstellar",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Footage-based edit authored with pinned Video Use helpers in Codex and rendered deterministically in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "c8c5deb239e0d105e4fa95d5aa123a50827f93b116e0e03ae6a1b5e014a591f7",
+    "promptSource": "Frozen after actual source-frame and cached word-level Scribe inspection, before creative rendering",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-136-interstellar-c8c5deb239e0-19ccf322/source.zip",
+    "editableSourceSha256": "c63cce976aed4169837f88286e62920707fa8f14a8581bada027624eea5e34b8",
+    "sourceArchiveScope": "Original editable composition, source-bound masks, licensed fonts, pinned dependencies and replay instructions; original footage and audio reacquired separately from the credited source",
+    "cloudProject": "video-use-useful-library-20261003/different-five-20261008/useful-136-interstellar/repairs/final-v3/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-136-interstellar-c8c5deb239e0-19ccf322/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-136-interstellar-c8c5deb239e0-19ccf322/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-136-interstellar-c8c5deb239e0-19ccf322/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-136-interstellar-c8c5deb239e0-19ccf322/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-136-interstellar-c8c5deb239e0-19ccf322/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-136-interstellar-c8c5deb239e0-19ccf322/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-136-interstellar-c8c5deb239e0-19ccf322/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host-authored exact frozen prompt with pinned Video Use source clocks and compositing in Modal",
+    "runSha256": "996f72cec7e5a6b32703355485947eaa02e88b2eafe420c19d53e67f17bb5ddc",
+    "audioStreams": 1
+  },
+  {
+    "id": "useful-132-scrambled-eggs",
+    "kind": "original edit of independently acquired source footage",
+    "sourceBatch": "different-five-20261008",
+    "sourceRun": "useful-132-scrambled-eggs",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Footage-based edit authored with pinned Video Use helpers in Codex and rendered deterministically in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "6cf835f42b5c9f9ec9ca730fb28f867460549a2f46e83a9bf1ddc90276a79711",
+    "promptSource": "Exact prompt frozen after official source frames and cached word-level ASR were inspected",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-132-scrambled-eggs-6cf835f42b5c-7c4e5804/source.zip",
+    "editableSourceSha256": "071e9967b8427880b0cd4c0c382aeeb0644035100b7ca57b11c564b2333243ad",
+    "sourceArchiveScope": "Original editable composition, source-bound masks, licensed fonts, pinned dependencies and replay instructions; original footage and audio reacquired separately from the credited source",
+    "cloudProject": "video-use-useful-library-20261003/different-five-20261008/useful-132-scrambled-eggs/repairs/final-v2/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-132-scrambled-eggs-6cf835f42b5c-7c4e5804/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-132-scrambled-eggs-6cf835f42b5c-7c4e5804/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-132-scrambled-eggs-6cf835f42b5c-7c4e5804/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-132-scrambled-eggs-6cf835f42b5c-7c4e5804/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-132-scrambled-eggs-6cf835f42b5c-7c4e5804/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-132-scrambled-eggs-6cf835f42b5c-7c4e5804/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-132-scrambled-eggs-6cf835f42b5c-7c4e5804/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host-authored exact frozen prompt with pinned Video Use source clocks and compositing in Modal",
+    "runSha256": "e669017f180bef6d59aa4711d9b51ac38acb7d2cf0763be9ee19a11ced2e4404",
+    "audioStreams": 1
+  },
+  {
+    "id": "useful-133-gymkhana",
+    "kind": "original edit of independently acquired source footage",
+    "sourceBatch": "different-five-20261008",
+    "sourceRun": "useful-133-gymkhana",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Footage-based edit authored with pinned Video Use helpers in Codex and rendered deterministically in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "b5c6fba8d6008b13f86c8e61ad76d495a8011f8085ec49c976d00ce2d5031cc0",
+    "promptSource": "Frozen after decoded native frames and cached word-ASR inspection before creative rendering",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-133-gymkhana-b5c6fba8d600-d00f7140/source.zip",
+    "editableSourceSha256": "ae1796ff1e3d41961fe0f7271cbf692f63d3ec5cc90b618c1581c46ff0eb4957",
+    "sourceArchiveScope": "Original editable composition, source-bound masks, licensed fonts, pinned dependencies and replay instructions; original footage and audio reacquired separately from the credited source",
+    "cloudProject": "video-use-useful-library-20261003/different-five-20261008/useful-133-gymkhana/repairs/final-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-133-gymkhana-b5c6fba8d600-d00f7140/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-133-gymkhana-b5c6fba8d600-d00f7140/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-133-gymkhana-b5c6fba8d600-d00f7140/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-133-gymkhana-b5c6fba8d600-d00f7140/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-133-gymkhana-b5c6fba8d600-d00f7140/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-133-gymkhana-b5c6fba8d600-d00f7140/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-133-gymkhana-b5c6fba8d600-d00f7140/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host-authored exact frozen prompt with pinned Video Use source clocks and compositing in Modal",
+    "runSha256": "27be59abd942f30827a8ad667cbf2f4561d6ab1447ff975c10a3a5de57b523bc",
+    "audioStreams": 1
+  },
+  {
+    "id": "useful-135-parkour",
+    "kind": "original edit of independently acquired source footage",
+    "sourceBatch": "different-five-20261008",
+    "sourceRun": "useful-135-parkour",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Footage-based edit authored with pinned Video Use helpers in Codex and rendered deterministically in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "581aac50633dee0d60c887ab644a8b5a1b706f97114b1b5897a717485d7d18b8",
+    "promptSource": "Frozen after actual source-frame and cached word-level Scribe inspection, before creative rendering",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-135-parkour-581aac50633d-6c3f4633/source.zip",
+    "editableSourceSha256": "f0f9a8d33b166393374c9b7beecb5be98ec3641af8b7d4c262ddf508abed9e6a",
+    "sourceArchiveScope": "Original editable composition, source-bound masks, licensed fonts, pinned dependencies and replay instructions; original footage and audio reacquired separately from the credited source",
+    "cloudProject": "video-use-useful-library-20261003/different-five-20261008/useful-135-parkour/repairs/final-v2/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-135-parkour-581aac50633d-6c3f4633/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-135-parkour-581aac50633d-6c3f4633/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-135-parkour-581aac50633d-6c3f4633/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-135-parkour-581aac50633d-6c3f4633/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-135-parkour-581aac50633d-6c3f4633/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-135-parkour-581aac50633d-6c3f4633/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-135-parkour-581aac50633d-6c3f4633/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host-authored exact frozen prompt with pinned Video Use source clocks and compositing in Modal",
+    "runSha256": "40392778dee887449bfc1e0f7bbb9b74fc0c1f3e53b21c8e5c2c858869a93558",
+    "audioStreams": 1
+  },
+  {
+    "id": "useful-134-water-balloon",
+    "kind": "original edit of independently acquired source footage",
+    "sourceBatch": "different-five-20261008",
+    "sourceRun": "useful-134-water-balloon",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Footage-based edit authored with pinned Video Use helpers in Codex and rendered deterministically in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "4af63492c003d57eead8c512ab39240ada2cd0952b20c28e8b1c975ec274f69f",
+    "promptSource": "Frozen after native-source frame review and cached source-bound word transcript inspection",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-134-water-balloon-4af63492c003-bb6ef63b/source.zip",
+    "editableSourceSha256": "80cb020788099f27484df26b96ce473ba197de02a63093df6dc2c1b6cb588021",
+    "sourceArchiveScope": "Original editable composition, source-bound masks, licensed fonts, pinned dependencies and replay instructions; original footage and audio reacquired separately from the credited source",
+    "cloudProject": "video-use-useful-library-20261003/different-five-20261008/useful-134-water-balloon/repairs/final-v1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-134-water-balloon-4af63492c003-bb6ef63b/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-134-water-balloon-4af63492c003-bb6ef63b/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-134-water-balloon-4af63492c003-bb6ef63b/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-134-water-balloon-4af63492c003-bb6ef63b/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-134-water-balloon-4af63492c003-bb6ef63b/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-134-water-balloon-4af63492c003-bb6ef63b/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-134-water-balloon-4af63492c003-bb6ef63b/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host-authored exact frozen prompt with pinned Video Use source clocks and compositing in Modal",
+    "runSha256": "56a61100995f79156e65b106aa6d4de3ff4421345b2f4b6c1e92df6bed8c89cf",
+    "audioStreams": 1
   }
 ]

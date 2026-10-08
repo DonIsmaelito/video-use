@@ -4499,5 +4499,202 @@
     "promptMode": "exact",
     "muted": false,
     "loop": false
+  },
+  {
+    "id": "useful-136-interstellar",
+    "title": "Interstellar",
+    "category": "Video Edits",
+    "description": "A circular match transition turns the docking scene into a compact, complete tension-and-release edit.",
+    "prompt": "Create a 25.6-second cinematic edit from Paramount Movies’ official Interstellar docking scene: https://www.youtube.com/watch?v=v2H1s9gj5DA. Turn the scene into one short arc: impossible choice, controlled rotation, successful docking. Use the original film footage, voices and score. Preserve the widescreen composition inside a 1920×1080 frame, with restrained warm-white serif dialogue captions in the lower black margin.\n\nBegin on the complete exchange “It’s not possible.” / “No, it’s necessary.” Keep the pause that gives the answer weight. Cut to the rotating Endurance’s docking port. Introduce two fine, pale-blue registration arcs that converge as a conceptual cue for matching rotation; include the small label MATCH THE ROTATION, without adding numbers or invented telemetry. Let the port’s circular shape motivate a brief expanding circular transition into the interior hatch close-up. Align the two circular centers during the reveal and smoothly release the small alignment offset as the new shot fills the frame. Keep the rim thin and inside the picture area.\n\nAccelerate the story through a short cockpit reaction, the exterior approach and TARS at the controls. Then let the final docking mechanism sequence run continuously for about nine seconds, retaining the original film’s internal cuts. Clear the authored graphics before the decisive connection. Finish on the actual “We are locked. Locked. Easing out.” confirmation, with a small, widely spaced INTERSTELLAR title in the upper black margin. Keep the opening and closing dialogue synchronized; use a continuous dialogue-free passage of the source score across the middle montage, with short fades into and out of the source dialogue sections. Do not repeat shots, freeze a character, add generated dialogue or imply that Video Use created the original visual effects. Deliver the final 30fps film, exact prompt, credited source and editable Video Use project.",
+    "duration": 25.6,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Editors",
+      "Entertainment creators",
+      "Social media teams"
+    ],
+    "useCases": [
+      "Film edits",
+      "Cinematic transitions"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Frozen after actual source-frame and cached word-level Scribe inspection, before creative rendering",
+    "mediaCredits": [
+      {
+        "title": "Interstellar | Docking Scene (Matthew McConaughey, Matt Damon, Anne Hathaway) | Paramount Movies",
+        "creator": "Paramount Movies",
+        "url": "https://www.youtube.com/watch?v=v2H1s9gj5DA",
+        "license": "Original footage and soundtrack remain copyrighted by their respective owners; excluded from the editable code archive",
+        "changes": "Original short-form selection, timing, graphics and compositing; no original-footage ownership or endorsement claimed"
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-136-interstellar-c8c5deb239e0-19ccf322/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-136-interstellar-c8c5deb239e0-19ccf322/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-136-interstellar-c8c5deb239e0-19ccf322/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-136-interstellar-c8c5deb239e0-19ccf322/review.md",
+    "promptMode": "exact",
+    "muted": false,
+    "loop": false
+  },
+  {
+    "id": "useful-132-scrambled-eggs",
+    "title": "Scrambled Eggs",
+    "category": "Video Edits",
+    "description": "Gordon Ramsay’s heat-control technique becomes a concise cooking short with animated pan instructions, a measured ingredient cue and a food-first finish.",
+    "prompt": "Create a polished 23–25-second cooking short from Gordon Ramsay’s official MasterChef scrambled-eggs demonstration: https://www.youtube.com/watch?v=eLkgILAkqVI. Use the actual food, hands and original instruction. Focus this short on heat control and the final creamy texture, rather than presenting it as the entire recipe. Start with a close view of the eggs being plated and Gordon’s instruction to make sure you do not overcook them. Then use his real explanation of 30 seconds on the heat, taking the pan off, repeating on and off through the three minutes, and adding a teaspoon of crème fraîche. Finish with his description of the light, fluffy eggs over the plating footage and a clean view of the finished dish. Select complete, word-safe phrases from around 0:08, 0:32, 0:45, 1:21 and 1:34; preserve the small genuine reaction to the crème fraîche. Keep any nonsynchronous instruction over food or hands, not visible speaking lips.\n\nMake the food fill the frame. Open with a large, elegant white “Scrambled eggs” title on the left, a small Gordon Ramsay credit and only the brief verbatim caption “do not overcook it.” Use restrained black-and-white instructional overlays in clear parts of the picture: an original line drawing of a pan lifting from a burner as the instruction changes from “30 sec on” to “Off heat,” followed by a compact “On / off · Repeat 3 min” cue. Show a clean “1 teaspoon / Crème fraîche” ingredient card while it is added, then clear the graphics before the audience reaction. Do not invent an off-heat duration, temperature or ingredient quantity.\n\nBridge the cooked pan and the plating close-up with one quick circular reveal that echoes the round cookware and plate; both shots should keep moving through the transition. Let the final plating shots breathe and end on the complete chive-garnished dish, briefly holding its last clear frame so the finished plate registers. Avoid short returns to the presenter between the reaction, plating and finished dish, and omit the source end card or any extra slogan. Preserve the warm source color and natural cooking motion, with no speed ramps or synthetic food. Retain Gordon’s genuine voice and the existing source sound only, using clean fades at the audio cuts. Add no synthetic voice, new music or sound effects. Deliver a 1920×1080, 30 fps film, a silent preview, the exact prompt, source credits and an editable project.",
+    "duration": 23.7,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Food creators",
+      "Educators"
+    ],
+    "useCases": [
+      "Cooking tutorials",
+      "Instructional overlays",
+      "Social cutdowns"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Exact prompt frozen after official source frames and cached word-level ASR were inspected",
+    "mediaCredits": [
+      {
+        "title": "Gordon Ramsay Demonstrates How To Make The Perfect Scrambled Eggs | Season 8 Ep. 5 | MASTERCHEF",
+        "creator": "MasterChef On FOX; Gordon Ramsay",
+        "url": "https://www.youtube.com/watch?v=eLkgILAkqVI",
+        "license": "Rights retained by the original broadcaster, publisher and audio rightsholders; no reuse license grant verified.",
+        "changes": "Reordered and shortened original footage and speech; original pan-and-burner animation, ingredient typography, circular moving-shot reveal and one selective verbatim caption. Source sound retained."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-132-scrambled-eggs-6cf835f42b5c-7c4e5804/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-132-scrambled-eggs-6cf835f42b5c-7c4e5804/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-132-scrambled-eggs-6cf835f42b5c-7c4e5804/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-132-scrambled-eggs-6cf835f42b5c-7c4e5804/review.md",
+    "promptMode": "exact",
+    "muted": false,
+    "loop": false
+  },
+  {
+    "id": "useful-133-gymkhana",
+    "title": "Gymkhana",
+    "category": "Video Edits",
+    "description": "A tight driving film with a curved wheel view, source-synchronized detail and clean transitions into smoke, flame and motion.",
+    "prompt": "Create a 20-second Ken Block driving edit using the official Hoonigan Gymkhana Ten trailer for the action: https://www.youtube.com/watch?v=xpB25Cn-vXA. Use the brief waterfront moment of Ken beside the parked car near 7:50 in DC Shoes’ Gymkhana Five for the finish: https://www.youtube.com/watch?v=LuDN2bCIyus. Make this a compact portrait of driver control turning into tire smoke, flame and movement, not a recap of the trailers.\n\nStart with the helmeted driver and pedal detail, then the clean warehouse-street burnout. Build one signature composition during the close burnout shot: put the moving wide view and a tighter view of its front wheel on either side of a smooth curved divider. Both views must come from the same source frame, so the tire and smoke stay synchronized. Track the detail crop with the wheel, use a fine warm-white edge, and add a clean “GYMKHANA” title with a smaller “KEN BLOCK” line over the quieter upper-left area. Let the curve sweep in and back out; do not freeze the car or turn the image into a silhouette poster.\n\nThen pick up speed through the aerial street shot, rear drift, smoky indoor pass, hood flames and sparks, followed by the short final run of driving angles. Remove the trailer’s old title cards and glitch transitions. Keep the car readable, keep a consistent cinematic letterbox and preserve the source color, and use restrained retiming only in the opening driver, pedal, turn, paired-wheel passage and aerial shot. Do not add fake speed readouts, performance claims or unrelated HUD graphics. Finish on the actual waterfront shot with a small Ken Block name treatment.\n\nUnder the action, carry one continuous speech-free passage of the Hoonigan trailer’s original music-and-engine mix, then return to the waterfront footage’s source mix for the calm finish. Use short clean fades at the edit boundaries and a soft ending. Add no music, narration or dialogue captions. Deliver 1920×1080 at 30 fps, this exact prompt, accurate source credits and an editable Video Use project.",
+    "duration": 20,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Creators",
+      "Editors",
+      "Marketing teams"
+    ],
+    "useCases": [
+      "Automotive edits",
+      "Sports edits"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Frozen after decoded native frames and cached word-ASR inspection before creative rendering",
+    "mediaCredits": [
+      {
+        "title": "[HOONIGAN] Ken Block's GYMKHANA TEN: The Trailer",
+        "creator": "Hoonigan / Ken Block",
+        "url": "https://www.youtube.com/watch?v=xpB25Cn-vXA",
+        "license": "Original footage and audio remain with their rights holders; no third-party reuse license has been verified or granted by the authored-code license",
+        "changes": "New shot selection, pacing, same-frame curved detail composition, typography and original-source sound mix."
+      },
+      {
+        "title": "DC SHOES: KEN BLOCK'S GYMKHANA FIVE: ULTIMATE URBAN PLAYGROUND; SAN FRANCISCO",
+        "creator": "DC Shoes / Ken Block",
+        "url": "https://www.youtube.com/watch?v=LuDN2bCIyus",
+        "license": "Original footage and audio remain with their rights holders; no third-party reuse license has been verified or granted by the authored-code license",
+        "changes": "A short waterfront finish from the verified467–475s window, with typography and original sound."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-133-gymkhana-b5c6fba8d600-d00f7140/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-133-gymkhana-b5c6fba8d600-d00f7140/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-133-gymkhana-b5c6fba8d600-d00f7140/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-133-gymkhana-b5c6fba8d600-d00f7140/review.md",
+    "promptMode": "exact",
+    "muted": false,
+    "loop": false
+  },
+  {
+    "id": "useful-135-parkour",
+    "title": "Parkour",
+    "category": "Video Edits",
+    "description": "A confident plan becomes an animated blueprint, then the original jump delivers the punchline.",
+    "prompt": "Create a cohesive 25-second comedy edit from the official “Parkour PARKOUR” clip from The Office: https://www.youtube.com/watch?v=0Kvw2BPKjz0. Build a three-part joke: Jim describes the goal while the office attempts parkour, Andy confidently plans the outdoor route, then his first jump goes wrong. Preserve the original voices and room sound, including the quiet final “Parkour.”\n\nOpen directly on the explanation beginning “The goal is to get from point A to point B,” over the office’s awkward attempts, and keep Jim’s delusion-to-hospital punchline. Add a brief, clean PARKOUR title and restrained sentence captions. Cut to Andy’s complete truck-to-refrigerators-to-dumpster-to-pallets-to-trash-can plan, retaining the “gainer” response. Turn those real named obstacles into a compact animated blueprint across the lower part of the frame: five simple line illustrations, evenly spaced, connected by a line that advances with the spoken plan. Use midnight blue, warm white and a muted yellow highlight, with bold, legible labels. The source shows pallets even though an automatic transcript may mishear that word.\n\nClear the entire blueprint before the attempt. Remove the extra repeated cheers, pick up on “I’m right behind you, Andy,” and keep the actual jump, box collapse, pause and final weak “Parkour” uninterrupted. Let the original wide shot reveal the failure; do not add a replay, a new sound effect, a failure label or an explanatory end card. Keep full-width framing, preserve faces and the box, and use selective captions after the graphics rather than bouncing words. Deliver 1920×1080 at30fps, the exact prompt, source credits and an editable Video Use project.",
+    "duration": 25.266666666666666,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Editors",
+      "Entertainment creators",
+      "Social media teams"
+    ],
+    "useCases": [
+      "Comedy clips",
+      "Dialogue graphics"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Frozen after actual source-frame and cached word-level Scribe inspection, before creative rendering",
+    "mediaCredits": [
+      {
+        "title": "Parkour PARKOUR - The Office US",
+        "creator": "The Office",
+        "url": "https://www.youtube.com/watch?v=0Kvw2BPKjz0",
+        "license": "Original footage and soundtrack remain copyrighted by their respective owners; excluded from the editable code archive",
+        "changes": "Original short-form selection, timing, graphics and compositing; no original-footage ownership or endorsement claimed"
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-135-parkour-581aac50633d-6c3f4633/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-135-parkour-581aac50633d-6c3f4633/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-135-parkour-581aac50633d-6c3f4633/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-135-parkour-581aac50633d-6c3f4633/review.md",
+    "promptMode": "exact",
+    "muted": false,
+    "loop": false
+  },
+  {
+    "id": "useful-134-water-balloon",
+    "title": "Water Balloon",
+    "category": "Video Edits",
+    "description": "One real balloon burst unfolds across three moments before returning to the full scene.",
+    "prompt": "Create a 24-second landscape edit from The Slow Mo Guys’ “6ft Man in 6ft Giant Water Balloon”: https://www.youtube.com/watch?v=NMbM-ERy2Lk. Build a clear anticipation, burst and reaction story using the real slow-motion footage. Preserve the source’s published playback speed; do not generate water, interpolate extra action or invent scientific measurements.\n\nBegin wide with Dan inside the pink balloon, then let the first rupture unfold so the balloon and water remain readable. Keep this main shot moving continuously. As the spray opens, slide two time-offset views in symmetrically to form three equal vertical panels: an earlier moment on the left, the continuing moment in the middle and a later moment on the right. Center Dan consistently in all three, use narrow cream gutters and give the composition a clean cream header reading “WATER BALLOON” with the smaller line “ONE BURST / THREE MOMENTS”. Add small 01, 02 and 03 markers. These are three moments from the same shot, not three cameras or repeated bursts.\n\nHold that composition briefly, then expand the middle panel smoothly back to the full frame while the same water movement continues. Let the falling water and revealed legs supply the aftermath. Finish with the source’s close reaction of Dan with the pink latex around his neck; keep the expression unobstructed and end before another shot begins. Preserve the vivid pink and blue source colors, without extra grading, invented dialogue captions, narration or decorative effects. Use one continuous excerpt of the original slow-motion soundtrack with brief entry and exit fades. Deliver 1920×1080 at 30 fps, the exact prompt, source credits and an editable Video Use project.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Creators",
+      "Editors",
+      "Science communicators"
+    ],
+    "useCases": [
+      "Slow-motion edits",
+      "Experiment highlights"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Frozen after native-source frame review and cached source-bound word transcript inspection",
+    "mediaCredits": [
+      {
+        "title": "6ft Man in 6ft Giant Water Balloon - 4K - The Slow Mo Guys",
+        "creator": "The Slow Mo Guys",
+        "url": "https://www.youtube.com/watch?v=NMbM-ERy2Lk",
+        "license": "Original footage and soundtrack remain the property of their respective rights holders",
+        "changes": "Original editorial selection, symmetric time-offset panels, restrained typography and panel expansion using Video Use. Existing source slow motion and close-up are preserved, not newly generated."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-134-water-balloon-4af63492c003-bb6ef63b/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-134-water-balloon-4af63492c003-bb6ef63b/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-134-water-balloon-4af63492c003-bb6ef63b/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-134-water-balloon-4af63492c003-bb6ef63b/review.md",
+    "promptMode": "exact",
+    "muted": false,
+    "loop": false
   }
 ]
