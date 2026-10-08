@@ -1156,3 +1156,12 @@ Evidence: `/Users/ismaelito/Movies/Video Use Scenic Showcase 20261007/edit/relea
 ### Mascot arrows aligned toward the hero
 
 Deployment `23446d5c-6fa5-4412-bc04-2a5d3c23b673` is READY from `f849f4e`. `components/mcp-dots.module.css` centers each cursor beside its mascot and sets mirrored inward angles while compensating for the mascot tilt. Tablet and phone layouts point upward toward the hero. Build, lint and local/live Chromium checks pass at seven widths from 320 to 1920px, including actual rendered arrow direction, overflow, button hit testing and opening/closing Connect on desktop and phone. Actual desktop, tablet and phone captures were inspected; the shared root CSS was synchronized using its original hash. Evidence: `/private/tmp/video-use-mcp-arrows-20261007/release-summary.json`. This CSS-only adjustment is complete and releases website deployment ownership.
+
+
+## Compact connection dialog — October 7 2026
+
+Rebuilt `ConnectMcp` around a 480 px dialog, four equally sized app choices, one copy row, and three brief setup steps. Removed the old marketing headline and redundant explanatory text. Cursor copies the complete MCP JSON; the other hosted clients copy the endpoint, and open source copies the clone command. Scoped presentation to `components/connect-mcp.module.css` and removed the superseded global dialog CSS.
+
+Kept all existing triggers and initial client selection, video overlay suspension, and official setup links. Added unique field IDs, explicit focus return, visible copy feedback, a focused manual-copy fallback, and protection against stale clipboard results after switching apps. ChatGPT wording follows the current official Plugins flow at https://developers.openai.com/plugins/deploy/connect-chatgpt and https://developers.openai.com/api/docs/guides/custom-mcp-server; Claude and Cursor instructions were checked against their linked official guides. Hosted access remains a pilot; no end-to-end OAuth claim is made.
+
+Validation: production build, lint, TypeScript/gallery checks and all 30 existing tests passed. Isolated Chromium checked all four apps at 1440, 768, 390, 320 px and landscape 844 × 390, exact clipboard values, clipboard rejection, late copy results, focus trapping/restoration, three dismiss methods, homepage and MCP-page triggers, and video pause/resume. No page errors. Evidence: `/tmp/video-use-connect-dialog-20261007/`. The browser plugin had no connected browser.

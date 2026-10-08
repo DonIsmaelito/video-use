@@ -1,15 +1,17 @@
 'use client';
 
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
 import Image from 'next/image';
-import { ArrowUpRight, Check, Copy, Plug, Terminal } from 'lucide-react';
+import { ArrowUpRight, Check, Copy, Plug, Terminal, X } from 'lucide-react';
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogTitle,
 } from '@/components/ui/dialog';
 import { mcpUrl, repository } from '@/lib/gallery';
+import styles from './connect-mcp.module.css';
 
 export function AgentMarks({ compact = false }: { compact?: boolean }) {
   return (
@@ -36,6 +38,25 @@ export function AgentMarks({ compact = false }: { compact?: boolean }) {
   );
 }
 
+type Client = 'chatgpt' | 'claude' | 'cursor' | 'local';
+
+const clients = {
+  chatgpt: {
+    name: 'ChatGPT',
+    guide: 'https://developers.openai.com/plugins/deploy/connect-chatgpt',
+  },
+  claude: {
+    name: 'Claude',
+    guide:
+      'https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp',
+  },
+  cursor: {
+    name: 'Cursor',
+    guide: 'https://cursor.com/docs/mcp',
+  },
+  local: { name: 'Open source', guide: `${repository}#readme` },
+} satisfies Record<Client, { name: string; guide: string }>;
+
 export function ConnectMcp({
   className = '',
   label = 'Connect Video Use',
@@ -46,29 +67,40 @@ export function ConnectMcp({
   className?: string;
   label?: string;
   compact?: boolean;
-  initialClient?: 'chatgpt' | 'claude' | 'cursor' | 'local';
+  initialClient?: Client;
   children?: ReactNode;
 }) {
   const [open, setOpen] = useState(false);
-  const [client, setClient] = useState<
-    'chatgpt' | 'claude' | 'cursor' | 'local'
-  >(initialClient);
-  const [copied, setCopied] = useState(false);
-  const [manual, setManual] = useState(false);
+  const [client, setClient] = useState<Client>(initialClient);
+  const [copyState, setCopyState] = useState<'idle' | 'copied' | 'manual'>(
+    'idle',
+  );
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const input = useRef<HTMLInputElement>(null);
-  const command = 'git clone https://github.com/browser-use/video-use.git';
-  const value = client === 'local' ? command : mcpUrl;
+  const trigger = useRef<HTMLButtonElement>(null);
+  const selectedClient = useRef<HTMLButtonElement>(null);
+  const copyAttempt = useRef(0);
+  const fieldId = useId();
+  const value =
+    client === 'local'
+      ? `git clone ${repository}.git`
+      : client === 'cursor'
+        ? JSON.stringify({ mcpServers: { 'video-use': { url: mcpUrl } } })
+        : mcpUrl;
+  const fieldLabel =
+    client === 'local'
+      ? 'Clone command'
+      : client === 'cursor'
+        ? 'Cursor configuration'
+        : 'MCP server URL';
 
   useEffect(
     () => () => {
       if (timer.current) clearTimeout(timer.current);
+      copyAttempt.current += 1;
     },
     [],
   );
-  useEffect(() => {
-    if (manual) input.current?.select();
-  }, [manual]);
   useEffect(() => {
     if (!open) return;
     window.dispatchEvent(new CustomEvent('videouse:overlay', { detail: true }));
@@ -79,28 +111,44 @@ export function ConnectMcp({
     };
   }, [open]);
 
+  function resetCopy() {
+    copyAttempt.current += 1;
+    if (timer.current) clearTimeout(timer.current);
+    setCopyState('idle');
+  }
+
+  function changeOpen(nextOpen: boolean) {
+    resetCopy();
+    setOpen(nextOpen);
+  }
+
   async function copy() {
+    const attempt = ++copyAttempt.current;
+    if (timer.current) clearTimeout(timer.current);
     try {
       await navigator.clipboard.writeText(value);
-      setCopied(true);
-      setManual(false);
-      if (timer.current) clearTimeout(timer.current);
-      timer.current = setTimeout(() => setCopied(false), 2400);
+      if (attempt !== copyAttempt.current) return;
+      setCopyState('copied');
+      timer.current = setTimeout(() => setCopyState('idle'), 2400);
     } catch {
-      setManual(true);
+      if (attempt !== copyAttempt.current) return;
+      setCopyState('manual');
+      input.current?.focus();
+      input.current?.select();
     }
   }
 
   return (
     <>
       <button
+        ref={trigger}
         type="button"
         className={`connect-button ${className}`}
+        aria-haspopup="dialog"
+        aria-expanded={open}
         onClick={() => {
           setClient(initialClient);
-          setCopied(false);
-          setManual(false);
-          setOpen(true);
+          changeOpen(true);
         }}
         aria-label={
           children
@@ -118,209 +166,237 @@ export function ConnectMcp({
           </>
         )}
       </button>
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="connect-dialog">
-          <span className="eyebrow">Bring your agent</span>
-          <DialogTitle className="connect-title">
-            Your chat. Your video studio.
-          </DialogTitle>
-          <DialogDescription className="connect-description">
-            Add Video Use, then bring a prompt to your chat.
-          </DialogDescription>
-          <fieldset className="connection-tabs" aria-label="Choose your setup">
-            {(['chatgpt', 'claude', 'cursor', 'local'] as const).map((item) => (
+      <Dialog open={open} onOpenChange={changeOpen}>
+        <DialogContent
+          className={styles.dialog}
+          showCloseButton={false}
+          initialFocus={selectedClient}
+          finalFocus={trigger}
+        >
+          <header className={styles.header}>
+            <div className={styles.heading}>
+              <Image
+                src="/brand/browser-use.svg"
+                alt=""
+                width={30}
+                height={30}
+              />
+              <DialogTitle className={styles.title}>
+                Connect Video Use
+              </DialogTitle>
+              <DialogClose className={styles.close} aria-label="Close">
+                <X size={18} aria-hidden="true" />
+              </DialogClose>
+            </div>
+            <DialogDescription className={styles.description}>
+              Choose your app to get started.
+            </DialogDescription>
+          </header>
+
+          <fieldset className={styles.clients} aria-label="Choose your setup">
+            {(Object.keys(clients) as Client[]).map((item) => (
               <button
+                ref={client === item ? selectedClient : undefined}
                 type="button"
                 key={item}
                 aria-pressed={client === item}
-                className={client === item ? 'active' : ''}
                 onClick={() => {
+                  resetCopy();
                   setClient(item);
-                  setCopied(false);
-                  setManual(false);
                 }}
               >
-                {item !== 'local' && (
-                  <span className="connection-client-icon">
+                <span className={styles.clientIcon} aria-hidden="true">
+                  {item === 'local' ? (
+                    <Terminal size={25} />
+                  ) : (
                     <Image
                       src={`/clients/${item}.svg`}
                       alt=""
-                      width={item === 'chatgpt' ? 34 : 16}
-                      height={item === 'chatgpt' ? 34 : 16}
+                      className={
+                        item === 'chatgpt' ? styles.openaiIcon : undefined
+                      }
+                      width={item === 'chatgpt' ? 54 : 27}
+                      height={item === 'chatgpt' ? 54 : 27}
                       unoptimized
                     />
-                  </span>
-                )}
-                {item === 'local' && <Terminal size={16} />}
-                {item === 'chatgpt'
-                  ? 'ChatGPT'
-                  : item === 'claude'
-                    ? 'Claude'
-                    : item === 'cursor'
-                      ? 'Cursor'
-                      : 'Open source'}
+                  )}
+                </span>
+                {clients[item].name}
               </button>
             ))}
           </fieldset>
-          <div className="endpoint-field">
-            <label htmlFor={`endpoint-${client}`}>
-              {client === 'local'
-                ? 'Clone the repository'
-                : 'Video Use MCP URL'}
-            </label>
-            <div>
+
+          <div className={styles.field}>
+            <label htmlFor={fieldId}>{fieldLabel}</label>
+            <div className={styles.copyRow}>
               <input
-                id={`endpoint-${client}`}
+                id={fieldId}
                 ref={input}
                 value={value}
                 readOnly
-                aria-label={
-                  client === 'local'
-                    ? 'Repository clone command'
-                    : 'Video Use MCP server URL'
+                spellCheck={false}
+                aria-describedby={
+                  copyState === 'manual' ? `${fieldId}-status` : undefined
                 }
                 onFocus={(event) => event.target.select()}
               />
               <button
                 type="button"
                 onClick={copy}
-                aria-label={
-                  client === 'local' ? 'Copy clone command' : 'Copy MCP URL'
-                }
+                aria-label={`Copy ${fieldLabel}`}
               >
-                {copied ? <Check size={17} /> : <Copy size={17} />}
+                {copyState === 'copied' ? (
+                  <Check size={14} />
+                ) : (
+                  <Copy size={14} />
+                )}
+                {copyState === 'copied' ? 'Copied' : 'Copy'}
               </button>
             </div>
-            <output className="copy-status">
-              {manual
-                ? 'Select and copy the text above.'
-                : copied
+            <output
+              id={`${fieldId}-status`}
+              className={copyState === 'manual' ? styles.copyHelp : 'sr-only'}
+              aria-live="polite"
+            >
+              {copyState === 'manual'
+                ? 'Copy the selected text with ⌘C or Ctrl+C.'
+                : copyState === 'copied'
                   ? 'Copied to clipboard.'
-                  : client === 'local'
-                    ? 'Run this command in your terminal.'
-                    : 'Connect with OAuth. No API key to paste here.'}
+                  : ''}
             </output>
           </div>
-          {client === 'chatgpt' && (
-            <ol className="connect-steps">
-              <li>
-                <span>01</span>
-                <p>
-                  In ChatGPT, enable <strong>Developer mode</strong> under
-                  Settings → Security and login.
-                </p>
-              </li>
-              <li>
-                <span>02</span>
-                <p>
-                  Open{' '}
-                  <a
-                    href="https://chatgpt.com/plugins"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Plugins <ArrowUpRight size={12} />
-                  </a>
-                  , select +, and add the MCP URL. Choose OAuth and sign in to
-                  Video Use.
-                </p>
-              </li>
-              <li>
-                <span>03</span>
-                <p>
-                  Select Video Use in a new chat. Paste a prompt from this
-                  library and add your subject or brand.
-                </p>
-              </li>
-            </ol>
-          )}
-          {client === 'claude' && (
-            <ol className="connect-steps">
-              <li>
-                <span>01</span>
-                <p>
-                  In Claude, open <strong>Customize → Connectors</strong> and
-                  add a custom web connector.
-                </p>
-              </li>
-              <li>
-                <span>02</span>
-                <p>
-                  Name it Video Use, paste the MCP URL, and sign in with OAuth.
-                  Use automatic client registration if asked.
-                </p>
-              </li>
-              <li>
-                <span>03</span>
-                <p>
-                  Enable Video Use from the + menu in your chat, then paste a
-                  library prompt.
-                </p>
-              </li>
-            </ol>
-          )}
-          {client === 'local' && (
-            <div className="local-setup">
-              <Terminal size={23} />
-              <p>
-                Use the open-source Video Use skill with a coding agent. Follow
-                the repository setup for the runtime, rendering tools, and your
-                model provider.
-              </p>
-              <a href={`${repository}#readme`} target="_blank" rel="noreferrer">
-                Read the setup guide <ArrowUpRight size={14} />
-              </a>
-            </div>
-          )}
-          {client === 'cursor' && (
-            <div className="cursor-setup">
-              <p>
-                Add this entry to <code>.cursor/mcp.json</code> in your project.
-              </p>
-              <pre>
-                <code>
-                  {JSON.stringify(
-                    { mcpServers: { 'video-use': { url: mcpUrl } } },
-                    null,
-                    2,
-                  )}
-                </code>
-              </pre>
-              <p>
-                Save and restart Cursor. Complete OAuth when prompted, then use
-                Video Use in Agent.
-              </p>
-              <p className="cursor-pilot-note">
-                Cursor supports remote MCP and OAuth. This pilot has not yet
-                been tested end to end in Cursor.
-              </p>
-            </div>
-          )}
-          <p className="connection-note">
-            {client === 'local'
-              ? 'The toolkit is free. Model and rendering costs depend on your setup.'
-              : 'Private pilot: a Video Use account with access is required. Client and workspace requirements apply.'}
-          </p>
-          {client !== 'local' && (
+
+          <ol
+            className={styles.steps}
+            aria-label={`${clients[client].name} setup`}
+          >
+            {client === 'chatgpt' && (
+              <>
+                <li>
+                  <p>
+                    Open{' '}
+                    <a
+                      href="https://chatgpt.com/plugins"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      ChatGPT Plugins <ArrowUpRight size={12} />
+                    </a>
+                    , then <strong>+ → Add custom MCP server.</strong>
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Name it <strong>Video Use</strong>, paste the URL, and
+                    choose <strong>OAuth.</strong>
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Create and install the plugin, then sign in. Choose{' '}
+                    <strong>@Video Use</strong> in a new chat.
+                  </p>
+                </li>
+              </>
+            )}
+            {client === 'claude' && (
+              <>
+                <li>
+                  <p>
+                    Open{' '}
+                    <a
+                      href="https://claude.ai/customize/connectors"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Claude Connectors <ArrowUpRight size={12} />
+                    </a>
+                    , then <strong>Add custom connector.</strong>
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Name it <strong>Video Use</strong>, paste the URL, and sign
+                    in. Choose <strong>Register automatically</strong> if asked.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Enable <strong>Video Use</strong> from{' '}
+                    <strong>+ → Connectors</strong> in your chat.
+                  </p>
+                </li>
+              </>
+            )}
+            {client === 'cursor' && (
+              <>
+                <li>
+                  <p>
+                    Copy the configuration into <code>.cursor/mcp.json</code> in
+                    your project. Keep any existing servers.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Save, then sign in to <strong>Video Use</strong> when Cursor
+                    prompts you.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Open <strong>Agent</strong> and ask Video Use to create or
+                    edit a video.
+                  </p>
+                </li>
+              </>
+            )}
+            {client === 'local' && (
+              <>
+                <li>
+                  <p>Copy the command and run it in your terminal.</p>
+                </li>
+                <li>
+                  <p>
+                    Follow the{' '}
+                    <a
+                      href={`${repository}#readme`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      repository setup <ArrowUpRight size={12} />
+                    </a>{' '}
+                    for your agent, model, and rendering tools.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Ask your agent to use <strong>Video Use</strong> with your
+                    footage or an idea.
+                  </p>
+                </li>
+              </>
+            )}
+          </ol>
+
+          <footer className={styles.footer}>
+            <p>
+              {client === 'local'
+                ? 'Open source. Model and rendering costs apply.'
+                : 'Video Use pilot access required.'}
+            </p>
             <a
-              className="setup-source"
-              href={
-                client === 'chatgpt'
-                  ? 'https://developers.openai.com/plugins/deploy/connect-chatgpt'
-                  : client === 'claude'
-                    ? 'https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp'
-                    : 'https://prod.cursor.com/help/customization/mcp'
-              }
+              href={clients[client].guide}
               target="_blank"
               rel="noreferrer"
+              aria-label={`${clients[client].name} setup guide`}
             >
-              {client === 'chatgpt'
-                ? 'Official OpenAI connection guide'
-                : client === 'claude'
-                  ? 'Official Claude connection guide'
-                  : 'Official Cursor connection guide'}{' '}
-              <ArrowUpRight size={12} />
+              Setup guide <ArrowUpRight size={13} aria-hidden="true" />
             </a>
+          </footer>
+          {client === 'cursor' && (
+            <p className={styles.note}>
+              Cursor setup is not yet verified end to end.
+            </p>
           )}
         </DialogContent>
       </Dialog>

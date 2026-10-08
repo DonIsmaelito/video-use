@@ -764,7 +764,6 @@ summary {
   background: #000b;
   backdrop-filter: blur(12px);
 }
-.connect-dialog > [data-slot='dialog-close'],
 .launch-film-dialog > [data-slot='dialog-close'] {
   position: absolute;
   top: 12px;
@@ -864,183 +863,6 @@ summary {
   border-radius: 50%;
   background: var(--accent);
 }
-.connect-dialog {
-  display: block;
-  width: 570px;
-  max-width: calc(100vw - 32px);
-  max-height: 90svh;
-  overflow: auto;
-  padding: 32px;
-  background: #191919;
-  border: 1px solid #363636;
-  border-radius: 18px;
-}
-.connect-title {
-  font-size: 29px;
-  font-weight: 500;
-  line-height: 1.15;
-  letter-spacing: -1px;
-  margin: 16px 0 12px;
-}
-.connect-description {
-  font-size: 13px;
-  line-height: 1.7;
-  color: #aaa;
-}
-.connection-tabs {
-  display: flex;
-  gap: 4px;
-  padding: 4px;
-  background: #111;
-  border: 1px solid #303030;
-  border-radius: 10px;
-  margin: 24px 0;
-}
-.connection-tabs > button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  flex: 1;
-  padding: 10px 4px;
-  color: #aaa;
-  border-radius: 7px;
-  font-size: 11px;
-}
-.connection-tabs > button.active {
-  background: #f5f5f5;
-  color: #111;
-}
-.connection-client-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
-  overflow: hidden;
-}
-.connection-tabs > button:not(.active) img {
-  filter: grayscale(1) brightness(0) invert(1);
-}
-.endpoint-field > label {
-  display: block;
-  margin-bottom: 9px;
-  color: #bdbdbd;
-  font-size: 11px;
-}
-.endpoint-field > div {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  border: 1px solid #3c3c3c;
-  background: #101010;
-  padding: 10px 12px;
-  border-radius: 9px;
-}
-.endpoint-field input {
-  width: 100%;
-  min-width: 0;
-  border: 0;
-  background: none;
-  color: #ddd;
-  outline: 0;
-  font-family: var(--font-code);
-  font-size: 11px;
-}
-.endpoint-field button {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 7px;
-  white-space: nowrap;
-  font-size: 11px;
-  color: #eee;
-}
-.copy-status {
-  display: block;
-  margin-top: 8px;
-  min-height: 16px;
-  color: #bbb;
-  font-size: 11px;
-}
-.connect-steps {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  margin: 20px 0;
-}
-.connect-steps li {
-  display: flex;
-  align-items: baseline;
-  gap: 14px;
-}
-.connect-steps li > span {
-  font-size: 11px;
-  color: #777;
-}
-.connect-steps p {
-  font-size: 13px;
-  color: #bcbcbc;
-  line-height: 1.75;
-}
-.connect-steps strong {
-  color: #fff;
-  font-weight: 500;
-}
-.connect-steps a {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  color: #fff;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.connection-note {
-  margin-top: 22px;
-  padding-top: 18px;
-  border-top: 1px solid #333;
-  color: #999;
-  line-height: 1.7;
-  font-size: 11px;
-}
-.setup-source {
-  display: inline-flex;
-  gap: 6px;
-  align-items: center;
-  font-size: 11px;
-  color: #ddd;
-  margin-top: 14px;
-}
-.local-setup,
-.cursor-setup {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin: 22px 0;
-  color: #bbb;
-  font-size: 13px;
-  line-height: 1.7;
-}
-.local-setup a {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: #fff;
-}
-.cursor-setup pre {
-  overflow: auto;
-  border: 1px solid #333;
-  background: #111;
-  padding: 14px;
-  border-radius: 8px;
-  font-size: 11px;
-}
-.cursor-pilot-note {
-  font-size: 11px;
-  color: #999;
-}
 .agent-marks {
   display: inline-flex;
   align-items: center;
@@ -1058,9 +880,6 @@ summary {
   overflow: hidden;
 }
 .agent-mark img {
-  filter: brightness(0);
-}
-.connection-tabs > button.active img {
   filter: brightness(0);
 }
 .agent-marks.compact {
@@ -1362,15 +1181,6 @@ summary {
     bottom: 91px;
     left: 12px;
     right: 12px;
-  }
-  .connect-dialog {
-    padding: 28px 20px;
-  }
-  .connect-title {
-    font-size: 25px;
-  }
-  .connection-tabs > button {
-    font-size: 10px;
   }
   .footer-links {
     font-size: 10px;
