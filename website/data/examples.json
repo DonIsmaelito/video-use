@@ -4097,5 +4097,210 @@
     "promptMode": "exact",
     "muted": false,
     "loop": false
+  },
+  {
+    "id": "useful-126-southwest-apparel",
+    "title": "Southwest Apparel",
+    "category": "Video Edits",
+    "description": "Raw apparel footage becomes a compact campaign with a typographic reveal, moving panels and a composed portrait finish.",
+    "prompt": "Create a 24-second apparel campaign edit from the original Organ Mountain Outfitters B-roll in Blackmagic Design’s Editor’s Guide to DaVinci Resolve 20 lesson files: https://www.blackmagicdesign.com/products/davinciresolve/training (download: https://downloads.blackmagicdesign.com/DaVinciResolve/Training/Editing/DR20/20251125-da3a4a/R20_Editors_Guide.zip). Use Daniel Schiffer’s product commercial (https://www.youtube.com/watch?v=zCvYyHLgqmc) as a reference for clear product details, deliberate movement, and an uncluttered final brand image; create a new edit using the Organ Mountain footage.\n\nConnect the real shirt graphics to wearing the clothes outside. Open closely on the cream “Experience the Southwest” shirt, then use a brief expanding typographic window reading “OUTSIDE” to reveal the canyon. Continue through the hand brushing rock and the low-angle climbing shot, matching the direction of movement. At the midpoint, arrange the real shirt, a person wearing the brand, and the landscape in three precisely aligned moving panels; let one panel expand back to full-frame action. Keep the garment prints, people and landscape readable, with no invented material claims or product features.\n\nBuild toward the golden-hour green-shirt portrait. Let that final shot move gently while a minimal “Organ Mountain / Outfitters” brand treatment settles beside him. Use warm cream, deep brown and muted burgundy drawn from the actual shirt, with natural contrast and warm skin tones. Give the image room to breathe between quick cuts. Use a quiet excerpt of the supplied Furever Glass track with restrained supplied footstep and wind effects; no narration, dialogue captions or generated footage. Deliver 1920×1080 at 30 fps, the exact prompt, credited sources and editable Video Use source.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Founders",
+      "Marketing teams",
+      "Editors"
+    ],
+    "useCases": [
+      "Product campaigns",
+      "Apparel videos"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Frozen after direct source-frame and word-level transcript inspection before creative render",
+    "mediaCredits": [
+      {
+        "title": "Organ Mountain Outfitters original interview and B-roll",
+        "creator": "Organ Mountain Outfitters / Blackmagic Design training materials",
+        "url": "https://www.blackmagicdesign.com/products/davinciresolve/training",
+        "license": "Publisher-provided editing lesson footage; original rights retained by respective owners",
+        "changes": "Original editorial selection, pacing, color, typography and compositing using Video Use."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-126-southwest-apparel-bc277b1d7f23-8b07598b/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-126-southwest-apparel-bc277b1d7f23-8b07598b/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-126-southwest-apparel-bc277b1d7f23-8b07598b/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-126-southwest-apparel-bc277b1d7f23-8b07598b/review.md",
+    "promptMode": "exact",
+    "muted": false,
+    "loop": false
+  },
+  {
+    "id": "useful-125-dragon-rule",
+    "title": "The Dragon Rule",
+    "category": "Video Edits",
+    "description": "A four-hour Skyrim stream becomes one clear comedy story, with synchronized gameplay, reactions and a voice-rule graphic.",
+    "prompt": "Create a polished 36-second gaming comedy edit from DougDoug’s original Skyrim livestream: https://www.youtube.com/watch?v=uDu_CTa1FfI. Use this finished video as an editing reference only, without copying its finished footage or narration: https://www.youtube.com/watch?v=vRR4fExHPEs. Build one complete story: Doug explains that certain words spawn ten creatures, confidently thinks “drag on” will count as separate words, says “drag in,” triggers dragons, and finally admits the intro is broken. Work from the raw stream around 9:49–9:59, 23:37–23:44, 24:05–24:25, 24:41–24:44 and 26:33–26:39; select the exact spoken boundaries and remove the unnecessary setup and hesitation. Preserve the first accidental trigger and its immediate chaotic aftermath at normal speed, with his genuine reaction synchronized throughout. Recompose the crowded stream into a large gameplay panel and a clear portrait of Doug, with aligned edges and consistent spacing. Add one purposeful animated rule graphic: the spoken two-word phrase becomes the word the mod hears, then the verified +10 spawn rule appears. Treat ten as the configured rule, never as a live count of dragons on screen. Use charcoal, warm white and a restrained red trigger accent, short natural captions on the important lines, and one gentle punch-in on his reaction. Keep the original voice, game sound and existing stream audio, with clean audio cuts; add no music, synthetic narration, sound effects or fabricated reactions. Finish on his real “Well done. Well played.” Deliver a 1920×1080, 30 fps film, a silent preview, credited source links and an editable project.",
+    "duration": 36.166666666666664,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Streamers",
+      "Gaming creators"
+    ],
+    "useCases": [
+      "Stream clips",
+      "Gaming highlights",
+      "Reaction editing"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Exact prompt frozen after raw source, reference frames and word-level transcript inspection",
+    "mediaCredits": [
+      {
+        "title": "Skyrim but if Doug says Dragon 10 dragons spawn VOD",
+        "url": "https://www.youtube.com/watch?v=uDu_CTa1FfI",
+        "creator": "DougDougDougDoug / DougDoug",
+        "role": "Original livestream picture and audio",
+        "license": "Rights retained by source publisher; no reuse grant verified."
+      },
+      {
+        "title": "Skyrim but if I say dragon then 10 dragons spawn",
+        "url": "https://www.youtube.com/watch?v=vRR4fExHPEs",
+        "creator": "DougDoug",
+        "role": "Editing reference only; no picture or audio used",
+        "license": "Rights retained by source publisher; reference only"
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-125-dragon-rule-707ee01d0d42-dcb99ab5/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-125-dragon-rule-707ee01d0d42-dcb99ab5/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-125-dragon-rule-707ee01d0d42-dcb99ab5/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-125-dragon-rule-707ee01d0d42-dcb99ab5/review.md",
+    "promptMode": "exact",
+    "muted": false,
+    "loop": false
+  },
+  {
+    "id": "useful-124-campus-cats",
+    "title": "Campus Cats",
+    "category": "Video Edits",
+    "description": "A full caretaker interview and raw feeding clips become a warm human story, carried by real speech, sound bridges and purposeful B-roll.",
+    "prompt": "Create a warm, polished 30-second documentary called “Campus Cats” from this full interview with Rury Eprilurahman: https://scenoptica.com/conversation/rury-eprilurahman-on-caring-for-the-cats-of-the-faculty-of-biology.html and the original feeding clips here: https://scenoptica.com/footage/rury-feeds-the-faculty-of-biology-cats.html. Download the native 1080p files from the linked Internet Archive collection. Use Rury’s real English voice and the real campus cats; do not add narration or generated footage.\n\nFind a compact story in the interview: he noticed cats were not eating properly; caring for other living things motivates him; the feeding helps them survive; and his simple question is, “If we have food and we can feed them, why not?” Use the relevant passages around 4:28, 5:24 and 6:10–6:28. Remove false starts, repeated filler words and long hesitations while preserving his wording, meaning and natural delivery. Let that final question be the last spoken line.\n\nOpen on the small cat looking out from behind the sink, with “Campus cats.” in generous editorial serif type in the clear wall space to its right. Fade the title away as the story begins. Build an intentional sequence from food preparation to serving, an overhead plate detail and the cats eating. Bring Rury on screen for the caring statement and the final question, and let his voice carry smoothly over the related B-roll. Introduce him once with a small lower third reading “Rury Eprilurahman” and “Faculty of Biology · Yogyakarta”. Finish with a quiet glimpse of the nearly empty plate, letting the real footage supply the payoff.\n\nMake this feel like a concise human story: stable full-width compositions, restrained reframing, consistent warm natural color, clean cuts and sound bridges. Keep the cats’ eyes, hands and feeding actions unobstructed. Use comfortable sentence-case English subtitles with a cream sans-serif face and subtle contrast support, composed last and timed to the edited speech. Keep authentic outdoor ambience quiet under the voice and let it breathe briefly at the end. Add no music, artificial sound effects, generic transitions or decorative borders. Deliver 1920×1080 at 30 fps, a silent preview and an editable project. Credit Joaquim Baeta / Scenoptica and the CC BY 4.0 source footage; retain the exact prompt and source links.",
+    "duration": 30,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Documentary creators",
+      "Community teams"
+    ],
+    "useCases": [
+      "Documentary edits",
+      "Interviews and B-roll"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Original creative request frozen after native footage, transcript and reference inspection",
+    "mediaCredits": [
+      {
+        "title": "Rury Eprilurahman on Caring for the Cats of the Faculty of Biology",
+        "url": "https://scenoptica.com/conversation/rury-eprilurahman-on-caring-for-the-cats-of-the-faculty-of-biology.html",
+        "creator": "Joaquim Baeta / Scenoptica",
+        "role": "Original interview footage and speech; edited and excerpted",
+        "license": "Creative Commons Attribution 4.0 International",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      {
+        "title": "Rury Feeds the Faculty of Biology Cats",
+        "url": "https://scenoptica.com/footage/rury-feeds-the-faculty-of-biology-cats.html",
+        "creator": "Joaquim Baeta / Scenoptica",
+        "role": "Camera-original feeding footage and ambience; edited and reframed",
+        "license": "Creative Commons Attribution 4.0 International",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-124-campus-cats-c911adb2591b-9a75a592/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-124-campus-cats-c911adb2591b-9a75a592/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-124-campus-cats-c911adb2591b-9a75a592/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-124-campus-cats-c911adb2591b-9a75a592/review.md",
+    "promptMode": "exact",
+    "muted": false,
+    "loop": false
+  },
+  {
+    "id": "useful-123-renaissance-fair",
+    "title": "Renaissance Fair",
+    "category": "Video Edits",
+    "description": "A day at the fair, shaped from raw footage around the regulars, a wheel act, and the hosts’ dry final joke.",
+    "prompt": "Create a 25-second, 1920×1080 day-at-the-fair video from Cinestudy’s unedited Ohio Renaissance Fair project: https://cinestudy.org/2026/02/20/edit-this-podcast-documentary/. Use its official B-roll https://www.youtube.com/watch?v=UewtQgBNS8M and host recording https://www.youtube.com/watch?v=cOKvTm6-uLQ.\n\nUse the conversational pacing, selective reaction cuts, and understated humor of this Emma Chamberlain vlog as a style reference only: https://www.youtube.com/watch?v=ocbIhaTiTqs. Do not use her footage. Make a small, coherent story about the people who make this place feel like a different world.\n\nOpen on the fair gates with a composed ivory-and-forest-green travel cover reading “Renaissance Fair” and “Ohio · A day at the fair.” Let the live photograph expand smoothly into the scene. Carry the next off-camera question across the tail of the arrival shot, then reveal the costumed regular being asked whether he works there. Preserve his answer, “I have season passes,” and tighten his next thought to “we come every week.” Keep his smile and use a restrained closer framing for that second line.\n\nMove into three readable cuts of the giant-wheel performance: first walking inside, then balancing outside, then a short outside pass that lands on a clear high pose. Preserve the performer’s head and body and let the real motion supply the excitement. Avoid the camera’s searching and badly framed moments. Use a brief, neatly aligned two-panel view of the actual inside/outside footage when that contrast is introduced, then expand back into one clear moving shot.\n\nFinish with the hosts’ real observation that everybody is part of the theme “except us,” keep the laugh, and land on “We’re in our street clothes.” Do not add an explanatory end card. Match the captions to the two spoken exchanges with small, readable sentence fragments, consistent placement, and room around the faces. Keep the original voices and fair ambience; no music, synthetic narration, or added sound effects. Balance the sound, smooth every audio cut, and preserve natural pauses that carry the humor.\n\nDeliver a polished short with the exact prompt, editable source, source timings, and the publisher’s full required credit text in its description: Directed by Greg Sabo; Produced by Greg Sabo and Peter John Ross; A-Camera/Cinematography by Greg Sabo; B-Camera Operator – Peter John Ross; Hosted by Peter John Ross and Greg Sabo; Edited by Video Use. © Copyright Sonnyboo™ All Rights Reserved ®. #CINESTUDY #SONNYBOO #SABOROSS",
+    "duration": 25,
+    "orientation": "landscape",
+    "audiences": [
+      "Creators",
+      "Travel creators",
+      "Event teams"
+    ],
+    "useCases": [
+      "Vlogs",
+      "Event recaps",
+      "Raw footage transformation"
+    ],
+    "technique": "video-editing",
+    "mediaCredits": [
+      {
+        "title": "Ohio Renaissance Fair raw footage",
+        "creator": "Greg Sabo and Peter John Ross / CINESTUDY",
+        "url": "https://cinestudy.org/2026/02/20/edit-this-podcast-documentary/",
+        "license": "CINESTUDY editing exercise; original copyright retained; full credits required",
+        "changes": "Directed by Greg Sabo\nProduced by Greg Sabo and Peter John Ross\nA-Camera/Cinematography by Greg Sabo\nB-Camera Operator – Peter John Ross\nHosted by Peter John Ross and Greg Sabo\nEdited by Video Use\n© Copyright Sonnyboo™ All Rights Reserved ®\n#CINESTUDY #SONNYBOO #SABOROSS"
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-123-renaissance-fair-0660c267a2f2-7c47fd99/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-123-renaissance-fair-0660c267a2f2-7c47fd99/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-123-renaissance-fair-0660c267a2f2-7c47fd99/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-123-renaissance-fair-0660c267a2f2-7c47fd99/review.md",
+    "promptMode": "exact",
+    "muted": false,
+    "loop": false,
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptKind": "Original prompt"
+  },
+  {
+    "id": "useful-122-organ-mountain",
+    "title": "Organ Mountain",
+    "category": "Video Edits",
+    "description": "A raw founder interview becomes a concise brand story, connecting the landscape, community and real design process.",
+    "prompt": "Create a polished 28-second founder story for Organ Mountain Outfitters using the original interview and B-roll in Blackmagic Design’s Editor’s Guide to DaVinci Resolve 20 lesson files: https://www.blackmagicdesign.com/products/davinciresolve/training (download: https://downloads.blackmagicdesign.com/DaVinciResolve/Training/Editing/DR20/20251125-da3a4a/R20_Editors_Guide.zip). Use the real Organ Mountain shoot, not the finished training edit. Take structural inspiration from Slack’s “So Yeah, We Tried Slack…” (https://www.youtube.com/watch?v=B6zVzWU95Sw): a human explanation supported by relevant evidence on screen.\n\nBuild one idea: the places and people of the Southwest inspire the clothes. Open with the real canyon walk and Chris Lang’s answer about experiencing the Southwest. Keep his thought about experiencing something before telling its story, then connect landscapes and people to bringing that inspiration back to the store and starting the design process. Finish with his description of the brand as a reflection of its community and his actual “experience the Southwest” line. Remove interviewer chatter, retakes and unnecessary pauses while retaining his natural delivery. Use short B-roll bridges to cover the dialogue edits; never cut inside a word.\n\nMake the design-process passage briefly open into two aligned moving windows: the landscape on the left, the real design workstation on the right. Let the resulting shirt then fill the frame. Keep the rest of the film mostly full-frame, with warm natural color, a restrained founder identification, and carefully spaced sentence-case captions beneath the action. Preserve faces, hands and the actual product prints. Resolve onto the mountain panorama with a confident, minimal “Experience the Southwest” title. Keep Chris’s real voice clear over a quiet excerpt of the supplied Furever Glass music and subtle outdoor ambience; no generated voice or imagery. Deliver 1920×1080 at 30 fps, the exact prompt, source credits and an editable Video Use project.",
+    "duration": 28,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Founders",
+      "Marketing teams",
+      "Editors"
+    ],
+    "useCases": [
+      "Founder stories",
+      "Interview to promo"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Frozen after direct source-frame and word-level transcript inspection before creative render",
+    "mediaCredits": [
+      {
+        "title": "Organ Mountain Outfitters original interview and B-roll",
+        "creator": "Organ Mountain Outfitters / Blackmagic Design training materials",
+        "url": "https://www.blackmagicdesign.com/products/davinciresolve/training",
+        "license": "Publisher-provided editing lesson footage; original rights retained by respective owners",
+        "changes": "Original editorial selection, pacing, color, typography and compositing using Video Use."
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-122-organ-mountain-2a38935d94f0-9472a6aa/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-122-organ-mountain-2a38935d94f0-9472a6aa/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-122-organ-mountain-2a38935d94f0-9472a6aa/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-122-organ-mountain-2a38935d94f0-9472a6aa/review.md",
+    "promptMode": "exact",
+    "muted": false,
+    "loop": false
   }
 ]

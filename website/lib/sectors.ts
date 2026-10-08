@@ -55,6 +55,11 @@ export function getSectorExamples(
 
 const previewIds: Record<SectorId, string[]> = {
   'video-editing': [
+    'useful-126-southwest-apparel',
+    'useful-125-dragon-rule',
+    'useful-124-campus-cats',
+    'useful-123-renaissance-fair',
+    'useful-122-organ-mountain',
     'useful-117-rocky',
     'useful-120-product-presenter',
     'useful-119-miles',

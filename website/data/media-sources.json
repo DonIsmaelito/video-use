@@ -7695,5 +7695,190 @@
     "authoringMode": "Host-authored exact frozen prompt with pinned Video Use source clocks and compositing in Modal",
     "runSha256": "34a2abb1af682b2eae5e9be18f3c6ce9680dc89265c9780a057fcba702a88c69",
     "audioStreams": 1
+  },
+  {
+    "id": "useful-126-southwest-apparel",
+    "kind": "original edit of independently acquired source footage",
+    "sourceBatch": "raw-footage-five-20261007",
+    "sourceRun": "useful-126-southwest-apparel",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Footage-based edit authored with pinned Video Use helpers in Codex and rendered deterministically in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "bc277b1d7f2366f2a8bae250725e2f769bdf6b0bcdd0d2881f2a73dcd22b9932",
+    "promptSource": "Frozen after direct source-frame and word-level transcript inspection before creative render",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-126-southwest-apparel-bc277b1d7f23-8b07598b/source.zip",
+    "editableSourceSha256": "16eab87d5d19f6bd5bc78c18932f7e8149aa22f5f30aafa666de8c5076261c84",
+    "sourceArchiveScope": "Original editable composition, source-bound masks, licensed fonts, pinned dependencies and replay instructions; original footage and audio reacquired separately from the credited source",
+    "cloudProject": "video-use-useful-library-20261003/raw-footage-five-20261007/useful-126-southwest-apparel/repairs/final-v3/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-126-southwest-apparel-bc277b1d7f23-8b07598b/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-126-southwest-apparel-bc277b1d7f23-8b07598b/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-126-southwest-apparel-bc277b1d7f23-8b07598b/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-126-southwest-apparel-bc277b1d7f23-8b07598b/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-126-southwest-apparel-bc277b1d7f23-8b07598b/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-126-southwest-apparel-bc277b1d7f23-8b07598b/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-126-southwest-apparel-bc277b1d7f23-8b07598b/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host-authored exact frozen prompt with pinned Video Use source clocks and compositing in Modal",
+    "runSha256": "1b5dab7b7aa543ed29c87ff6cca3f4f93f43917e39a88d98cc7ee054114a7371",
+    "audioStreams": 1
+  },
+  {
+    "id": "useful-125-dragon-rule",
+    "kind": "original edit of independently acquired source footage",
+    "sourceBatch": "raw-footage-five-20261007",
+    "sourceRun": "useful-125-dragon-rule",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Footage-based edit authored with pinned Video Use helpers in Codex and rendered deterministically in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "707ee01d0d421fa8181aa5e782c2c49e5137c462e7d99ce288dda86b66b3c24e",
+    "promptSource": "Exact prompt frozen after raw source, reference frames and word-level transcript inspection",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-125-dragon-rule-707ee01d0d42-dcb99ab5/source.zip",
+    "editableSourceSha256": "f1c4536607dc0bd2e6d2603f1b118bbcd9026fce28aa91ffe9e6d3a7a7537b9f",
+    "sourceArchiveScope": "Original editable composition, source-bound masks, licensed fonts, pinned dependencies and replay instructions; original footage and audio reacquired separately from the credited source",
+    "cloudProject": "video-use-useful-library-20261003/raw-footage-five-20261007/useful-125-dragon-rule/repairs/final-v3/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-125-dragon-rule-707ee01d0d42-dcb99ab5/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-125-dragon-rule-707ee01d0d42-dcb99ab5/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-125-dragon-rule-707ee01d0d42-dcb99ab5/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-125-dragon-rule-707ee01d0d42-dcb99ab5/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-125-dragon-rule-707ee01d0d42-dcb99ab5/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-125-dragon-rule-707ee01d0d42-dcb99ab5/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-125-dragon-rule-707ee01d0d42-dcb99ab5/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host-authored exact frozen prompt with pinned Video Use source clocks and compositing in Modal",
+    "runSha256": "f0b19a0d75ef0891be28d31030cc3beb84f513566d13000def27459b4b172cad",
+    "audioStreams": 1
+  },
+  {
+    "id": "useful-124-campus-cats",
+    "kind": "original edit of independently acquired source footage",
+    "sourceBatch": "raw-footage-five-20261007",
+    "sourceRun": "useful-124-campus-cats",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Footage-based edit authored with pinned Video Use helpers in Codex and rendered deterministically in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "c911adb2591b25c72ad56c9c5a53baa8ed643e2673509e21d65d3d2fcc2b31dd",
+    "promptSource": "Original creative request frozen after native footage, transcript and reference inspection",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-124-campus-cats-c911adb2591b-9a75a592/source.zip",
+    "editableSourceSha256": "938626680f68cdd6c4bb1474bb710a393c030d045ecb31a136f2075ea30b5190",
+    "sourceArchiveScope": "Original editable composition, source-bound masks, licensed fonts, pinned dependencies and replay instructions; original footage and audio reacquired separately from the credited source",
+    "cloudProject": "video-use-useful-library-20261003/raw-footage-five-20261007/useful-124-campus-cats/repairs/final1/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-124-campus-cats-c911adb2591b-9a75a592/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-124-campus-cats-c911adb2591b-9a75a592/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-124-campus-cats-c911adb2591b-9a75a592/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-124-campus-cats-c911adb2591b-9a75a592/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-124-campus-cats-c911adb2591b-9a75a592/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-124-campus-cats-c911adb2591b-9a75a592/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-124-campus-cats-c911adb2591b-9a75a592/poster.jpg"
+      }
+    ],
+    "authoringMode": "Codex host authored exact frozen prompt with pinned Video Use source clock and compositing helpers rendered in Modal",
+    "runSha256": "c769b4f45989e1a748617a96413a03ced37ee7987d816966aacf06b29ca3f5ad",
+    "audioStreams": 1
+  },
+  {
+    "id": "useful-123-renaissance-fair",
+    "kind": "original edit of independently acquired source footage",
+    "sourceBatch": "raw-footage-five-20261007",
+    "sourceRun": "useful-123-renaissance-fair",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Footage-based edit authored with pinned Video Use helpers in Codex and rendered deterministically in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "0660c267a2f2bada8496297740ca0e884c691104f80f77653eb198e37f0d3169",
+    "promptSource": null,
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-123-renaissance-fair-0660c267a2f2-7c47fd99/source.zip",
+    "editableSourceSha256": "a7f31436ebea0a548a6df1e817e7a535de108cf604a6ab988e87ae7e999f2e29",
+    "sourceArchiveScope": "Original editable composition, source-bound masks, licensed fonts, pinned dependencies and replay instructions; original footage and audio reacquired separately from the credited source",
+    "cloudProject": "video-use-useful-library-20261003/raw-footage-five-20261007/useful-123-renaissance-fair/repairs/final-v5/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-123-renaissance-fair-0660c267a2f2-7c47fd99/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-123-renaissance-fair-0660c267a2f2-7c47fd99/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-123-renaissance-fair-0660c267a2f2-7c47fd99/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-123-renaissance-fair-0660c267a2f2-7c47fd99/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-123-renaissance-fair-0660c267a2f2-7c47fd99/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-123-renaissance-fair-0660c267a2f2-7c47fd99/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-123-renaissance-fair-0660c267a2f2-7c47fd99/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host-authored exact frozen prompt with pinned Video Use source clocks and compositing in Modal",
+    "runSha256": "1dd3fa067d7f657f366c4df336c4d6963fd3de7d992e6d8e212bf7162472dfa4",
+    "audioStreams": 1
+  },
+  {
+    "id": "useful-122-organ-mountain",
+    "kind": "original edit of independently acquired source footage",
+    "sourceBatch": "raw-footage-five-20261007",
+    "sourceRun": "useful-122-organ-mountain",
+    "model": "Codex host authoring session",
+    "reasoningEffort": "inherited session",
+    "frameworkBranch": "feature/character-effects",
+    "frameworkCommit": "fc57ba94265bf3cdd7722bfc3f4940d31b780bea",
+    "frameworkArchiveSha256": "1e88fe8266c28110ac090ce09490651c801ce7bf7faaeada908604b77813eea9",
+    "production": "Footage-based edit authored with pinned Video Use helpers in Codex and rendered deterministically in Modal; encoded output reviewed before publication",
+    "storage": "Cloudflare R2",
+    "websiteSha256": "2a38935d94f0e805409d5b61695b7e332c52a6bdcb06a582a7481a13215767f3",
+    "promptSource": "Frozen after direct source-frame and word-level transcript inspection before creative render",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-122-organ-mountain-2a38935d94f0-9472a6aa/source.zip",
+    "editableSourceSha256": "b85debbbae4ced6d0bf3cc6c4104f4f75433faea4dc1f512ef12a55e410d74ad",
+    "sourceArchiveScope": "Original editable composition, source-bound masks, licensed fonts, pinned dependencies and replay instructions; original footage and audio reacquired separately from the credited source",
+    "cloudProject": "video-use-useful-library-20261003/raw-footage-five-20261007/useful-122-organ-mountain/repairs/final-v3/project/edit",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-122-organ-mountain-2a38935d94f0-9472a6aa/review.md",
+    "verificationUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-122-organ-mountain-2a38935d94f0-9472a6aa/verification.json",
+    "storyboardUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-122-organ-mountain-2a38935d94f0-9472a6aa/storyboard.jpg",
+    "promptUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-122-organ-mountain-2a38935d94f0-9472a6aa/creative-prompt.txt",
+    "provenanceUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-122-organ-mountain-2a38935d94f0-9472a6aa/provenance.json",
+    "websiteAssets": [
+      {
+        "field": "video",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-122-organ-mountain-2a38935d94f0-9472a6aa/final.mp4"
+      },
+      {
+        "field": "poster",
+        "url": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-122-organ-mountain-2a38935d94f0-9472a6aa/poster.jpg"
+      }
+    ],
+    "authoringMode": "Host-authored exact frozen prompt with pinned Video Use source clocks and compositing in Modal",
+    "runSha256": "01d6c17a5c132c0bad58e0851ef3826096425f2cf561d42edfcec6e722df3806",
+    "audioStreams": 1
   }
 ]
