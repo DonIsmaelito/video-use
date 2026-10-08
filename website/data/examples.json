@@ -3905,5 +3905,197 @@
     "promptMode": "exact",
     "muted": false,
     "loop": false
+  },
+  {
+    "id": "useful-117-rocky",
+    "title": "Rocky Balboa",
+    "category": "Video Edits",
+    "description": "Rocky’s real speech becomes a balanced portrait exchange, a line that turns pressure into forward motion, and a layered closing hero.",
+    "prompt": "Create a polished 25-second landscape motivational edit of Rocky Balboa from the official scene: https://www.youtube.com/watch?v=vyYDz_A6HO8. Use the real father-and-son conversation, not a pre-edited fan montage. Open on “The world ain't all sunshine and rainbows,” then cut directly to the passage beginning “it will beat you to your knees,” and preserve the crescendo through “That's how winning is done.” Keep Stallone's original voice and the scene's emotional pauses; make the one dialogue cut on complete words with clean sound fades.\n\nGive the film a dark cinematic frame, restrained warm-white typography and a single muted-red accent drawn from Rocky's jacket. Introduce ROCKY BALBOA quietly, keep his face unobstructed, and use precise, gentle reframing to increase intensity. During “you, me, or nobody,” briefly create a balanced two-person portrait composition: Rocky on the left and his son's genuine listening reaction on the right, using only views from this exchange. Return smoothly to the original scene before the central advice.\n\nMake a thin red line act as the visual metaphor: it bends under the word “hit” and straightens into a forward direction as he says “keep moving forward.” Keep this graphic below faces and never present it as measured data. Use elegant sentence captions, timed to the real speech, with emphasis only on the key phrase. At the final line, settle into an eyes-open close-up from the same shot, retaining its exact source position. Build a short closing portrait with KEEP MOVING FORWARD to the right and the red line passing behind his shoulder through a source-bound silhouette mask. Preserve a clean hierarchy and symmetrical outer margins; avoid unrelated training inserts, shakes, flashes, generic particles or random cutaways. Finish with a readable hold. Keep the original dialogue and a quiet source-score tail, with no generated voice, added music or new sound effects. Deliver 1920 by 1080 at 30 fps, a silent gallery preview, the exact prompt, and editable source with source credits and replay instructions.",
+    "duration": 25,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Editors",
+      "Social creators"
+    ],
+    "useCases": [
+      "Motivational edits",
+      "Character edits"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Exact request frozen after official source and word-level transcript inspection, before creative implementation",
+    "mediaCredits": [
+      {
+        "title": "Rocky's Inspirational Speech to His Son | ROCKY BALBOA",
+        "url": "https://www.youtube.com/watch?v=vyYDz_A6HO8",
+        "creator": "Official Rocky Balboa / MGM",
+        "role": "Original scene, performance and source audio",
+        "license": "Original rights remain with their owners; original footage and audio excluded from public editable archive"
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-117-rocky-5fe001a75627-e2b07ea2/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-117-rocky-5fe001a75627-e2b07ea2/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-117-rocky-5fe001a75627-e2b07ea2/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-117-rocky-5fe001a75627-e2b07ea2/review.md",
+    "promptMode": "exact",
+    "muted": false,
+    "loop": false
+  },
+  {
+    "id": "useful-120-product-presenter",
+    "title": "Modular Phones",
+    "category": "Video Edits",
+    "description": "A seated review becomes a precise component story: an exploded phone, an accessory comparison, and one surviving connection.",
+    "prompt": "Create a polished 28-second landscape product explainer from Marques Brownlee’s seated CMF Phone 2 Pro review: https://www.youtube.com/watch?v=hIzjHBwjGCk. Use the continuous exchange around 2:02–2:30, beginning with “And it’s also modular again, kinda” and ending with “but not the previous modules.” Keep his original voice, expression, gestures, and the phone in his hand. The story is a useful distinction: the modular idea returned, but most previous accessories did not; the lanyard is the stated exception.\n\nTurn this plain talking-camera passage into a refined product-launch-style edit. Keep the speaker large and unobstructed while a single carefully aligned black component card develops in the open space to his right. Use warm white editorial serif headlines, restrained orange italic emphasis, fine outlines, and clean geometric phone illustrations. Start with “Modular. Kind of.” timed to the actual hesitation. As he explains last year’s phone, show screws separating and a back plate sliding away from an illustrated device. Then let that same card become a balanced old-versus-new comparison: show the previous modules failing to connect to the new phone, clearly described as most accessories rather than every accessory. When he says “except for the lanyard,” resolve one thin animated cord across the comparison and label that exception. Finish with the concise takeaway “Same idea. New modules.” while his final sentence completes.\n\nTie each transformation to the words that explain it, give the important states time to read, and preserve one coherent visual system rather than adding unrelated effects. Use only source-supported claims, with no invented prices, performance figures, endorsements, or generative voice. The illustrations should read as explanatory diagrams, not additional product footage. Retain the natural speech cadence and source audio, add no music or sound effects, and put restrained sentence-case subtitles on the final composition below the speaker. Deliver 1920 by 1080 at 30 fps with the exact prompt, editable animation source, source credits, and replay instructions.",
+    "duration": 28,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Product teams",
+      "Tech creators"
+    ],
+    "useCases": [
+      "Product explainers",
+      "Talking head overlays"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Original creative request frozen after actual source and reference inspection, before edit authoring",
+    "mediaCredits": [
+      {
+        "title": "CMF Phone 2 Pro: Budget Phone of the Year!",
+        "url": "https://www.youtube.com/watch?v=hIzjHBwjGCk",
+        "creator": "Marques Brownlee",
+        "role": "Seated source footage and original speech",
+        "license": "Original rights retained by Marques Brownlee; source footage/audio excluded from the editable ZIP and reacquired separately"
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-120-product-presenter-cf508e097aef-59b4d23d/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-120-product-presenter-cf508e097aef-59b4d23d/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-120-product-presenter-cf508e097aef-59b4d23d/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-120-product-presenter-cf508e097aef-59b4d23d/review.md",
+    "promptMode": "exact",
+    "muted": false,
+    "loop": false
+  },
+  {
+    "id": "useful-119-miles",
+    "title": "Miles Morales",
+    "category": "Video Edits",
+    "description": "A rooftop question becomes a continuous leap and a layered title inside the inverted skyline.",
+    "prompt": "Create a polished 26-second landscape motivational edit of Miles Morales from this scene: https://www.youtube.com/watch?v=BmFbczWrVUw. Use the real rooftop preparation and leap from Spider-Man: Into the Spider-Verse, credited to Scene City and the original Sony film. Begin on Miles and “Keep going.” Preserve the complete question “When do I know I'm Spider-Man?”, the reply “You won't,” and the answer “That's all it is, Miles. A leap of faith.” Let the preparation lead naturally into the actual jump and the inverted skyline. Do not replace the original performance or claim the film's existing animation as a new effect.\n\nGive the edit a precise ink-black frame with warm-white type and restrained cyan and crimson accents drawn from the scene. Introduce MILES MORALES simply. Add a gentle approach during the hesitation, and briefly split the words YOU and WON'T to either side of the character when that reply is heard, keeping his face and hands readable. Let the frame open smoothly to full width as he commits to the leap. Keep the actual falling movement continuous and easy to follow; no unrelated character shots, random flashes or repeated footage.\n\nAt the inverted-city payoff, settle into a clean held frame from the same shot. Animate a large LEAP title into the open sky, behind Miles through an accurately registered silhouette mask, with a restrained dimensional crimson edge and the smaller words OF FAITH below. The title should feel part of this composition, with the character still readable and equal outer spacing, rather than a separate empty comic card. Resolve into a strong, legible closing hold. Use elegant, sparse captions for the real dialogue, composed last and clear of the source watermark. Preserve the original voice and score; a short instrumental tail from the same source may support the closing hold. No generated voice, added music or new sound effects. Deliver 1920 by 1080 at 30 fps, a silent gallery preview, the exact prompt, and editable source with clear source credits and replay instructions.",
+    "duration": 26,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Editors",
+      "Social creators"
+    ],
+    "useCases": [
+      "Motivational edits",
+      "Character edits"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Exact request frozen after source and cached word-level transcript inspection, before creative implementation",
+    "mediaCredits": [
+      {
+        "title": "What's Up Danger? | Spider-Man: Into The Spider-Verse",
+        "url": "https://www.youtube.com/watch?v=BmFbczWrVUw",
+        "creator": "Scene City / Sony Pictures Animation",
+        "role": "Original scene, performances, animation, camera edits and source audio",
+        "license": "Original rights retained; original audiovisual media excluded from public source archive"
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-119-miles-31df3d97930e-3c6125d9/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-119-miles-31df3d97930e-3c6125d9/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-119-miles-31df3d97930e-3c6125d9/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-119-miles-31df3d97930e-3c6125d9/review.md",
+    "promptMode": "exact",
+    "muted": false,
+    "loop": false
+  },
+  {
+    "id": "useful-121-education-presenter",
+    "title": "Explain to Learn",
+    "category": "Video Edits",
+    "description": "A seated explanation becomes a clear visual lesson, with connected teaching cards and a diagram that resolves into simpler language.",
+    "prompt": "Create a polished 32.4-second landscape education edit called Explain to Learn from Ali Abdaal's original seated, direct-to-camera video: https://www.youtube.com/watch?v=fBXnxlLR0PY. Use the two complete passages at approximately 3:21–3:33 and 3:48–4:09, where he explains understanding a subject by teaching it to a friend and answering their questions. Preserve the authentic voice, his personal framing, and his explicit clarification that explaining to a five-year-old is an analogy rather than a literal requirement. Remove the intervening teaching-session anecdote; do not add scientific claims or statistics.\n\nTurn the plain talking head into a coherent premium explainer. Begin on the real speaker, then open a carefully aligned black component area beside him while keeping his face and gestures readable. Use large cream editorial serif type, restrained orange italic emphasis, thin purposeful connectors and generous spacing, in the spirit of the Product Launches example. Build a visual explanation card from one idea to an explanation that another person can follow; let a linked question-and-answer component grow from that same card when he mentions answering questions. When he extends the analogy, transform the component into an audience simplification: a dense explanation resolves into clear short lines addressed to someone new to the subject. Preserve the correction by showing a non-specialist audience, not a cartoon child. Use one brief, designed full-frame diagram to connect understanding, explaining and questions, then bring the same component back beside the speaker for the conclusion. Make the diagram relationships illustrative, with no invented scores or claims. Components should visibly transform into one another rather than repeat the same slide-in entrance.\n\nKeep the source framing stable and the layouts balanced. Let useful graphic states hold long enough to read; avoid generic stickers, sparkle effects or graphics over his eyes or mouth. Add restrained, verbatim sentence-case captions timed to his actual words after all other graphics. Keep the original speech clean with gentle cut fades; add no AI voice, music or sound effects. Deliver 1920 by 1080 at 30 fps, with the exact prompt, source credit, an editable project and complete replay instructions.",
+    "duration": 32.4,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Educators",
+      "Creators"
+    ],
+    "useCases": [
+      "Educational overlays",
+      "Talking-head edits"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Original creative request frozen after source pixels and verbatim transcript inspection and before composition authoring",
+    "mediaCredits": [
+      {
+        "title": "Study Tips — How to learn new content",
+        "url": "https://www.youtube.com/watch?v=fBXnxlLR0PY",
+        "creator": "Ali Abdaal",
+        "role": "Original seated-camera footage and voice",
+        "license": "Original rights retained by Ali Abdaal; source footage is reacquired and excluded from the editable ZIP"
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-121-education-presenter-2a7cdbf3006b-15a6d7f0/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-121-education-presenter-2a7cdbf3006b-15a6d7f0/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-121-education-presenter-2a7cdbf3006b-15a6d7f0/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-121-education-presenter-2a7cdbf3006b-15a6d7f0/review.md",
+    "promptMode": "exact",
+    "muted": false,
+    "loop": false
+  },
+  {
+    "id": "useful-118-kobe",
+    "title": "Kobe Bryant",
+    "category": "Video Edits",
+    "description": "Kobe’s words on consistency become a precisely paced practice montage with synchronized panels and a layered portrait.",
+    "prompt": "Create a polished 24-second motivational Kobe Bryant edit using his original interview with Jay Shetty (https://www.youtube.com/watch?v=g2cQ2kD6lzs) and Lakers Nation’s raw pregame warm-up (https://www.youtube.com/watch?v=dfJ2h3dToEk). Build one clear idea: progress comes from doing the work repeatedly. Use his real “piece by piece” thought and the passage about getting better on Monday, Tuesday and Wednesday, keeping his conclusion about sustained effort over years. Open briefly on the warm-up, cut to his face for the premise, then let his voice carry the basketball footage. Turn the repeated practice into a balanced three-panel sequence that opens on his weekday cadence and returns smoothly to one uninterrupted movement. Keep Kobe’s face and shooting action readable, align the panels carefully, and let the real movement motivate the cuts. Use deep charcoal, warm white and a restrained Lakers-gold accent, with small, well-spaced captions timed to his actual words. Finish by easing a clean warm-up portrait into a short layered KOBE hero, with the name behind his silhouette and the original foreground kept precisely aligned. Keep his authentic voice clear, use only quiet source ambience around it, and add no synthetic narration or music. Deliver a 1920×1080, 30 fps film plus the exact prompt, credited sources and editable project.",
+    "duration": 24,
+    "promptKind": "Original prompt",
+    "orientation": "landscape",
+    "audiences": [
+      "Editors",
+      "Sports creators"
+    ],
+    "useCases": [
+      "Motivational edits",
+      "Interview to story"
+    ],
+    "technique": "video-editing",
+    "sourceRepo": "https://github.com/DonIsmaelito/video-use",
+    "promptSource": "Original request frozen after direct source and transcript inspection before creative authoring",
+    "mediaCredits": [
+      {
+        "title": "Kobe Bryant on consistency of work",
+        "url": "https://www.youtube.com/watch?v=g2cQ2kD6lzs",
+        "creator": "Jay Shetty Podcast",
+        "role": "Original interview and authentic dialogue",
+        "license": "Original rights retained by the publisher; source footage is reacquired separately"
+      },
+      {
+        "title": "Kobe Bryant Pre-Game Warm-Up Raw Footage",
+        "url": "https://www.youtube.com/watch?v=dfJ2h3dToEk",
+        "creator": "Lakers Nation",
+        "role": "Original warm-up footage and ambience",
+        "license": "Original rights retained by Lakers Nation; source footage is reacquired separately"
+      }
+    ],
+    "video": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-118-kobe-936635ec8daf-a13e4277/final.mp4",
+    "poster": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-118-kobe-936635ec8daf-a13e4277/poster.jpg",
+    "sourceArchive": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-118-kobe-936635ec8daf-a13e4277/source.zip",
+    "reviewUrl": "https://pub-ec8bfc71ab97450e915c455459d2d57d.r2.dev/website/useful-workflows/20261003/useful-118-kobe-936635ec8daf-a13e4277/review.md",
+    "promptMode": "exact",
+    "muted": false,
+    "loop": false
   }
 ]
